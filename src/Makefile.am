@@ -1,0 +1,21 @@
+bin_PROGRAMS = camoto-studio
+
+camoto_studio_SOURCES = main.cpp
+
+CAMOTO_CFLAGS = $(libgamecommon_CFLAGS)
+CAMOTO_CFLAGS += $(libgamegraphics_CFLAGS)
+CAMOTO_CFLAGS += $(libgamemaps_CFLAGS)
+CAMOTO_CFLAGS += $(libgamemusic_CFLAGS)
+
+CAMOTO_LIBS = $(libgamecommon_LIBS)
+CAMOTO_LIBS += $(libgamegraphics_LIBS)
+CAMOTO_LIBS += $(libgamemaps_LIBS)
+CAMOTO_LIBS += $(libgamemusic_LIBS)
+
+BOOST_LIBS = $(BOOST_SYSTEM_LIBS)
+BOOST_LIBS += $(BOOST_FILESYSTEM_LIBS)
+BOOST_LIBS += $(BOOST_PROGRAM_OPTIONS_LIBS)
+BOOST_LIBS += $(BOOST_UNIT_TEST_FRAMEWORK_LIBS)
+
+AM_CPPFLAGS = $(BOOST_CPPFLAGS) $(CAMOTO_CFLAGS)
+AM_LDFLAGS = $(BOOST_LIBS) $(CAMOTO_LIBS)

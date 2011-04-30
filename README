@@ -1,0 +1,26 @@
+Camoto: Classic-game Modding Tools
+Copyright 2010 Adam Nielsen <malvineous@shikadi.net>
+http://www.shikadi.net/camoto/
+
+Camoto is a collection of utilities for editing (modding) "classic games",
+those from the early to mid 1990s.
+
+This is Camoto Studio, the "main" part of Camoto which links everything else
+together in a nice GUI.  If you are new to Camoto, this is what you want to
+use.
+
+The GUI currently has editors for the following object types:
+
+ - None yet
+
+With editors for the remaining object types coming soon:
+
+ - 2D Maps (overhead/platformer)
+ - Images
+ - Instruments (MIDI/OPL/PCM)
+ - Music
+ - Sound effects
+ - Text
+ - Tilesets
+
+This program is released under the GPLv3 license.

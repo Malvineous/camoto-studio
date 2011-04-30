@@ -1,0 +1,31 @@
+# Autoconf stuff
+Makefile.in
+aclocal.m4
+autom4te.cache
+config.guess
+config.h.in
+config.sub
+configure
+depcomp
+install-sh
+ltmain.sh
+*.m4
+missing
+Makefile
+config.h
+config.log
+config.status
+.deps
+.libs
+stamp-h1
+lib*.pc
+libtool
+*.*~
+
+# Compilation fluff
+*.o
+*.lo
+*.la
+
+# Compiled binaries
+src/camoto-studio
