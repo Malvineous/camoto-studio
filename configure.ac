@@ -20,19 +20,41 @@ AC_PROG_LIBTOOL
 
 BOOST_REQUIRE([1.46])
 BOOST_FILESYSTEM
-BOOST_PROGRAM_OPTIONS
 BOOST_TEST
+
+AX_CHECK_GL
 
 PKG_CHECK_MODULES([libgamecommon], [libgamecommon])
 PKG_CHECK_MODULES([libgamegraphics], [libgamegraphics])
 PKG_CHECK_MODULES([libgamemaps], [libgamemaps])
 PKG_CHECK_MODULES([libgamemusic], [libgamemusic])
 
+PKG_CHECK_MODULES([libxml2], [libxml-2.0 >= 2.7.8])
+
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
+AM_OPTIONS_WXCONFIG
+reqwx=2.8.12
+AM_PATH_WXCONFIG([$reqwx], [wxWin=1], [wxWin=0], [std,gl])
+if test "$wxWin" != 1; then
+	AC_MSG_ERROR([
+wxWidgets must be installed on your system.
+
+Please check that wx-config is in path, the directory
+where wxWidgets libraries are installed (returned by
+'wx-config --libs' or 'wx-config --static --libs' command)
+is in LD_LIBRARY_PATH or equivalent variable and
+wxWidgets version is $reqwx or above.
+	])
+fi
+
+CPPFLAGS="$CPPFLAGS $WX_CPPFLAGS"
+CXXFLAGS="$CXXFLAGS $WX_CXXFLAGS_ONLY"
+CFLAGS="$CFLAGS $WX_CFLAGS_ONLY"
+LIBS="$LIBS $WX_LIBS"
 
 AC_ARG_ENABLE(debug, AC_HELP_STRING([--enable-debug],[enable extra debugging output]))
 
@@ -48,6 +70,11 @@ then
 	#AM_CXXFLAGS="-O0 -g"
 	# Add DEBUG define
 	AC_DEFINE([DEBUG], [1], [Define to include extra debugging output])
+fi
+
+if test "x$no_gl" = "xyesr";
+then
+	AC_MSG_ERROR([Could not find OpenGL!])
 fi
 
 AM_SILENT_RULES([yes])
