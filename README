@@ -15,16 +15,15 @@ The GUI currently supports editing these games:
 
 The GUI currently has editors for the following object types:
 
- - None yet
+ - 2D Maps (overhead/platformer)
+ - Tilesets
 
 With editors for the remaining object types coming soon:
 
- - 2D Maps (overhead/platformer)
  - Images
  - Instruments (MIDI/OPL/PCM)
  - Music
  - Sound effects
  - Text
- - Tilesets
 
 This program is released under the GPLv3 license.

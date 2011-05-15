@@ -6,6 +6,8 @@ camoto_studio_SOURCES += project.cpp
 camoto_studio_SOURCES += gamelist.cpp
 camoto_studio_SOURCES += newproj.cpp
 camoto_studio_SOURCES += editor.cpp
+camoto_studio_SOURCES += editor-map.cpp
+camoto_studio_SOURCES += editor-tileset.cpp
 
 EXTRA_camoto_studio_SOURCES = main.hpp
 EXTRA_camoto_studio_SOURCES += exceptions.hpp
@@ -13,6 +15,8 @@ EXTRA_camoto_studio_SOURCES += project.hpp
 EXTRA_camoto_studio_SOURCES += gamelist.hpp
 EXTRA_camoto_studio_SOURCES += newproj.hpp
 EXTRA_camoto_studio_SOURCES += editor.hpp
+EXTRA_camoto_studio_SOURCES += editor-map.hpp
+EXTRA_camoto_studio_SOURCES += editor-tileset.hpp
 
 CAMOTO_CFLAGS = $(libgamecommon_CFLAGS)
 CAMOTO_CFLAGS += $(libgamegraphics_CFLAGS)
