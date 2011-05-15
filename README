@@ -9,6 +9,10 @@ This is Camoto Studio, the "main" part of Camoto which links everything else
 together in a nice GUI.  If you are new to Camoto, this is what you want to
 use.
 
+The GUI currently supports editing these games:
+
+ - Dangerous Dave
+
 The GUI currently has editors for the following object types:
 
  - None yet
