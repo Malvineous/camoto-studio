@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Halloween Harry description file for Camoto Studio
+	Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Halloween_Harry
+  -->
+<game title="Halloween Harry" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Robert Crane</developer>
+		<publisher>Apogee</publisher>
+		<reverser>Duckthing, Malvineous</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+
+		<group name="Levels">
+			<item ref="idm1z1"/>
+			<item ref="idm1z2"/>
+			<item ref="idm1z3"/>
+			<item ref="idm1z4"/>
+			<item ref="idm1z5"/>
+			<item ref="idm2z1"/>
+			<item ref="idm2z2"/>
+			<item ref="idm2z3"/>
+			<item ref="idm2z4"/>
+			<item ref="idm2z5"/>
+			<item ref="idm3z1"/>
+			<item ref="idm3z2"/>
+			<item ref="idm3z3"/>
+			<item ref="idm3z4"/>
+			<item ref="idm3z5"/>
+			<item ref="idm4z1"/>
+			<item ref="idm4z2"/>
+			<item ref="idm4z3"/>
+			<item ref="idm4z4"/>
+			<item ref="idm4z5"/>
+		</group>
+
+		<group name="Graphics">
+			<group name="Palettes">
+				<item ref="idp1z1"/>
+				<item ref="idp1z2"/>
+				<item ref="idp1z3"/>
+				<item ref="idp1z4"/>
+				<item ref="idp1z5"/>
+
+				<item ref="idp2z1"/>
+				<item ref="idp2z2"/>
+				<item ref="idp2z3"/>
+				<item ref="idp2z4"/>
+				<item ref="idp2z5"/>
+
+				<item ref="idp3z1"/>
+				<item ref="idp3z2"/>
+				<item ref="idp3z3"/>
+				<item ref="idp3z4"/>
+				<item ref="idp3z5"/>
+
+				<item ref="idp4z1"/>
+				<item ref="idp4z2"/>
+				<item ref="idp4z3"/>
+				<item ref="idp4z4"/>
+				<item ref="idp4z5"/>
+			</group>
+
+			<group name="Tilesets">
+				<item ref="idt1"/>
+				<item ref="idt2"/>
+				<item ref="idt3"/>
+				<item ref="idt4"/>
+			</group>
+
+			<group name="Full-screen images">
+				<item ref="missions-pcx"/>
+				<item ref="mission1-pcx"/>
+				<item ref="mission2-pcx"/>
+				<item ref="mission3-pcx"/>
+				<item ref="mission4-pcx"/>
+			</group>
+
+		</group>
+	</display>
+
+	<files>
+		<file id="idm1z1" name="m1z1.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt1" supp:pal="idp1z1">Mission 1 zone 1</file>
+		<file id="idm1z2" name="m1z2.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt1" supp:pal="idp1z2">Mission 1 zone 2</file>
+		<file id="idm1z3" name="m1z3.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt1" supp:pal="idp1z3">Mission 1 zone 3</file>
+		<file id="idm1z4" name="m1z4.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt1" supp:pal="idp1z4">Mission 1 zone 4</file>
+		<file id="idm1z5" name="m1z5.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt1" supp:pal="idp1z5">Mission 1 zone 5</file>
+
+		<file id="idm2z1" name="m2z1.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt2" supp:pal="idp2z1">Mission 2 zone 1</file>
+		<file id="idm2z2" name="m2z2.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt2" supp:pal="idp2z2">Mission 2 zone 2</file>
+		<file id="idm2z3" name="m2z3.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt2" supp:pal="idp2z3">Mission 2 zone 3</file>
+		<file id="idm2z4" name="m2z4.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt2" supp:pal="idp2z4">Mission 2 zone 4</file>
+		<file id="idm2z5" name="m2z5.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt2" supp:pal="idp2z5">Mission 2 zone 5</file>
+
+		<file id="idm3z1" name="m3z1.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt3" supp:pal="idp3z1">Mission 3 zone 1</file>
+		<file id="idm3z2" name="m3z2.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt3" supp:pal="idp3z2">Mission 3 zone 2</file>
+		<file id="idm3z3" name="m3z3.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt3" supp:pal="idp3z3">Mission 3 zone 3</file>
+		<file id="idm3z4" name="m3z4.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt3" supp:pal="idp3z4">Mission 3 zone 4</file>
+		<file id="idm3z5" name="m3z5.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt3" supp:pal="idp3z5">Mission 3 zone 5</file>
+
+		<file id="idm4z1" name="m4z1.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt4" supp:pal="idp4z1">Mission 4 zone 1</file>
+		<file id="idm4z2" name="m4z2.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt4" supp:pal="idp4z2">Mission 4 zone 2</file>
+		<file id="idm4z3" name="m4z3.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt4" supp:pal="idp4z3">Mission 4 zone 3</file>
+		<file id="idm4z4" name="m4z4.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt4" supp:pal="idp4z4">Mission 4 zone 4</file>
+		<file id="idm4z5" name="m4z5.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt4" supp:pal="idp4z5">Mission 4 zone 5</file>
+
+		<file id="idp1z1" name="m1z1.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 1 palette</file>
+		<file id="idp1z2" name="m1z2.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 2 palette</file>
+		<file id="idp1z3" name="m1z3.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 3 palette</file>
+		<file id="idp1z4" name="m1z4.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 4 palette</file>
+		<file id="idp1z5" name="m1z5.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 5 palette</file>
+
+		<file id="idp2z1" name="m2z1.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 1 palette</file>
+		<file id="idp2z2" name="m2z2.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 2 palette</file>
+		<file id="idp2z3" name="m2z3.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 3 palette</file>
+		<file id="idp2z4" name="m2z4.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 4 palette</file>
+		<file id="idp2z5" name="m2z5.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 5 palette</file>
+
+		<file id="idp3z1" name="m3z1.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 1 palette</file>
+		<file id="idp3z2" name="m3z2.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 2 palette</file>
+		<file id="idp3z3" name="m3z3.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 3 palette</file>
+		<file id="idp3z4" name="m3z4.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 4 palette</file>
+		<file id="idp3z5" name="m3z5.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 5 palette</file>
+
+		<file id="idp4z1" name="m4z1.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 1 palette</file>
+		<file id="idp4z2" name="m4z2.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 2 palette</file>
+		<file id="idp4z3" name="m4z3.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 3 palette</file>
+		<file id="idp4z4" name="m4z4.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 4 palette</file>
+		<file id="idp4z5" name="m4z5.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 5 palette</file>
+
+		<file id="idt1" name="mission1.chr" typeMajor="tileset" typeMinor="harry">Mission 1 tileset</file>
+		<file id="idt2" name="mission2.chr" typeMajor="tileset" typeMinor="harry">Mission 2 tileset</file>
+		<file id="idt3" name="mission3.chr" typeMajor="tileset" typeMinor="harry">Mission 3 tileset</file>
+		<file id="idt4" name="mission4.chr" typeMajor="tileset" typeMinor="harry">Mission 4 tileset</file>
+
+		<file id="missions-pcx" name="missions.pcx" typeMajor="image" typeMinor="pcx">Mission selection </file>
+		<file id="mission1-pcx" name="mission1.pcx" typeMajor="image" typeMinor="pcx">Mission 1 loading</file>
+		<file id="mission2-pcx" name="mission2.pcx" typeMajor="image" typeMinor="pcx">Mission 2 loading</file>
+		<file id="mission3-pcx" name="mission3.pcx" typeMajor="image" typeMinor="pcx">Mission 3 loading</file>
+		<file id="mission4-pcx" name="mission3.pcx" typeMajor="image" typeMinor="pcx">Mission 4 loading</file>
+	</files>
+</game>
