@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Crystal Caves description file for Camoto Studio
+	Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Crystal_Caves
+  -->
+<game title="Crystal Caves" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Frank Maddin</developer>
+		<publisher>Apogee</publisher>
+		<reverser>Levellass and Malvineous</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+		<group name="Levels">
+			<item ref="idli" />
+			<item ref="idlf" />
+			<item ref="idlm" />
+			<item ref="idl1" />
+			<item ref="idl2" />
+			<item ref="idl3" />
+			<item ref="idl4" />
+			<item ref="idl5" />
+			<item ref="idl6" />
+			<item ref="idl7" />
+			<item ref="idl8" />
+			<item ref="idl9" />
+			<item ref="idl10" />
+			<item ref="idl11" />
+			<item ref="idl12" />
+			<item ref="idl13" />
+			<item ref="idl14" />
+			<item ref="idl15" />
+			<item ref="idl16" />
+		</group>
+		<group name="Graphics">
+			<item ref="idt1" />
+		</group>
+	</display>
+
+	<files>
+		<file id="idli"  name="e1int.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Intro</file>
+		<file id="idlf"  name="e1fin.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Finale</file>
+		<file id="idlm"  name="e1map.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Map</file>
+		<file id="idl1"  name="e1l01.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 1</file>
+		<file id="idl2"  name="e1l02.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 2</file>
+		<file id="idl3"  name="e1l03.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 3</file>
+		<file id="idl4"  name="e1l04.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 4</file>
+		<file id="idl5"  name="e1l05.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 5</file>
+		<file id="idl6"  name="e1l06.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 6</file>
+		<file id="idl7"  name="e1l07.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 7</file>
+		<file id="idl8"  name="e1l08.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 8</file>
+		<file id="idl9"  name="e1l09.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 9</file>
+		<file id="idl10" name="e1l10.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 10</file>
+		<file id="idl11" name="e1l11.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 11</file>
+		<file id="idl12" name="e1l12.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 12</file>
+		<file id="idl13" name="e1l13.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 13</file>
+		<file id="idl14" name="e1l14.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 14</file>
+		<file id="idl15" name="e1l15.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 15</file>
+		<file id="idl16" name="e1l16.ccl" typeMajor="map" typeMinor="ccaves" supp:tiles="idt1">Level 16</file>
+
+		<file id="idt1" name="cc1.gfx" typeMajor="tileset" typeMinor="ccaves-main">EGA tiles</file>
+	</files>
+</game>
