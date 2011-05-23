@@ -94,6 +94,7 @@ class MapCanvas: public wxGLCanvas
 			for (int i = 0; i < layerCount; i++) {
 				Map2D::LayerPtr layer = this->map->getLayer(i);
 				Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
+				TEXTURE_MAP tm;
 				for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
 					GLuint t;
 					glGenTextures(1, &t);
@@ -103,7 +104,7 @@ class MapCanvas: public wxGLCanvas
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 					unsigned int code = (*c)->code;
-					if (this->textureMap.find(code) == this->textureMap.end()) {
+					if (tm.find(code) == tm.end()) {
 						// This tile code doesn't have an associated image yet
 						ImagePtr image = layer->imageFromCode(code, tileset);
 						if (image) {
@@ -141,9 +142,10 @@ class MapCanvas: public wxGLCanvas
 							glDeleteTextures(1, &t);
 							t = unknownTile;
 						}
-						this->textureMap[code] = t;
+						tm[code] = t;
 					}
 				}
+				this->textureMap.push_back(tm);
 			}
 
 			this->glReset();
@@ -152,8 +154,10 @@ class MapCanvas: public wxGLCanvas
 		~MapCanvas()
 			throw ()
 		{
-			for (std::map<unsigned int, GLuint>::iterator i = this->textureMap.begin(); i != this->textureMap.end(); i++) {
-				glDeleteTextures(1, &i->second);
+			for (std::vector<TEXTURE_MAP>::iterator l = this->textureMap.begin(); l != this->textureMap.end(); l++) {
+				for (TEXTURE_MAP::iterator t = l->begin(); t != l->end(); t++) {
+					glDeleteTextures(1, &t->second);
+				}
 			}
 		}
 
@@ -254,7 +258,7 @@ class MapCanvas: public wxGLCanvas
 					Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 					for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
 
-						glBindTexture(GL_TEXTURE_2D, this->textureMap[(*c)->code]);
+						glBindTexture(GL_TEXTURE_2D, this->textureMap[i][(*c)->code]);
 						glBegin(GL_QUADS);
 						glTexCoord2d(0.0, 0.0);
 						glVertex2i( (*c)->x      * tileWidth,  (*c)->y      * tileHeight);
@@ -357,7 +361,8 @@ class MapCanvas: public wxGLCanvas
 		Map2DPtr map;
 		VC_TILESET tileset;
 
-		std::map<unsigned int, GLuint> textureMap;
+		typedef std::map<unsigned int, GLuint> TEXTURE_MAP;
+		std::vector<TEXTURE_MAP> textureMap;
 
 		int zoomFactor;   ///< Zoom level (1 == 1:1, 2 == 2:1/doublesize, etc.)
 		bool gridVisible; ///< Draw a grid over the active layer?
