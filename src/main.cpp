@@ -31,7 +31,10 @@
 #include "newproj.hpp"
 #include "editor.hpp"
 
+#include "audio.hpp"
+
 #include "editor-map.hpp"
+#include "editor-music.hpp"
 #include "editor-tileset.hpp"
 
 #ifdef __WIN32
@@ -93,7 +96,8 @@ class CamotoFrame: public wxFrame {
 				wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxCLIP_CHILDREN),
 			isStudio(isStudio),
 			project(NULL),
-			game(NULL)
+			game(NULL),
+			audio(new Audio(this, 48000))
 		{
 			this->aui.SetManagedWindow(this);
 
@@ -151,6 +155,7 @@ class CamotoFrame: public wxFrame {
 
 			// Load all the editors
 			this->editors[_T("map")] = new MapEditor(this);
+			this->editors[_T("music")] = new MusicEditor(this, this->audio);
 			this->editors[_T("tileset")] = new TilesetEditor(this);
 
 			// Prepare each editor
@@ -613,6 +618,7 @@ class CamotoFrame: public wxFrame {
 		bool isStudio;     ///< true for full studio view, false for standalone editor
 		Project *project;  ///< Currently open project or NULL
 		Game *game;        ///< Game being edited in current project
+		AudioPtr audio;    ///< Common audio output
 
 		/// Map containing typeMajor -> IEditor instance used to edit that type
 		typedef std::map<wxString, IEditor *> EditorMap;
@@ -705,6 +711,10 @@ class CamotoApp: public wxApp {
 			} else if (parser.Found(_T("music"), &filename)) {
 				f = new CamotoFrame(false);
 				//f->loadMusic(filename);
+				wxMessageDialog dlg(f, _T("Sorry, standalone music editor not yet "
+						"implemented!"),
+					_T("Open song"), wxOK | wxICON_ERROR);
+				dlg.ShowModal();
 			} else {
 				f = new CamotoFrame(true);
 			}

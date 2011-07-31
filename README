@@ -1,5 +1,5 @@
 Camoto: Classic-game Modding Tools
-Copyright 2010 Adam Nielsen <malvineous@shikadi.net>
+Copyright 2010-2011 Adam Nielsen <malvineous@shikadi.net>
 http://www.shikadi.net/camoto/
 
 Camoto is a collection of utilities for editing (modding) "classic games",
@@ -16,14 +16,25 @@ The GUI currently supports editing these games:
 The GUI currently has editors for the following object types:
 
  - 2D Maps (overhead/platformer)
+ - Music
  - Tilesets
 
 With editors for the remaining object types coming soon:
 
  - Images
  - Instruments (MIDI/OPL/PCM)
- - Music
  - Sound effects
  - Text
 
-This program is released under the GPLv3 license.
+In order to compile this program, you will need the following dependencies:
+
+ - Boost
+ - libgamecommon
+ - libgamegraphics
+ - libgamemaps
+ - libgamemusic
+ - SDL
+ - wxWidgets
+
+This program and associated source code is released under the GPLv3 license.
+It includes the DOSBox OPL synth which is Copyright 2002-2010 The DOSBox Team.

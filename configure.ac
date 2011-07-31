@@ -21,6 +21,7 @@ AC_PROG_LIBTOOL
 BOOST_REQUIRE([1.46])
 BOOST_FILESYSTEM
 BOOST_TEST
+BOOST_THREADS
 
 AX_CHECK_GL
 
@@ -30,6 +31,7 @@ PKG_CHECK_MODULES([libgamemaps], [libgamemaps])
 PKG_CHECK_MODULES([libgamemusic], [libgamemusic])
 
 PKG_CHECK_MODULES([libxml2], [libxml-2.0 >= 2.7.8])
+PKG_CHECK_MODULES([sdl], [sdl])
 
 # Checks for header files.
 
