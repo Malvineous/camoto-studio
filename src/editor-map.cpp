@@ -47,6 +47,9 @@ enum {
 // Must not overlap with normal layer IDs (0+)
 #define LAYER_ID_VIEWPORT -1
 
+bool tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& suppMap,
+	const wxString& id, VC_TILESET *tilesetVector);
+
 class LayerPanel;
 
 class MapCanvas: public wxGLCanvas
@@ -63,7 +66,11 @@ class MapCanvas: public wxGLCanvas
 				tileset(tileset),
 				zoomFactor(2),
 				gridVisible(false),
-				activeLayer(0)
+				activeLayer(0),
+				offX(0),
+				offY(0),
+				scrollFromX(-1)
+				// scrollFromY doesn't matter when X is -1
 		{
 			assert(tileset.size() > 0);
 			// Initial state is all layers visible
@@ -164,7 +171,14 @@ class MapCanvas: public wxGLCanvas
 		void setZoomFactor(int f)
 			throw ()
 		{
+			// Keep the viewport centred after the zoom
+			wxSize s = this->GetClientSize();
+			int centreX = s.x / 2, centreY = s.y / 2;
+			int absX = this->offX + centreX / this->zoomFactor;
+			int absY = this->offY + centreY / this->zoomFactor;
 			this->zoomFactor = f;
+			this->offX = absX - centreX / this->zoomFactor;
+			this->offY = absY - centreY / this->zoomFactor;
 			this->glReset();
 			this->redraw();
 			return;
@@ -223,6 +237,19 @@ class MapCanvas: public wxGLCanvas
 		void redraw()
 			throw ()
 		{
+			wxSize s = this->GetClientSize();
+			s.x /= this->zoomFactor;
+			s.y /= this->zoomFactor;
+
+			// Limit scroll range (this is here for efficiency as we already have the
+			// window size, but it means you can scroll past the bounds of the map
+			// during the scroll operation and the limits don't kick in until the
+			// the scroll is complete.)  It does mean you won't get limited while
+			// scrolling though, so I'm calling it a feature.
+			if (this->offX < -s.x) this->offX = -s.x;
+			if (this->offY < -s.y) this->offY = -s.y;
+			// TODO: Prevent scrolling past the end of the map too
+
 			this->SetCurrent();
 			glClearColor(0.5, 0.5, 0.5, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
@@ -258,16 +285,24 @@ class MapCanvas: public wxGLCanvas
 					Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 					for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
 
+						int tileX = (*c)->x * tileWidth;
+						int tileY = (*c)->y * tileHeight;
+
+						if (tileX > offX + s.x) continue; // tile is off viewport to the right
+						if (tileX + tileWidth < offX) continue; // tile is off viewport to the left
+						if (tileY > offY + s.y) continue; // tile is off viewport to the bottom
+						if (tileY + tileHeight < offY) continue; // tile is off viewport to the top
+
 						glBindTexture(GL_TEXTURE_2D, this->textureMap[i][(*c)->code]);
 						glBegin(GL_QUADS);
 						glTexCoord2d(0.0, 0.0);
-						glVertex2i( (*c)->x      * tileWidth,  (*c)->y      * tileHeight);
+						glVertex2i(tileX - offX, tileY - offY);
 						glTexCoord2d(0.0, 1.0);
-						glVertex2i( (*c)->x      * tileWidth, ((*c)->y + 1) * tileHeight);
+						glVertex2i(tileX - offX, tileY + tileHeight - offY);
 						glTexCoord2d(1.0, 1.0);
-						glVertex2i(((*c)->x + 1) * tileWidth, ((*c)->y + 1) * tileHeight);
+						glVertex2i(tileX + tileWidth - offX, tileY + tileHeight - offY);
 						glTexCoord2d(1.0, 0.0);
-						glVertex2i(((*c)->x + 1) * tileWidth,  (*c)->y      * tileHeight);
+						glVertex2i(tileX + tileWidth - offX, tileY - offY);
 						glEnd();
 					}
 				}
@@ -281,29 +316,52 @@ class MapCanvas: public wxGLCanvas
 				this->getLayerTileSize(layer, &tileWidth, &tileHeight);
 				wxSize s = this->GetClientSize();
 
-				glColor4f(0.2, 0.2, 0.2, 0.35);
+				glEnable(GL_COLOR_LOGIC_OP);
+				glLogicOp(GL_AND_REVERSE);
+				glColor4f(0.3, 0.3, 0.3, 0.5);
 				glBegin(GL_LINES);
-				for (int x = 0; x < s.x; x += tileWidth) {
+				for (int x = -offX % tileWidth; x < s.x; x += tileWidth) {
 					glVertex2i(x, 0);
 					glVertex2i(x, s.y);
 				}
-				for (int y = 0; y < s.y; y += tileHeight) {
+				for (int y = -offY % tileHeight; y < s.y; y += tileHeight) {
 					glVertex2i(0,   y);
 					glVertex2i(s.x, y);
 				}
 				glEnd();
+				glDisable(GL_COLOR_LOGIC_OP);
 			}
 
 			if (this->viewportVisible) {
 				int vpX, vpY;
 				this->map->getViewport(&vpX, &vpY);
-				glColor3f(0.0, 1.0, 0.0);
+				int vpOffX = (s.x - vpX) / 2;
+				int vpOffY = (s.y - vpY) / 2;
+
+				// Draw a line around the viewport
+				glColor4f(1.0, 1.0, 1.0, 0.3);
 				glBegin(GL_LINE_LOOP);
-				glVertex2i(0, 0);
-				glVertex2i(0, vpY);
-				glVertex2i(vpX, vpY);
-				glVertex2i(vpX, 0);
+				glVertex2i(vpOffX, vpOffY + 0);
+				glVertex2i(vpOffX, vpOffY + vpY);
+				glVertex2i(vpOffX + vpX, vpOffY + vpY);
+				glVertex2i(vpOffX + vpX, vpOffY + 0);
 				glEnd();
+
+				// Darken the area outside the viewport
+				glColor4f(0.0, 0.0, 0.0, 0.3);
+				glBegin(GL_QUAD_STRIP);
+				glVertex2i(0, 0);
+				glVertex2i(vpOffX, vpOffY);
+				glVertex2i(0, s.y);
+				glVertex2i(vpOffX, vpOffY + vpY);
+				glVertex2i(s.x, s.y);
+				glVertex2i(vpOffX + vpX, vpOffY + vpY);
+				glVertex2i(s.x, 0);
+				glVertex2i(vpOffX + vpX, vpOffY);
+				glVertex2i(0, 0);
+				glVertex2i(vpOffX, vpOffY);
+				glEnd();
+
 			}
 
 			this->SwapBuffers();
@@ -354,6 +412,34 @@ class MapCanvas: public wxGLCanvas
 				}
 			}
 			std::cout << "\n";
+
+			// Scroll the map if the user is middle-dragging
+			if (this->scrollFromX >= 0) {
+				this->offX = this->scrollFromX - ev.m_x;
+				this->offY = this->scrollFromY - ev.m_y;
+				this->redraw();
+			}
+			return;
+		}
+
+		void onMouseDownMiddle(wxMouseEvent& ev)
+		{
+			this->scrollFromX = this->offX + ev.m_x;
+			this->scrollFromY = this->offY + ev.m_y;
+			this->CaptureMouse();
+			return;
+		}
+
+		void onMouseUpMiddle(wxMouseEvent& ev)
+		{
+			this->scrollFromX = -1;
+			this->ReleaseMouse();
+			return;
+		}
+
+		void onMouseCaptureLost(wxMouseCaptureLostEvent& ev)
+		{
+			this->scrollFromX = -1;
 			return;
 		}
 
@@ -368,6 +454,12 @@ class MapCanvas: public wxGLCanvas
 		bool gridVisible; ///< Draw a grid over the active layer?
 		int activeLayer;  ///< Index of layer currently selected in layer palette
 
+		int offX;         ///< Current X position (in pixels) to draw at (0,0)
+		int offY;         ///< Current Y position (in pixels) to draw at (0,0)
+
+		int scrollFromX;  ///< Mouse X pos when scroll/drag started, or -1 if not dragging
+		int scrollFromY;  ///< Mouse Y pos when scrolling
+
 		DECLARE_EVENT_TABLE();
 
 };
@@ -377,6 +469,9 @@ BEGIN_EVENT_TABLE(MapCanvas, wxGLCanvas)
 	EVT_ERASE_BACKGROUND(MapCanvas::onEraseBG)
 	EVT_SIZE(MapCanvas::onResize)
 	EVT_MOTION(MapCanvas::onMouseMove)
+	EVT_MIDDLE_DOWN(MapCanvas::onMouseDownMiddle)
+	EVT_MIDDLE_UP(MapCanvas::onMouseUpMiddle)
+	EVT_MOUSE_CAPTURE_LOST(MapCanvas::onMouseCaptureLost)
 END_EVENT_TABLE()
 
 class MapDocument: public IDocument
@@ -675,71 +770,25 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 	s = supp.find(_T("pal"));
 	if (s != supp.end()) suppData[SuppItem::Palette].stream = s->second.stream;
 
-	s = supp.find(_T("tiles"));
-	if (s == supp.end()) {
+	s = supp.find(_T("layer1"));
+	if (s != supp.end()) suppData[SuppItem::Layer1].stream = s->second.stream;
+
+	s = supp.find(_T("layer2"));
+	if (s != supp.end()) suppData[SuppItem::Layer2].stream = s->second.stream;
+
+	VC_TILESET tilesetVector;
+	if (!tryLoadTileset(this->parent, suppData, supp, _T("tiles"), &tilesetVector)) return NULL;
+	if (!tryLoadTileset(this->parent, suppData, supp, _T("tiles2"), &tilesetVector)) return NULL;
+	if (!tryLoadTileset(this->parent, suppData, supp, _T("tiles3"), &tilesetVector)) return NULL;
+	if (!tryLoadTileset(this->parent, suppData, supp, _T("sprites"), &tilesetVector)) return NULL;
+
+	if (tilesetVector.empty()) {
 		wxMessageDialog dlg(this->parent, _T("Map files require a tileset to be "
 			"specified in the game description .xml file, however none has been "
 			"given for this file."), _T("Open item"), wxOK | wxICON_ERROR);
 		dlg.ShowModal();
 		return NULL;
 	}
-	std::string strGfxType("tls-");
-	strGfxType.append(s->second.typeMinor.ToUTF8());
-
-	camoto::gamegraphics::ManagerPtr gfxMgr = camoto::gamegraphics::getManager();
-	TilesetTypePtr ttp = gfxMgr->getTilesetTypeByCode(strGfxType);
-	if (!ttp) {
-		wxString wxtype(strGfxType.c_str(), wxConvUTF8);
-		wxString msg = wxString::Format(_T("Sorry, it is not possible to edit this "
-			"map as the \"%s\" tileset format is unsupported.  (No handler for \"%s\")"),
-			s->second.typeMinor.c_str(), wxtype.c_str());
-		wxMessageDialog dlg(this->parent, msg, _T("Open item"), wxOK | wxICON_ERROR);
-		dlg.ShowModal();
-		return NULL;
-	}
-
-	TilesetPtr tileset = ttp->open(s->second.stream, NULL, suppData);
-	if (!tileset) {
-		wxString wxtype(strGfxType.c_str(), wxConvUTF8);
-		wxString msg = wxString::Format(_T("Tileset was rejected by \"%s\" handler"
-			" (wrong format?)"), wxtype.c_str());
-		wxMessageDialog dlg(this->parent, msg, _T("Open item"), wxOK | wxICON_ERROR);
-		dlg.ShowModal();
-		return NULL;
-	}
-
-	VC_TILESET tilesetVector;
-	tilesetVector.push_back(tileset);
-
-	// Open the second (masked tile) tileset if one was given
-	s = supp.find(_T("sprites"));
-	if (s != supp.end()) {
-		strGfxType = "tls-";
-		strGfxType.append(s->second.typeMinor.ToUTF8());
-
-		TilesetTypePtr ttp = gfxMgr->getTilesetTypeByCode(strGfxType);
-		if (!ttp) {
-			wxString wxtype(strGfxType.c_str(), wxConvUTF8);
-			wxString msg = wxString::Format(_T("Sorry, it is not possible to edit this "
-					"map as the \"%s\" tileset format is unsupported.  (No handler for \"%s\")"),
-				s->second.typeMinor.c_str(), wxtype.c_str());
-			wxMessageDialog dlg(this->parent, msg, _T("Open item"), wxOK | wxICON_ERROR);
-			dlg.ShowModal();
-			return NULL;
-		}
-
-		tileset = ttp->open(s->second.stream, NULL, suppData);
-		if (!tileset) {
-			wxString wxtype(strGfxType.c_str(), wxConvUTF8);
-			wxString msg = wxString::Format(_T("Tileset was rejected by \"%s\" handler"
-					" (wrong format?)"), wxtype.c_str());
-			wxMessageDialog dlg(this->parent, msg, _T("Open item"), wxOK | wxICON_ERROR);
-			dlg.ShowModal();
-			return NULL;
-		}
-		tilesetVector.push_back(tileset);
-	}
-
 
 	// Open the map file
 	MapPtr pMap(pMapType->open(data, suppData));
@@ -755,4 +804,39 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 		wxOK | wxICON_ERROR);
 	dlg.ShowModal();
 	return NULL;
+}
+
+bool tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& supp, const wxString& id, VC_TILESET *tilesetVector)
+{
+	SuppMap::iterator s;
+	s = supp.find(id);
+	if (s == supp.end()) return true;
+
+	std::string strGfxType("tls-");
+	strGfxType.append(s->second.typeMinor.ToUTF8());
+
+	camoto::gamegraphics::ManagerPtr gfxMgr = camoto::gamegraphics::getManager();
+	TilesetTypePtr ttp = gfxMgr->getTilesetTypeByCode(strGfxType);
+	if (!ttp) {
+		wxString wxtype(strGfxType.c_str(), wxConvUTF8);
+		wxString msg = wxString::Format(_T("Sorry, it is not possible to edit this "
+			"map as the \"%s\" tileset format is unsupported.  (No handler for \"%s\")"),
+			s->second.typeMinor.c_str(), wxtype.c_str());
+		wxMessageDialog dlg(parent, msg, _T("Open item"), wxOK | wxICON_ERROR);
+		dlg.ShowModal();
+		return false;
+	}
+
+	TilesetPtr tileset = ttp->open(s->second.stream, NULL, suppData);
+	if (!tileset) {
+		wxString wxtype(strGfxType.c_str(), wxConvUTF8);
+		wxString msg = wxString::Format(_T("Tileset was rejected by \"%s\" handler"
+			" (wrong format?)"), wxtype.c_str());
+		wxMessageDialog dlg(parent, msg, _T("Open item"), wxOK | wxICON_ERROR);
+		dlg.ShowModal();
+		return false;
+	}
+
+	tilesetVector->push_back(tileset);
+	return true;
 }
