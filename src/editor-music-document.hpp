@@ -35,7 +35,7 @@ typedef std::vector<camoto::gamemusic::EventPtr> EventVector;
 class MusicDocument: public IDocument
 {
 	public:
-		MusicDocument(wxWindow *parent, camoto::gamemusic::MusicReaderPtr music,
+		MusicDocument(IMainWindow *parent, camoto::gamemusic::MusicReaderPtr music,
 			AudioPtr audio)
 			throw ();
 

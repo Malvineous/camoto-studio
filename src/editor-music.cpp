@@ -35,7 +35,7 @@ enum {
 class InstrumentPanel: public IToolPanel
 {
 	public:
-		InstrumentPanel(wxWindow *parent)
+		InstrumentPanel(IMainWindow *parent)
 			throw () :
 				IToolPanel(parent)
 		{
@@ -155,9 +155,9 @@ BEGIN_EVENT_TABLE(InstrumentPanel, IToolPanel)
 END_EVENT_TABLE()
 
 
-MusicEditor::MusicEditor(wxWindow *parent, AudioPtr audio)
+MusicEditor::MusicEditor(IMainWindow *parent, AudioPtr audio)
 	throw () :
-		parent(parent),
+		frame(parent),
 		audio(audio)
 {
 }
@@ -166,7 +166,7 @@ std::vector<IToolPanel *> MusicEditor::createToolPanes() const
 	throw ()
 {
 	std::vector<IToolPanel *> panels;
-	panels.push_back(new InstrumentPanel(this->parent));
+	panels.push_back(new InstrumentPanel(this->frame));
 	return panels;
 }
 
@@ -177,7 +177,7 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 	camoto::gamemusic::ManagerPtr pManager = camoto::gamemusic::getManager();
 	MusicTypePtr pMusicType;
 	if (typeMinor.IsEmpty()) {
-		wxMessageDialog dlg(this->parent,
+		wxMessageDialog dlg(this->frame,
 			_T("No file type was specified for this item!"), _T("Open item"),
 			wxOK | wxICON_ERROR);
 		dlg.ShowModal();
@@ -191,7 +191,7 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 			wxString msg = wxString::Format(_T("Sorry, it is not possible to edit this "
 				"song as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
 				typeMinor.c_str(), wxtype.c_str());
-			wxMessageDialog dlg(this->parent, msg, _T("Open item"), wxOK | wxICON_ERROR);
+			wxMessageDialog dlg(this->frame, msg, _T("Open item"), wxOK | wxICON_ERROR);
 			dlg.ShowModal();
 			return NULL;
 		}
@@ -208,7 +208,7 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 		wxString msg = wxString::Format(_T("This file is supposed to be in \"%s\" "
 			"format, but it seems this may not be the case.  Would you like to try "
 			"opening it anyway?"), wxtype.c_str());
-		wxMessageDialog dlg(this->parent, msg, _T("Open item"), wxYES_NO | wxICON_ERROR);
+		wxMessageDialog dlg(this->frame, msg, _T("Open item"), wxYES_NO | wxICON_ERROR);
 		int r = dlg.ShowModal();
 		if (r != wxID_YES) return NULL;
 	}
@@ -227,5 +227,5 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 	MusicReaderPtr pMusic(pMusicType->open(data, suppData));
 	assert(pMusic);
 
-	return new MusicDocument(this->parent, pMusic, this->audio);
+	return new MusicDocument(this->frame, pMusic, this->audio);
 }

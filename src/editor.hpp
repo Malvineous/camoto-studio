@@ -25,6 +25,7 @@
 #include <vector>
 #include <wx/wx.h>
 #include <camoto/types.hpp>
+#include "mainwindow.hpp"
 #include "project.hpp"
 
 /// Base class for a document editor.
@@ -39,7 +40,7 @@ class IDocument: public wxPanel
 		 * @param typeMajor
 		 *   Major type of this document (e.g. "map", "tileset", etc.)
 		 */
-		IDocument(wxWindow *parent, const wxString& typeMajor)
+		IDocument(IMainWindow *parent, const wxString& typeMajor)
 			throw ();
 
 		/// Get the major type (editor ID) of this document.
@@ -53,6 +54,7 @@ class IDocument: public wxPanel
 			throw ();
 
 	protected:
+		IMainWindow *frame;
 		wxString typeMajor;
 
 };
@@ -61,7 +63,7 @@ class IDocument: public wxPanel
 class IToolPanel: public wxPanel
 {
 	public:
-		IToolPanel(wxWindow *parent)
+		IToolPanel(IMainWindow *parent)
 			throw ();
 
 		virtual void getPanelInfo(wxString *id, wxString *label) const

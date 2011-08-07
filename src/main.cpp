@@ -82,7 +82,8 @@ enum {
 };
 
 /// Main window.
-class CamotoFrame: public wxFrame {
+class CamotoFrame: public IMainWindow
+{
 	public:
 
 		/// Initialise main window.
@@ -92,7 +93,7 @@ class CamotoFrame: public wxFrame {
 		 *   false to use standalone document editor.
 		 */
 		CamotoFrame(bool isStudio) :
-			wxFrame(NULL, wxID_ANY, _T("Camoto Studio"), wxDefaultPosition,
+			IMainWindow(NULL, wxID_ANY, _T("Camoto Studio"), wxDefaultPosition,
 				wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxCLIP_CHILDREN),
 			isStudio(isStudio),
 			project(NULL),
@@ -602,6 +603,13 @@ class CamotoFrame: public wxFrame {
 				}
 			}
 			this->aui.Update();
+			return;
+		}
+
+		virtual void setStatusText(const wxString& text)
+			throw ()
+		{
+			this->status->SetStatusText(text, 1);
 			return;
 		}
 

@@ -1,6 +1,7 @@
 /**
- * @file   editor-tileset.hpp
- * @brief  Tileset editor.
+ * @file   mainwindow.cpp
+ * @brief  Interface definition for callback functions implemented by the main
+ *         window.
  *
  * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
  *
@@ -18,27 +19,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _EDITOR_TILESET_HPP_
-#define _EDITOR_TILESET_HPP_
+#include "mainwindow.hpp"
 
-#include "editor.hpp"
-
-class TilesetEditor: public IEditor
+IMainWindow::IMainWindow(wxWindow *parent, wxWindowID winid,
+	const wxString& title, const wxPoint& pos,	const wxSize& size, long style,
+	const wxString& name) :
+	wxFrame(parent, winid, title, pos, size, style, name)
 {
-	public:
-		TilesetEditor(IMainWindow *parent)
-			throw ();
-
-		virtual IToolPanelVector createToolPanes() const
-			throw ();
-
-		virtual IDocument *openObject(const wxString& typeMinor,
-			camoto::iostream_sptr data, const wxString& filename, SuppMap supp) const
-			throw ();
-
-	protected:
-		IMainWindow *frame;
-
-};
-
-#endif // _EDITOR_TILESET_HPP_
+}

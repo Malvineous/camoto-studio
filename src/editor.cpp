@@ -20,9 +20,10 @@
 
 #include "editor.hpp"
 
-IDocument::IDocument(wxWindow *parent, const wxString& typeMajor)
+IDocument::IDocument(IMainWindow *parent, const wxString& typeMajor)
 	throw () :
 		wxPanel(parent),
+		frame(parent),
 		typeMajor(typeMajor)
 {
 }
@@ -33,7 +34,7 @@ const wxString& IDocument::getTypeMajor() const
 	return this->typeMajor;
 }
 
-IToolPanel::IToolPanel(wxWindow *parent)
+IToolPanel::IToolPanel(IMainWindow *parent)
 	throw () :
 		wxPanel(parent)
 {

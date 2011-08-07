@@ -26,7 +26,7 @@
 class MapEditor: public IEditor
 {
 	public:
-		MapEditor(wxWindow *parent)
+		MapEditor(IMainWindow *parent)
 			throw ();
 
 		virtual IToolPanelVector createToolPanes() const
@@ -37,7 +37,7 @@ class MapEditor: public IEditor
 			throw ();
 
 	protected:
-		wxWindow *parent;
+		IMainWindow *frame;
 
 };
 

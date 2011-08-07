@@ -120,7 +120,7 @@ BEGIN_EVENT_TABLE(MusicDocument, IDocument)
 	EVT_SIZE(EventPanel::onResize)
 END_EVENT_TABLE()
 
-MusicDocument::MusicDocument(wxWindow *parent, MusicReaderPtr music, AudioPtr audio)
+MusicDocument::MusicDocument(IMainWindow *parent, MusicReaderPtr music, AudioPtr audio)
 	throw () :
 		IDocument(parent, _T("music")),
 		music(music),

@@ -202,7 +202,7 @@ END_EVENT_TABLE()
 class TilesetDocument: public IDocument
 {
 	public:
-		TilesetDocument(wxWindow *parent, TilesetPtr tileset)
+		TilesetDocument(IMainWindow *parent, TilesetPtr tileset)
 			throw () :
 				IDocument(parent, _T("tileset")),
 				tileset(tileset)
@@ -224,9 +224,9 @@ class TilesetDocument: public IDocument
 };
 
 
-TilesetEditor::TilesetEditor(wxWindow *parent)
+TilesetEditor::TilesetEditor(IMainWindow *parent)
 	throw () :
-		parent(parent)
+		frame(parent)
 {
 }
 
@@ -244,7 +244,7 @@ IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 	ManagerPtr pManager = getManager();
 	TilesetTypePtr pTilesetType;
 	if (typeMinor.IsEmpty()) {
-		wxMessageDialog dlg(this->parent,
+		wxMessageDialog dlg(this->frame,
 			_T("No file type was specified for this item!"), _T("Open item"),
 			wxOK | wxICON_ERROR);
 		dlg.ShowModal();
@@ -258,7 +258,7 @@ IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 			wxString msg = wxString::Format(_T("Sorry, it is not possible to edit this "
 				"tileset as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
 				typeMinor.c_str(), wxtype.c_str());
-			wxMessageDialog dlg(this->parent, msg, _T("Open item"), wxOK | wxICON_ERROR);
+			wxMessageDialog dlg(this->frame, msg, _T("Open item"), wxOK | wxICON_ERROR);
 			dlg.ShowModal();
 			return NULL;
 		}
@@ -275,7 +275,7 @@ IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 		wxString msg = wxString::Format(_T("This file is supposed to be in \"%s\" "
 			"format, but it seems this may not be the case.  Would you like to try "
 			"opening it anyway?"), wxtype.c_str());
-		wxMessageDialog dlg(this->parent, msg, _T("Open item"), wxYES_NO | wxICON_ERROR);
+		wxMessageDialog dlg(this->frame, msg, _T("Open item"), wxYES_NO | wxICON_ERROR);
 		int r = dlg.ShowModal();
 		if (r != wxID_YES) return NULL;
 	}
@@ -298,5 +298,5 @@ IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 	TilesetPtr pTileset(pTilesetType->open(data, fnTruncate, suppData));
 	assert(pTileset);
 
-	return new TilesetDocument(this->parent, pTileset);
+	return new TilesetDocument(this->frame, pTileset);
 }

@@ -27,7 +27,7 @@
 class MusicEditor: public IEditor
 {
 	public:
-		MusicEditor(wxWindow *parent, AudioPtr audio)
+		MusicEditor(IMainWindow *parent, AudioPtr audio)
 			throw ();
 
 		virtual IToolPanelVector createToolPanes() const
@@ -38,7 +38,7 @@ class MusicEditor: public IEditor
 			throw ();
 
 	protected:
-		wxWindow *parent;
+		IMainWindow *frame;
 		AudioPtr audio;
 
 };

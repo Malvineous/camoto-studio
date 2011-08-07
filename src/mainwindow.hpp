@@ -1,6 +1,7 @@
 /**
- * @file   editor-tileset.hpp
- * @brief  Tileset editor.
+ * @file   mainwindow.hpp
+ * @brief  Interface definition for callback functions implemented by the main
+ *         window.
  *
  * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
  *
@@ -18,27 +19,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _EDITOR_TILESET_HPP_
-#define _EDITOR_TILESET_HPP_
+#ifndef _MAINWINDOW_HPP_
+#define _MAINWINDOW_HPP_
 
-#include "editor.hpp"
+#include <wx/frame.h>
 
-class TilesetEditor: public IEditor
+/// Base class for main window.
+class IMainWindow: public wxFrame
 {
 	public:
-		TilesetEditor(IMainWindow *parent)
-			throw ();
+		IMainWindow(wxWindow *parent, wxWindowID winid, const wxString& title,
+			const wxPoint& pos = wxDefaultPosition,
+			const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE,
+			const wxString& name = wxFrameNameStr);
 
-		virtual IToolPanelVector createToolPanes() const
-			throw ();
-
-		virtual IDocument *openObject(const wxString& typeMinor,
-			camoto::iostream_sptr data, const wxString& filename, SuppMap supp) const
-			throw ();
-
-	protected:
-		IMainWindow *frame;
+		/// Set the text in the status bar.
+		virtual void setStatusText(const wxString& text)
+			throw () = 0;
 
 };
 
-#endif // _EDITOR_TILESET_HPP_
+#endif // _MAINWINDOW_HPP_
