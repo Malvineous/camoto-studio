@@ -15,6 +15,7 @@ pkgdata_DATA += data/games/ddave.xml    data/games/screenshots/ddave.png     dat
 pkgdata_DATA += data/games/ccaves.xml   data/games/screenshots/ccaves.png    data/games/icons/ccaves.png
 pkgdata_DATA += data/games/cosmo.xml    data/games/screenshots/cosmo.png     data/games/icons/cosmo.png
 pkgdata_DATA += data/games/harry.xml    data/games/screenshots/harry.png     data/games/icons/harry.png
+pkgdata_DATA += data/games/wacky.xml    data/games/screenshots/wacky.png     data/games/icons/wacky.png
 
 pkgdata_DATA += data/icons/grid.png
 pkgdata_DATA += data/icons/zoom_1-1.png
