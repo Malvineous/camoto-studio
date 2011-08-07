@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Monster Bash description file for Camoto Studio
+	Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Halloween_Harry
+  -->
+<game title="Monster Bash" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Gerald Lindsly</developer>
+		<publisher>Apogee</publisher>
+		<reverser>Szevvy and Malvineous</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+
+		<group name="Levels">
+			<item ref="e1l1map"/>
+		</group>
+
+		<group name="Graphics">
+
+			<group name="Tilesets">
+				<item ref="t1l1bg"/>
+				<item ref="t1l1bon"/>
+				<item ref="t1l1fg"/>
+			</group>
+
+		</group>
+
+		<group name="Music">
+			<item ref="m_apogfnfr"/>
+			<item ref="m_bachbash"/>
+			<item ref="m_bashdnce"/>
+			<item ref="m_cavebash"/>
+			<item ref="m_chase"/>
+			<item ref="m_cyclops"/>
+			<item ref="m_demons"/>
+			<item ref="m_fastbash"/>
+			<item ref="m_ghouls"/>
+			<item ref="m_goodbye"/>
+			<item ref="m_haunted"/>
+			<item ref="m_johnnys"/>
+			<item ref="m_lovebash"/>
+			<item ref="m_madnbash"/>
+			<item ref="m_main"/>
+			<item ref="m_theme"/>
+			<item ref="m_vulture"/>
+		</group>
+
+	</display>
+
+	<files>
+		<file id="e1l1mapx" name="lev1.2" typeMajor="map" typeMinor="bash" supp:tiles="e1l1bg" supp:tiles2="e1l1bon" supp:tiles3="e1l1fg">E1L1</file>
+		<file id="e1l1map" name="lev1" typeMajor="map" typeMinor="bash"
+			supp:layer1="e1l1bg" supp:layer2="e1l1fg"
+			supp:tiles="t1l1bg" supp:tiles2="t1l1bon" supp:tiles3="t1l1fg">E1L1</file>
+
+		<file id="e1l1bg" name="lev1.1" typeMajor="map" typeMinor="bash-bg">E1L1 BG layer</file>
+		<file id="e1l1fg" name="lev1.2" typeMajor="map" typeMinor="bash-fg">E1L1 FG layer</file>
+
+		<file id="t1l1bg" name="bk1" typeMajor="tileset" typeMinor="bash-bg">E1L1 BG tiles</file>
+		<file id="t1l1fg" name="fg1" typeMajor="tileset" typeMinor="bash-fg">E1L1 FG tiles</file>
+		<file id="t1l1bon" name="bon1" typeMajor="tileset" typeMinor="bash-fg">E1L1 BON tiles</file>
+
+		<file id="m_apogfnfr" name="apogfnfr.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">apogfnfr</file>
+		<file id="m_bachbash" name="bachbash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">bachbash</file>
+		<file id="m_bashdnce" name="bashdnce.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">bashdnce</file>
+		<file id="m_cavebash" name="cavebash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">cavebash</file>
+		<file id="m_chase"    name="chase.imf"    typeMajor="music" typeMinor="imf-idsoftware-type0">chase</file>
+		<file id="m_cyclops"  name="cyclops.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0">cyclops</file>
+		<file id="m_demons"   name="demons.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0">demons</file>
+		<file id="m_fastbash" name="fastbash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">fastbash</file>
+		<file id="m_ghouls"   name="ghouls.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0">ghouls</file>
+		<file id="m_goodbye"  name="goodbye.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0">goodbye</file>
+		<file id="m_haunted"  name="haunted.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0">haunted</file>
+		<file id="m_johnnys"  name="johnny's.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">johnny's</file>
+		<file id="m_lovebash" name="lovebash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">lovebash</file>
+		<file id="m_madnbash" name="madnbash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">madnbash</file>
+		<file id="m_main"     name="main.imf"     typeMajor="music" typeMinor="imf-idsoftware-type0">Main menu</file>
+		<file id="m_theme"    name="theme.imf"    typeMajor="music" typeMinor="imf-idsoftware-type0">Theme</file>
+		<file id="m_vulture"  name="vulture.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0">vulture</file>
+	</files>
+
+	<commands>
+		<command title="Episode 1">
+			bash1
+		</command>
+		<command title="Episode 2">
+			bash2
+		</command>
+		<command title="Episode 3">
+			bash3
+		</command>
+	</commands>
+
+</game>
