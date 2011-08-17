@@ -35,7 +35,8 @@ class MapDocument: public IDocument
 {
 	public:
 		MapDocument(IMainWindow *parent, camoto::gamemaps::Map2DPtr map,
-			camoto::gamegraphics::VC_TILESET tileset)
+			camoto::gamegraphics::VC_TILESET tileset,
+			const MapObjectVector *mapObjectVector)
 			throw ();
 
 		void onZoomSmall(wxCommandEvent& ev);

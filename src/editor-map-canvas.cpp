@@ -29,6 +29,34 @@ using namespace camoto::gamegraphics;
 // either side of the border that the mouse will perform a resize action.
 #define FOCUS_BOX_PADDING 2
 
+int matchTileRun(int *tile, const MapObject::TileRun *run)
+{
+	int matched = 0;
+	for (MapObject::TileRun::const_iterator t = run->begin(); t != run->end(); t++) {
+		if ((*t != -1) && (*t != *tile)) break; // no more matches
+		tile++; matched++;
+	}
+	return matched;
+}
+
+int matchAnyTileRun(int *tile, const MapObject::TileRun *run)
+{
+	int matched = 0;
+	bool found;
+	do {
+		found = false;
+		for (MapObject::TileRun::const_iterator t = run->begin(); t != run->end(); t++) {
+			if ((*t == -1) || (*t == *tile)) {
+				found = true;
+				matched++;
+				tile++;
+				break;
+			}
+		}
+	} while (found);
+	return matched;
+}
+
 BEGIN_EVENT_TABLE(MapCanvas, wxGLCanvas)
 	EVT_PAINT(MapCanvas::onPaint)
 	EVT_ERASE_BACKGROUND(MapCanvas::onEraseBG)
@@ -44,13 +72,15 @@ BEGIN_EVENT_TABLE(MapCanvas, wxGLCanvas)
 	EVT_KEY_DOWN(MapCanvas::onKeyDown)
 END_EVENT_TABLE()
 
-MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset, int *attribList)
+MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
+	int *attribList, const MapObjectVector *mapObjects)
 	throw () :
 		wxGLCanvas(parent, wxID_ANY, wxDefaultPosition,
-			wxDefaultSize, 0, wxEmptyString, attribList),
+			wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS, wxEmptyString, attribList),
 		doc(parent),
 		map(map),
 		tileset(tileset),
+		mapObjects(mapObjects),
 		zoomFactor(2),
 		gridVisible(false),
 		activeLayer(0),
@@ -150,22 +180,9 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset, int 
 
 	this->glReset();
 
-	// TEMP
-	MapObject test(1, 1, 200, 200, 1, 1);
-	test.x = 10;
-	test.y = 10;
-	test.width = 100;
-	test.height = 100;
-	this->objects.push_back(test);
-
-	MapObject test2(50, 50, 100, 100, 32, 32);
-	test2.x = 90;
-	test2.y = 10;
-	test2.width = 90;
-	test2.height = 20;
-	this->objects.push_back(test2);
-
+	// TEMP: this does layer 0 only!
 	Map2D::LayerPtr layer = this->map->getLayer(0); // TEMP
+
 	int layerWidth, layerHeight;
 	if (layer->getCaps() & Map2D::Layer::HasOwnSize) {
 		layer->getLayerSize(&layerWidth, &layerHeight);
@@ -182,70 +199,97 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset, int 
 	int tileWidth, tileHeight;
 	this->getLayerTileSize(layer, &tileWidth, &tileHeight);
 
+	// Load the layer into an array
 	int *tile = new int[layerWidth * layerHeight];
+	for (int i = 0; i < layerWidth * layerHeight; i++) tile[i] = -1;
 	Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 	for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
 		tile[(*c)->y * layerWidth + (*c)->x] = (*c)->code;
 	}
+	// tile[] now uses -1 for no-tile-present and the actual tile code otherwise.
 
 	for (int y = 0; y < layerHeight; y++) {
-		int *row = tile + y * layerWidth;
 		for (int x = 0; x < layerWidth; x++) {
-			if (row[x] == 0x4290) {
-				MapObject plant(32, 8, 32, 0, tileWidth, tileHeight);
-				plant.x = x * tileWidth;
-				plant.y = y * tileHeight;
-				plant.width = 0;
-				plant.height = tileHeight;
-				int x2;
-				for (x2 = x; x2 < layerWidth; x2++) {
-					if (
-						(row[x2] == 0x4290) ||
-						(row[x2] == 0x42B8) ||
-						(row[x2] == 0x42E0) ||
-						(row[x2] == 0x4308)
-					) {
-						plant.width += tileWidth;
+			int startCode = tile[y * layerWidth + x];
+			if (startCode == 0) continue; // skip empty tiles
+			for (MapObjectVector::const_iterator i = this->mapObjects->begin();
+				i != this->mapObjects->end();
+				i++
+			) {
+				int y2 = y;
+				int x2 = x;
+
+				// Start tracking this in case it turns out to be an actual object
+				Object newObject;
+				newObject.obj = &(*i);
+				newObject.x = x;
+				newObject.y = y;
+				newObject.height = 0;
+				newObject.width = 0;
+
+				bool done = false;
+
+				for (int s = 0; s < MapObject::SectionCount; s++) {
+					if ((!done) && (i->section[s].size() > 0)) {
+						// There are top/mid/bot rows, see if they match the map
+						for (MapObject::RowVector::const_iterator oY = i->section[s].begin(); oY != i->section[s].end(); oY++) {
+							int leftMatched = matchTileRun(&tile[y2 * layerWidth + x2], &oY->segment[MapObject::Row::L]);
+
+							// If no tiles were matched, then the current tile is not a starting
+							// point for one of these objects.
+							if (leftMatched == 0) {
+								done = true; // don't search any more rows
+
+								// But in the case of the mid section, the rows can match in any
+								// order so try the next mid section's row.
+								if (s == MapObject::MidSection) continue;
+								else break; // but not for top/bot, one mismatch and that's it
+							}
+							x2 += leftMatched;
+
+							// Try to match zero or more middle tiles, as many as possible, in
+							// any order.
+							int midMatched = matchAnyTileRun(&tile[y2 * layerWidth + x2], &oY->segment[MapObject::Row::M]);
+							x2 += midMatched;
+
+							// Now match the right-size tiles, in order.
+							int rightMatched = matchTileRun(&tile[y2 * layerWidth + x2], &oY->segment[MapObject::Row::R]);
+							x2 += rightMatched;
+
+							// Otherwise this row's left-side matched, so consider it an object
+							newObject.height++;
+
+							// Now we should have as many tiles as are valid on the top row
+							int width = x2 - x;
+							if (newObject.width < width) newObject.width = width;
+
+							x2 = x;
+							y2++;
+							done = false; // this row matched
+						}
+
+						// Repeat the mid section if need be
+						if (s == MapObject::MidSection) {
+							if (!done) {
+								// Matched mid, try again
+								done = false;
+								s--;
+							} // else no more matches on mid, continue on with end section
+							done = false;
+						}
 					}
+
+				} // for (top/mid/bot sections)
+
+				// If this did turn out to be an object, add it to the list.
+				if (newObject.height > 0) {
+					this->objects.push_back(newObject);
 				}
-				for (int y2 = y + 1; y2 < layerHeight; y2++) {
-					int *row2 = tile + y2 * layerWidth;
-					if (
-						(row2[x+0] == 0x48D0) ||
-						(row2[x+1] == 0x48F8) ||
-						(row2[x+2] == 0x4920) ||
-						(row2[x+3] == 0x4948) ||
-
-						(row2[x+0] == 0x4F10) ||
-						(row2[x+1] == 0x4F38) ||
-						(row2[x+2] == 0x4F60) ||
-						(row2[x+3] == 0x4F88) ||
-
-						(row2[x+0] == 0x5550) ||
-						(row2[x+2] == 0x5578) ||
-						(row2[x+2] == 0x55A0) ||
-						(row2[x+3] == 0x55C8) ||
-
-						(row2[x+0] == 0x5B90) ||
-						(row2[x+2] == 0x5BB8) ||
-						(row2[x+2] == 0x5BE0) ||
-						(row2[x+3] == 0x5C08) ||
-
-						(row2[x+0] == 0x61D0) ||
-						(row2[x+2] == 0x61F8) ||
-						(row2[x+2] == 0x6220) ||
-						(row2[x+3] == 0x6248)
-					) {
-						plant.height += tileHeight;
-					}
-				}
-				x = x2; // skip scanned tiles
-				this->objects.push_back(plant);
 			}
 		}
 	}
-	// ENDTEMP
 
+	// Start with no object selected
 	this->focusedObject = this->objects.end();
 }
 
@@ -352,6 +396,7 @@ void MapCanvas::redraw()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	int layerCount = this->map->getLayerCount();
+
 	for (int i = 0; i < layerCount; i++) {
 		if (this->visibleLayers[i]) {
 			Map2D::LayerPtr layer = this->map->getLayer(i);
@@ -401,29 +446,6 @@ void MapCanvas::redraw()
 
 	glDisable(GL_TEXTURE_2D);
 
-	// If the grid is visible, draw it using the tile size of the active layer
-	if ((this->gridVisible) && (this->activeLayer >= 0)) {
-		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
-		int tileWidth, tileHeight;
-		this->getLayerTileSize(layer, &tileWidth, &tileHeight);
-		wxSize s = this->GetClientSize();
-
-		glEnable(GL_COLOR_LOGIC_OP);
-		glLogicOp(GL_AND_REVERSE);
-		glColor4f(0.3, 0.3, 0.3, 0.5);
-		glBegin(GL_LINES);
-		for (int x = -offX % tileWidth; x < s.x; x += tileWidth) {
-			glVertex2i(x, 0);
-			glVertex2i(x, s.y);
-		}
-		for (int y = -offY % tileHeight; y < s.y; y += tileHeight) {
-			glVertex2i(0,   y);
-			glVertex2i(s.x, y);
-		}
-		glEnd();
-		glDisable(GL_COLOR_LOGIC_OP);
-	}
-
 	// Draw the viewport overlay
 	if (this->viewportVisible) {
 		int vpX, vpY;
@@ -456,6 +478,61 @@ void MapCanvas::redraw()
 		glEnd();
 	}
 
+	// Do some operations which require a real map layer to be selected (as
+	// opposed to the viewport or other virtual layers.)
+	int tileWidth, tileHeight;
+	if (this->activeLayer >= 0) {
+		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
+		this->getLayerTileSize(layer, &tileWidth, &tileHeight);
+
+		// If the grid is visible, draw it using the tile size of the active layer
+		if (this->gridVisible) {
+			wxSize s = this->GetClientSize();
+
+			glEnable(GL_COLOR_LOGIC_OP);
+			glLogicOp(GL_AND_REVERSE);
+			glColor4f(0.3, 0.3, 0.3, 0.5);
+			glBegin(GL_LINES);
+			for (int x = -offX % tileWidth; x < s.x; x += tileWidth) {
+				glVertex2i(x, 0);
+				glVertex2i(x, s.y);
+			}
+			for (int y = -offY % tileHeight; y < s.y; y += tileHeight) {
+				glVertex2i(0,   y);
+				glVertex2i(s.x, y);
+			}
+			glEnd();
+			glDisable(GL_COLOR_LOGIC_OP);
+		}
+
+		// If an object is currently focused, draw a box around it
+		if (this->focusedObject != this->objects.end())  {
+			glColor4f(1.0, 1.0, 1.0, 0.75);
+			glEnable(GL_LINE_STIPPLE);
+			glLineStipple(3, 0xAAAA);
+			glBegin(GL_LINE_LOOP);
+			int x1 = this->focusedObject->x * tileWidth - this->offX;
+			int y1 = this->focusedObject->y * tileHeight - this->offY;
+			int x2 = x1 + this->focusedObject->width * tileWidth;
+			int y2 = y1 + this->focusedObject->height * tileHeight;
+			glVertex2i(x1, y1);
+			glVertex2i(x1, y2);
+			glVertex2i(x2, y2);
+			glVertex2i(x2, y1);
+			glEnd();
+
+			glColor4f(0.0, 0.0, 0.0, 0.75);
+			glLineStipple(3, 0x5555);
+			glBegin(GL_LINE_LOOP);
+			glVertex2i(x1, y1);
+			glVertex2i(x1, y2);
+			glVertex2i(x2, y2);
+			glVertex2i(x2, y1);
+			glEnd();
+		}
+
+	} // if (there is an active layer)
+
 	// Draw the selection rectangle
 	if (this->selectFromX >= 0) {
 		glEnable(GL_COLOR_LOGIC_OP);
@@ -481,32 +558,6 @@ void MapCanvas::redraw()
 		glDisable(GL_COLOR_LOGIC_OP);
 	}
 
-	// If an object is currently focused, draw a box around it
-	if (this->focusedObject != this->objects.end()) {
-		glColor4f(1.0, 1.0, 1.0, 0.75);
-		glEnable(GL_LINE_STIPPLE);
-		glLineStipple(3, 0xAAAA);
-		glBegin(GL_LINE_LOOP);
-		int x1 = this->focusedObject->x - this->offX;
-		int y1 = this->focusedObject->y - this->offY;
-		int x2 = x1 + this->focusedObject->width;
-		int y2 = y1 + this->focusedObject->height;
-		glVertex2i(x1, y1);
-		glVertex2i(x1, y2);
-		glVertex2i(x2, y2);
-		glVertex2i(x2, y1);
-		glEnd();
-
-		glColor4f(0.0, 0.0, 0.0, 0.75);
-		glLineStipple(3, 0x5555);
-		glBegin(GL_LINE_LOOP);
-		glVertex2i(x1, y1);
-		glVertex2i(x1, y2);
-		glVertex2i(x2, y2);
-		glVertex2i(x2, y1);
-		glEnd();
-	}
-
 	this->SwapBuffers();
 	return;
 }
@@ -530,23 +581,33 @@ void MapCanvas::getLayerTileSize(Map2D::LayerPtr layer, int *tileWidth, int *til
 	return;
 }
 
-bool MapCanvas::focusObject(MapObjectVector::iterator start)
+bool MapCanvas::focusObject(ObjectVector::iterator start)
 {
 	bool needRedraw = false;
 
 	// See if the mouse is over an object
 	int mapPointerX = this->pointerX / this->zoomFactor + this->offX;
 	int mapPointerY = this->pointerY / this->zoomFactor + this->offY;
-	MapObjectVector::iterator oldFocusedObject = this->focusedObject;
-	MapObjectVector::iterator end = this->objects.end();
+
+	ObjectVector::iterator oldFocusedObject = this->focusedObject;
+	ObjectVector::iterator end = this->objects.end();
 	this->focusedObject = this->objects.end(); // default to nothing focused
+
+	// No active layer.  Only return true (redraw) if this caused
+	// the selected object to be deselected.
+	if (this->activeLayer < 0) return (this->focusedObject != oldFocusedObject);
+
+	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
+	int tileWidth, tileHeight;
+	this->getLayerTileSize(layer, &tileWidth, &tileHeight);
+
 	for (int n = 0; n < 2; n++) {
-		for (MapObjectVector::iterator i = start; i != end; i++) {
+		for (ObjectVector::iterator i = start; i != end; i++) {
 			if (
-				(mapPointerX >= i->x - FOCUS_BOX_PADDING) &&
-				(mapPointerX < i->x + i->width + FOCUS_BOX_PADDING) &&
-				(mapPointerY >= i->y - FOCUS_BOX_PADDING) &&
-				(mapPointerY < i->y + i->height + FOCUS_BOX_PADDING)
+				(mapPointerX >= i->x * tileWidth - FOCUS_BOX_PADDING) &&
+				(mapPointerX < (i->x + i->width) * tileWidth + FOCUS_BOX_PADDING) &&
+				(mapPointerY >= i->y * tileHeight - FOCUS_BOX_PADDING) &&
+				(mapPointerY < (i->y + i->height) * tileHeight + FOCUS_BOX_PADDING)
 			) {
 				// The pointer is over this object
 				this->focusedObject = i;
@@ -568,25 +629,25 @@ bool MapCanvas::focusObject(MapObjectVector::iterator start)
 		this->resizeX = 0;
 		this->resizeY = 0;
 		if (
-			(mapPointerX >= this->focusedObject->x - FOCUS_BOX_PADDING) &&
-			(mapPointerX < this->focusedObject->x + FOCUS_BOX_PADDING)
+			(mapPointerX >= this->focusedObject->x * tileWidth - FOCUS_BOX_PADDING) &&
+			(mapPointerX < this->focusedObject->x * tileWidth + FOCUS_BOX_PADDING)
 		) {
 			this->resizeX = -1;
 		} else if (
-			(mapPointerX >= this->focusedObject->x + this->focusedObject->width - FOCUS_BOX_PADDING) &&
-			(mapPointerX < this->focusedObject->x + this->focusedObject->width + FOCUS_BOX_PADDING)
+			(mapPointerX >= (this->focusedObject->x + this->focusedObject->width) * tileWidth - FOCUS_BOX_PADDING) &&
+			(mapPointerX < (this->focusedObject->x + this->focusedObject->width) * tileWidth + FOCUS_BOX_PADDING)
 		) {
 			this->resizeX = 1;
 		}
 
 		if (
-			(mapPointerY >= this->focusedObject->y - FOCUS_BOX_PADDING) &&
-			(mapPointerY < this->focusedObject->y + FOCUS_BOX_PADDING)
+			(mapPointerY >= this->focusedObject->y * tileHeight - FOCUS_BOX_PADDING) &&
+			(mapPointerY < this->focusedObject->y * tileHeight + FOCUS_BOX_PADDING)
 		) {
 			this->resizeY = -1;
 		} else if (
-			(mapPointerY >= this->focusedObject->y + this->focusedObject->height - FOCUS_BOX_PADDING) &&
-			(mapPointerY < this->focusedObject->y + this->focusedObject->height + FOCUS_BOX_PADDING)
+			(mapPointerY >= (this->focusedObject->y + this->focusedObject->height) * tileHeight - FOCUS_BOX_PADDING) &&
+			(mapPointerY < (this->focusedObject->y + this->focusedObject->height) * tileHeight + FOCUS_BOX_PADDING)
 		) {
 			this->resizeY = 1;
 		}
@@ -595,14 +656,14 @@ bool MapCanvas::focusObject(MapObjectVector::iterator start)
 		// axis are fixed.  This is just UI sugar as the object couldn't be resized
 		// anyway.
 		if (
-			(this->focusedObject->maxWidth == this->focusedObject->minWidth) &&
-			(this->focusedObject->maxWidth == this->focusedObject->width)
+			(this->focusedObject->obj->maxWidth == this->focusedObject->obj->minWidth) &&
+			(this->focusedObject->obj->maxWidth == this->focusedObject->width)
 		) {
 			this->resizeX = 0;
 		}
 		if (
-			(this->focusedObject->maxHeight == this->focusedObject->minHeight) &&
-			(this->focusedObject->maxHeight == this->focusedObject->height)
+			(this->focusedObject->obj->maxHeight == this->focusedObject->obj->minHeight) &&
+			(this->focusedObject->obj->maxHeight == this->focusedObject->height)
 		) {
 			this->resizeY = 0;
 		}
@@ -658,8 +719,12 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 	this->pointerX = ev.m_x;
 	this->pointerY = ev.m_y;
 
+	bool needRedraw = false;
+
 	int mapPointerX = this->pointerX / this->zoomFactor + this->offX;
 	int mapPointerY = this->pointerY / this->zoomFactor + this->offY;
+
+	// Perform actions that require an active layer
 	if (this->activeLayer >= 0) {
 		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
 		int tileWidth, tileHeight;
@@ -695,11 +760,86 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 		} else { // shift key not pressed
 			this->doc->setStatusText(wxString::Format(_T("%d,%d"), pointerTileX, pointerTileY));
 		}
+
+		// Perform the primary action (left mouse drag) if it is active
+		if (this->actionFromX >= 0) {
+			if (this->resizeX || this->resizeY) {
+				int deltaX = (ev.m_x - this->actionFromX) * this->resizeX / this->zoomFactor;
+				int deltaY = (ev.m_y - this->actionFromY) * this->resizeY / this->zoomFactor;
+
+				// Make sure the delta values are even multiple of the tile size
+				if (deltaX) deltaX -= deltaX % tileWidth;
+				if (deltaY) deltaY -= deltaY % tileHeight;
+
+				// Make sure the delta values are within range so we can apply them
+				// with no further checks.
+				int finalX = this->focusedObject->width * tileWidth + deltaX;
+				if ((this->focusedObject->obj->maxWidth > 0) && (finalX > this->focusedObject->obj->maxWidth)) {
+					int overflowX = finalX - this->focusedObject->obj->maxWidth;
+					if (overflowX < deltaX) deltaX -= overflowX;
+					else deltaX = 0;
+				} else if ((this->focusedObject->obj->minWidth > 0) && (finalX < this->focusedObject->obj->minWidth)) {
+					int overflowX = finalX - this->focusedObject->obj->minWidth;
+					if (overflowX > deltaX) deltaX -= overflowX;
+					else deltaX = 0;
+				}
+				int finalY = this->focusedObject->height * tileHeight + deltaY;
+				if ((this->focusedObject->obj->maxHeight > 0) && (finalY > this->focusedObject->obj->maxHeight)) {
+					int overflowY = finalY - this->focusedObject->obj->maxHeight;
+					if (overflowY < deltaY) deltaY -= overflowY;
+					else deltaY = 0;
+				} else if ((this->focusedObject->obj->minHeight > 0) && (finalY < this->focusedObject->obj->minHeight)) {
+					int overflowY = finalY - this->focusedObject->obj->minHeight;
+					if (overflowY > deltaY) deltaY -= overflowY;
+					else deltaY = 0;
+				}
+				switch (this->resizeX) {
+					case -1:
+						this->focusedObject->x -= deltaX / tileWidth;
+						// fall through
+					case 1:
+						this->focusedObject->width += deltaX / tileWidth;
+						break;
+					case 0:
+						break;
+				}
+				switch (this->resizeY) {
+					case -1:
+						this->focusedObject->y -= deltaY / tileHeight;
+						// fall through
+					case 1:
+						this->focusedObject->height += deltaY / tileHeight;
+						break;
+					case 0:
+						break;
+				}
+				this->actionFromX += deltaX * this->resizeX * this->zoomFactor;
+				this->actionFromY += deltaY * this->resizeY * this->zoomFactor;
+
+				needRedraw = true;
+			}
+		} else {
+			// Not performing the primary action
+
+			// Redraw the selection area if the user is right-dragging
+			if (this->selectFromX >= 0) {
+				needRedraw = true;
+
+			} else {
+				// Not selecting, so highlight objects as they are hovered over
+				ObjectVector::iterator start;
+				if (this->focusedObject != this->objects.end()) {
+					start = this->focusedObject;
+				} else {
+					start = this->objects.begin();
+				}
+				if (this->focusObject(start)) needRedraw = true;
+			}
+
+		} // if (not performing primary action)
 	} else { // no active layer
 		this->doc->setStatusText(wxString());
 	}
-
-	bool needRedraw = false;
 
 	// Scroll the map if the user is middle-dragging
 	if (this->scrollFromX >= 0) {
@@ -707,81 +847,6 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 		this->offY = this->scrollFromY - ev.m_y;
 		needRedraw = true;
 	}
-
-	// Redraw the selection area if the user is right-dragging
-	if (this->selectFromX >= 0) {
-		needRedraw = true;
-	}
-
-	if (this->actionFromX >= 0) {
-		// Primary action is active
-		if (this->resizeX || this->resizeY) {
-			int deltaX = (ev.m_x - this->actionFromX) * this->resizeX / this->zoomFactor;
-			int deltaY = (ev.m_y - this->actionFromY) * this->resizeY / this->zoomFactor;
-
-			// Make sure the delta values are even multiple of the tile size
-			if (deltaX) deltaX -= deltaX % this->focusedObject->tileWidth;
-			if (deltaY) deltaY -= deltaY % this->focusedObject->tileHeight;
-
-			// Make sure the delta values are within range so we can apply them
-			// with no further checks.
-			int finalX = this->focusedObject->width + deltaX;
-			if ((this->focusedObject->maxWidth > 0) && (finalX > this->focusedObject->maxWidth)) {
-				int overflowX = finalX - this->focusedObject->maxWidth;
-				if (overflowX < deltaX) deltaX -= overflowX;
-				else deltaX = 0;
-			} else if ((this->focusedObject->minWidth > 0) && (finalX < this->focusedObject->minWidth)) {
-				int overflowX = finalX - this->focusedObject->minWidth;
-				if (overflowX > deltaX) deltaX -= overflowX;
-				else deltaX = 0;
-			}
-			int finalY = this->focusedObject->height + deltaY;
-			if ((this->focusedObject->maxHeight > 0) && (finalY > this->focusedObject->maxHeight)) {
-				int overflowY = finalY - this->focusedObject->maxHeight;
-				if (overflowY < deltaY) deltaY -= overflowY;
-				else deltaY = 0;
-			} else if ((this->focusedObject->minHeight > 0) && (finalY < this->focusedObject->minHeight)) {
-				int overflowY = finalY - this->focusedObject->minHeight;
-				if (overflowY > deltaY) deltaY -= overflowY;
-				else deltaY = 0;
-			}
-			switch (this->resizeX) {
-				case -1:
-					this->focusedObject->x -= deltaX;
-					// fall through
-				case 1:
-					this->focusedObject->width += deltaX;
-					break;
-				case 0:
-					break;
-			}
-			switch (this->resizeY) {
-				case -1:
-					this->focusedObject->y -= deltaY;
-					// fall through
-				case 1:
-					this->focusedObject->height += deltaY;
-					break;
-				case 0:
-					break;
-			}
-			this->actionFromX += deltaX * this->resizeX * this->zoomFactor;
-			this->actionFromY += deltaY * this->resizeY * this->zoomFactor;
-
-			needRedraw = true;
-		}
-	} else {
-		// Not performing an action
-
-		MapObjectVector::iterator start;
-		if (this->focusedObject != this->objects.end()) {
-			start = this->focusedObject;
-		} else {
-			start = this->objects.begin();
-		}
-		if (this->focusObject(start)) needRedraw = true;
-
-	} // if (not performing primary action)
 
 	if (needRedraw) this->redraw();
 	return;
@@ -797,6 +862,7 @@ void MapCanvas::onMouseDownLeft(wxMouseEvent& ev)
 	} else {
 		this->actionFromX = -1; // no action
 	}
+	ev.Skip();
 	return;
 }
 

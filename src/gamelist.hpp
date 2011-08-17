@@ -56,11 +56,70 @@ struct GameInfo
 	wxString reverser;
 };
 
+/// Object descriptions for map editor
+struct MapObject
+{
+	/// Run of tile codes
+	typedef std::vector<int> TileRun;
+
+	/// A row of tiles in the object.
+	/**
+	 * Each row (going left-to-right) starts with one or more "left" tiles,
+	 * followed by one or more "mid" tiles.  The mid tile list is repeated
+	 * as necessary to fill up the available space.  The row then finishes
+	 * with one or more "right" tiles.
+	 */
+	struct Row {
+
+		/// Array indices for segment.
+		enum DirX {
+			L = 0,      ///< Tiles on the left
+			M = 1,      ///< Tiles in the middle, repeated
+			R = 2,      ///< Tiles on the right
+			Count = 3,  ///< Number of elements for array sizes
+		};
+
+		/// Actual tile runs.  Array index is a DirX value.
+		TileRun segment[Count];
+	};
+
+	typedef std::vector<Row> RowVector;
+
+	/// User-visible name of this object for tooltips, etc.
+	wxString name;
+
+	/// Minimum width for this object in tiles, or zero for no minimum.
+	int minWidth;
+
+	/// Minimum height for this object in tiles, or zero for no minimum.
+	int minHeight;
+
+	/// Maximum width for this object in tiles, or zero for no maximum.
+	int maxWidth;
+
+	/// Maximum height for this object in tiles, or zero for no maximum.
+	int maxHeight;
+
+	/// Array indices for section.
+	enum DirY {
+		TopSection = 0,    ///< Rows at the top of the object
+		MidSection = 1,    ///< Rows in the middle of the object, repeated
+		BotSection = 2,    ///< Rows at the bottom of the object
+		SectionCount = 3,  ///< Number of elements for array sizes
+	};
+
+	/// List of rows for each section (top/middle/bottom).  Index is a DirY value.
+	RowVector section[SectionCount];
+};
+
+typedef std::vector<MapObject> MapObjectVector;
+
 /// All data about a game that can be edited.
 struct Game: public GameInfo
 {
 	std::map<wxString, GameObject> objects;
 	tree<wxString> treeItems;
+	MapObjectVector mapObjects;
 };
 
 /// List of basic game info.

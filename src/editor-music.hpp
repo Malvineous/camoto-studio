@@ -34,7 +34,8 @@ class MusicEditor: public IEditor
 			throw ();
 
 		virtual IDocument *openObject(const wxString& typeMinor,
-			camoto::iostream_sptr data, const wxString& filename, SuppMap supp) const
+			camoto::iostream_sptr data, const wxString& filename, SuppMap supp,
+			const Game *game) const
 			throw ();
 
 	protected:

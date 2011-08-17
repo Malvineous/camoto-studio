@@ -80,4 +80,110 @@
 		<file id="mzztop"   name="mzztop.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0">ZZ Top</file>
 
 	</files>
+
+	<map>
+		<objects>
+			<object name="Vine">
+				<min width="4"/>
+				<max width="4"/>
+				<top>
+					<row>
+						<l>
+							<tile id="0x4290"/>
+							<tile id="0x42B8"/>
+							<tile id="0x42E0"/>
+							<tile id="0x4308"/>
+						</l>
+					</row>
+					<row>
+						<l>
+							<tile id="0x48D0"/>
+							<tile id="0x48F8"/>
+							<tile id="0x4920"/>
+							<tile id="0x4948"/>
+						</l>
+					</row>
+				</top>
+				<mid>
+					<row>
+						<l>
+							<tile id="0x4F10"/>
+							<tile id="0x4F38"/>
+							<tile id="0x4F60"/>
+							<tile id="0x4F88"/>
+						</l>
+					</row>
+					<row>
+						<l>
+							<tile id="0x5550"/>
+							<tile id="0x5578"/>
+							<tile id="0x55A0"/>
+							<tile id="0x55C8"/>
+						</l>
+					</row>
+					<row>
+						<l>
+							<tile id="0x5B90"/>
+							<tile id="0x5BB8"/>
+							<tile id="0x5BE0"/>
+							<tile id="0x5C08"/>
+						</l>
+					</row>
+				</mid>
+				<bot>
+					<row>
+						<l>
+							<tile id="0x61D0"/>
+							<tile id="0x61F8"/>
+							<tile id="0x6220"/>
+							<tile id="0x6248"/>
+						</l>
+					</row>
+				</bot>
+			</object>
+
+			<object name="Green tree platform">
+				<min height="2"/>
+				<max height="2"/>
+				<top>
+					<row>
+						<l>
+							<tile id="0x9E20"/>
+						</l>
+						<m>
+							<tile id="0x9E48"/>
+							<tile id="0x9E70"/>
+							<tile id="0x9E98"/>
+							<tile id="0x9EC0"/>
+						</m>
+						<r>
+							<tile id="0x9EE8"/>
+						</r>
+					</row>
+				</top>
+				<bot>
+					<row>
+						<l>
+							<tile id="0xA460"/>
+						</l>
+						<m>
+							<tile id="0xA488"/>
+							<tile id="0xA500"/>
+						</m>
+						<!--
+						<m>
+							<tile id="0xA4B0"/>
+							<tile id="0xA4D8"/>
+						</m>
+						-->
+						<r>
+							<tile id="0x9EE8"/>
+						</r>
+					</row>
+				</bot>
+			</object>
+
+		</objects>
+	</map>
+
 </game>

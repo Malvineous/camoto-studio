@@ -171,7 +171,8 @@ std::vector<IToolPanel *> MusicEditor::createToolPanes() const
 }
 
 IDocument *MusicEditor::openObject(const wxString& typeMinor,
-	camoto::iostream_sptr data, const wxString& filename, SuppMap supp) const
+	camoto::iostream_sptr data, const wxString& filename, SuppMap supp,
+	const Game *game) const
 	throw ()
 {
 	camoto::gamemusic::ManagerPtr pManager = camoto::gamemusic::getManager();

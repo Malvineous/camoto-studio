@@ -192,7 +192,8 @@ std::vector<IToolPanel *> MapEditor::createToolPanes() const
 }
 
 IDocument *MapEditor::openObject(const wxString& typeMinor,
-	camoto::iostream_sptr data, const wxString& filename, SuppMap supp) const
+	camoto::iostream_sptr data, const wxString& filename, SuppMap supp,
+	const Game *game) const
 	throw ()
 {
 	camoto::gamemaps::ManagerPtr pManager = camoto::gamemaps::getManager();
@@ -273,7 +274,7 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 
 	Map2DPtr map2d = boost::dynamic_pointer_cast<Map2D>(pMap);
 	if (map2d) {
-		return new MapDocument(this->frame, map2d, tilesetVector);
+		return new MapDocument(this->frame, map2d, tilesetVector, &game->mapObjects);
 	}
 
 	wxMessageDialog dlg(this->frame, _T("Sorry, this map is in a variant for "

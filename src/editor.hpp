@@ -27,6 +27,7 @@
 #include <camoto/types.hpp>
 #include "mainwindow.hpp"
 #include "project.hpp"
+#include "gamelist.hpp"
 
 /// Base class for a document editor.
 class IDocument: public wxPanel
@@ -95,11 +96,39 @@ typedef std::map<wxString, OpenedSuppItem> SuppMap;
 class IEditor
 {
 	public:
+		/// Create tool windows that this editor uses.
+		/**
+		 * This is called when the editor is first created.  It should create any
+		 * tool windows it needs, store them in a vector and return it.
+		 *
+		 * @return Vector of tool windows.
+		 */
 		virtual IToolPanelVector createToolPanes() const
 			throw () = 0;
 
+		/// Open an object in this editor.
+		/**
+		 * @param typeMinor
+		 *   File format minor code.  Major code is the editor type (map, audio,
+		 *   etc.) while the minor code is the actual file format.
+		 *
+		 * @param data
+		 *   Contents of the file to edit.
+		 *
+		 * @param filename
+		 *   Name of the file.
+		 *
+		 * @param supp
+		 *   Streams for each required supplementary file.
+		 *
+		 * @param game
+		 *   Game description read in from XML file.
+		 *
+		 * @return IDocument interface to an editor instance.
+		 */
 		virtual IDocument *openObject(const wxString& typeMinor,
-			camoto::iostream_sptr data, const wxString& filename, SuppMap supp) const
+			camoto::iostream_sptr data, const wxString& filename, SuppMap supp,
+			const Game *game) const
 			throw () = 0;
 
 };

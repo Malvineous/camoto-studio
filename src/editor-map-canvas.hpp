@@ -38,6 +38,7 @@
 class MapCanvas;
 
 #include "editor-map-document.hpp"
+#include "gamelist.hpp" // MapObject
 
 // How many *pixels* (i.e. irrespective of zoom) the mouse pointer can be moved
 // out of the focus box without losing focus.  This is also the number of pixels
@@ -47,33 +48,73 @@ class MapCanvas;
 class MapCanvas: public wxGLCanvas
 {
 	protected:
-		struct MapObject
+		/// Instance of a MapObject in this map
+		struct Object
 		{
-			/*const*/ int minWidth, minHeight;
-			/*const*/ int maxWidth, maxHeight;
-			/*const*/ int tileWidth, tileHeight;
-			int x, y, width, height;
-				MapObject(int minWidth, int minHeight, int maxWidth, int maxHeight,
-					int tileWidth, int tileHeight)
-					throw () :
-					minWidth(minWidth),
-					minHeight(minHeight),
-					maxWidth(maxWidth),
-					maxHeight(maxHeight),
-					tileWidth(tileWidth),
-					tileHeight(tileHeight)
-			{
-			}
+			/// The object to draw here.
+			const MapObject *obj;
+
+			/// Location of the object, in layer grid coordinates.
+			int x;
+
+			/// Location of the object, in layer grid coordinates.
+			int y;
+
+			/// Width of the object, in layer grid coordinates.
+			int width;
+
+			/// Height of the object, in layer grid coordinates.
+			int height;
+
+			/// True to use all 'left' tiles before any right.
+			/**
+			 * If the available width is too small to fit all the 'left' tiles as well
+			 * as all the 'right' tiles, set this to true to give priority to the left
+			 * tiles, drawing as many of them as possible at the expense of losing
+			 * some right tiles.  Set to false for the opposite, drawing all right
+			 * tiles on narrow objects even if it means losing some left tiles.
+			 *
+			 * If the object's minWidth is sufficient to hold both the left and right
+			 * tiles, this option will have no effect.
+			 */
+			bool leftPriority;
+
+			/// True to use all 'top' rows before any bottom.
+			/**
+			 * If the available height is too small to fit all the top rows as well as
+			 * all the bottom rows, then set this to true to give priority to the top
+			 * rows, drawing as many of them as possible at the expense of losing some
+			 * bottom rows.  Set to false for the opposite, drawing all bottom rows on
+			 * short objects even if it means losing some top rows.
+			 *
+			 * If the object's minHeight is sufficient to hold both the top and bottom
+			 * rows, this option will have no effect.
+			 */
+			bool topPriority;
+
+			/// Copy of the tiles currently being used to draw the object.
+			/**
+			 * This is used so that objects can be picked out of maps that don't
+			 * exactly match what we would use to draw the object ourselves, without
+			 * overwriting that object with our idea of what it should look like.
+			 *
+			 * Once an object is identified, its tiles are copied here and it is
+			 * removed from the map layer (the tiles are set back to the default
+			 * background tile.)  This way when the object is moved, it doesn't leave
+			 * behind a copy of itself.
+			 */
+			int *tiles;
 		};
 
-		typedef std::vector<MapObject> MapObjectVector;
+		typedef std::vector<Object> ObjectVector;
 
 	public:
 		std::vector<bool> visibleLayers;
 		bool viewportVisible;
 
 		MapCanvas(MapDocument *parent, camoto::gamemaps::Map2DPtr map,
-			camoto::gamegraphics::VC_TILESET tileset, int *attribList)
+			camoto::gamegraphics::VC_TILESET tileset, int *attribList,
+			const MapObjectVector *mapObjects)
 			throw ();
 
 		~MapCanvas()
@@ -107,7 +148,7 @@ class MapCanvas: public wxGLCanvas
 		 * @return true if the object changed and a redraw is required, false if
 		 *   no redraw needed.
 		 */
-		bool focusObject(MapObjectVector::iterator start);
+		bool focusObject(ObjectVector::iterator start);
 
 		void onMouseMove(wxMouseEvent& ev);
 
@@ -137,6 +178,7 @@ class MapCanvas: public wxGLCanvas
 		MapDocument *doc;
 		camoto::gamemaps::Map2DPtr map;
 		camoto::gamegraphics::VC_TILESET tileset;
+		const MapObjectVector *mapObjects;
 
 		typedef std::map<unsigned int, GLuint> TEXTURE_MAP;
 		std::vector<TEXTURE_MAP> textureMap;
@@ -163,8 +205,8 @@ class MapCanvas: public wxGLCanvas
 		int resizeX;      ///< Is vert focus border under pointer? -1 == left, 0 == none, 1 == right
 		int resizeY;      ///< Is horiz focus border under pointer? -1 == top, 0 == none, 1 == bottom
 
-		MapObjectVector objects; ///< Currently known objects found in the map
-		MapObjectVector::iterator focusedObject; ///< Object currently under mouse pointer
+		ObjectVector objects; ///< Currently known objects found in the map
+		ObjectVector::iterator focusedObject; ///< Object currently under mouse pointer
 
 		DECLARE_EVENT_TABLE();
 

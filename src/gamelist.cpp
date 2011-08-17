@@ -186,6 +186,103 @@ Game *loadGameStructure(const wxString& id)
 					}
 				}
 			}
+		} else if (xmlStrcmp(i->name, _X("map")) == 0) {
+			// Process the <map/> chunk
+			for (xmlNode *j = i->children; j; j = j->next) {
+				if (xmlStrEqual(j->name, _X("objects"))) {
+					for (xmlNode *k = j->children; k; k = k->next) {
+						if (xmlStrEqual(k->name, _X("object"))) {
+							MapObject o;
+
+							// Set the defaults to no limits
+							o.minWidth = 0;
+							o.minHeight = 0;
+							o.maxWidth = 0;
+							o.maxHeight = 0;
+
+							for (xmlAttr *a = k->properties; a; a = a->next) {
+								if (xmlStrcmp(a->name, _X("name")) == 0) {
+									xmlChar *val = xmlNodeGetContent(a->children);
+									o.name = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+									xmlFree(val);
+								}
+							}
+							for (xmlNode *l = k->children; l; l = l->next) {
+								if (xmlStrEqual(l->name, _X("min"))) {
+									for (xmlAttr *a = l->properties; a; a = a->next) {
+										if (xmlStrcmp(a->name, _X("width")) == 0) {
+											xmlChar *val = xmlNodeGetContent(a->children);
+											o.minWidth = strtod((const char *)val, NULL);
+											xmlFree(val);
+										} else if (xmlStrcmp(a->name, _X("height")) == 0) {
+											xmlChar *val = xmlNodeGetContent(a->children);
+											o.minHeight = strtod((const char *)val, NULL);
+											xmlFree(val);
+										}
+									}
+								} else if (xmlStrEqual(l->name, _X("max"))) {
+									for (xmlAttr *a = l->properties; a; a = a->next) {
+										if (xmlStrcmp(a->name, _X("width")) == 0) {
+											xmlChar *val = xmlNodeGetContent(a->children);
+											o.maxWidth = strtod((const char *)val, NULL);
+											xmlFree(val);
+										} else if (xmlStrcmp(a->name, _X("height")) == 0) {
+											xmlChar *val = xmlNodeGetContent(a->children);
+											o.maxHeight = strtod((const char *)val, NULL);
+											xmlFree(val);
+										}
+									}
+								} else {
+									// See if this child element is <top>, <mid> or <bot>
+									MapObject::RowVector *section = NULL;
+									if (xmlStrEqual(l->name, _X("top"))) section = &o.section[MapObject::TopSection];
+									else if (xmlStrEqual(l->name, _X("mid"))) section = &o.section[MapObject::MidSection];
+									else if (xmlStrEqual(l->name, _X("bot"))) section = &o.section[MapObject::BotSection];
+
+									// If it was, enumerate its children
+									if (section) {
+										for (xmlNode *m = l->children; m; m = m->next) {
+											if (xmlStrEqual(m->name, _X("row"))) {
+												MapObject::Row newRow;
+												for (xmlNode *n = m->children; n; n = n->next) {
+													MapObject::TileRun *tiles;
+
+													// See if this element is <l>, <m> or <r>
+													tiles = NULL;
+													if (xmlStrEqual(n->name, _X("l"))) tiles = &newRow.segment[MapObject::Row::L];
+													else if (xmlStrEqual(n->name, _X("m"))) tiles = &newRow.segment[MapObject::Row::M];
+													else if (xmlStrEqual(n->name, _X("r"))) tiles = &newRow.segment[MapObject::Row::R];
+
+													// If it was, load the tile codes from the <tile/> tags
+													if (tiles) {
+														for (xmlNode *o = n->children; o; o = o->next) {
+															if (xmlStrEqual(o->name, _X("tile"))) {
+																for (xmlAttr *a = o->properties; a; a = a->next) {
+																	if (xmlStrcmp(a->name, _X("id")) == 0) {
+																		xmlChar *val = xmlNodeGetContent(a->children);
+																		int code = strtod((const char *)val, NULL);
+																		tiles->push_back(code);
+																		xmlFree(val);
+																	}
+																} // for <tile/> attributes
+															}
+														} // for <l/>, <m/> or <r/> children
+													}
+
+												} // for <row/> children
+
+												// Add this <row> back to the <top>, <mid> or <bot>
+												section->push_back(newRow);
+											}
+										} // for <top/>, <mid/> or <bot/> children
+									}
+								}
+							} // for <object/> children
+							g->mapObjects.push_back(o);
+						}
+					} // for <objects/> children
+				}
+			} // for <map/> children
 		}
 	}
 	xmlFreeDoc(xml);

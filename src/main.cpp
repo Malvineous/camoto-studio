@@ -319,7 +319,8 @@ class CamotoFrame: public IMainWindow
 			SuppMap supp;
 			if (!this->openObject(data->id, &stream, &supp)) return;
 
-			IDocument *doc = itEditor->second->openObject(o.typeMinor, stream, o.filename, supp);
+			IDocument *doc = itEditor->second->openObject(o.typeMinor, stream,
+				o.filename, supp, this->game);
 			this->notebook->AddPage(doc, this->game->objects[data->id].friendlyName,
 				true, wxNullBitmap);
 			return;

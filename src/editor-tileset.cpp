@@ -238,7 +238,8 @@ std::vector<IToolPanel *> TilesetEditor::createToolPanes() const
 }
 
 IDocument *TilesetEditor::openObject(const wxString& typeMinor,
-	camoto::iostream_sptr data, const wxString& filename, SuppMap supp) const
+	camoto::iostream_sptr data, const wxString& filename, SuppMap supp,
+	const Game *game) const
 	throw ()
 {
 	ManagerPtr pManager = getManager();

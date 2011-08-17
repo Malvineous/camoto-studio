@@ -31,14 +31,15 @@ BEGIN_EVENT_TABLE(MapDocument, IDocument)
 	EVT_TOOL(IDC_TOGGLEGRID, MapDocument::onToggleGrid)
 END_EVENT_TABLE()
 
-MapDocument::MapDocument(IMainWindow *parent, Map2DPtr map, VC_TILESET tileset)
+MapDocument::MapDocument(IMainWindow *parent, Map2DPtr map, VC_TILESET tileset,
+	const MapObjectVector *mapObjectVector)
 	throw () :
 		IDocument(parent, _T("map")),
 		map(map),
 		tileset(tileset)
 {
 	int attribList[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 0, 0};
-	this->canvas = new MapCanvas(this, map, tileset, attribList);
+	this->canvas = new MapCanvas(this, map, tileset, attribList, mapObjectVector);
 
 	wxToolBar *tb = new wxToolBar(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_FLAT | wxTB_NODIVIDER);
 	tb->SetToolBitmapSize(wxSize(16, 16));
