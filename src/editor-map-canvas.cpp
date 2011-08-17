@@ -1117,6 +1117,11 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 			x2 /= tileWidth;
 			y2 /= tileHeight;
 
+			if (x1 < 0) x1 = 0;
+			if (y1 < 0) y1 = 0;
+			if (x2 < 0) x2 = 0;
+			if (y2 < 0) y2 = 0;
+
 			int minX = x2;
 			int minY = y2;
 			int maxX = x1;
