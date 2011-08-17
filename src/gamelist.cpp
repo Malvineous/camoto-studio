@@ -168,8 +168,13 @@ Game *loadGameStructure(const wxString& id)
 							xmlChar *val = xmlNodeGetContent(a->children);
 							o.filename = wxString::FromUTF8((const char *)val, xmlStrlen(val));
 							xmlFree(val);
+						} else if (xmlStrcmp(a->name, _X("title")) == 0) {
+							xmlChar *val = xmlNodeGetContent(a->children);
+							o.friendlyName = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+							xmlFree(val);
 						}
 					}
+
 					if (!o.id.IsEmpty()) {
 						if (o.typeMajor.IsEmpty() || o.typeMinor.IsEmpty() || o.filename.IsEmpty()) {
 							std::cout << "[gamelist] <file/> with id \"" << o.id.ToAscii() <<
