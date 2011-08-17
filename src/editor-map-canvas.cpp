@@ -83,6 +83,7 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 		mapObjects(mapObjects),
 		zoomFactor(2),
 		gridVisible(false),
+		editingMode(ObjectMode),
 		activeLayer(0),
 		offX(0),
 		offY(0),
@@ -291,6 +292,7 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 
 	// Start with no object selected
 	this->focusedObject = this->objects.end();
+	this->selection.tiles = NULL;
 }
 
 MapCanvas::~MapCanvas()
@@ -324,6 +326,35 @@ void MapCanvas::showGrid(bool visible)
 {
 	this->gridVisible = visible;
 	this->glReset();
+	this->redraw();
+	return;
+}
+
+void MapCanvas::setTileMode()
+	throw ()
+{
+	this->editingMode = TileMode;
+
+	// Deselect anything that was selected
+	this->focusedObject = this->objects.end();
+
+	// Remove any selection markers
+	this->redraw();
+	return;
+}
+
+void MapCanvas::setObjMode()
+	throw ()
+{
+	this->editingMode = ObjectMode;
+
+	// Deselect anything that was selected
+	if (this->selection.tiles) {
+		delete[] this->selection.tiles;
+		this->selection.tiles = NULL;
+	}
+
+	// Remove any selection markers
 	this->redraw();
 	return;
 }
@@ -393,10 +424,11 @@ void MapCanvas::redraw()
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	int layerCount = this->map->getLayerCount();
+	// Enable on/off transparency
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.0);
 
+	int layerCount = this->map->getLayerCount();
 	for (int i = 0; i < layerCount; i++) {
 		if (this->visibleLayers[i]) {
 			Map2D::LayerPtr layer = this->map->getLayer(i);
@@ -418,33 +450,131 @@ void MapCanvas::redraw()
 			int tileWidth, tileHeight;
 			this->getLayerTileSize(layer, &tileWidth, &tileHeight);
 
+			int oX, oY;
+			bool drawSelection = false;
+			if (
+				(this->activeLayer == i) &&  // if this is the active layer
+				(this->selection.tiles) &&   // and there are selected tiles
+				(this->selectFromX < 0)      // and we're not selecting new tiles
+			) {
+				// Draw the current selection
+				drawSelection = true;
+				oX = (this->pointerX / this->zoomFactor + this->offX) / tileWidth - this->selection.width / 2;
+				oY = (this->pointerY / this->zoomFactor + this->offY) / tileHeight - this->selection.height / 2;
+			}
+
+			// Set the selection colour to use as blending is turned on and off
+			glBlendFunc(GL_CONSTANT_COLOR, GL_ONE_MINUS_CONSTANT_COLOR);
+			glBlendColor(0.75, 0.0, 0.0, 0.65);
+
 			Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 			for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
 
 				int tileX = (*c)->x * tileWidth;
 				int tileY = (*c)->y * tileHeight;
 
-				if (tileX > offX + s.x) continue; // tile is off viewport to the right
-				if (tileX + tileWidth < offX) continue; // tile is off viewport to the left
-				if (tileY > offY + s.y) continue; // tile is off viewport to the bottom
-				if (tileY + tileHeight < offY) continue; // tile is off viewport to the top
+				if (tileX > this->offX + s.x) continue; // tile is off viewport to the right
+				if (tileX + tileWidth < this->offX) continue; // tile is off viewport to the left
+				if (tileY > this->offY + s.y) continue; // tile is off viewport to the bottom
+				if (tileY + tileHeight < this->offY) continue; // tile is off viewport to the top
+
+				// If there's a selection, see whether the current tile is where one of
+				// the selected tiles should be drawn.  If so we skip it, so there's an
+				// empty space ready to draw the selection later.  This way any
+				// selection will temporarily replace the actual map tiles as the mouse
+				// moves around.  This is best because it will make it obvious what
+				// will happen when the mouse is clicked.  Otherwise with a nice alpha
+				// blend over the top of the map tiles, the user may get a surprise when
+				// the pasted selection overwrites tiles which were previously blended.
+				if (
+					(drawSelection) &&
+					((*c)->x >= oX) &&
+					((*c)->x < oX + this->selection.width) &&
+					((*c)->y >= oY) &&
+					((*c)->y < oY + this->selection.height)
+				) {
+					// This item is contained within the selection rendering area, so
+					// don't draw the map tile - unless the selection has no tile for
+					// that bit.
+					if (this->selection.tiles[((*c)->y - oY) * this->selection.width + ((*c)->x - oX)] >= 0) {
+						continue;
+					}
+				}
+
+				glDisable(GL_BLEND);
+				glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+				if (
+					(drawSelection) &&
+					((*c)->x >= this->selection.x) &&
+					((*c)->x < this->selection.x + this->selection.width) &&
+					((*c)->y >= this->selection.y) &&
+					((*c)->y < this->selection.y + this->selection.height)
+				) {
+					// This tile is contained within the original selection, i.e. the area
+					// that will be removed if the delete key is pressed.
+					int relX = (*c)->x - this->selection.x;
+					int relY = (*c)->y - this->selection.y;
+					if (this->selection.tiles[relY * this->selection.width + relX] >= 0) {
+						// There is a selected tile at this point, so highlight it
+						glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
+						glColor4f(1.0, 0.2, 0.2, 1.0);
+					}
+				}
 
 				glBindTexture(GL_TEXTURE_2D, this->textureMap[i][(*c)->code]);
 				glBegin(GL_QUADS);
 				glTexCoord2d(0.0, 0.0);
-				glVertex2i(tileX - offX, tileY - offY);
+				glVertex2i(tileX - this->offX, tileY - this->offY);
 				glTexCoord2d(0.0, 1.0);
-				glVertex2i(tileX - offX, tileY + tileHeight - offY);
+				glVertex2i(tileX - this->offX, tileY + tileHeight - this->offY);
 				glTexCoord2d(1.0, 1.0);
-				glVertex2i(tileX + tileWidth - offX, tileY + tileHeight - offY);
+				glVertex2i(tileX + tileWidth - this->offX, tileY + tileHeight - this->offY);
 				glTexCoord2d(1.0, 0.0);
-				glVertex2i(tileX + tileWidth - offX, tileY - offY);
+				glVertex2i(tileX + tileWidth - this->offX, tileY - this->offY);
 				glEnd();
 			}
+
+			// If space was left for the selection, draw it now
+			if (drawSelection) {
+				// Enable semitransparency
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_CONSTANT_ALPHA);
+				glBlendColor(0.0, 0.0, 0.0, 0.65);
+
+				for (int y = 0; y < this->selection.height; y++) {
+					for (int x = 0; x < this->selection.width; x++) {
+						int tileX = (x + oX) * tileWidth;
+						int tileY = (y + oY) * tileHeight;
+						int code = this->selection.tiles[y * this->selection.width + x];
+						if (code < 0) continue; // omitted tile
+
+						if (tileX > this->offX + s.x) continue; // tile is off viewport to the right
+						if (tileX + tileWidth < this->offX) continue; // tile is off viewport to the left
+						if (tileY > this->offY + s.y) continue; // tile is off viewport to the bottom
+						if (tileY + tileHeight < this->offY) continue; // tile is off viewport to the top
+
+						glBindTexture(GL_TEXTURE_2D, this->textureMap[this->activeLayer][code]);
+						glBegin(GL_QUADS);
+						glTexCoord2d(0.0, 0.0);
+						glVertex2i(tileX - this->offX, tileY - this->offY);
+						glTexCoord2d(0.0, 1.0);
+						glVertex2i(tileX - this->offX, tileY + tileHeight - this->offY);
+						glTexCoord2d(1.0, 1.0);
+						glVertex2i(tileX + tileWidth - this->offX, tileY + tileHeight - this->offY);
+						glTexCoord2d(1.0, 0.0);
+						glVertex2i(tileX + tileWidth - this->offX, tileY - this->offY);
+						glEnd();
+					}
+				}
+			}
+
 		}
 	}
 
 	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_ALPHA_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Draw the viewport overlay
 	if (this->viewportVisible) {
@@ -505,30 +635,36 @@ void MapCanvas::redraw()
 			glDisable(GL_COLOR_LOGIC_OP);
 		}
 
-		// If an object is currently focused, draw a box around it
-		if (this->focusedObject != this->objects.end())  {
-			glColor4f(1.0, 1.0, 1.0, 0.75);
-			glEnable(GL_LINE_STIPPLE);
-			glLineStipple(3, 0xAAAA);
-			glBegin(GL_LINE_LOOP);
-			int x1 = this->focusedObject->x * tileWidth - this->offX;
-			int y1 = this->focusedObject->y * tileHeight - this->offY;
-			int x2 = x1 + this->focusedObject->width * tileWidth;
-			int y2 = y1 + this->focusedObject->height * tileHeight;
-			glVertex2i(x1, y1);
-			glVertex2i(x1, y2);
-			glVertex2i(x2, y2);
-			glVertex2i(x2, y1);
-			glEnd();
+		switch (this->editingMode) {
+			case TileMode:
+				break;
+			case ObjectMode:
+				// If an object is currently focused, draw a box around it
+				if (this->focusedObject != this->objects.end()) {
+					glColor4f(1.0, 1.0, 1.0, 0.75);
+					glEnable(GL_LINE_STIPPLE);
+					glLineStipple(3, 0xAAAA);
+					glBegin(GL_LINE_LOOP);
+					int x1 = this->focusedObject->x * tileWidth - this->offX;
+					int y1 = this->focusedObject->y * tileHeight - this->offY;
+					int x2 = x1 + this->focusedObject->width * tileWidth;
+					int y2 = y1 + this->focusedObject->height * tileHeight;
+					glVertex2i(x1, y1);
+					glVertex2i(x1, y2);
+					glVertex2i(x2, y2);
+					glVertex2i(x2, y1);
+					glEnd();
 
-			glColor4f(0.0, 0.0, 0.0, 0.75);
-			glLineStipple(3, 0x5555);
-			glBegin(GL_LINE_LOOP);
-			glVertex2i(x1, y1);
-			glVertex2i(x1, y2);
-			glVertex2i(x2, y2);
-			glVertex2i(x2, y1);
-			glEnd();
+					glColor4f(0.0, 0.0, 0.0, 0.75);
+					glLineStipple(3, 0x5555);
+					glBegin(GL_LINE_LOOP);
+					glVertex2i(x1, y1);
+					glVertex2i(x1, y2);
+					glVertex2i(x2, y2);
+					glVertex2i(x2, y1);
+					glEnd();
+				}
+				break;
 		}
 
 	} // if (there is an active layer)
@@ -763,60 +899,72 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 
 		// Perform the primary action (left mouse drag) if it is active
 		if (this->actionFromX >= 0) {
-			if (this->resizeX || this->resizeY) {
-				int deltaX = (ev.m_x - this->actionFromX) * this->resizeX / this->zoomFactor;
-				int deltaY = (ev.m_y - this->actionFromY) * this->resizeY / this->zoomFactor;
+			switch (this->editingMode) {
+				case TileMode: {
+					int mouseTileX = ev.m_x / this->zoomFactor;
+					int mouseTileY = ev.m_y / this->zoomFactor;
+					// TODO: break if tile coords are out of range
 
-				// Make sure the delta values are even multiple of the tile size
-				if (deltaX) deltaX -= deltaX % tileWidth;
-				if (deltaY) deltaY -= deltaY % tileHeight;
+					needRedraw = true;
+					break;
+				}
+				case ObjectMode:
+					if (this->resizeX || this->resizeY) {
+						int deltaX = (ev.m_x - this->actionFromX) * this->resizeX / this->zoomFactor;
+						int deltaY = (ev.m_y - this->actionFromY) * this->resizeY / this->zoomFactor;
 
-				// Make sure the delta values are within range so we can apply them
-				// with no further checks.
-				int finalX = this->focusedObject->width * tileWidth + deltaX;
-				if ((this->focusedObject->obj->maxWidth > 0) && (finalX > this->focusedObject->obj->maxWidth)) {
-					int overflowX = finalX - this->focusedObject->obj->maxWidth;
-					if (overflowX < deltaX) deltaX -= overflowX;
-					else deltaX = 0;
-				} else if ((this->focusedObject->obj->minWidth > 0) && (finalX < this->focusedObject->obj->minWidth)) {
-					int overflowX = finalX - this->focusedObject->obj->minWidth;
-					if (overflowX > deltaX) deltaX -= overflowX;
-					else deltaX = 0;
-				}
-				int finalY = this->focusedObject->height * tileHeight + deltaY;
-				if ((this->focusedObject->obj->maxHeight > 0) && (finalY > this->focusedObject->obj->maxHeight)) {
-					int overflowY = finalY - this->focusedObject->obj->maxHeight;
-					if (overflowY < deltaY) deltaY -= overflowY;
-					else deltaY = 0;
-				} else if ((this->focusedObject->obj->minHeight > 0) && (finalY < this->focusedObject->obj->minHeight)) {
-					int overflowY = finalY - this->focusedObject->obj->minHeight;
-					if (overflowY > deltaY) deltaY -= overflowY;
-					else deltaY = 0;
-				}
-				switch (this->resizeX) {
-					case -1:
-						this->focusedObject->x -= deltaX / tileWidth;
-						// fall through
-					case 1:
-						this->focusedObject->width += deltaX / tileWidth;
-						break;
-					case 0:
-						break;
-				}
-				switch (this->resizeY) {
-					case -1:
-						this->focusedObject->y -= deltaY / tileHeight;
-						// fall through
-					case 1:
-						this->focusedObject->height += deltaY / tileHeight;
-						break;
-					case 0:
-						break;
-				}
-				this->actionFromX += deltaX * this->resizeX * this->zoomFactor;
-				this->actionFromY += deltaY * this->resizeY * this->zoomFactor;
+						// Make sure the delta values are even multiple of the tile size
+						if (deltaX) deltaX -= deltaX % tileWidth;
+						if (deltaY) deltaY -= deltaY % tileHeight;
 
-				needRedraw = true;
+						// Make sure the delta values are within range so we can apply them
+						// with no further checks.
+						int finalX = this->focusedObject->width * tileWidth + deltaX;
+						if ((this->focusedObject->obj->maxWidth > 0) && (finalX > this->focusedObject->obj->maxWidth)) {
+							int overflowX = finalX - this->focusedObject->obj->maxWidth;
+							if (overflowX < deltaX) deltaX -= overflowX;
+							else deltaX = 0;
+						} else if ((this->focusedObject->obj->minWidth > 0) && (finalX < this->focusedObject->obj->minWidth)) {
+							int overflowX = finalX - this->focusedObject->obj->minWidth;
+							if (overflowX > deltaX) deltaX -= overflowX;
+							else deltaX = 0;
+						}
+						int finalY = this->focusedObject->height * tileHeight + deltaY;
+						if ((this->focusedObject->obj->maxHeight > 0) && (finalY > this->focusedObject->obj->maxHeight)) {
+							int overflowY = finalY - this->focusedObject->obj->maxHeight;
+							if (overflowY < deltaY) deltaY -= overflowY;
+							else deltaY = 0;
+						} else if ((this->focusedObject->obj->minHeight > 0) && (finalY < this->focusedObject->obj->minHeight)) {
+							int overflowY = finalY - this->focusedObject->obj->minHeight;
+							if (overflowY > deltaY) deltaY -= overflowY;
+							else deltaY = 0;
+						}
+						switch (this->resizeX) {
+							case -1:
+								this->focusedObject->x -= deltaX / tileWidth;
+								// fall through
+							case 1:
+								this->focusedObject->width += deltaX / tileWidth;
+								break;
+							case 0:
+								break;
+						}
+						switch (this->resizeY) {
+							case -1:
+								this->focusedObject->y -= deltaY / tileHeight;
+								// fall through
+							case 1:
+								this->focusedObject->height += deltaY / tileHeight;
+								break;
+							case 0:
+								break;
+						}
+						this->actionFromX += deltaX * this->resizeX * this->zoomFactor;
+						this->actionFromY += deltaY * this->resizeY * this->zoomFactor;
+
+						needRedraw = true;
+					}
+					break;
 			}
 		} else {
 			// Not performing the primary action
@@ -826,14 +974,25 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 				needRedraw = true;
 
 			} else {
-				// Not selecting, so highlight objects as they are hovered over
-				ObjectVector::iterator start;
-				if (this->focusedObject != this->objects.end()) {
-					start = this->focusedObject;
-				} else {
-					start = this->objects.begin();
+				// Not selecting
+				switch (this->editingMode) {
+					case TileMode:
+						// If there's a current selection, overlay it
+						if (this->selection.tiles) {
+							needRedraw = true;
+						}
+						break;
+					case ObjectMode:
+						// Highlight objects as they are hovered over
+						ObjectVector::iterator start;
+						if (this->focusedObject != this->objects.end()) {
+							start = this->focusedObject;
+						} else {
+							start = this->objects.begin();
+						}
+						if (this->focusObject(start)) needRedraw = true;
+						break;
 				}
-				if (this->focusObject(start)) needRedraw = true;
 			}
 
 		} // if (not performing primary action)
@@ -892,7 +1051,124 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 {
 	this->ReleaseMouse();
 
-	// TODO: Select the tiles contained within the rectangle
+	if (this->activeLayer < 0) return; // must have active layer
+
+	switch (this->editingMode) {
+		case TileMode: {
+			// Select the tiles contained within the rectangle
+
+			Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
+
+			int layerWidth, layerHeight;
+			if (layer->getCaps() & Map2D::Layer::HasOwnSize) {
+				layer->getLayerSize(&layerWidth, &layerHeight);
+			} else {
+				// Use global map size
+				if (this->map->getCaps() & Map2D::HasGlobalSize) {
+					this->map->getMapSize(&layerWidth, &layerHeight);
+				} else {
+					std::cout << "[editor-map] BUG: Layer uses map size, but map "
+						"doesn't have a global size!\n";
+					return;
+				}
+			}
+
+			int tileWidth, tileHeight;
+			this->getLayerTileSize(layer, &tileWidth, &tileHeight);
+
+			// Calculate the dimensions of the tiles in the selection rectangle
+			int x1, y1, x2, y2;
+			bool selectPartial;
+			if (this->selectFromX > ev.m_x) {
+				// Negative rectangle
+				x1 = ev.m_x;
+				x2 = this->selectFromX;
+				selectPartial = true;
+			} else {
+				x1 = this->selectFromX;
+				x2 = ev.m_x;
+				selectPartial = false;
+			}
+			if (this->selectFromY > ev.m_y) {
+				y1 = ev.m_y;
+				y2 = this->selectFromY;
+			} else {
+				y1 = this->selectFromY;
+				y2 = ev.m_y;
+			}
+			// (x1,y1) is now always top-left, (x2,y2) is always bottom-right
+
+			x1 = x1 / this->zoomFactor + this->offX;
+			y1 = y1 / this->zoomFactor + this->offY;
+			x2 = x2 / this->zoomFactor + this->offX;
+			y2 = y2 / this->zoomFactor + this->offY;
+
+			// Convert the selection rectangle from pixel coords to tile coords,
+			// enlarging or shrinking it as necessary to accommodate selectPartial.
+			if (selectPartial) {
+				x2 += tileWidth - 1;
+				y2 += tileHeight - 1;
+			} else {
+				x1 += tileWidth - 1;
+				y1 += tileHeight - 1;
+			}
+			x1 /= tileWidth;
+			y1 /= tileHeight;
+			x2 /= tileWidth;
+			y2 /= tileHeight;
+
+			int minX = x2;
+			int minY = y2;
+			int maxX = x1;
+			int maxY = y1;
+			Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
+			for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
+				if (
+					((*c)->x >= x1) && ((*c)->x < x2) &&
+					((*c)->y >= y1) && ((*c)->y < y2)
+				) {
+					// This tile is contained within the selection rectangle
+					if (minX > (*c)->x) minX = (*c)->x;
+					if (minY > (*c)->y) minY = (*c)->y;
+					if (maxX < (*c)->x + 1) maxX = (*c)->x + 1;
+					if (maxY < (*c)->y + 1) maxY = (*c)->y + 1;
+				}
+			}
+			if (this->selection.tiles) delete[] this->selection.tiles;
+			this->selection.width = maxX - minX;
+			this->selection.height = maxY - minY;
+			if ((this->selection.width <= 0) || (this->selection.height <= 0)) {
+				// Empty selection
+				this->selection.tiles = NULL; // already deleted above
+			} else {
+				this->selection.tiles = new int[this->selection.width * this->selection.height];
+				for (int i = 0; i < this->selection.width * this->selection.height; i++) {
+					this->selection.tiles[i] = -1; // no tile present here
+				}
+
+				// Run through the tiles again, but this tile copy them into the selection
+				for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
+					if (
+						((*c)->x >= minX) && ((*c)->x < maxX) &&
+						((*c)->y >= minY) && ((*c)->y < maxY)
+					) {
+						// This tile is contained within the selection rectangle
+						int offset = ((*c)->y - minY) * this->selection.width + (*c)->x - minX;
+						assert(offset < this->selection.width * this->selection.height);
+						this->selection.tiles[offset] = (*c)->code;
+					}
+				}
+
+				// Remember the location of the original selection
+				this->selection.x = minX;
+				this->selection.y = minY;
+			}
+			break;
+		}
+		case ObjectMode:
+			// TODO: Select multiple objects?
+			break;
+	}
 
 	this->selectFromX = -1;
 	this->redraw();
@@ -925,12 +1201,37 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 {
 	bool needRedraw = false;
 	switch (ev.GetKeyCode()) {
+
 		case WXK_TAB:
 			// Toggle between overlapping objects under the cursor
 			if (this->focusedObject != this->objects.end()) {
 				if (this->focusObject(this->focusedObject + 1)) needRedraw = true;
 			}
 			break;
+
+		case WXK_NUMPAD_DELETE:
+		case WXK_DELETE:
+			// Delete the currently selected tiles
+			if ((this->activeLayer >= 0) && (this->selection.tiles)) {
+				int x1 = this->selection.x;
+				int y1 = this->selection.y;
+				int x2 = x1 + this->selection.width;
+				int y2 = y1 + this->selection.height;
+				Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
+				Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
+				for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); ) {
+					if (
+						((*c)->x >= x1) && ((*c)->x < x2) &&
+						((*c)->y >= y1) && ((*c)->y < y2)
+					) {
+						// Remove this tile
+						c = content->erase(c);
+						needRedraw = true;
+					} else c++;
+				}
+			}
+			break;
+
 	}
 	if (needRedraw) this->redraw();
 	return;

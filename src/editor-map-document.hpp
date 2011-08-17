@@ -40,12 +40,11 @@ class MapDocument: public IDocument
 			throw ();
 
 		void onZoomSmall(wxCommandEvent& ev);
-
 		void onZoomNormal(wxCommandEvent& ev);
-
 		void onZoomLarge(wxCommandEvent& ev);
-
 		void onToggleGrid(wxCommandEvent& ev);
+		void onTileMode(wxCommandEvent& ev);
+		void onObjMode(wxCommandEvent& ev);
 
 		void setStatusText(const wxString& text);
 
@@ -58,6 +57,8 @@ class MapDocument: public IDocument
 
 		enum {
 			IDC_TOGGLEGRID = wxID_HIGHEST + 1,
+			IDC_MODE_TILE,
+			IDC_MODE_OBJ,
 		};
 		DECLARE_EVENT_TABLE();
 };

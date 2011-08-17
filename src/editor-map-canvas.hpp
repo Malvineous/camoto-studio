@@ -120,10 +120,33 @@ class MapCanvas: public wxGLCanvas
 		~MapCanvas()
 			throw ();
 
+		/// Set the zoom factor.
+		/**
+		 * @param f
+		 *  Zoom multiplier.  1 == pixel perfect, 2 == double size.
+		 */
 		void setZoomFactor(int f)
 			throw ();
+
+		/// Show/hide the tile grid.
+		/**
+		 * @param visible
+		 *   true to show the grid, false to hide it.
+		 *
+		 * @note Grid change is immediately visible as GL surface is redrawn before
+		 *   returning.
+		 */
 		void showGrid(bool visible)
 			throw ();
+
+		/// Switch to tile editing mode.
+		void setTileMode()
+			throw ();
+
+		/// Switch to object editing mode.
+		void setObjMode()
+			throw ();
+
 		void setActiveLayer(int layer);
 		void onEraseBG(wxEraseEvent& ev);
 		void onPaint(wxPaintEvent& ev);
@@ -185,6 +208,7 @@ class MapCanvas: public wxGLCanvas
 
 		int zoomFactor;   ///< Zoom level (1 == 1:1, 2 == 2:1/doublesize, etc.)
 		bool gridVisible; ///< Draw a grid over the active layer?
+		enum {TileMode, ObjectMode} editingMode; ///< Current editing mode
 		int activeLayer;  ///< Index of layer currently selected in layer palette
 
 		int offX;         ///< Current X position (in pixels) to draw at (0,0)
@@ -207,6 +231,15 @@ class MapCanvas: public wxGLCanvas
 
 		ObjectVector objects; ///< Currently known objects found in the map
 		ObjectVector::iterator focusedObject; ///< Object currently under mouse pointer
+
+		/// Details about the current selection in tile-mode.
+		struct {
+			int x;      ///< X-coordinate of original selection's top-right corner
+			int y;      ///< Y-coordinate of original selection's top-right corner
+			int width;  ///< Width of selection, in tiles
+			int height; ///< Height of selection, in tiles
+			int *tiles; ///< Array of tiles selected
+		} selection;
 
 		DECLARE_EVENT_TABLE();
 

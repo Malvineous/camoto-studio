@@ -29,6 +29,8 @@ BEGIN_EVENT_TABLE(MapDocument, IDocument)
 	EVT_TOOL(wxID_ZOOM_100, MapDocument::onZoomNormal)
 	EVT_TOOL(wxID_ZOOM_IN, MapDocument::onZoomLarge)
 	EVT_TOOL(IDC_TOGGLEGRID, MapDocument::onToggleGrid)
+	EVT_TOOL(IDC_MODE_TILE, MapDocument::onTileMode)
+	EVT_TOOL(IDC_MODE_OBJ, MapDocument::onObjMode)
 END_EVENT_TABLE()
 
 MapDocument::MapDocument(IMainWindow *parent, Map2DPtr map, VC_TILESET tileset,
@@ -67,6 +69,23 @@ MapDocument::MapDocument(IMainWindow *parent, Map2DPtr map, VC_TILESET tileset,
 		wxNullBitmap, wxITEM_CHECK, _T("Show grid?"),
 		_T("Draw a grid to show where each tile is?"));
 
+	tb->AddSeparator();
+
+	tb->AddTool(IDC_MODE_TILE, wxEmptyString,
+		wxImage(::path.guiIcons + _T("mode-tile.png"), wxBITMAP_TYPE_PNG),
+		wxNullBitmap, wxITEM_RADIO, _T("Tile mode"),
+		_T("Edit the map as a grid of tiles"));
+
+	tb->AddTool(IDC_MODE_OBJ, wxEmptyString,
+		wxImage(::path.guiIcons + _T("mode-obj.png"), wxBITMAP_TYPE_PNG),
+		wxNullBitmap, wxITEM_RADIO, _T("Object mode"),
+		_T("Edit the map as collection of objects"));
+
+	// Object-mode is the default for the canvas
+	tb->ToggleTool(IDC_MODE_OBJ, true);
+
+	tb->Realize();
+
 	wxBoxSizer *s = new wxBoxSizer(wxVERTICAL);
 	s->Add(tb, 0, wxEXPAND);
 	s->Add(this->canvas, 1, wxEXPAND);
@@ -94,6 +113,18 @@ void MapDocument::onZoomLarge(wxCommandEvent& ev)
 void MapDocument::onToggleGrid(wxCommandEvent& ev)
 {
 	this->canvas->showGrid(ev.IsChecked());
+	return;
+}
+
+void MapDocument::onTileMode(wxCommandEvent& ev)
+{
+	this->canvas->setTileMode();
+	return;
+}
+
+void MapDocument::onObjMode(wxCommandEvent& ev)
+{
+	this->canvas->setObjMode();
 	return;
 }
 
