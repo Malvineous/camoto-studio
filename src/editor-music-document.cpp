@@ -232,6 +232,12 @@ MusicDocument::~MusicDocument()
 	this->audio->releaseOPL(this->opl);
 }
 
+void MusicDocument::save()
+	throw (std::ios::failure)
+{
+	throw std::ios::failure("Saving has not been implemented yet!");
+}
+
 void MusicDocument::onSeekPrev(wxCommandEvent& ev)
 {
 	// TODO: rewind song

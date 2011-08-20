@@ -54,6 +54,10 @@ class IDocument: public wxPanel
 		const wxString& getTypeMajor() const
 			throw ();
 
+		/// Save changes to the document.
+		virtual void save()
+			throw (std::ios::failure) = 0;
+
 	protected:
 		IMainWindow *frame;
 		wxString typeMajor;
@@ -88,6 +92,7 @@ struct OpenedSuppItem
 {
 	wxString typeMinor;
 	camoto::iostream_sptr stream;
+	camoto::FN_TRUNCATE fnTrunc;
 };
 
 /// Map between string and input stream, used for supp data.
@@ -127,8 +132,8 @@ class IEditor
 		 * @return IDocument interface to an editor instance.
 		 */
 		virtual IDocument *openObject(const wxString& typeMinor,
-			camoto::iostream_sptr data, const wxString& filename, SuppMap supp,
-			const Game *game) const
+			camoto::iostream_sptr data, camoto::FN_TRUNCATE fnTrunc,
+			const wxString& filename, SuppMap supp, const Game *game) const
 			throw () = 0;
 
 };

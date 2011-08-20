@@ -41,6 +41,9 @@ class MusicDocument: public IDocument
 
 		~MusicDocument();
 
+		virtual void save()
+			throw (std::ios::failure);
+
 		void onSeekPrev(wxCommandEvent& ev);
 		void onPlay(wxCommandEvent& ev);
 		void onPause(wxCommandEvent& ev);

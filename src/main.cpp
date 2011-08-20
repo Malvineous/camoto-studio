@@ -25,6 +25,8 @@
 #include <fstream>
 #include <map>
 
+#include <camoto/util.hpp>
+
 #include "main.hpp"
 #include "project.hpp"
 #include "gamelist.hpp"
@@ -36,20 +38,6 @@
 #include "editor-map.hpp"
 #include "editor-music.hpp"
 #include "editor-tileset.hpp"
-
-#ifdef __WIN32
-#include <windows.h>
-int truncate(const char *path, off_t length)
-{
-	HANDLE f = CreateFile(path, GENERIC_WRITE, 0, NULL, OPEN_EXISTING,
-		FILE_ATTRIBUTE_NORMAL, NULL);
-	SetFilePointer(f, length, NULL, FILE_BEGIN);
-	BOOL b = SetEndOfFile(f);
-	CloseHandle(f);
-	return b ? -1 : 0;
-}
-
-#endif
 
 #include <wx/wx.h>
 #include <wx/cmdline.h>
@@ -205,14 +193,12 @@ class CamotoFrame: public IMainWindow
 		/// Event handler for creating a new project.
 		void onNewProject(wxCommandEvent& ev)
 		{
-			//getAllGames(this->gameDataPath);
 			if (this->project) {
 				if (!this->confirmSave(_T("Close current project"))) return;
 			}
 			NewProjectDialog newProj(this);
 			if (newProj.ShowModal() == wxID_OK) {
 				// The project has been created successfully, so open it.
-				if (this->project) this->closeProject();
 				this->openProject(newProj.getProjectPath());
 			}
 			return;
@@ -256,6 +242,7 @@ class CamotoFrame: public IMainWindow
 			if (!this->project) return;
 			if (!this->confirmSave(_T("Close project"))) return;
 			this->closeProject();
+			return;
 		}
 
 		/// Reset the perspective in case some panels have become inaccessible.
@@ -316,17 +303,19 @@ class CamotoFrame: public IMainWindow
 			}
 
 			camoto::iostream_sptr stream;
+			camoto::FN_TRUNCATE fnTrunc;
 			SuppMap supp;
-			if (!this->openObject(data->id, &stream, &supp)) return;
+			if (!this->openObject(data->id, &stream, &fnTrunc, &supp)) return;
 
 			IDocument *doc = itEditor->second->openObject(o.typeMinor, stream,
-				o.filename, supp, this->game);
+				fnTrunc, o.filename, supp, this->game);
 			this->notebook->AddPage(doc, this->game->objects[data->id].friendlyName,
 				true, wxNullBitmap);
 			return;
 		}
 
-		bool openObject(const wxString& id, camoto::iostream_sptr *stream, SuppMap *supp)
+		bool openObject(const wxString& id, camoto::iostream_sptr *stream,
+			camoto::FN_TRUNCATE *fnTrunc, SuppMap *supp)
 			throw ()
 		{
 			GameObject &o = this->game->objects[id];
@@ -356,12 +345,13 @@ class CamotoFrame: public IMainWindow
 				dlg.ShowModal();
 				return false;
 			}
+			*fnTrunc = boost::bind<void>(camoto::truncateFromString, std::string(fn.GetFullPath().fn_str()), _1);
 
 			// Load any supplementary files
 			for (std::map<wxString, wxString>::iterator i = o.supp.begin(); i != o.supp.end(); i++) {
 				OpenedSuppItem& si = (*supp)[i->first];
 				si.typeMinor = this->game->objects[i->second].typeMinor;
-				if (!this->openObject(i->second, &si.stream, supp)) {
+				if (!this->openObject(i->second, &si.stream, &si.fnTrunc, supp)) {
 					return false;
 				}
 			}
@@ -382,6 +372,9 @@ class CamotoFrame: public IMainWindow
 		 *   Full path of 'project.camoto' including filename.
 		 *
 		 * @pre path must be a valid (existing) file.
+		 *
+		 * @note This function does not prompt if there is an open project with
+		 *   unsaved changes, it simply discards any unsaved data.
 		 */
 		void openProject(const wxString& path)
 			throw ()
@@ -391,10 +384,7 @@ class CamotoFrame: public IMainWindow
 
 			try {
 				Project *newProj = new Project(path);
-				if (this->project) {
-					// Close open project
-					if (!this->closeProject()) return;
-				}
+				if (this->project) this->closeProject();
 				this->project = newProj;
 			} catch (EBase& e) {
 				wxString msg = _T("Unable to open project: ");
@@ -509,7 +499,20 @@ class CamotoFrame: public IMainWindow
 		{
 			assert(this->project);
 
-			// TODO: Save all open documents
+			// Save all open documents
+			for (int i = this->notebook->GetPageCount() - 1; i >= 0; i--) {
+				IDocument *doc = static_cast<IDocument *>(this->notebook->GetPage(i));
+				try {
+					doc->save();
+				} catch (const std::ios::failure& e) {
+					this->notebook->SetSelection(i); // focus the cause of the error
+					wxString msg = _T("Unable to save document: ");
+					msg.Append(wxString(e.what(), wxConvUTF8));
+					wxMessageDialog dlg(this, msg, _T("Save failed"), wxOK | wxICON_ERROR);
+					dlg.ShowModal();
+					return false;
+				}
+			}
 
 			// Update the current perspective
 			if (!this->project->config.Write(_T("camoto/perspective"),
@@ -558,16 +561,20 @@ class CamotoFrame: public IMainWindow
 		/**
 		 * @pre A project must be open.
 		 *
-		 * @return true if the project was closed, false if not (e.g. unsaved
-		 *   changes in a document and the user opted to cancel.)
+		 * @note This function does not attempt to save the project, or warn if
+		 *   unsaved changes will be lost.
 		 */
-		bool closeProject()
+		void closeProject()
 			throw ()
 		{
 			assert(this->project);
 			assert(this->game);
 
 			// TODO: Close all open docs and return false if needed
+			this->notebook->SetSelection(0); // minimise page change events
+			for (int i = this->notebook->GetPageCount() - 1; i >= 0; i--) {
+				this->notebook->DeletePage(i);
+			}
 
 			// Release the project.
 			delete this->project;
@@ -577,7 +584,7 @@ class CamotoFrame: public IMainWindow
 			this->game = NULL;
 
 			this->setControlStates();
-			return true;
+			return;
 		}
 
 		void updateToolPanes(IDocument *doc)

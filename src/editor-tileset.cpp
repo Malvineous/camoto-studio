@@ -215,6 +215,13 @@ class TilesetDocument: public IDocument
 			this->SetSizer(s);
 		}
 
+		virtual void save()
+			throw (std::ios::failure)
+		{
+			throw std::ios::failure("Saving has not been implemented yet!");
+		}
+
+
 	protected:
 		TilesetCanvas *canvas;
 		TilesetPtr tileset;
@@ -238,8 +245,8 @@ std::vector<IToolPanel *> TilesetEditor::createToolPanes() const
 }
 
 IDocument *TilesetEditor::openObject(const wxString& typeMinor,
-	camoto::iostream_sptr data, const wxString& filename, SuppMap supp,
-	const Game *game) const
+	iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
+	SuppMap supp, const Game *game) const
 	throw ()
 {
 	ManagerPtr pManager = getManager();

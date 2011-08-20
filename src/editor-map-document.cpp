@@ -33,13 +33,25 @@ BEGIN_EVENT_TABLE(MapDocument, IDocument)
 	EVT_TOOL(IDC_MODE_OBJ, MapDocument::onObjMode)
 END_EVENT_TABLE()
 
-MapDocument::MapDocument(IMainWindow *parent, Map2DPtr map, VC_TILESET tileset,
-	const MapObjectVector *mapObjectVector)
-	throw () :
+MapDocument::MapDocument(IMainWindow *parent, MapTypePtr mapType,
+	SuppData suppData, iostream_sptr mapFile, FN_TRUNCATE fnTrunc,
+	VC_TILESET tileset, const MapObjectVector *mapObjectVector)
+	throw (std::ios::failure) :
 		IDocument(parent, _T("map")),
-		map(map),
+		mapType(mapType),
+		suppData(suppData),
+		mapFile(mapFile),
+		fnTrunc(fnTrunc),
 		tileset(tileset)
 {
+	MapPtr genMap = mapType->open(mapFile, suppData);
+	assert(genMap);
+
+	this->map = boost::dynamic_pointer_cast<Map2D>(genMap);
+	if (!this->map) {
+		throw std::ios::failure("Map is not a 2D grid-based map!");
+	}
+
 	int attribList[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 0, 0};
 	this->canvas = new MapCanvas(this, map, tileset, attribList, mapObjectVector);
 
@@ -90,6 +102,16 @@ MapDocument::MapDocument(IMainWindow *parent, Map2DPtr map, VC_TILESET tileset,
 	s->Add(tb, 0, wxEXPAND);
 	s->Add(this->canvas, 1, wxEXPAND);
 	this->SetSizer(s);
+}
+
+void MapDocument::save()
+	throw (std::ios::failure)
+{
+	this->mapFile->seekp(0, std::ios::beg);
+	this->fnTrunc(0);
+	this->mapType->write(this->map, this->mapFile, this->suppData);
+	this->mapFile->flush();
+	return;
 }
 
 void MapDocument::onZoomSmall(wxCommandEvent& ev)
