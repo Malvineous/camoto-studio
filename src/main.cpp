@@ -366,6 +366,31 @@ class CamotoFrame: public IMainWindow
 			return;
 		}
 
+		/// Event handler for tab closing
+		void onDocTabClose(wxAuiNotebookEvent& event)
+		{
+			wxMessageDialog dlg(this, _T("Save changes?"),
+				_T("Close document"), wxYES_NO | wxCANCEL | wxYES_DEFAULT | wxICON_QUESTION);
+			int r = dlg.ShowModal();
+			if (r == wxID_YES) {
+				IDocument *doc = (IDocument *)this->notebook->GetPage(event.GetSelection());
+				try {
+					doc->save();
+				} catch (const std::ios::failure& e) {
+					wxString msg = _T("Unable to save document: ");
+					msg.Append(wxString(e.what(), wxConvUTF8));
+					wxMessageDialog dlg(this, msg, _T("Save failed"), wxOK | wxICON_ERROR);
+					dlg.ShowModal();
+					event.Veto();
+				}
+			} else if (r == wxID_NO) {
+				// do nothing
+			} else { // cancel
+				event.Veto();
+			}
+			return;
+		}
+
 		/// Open a new project, replacing the current project.
 		/**
 		 * @param path
@@ -666,6 +691,7 @@ BEGIN_EVENT_TABLE(CamotoFrame, wxFrame)
 	EVT_CLOSE(CamotoFrame::onClose)
 
 	EVT_AUINOTEBOOK_PAGE_CHANGED(IDC_NOTEBOOK, CamotoFrame::onDocTabChanged)
+	EVT_AUINOTEBOOK_PAGE_CLOSE(IDC_NOTEBOOK, CamotoFrame::onDocTabClose)
 END_EVENT_TABLE()
 
 class CamotoApp: public wxApp {
