@@ -501,6 +501,7 @@ void MapCanvas::redraw()
 					}
 				}
 
+				// Now draw the tile at this map location
 				glDisable(GL_BLEND);
 				glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 				if (
@@ -511,7 +512,7 @@ void MapCanvas::redraw()
 					((*c)->y < this->selection.y + this->selection.height)
 				) {
 					// This tile is contained within the original selection, i.e. the area
-					// that will be removed if the delete key is pressed.
+					// that will be removed if the delete key is pressed, so colour it.
 					int relX = (*c)->x - this->selection.x;
 					int relY = (*c)->y - this->selection.y;
 					if (this->selection.tiles[relY * this->selection.width + relX] >= 0) {
@@ -533,6 +534,10 @@ void MapCanvas::redraw()
 				glVertex2i(tileX + tileWidth - this->offX, tileY - this->offY);
 				glEnd();
 			}
+
+			// Turn off any remaining red selection colour
+			glDisable(GL_BLEND);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
 			// If space was left for the selection, draw it now
 			if (drawSelection) {
@@ -717,6 +722,25 @@ void MapCanvas::getLayerTileSize(Map2D::LayerPtr layer, int *tileWidth, int *til
 	return;
 }
 
+void MapCanvas::getLayerSize(Map2D::LayerPtr layer, int *width, int *height)
+	throw ()
+{
+	if (layer->getCaps() & Map2D::Layer::HasOwnSize) {
+		layer->getLayerSize(width, height);
+	} else {
+		// Use global tile size
+		if (this->map->getCaps() & Map2D::HasGlobalSize) {
+			this->map->getMapSize(width, height);
+		} else {
+			std::cout << "[editor-map] BUG: Layer uses map's size, but "
+				"map doesn't have a global size!\n";
+			*width = *height = 5; // use some really weird value :-)
+			return;
+		}
+	}
+	return;
+}
+
 bool MapCanvas::focusObject(ObjectVector::iterator start)
 {
 	bool needRedraw = false;
@@ -850,6 +874,60 @@ bool MapCanvas::focusObject(ObjectVector::iterator start)
 	return needRedraw;
 }
 
+void MapCanvas::paintSelection(int x, int y)
+	throw ()
+{
+	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
+
+	int tileWidth, tileHeight;
+	this->getLayerTileSize(layer, &tileWidth, &tileHeight);
+
+	int layerWidth, layerHeight;
+	this->getLayerSize(layer, &layerWidth, &layerHeight);
+
+	int oX = (x / this->zoomFactor + this->offX) / tileWidth - this->selection.width / 2;
+	int oY = (y / this->zoomFactor + this->offY) / tileHeight - this->selection.height / 2;
+
+	Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
+	bool *painted = new bool[this->selection.width * this->selection.height];
+	for (int i = 0; i < this->selection.width * this->selection.height; i++) painted[i] = false;
+	// Overwrite any existing tiles
+	for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
+		if (
+			((signed)(*c)->x >= oX) &&
+			((signed)(*c)->x < oX + this->selection.width) &&
+			((signed)(*c)->y >= oY) &&
+			((signed)(*c)->y < oY + this->selection.height)
+		) {
+			int selIndex = ((*c)->y - oY) * this->selection.width + ((*c)->x - oX);
+			assert(selIndex < this->selection.width * this->selection.height);
+			if (this->selection.tiles[selIndex] < 0) continue; // don't paint empty tiles
+			(*c)->code = this->selection.tiles[selIndex];
+			painted[selIndex] = true;
+		}
+	}
+	// Add any new tiles that didn't already exist
+	for (int i = 0; i < this->selection.width * this->selection.height; i++) {
+		if (!painted[i]) {
+			if (this->selection.tiles[i] < 0) continue; // don't paint empty tiles
+			Map2D::Layer::ItemPtr c(new Map2D::Layer::Item());
+			c->x = oX + (i % this->selection.width);
+			c->y = oY + (i / this->selection.width);
+
+			// Because c->x and c->y are unsigned, these conditions also match when
+			// the coords are < 0, effectively ignoring tiles attempted to be placed
+			// outside the bounds of the layer.
+			if (c->x >= layerWidth) continue;
+			if (c->y >= layerHeight) continue;
+
+			c->code = this->selection.tiles[i];
+			content->push_back(c);
+		}
+	}
+	delete[] painted;
+	return;
+}
+
 void MapCanvas::onMouseMove(wxMouseEvent& ev)
 {
 	this->pointerX = ev.m_x;
@@ -901,10 +979,7 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 		if (this->actionFromX >= 0) {
 			switch (this->editingMode) {
 				case TileMode: {
-					int mouseTileX = ev.m_x / this->zoomFactor;
-					int mouseTileY = ev.m_y / this->zoomFactor;
-					// TODO: break if tile coords are out of range
-
+					this->paintSelection(ev.m_x, ev.m_y);
 					needRedraw = true;
 					break;
 				}
@@ -1013,13 +1088,31 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 
 void MapCanvas::onMouseDownLeft(wxMouseEvent& ev)
 {
-	if (this->resizeX || this->resizeY) {
-		// Mouse was over focus border, start a resize
-		this->actionFromX = ev.m_x;
-		this->actionFromY = ev.m_y;
-		this->CaptureMouse();
-	} else {
-		this->actionFromX = -1; // no action
+	switch (this->editingMode) {
+
+		case TileMode: {
+			// Paint the current selection, if any
+			if (
+				(this->activeLayer >= 0) &&  // if this is the active layer
+				(this->selection.tiles) &&   // and there are selected tiles
+				(this->selectFromX < 0)      // and we're not selecting new tiles
+			) {
+				this->actionFromX = ev.m_x;
+				this->actionFromY = ev.m_y;
+				this->CaptureMouse();
+				this->paintSelection(ev.m_x, ev.m_y);
+			}
+			break;
+		}
+
+		case ObjectMode:
+			if (this->resizeX || this->resizeY) {
+				// Mouse was over focus border, start a resize
+				this->actionFromX = ev.m_x;
+				this->actionFromY = ev.m_y;
+				this->CaptureMouse();
+			}
+			break;
 	}
 	ev.Skip();
 	return;
@@ -1234,6 +1327,15 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 						needRedraw = true;
 					} else c++;
 				}
+			}
+			break;
+
+		case WXK_ESCAPE:
+			// Clear the active selection
+			if (this->selection.tiles) {
+				delete[] this->selection.tiles;
+				this->selection.tiles = NULL;
+				needRedraw = true;
 			}
 			break;
 
