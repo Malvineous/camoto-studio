@@ -488,10 +488,10 @@ void MapCanvas::redraw()
 				// the pasted selection overwrites tiles which were previously blended.
 				if (
 					(drawSelection) &&
-					((*c)->x >= oX) &&
-					((*c)->x < oX + this->selection.width) &&
-					((*c)->y >= oY) &&
-					((*c)->y < oY + this->selection.height)
+					((signed)(*c)->x >= oX) &&
+					((signed)(*c)->x < oX + this->selection.width) &&
+					((signed)(*c)->y >= oY) &&
+					((signed)(*c)->y < oY + this->selection.height)
 				) {
 					// This item is contained within the selection rendering area, so
 					// don't draw the map tile - unless the selection has no tile for
