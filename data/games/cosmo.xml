@@ -20,64 +20,105 @@
 	  -->
 	<display>
 		<group name="Levels">
-			<item ref="idl1" />
-			<item ref="idl2" />
-			<item ref="idl3" />
-			<item ref="idl4" />
-			<item ref="idl5" />
-			<item ref="idl6" />
-			<item ref="idl7" />
-			<item ref="idl8" />
-			<item ref="idl9" />
-			<item ref="idl10" />
-			<item ref="idl11" />
+			<item ref="lev-101" />
+			<item ref="lev-102" />
+			<item ref="lev-103" />
+			<item ref="lev-104" />
+			<item ref="lev-105" />
+			<item ref="lev-106" />
+			<item ref="lev-107" />
+			<item ref="lev-108" />
+			<item ref="lev-109" />
+			<item ref="lev-110" />
+			<item ref="lev-111" />
 		</group>
 		<group name="Graphics">
-			<item ref="idts" />
-			<item ref="idtm" />
-			<item ref="idta" />
+			<item ref="gfx-tiles1" />
+			<item ref="gfx-masked1" />
+			<item ref="gfx-actors1" />
+			<group name="Fullscreen images">
+				<item ref="img-pretitle" />
+				<item ref="img-bonus" />
+				<item ref="img-credit" />
+				<item ref="img-onemomnt" />
+			</group>
+			<group name="Backdrops">
+				<item ref="gfx-bdcliff" />
+				<item ref="gfx-bdclouds" />
+				<item ref="gfx-bdforest" />
+				<item ref="gfx-bdice2" />
+				<item ref="gfx-bdmountn" />
+				<item ref="gfx-bdnewsky" />
+				<item ref="gfx-bdrocktk" />
+				<item ref="gfx-bdspooky" />
+				<item ref="gfx-bdstar2" />
+				<item ref="gfx-bdstar3" />
+				<item ref="gfx-bdweird" />
+			</group>
 		</group>
 		<group name="Music">
-			<item ref="mboss" />
-			<item ref="mcaves" />
-			<item ref="mdadoda" />
-			<item ref="mdevo" />
-			<item ref="mdrums" />
-			<item ref="measy2" />
-			<item ref="mhappy" />
-			<item ref="mrunaway" />
-			<item ref="mteck4" />
-			<item ref="mzztop" />
+			<item ref="mus-boss" />
+			<item ref="mus-caves" />
+			<item ref="mus-dadoda" />
+			<item ref="mus-devo" />
+			<item ref="mus-drums" />
+			<item ref="mus-easy2" />
+			<item ref="mus-happy" />
+			<item ref="mus-runaway" />
+			<item ref="mus-teck4" />
+			<item ref="mus-zztop" />
 		</group>
 	</display>
 
 	<files>
-		<file id="idl1"  name="a1.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="idts" supp:sprites="idtm" supp:actors="idta">Level 1</file>
-		<file id="idl2"  name="a2.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="idts" supp:sprites="idtm" supp:actors="idta">Level 2</file>
-		<file id="idl3"  name="a3.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="idts" supp:sprites="idtm" supp:actors="idta">Level 3</file>
-		<file id="idl4"  name="a4.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="idts" supp:sprites="idtm" supp:actors="idta">Level 4</file>
-		<file id="idl5"  name="a5.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="idts" supp:sprites="idtm" supp:actors="idta">Level 5</file>
-		<file id="idl6"  name="a6.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="idts" supp:sprites="idtm" supp:actors="idta">Level 6</file>
-		<file id="idl7"  name="a7.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="idts" supp:sprites="idtm" supp:actors="idta">Level 7</file>
-		<file id="idl8"  name="a8.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="idts" supp:sprites="idtm" supp:actors="idta">Level 8</file>
-		<file id="idl9"  name="a9.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="idts" supp:sprites="idtm" supp:actors="idta">Level 9</file>
-		<file id="idl10" name="a10.mni" typeMajor="map" typeMinor="cosmo" supp:tiles="idts" supp:sprites="idtm" supp:actors="idta">Level 10</file>
-		<file id="idl11" name="a11.mni" typeMajor="map" typeMinor="cosmo" supp:tiles="idts" supp:sprites="idtm" supp:actors="idta">Level 11</file>
+		<archive name="cosmo1.vol" id="arch-vol1" typeMinor="vol-cosmo">
+			<file id="lev-101" name="a1.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="gfx-tiles1" supp:sprites="gfx-masked1" supp:actors="gfx-actors1">Level 1</file>
+			<file id="lev-102" name="a2.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="gfx-tiles1" supp:sprites="gfx-masked1" supp:actors="gfx-actors1">Level 2</file>
+			<file id="lev-103" name="a3.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="gfx-tiles1" supp:sprites="gfx-masked1" supp:actors="gfx-actors1">Level 3</file>
+			<file id="lev-104" name="a4.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="gfx-tiles1" supp:sprites="gfx-masked1" supp:actors="gfx-actors1">Level 4</file>
+			<file id="lev-105" name="a5.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="gfx-tiles1" supp:sprites="gfx-masked1" supp:actors="gfx-actors1">Level 5</file>
+			<file id="lev-106" name="a6.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="gfx-tiles1" supp:sprites="gfx-masked1" supp:actors="gfx-actors1">Level 6</file>
+			<file id="lev-107" name="a7.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="gfx-tiles1" supp:sprites="gfx-masked1" supp:actors="gfx-actors1">Level 7</file>
+			<file id="lev-108" name="a8.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="gfx-tiles1" supp:sprites="gfx-masked1" supp:actors="gfx-actors1">Level 8</file>
+			<file id="lev-109" name="a9.mni"  typeMajor="map" typeMinor="cosmo" supp:tiles="gfx-tiles1" supp:sprites="gfx-masked1" supp:actors="gfx-actors1">Level 9</file>
+			<file id="lev-110" name="a10.mni" typeMajor="map" typeMinor="cosmo" supp:tiles="gfx-tiles1" supp:sprites="gfx-masked1" supp:actors="gfx-actors1">Level 10</file>
+			<file id="lev-111" name="a11.mni" typeMajor="map" typeMinor="cosmo" supp:tiles="gfx-tiles1" supp:sprites="gfx-masked1" supp:actors="gfx-actors1">Level 11</file>
 
-		<file id="idts" name="tiles.mni" typeMajor="tileset" typeMinor="cosmo">Solid tileset</file>
-		<file id="idtm" name="masktile.mni" typeMajor="tileset" typeMinor="cosmo-masked">Masked tileset</file>
-		<file id="idta" name="actors.mni" typeMajor="tileset" typeMinor="cosmo-masked">Raw actor tiles</file>
+			<file id="mus-boss"    name="mboss.mni"    typeMajor="music" typeMinor="imf-idsoftware-type0">Boss</file>
+			<file id="mus-caves"   name="mcaves.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0">Caves</file>
+			<file id="mus-dadoda"  name="mdadoda.mni"  typeMajor="music" typeMinor="imf-idsoftware-type0">Dadoda</file>
+			<file id="mus-devo"    name="mdevo.mni"    typeMajor="music" typeMinor="imf-idsoftware-type0">Devo</file>
+			<file id="mus-drums"   name="mdrums.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0">Drums</file>
+			<file id="mus-easy2"   name="measy2.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0">Easy 2</file>
+			<file id="mus-happy"   name="mhappy.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0">Happy</file>
+			<file id="mus-runaway" name="mrunaway.mni" typeMajor="music" typeMinor="imf-idsoftware-type0">Run Away</file>
+			<file id="mus-teck4"   name="mteck4.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0">Teck4</file>
+			<file id="mus-zztop"   name="mzztop.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0">ZZ Top</file>
 
-		<file id="mboss"    name="mboss.mni"    typeMajor="music" typeMinor="imf-idsoftware-type0">Boss</file>
-		<file id="mcaves"   name="mcaves.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0">Caves</file>
-		<file id="mdadoda"  name="mdadoda.mni"  typeMajor="music" typeMinor="imf-idsoftware-type0">Dadoda</file>
-		<file id="mdevo"    name="mdevo.mni"    typeMajor="music" typeMinor="imf-idsoftware-type0">Devo</file>
-		<file id="mdrums"   name="mdrums.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0">Drums</file>
-		<file id="measy2"   name="measy2.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0">Easy 2</file>
-		<file id="mhappy"   name="mhappy.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0">Happy</file>
-		<file id="mrunaway" name="mrunaway.mni" typeMajor="music" typeMinor="imf-idsoftware-type0">Run Away</file>
-		<file id="mteck4"   name="mteck4.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0">Teck4</file>
-		<file id="mzztop"   name="mzztop.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0">ZZ Top</file>
+			<file id="gfx-bdcliff"  name="bdcliff.mni"  typeMajor="tileset" typeMinor="cosmo">Cliff</file>
+			<file id="gfx-bdclouds" name="bdclouds.mni" typeMajor="tileset" typeMinor="cosmo">Clouds</file>
+			<file id="gfx-bdforest" name="bdforest.mni" typeMajor="tileset" typeMinor="cosmo">Forest</file>
+			<file id="gfx-bdice2"   name="bdice2.mni"   typeMajor="tileset" typeMinor="cosmo">Ice 2</file>
+			<file id="gfx-bdmountn" name="bdmountn.mni" typeMajor="tileset" typeMinor="cosmo">Mountain</file>
+			<file id="gfx-bdnewsky" name="bdnewsky.mni" typeMajor="tileset" typeMinor="cosmo">New sky</file>
+			<file id="gfx-bdrocktk" name="bdrocktk.mni" typeMajor="tileset" typeMinor="cosmo">Rocktk</file>
+			<file id="gfx-bdspooky" name="bdspooky.mni" typeMajor="tileset" typeMinor="cosmo">Spooky</file>
+			<file id="gfx-bdweird"  name="bdwierd.mni"  typeMajor="tileset" typeMinor="cosmo">Weird</file>
+		</archive>
+
+		<archive name="cosmo1.stn" id="arch-stn1" typeMinor="vol-cosmo">
+			<file id="gfx-tiles1"  name="tiles.mni"    typeMajor="tileset" typeMinor="cosmo">Solid tileset</file>
+			<file id="gfx-masked1" name="masktile.mni" typeMajor="tileset" typeMinor="cosmo-masked">Masked tileset</file>
+			<file id="gfx-actors1" name="actors.mni"   typeMajor="tileset" typeMinor="cosmo-masked">Raw actor tiles</file>
+
+			<file id="img-pretitle" name="pretitle.mni" typeMajor="image" typeMinor="ega-raw">Pre-title</file>
+			<file id="img-bonus"    name="bonus.mni"    typeMajor="image" typeMinor="ega-raw">Bonus</file>
+			<file id="img-credit"   name="credit.mni"   typeMajor="image" typeMinor="ega-raw">Credits</file>
+			<file id="img-onemomnt" name="onemomnt.mni" typeMajor="image" typeMinor="ega-raw">One moment</file>
+
+			<file id="gfx-bdstar2"  name="bdstar2.mni"  typeMajor="tileset" typeMinor="cosmo">Star 2</file>
+			<file id="gfx-bdstar3"  name="bdstar3.mni"  typeMajor="tileset" typeMinor="cosmo">Star 3</file>
+		</archive>
 
 	</files>
 
