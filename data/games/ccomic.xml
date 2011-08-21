@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Captain Comic description file for Camoto Studio
+	Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Captain_Comic
+  -->
+<game title="Captain Comic" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Michael Denio</developer>
+		<publisher>Michael Denio</publisher>
+		<reverser>Malvineous</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+		<group name="Levels">
+			<item ref="level-base0" />
+			<item ref="level-base1" />
+			<item ref="level-base2" />
+
+			<item ref="level-castle0" />
+			<item ref="level-castle1" />
+			<item ref="level-castle2" />
+
+			<item ref="level-cave0" />
+			<item ref="level-cave1" />
+			<item ref="level-cave2" />
+
+			<item ref="level-comp0" />
+			<item ref="level-comp1" />
+			<item ref="level-comp2" />
+
+			<item ref="level-forest0" />
+			<item ref="level-forest1" />
+			<item ref="level-forest2" />
+
+			<item ref="level-lake0" />
+			<item ref="level-lake1" />
+			<item ref="level-lake2" />
+
+			<item ref="level-shed0" />
+			<item ref="level-shed1" />
+			<item ref="level-shed2" />
+
+			<item ref="level-space0" />
+			<item ref="level-space1" />
+			<item ref="level-space2" />
+		</group>
+		<group name="Graphics">
+			<item ref="tiles-base" />
+			<item ref="tiles-castle" />
+			<item ref="tiles-cave" />
+			<item ref="tiles-comp" />
+			<item ref="tiles-forest" />
+			<item ref="tiles-lake" />
+			<item ref="tiles-shed" />
+			<item ref="tiles-space" />
+		</group>
+	</display>
+
+	<files>
+		<file id="level-base0"   name="base0.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-base">Base 1</file>
+		<file id="level-base1"   name="base1.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-base">Base 2</file>
+		<file id="level-base2"   name="base2.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-base">Base 3</file>
+
+		<file id="level-castle0" name="castle0.pt" typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-castle">Castle 1</file>
+		<file id="level-castle1" name="castle1.pt" typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-castle">Castle 2</file>
+		<file id="level-castle2" name="castle2.pt" typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-castle">Castle 3</file>
+
+		<file id="level-cave0"   name="cave0.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-cave">Cave 1</file>
+		<file id="level-cave1"   name="cave1.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-cave">Cave 2</file>
+		<file id="level-cave2"   name="cave2.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-cave">Cave 3</file>
+
+		<file id="level-comp0"   name="comp0.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-comp">Comp 1</file>
+		<file id="level-comp1"   name="comp1.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-comp">Comp 2</file>
+		<file id="level-comp2"   name="comp2.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-comp">Comp 3</file>
+
+		<file id="level-forest0" name="forest0.pt" typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-forest">Forest 1</file>
+		<file id="level-forest1" name="forest1.pt" typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-forest">Forest 2</file>
+		<file id="level-forest2" name="forest2.pt" typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-forest">Forest 3</file>
+
+		<file id="level-lake0"   name="lake0.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-lake">Lake 1</file>
+		<file id="level-lake1"   name="lake1.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-lake">Lake 2</file>
+		<file id="level-lake2"   name="lake2.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-lake">Lake 3</file>
+
+		<file id="level-shed0"   name="shed0.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-shed">Shed 1</file>
+		<file id="level-shed1"   name="shed1.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-shed">Shed 2</file>
+		<file id="level-shed2"   name="shed2.pt"   typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-shed">Shed 3</file>
+
+		<file id="level-space0"  name="space0.pt"  typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-space">Space 1</file>
+		<file id="level-space1"  name="space1.pt"  typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-space">Space 2</file>
+		<file id="level-space2"  name="space2.pt"  typeMajor="map" typeMinor="ccomic" supp:tiles="tiles-space">Space 3</file>
+
+		<file id="tiles-base"    name="base.tt2"   typeMajor="tileset" typeMinor="ccomic">Base tiles</file>
+		<file id="tiles-castle"  name="castle.tt2" typeMajor="tileset" typeMinor="ccomic">Castle tiles</file>
+		<file id="tiles-cave"    name="cave.tt2"   typeMajor="tileset" typeMinor="ccomic">Cave tiles</file>
+		<file id="tiles-comp"    name="comp.tt2"   typeMajor="tileset" typeMinor="ccomic">Comp tiles</file>
+		<file id="tiles-forest"  name="forest.tt2" typeMajor="tileset" typeMinor="ccomic">Forest tiles</file>
+		<file id="tiles-lake"    name="lake.tt2"   typeMajor="tileset" typeMinor="ccomic">Lake tiles</file>
+		<file id="tiles-shed"    name="shed.tt2"   typeMajor="tileset" typeMinor="ccomic">Shed tiles</file>
+		<file id="tiles-space"   name="space.tt2"  typeMajor="tileset" typeMinor="ccomic">Space tiles</file>
+	</files>
+
+</game>
