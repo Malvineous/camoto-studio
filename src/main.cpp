@@ -318,7 +318,18 @@ class CamotoFrame: public IMainWindow
 			camoto::FN_TRUNCATE *fnTrunc, SuppMap *supp)
 			throw ()
 		{
-			GameObject &o = this->game->objects[id];
+			// Make sure the ID is valid
+			GameObjectMap::iterator io = this->game->objects.find(id);
+			if (io == this->game->objects.end()) {
+				wxString msg = wxString::Format(_T("Cannot open this item.  It refers "
+					"to an entry in the game description XML file with an ID of \"%s\", "
+					"but there is no item with this ID."),
+					id.c_str());
+				wxMessageDialog dlg(this, msg, _T("Open item"), wxOK | wxICON_ERROR);
+				dlg.ShowModal();
+				return false;
+			}
+			GameObject &o = io->second;
 
 			// Open the file containing the item's data
 			wxFileName fn;
@@ -350,10 +361,13 @@ class CamotoFrame: public IMainWindow
 			// Load any supplementary files
 			for (std::map<wxString, wxString>::iterator i = o.supp.begin(); i != o.supp.end(); i++) {
 				OpenedSuppItem& si = (*supp)[i->first];
-				si.typeMinor = this->game->objects[i->second].typeMinor;
 				if (!this->openObject(i->second, &si.stream, &si.fnTrunc, supp)) {
 					return false;
 				}
+				// Have to put this after openObject() otherwise if i->second is an
+				// invalid ID an empty entry will be created, making it look like a
+				// valid ID when openObject() checks it.
+				si.typeMinor = this->game->objects[i->second].typeMinor;
 			}
 			return true;
 		}

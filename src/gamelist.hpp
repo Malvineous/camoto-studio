@@ -47,6 +47,9 @@ struct GameObject
 	std::map<wxString, wxString> supp;  ///< SuppItem -> ID mapping
 };
 
+/// Map between id and game object
+typedef std::map<wxString, GameObject> GameObjectMap;
+
 /// Game details for the UI
 struct GameInfo
 {
@@ -117,7 +120,7 @@ typedef std::vector<MapObject> MapObjectVector;
 /// All data about a game that can be edited.
 struct Game: public GameInfo
 {
-	std::map<wxString, GameObject> objects;
+	GameObjectMap objects;
 	tree<wxString> treeItems;
 	MapObjectVector mapObjects;
 };
