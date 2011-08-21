@@ -114,6 +114,69 @@ void populateDisplay(xmlNode *n, tree<wxString>& t)
 	return;
 }
 
+void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
+{
+	for (xmlNode *j = i->children; j; j = j->next) {
+		if (xmlStrEqual(j->name, _X("file")) || xmlStrEqual(j->name, _X("archive"))) {
+			GameObject o;
+			xmlChar *val = xmlNodeGetContent(j);
+			o.friendlyName = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+			o.idParent = idParent;
+			xmlFree(val);
+			for (xmlAttr *a = j->properties; a; a = a->next) {
+				if ((a->ns) && (xmlStrcmp(a->ns->href, _X(XMLNS_SUPP)) == 0)) {
+					wxString suppName = wxString::FromUTF8((const char *)a->name, xmlStrlen(a->name));
+					xmlChar *val = xmlNodeGetContent(a->children);
+					o.supp[suppName] = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					xmlFree(val);
+				} else if (xmlStrcmp(a->name, _X("id")) == 0) {
+					xmlChar *val = xmlNodeGetContent(a->children);
+					o.id = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					xmlFree(val);
+				} else if (xmlStrcmp(a->name, _X("typeMajor")) == 0) {
+					xmlChar *val = xmlNodeGetContent(a->children);
+					o.typeMajor = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					xmlFree(val);
+				} else if (xmlStrcmp(a->name, _X("typeMinor")) == 0) {
+					xmlChar *val = xmlNodeGetContent(a->children);
+					o.typeMinor = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					xmlFree(val);
+				} else if (xmlStrcmp(a->name, _X("name")) == 0) {
+					xmlChar *val = xmlNodeGetContent(a->children);
+					o.filename = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					xmlFree(val);
+				} else if (xmlStrcmp(a->name, _X("title")) == 0) {
+					xmlChar *val = xmlNodeGetContent(a->children);
+					o.friendlyName = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					xmlFree(val);
+				}
+			}
+
+			if (xmlStrEqual(j->name, _X("archive"))) {
+				o.typeMajor = _T("archive");
+				o.friendlyName = o.filename;
+				processFilesChunk(g, j, o.id);
+			}
+
+			if (!o.id.IsEmpty()) {
+				if (o.typeMajor.IsEmpty() || o.typeMinor.IsEmpty() || o.filename.IsEmpty()) {
+					std::cout << "[gamelist] <file/> with id \"" << o.id.ToAscii() <<
+						"\" is missing attribute(s): ";
+					if (o.typeMajor.IsEmpty()) std::cout << "typeMajor ";
+					if (o.typeMinor.IsEmpty()) std::cout << "typeMinor ";
+					if (o.filename.IsEmpty()) std::cout << "filename ";
+					std::cout << "\n";
+				}
+				g->objects[o.id] = o;
+			} else {
+				std::cout << "[gamelist] Got a <file/> or <archive/> with no 'id' (" <<
+					o.friendlyName.ToAscii() << ")\n";
+			}
+		}
+	}
+	return;
+}
+
 Game *loadGameStructure(const wxString& id)
 	throw ()
 {
@@ -140,57 +203,7 @@ Game *loadGameStructure(const wxString& id)
 			populateDisplay(i, g->treeItems);
 		} else if (xmlStrcmp(i->name, _X("files")) == 0) {
 			// Process the <files/> chunk
-			for (xmlNode *j = i->children; j; j = j->next) {
-				if (xmlStrEqual(j->name, _X("file"))) {
-					GameObject o;
-					xmlChar *val = xmlNodeGetContent(j);
-					o.friendlyName = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-					xmlFree(val);
-					for (xmlAttr *a = j->properties; a; a = a->next) {
-						if ((a->ns) && (xmlStrcmp(a->ns->href, _X(XMLNS_SUPP)) == 0)) {
-							wxString suppName = wxString::FromUTF8((const char *)a->name, xmlStrlen(a->name));
-							xmlChar *val = xmlNodeGetContent(a->children);
-							o.supp[suppName] = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-							xmlFree(val);
-						} else if (xmlStrcmp(a->name, _X("id")) == 0) {
-							xmlChar *val = xmlNodeGetContent(a->children);
-							o.id = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-							xmlFree(val);
-						} else if (xmlStrcmp(a->name, _X("typeMajor")) == 0) {
-							xmlChar *val = xmlNodeGetContent(a->children);
-							o.typeMajor = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-							xmlFree(val);
-						} else if (xmlStrcmp(a->name, _X("typeMinor")) == 0) {
-							xmlChar *val = xmlNodeGetContent(a->children);
-							o.typeMinor = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-							xmlFree(val);
-						} else if (xmlStrcmp(a->name, _X("name")) == 0) {
-							xmlChar *val = xmlNodeGetContent(a->children);
-							o.filename = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-							xmlFree(val);
-						} else if (xmlStrcmp(a->name, _X("title")) == 0) {
-							xmlChar *val = xmlNodeGetContent(a->children);
-							o.friendlyName = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-							xmlFree(val);
-						}
-					}
-
-					if (!o.id.IsEmpty()) {
-						if (o.typeMajor.IsEmpty() || o.typeMinor.IsEmpty() || o.filename.IsEmpty()) {
-							std::cout << "[gamelist] <file/> with id \"" << o.id.ToAscii() <<
-								"\" is missing attribute(s): ";
-							if (o.typeMajor.IsEmpty()) std::cout << "typeMajor ";
-							if (o.typeMinor.IsEmpty()) std::cout << "typeMinor ";
-							if (o.filename.IsEmpty()) std::cout << "filename ";
-							std::cout << "\n";
-						}
-						g->objects[o.id] = o;
-					} else {
-						std::cout << "[gamelist] Got a <file/> with no 'id' (" <<
-							o.friendlyName.ToAscii() << ")\n";
-					}
-				}
-			}
+			processFilesChunk(g, i, wxString());
 		} else if (xmlStrcmp(i->name, _X("map")) == 0) {
 			// Process the <map/> chunk
 			for (xmlNode *j = i->children; j; j = j->next) {

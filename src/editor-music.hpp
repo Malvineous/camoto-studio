@@ -36,7 +36,7 @@ class MusicEditor: public IEditor
 		virtual IDocument *openObject(const wxString& typeMinor,
 			camoto::iostream_sptr data, camoto::FN_TRUNCATE fnTrunc,
 			const wxString& filename, SuppMap supp, const Game *game) const
-			throw ();
+			throw (EFailure);
 
 	protected:
 		IMainWindow *frame;

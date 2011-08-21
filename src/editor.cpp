@@ -20,6 +20,8 @@
 
 #include "editor.hpp"
 
+using namespace camoto;
+
 IDocument::IDocument(IMainWindow *parent, const wxString& typeMajor)
 	throw () :
 		wxPanel(parent),
@@ -38,4 +40,30 @@ IToolPanel::IToolPanel(IMainWindow *parent)
 	throw () :
 		wxPanel(parent)
 {
+}
+
+void suppMapToData(SuppMap& supp, SuppData &suppData)
+	throw ()
+{
+	SuppMap::iterator s;
+
+	s = supp.find(_T("dict"));
+	if (s != supp.end()) suppData[SuppItem::Dictionary].stream = s->second.stream;
+
+	s = supp.find(_T("fat"));
+	if (s != supp.end()) suppData[SuppItem::FAT].stream = s->second.stream;
+
+	s = supp.find(_T("pal"));
+	if (s != supp.end()) suppData[SuppItem::Palette].stream = s->second.stream;
+
+	s = supp.find(_T("instruments"));
+	if (s != supp.end()) suppData[SuppItem::Instruments].stream = s->second.stream;
+
+	s = supp.find(_T("layer1"));
+	if (s != supp.end()) suppData[SuppItem::Layer1].stream = s->second.stream;
+
+	s = supp.find(_T("layer2"));
+	if (s != supp.end()) suppData[SuppItem::Layer2].stream = s->second.stream;
+
+	return;
 }

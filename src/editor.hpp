@@ -25,9 +25,11 @@
 #include <vector>
 #include <wx/wx.h>
 #include <camoto/types.hpp>
+#include <camoto/suppitem.hpp>
 #include "mainwindow.hpp"
 #include "project.hpp"
 #include "gamelist.hpp"
+#include "efailure.hpp"
 
 /// Base class for a document editor.
 class IDocument: public wxPanel
@@ -98,6 +100,10 @@ struct OpenedSuppItem
 /// Map between string and input stream, used for supp data.
 typedef std::map<wxString, OpenedSuppItem> SuppMap;
 
+/// Convert a SuppMap structure into a SuppData one.
+void suppMapToData(SuppMap& supp, camoto::SuppData &suppData)
+	throw ();
+
 class IEditor
 {
 	public:
@@ -134,7 +140,7 @@ class IEditor
 		virtual IDocument *openObject(const wxString& typeMinor,
 			camoto::iostream_sptr data, camoto::FN_TRUNCATE fnTrunc,
 			const wxString& filename, SuppMap supp, const Game *game) const
-			throw () = 0;
+			throw (EFailure) = 0;
 
 };
 

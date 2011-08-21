@@ -22,6 +22,7 @@
 #include <camoto/gamegraphics.hpp>
 #include <wx/imaglist.h>
 #include <wx/artprov.h>
+#include "efailure.hpp"
 #include "editor-map.hpp"
 #include "editor-map-document.hpp"
 #include "editor-map-canvas.hpp"
@@ -31,7 +32,8 @@ using namespace camoto::gamemaps;
 using namespace camoto::gamegraphics;
 
 bool tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& suppMap,
-	const wxString& id, VC_TILESET *tilesetVector);
+	const wxString& id, VC_TILESET *tilesetVector)
+	throw (EFailure);
 
 // Must not overlap with normal layer IDs (0+)
 #define LAYER_ID_VIEWPORT -1
@@ -196,26 +198,21 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 	SuppMap supp, const Game *game) const
 	throw ()
 {
+	assert(fnTrunc);
+
 	camoto::gamemaps::ManagerPtr pManager = camoto::gamemaps::getManager();
 	MapTypePtr pMapType;
 	if (typeMinor.IsEmpty()) {
-		wxMessageDialog dlg(this->frame,
-			_T("No file type was specified for this item!"), _T("Open item"),
-			wxOK | wxICON_ERROR);
-		dlg.ShowModal();
-		return NULL;
+		throw EFailure(_T("No file type was specified for this item!"));
 	} else {
 		std::string strType("map-");
 		strType.append(typeMinor.ToUTF8());
 		MapTypePtr pTestType(pManager->getMapTypeByCode(strType));
 		if (!pTestType) {
 			wxString wxtype(strType.c_str(), wxConvUTF8);
-			wxString msg = wxString::Format(_T("Sorry, it is not possible to edit this "
+			throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
 				"map as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
-				typeMinor.c_str(), wxtype.c_str());
-			wxMessageDialog dlg(this->frame, msg, _T("Open item"), wxOK | wxICON_ERROR);
-			dlg.ShowModal();
-			return NULL;
+				typeMinor.c_str(), wxtype.c_str()));
 		}
 		pMapType = pTestType;
 	}
@@ -237,53 +234,42 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 
 	// Collect any supplemental files supplied
 	SuppData suppData;
-	SuppMap::iterator s;
-
-	s = supp.find(_T("dict"));
-	if (s != supp.end()) suppData[SuppItem::Dictionary].stream = s->second.stream;
-
-	s = supp.find(_T("fat"));
-	if (s != supp.end()) suppData[SuppItem::FAT].stream = s->second.stream;
-
-	s = supp.find(_T("pal"));
-	if (s != supp.end()) suppData[SuppItem::Palette].stream = s->second.stream;
-
-	s = supp.find(_T("layer1"));
-	if (s != supp.end()) suppData[SuppItem::Layer1].stream = s->second.stream;
-
-	s = supp.find(_T("layer2"));
-	if (s != supp.end()) suppData[SuppItem::Layer2].stream = s->second.stream;
+	suppMapToData(supp, suppData);
 
 	VC_TILESET tilesetVector;
-	if (!tryLoadTileset(this->frame, suppData, supp, _T("tiles"), &tilesetVector)) return NULL;
-	if (!tryLoadTileset(this->frame, suppData, supp, _T("tiles2"), &tilesetVector)) return NULL;
-	if (!tryLoadTileset(this->frame, suppData, supp, _T("tiles3"), &tilesetVector)) return NULL;
-	if (!tryLoadTileset(this->frame, suppData, supp, _T("sprites"), &tilesetVector)) return NULL;
+	try {
+		if (!tryLoadTileset(this->frame, suppData, supp, _T("tiles"), &tilesetVector)) return NULL;
+		if (!tryLoadTileset(this->frame, suppData, supp, _T("tiles2"), &tilesetVector)) return NULL;
+		if (!tryLoadTileset(this->frame, suppData, supp, _T("tiles3"), &tilesetVector)) return NULL;
+		if (!tryLoadTileset(this->frame, suppData, supp, _T("sprites"), &tilesetVector)) return NULL;
+	} catch (const EFailure& e) {
+		wxString msg = _T("Error opening the map tileset:\n\n");
+		msg += e.getMessage();
+		throw EFailure(msg);
+	}
 
 	if (tilesetVector.empty()) {
-		wxMessageDialog dlg(this->frame, _T("Map files require a tileset to be "
+		throw EFailure(_T("Map files require a tileset to be "
 			"specified in the game description .xml file, however none has been "
-			"given for this file."), _T("Open item"), wxOK | wxICON_ERROR);
-		dlg.ShowModal();
-		return NULL;
+			"given for this file."));
 	}
 
 	// Open the map file
 	try {
 		return new MapDocument(this->frame, pMapType, suppData, data, fnTrunc,
 			tilesetVector, &game->mapObjects);
-	} catch (std::ios::failure) {
-		// fall through to error message below
+	} catch (const std::ios::failure& e) {
+		throw EFailure(wxString::Format(_T("Library exception: %s"),
+			wxString(e.what(), wxConvUTF8).c_str()));
 	}
 
-	wxMessageDialog dlg(this->frame, _T("Sorry, this map is in a variant for "
-		"which no editor has been written yet!"), _T("Open item"),
-		wxOK | wxICON_ERROR);
-	dlg.ShowModal();
-	return NULL;
+	throw EFailure(_T("Sorry, this map is in a variant for which no editor has "
+		"been written yet!"));
 }
 
-bool tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& supp, const wxString& id, VC_TILESET *tilesetVector)
+bool tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& supp,
+	const wxString& id, VC_TILESET *tilesetVector)
+	throw (EFailure)
 {
 	SuppMap::iterator s;
 	s = supp.find(id);
@@ -296,24 +282,23 @@ bool tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& supp, const w
 	TilesetTypePtr ttp = gfxMgr->getTilesetTypeByCode(strGfxType);
 	if (!ttp) {
 		wxString wxtype(strGfxType.c_str(), wxConvUTF8);
-		wxString msg = wxString::Format(_T("Sorry, it is not possible to edit this "
+		throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
 			"map as the \"%s\" tileset format is unsupported.  (No handler for \"%s\")"),
-			s->second.typeMinor.c_str(), wxtype.c_str());
-		wxMessageDialog dlg(parent, msg, _T("Open item"), wxOK | wxICON_ERROR);
-		dlg.ShowModal();
-		return false;
+			s->second.typeMinor.c_str(), wxtype.c_str()));
 	}
 
-	TilesetPtr tileset = ttp->open(s->second.stream, NULL, suppData);
-	if (!tileset) {
-		wxString wxtype(strGfxType.c_str(), wxConvUTF8);
-		wxString msg = wxString::Format(_T("Tileset was rejected by \"%s\" handler"
-			" (wrong format?)"), wxtype.c_str());
-		wxMessageDialog dlg(parent, msg, _T("Open item"), wxOK | wxICON_ERROR);
-		dlg.ShowModal();
-		return false;
+	try {
+		TilesetPtr tileset = ttp->open(s->second.stream, NULL, suppData);
+		if (!tileset) {
+			wxString wxtype(strGfxType.c_str(), wxConvUTF8);
+			throw EFailure(wxString::Format(_T("Tileset was rejected by \"%s\" handler"
+				" (wrong format?)"), wxtype.c_str()));
+		}
+		tilesetVector->push_back(tileset);
+	} catch (const std::ios::failure& e) {
+		throw EFailure(wxString::Format(_T("Library exception: %s"),
+			wxString(e.what(), wxConvUTF8).c_str()));
 	}
 
-	tilesetVector->push_back(tileset);
 	return true;
 }

@@ -26,6 +26,7 @@ BOOST_THREADS
 AX_CHECK_GL
 
 PKG_CHECK_MODULES([libgamecommon], [libgamecommon])
+PKG_CHECK_MODULES([libgamearchive], [libgamearchive])
 PKG_CHECK_MODULES([libgamegraphics], [libgamegraphics])
 PKG_CHECK_MODULES([libgamemaps], [libgamemaps])
 PKG_CHECK_MODULES([libgamemusic], [libgamemusic])

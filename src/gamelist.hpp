@@ -39,11 +39,12 @@ struct tree
 /// Details about a single game object, such as a map or a song.
 struct GameObject
 {
-	wxString id;
-	wxString filename;
-	wxString typeMajor;
-	wxString typeMinor;
-	wxString friendlyName;
+	wxString id;           ///< Unique ID for this object
+	wxString filename;     ///< Object's filename
+	wxString idParent;     ///< ID of containing object, or empty for local file
+	wxString typeMajor;    ///< Major type (editor to use)
+	wxString typeMinor;    ///< Minor type (file format)
+	wxString friendlyName; ///< Name to show user
 	std::map<wxString, wxString> supp;  ///< SuppItem -> ID mapping
 };
 
@@ -53,10 +54,10 @@ typedef std::map<wxString, GameObject> GameObjectMap;
 /// Game details for the UI
 struct GameInfo
 {
-	wxString id;
-	wxString title;
-	wxString developer;
-	wxString reverser;
+	wxString id;        ///< Game ID, used for resource filenames
+	wxString title;     ///< User-visible title
+	wxString developer; ///< Game dev
+	wxString reverser;  ///< Who reverse engineered the file formats
 };
 
 /// Object descriptions for map editor

@@ -36,7 +36,7 @@ END_EVENT_TABLE()
 MapDocument::MapDocument(IMainWindow *parent, MapTypePtr mapType,
 	SuppData suppData, iostream_sptr mapFile, FN_TRUNCATE fnTrunc,
 	VC_TILESET tileset, const MapObjectVector *mapObjectVector)
-	throw (std::ios::failure) :
+	throw (std::ios::failure, EFailure) :
 		IDocument(parent, _T("map")),
 		mapType(mapType),
 		suppData(suppData),
@@ -49,7 +49,7 @@ MapDocument::MapDocument(IMainWindow *parent, MapTypePtr mapType,
 
 	this->map = boost::dynamic_pointer_cast<Map2D>(genMap);
 	if (!this->map) {
-		throw std::ios::failure("Map is not a 2D grid-based map!");
+		throw EFailure(_T("Map is not a 2D grid-based map!"));
 	}
 
 	int attribList[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 0, 0};
@@ -107,10 +107,19 @@ MapDocument::MapDocument(IMainWindow *parent, MapTypePtr mapType,
 void MapDocument::save()
 	throw (std::ios::failure)
 {
-	this->mapFile->seekp(0, std::ios::beg);
-	this->fnTrunc(0);
-	this->mapType->write(this->map, this->mapFile, this->suppData);
-	this->mapFile->flush();
+	try {
+		this->mapFile->seekp(0, std::ios::beg);
+		this->mapType->write(this->map, this->mapFile, this->suppData);
+
+		// Cut anything off the end since we're overwriting an existing file
+		this->fnTrunc(this->mapFile->tellp());
+
+		this->mapFile->flush();
+	} catch (const std::ios::failure& e) {
+		throw e;
+	} catch (const std::exception& e) {
+		throw std::ios::failure(e.what());
+	}
 	return;
 }
 

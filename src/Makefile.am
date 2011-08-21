@@ -17,6 +17,7 @@ camoto_studio_SOURCES += editor-music.cpp
 camoto_studio_SOURCES += editor-music-document.cpp
 camoto_studio_SOURCES += editor-music-eventpanel.cpp
 camoto_studio_SOURCES += editor-tileset.cpp
+camoto_studio_SOURCES += efailure.cpp
 
 EXTRA_camoto_studio_SOURCES = main.hpp
 EXTRA_camoto_studio_SOURCES += audio.hpp
@@ -36,13 +37,16 @@ EXTRA_camoto_studio_SOURCES += editor-music.hpp
 EXTRA_camoto_studio_SOURCES += editor-music-document.hpp
 EXTRA_camoto_studio_SOURCES += editor-music-eventpanel.hpp
 EXTRA_camoto_studio_SOURCES += editor-tileset.hpp
+EXTRA_camoto_studio_SOURCES += efailure.hpp
 
 CAMOTO_CFLAGS = $(libgamecommon_CFLAGS)
+CAMOTO_CFLAGS += $(libgamearchive_CFLAGS)
 CAMOTO_CFLAGS += $(libgamegraphics_CFLAGS)
 CAMOTO_CFLAGS += $(libgamemaps_CFLAGS)
 CAMOTO_CFLAGS += $(libgamemusic_CFLAGS)
 
 CAMOTO_LIBS = $(libgamecommon_LIBS)
+CAMOTO_LIBS += $(libgamearchive_LIBS)
 CAMOTO_LIBS += $(libgamegraphics_LIBS)
 CAMOTO_LIBS += $(libgamemaps_LIBS)
 CAMOTO_LIBS += $(libgamemusic_LIBS)

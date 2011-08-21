@@ -25,6 +25,7 @@
 #include <fstream>
 #include <map>
 
+#include <camoto/gamearchive.hpp>
 #include <camoto/util.hpp>
 
 #include "main.hpp"
@@ -32,7 +33,7 @@
 #include "gamelist.hpp"
 #include "newproj.hpp"
 #include "editor.hpp"
-
+#include "efailure.hpp"
 #include "audio.hpp"
 
 #include "editor-map.hpp"
@@ -48,6 +49,8 @@
 #include <wx/cshelp.h>
 #include <wx/stdpaths.h>
 #include <wx/filename.h>
+
+namespace ga = camoto::gamearchive;
 
 paths path;
 
@@ -69,6 +72,40 @@ enum {
 	IMG_FILE,
 };
 
+class SetFileSize
+{
+	public:
+		SetFileSize(camoto::gamearchive::ArchivePtr arch,
+			camoto::gamearchive::Archive::EntryPtr id)
+			throw () :
+				arch(arch),
+				id(id)
+		{
+		}
+
+		void setCompressedSize(unsigned long newSize)
+			throw (std::ios::failure)
+		{
+			std::cout << "[trunc] " << this->id->strName << ": Setting compressed size to "
+				<< newSize << "\n";
+			this->arch->resize(this->id, this->id->iSize, newSize);
+			return;
+		}
+
+		void setNativeSize(unsigned long newSize)
+			throw (std::ios::failure)
+		{
+			std::cout << "[trunc] " << this->id->strName << ": Setting native size to "
+				<< newSize << "\n";
+			this->arch->resize(this->id, newSize, this->id->iPrefilteredSize);
+			return;
+		}
+
+	protected:
+		camoto::gamearchive::ArchivePtr arch;
+		camoto::gamearchive::Archive::EntryPtr id;
+};
+
 /// Main window.
 class CamotoFrame: public IMainWindow
 {
@@ -86,7 +123,8 @@ class CamotoFrame: public IMainWindow
 			isStudio(isStudio),
 			project(NULL),
 			game(NULL),
-			audio(new Audio(this, 48000))
+			audio(new Audio(this, 48000)),
+			archManager(ga::getManager())
 		{
 			this->aui.SetManagedWindow(this);
 
@@ -305,71 +343,82 @@ class CamotoFrame: public IMainWindow
 			camoto::iostream_sptr stream;
 			camoto::FN_TRUNCATE fnTrunc;
 			SuppMap supp;
-			if (!this->openObject(data->id, &stream, &fnTrunc, &supp)) return;
+			try {
+				this->openObject(data->id, &stream, &fnTrunc, &supp);
+				assert(fnTrunc);
 
-			IDocument *doc = itEditor->second->openObject(o.typeMinor, stream,
-				fnTrunc, o.filename, supp, this->game);
-			this->notebook->AddPage(doc, this->game->objects[data->id].friendlyName,
-				true, wxNullBitmap);
+				IDocument *doc = itEditor->second->openObject(o.typeMinor, stream,
+					fnTrunc, o.filename, supp, this->game);
+				this->notebook->AddPage(doc, this->game->objects[data->id].friendlyName,
+					true, wxNullBitmap);
+			} catch (const EFailure& e) {
+				wxMessageDialog dlg(this, e.getMessage(), _T("Open failure"), wxOK | wxICON_ERROR);
+				dlg.ShowModal();
+				return;
+			}
+
 			return;
 		}
 
-		bool openObject(const wxString& id, camoto::iostream_sptr *stream,
+		void openObject(const wxString& id, camoto::iostream_sptr *stream,
 			camoto::FN_TRUNCATE *fnTrunc, SuppMap *supp)
-			throw ()
+			throw (EFailure)
 		{
 			// Make sure the ID is valid
 			GameObjectMap::iterator io = this->game->objects.find(id);
 			if (io == this->game->objects.end()) {
-				wxString msg = wxString::Format(_T("Cannot open this item.  It refers "
+				throw EFailure(wxString::Format(_T("Cannot open this item.  It refers "
 					"to an entry in the game description XML file with an ID of \"%s\", "
 					"but there is no item with this ID."),
-					id.c_str());
-				wxMessageDialog dlg(this, msg, _T("Open item"), wxOK | wxICON_ERROR);
-				dlg.ShowModal();
-				return false;
+					id.c_str()));
 			}
 			GameObject &o = io->second;
 
 			// Open the file containing the item's data
-			wxFileName fn;
-			fn.AssignDir(this->project->getDataPath());
-			fn.SetFullName(o.filename);
-			std::cout << "[main] Opening " << fn.GetFullPath().ToAscii() << "\n";
-			if (!::wxFileExists(fn.GetFullPath())) {
-				wxString msg = wxString::Format(_T("Cannot open this item.  There is a "
-					"file missing from the project's copy of the game data files:\n\n%s"),
-					fn.GetFullPath().c_str());
-				wxMessageDialog dlg(this, msg, _T("Open item"), wxOK | wxICON_ERROR);
-				dlg.ShowModal();
-				return false;
+			if (!o.idParent.empty()) {
+				// This file is contained within an archive
+				try {
+					*stream = this->openFileFromArchive(o.idParent, o.filename, fnTrunc);
+					assert(*stream); // should have thrown an exception on error
+				} catch (const std::ios::failure& e) {
+					throw EFailure(wxString::Format(_T("Could not open this item:\n\n%s"),
+							e.what()));
+				}
+			} else {
+				// This is an actual file to open
+				wxFileName fn;
+				fn.AssignDir(this->project->getDataPath());
+				fn.SetFullName(o.filename);
+				std::cout << "[main] Opening " << fn.GetFullPath().ToAscii() << "\n";
+				if (!::wxFileExists(fn.GetFullPath())) {
+					throw EFailure(wxString::Format(_T("Cannot open this item.  There is a "
+						"file missing from the project's copy of the game data files:\n\n%s"),
+						fn.GetFullPath().c_str()));
+				}
+				std::fstream *pf = new std::fstream;
+				stream->reset(pf);
+				try {
+					pf->exceptions(std::ios::badbit | std::ios::failbit);
+					pf->open(fn.GetFullPath().fn_str(), std::ios::in | std::ios::out | std::ios::binary);
+				} catch (std::ios::failure& e) {
+					throw EFailure(wxString::Format(_T("Unable to open %s\n\nReason: %s"),
+						fn.GetFullPath().c_str(), wxString(e.what(), wxConvUTF8).c_str()));
+				}
+				*fnTrunc = boost::bind<void>(camoto::truncateFromString,
+					std::string(fn.GetFullPath().fn_str()), _1);
 			}
-			std::fstream *pf = new std::fstream;
-			stream->reset(pf);
-			try {
-				pf->exceptions(std::ios::badbit | std::ios::failbit);
-				pf->open(fn.GetFullPath().fn_str(), std::ios::in | std::ios::out | std::ios::binary);
-			} catch (std::ios::failure& e) {
-				wxString msg = wxString::Format(_T("Unable to open %s\n\nReason: %s"),
-					fn.GetFullPath().c_str(), wxString(e.what(), wxConvUTF8).c_str());
-				wxMessageDialog dlg(this, msg, _T("Open item"), wxOK | wxICON_ERROR);
-				dlg.ShowModal();
-				return false;
-			}
-			*fnTrunc = boost::bind<void>(camoto::truncateFromString, std::string(fn.GetFullPath().fn_str()), _1);
 
 			// Load any supplementary files
 			for (std::map<wxString, wxString>::iterator i = o.supp.begin(); i != o.supp.end(); i++) {
 				OpenedSuppItem& si = (*supp)[i->first];
-				if (!this->openObject(i->second, &si.stream, &si.fnTrunc, supp)) {
-					return false;
-				}
+				this->openObject(i->second, &si.stream, &si.fnTrunc, supp);
+
 				// Have to put this after openObject() otherwise if i->second is an
 				// invalid ID an empty entry will be created, making it look like a
 				// valid ID when openObject() checks it.
 				si.typeMinor = this->game->objects[i->second].typeMinor;
 			}
-			return true;
+			return;
 		}
 
 		/// Event handler for moving between open documents.
@@ -615,10 +664,14 @@ class CamotoFrame: public IMainWindow
 				this->notebook->DeletePage(i);
 			}
 
-			// Release the project.
+			// Unload any cached archives
+			this->archives.clear();
+
+			// Release the project
 			delete this->project;
 			this->project = NULL;
 
+			// Release the game structure
 			delete this->game;
 			this->game = NULL;
 
@@ -660,6 +713,93 @@ class CamotoFrame: public IMainWindow
 			return;
 		}
 
+		camoto::iostream_sptr openFileFromArchive(const wxString& idArchive,
+			const wxString& filename, camoto::FN_TRUNCATE *fnTrunc)
+			throw (EFailure)
+		{
+			// See if idArchive is open
+			ArchiveMap::iterator itArch = this->archives.find(idArchive);
+			ga::ArchivePtr arch;
+			if (itArch == this->archives.end()) {
+				// Not open, so open it, possibly recursing back here if it's inside
+				// another archive
+
+				camoto::iostream_sptr archStream;
+				camoto::FN_TRUNCATE fnTruncArch;
+				SuppMap supp;
+				this->openObject(idArchive, &archStream, &fnTruncArch, &supp);
+
+				// Now the archive file is open, so create an Archive object around it
+
+				// No need to check if idArchive is valid, as openObject() just did that
+				std::string strType(this->game->objects[idArchive].typeMinor.ToUTF8());
+				ga::ArchiveTypePtr pArchType(this->archManager->getArchiveTypeByCode(strType));
+				if (!pArchType) {
+					throw EFailure(wxString::Format(_T("Cannot open this item.  The file "
+						"\"%s\" could not be found inside the archive \"%s\""),
+						filename.c_str(), idArchive.c_str()));
+				}
+
+				// Collect any supplemental files supplied
+				camoto::SuppData suppData;
+				suppMapToData(supp, suppData);
+
+				try {
+					arch = pArchType->open(archStream, suppData);
+				} catch (const std::ios::failure& e) {
+					wxString msg = _T("Library exception opening archive \"");
+					msg += idArchive;
+					msg += _T("\":\n\n");
+					msg += wxString(e.what(), wxConvUTF8);
+					throw EFailure(msg);
+				}
+				arch->fnTruncate = fnTruncArch;
+
+				// Cache for future access
+				this->archives[idArchive] = arch;
+			} else {
+				arch = itArch->second;
+			}
+
+			// Now we have the archive containing our file, so find and open it
+			std::string nativeFilename(filename.fn_str());
+			ga::Archive::EntryPtr f = ga::findFile(arch, nativeFilename);
+			if (!f) {
+				throw EFailure(wxString::Format(_T("Cannot open this item.  The file "
+					"\"%s\" could not be found inside the archive \"%s\""),
+					filename.c_str(), idArchive.c_str()));
+			}
+
+			// Open the file
+			camoto::iostream_sptr file = arch->open(f);
+
+			SetFileSize truncMuxer(arch, f);
+			// Set the truncation function for the postfiltered (uncompressed) size.
+			*fnTrunc = boost::bind<void>(&SetFileSize::setNativeSize, truncMuxer, _1);
+
+			// If it has any filters, apply them
+			if (!f->filter.empty()) {
+				// The file needs to be filtered first
+				ga::FilterTypePtr pFilterType(this->archManager->getFilterTypeByCode(f->filter));
+				if (!pFilterType) {
+					throw EFailure(wxString::Format(_T("This file requires decoding, but "
+						"the \"%s\" filter to do this couldn't be found (is your installed "
+						"version of libgamearchive too old?)"),
+						f->filter.c_str()));
+				}
+				file = pFilterType->apply(file,
+					// TODO: This will store the decompressed (postfiltered) size the same
+					// as the compressed (prefiltered) size!  This will break file formats
+					// which store the decompressed size in their archive files.
+					//boost::bind<void>(&camoto::gamearchive::Archive::resize, arch, f, _1, _1)
+					// Set the truncation function for the prefiltered (compressed) size.
+					boost::bind<void>(&SetFileSize::setCompressedSize, truncMuxer, _1)
+				);
+			}
+
+			return file;
+		}
+
 	protected:
 		wxAuiManager aui;
 		wxStatusBar *status;
@@ -682,6 +822,10 @@ class CamotoFrame: public IMainWindow
 		typedef std::vector<IToolPanel *> PaneVector;
 		typedef std::map<wxString, PaneVector> PaneMap;
 		PaneMap editorPanes;
+
+		ga::ManagerPtr archManager; ///< Manager object for libgamearchive
+		typedef std::map<wxString, camoto::gamearchive::ArchivePtr> ArchiveMap;
+		ArchiveMap archives; ///< List of currently open archives
 
 		/// Control IDs
 		enum {

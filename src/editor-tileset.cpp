@@ -24,6 +24,7 @@
 #include <wx/artprov.h>
 #include <wx/glcanvas.h>
 #include "editor-tileset.hpp"
+#include "efailure.hpp"
 
 #ifdef HAVE_GL_GL_H
 #include <GL/gl.h>
@@ -247,28 +248,21 @@ std::vector<IToolPanel *> TilesetEditor::createToolPanes() const
 IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 	iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
 	SuppMap supp, const Game *game) const
-	throw ()
+	throw (EFailure)
 {
 	ManagerPtr pManager = getManager();
 	TilesetTypePtr pTilesetType;
 	if (typeMinor.IsEmpty()) {
-		wxMessageDialog dlg(this->frame,
-			_T("No file type was specified for this item!"), _T("Open item"),
-			wxOK | wxICON_ERROR);
-		dlg.ShowModal();
-		return NULL;
+		throw EFailure(_T("No file type was specified for this item!"));
 	} else {
 		std::string strType("tls-");
 		strType.append(typeMinor.ToUTF8());
 		TilesetTypePtr pTestType(pManager->getTilesetTypeByCode(strType));
 		if (!pTestType) {
 			wxString wxtype(strType.c_str(), wxConvUTF8);
-			wxString msg = wxString::Format(_T("Sorry, it is not possible to edit this "
+			throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
 				"tileset as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
-				typeMinor.c_str(), wxtype.c_str());
-			wxMessageDialog dlg(this->frame, msg, _T("Open item"), wxOK | wxICON_ERROR);
-			dlg.ShowModal();
-			return NULL;
+				typeMinor.c_str(), wxtype.c_str()));
 		}
 		pTilesetType = pTestType;
 	}
@@ -290,21 +284,17 @@ IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 
 	// Collect any supplemental files supplied
 	SuppData suppData;
-	SuppMap::iterator s;
-
-	s = supp.find(_T("dict"));
-	if (s != supp.end()) suppData[SuppItem::Dictionary].stream = s->second.stream;
-
-	s = supp.find(_T("fat"));
-	if (s != supp.end()) suppData[SuppItem::FAT].stream = s->second.stream;
-
-	s = supp.find(_T("pal"));
-	if (s != supp.end()) suppData[SuppItem::Palette].stream = s->second.stream;
+	suppMapToData(supp, suppData);
 
 	// Open the tileset file
-	FN_TRUNCATE fnTruncate = boost::bind<void>(truncate, filename.fn_str(), _1);
-	TilesetPtr pTileset(pTilesetType->open(data, fnTruncate, suppData));
-	assert(pTileset);
+	try {
+		FN_TRUNCATE fnTruncate = boost::bind<void>(truncate, filename.fn_str(), _1);
+		TilesetPtr pTileset(pTilesetType->open(data, fnTruncate, suppData));
+		assert(pTileset);
 
-	return new TilesetDocument(this->frame, pTileset);
+		return new TilesetDocument(this->frame, pTileset);
+	} catch (const std::ios::failure& e) {
+		throw EFailure(wxString::Format(_T("Library exception: %s"),
+			wxString(e.what(), wxConvUTF8).c_str()));
+	}
 }

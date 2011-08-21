@@ -173,28 +173,21 @@ std::vector<IToolPanel *> MusicEditor::createToolPanes() const
 IDocument *MusicEditor::openObject(const wxString& typeMinor,
 	iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
 	SuppMap supp, const Game *game) const
-	throw ()
+	throw (EFailure)
 {
 	camoto::gamemusic::ManagerPtr pManager = camoto::gamemusic::getManager();
 	MusicTypePtr pMusicType;
 	if (typeMinor.IsEmpty()) {
-		wxMessageDialog dlg(this->frame,
-			_T("No file type was specified for this item!"), _T("Open item"),
-			wxOK | wxICON_ERROR);
-		dlg.ShowModal();
-		return NULL;
+		throw EFailure(_T("No file type was specified for this item!"));
 	} else {
 		std::string strType;
 		strType.append(typeMinor.ToUTF8());
 		MusicTypePtr pTestType(pManager->getMusicTypeByCode(strType));
 		if (!pTestType) {
 			wxString wxtype(strType.c_str(), wxConvUTF8);
-			wxString msg = wxString::Format(_T("Sorry, it is not possible to edit this "
+			throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
 				"song as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
-				typeMinor.c_str(), wxtype.c_str());
-			wxMessageDialog dlg(this->frame, msg, _T("Open item"), wxOK | wxICON_ERROR);
-			dlg.ShowModal();
-			return NULL;
+				typeMinor.c_str(), wxtype.c_str()));
 		}
 		pMusicType = pTestType;
 	}
@@ -216,17 +209,16 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 
 	// Collect any supplemental files supplied
 	SuppData suppData;
-	SuppMap::iterator s;
-
-	s = supp.find(_T("dict"));
-	if (s != supp.end()) suppData[SuppItem::Dictionary].stream = s->second.stream;
-
-	s = supp.find(_T("instruments"));
-	if (s != supp.end()) suppData[SuppItem::Instruments].stream = s->second.stream;
+	suppMapToData(supp, suppData);
 
 	// Open the music file
-	MusicReaderPtr pMusic(pMusicType->open(data, suppData));
-	assert(pMusic);
+	try {
+		MusicReaderPtr pMusic(pMusicType->open(data, suppData));
+		assert(pMusic);
 
-	return new MusicDocument(this->frame, pMusic, this->audio);
+		return new MusicDocument(this->frame, pMusic, this->audio);
+	} catch (const std::ios::failure& e) {
+		throw EFailure(wxString::Format(_T("Library exception: %s"),
+			wxString(e.what(), wxConvUTF8).c_str()));
+	}
 }

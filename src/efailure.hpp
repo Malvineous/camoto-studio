@@ -1,6 +1,6 @@
 /**
- * @file   editor-tileset.hpp
- * @brief  Tileset editor.
+ * @file   efailure.cpp
+ * @brief  EFailure exception.
  *
  * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
  *
@@ -18,28 +18,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _EDITOR_TILESET_HPP_
-#define _EDITOR_TILESET_HPP_
+#ifndef _EFAILURE_HPP_
+#define _EFAILURE_HPP_
 
-#include "editor.hpp"
+#include <exception>
+#include <wx/string.h>
 
-class TilesetEditor: public IEditor
-{
-	public:
-		TilesetEditor(IMainWindow *parent)
-			throw ();
-
-		virtual IToolPanelVector createToolPanes() const
-			throw ();
-
-		virtual IDocument *openObject(const wxString& typeMinor,
-			camoto::iostream_sptr data, camoto::FN_TRUNCATE fnTrunc,
-			const wxString& filename, SuppMap supp, const Game *game) const
-			throw (EFailure);
-
+/// Exception thrown for general errors that should trigger popup boxes.
+class EFailure: virtual public std::exception {
 	protected:
-		IMainWindow *frame;
+		wxString msg;
 
+	public:
+		EFailure(const wxString& msg)
+			throw ();
+
+		~EFailure()
+			throw ();
+
+		virtual const char *what() const
+			throw ();
+
+		const wxString& getMessage() const
+			throw ();
 };
 
-#endif // _EDITOR_TILESET_HPP_
+#endif // _EFAILURE_HPP_

@@ -35,6 +35,7 @@ In order to compile this program, you will need the following dependencies:
 
  - Boost
  - libgamecommon
+ - libgamearchive
  - libgamegraphics
  - libgamemaps
  - libgamemusic
@@ -43,3 +44,20 @@ In order to compile this program, you will need the following dependencies:
 
 This program and associated source code is released under the GPLv3 license.
 It includes the DOSBox OPL synth which is Copyright 2002-2010 The DOSBox Team.
+
+Known issues
+~~~~~~~~~~~~
+Some files are stored within fixed-size archives (for example the levels and
+graphics stored in the Dangerous Dave .exe file.)  This means space can't be
+made available if they have changed size after being edited.  For some file
+formats this won't be a problem (such as levels, which don't change size) but
+in the case of DDave, the graphics are compressed.  This means that if
+replacement graphics are too complex they won't fit in the available space, and
+if they're too simple they will compress too much, leaving garbage in the
+unused space which the game tries to decompress and either crashes, or results
+in corrupted graphics (this is because this particular file format doesn't have
+an 'end of file' marker.)  Interestingly, the Camoto compression algorithm is
+slightly more efficient than the one originally used, so even opening and
+saving the DDave graphics without any changes will trigger this problem, as the
+recompressed file will be a couple of bytes too short.  The only way around
+this is to tweak the file until it compresses to exactly the right size...

@@ -26,6 +26,7 @@
 
 class MapDocument;
 
+#include "efailure.hpp"
 #include "editor.hpp"
 #include "editor-map-canvas.hpp"
 
@@ -38,7 +39,7 @@ class MapDocument: public IDocument
 			camoto::SuppData suppData, camoto::iostream_sptr mapFile,
 			camoto::FN_TRUNCATE fnTrunc, camoto::gamegraphics::VC_TILESET tileset,
 			const MapObjectVector *mapObjectVector)
-			throw (std::ios::failure);
+			throw (std::ios::failure, EFailure);
 
 		virtual void save()
 			throw (std::ios::failure);
