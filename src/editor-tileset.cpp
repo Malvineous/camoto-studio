@@ -166,14 +166,25 @@ class TilesetCanvas: public wxGLCanvas
 
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 
+			int tilesX = this->tileset->getLayoutWidth();
+			if (tilesX == 0) tilesX = 8;
+
+			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
 			for (int i = 0; i < this->textureCount; i++) {
 				glBindTexture(GL_TEXTURE_2D, this->texture[i]);
 
+				ImagePtr image = this->tileset->openImage(tiles[i]);
+				unsigned int width, height;
+				image->getDimensions(&width, &height);
+
+				int x = (i % tilesX) * width;
+				int y = (i / tilesX) * height;
+
 				glBegin(GL_QUADS);
-				glTexCoord2d(0.0, 0.0);  glVertex2i(i * 16 + 0,  0);
-				glTexCoord2d(0.0, 1.0);  glVertex2i(i * 16 + 0,  16);
-				glTexCoord2d(1.0, 1.0);  glVertex2i(i * 16 + 16, 16);
-				glTexCoord2d(1.0, 0.0);  glVertex2i(i * 16 + 16, 0);
+				glTexCoord2d(0.0, 0.0);  glVertex2i(x,  y);
+				glTexCoord2d(0.0, 1.0);  glVertex2i(x,  y + height);
+				glTexCoord2d(1.0, 1.0);  glVertex2i(x + width, y + height);
+				glTexCoord2d(1.0, 0.0);  glVertex2i(x + width, y);
 				glEnd();
 
 			}
