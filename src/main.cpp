@@ -742,12 +742,13 @@ class CamotoFrame: public IMainWindow
 				// Now the archive file is open, so create an Archive object around it
 
 				// No need to check if idArchive is valid, as openObject() just did that
-				std::string strType(this->game->objects[idArchive].typeMinor.ToUTF8());
+				const wxString& typeMinor = this->game->objects[idArchive].typeMinor;
+				std::string strType(typeMinor.ToUTF8());
 				ga::ArchiveTypePtr pArchType(this->archManager->getArchiveTypeByCode(strType));
 				if (!pArchType) {
-					throw EFailure(wxString::Format(_T("Cannot open this item.  The file "
-						"\"%s\" could not be found inside the archive \"%s\""),
-						filename.c_str(), idArchive.c_str()));
+					throw EFailure(wxString::Format(_T("Cannot open this item.  The "
+						"archive \"%s\" is in the unsupported format \"%s\""),
+						idArchive.c_str(), typeMinor.c_str()));
 				}
 
 				// Collect any supplemental files supplied
