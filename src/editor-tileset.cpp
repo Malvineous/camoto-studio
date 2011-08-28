@@ -63,25 +63,21 @@ class TilesetCanvas: public wxGLCanvas
 			this->texture = new GLuint[this->textureCount];
 			glGenTextures(this->textureCount, this->texture);
 
-			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-			GLushort r[256], g[256], b[256], a[256];;
+			// Load the palette
+			PaletteTablePtr pal;
 			if (tileset->getCaps() & Tileset::HasPalette) {
-				PaletteTablePtr pal = tileset->getPalette();
-				for (int i = 0; i < 256; i++) {
-					r[i] = ((*pal)[i].red << 8) | (*pal)[i].red;
-					g[i] = ((*pal)[i].green << 8) | (*pal)[i].green;
-					b[i] = ((*pal)[i].blue << 8) | (*pal)[i].blue;
-					a[i] = (GLushort)-1;
-				}
+				pal = tileset->getPalette();
 			} else {
-				// Default palette
-				for (int i = 0; i < 256; i++) {
-					r[i] = (i & 4) ? ((i & 8) ? 0xFFFF : 0xAAAA) : ((i & 8) ? 0x5555 : 0x0000);
-					g[i] = (i & 2) ? ((i & 8) ? 0xFFFF : 0xAAAA) : ((i & 8) ? 0x5555 : 0x0000);
-					b[i] = (i & 1) ? ((i & 8) ? 0xFFFF : 0xAAAA) : ((i & 8) ? 0x5555 : 0x0000);
-					a[i] = (GLushort)-1;
-				}
+				pal = createDefaultCGAPalette();
 			}
+			GLushort r[256], g[256], b[256], a[256];;
+			for (int i = 0; i < 256; i++) {
+				r[i] = ((*pal)[i].red << 8) | (*pal)[i].red;
+				g[i] = ((*pal)[i].green << 8) | (*pal)[i].green;
+				b[i] = ((*pal)[i].blue << 8) | (*pal)[i].blue;
+				a[i] = (GLushort)-1;
+			}
+			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 			glPixelTransferi(GL_MAP_COLOR, GL_TRUE);
 			glPixelMapusv(GL_PIXEL_MAP_I_TO_R, 256, r);
 			glPixelMapusv(GL_PIXEL_MAP_I_TO_G, 256, g);
