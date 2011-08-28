@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <camoto/gamemaps.hpp>
 #include <camoto/gamegraphics.hpp>
 #include <wx/imaglist.h>
 #include <wx/artprov.h>
@@ -181,7 +180,8 @@ END_EVENT_TABLE()
 
 MapEditor::MapEditor(IMainWindow *parent)
 	throw () :
-		frame(parent)
+		frame(parent),
+		pManager(camoto::gamemaps::getManager())
 {
 }
 
@@ -193,6 +193,14 @@ std::vector<IToolPanel *> MapEditor::createToolPanes() const
 	return panels;
 }
 
+bool MapEditor::isFormatSupported(const wxString& type) const
+	throw ()
+{
+	std::string strType("map-");
+	strType.append(type.ToUTF8());
+	return this->pManager->getMapTypeByCode(strType);
+}
+
 IDocument *MapEditor::openObject(const wxString& typeMinor,
 	camoto::iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
 	SuppMap supp, const Game *game) const
@@ -200,14 +208,13 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 {
 	assert(fnTrunc);
 
-	camoto::gamemaps::ManagerPtr pManager = camoto::gamemaps::getManager();
 	MapTypePtr pMapType;
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_T("No file type was specified for this item!"));
 	} else {
 		std::string strType("map-");
 		strType.append(typeMinor.ToUTF8());
-		MapTypePtr pTestType(pManager->getMapTypeByCode(strType));
+		MapTypePtr pTestType(this->pManager->getMapTypeByCode(strType));
 		if (!pTestType) {
 			wxString wxtype(strType.c_str(), wxConvUTF8);
 			throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "

@@ -546,8 +546,18 @@ class CamotoFrame: public IMainWindow
 				if (i->children.size() == 0) {
 					// This is a document as it has no children
 					wxTreeItemData *d = new TreeItemData(i->item);
-					this->treeCtrl->AppendItem(root,
+					wxTreeItemId newItem = this->treeCtrl->AppendItem(root,
 						this->game->objects[i->item].friendlyName, IMG_FILE, IMG_FILE, d);
+
+					// If this file doesn't have an editor, colour it grey
+					EditorMap::iterator ed = this->editors.find(this->game->objects[i->item].typeMajor);
+					if (ed == this->editors.end()) {
+						// No editor
+						this->treeCtrl->SetItemTextColour(newItem, *wxLIGHT_GREY);
+					} else if (!ed->second->isFormatSupported(this->game->objects[i->item].typeMinor)) {
+						// Have editor, but it doesn't support this filetype
+						this->treeCtrl->SetItemTextColour(newItem, *wxLIGHT_GREY);
+					}
 				} else {
 					// This is a folder as it has children
 					wxTreeItemId folder = this->treeCtrl->AppendItem(root,

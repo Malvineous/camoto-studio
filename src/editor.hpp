@@ -117,6 +117,16 @@ class IEditor
 		virtual IToolPanelVector createToolPanes() const
 			throw () = 0;
 
+		/// Does this editor support this file type?
+		/**
+		 * @param type
+		 *   typeMinor from XML file.
+		 *
+		 * @return true if supported, false if not.
+		 */
+		virtual bool isFormatSupported(const wxString& type) const
+			throw () = 0;
+
 		/// Open an object in this editor.
 		/**
 		 * @param typeMinor

@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <camoto/gamemusic.hpp>
 #include <wx/imaglist.h>
 #include <wx/artprov.h>
 #include "main.hpp"
@@ -158,6 +157,7 @@ END_EVENT_TABLE()
 MusicEditor::MusicEditor(IMainWindow *parent, AudioPtr audio)
 	throw () :
 		frame(parent),
+		pManager(camoto::gamemusic::getManager()),
 		audio(audio)
 {
 }
@@ -170,19 +170,25 @@ std::vector<IToolPanel *> MusicEditor::createToolPanes() const
 	return panels;
 }
 
+bool MusicEditor::isFormatSupported(const wxString& type) const
+	throw ()
+{
+	std::string strType(type.ToUTF8());
+	return this->pManager->getMusicTypeByCode(strType);
+}
+
 IDocument *MusicEditor::openObject(const wxString& typeMinor,
 	iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
 	SuppMap supp, const Game *game) const
 	throw (EFailure)
 {
-	camoto::gamemusic::ManagerPtr pManager = camoto::gamemusic::getManager();
 	MusicTypePtr pMusicType;
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_T("No file type was specified for this item!"));
 	} else {
 		std::string strType;
 		strType.append(typeMinor.ToUTF8());
-		MusicTypePtr pTestType(pManager->getMusicTypeByCode(strType));
+		MusicTypePtr pTestType(this->pManager->getMusicTypeByCode(strType));
 		if (!pTestType) {
 			wxString wxtype(strType.c_str(), wxConvUTF8);
 			throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "

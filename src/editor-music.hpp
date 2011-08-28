@@ -21,6 +21,7 @@
 #ifndef _EDITOR_MUSIC_HPP_
 #define _EDITOR_MUSIC_HPP_
 
+#include <camoto/gamemusic.hpp>
 #include "audio.hpp"
 #include "editor.hpp"
 
@@ -33,6 +34,9 @@ class MusicEditor: public IEditor
 		virtual IToolPanelVector createToolPanes() const
 			throw ();
 
+		virtual bool isFormatSupported(const wxString& type) const
+			throw ();
+
 		virtual IDocument *openObject(const wxString& typeMinor,
 			camoto::iostream_sptr data, camoto::FN_TRUNCATE fnTrunc,
 			const wxString& filename, SuppMap supp, const Game *game) const
@@ -41,6 +45,7 @@ class MusicEditor: public IEditor
 	protected:
 		IMainWindow *frame;
 		AudioPtr audio;
+		camoto::gamemusic::ManagerPtr pManager;
 
 };
 

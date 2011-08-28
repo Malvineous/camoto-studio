@@ -19,11 +19,10 @@
  */
 
 #include <boost/bind.hpp>
-#include <camoto/gamegraphics.hpp>
 #include <wx/imaglist.h>
 #include <wx/artprov.h>
-#include <wx/glcanvas.h>
 #include "editor-tileset.hpp"
+#include <wx/glcanvas.h> // must be after editor-tileset.hpp?!
 #include "efailure.hpp"
 
 #ifdef HAVE_GL_GL_H
@@ -241,7 +240,8 @@ class TilesetDocument: public IDocument
 
 TilesetEditor::TilesetEditor(IMainWindow *parent)
 	throw () :
-		frame(parent)
+		frame(parent),
+		pManager(camoto::gamegraphics::getManager())
 {
 }
 
@@ -252,19 +252,26 @@ std::vector<IToolPanel *> TilesetEditor::createToolPanes() const
 	return panels;
 }
 
+bool TilesetEditor::isFormatSupported(const wxString& type) const
+	throw ()
+{
+	std::string strType("tls-");
+	strType.append(type.ToUTF8());
+	return this->pManager->getTilesetTypeByCode(strType);
+}
+
 IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 	iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
 	SuppMap supp, const Game *game) const
 	throw (EFailure)
 {
-	ManagerPtr pManager = getManager();
 	TilesetTypePtr pTilesetType;
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_T("No file type was specified for this item!"));
 	} else {
 		std::string strType("tls-");
 		strType.append(typeMinor.ToUTF8());
-		TilesetTypePtr pTestType(pManager->getTilesetTypeByCode(strType));
+		TilesetTypePtr pTestType(this->pManager->getTilesetTypeByCode(strType));
 		if (!pTestType) {
 			wxString wxtype(strType.c_str(), wxConvUTF8);
 			throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "

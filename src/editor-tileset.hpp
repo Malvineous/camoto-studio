@@ -21,6 +21,7 @@
 #ifndef _EDITOR_TILESET_HPP_
 #define _EDITOR_TILESET_HPP_
 
+#include <camoto/gamegraphics.hpp>
 #include "editor.hpp"
 
 class TilesetEditor: public IEditor
@@ -32,6 +33,9 @@ class TilesetEditor: public IEditor
 		virtual IToolPanelVector createToolPanes() const
 			throw ();
 
+		virtual bool isFormatSupported(const wxString& type) const
+			throw ();
+
 		virtual IDocument *openObject(const wxString& typeMinor,
 			camoto::iostream_sptr data, camoto::FN_TRUNCATE fnTrunc,
 			const wxString& filename, SuppMap supp, const Game *game) const
@@ -39,6 +43,7 @@ class TilesetEditor: public IEditor
 
 	protected:
 		IMainWindow *frame;
+		camoto::gamegraphics::ManagerPtr pManager;
 
 };
 
