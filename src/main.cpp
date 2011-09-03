@@ -39,6 +39,7 @@
 #include "editor-map.hpp"
 #include "editor-music.hpp"
 #include "editor-tileset.hpp"
+#include "editor-image.hpp"
 
 #include <wx/wx.h>
 #include <wx/cmdline.h>
@@ -184,6 +185,7 @@ class CamotoFrame: public IMainWindow
 			this->editors[_T("map")] = new MapEditor(this);
 			this->editors[_T("music")] = new MusicEditor(this, this->audio);
 			this->editors[_T("tileset")] = new TilesetEditor(this);
+			this->editors[_T("image")] = new ImageEditor(this);
 
 			// Prepare each editor
 			for (EditorMap::iterator e = this->editors.begin(); e != this->editors.end(); e++) {

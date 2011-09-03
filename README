@@ -20,13 +20,13 @@ The GUI currently supports editing these games:
 
 The GUI currently has editors for the following object types:
 
+ - Images
  - 2D Maps (overhead/platformer)
  - Music
  - Tilesets
 
 With editors for the remaining object types coming soon:
 
- - Images
  - Instruments (MIDI/OPL/PCM)
  - Sound effects
  - Text
