@@ -330,7 +330,15 @@ class CamotoFrame: public IMainWindow
 			TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(ev.GetItem());
 			if (!data) return;
 
-			GameObject &o = this->game->objects[data->id];
+			// Make sure the ID is valid
+			GameObjectMap::iterator io = this->game->objects.find(data->id);
+			if (io == this->game->objects.end()) {
+				throw EFailure(wxString::Format(_T("Cannot open this item.  It refers "
+					"to an entry in the game description XML file with an ID of \"%s\", "
+					"but there is no item with this ID."),
+					data->id.c_str()));
+			}
+			GameObject &o = io->second;
 
 			// Find an editor for the item
 			EditorMap::iterator itEditor = this->editors.find(o.typeMajor);
@@ -384,13 +392,20 @@ class CamotoFrame: public IMainWindow
 					assert(*stream); // should have thrown an exception on error
 				} catch (const std::ios::failure& e) {
 					throw EFailure(wxString::Format(_T("Could not open this item:\n\n%s"),
-							e.what()));
+							wxString(e.what(), wxConvUTF8).c_str()));
 				}
 			} else {
 				// This is an actual file to open
 				wxFileName fn;
 				fn.AssignDir(this->project->getDataPath());
 				fn.SetFullName(o.filename);
+
+				// Make sure the filename isn't empty.  If it is, either the XML file
+				// has a blank filename (not allowed) or some code has accidentally
+				// accessed the object map with an invalid ID, creating an empty entry
+				// for that ID which we're now trying to load.
+				assert(!o.filename.empty());
+
 				std::cout << "[main] Opening " << fn.GetFullPath().ToAscii() << "\n";
 				if (!::wxFileExists(fn.GetFullPath())) {
 					throw EFailure(wxString::Format(_T("Cannot open this item.  There is a "
@@ -547,6 +562,16 @@ class CamotoFrame: public IMainWindow
 			for (tree<wxString>::children_t::iterator i = items.children.begin(); i != items.children.end(); i++) {
 				if (i->children.size() == 0) {
 					// This is a document as it has no children
+
+					// Make sure the ID is valid
+					GameObjectMap::iterator io = this->game->objects.find(i->item);
+					if (io == this->game->objects.end()) {
+						std::cout << "[main] Tried to add non-existent item ID \"" <<
+							i->item.mb_str() << "\" to tree list, skipping\n";
+						continue;
+					}
+					GameObject &o = io->second;
+
 					wxTreeItemData *d = new TreeItemData(i->item);
 					wxTreeItemId newItem = this->treeCtrl->AppendItem(root,
 						this->game->objects[i->item].friendlyName, IMG_FILE, IMG_FILE, d);
@@ -757,6 +782,19 @@ class CamotoFrame: public IMainWindow
 				camoto::SuppData suppData;
 				suppMapToData(supp, suppData);
 
+				std::string baseFilename(this->game->objects[idArchive].filename.mb_str());
+				camoto::SuppFilenames reqd = pArchType->getRequiredSupps(baseFilename);
+				for (camoto::SuppFilenames::iterator i = reqd.begin(); i != reqd.end(); i++) {
+					if (suppData.find(i->first) == suppData.end()) {
+						throw EFailure(wxString::Format(_T("Unable to open archive \"%s\" "
+							"as the XML description file does not specify the required "
+							"supplementary file \"%s\""),
+							idArchive.c_str(),
+							wxString(i->second.c_str(), wxConvUTF8).c_str()
+						));
+					}
+				}
+
 				try {
 					arch = pArchType->open(archStream, suppData);
 				} catch (const std::ios::failure& e) {
@@ -800,14 +838,15 @@ class CamotoFrame: public IMainWindow
 						"version of libgamearchive too old?)"),
 						f->filter.c_str()));
 				}
-				file = pFilterType->apply(file,
-					// TODO: This will store the decompressed (postfiltered) size the same
-					// as the compressed (prefiltered) size!  This will break file formats
-					// which store the decompressed size in their archive files.
-					//boost::bind<void>(&camoto::gamearchive::Archive::resize, arch, f, _1, _1)
-					// Set the truncation function for the prefiltered (compressed) size.
-					boost::bind<void>(&SetFileSize::setCompressedSize, truncMuxer, _1)
-				);
+				try {
+					file = pFilterType->apply(file,
+						// Set the truncation function for the prefiltered (compressed) size.
+						boost::bind<void>(&SetFileSize::setCompressedSize, truncMuxer, _1)
+					);
+				} catch (const camoto::ECorruptedData& e) {
+					throw EFailure(wxString::Format(_T("Error decoding this file: %s"),
+						wxString(e.what(), wxConvUTF8).c_str()));
+				}
 			}
 
 			return file;

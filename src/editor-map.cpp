@@ -204,7 +204,7 @@ bool MapEditor::isFormatSupported(const wxString& type) const
 IDocument *MapEditor::openObject(const wxString& typeMinor,
 	camoto::iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
 	SuppMap supp, const Game *game) const
-	throw ()
+	throw (EFailure)
 {
 	assert(fnTrunc);
 
