@@ -695,11 +695,13 @@ class CamotoFrame: public IMainWindow
 			assert(this->project);
 			assert(this->game);
 
-			// TODO: Close all open docs and return false if needed
+			// Close all open docs and return false if needed
 			this->notebook->SetSelection(0); // minimise page change events
+			this->updateToolPanes(NULL); // hide tool windows
 			for (int i = this->notebook->GetPageCount() - 1; i >= 0; i--) {
 				this->notebook->DeletePage(i);
 			}
+			this->treeCtrl->DeleteAllItems();
 
 			// Unload any cached archives
 			this->archives.clear();
