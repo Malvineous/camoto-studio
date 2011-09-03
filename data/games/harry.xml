@@ -21,131 +21,332 @@
 	<display>
 
 		<group name="Levels">
-			<item ref="idm1z1"/>
-			<item ref="idm1z2"/>
-			<item ref="idm1z3"/>
-			<item ref="idm1z4"/>
-			<item ref="idm1z5"/>
-			<item ref="idm2z1"/>
-			<item ref="idm2z2"/>
-			<item ref="idm2z3"/>
-			<item ref="idm2z4"/>
-			<item ref="idm2z5"/>
-			<item ref="idm3z1"/>
-			<item ref="idm3z2"/>
-			<item ref="idm3z3"/>
-			<item ref="idm3z4"/>
-			<item ref="idm3z5"/>
-			<item ref="idm4z1"/>
-			<item ref="idm4z2"/>
-			<item ref="idm4z3"/>
-			<item ref="idm4z4"/>
-			<item ref="idm4z5"/>
+			<item ref="lev-101"/>
+			<item ref="lev-102"/>
+			<item ref="lev-103"/>
+			<item ref="lev-104"/>
+			<item ref="lev-105"/>
+			<item ref="lev-201"/>
+			<item ref="lev-202"/>
+			<item ref="lev-203"/>
+			<item ref="lev-204"/>
+			<item ref="lev-205"/>
+			<item ref="lev-301"/>
+			<item ref="lev-302"/>
+			<item ref="lev-303"/>
+			<item ref="lev-304"/>
+			<item ref="lev-305"/>
+			<item ref="lev-401"/>
+			<item ref="lev-402"/>
+			<item ref="lev-403"/>
+			<item ref="lev-404"/>
+			<item ref="lev-405"/>
 		</group>
 
 		<group name="Graphics">
 			<group name="Palettes">
-				<item ref="idp1z1"/>
-				<item ref="idp1z2"/>
-				<item ref="idp1z3"/>
-				<item ref="idp1z4"/>
-				<item ref="idp1z5"/>
+				<item ref="pal-101"/>
+				<item ref="pal-102"/>
+				<item ref="pal-103"/>
+				<item ref="pal-104"/>
+				<item ref="pal-105"/>
 
-				<item ref="idp2z1"/>
-				<item ref="idp2z2"/>
-				<item ref="idp2z3"/>
-				<item ref="idp2z4"/>
-				<item ref="idp2z5"/>
+				<item ref="pal-201"/>
+				<item ref="pal-202"/>
+				<item ref="pal-203"/>
+				<item ref="pal-204"/>
+				<item ref="pal-205"/>
 
-				<item ref="idp3z1"/>
-				<item ref="idp3z2"/>
-				<item ref="idp3z3"/>
-				<item ref="idp3z4"/>
-				<item ref="idp3z5"/>
+				<item ref="pal-301"/>
+				<item ref="pal-302"/>
+				<item ref="pal-303"/>
+				<item ref="pal-304"/>
+				<item ref="pal-305"/>
 
-				<item ref="idp4z1"/>
-				<item ref="idp4z2"/>
-				<item ref="idp4z3"/>
-				<item ref="idp4z4"/>
-				<item ref="idp4z5"/>
+				<item ref="pal-401"/>
+				<item ref="pal-402"/>
+				<item ref="pal-403"/>
+				<item ref="pal-404"/>
+				<item ref="pal-405"/>
 			</group>
 
 			<group name="Tilesets">
-				<item ref="idt1"/>
-				<item ref="idt2"/>
-				<item ref="idt3"/>
-				<item ref="idt4"/>
+				<item ref="tls-1"/>
+				<item ref="tls-2"/>
+				<item ref="tls-3"/>
+				<item ref="tls-4"/>
 			</group>
 
 			<group name="Full-screen images">
-				<item ref="missions-pcx"/>
-				<item ref="mission1-pcx"/>
-				<item ref="mission2-pcx"/>
-				<item ref="mission3-pcx"/>
-				<item ref="mission4-pcx"/>
+				<item ref="img-apogee"/>
+				<item ref="img-config2"/>
+				<item ref="img-cont3"/>
+				<item ref="img-credscr"/>
+				<item ref="img-diane1"/>
+				<item ref="img-dl"/>
+				<item ref="img-elevator"/>
+				<item ref="img-gover"/>
+				<item ref="img-harry1"/>
+				<item ref="img-helpscr"/>
+				<item ref="img-hhp4"/>
+				<item ref="img-hhprev4"/>
+				<item ref="img-ibi"/>
+				<item ref="img-infocom"/>
+				<item ref="img-m1droid"/>
+				<item ref="img-missc"/>
+				<item ref="img-missions"/>
+				<item ref="img-mission1"/>
+				<item ref="img-mission2"/>
+				<item ref="img-mission3"/>
+				<item ref="img-mission4"/>
+				<item ref="img-piracy"/>
+				<item ref="img-pre2"/>
+				<item ref="img-resume1"/>
+				<item ref="img-save1"/>
+				<item ref="img-starbase"/>
+				<item ref="img-stars"/>
+				<item ref="img-studio9"/>
+				<item ref="img-sub0"/>
+				<item ref="img-tease2"/>
+				<item ref="img-terminal"/>
 			</group>
 
 		</group>
+
+		<group name="Music">
+			<item ref="mus-apogee"/>
+			<item ref="mus-clear"/>
+			<item ref="mus-continue"/>
+			<item ref="mus-finale"/>
+			<item ref="mus-hiscore"/>
+			<item ref="mus-ins"/>
+			<item ref="mus-seb3"/>
+			<item ref="mus-seb7"/>
+			<item ref="mus-z1a"/>
+			<item ref="mus-z1b"/>
+			<item ref="mus-z1c"/>
+			<item ref="mus-z2a"/>
+			<item ref="mus-z2b"/>
+			<item ref="mus-z2c"/>
+			<item ref="mus-z3a"/>
+			<item ref="mus-z3b"/>
+			<item ref="mus-z3c"/>
+			<item ref="mus-z4a"/>
+			<item ref="mus-z4b"/>
+			<item ref="mus-z4c"/>
+		</group>
+
+		<group name="Sounds">
+			<item ref="snd-baddie"/>
+			<item ref="snd-beep"/>
+			<item ref="snd-bonus"/>
+			<item ref="snd-boom"/>
+			<item ref="snd-boom3"/>
+			<item ref="snd-bounce"/>
+			<item ref="snd-captive"/>
+			<item ref="snd-coin"/>
+			<item ref="snd-coin9"/>
+			<item ref="snd-coindrop"/>
+			<item ref="snd-crap"/>
+			<item ref="snd-getcoin"/>
+			<item ref="snd-grenade"/>
+			<item ref="snd-hit"/>
+			<item ref="snd-mehit"/>
+			<item ref="snd-photon"/>
+			<item ref="snd-pickup"/>
+			<item ref="snd-powerup"/>
+			<item ref="snd-punch"/>
+			<item ref="snd-missile"/>
+			<item ref="snd-terminal"/>
+			<item ref="snd-zapin"/>
+			<item ref="snd-zhit"/>
+		</group>
+
+		<group name="Intro sequence specific">
+			<item ref="unk-jft-i"/>
+			<item ref="fnt-d-i"/>
+			<item ref="img-guiger-i"/>
+			<item ref="img-harry1-i"/>
+			<item ref="tls-faces-i"/>
+			<item ref="img-diane1-i"/>
+			<item ref="img-king1-i"/>
+			<item ref="ani-ship-i"/>
+			<item ref="img-zhunt1-i"/>
+			<item ref="ani-zap-i"/>
+			<item ref="img-starb-i"/>
+			<item ref="unk-intro-i"/>
+			<item ref="mus-seb3-i"/>
+			<item ref="mus-ins-i"/>
+		</group>
+
 	</display>
 
 	<files>
-		<file id="idm1z1" name="m1z1.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt1" supp:pal="idp1z1">Mission 1 zone 1</file>
-		<file id="idm1z2" name="m1z2.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt1" supp:pal="idp1z2">Mission 1 zone 2</file>
-		<file id="idm1z3" name="m1z3.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt1" supp:pal="idp1z3">Mission 1 zone 3</file>
-		<file id="idm1z4" name="m1z4.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt1" supp:pal="idp1z4">Mission 1 zone 4</file>
-		<file id="idm1z5" name="m1z5.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt1" supp:pal="idp1z5">Mission 1 zone 5</file>
+		<file id="fat-maps" name="maps.fat">FAT for maps.-0</file>
+		<file id="fat-harry" name="harry.fat">FAT for harry.-0</file>
+		<file id="fat-intro" name="intro.fat">FAT for intro.bnk</file>
+		<file id="fat-sfx" name="sfx.fat">FAT for sfx.bnk</file>
+		<file id="fat-order" name="order.fat">FAT for order.bnk</file>
 
-		<file id="idm2z1" name="m2z1.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt2" supp:pal="idp2z1">Mission 2 zone 1</file>
-		<file id="idm2z2" name="m2z2.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt2" supp:pal="idp2z2">Mission 2 zone 2</file>
-		<file id="idm2z3" name="m2z3.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt2" supp:pal="idp2z3">Mission 2 zone 3</file>
-		<file id="idm2z4" name="m2z4.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt2" supp:pal="idp2z4">Mission 2 zone 4</file>
-		<file id="idm2z5" name="m2z5.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt2" supp:pal="idp2z5">Mission 2 zone 5</file>
+		<archive name="maps.-0" id="arch-maps.-0" typeMinor="bnk-harry" supp:fat="fat-maps">
+			<file id="lev-101" name="m1z1.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-1" supp:pal="pal-101">Mission 1 zone 1</file>
+			<file id="lev-102" name="m1z2.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-1" supp:pal="pal-102">Mission 1 zone 2</file>
+			<file id="lev-103" name="m1z3.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-1" supp:pal="pal-103">Mission 1 zone 3</file>
+			<file id="lev-104" name="m1z4.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-1" supp:pal="pal-104">Mission 1 zone 4</file>
+			<file id="lev-105" name="m1z5.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-1" supp:pal="pal-105">Mission 1 zone 5</file>
 
-		<file id="idm3z1" name="m3z1.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt3" supp:pal="idp3z1">Mission 3 zone 1</file>
-		<file id="idm3z2" name="m3z2.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt3" supp:pal="idp3z2">Mission 3 zone 2</file>
-		<file id="idm3z3" name="m3z3.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt3" supp:pal="idp3z3">Mission 3 zone 3</file>
-		<file id="idm3z4" name="m3z4.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt3" supp:pal="idp3z4">Mission 3 zone 4</file>
-		<file id="idm3z5" name="m3z5.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt3" supp:pal="idp3z5">Mission 3 zone 5</file>
+			<file id="lev-201" name="m2z1.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-2" supp:pal="pal-201">Mission 2 zone 1</file>
+			<file id="lev-202" name="m2z2.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-2" supp:pal="pal-202">Mission 2 zone 2</file>
+			<file id="lev-203" name="m2z3.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-2" supp:pal="pal-203">Mission 2 zone 3</file>
+			<file id="lev-204" name="m2z4.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-2" supp:pal="pal-204">Mission 2 zone 4</file>
+			<file id="lev-205" name="m2z5.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-2" supp:pal="pal-205">Mission 2 zone 5</file>
 
-		<file id="idm4z1" name="m4z1.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt4" supp:pal="idp4z1">Mission 4 zone 1</file>
-		<file id="idm4z2" name="m4z2.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt4" supp:pal="idp4z2">Mission 4 zone 2</file>
-		<file id="idm4z3" name="m4z3.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt4" supp:pal="idp4z3">Mission 4 zone 3</file>
-		<file id="idm4z4" name="m4z4.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt4" supp:pal="idp4z4">Mission 4 zone 4</file>
-		<file id="idm4z5" name="m4z5.gmf" typeMajor="map" typeMinor="harry" supp:tiles="idt4" supp:pal="idp4z5">Mission 4 zone 5</file>
+			<file id="lev-301" name="m3z1.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-3" supp:pal="pal-301">Mission 3 zone 1</file>
+			<file id="lev-302" name="m3z2.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-3" supp:pal="pal-302">Mission 3 zone 2</file>
+			<file id="lev-303" name="m3z3.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-3" supp:pal="pal-303">Mission 3 zone 3</file>
+			<file id="lev-304" name="m3z4.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-3" supp:pal="pal-304">Mission 3 zone 4</file>
+			<file id="lev-305" name="m3z5.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-3" supp:pal="pal-305">Mission 3 zone 5</file>
 
-		<file id="idp1z1" name="m1z1.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 1 palette</file>
-		<file id="idp1z2" name="m1z2.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 2 palette</file>
-		<file id="idp1z3" name="m1z3.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 3 palette</file>
-		<file id="idp1z4" name="m1z4.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 4 palette</file>
-		<file id="idp1z5" name="m1z5.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 5 palette</file>
+			<file id="lev-401" name="m4z1.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-4" supp:pal="pal-401">Mission 4 zone 1</file>
+			<file id="lev-402" name="m4z2.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-4" supp:pal="pal-402">Mission 4 zone 2</file>
+			<file id="lev-403" name="m4z3.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-4" supp:pal="pal-403">Mission 4 zone 3</file>
+			<file id="lev-404" name="m4z4.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-4" supp:pal="pal-404">Mission 4 zone 4</file>
+			<file id="lev-405" name="m4z5.gmf" typeMajor="map" typeMinor="harry" supp:tiles="tls-4" supp:pal="pal-405">Mission 4 zone 5</file>
 
-		<file id="idp2z1" name="m2z1.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 1 palette</file>
-		<file id="idp2z2" name="m2z2.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 2 palette</file>
-		<file id="idp2z3" name="m2z3.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 3 palette</file>
-		<file id="idp2z4" name="m2z4.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 4 palette</file>
-		<file id="idp2z5" name="m2z5.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 5 palette</file>
+			<file id="pal-101" name="m1z1.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 1 palette</file>
+			<file id="pal-102" name="m1z2.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 2 palette</file>
+			<file id="pal-103" name="m1z3.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 3 palette</file>
+			<file id="pal-104" name="m1z4.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 4 palette</file>
+			<file id="pal-105" name="m1z5.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 1 zone 5 palette</file>
 
-		<file id="idp3z1" name="m3z1.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 1 palette</file>
-		<file id="idp3z2" name="m3z2.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 2 palette</file>
-		<file id="idp3z3" name="m3z3.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 3 palette</file>
-		<file id="idp3z4" name="m3z4.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 4 palette</file>
-		<file id="idp3z5" name="m3z5.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 5 palette</file>
+			<file id="pal-201" name="m2z1.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 1 palette</file>
+			<file id="pal-202" name="m2z2.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 2 palette</file>
+			<file id="pal-203" name="m2z3.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 3 palette</file>
+			<file id="pal-204" name="m2z4.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 4 palette</file>
+			<file id="pal-205" name="m2z5.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 2 zone 5 palette</file>
 
-		<file id="idp4z1" name="m4z1.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 1 palette</file>
-		<file id="idp4z2" name="m4z2.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 2 palette</file>
-		<file id="idp4z3" name="m4z3.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 3 palette</file>
-		<file id="idp4z4" name="m4z4.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 4 palette</file>
-		<file id="idp4z5" name="m4z5.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 5 palette</file>
+			<file id="pal-301" name="m3z1.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 1 palette</file>
+			<file id="pal-302" name="m3z2.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 2 palette</file>
+			<file id="pal-303" name="m3z3.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 3 palette</file>
+			<file id="pal-304" name="m3z4.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 4 palette</file>
+			<file id="pal-305" name="m3z5.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 3 zone 5 palette</file>
 
-		<file id="idt1" name="mission1.chr" typeMajor="tileset" typeMinor="harry">Mission 1 tileset</file>
-		<file id="idt2" name="mission2.chr" typeMajor="tileset" typeMinor="harry">Mission 2 tileset</file>
-		<file id="idt3" name="mission3.chr" typeMajor="tileset" typeMinor="harry">Mission 3 tileset</file>
-		<file id="idt4" name="mission4.chr" typeMajor="tileset" typeMinor="harry">Mission 4 tileset</file>
+			<file id="pal-401" name="m4z1.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 1 palette</file>
+			<file id="pal-402" name="m4z2.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 2 palette</file>
+			<file id="pal-403" name="m4z3.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 3 palette</file>
+			<file id="pal-404" name="m4z4.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 4 palette</file>
+			<file id="pal-405" name="m4z5.gmf" typeMajor="pal" typeMinor="gmf-harry">Mission 4 zone 5 palette</file>
+		</archive>
 
-		<file id="missions-pcx" name="missions.pcx" typeMajor="image" typeMinor="pcx">Mission selection </file>
-		<file id="mission1-pcx" name="mission1.pcx" typeMajor="image" typeMinor="pcx">Mission 1 loading</file>
-		<file id="mission2-pcx" name="mission2.pcx" typeMajor="image" typeMinor="pcx">Mission 2 loading</file>
-		<file id="mission3-pcx" name="mission3.pcx" typeMajor="image" typeMinor="pcx">Mission 3 loading</file>
-		<file id="mission4-pcx" name="mission3.pcx" typeMajor="image" typeMinor="pcx">Mission 4 loading</file>
+		<archive name="harry.-0" id="arch-harry-0" typeMinor="bnk-harry" supp:fat="fat-harry">
+			<file id="tls-1" name="mission1.chr" typeMajor="tileset" typeMinor="harry" supp:pal="pal-101">Mission 1 tileset</file>
+			<file id="tls-2" name="mission2.chr" typeMajor="tileset" typeMinor="harry" supp:pal="pal-201">Mission 2 tileset</file>
+			<file id="tls-3" name="mission3.chr" typeMajor="tileset" typeMinor="harry" supp:pal="pal-301">Mission 3 tileset</file>
+			<file id="tls-4" name="mission4.chr" typeMajor="tileset" typeMinor="harry" supp:pal="pal-401">Mission 4 tileset</file>
+
+			<file id="img-missions" name="missions.pcx" typeMajor="image" typeMinor="pcx">Mission selection</file>
+			<file id="img-mission1" name="mission1.pcx" typeMajor="image" typeMinor="pcx">Mission 1 loading</file>
+			<file id="img-mission2" name="mission2.pcx" typeMajor="image" typeMinor="pcx">Mission 2 loading</file>
+			<file id="img-mission3" name="mission3.pcx" typeMajor="image" typeMinor="pcx">Mission 3 loading</file>
+			<file id="img-mission4" name="mission3.pcx" typeMajor="image" typeMinor="pcx">Mission 4 loading</file>
+
+			<file id="img-apogee"   name="apogee.pcx"   typeMajor="image" typeMinor="pcx">Apogee</file>
+			<file id="img-config2"  name="config2.pcx"  typeMajor="image" typeMinor="pcx">Config</file>
+			<file id="img-cont3"    name="cont3.pcx"    typeMajor="image" typeMinor="pcx">Continue</file>
+			<file id="img-credscr"  name="credscr.pcx"  typeMajor="image" typeMinor="pcx">Credits</file>
+			<file id="img-diane1"   name="diane1.pcx"   typeMajor="image" typeMinor="pcx">Diane</file>
+			<file id="img-dl"       name="dl.pcx"       typeMajor="image" typeMinor="pcx">Dl</file>
+			<file id="img-elevator" name="elevator.pcx" typeMajor="image" typeMinor="pcx">Elevator</file>
+			<file id="img-gover"    name="gover.pcx"    typeMajor="image" typeMinor="pcx">Gover</file>
+			<file id="img-harry1"   name="harry1.pcx"   typeMajor="image" typeMinor="pcx">Harry</file>
+			<file id="img-helpscr"  name="helpscr.pcx"  typeMajor="image" typeMinor="pcx">Help</file>
+			<file id="img-hhp4"     name="hhp4.pcx"     typeMajor="image" typeMinor="pcx">P4</file>
+			<file id="img-hhprev4"  name="hhprev4.pcx"  typeMajor="image" typeMinor="pcx">Preview4</file>
+			<file id="img-ibi"      name="ibi.pcx"      typeMajor="image" typeMinor="pcx">Ibi</file>
+			<file id="img-infocom"  name="infocom.pcx"  typeMajor="image" typeMinor="pcx">Infocom</file>
+			<file id="img-m1droid"  name="m1droid.pcx"  typeMajor="image" typeMinor="pcx">M1 Droid</file>
+			<file id="img-missc"    name="miss-c.pcx"   typeMajor="image" typeMinor="pcx">Miss-c</file>
+			<file id="img-piracy"   name="piracy.pcx"   typeMajor="image" typeMinor="pcx">Piracy</file>
+			<file id="img-pre2"     name="pre2.pcx"     typeMajor="image" typeMinor="pcx">Pre2</file>
+			<file id="img-resume1"  name="resume1.pcx"  typeMajor="image" typeMinor="pcx">Resume</file>
+			<file id="img-save1"    name="save1.pcx"    typeMajor="image" typeMinor="pcx">Save game</file>
+			<file id="img-starbase" name="starbase.pcx" typeMajor="image" typeMinor="pcx">Starbase</file>
+			<file id="img-stars"    name="stars.pcx"    typeMajor="image" typeMinor="pcx">Stars</file>
+			<file id="img-studio9"  name="studio9.pcx"  typeMajor="image" typeMinor="pcx">Music Studio</file>
+			<file id="img-sub0"     name="sub-0.pcx"    typeMajor="image" typeMinor="pcx">SubZero</file>
+			<file id="img-tease2"   name="tease2.pcx"   typeMajor="image" typeMinor="pcx">Tease</file>
+			<file id="img-terminal" name="terminal.pcx" typeMajor="image" typeMinor="pcx">Terminal</file>
+
+			<file id="mus-apogee"   name="apogee.4md"   typeMajor="music" typeMinor="4md">Apogee</file>
+			<file id="mus-clear"    name="clear.4md"    typeMajor="music" typeMinor="4md">Clear</file>
+			<file id="mus-continue" name="continue.4md" typeMajor="music" typeMinor="4md">Continue</file>
+			<file id="mus-finale"   name="finale.4md"   typeMajor="music" typeMinor="4md">Finale</file>
+			<file id="mus-hiscore"  name="hiscore.4md"  typeMajor="music" typeMinor="4md">High Score</file>
+			<file id="mus-ins"      name="ins.4md"      typeMajor="music" typeMinor="4md">Ins</file>
+			<file id="mus-seb3"     name="seb3.4md"     typeMajor="music" typeMinor="4md">Seb 3</file>
+			<file id="mus-seb7"     name="seb7.4md"     typeMajor="music" typeMinor="4md">Seb 7</file>
+			<file id="mus-z1a"      name="zone-1a.4md"  typeMajor="music" typeMinor="4md">Zone 1A</file>
+			<file id="mus-z1b"      name="zone-1b.4md"  typeMajor="music" typeMinor="4md">Zone 1B</file>
+			<file id="mus-z1c"      name="zone-1c.4md"  typeMajor="music" typeMinor="4md">Zone 1C</file>
+			<file id="mus-z2a"      name="zone-2a.4md"  typeMajor="music" typeMinor="4md">Zone 2A</file>
+			<file id="mus-z2b"      name="zone-2b.4md"  typeMajor="music" typeMinor="4md">Zone 2B</file>
+			<file id="mus-z2c"      name="zone-2c.4md"  typeMajor="music" typeMinor="4md">Zone 2C</file>
+			<file id="mus-z3a"      name="zone-3a.4md"  typeMajor="music" typeMinor="4md">Zone 3A</file>
+			<file id="mus-z3b"      name="zone-3b.4md"  typeMajor="music" typeMinor="4md">Zone 3B</file>
+			<file id="mus-z3c"      name="zone-3c.4md"  typeMajor="music" typeMinor="4md">Zone 3C</file>
+			<file id="mus-z4a"      name="zone-4a.4md"  typeMajor="music" typeMinor="4md">Zone 4A</file>
+			<file id="mus-z4b"      name="zone-4b.4md"  typeMajor="music" typeMinor="4md">Zone 4B</file>
+			<file id="mus-z4c"      name="zone-4c.4md"  typeMajor="music" typeMinor="4md">Zone 4C</file>
+		</archive>
+
+		<archive name="intro.bnk" id="arch-intro-bnk" typeMinor="bnk-harry" supp:fat="fat-intro">
+			<file id="unk-jft-i"    name="harry1.jft"   typeMajor=""      typeMinor="">JFT (intro)</file>
+			<file id="fnt-d-i"      name="font-d.fnt"   typeMajor="font"  typeMinor="harry">Font (intro)</file>
+			<file id="img-guiger-i" name="guiger1.pcx"  typeMajor="image" typeMinor="pcx">Guiger (intro)</file>
+			<file id="img-harry1-i" name="harry1.pcx"   typeMajor="image" typeMinor="pcx">Harry (intro)</file>
+			<file id="tls-faces-i"  name="faces.ico"    typeMajor=""      typeMinor="">Faces (intro)</file>
+			<file id="img-diane1-i" name="diane1.pcx"   typeMajor="image" typeMinor="pcx">Diane (intro)</file>
+			<file id="img-king1-i"  name="king1.pcx"    typeMajor="image" typeMinor="pcx">King (intro)</file>
+			<file id="ani-ship-i"   name="ship.rob"     typeMajor=""      typeMinor="">Ship animation (intro)</file>
+			<file id="img-zhunt1-i" name="zhunt1.pcx"   typeMajor="image" typeMinor="pcx">ZHunt (intro)</file>
+			<file id="ani-zap-i"    name="zap.rob"      typeMajor=""      typeMinor="">Zap animation (intro)</file>
+			<file id="img-starb-i"  name="starbase.pcx" typeMajor="image" typeMinor="pcx">Starbase (intro)</file>
+			<file id="unk-intro-i"  name="intro.dlg"    typeMajor=""      typeMinor="">Dialogue (intro)</file>
+			<file id="mus-seb3-i"   name="seb3.4md"     typeMajor="music" typeMinor="4md">Seb 3 (intro)</file>
+			<file id="mus-ins-i"    name="ins.4md"      typeMajor="music" typeMinor="4md">Ins (intro)</file>
+		</archive>
+
+		<archive name="sfx.bnk" id="arch-sfx-bnk" typeMinor="bnk-harry" supp:fat="fat-sfx">
+			<file id="snd-baddie"   name="baddie.4bt"   typeMajor="sound" typeMinor="4bt">Baddie</file>
+			<file id="snd-beep"     name="beep.4bt"     typeMajor="sound" typeMinor="4bt">Beep</file>
+			<file id="snd-bonus"    name="bonus.4bt"    typeMajor="sound" typeMinor="4bt">Bonus</file>
+			<file id="snd-boom"     name="boom.4bt"     typeMajor="sound" typeMinor="4bt">Boom</file>
+			<file id="snd-boom3"    name="boom3.4bt"    typeMajor="sound" typeMinor="4bt">Boom3</file>
+			<file id="snd-bounce"   name="bounce.4bt"   typeMajor="sound" typeMinor="4bt">Bounce</file>
+			<file id="snd-captive"  name="captive.4bt"  typeMajor="sound" typeMinor="4bt">Captive</file>
+			<file id="snd-coin"     name="coin.4bt"     typeMajor="sound" typeMinor="4bt">Coin</file>
+			<file id="snd-coin9"    name="coin9.4bt"    typeMajor="sound" typeMinor="4bt">Coin9</file>
+			<file id="snd-coindrop" name="coindrop.4bt" typeMajor="sound" typeMinor="4bt">Coindrop</file>
+			<file id="snd-crap"     name="crap.4bt"     typeMajor="sound" typeMinor="4bt">Crap</file>
+			<file id="snd-getcoin"  name="getcoin.4bt"  typeMajor="sound" typeMinor="4bt">Get Coin</file>
+			<file id="snd-grenade"  name="grenade.4bt"  typeMajor="sound" typeMinor="4bt">Grenade</file>
+			<file id="snd-hit"      name="hit.4bt"      typeMajor="sound" typeMinor="4bt">Hit</file>
+			<file id="snd-mehit"    name="mehit.4bt"    typeMajor="sound" typeMinor="4bt">Me hit</file>
+			<file id="snd-photon"   name="photon.4bt"   typeMajor="sound" typeMinor="4bt">Photon</file>
+			<file id="snd-pickup"   name="pickup.4bt"   typeMajor="sound" typeMinor="4bt">Pickup</file>
+			<file id="snd-powerup"  name="powerup.4bt"  typeMajor="sound" typeMinor="4bt">Powerup</file>
+			<file id="snd-punch"    name="punch.4bt"    typeMajor="sound" typeMinor="4bt">Punch</file>
+			<file id="snd-missile"  name="missile.4bt"  typeMajor="sound" typeMinor="4bt">Missile</file>
+			<file id="snd-terminal" name="terminal.4bt" typeMajor="sound" typeMinor="4bt">Terminal</file>
+			<file id="snd-zapin"    name="zapin.4bt"    typeMajor="sound" typeMinor="4bt">Zapin</file>
+			<file id="snd-zhit"     name="zhit.4bt"     typeMajor="sound" typeMinor="4bt">ZHit</file>
+		</archive>
+
+		<archive name="order.bnk" id="arch-order-bnk" typeMinor="bnk-harry" supp:fat="fat-order">
+			<file id="img-intro-o"  name="intro.pcx"    typeMajor="image" typeMinor="pcx">Intro</file>
+			<file id="txt-swend"    name="shwrend.scr"  typeMajor="b800"  typeMinor="80b">Shareware exit screen</file>
+			<!-- TODO: Add rest of files -->
+		</archive>
+
 	</files>
 </game>
