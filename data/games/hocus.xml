@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Hocus Pocus description file for Camoto Studio
+	Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Hocus_Pocus
+  -->
+<game title="Hocus Pocus" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Mike Voss</developer>
+		<publisher>Apogee</publisher>
+		<reverser>Spinal, Malvineous</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+
+		<group name="Levels">
+			<item ref="lev-101"/>
+		</group>
+
+		<group name="Graphics">
+
+			<group name="Full-screen">
+				<item ref="img-i1"/>
+				<item ref="img-i2"/>
+				<item ref="img-i3"/>
+				<item ref="img-i4"/>
+
+				<item ref="img-c1"/>
+				<item ref="img-c2"/>
+				<item ref="img-h1"/>
+				<item ref="img-h2"/>
+				<item ref="img-h3"/>
+				<item ref="img-h4"/>
+				<item ref="img-h5"/>
+
+				<item ref="img-72"/>
+				<item ref="img-122"/>
+			</group>
+
+			<group name="Previews">
+				<item ref="img-p1"/>
+				<item ref="img-p2"/>
+				<item ref="img-p3"/>
+				<item ref="img-p4"/>
+				<item ref="img-p5"/>
+				<item ref="img-p6"/>
+				<item ref="img-p7"/>
+				<item ref="img-p8"/>
+				<item ref="img-p9"/>
+				<item ref="img-pa"/>
+				<item ref="img-pb"/>
+			</group>
+
+			<group name="Map backdrops">
+				<item ref="img-bd01"/>
+				<item ref="img-bd02"/>
+				<item ref="img-bd03"/>
+				<item ref="img-bd04"/>
+				<item ref="img-bd05"/>
+				<item ref="img-bd06"/>
+				<item ref="img-bd07"/>
+				<item ref="img-bd08"/>
+				<item ref="img-bd09"/>
+				<item ref="img-bd10"/>
+				<item ref="img-bd11"/>
+				<item ref="img-bd12"/>
+				<item ref="img-bd13"/>
+				<item ref="img-bd14"/>
+				<item ref="img-bd15"/>
+				<item ref="img-bd16"/>
+			</group>
+
+			<group name="Tilesets">
+				<item ref="tls-01"/>
+				<item ref="tls-02"/>
+				<item ref="tls-03"/>
+				<item ref="tls-04"/>
+				<item ref="tls-05"/>
+				<item ref="tls-06"/>
+				<item ref="tls-07"/>
+				<item ref="tls-08"/>
+				<item ref="tls-09"/>
+				<item ref="tls-10"/>
+				<item ref="tls-11"/>
+				<item ref="tls-12"/>
+				<item ref="tls-13"/>
+				<item ref="tls-14"/>
+				<item ref="tls-15"/>
+				<item ref="tls-16"/>
+			</group>
+
+		</group>
+	</display>
+
+	<files>
+		<file id="exe-hocus" name="hocus.exe" typeMajor="binary" typeMinor="exe">Main EXE file</file>
+		<archive name="hocus.dat" id="arch-hocus-dat" typeMinor="dat-hocus" supp:fat="exe-hocus">
+
+			<file id="lev-101" name="@455" typeMajor="map" typeMinor="hocus"
+						supp:layer1="lev-101-fg1" supp:layer2="lev-101-fg2"
+						supp:tiles="tls-01">E1L1</file>
+
+			<file id="lev-101-fg1" name="@456" typeMajor="map" typeMinor="hocus-fg">E1L1 FG layer 1</file>
+			<file id="lev-101-fg2" name="@457" typeMajor="map" typeMinor="hocus-fg">E1L1 FG layer 2</file>
+
+			<file id="img-i1" name="@1" typeMajor="image" typeMinor="pcx">Apogee logo</file>
+			<file id="img-i3" name="@2" typeMajor="image" typeMinor="pcx">Title</file>
+
+			<file id="img-i4" name="@4" typeMajor="image" typeMinor="pcx">img04</file>
+
+			<file id="img-i2" name="@17" typeMajor="image" typeMinor="pcx">Piracy warning</file>
+
+			<file id="img-c1" name="@23" typeMajor="image" typeMinor="pcx">Credits 1</file>
+			<file id="img-c2" name="@24" typeMajor="image" typeMinor="pcx">Credits 2</file>
+			<file id="img-h1" name="@25" typeMajor="image" typeMinor="pcx">Help 1</file>
+			<file id="img-h2" name="@26" typeMajor="image" typeMinor="pcx">Help 2</file>
+			<file id="img-h3" name="@27" typeMajor="image" typeMinor="pcx">Help 3</file>
+			<file id="img-h4" name="@28" typeMajor="image" typeMinor="pcx">Help 4</file>
+			<file id="img-h5" name="@29" typeMajor="image" typeMinor="pcx">Help 5</file>
+			<file id="img-p1" name="@30" typeMajor="image" typeMinor="pcx">Preview 1</file>
+			<file id="img-p2" name="@31" typeMajor="image" typeMinor="pcx">Preview 2</file>
+			<file id="img-p3" name="@32" typeMajor="image" typeMinor="pcx">Preview 3</file>
+			<file id="img-p4" name="@33" typeMajor="image" typeMinor="pcx">Preview 4</file>
+			<file id="img-p5" name="@34" typeMajor="image" typeMinor="pcx">Preview 5</file>
+			<file id="img-p6" name="@35" typeMajor="image" typeMinor="pcx">Preview 6</file>
+			<file id="img-p7" name="@36" typeMajor="image" typeMinor="pcx">Preview 7</file>
+			<file id="img-p8" name="@37" typeMajor="image" typeMinor="pcx">Preview 8</file>
+			<file id="img-p9" name="@38" typeMajor="image" typeMinor="pcx">Preview 9</file>
+			<file id="img-pa" name="@39" typeMajor="image" typeMinor="pcx">Preview 10</file>
+			<file id="img-pb" name="@40" typeMajor="image" typeMinor="pcx">Preview 11</file>
+
+			<file id="img-72" name="@72" typeMajor="image" typeMinor="pcx">Ending</file>
+
+			<file id="img-bd01" name="@89"  typeMajor="image" typeMinor="pcx">Backdrop 1</file>
+			<file id="img-bd02" name="@90"  typeMajor="image" typeMinor="pcx">Backdrop 2</file>
+			<file id="img-bd03" name="@91"  typeMajor="image" typeMinor="pcx">Backdrop 3</file>
+			<file id="img-bd04" name="@92"  typeMajor="image" typeMinor="pcx">Backdrop 4</file>
+			<file id="img-bd05" name="@93"  typeMajor="image" typeMinor="pcx">Backdrop 5</file>
+			<file id="img-bd06" name="@94"  typeMajor="image" typeMinor="pcx">Backdrop 6</file>
+			<file id="img-bd07" name="@95"  typeMajor="image" typeMinor="pcx">Backdrop 7</file>
+			<file id="img-bd08" name="@96"  typeMajor="image" typeMinor="pcx">Backdrop 8</file>
+			<file id="img-bd09" name="@97"  typeMajor="image" typeMinor="pcx">Backdrop 9</file>
+			<file id="img-bd10" name="@98"  typeMajor="image" typeMinor="pcx">Backdrop 10</file>
+			<file id="img-bd11" name="@99"  typeMajor="image" typeMinor="pcx">Backdrop 11</file>
+			<file id="img-bd12" name="@100" typeMajor="image" typeMinor="pcx">Backdrop 12</file>
+			<file id="img-bd13" name="@101" typeMajor="image" typeMinor="pcx">Backdrop 13</file>
+			<file id="img-bd14" name="@102" typeMajor="image" typeMinor="pcx">Backdrop 14</file>
+			<file id="img-bd15" name="@103" typeMajor="image" typeMinor="pcx">Backdrop 15</file>
+			<file id="img-bd16" name="@104" typeMajor="image" typeMinor="pcx">Backdrop 16</file>
+			<file id="tls-01" name="@105" typeMajor="tileset" typeMinor="hocus">Tileset 1</file>
+			<file id="tls-02" name="@106" typeMajor="tileset" typeMinor="hocus">Tileset 2</file>
+			<file id="tls-03" name="@107" typeMajor="tileset" typeMinor="hocus">Tileset 3</file>
+			<file id="tls-04" name="@108" typeMajor="tileset" typeMinor="hocus">Tileset 4</file>
+			<file id="tls-05" name="@109" typeMajor="tileset" typeMinor="hocus">Tileset 5</file>
+			<file id="tls-06" name="@110" typeMajor="tileset" typeMinor="hocus">Tileset 6</file>
+			<file id="tls-07" name="@111" typeMajor="tileset" typeMinor="hocus">Tileset 7</file>
+			<file id="tls-08" name="@112" typeMajor="tileset" typeMinor="hocus">Tileset 8</file>
+			<file id="tls-09" name="@113" typeMajor="tileset" typeMinor="hocus">Tileset 9</file>
+			<file id="tls-10" name="@114" typeMajor="tileset" typeMinor="hocus">Tileset 10</file>
+			<file id="tls-11" name="@115" typeMajor="tileset" typeMinor="hocus">Tileset 11</file>
+			<file id="tls-12" name="@116" typeMajor="tileset" typeMinor="hocus">Tileset 12</file>
+			<file id="tls-13" name="@117" typeMajor="tileset" typeMinor="hocus">Tileset 13</file>
+			<file id="tls-14" name="@118" typeMajor="tileset" typeMinor="hocus">Tileset 14</file>
+			<file id="tls-15" name="@119" typeMajor="tileset" typeMinor="hocus">Tileset 15</file>
+			<file id="tls-16" name="@120" typeMajor="tileset" typeMinor="hocus">Tileset 16</file>
+
+			<file id="img-122" name="@122" typeMajor="image" typeMinor="pcx">Ending?</file>
+
+		</archive>
+	</files>
+
+	<commands>
+		<command>
+			hocus
+		</command>
+	</commands>
+
+</game>

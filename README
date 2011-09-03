@@ -9,12 +9,13 @@ This is Camoto Studio, the "main" part of Camoto which links everything else
 together in a nice GUI.  If you are new to Camoto, this is what you want to
 use.
 
-The GUI currently supports editing these games:
+The GUI currently supports at least partial editing of these games:
 
  - Captain Comic
  - Cosmo's Cosmic Adventures
  - Dangerous Dave
  - Halloween Harry
+ - Hocus Pocus
  - Monster Bash
  - Wacky Wheels
 
