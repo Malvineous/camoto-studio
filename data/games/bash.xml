@@ -21,15 +21,17 @@
 	<display>
 
 		<group name="Levels">
-			<item ref="e1l1map"/>
+			<group name="Episode 1">
+				<item ref="lev-101-map"/>
+			</group>
 		</group>
 
 		<group name="Graphics">
 
 			<group name="Tilesets">
-				<item ref="t1l1bg"/>
-				<item ref="t1l1bon"/>
-				<item ref="t1l1fg"/>
+				<item ref="tls-101-bg"/>
+				<item ref="tls-101-bon"/>
+				<item ref="tls-101-fg"/>
 			</group>
 
 		</group>
@@ -57,35 +59,35 @@
 	</display>
 
 	<files>
-		<file id="e1l1mapx" name="lev1.2" typeMajor="map" typeMinor="bash" supp:tiles="e1l1bg" supp:tiles2="e1l1bon" supp:tiles3="e1l1fg">E1L1</file>
-		<file id="e1l1map" name="lev1" typeMajor="map" typeMinor="bash"
-			supp:layer1="e1l1bg" supp:layer2="e1l1fg"
-			supp:tiles="t1l1bg" supp:tiles2="t1l1bon" supp:tiles3="t1l1fg">E1L1</file>
+		<archive name="bash1.dat" id="arch-bash1-dat" typeMinor="dat-bash">
+			<file id="tls-101-bg" name="bk1.tbg" typeMajor="tileset" typeMinor="bash-bg">E1L1 BG tiles</file>
+			<file id="tls-101-fg" name="fg1.tfg" typeMajor="tileset" typeMinor="bash-fg">E1L1 FG tiles</file>
+			<file id="tls-101-bon" name="bon1.tbn" typeMajor="tileset" typeMinor="bash-fg">E1L1 BON tiles</file>
+			<file id="lev-101-bg" name="lev1.mbg" typeMajor="map" typeMinor="bash-bg">E1L1 BG layer</file>
+			<file id="lev-101-fg" name="lev1.mfg" typeMajor="map" typeMinor="bash-fg">E1L1 FG layer</file>
+			<file id="lev-101-map" name="lev1.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-101-bg" supp:layer2="lev-101-fg"
+				supp:tiles="tls-101-bg" supp:tiles2="tls-101-bon" supp:tiles3="tls-101-fg">Level 1</file>
 
-		<file id="e1l1bg" name="lev1.1" typeMajor="map" typeMinor="bash-bg">E1L1 BG layer</file>
-		<file id="e1l1fg" name="lev1.2" typeMajor="map" typeMinor="bash-fg">E1L1 FG layer</file>
 
-		<file id="t1l1bg" name="bk1" typeMajor="tileset" typeMinor="bash-bg">E1L1 BG tiles</file>
-		<file id="t1l1fg" name="fg1" typeMajor="tileset" typeMinor="bash-fg">E1L1 FG tiles</file>
-		<file id="t1l1bon" name="bon1" typeMajor="tileset" typeMinor="bash-fg">E1L1 BON tiles</file>
-
-		<file id="m_apogfnfr" name="apogfnfr.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">apogfnfr</file>
-		<file id="m_bachbash" name="bachbash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">bachbash</file>
-		<file id="m_bashdnce" name="bashdnce.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">bashdnce</file>
-		<file id="m_cavebash" name="cavebash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">cavebash</file>
-		<file id="m_chase"    name="chase.imf"    typeMajor="music" typeMinor="imf-idsoftware-type0">chase</file>
-		<file id="m_cyclops"  name="cyclops.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0">cyclops</file>
-		<file id="m_demons"   name="demons.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0">demons</file>
-		<file id="m_fastbash" name="fastbash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">fastbash</file>
-		<file id="m_ghouls"   name="ghouls.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0">ghouls</file>
-		<file id="m_goodbye"  name="goodbye.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0">goodbye</file>
-		<file id="m_haunted"  name="haunted.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0">haunted</file>
-		<file id="m_johnnys"  name="johnny's.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">johnny's</file>
-		<file id="m_lovebash" name="lovebash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">lovebash</file>
-		<file id="m_madnbash" name="madnbash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">madnbash</file>
-		<file id="m_main"     name="main.imf"     typeMajor="music" typeMinor="imf-idsoftware-type0">Main menu</file>
-		<file id="m_theme"    name="theme.imf"    typeMajor="music" typeMinor="imf-idsoftware-type0">Theme</file>
-		<file id="m_vulture"  name="vulture.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0">vulture</file>
+			<file id="m_apogfnfr" name="apogfnfr.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">apogfnfr</file>
+			<file id="m_bachbash" name="bachbash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">bachbash</file>
+			<file id="m_bashdnce" name="bashdnce.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">bashdnce</file>
+			<file id="m_cavebash" name="cavebash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">cavebash</file>
+			<file id="m_chase"    name="chase.imf"    typeMajor="music" typeMinor="imf-idsoftware-type0">chase</file>
+			<file id="m_cyclops"  name="cyclops.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0">cyclops</file>
+			<file id="m_demons"   name="demons.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0">demons</file>
+			<file id="m_fastbash" name="fastbash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">fastbash</file>
+			<file id="m_ghouls"   name="ghouls.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0">ghouls</file>
+			<file id="m_goodbye"  name="goodbye.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0">goodbye</file>
+			<file id="m_haunted"  name="haunted.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0">haunted</file>
+			<file id="m_johnnys"  name="johnny's.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">johnny's</file>
+			<file id="m_lovebash" name="lovebash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">lovebash</file>
+			<file id="m_madnbash" name="madnbash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">madnbash</file>
+			<file id="m_main"     name="main.imf"     typeMajor="music" typeMinor="imf-idsoftware-type0">Main menu</file>
+			<file id="m_theme"    name="theme.imf"    typeMajor="music" typeMinor="imf-idsoftware-type0">Theme</file>
+			<file id="m_vulture"  name="vulture.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0">vulture</file>
+		</archive>
 	</files>
 
 	<commands>
