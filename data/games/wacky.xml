@@ -30,32 +30,122 @@
 			<item ref="lev-08" />
 			<item ref="lev-09" />
 			<item ref="lev-10" />
+			<item ref="lev-11" />
+			<item ref="lev-12" />
+			<item ref="lev-13" />
+			<item ref="lev-14" />
+			<item ref="lev-15" />
+			<item ref="lev-16" />
+			<item ref="lev-17" />
+			<item ref="lev-18" />
+			<item ref="lev-19" />
+			<item ref="lev-20" />
+			<item ref="lev-21" />
+			<item ref="lev-22" />
+			<item ref="lev-23" />
+			<item ref="lev-24" />
+			<item ref="lev-25" />
+			<item ref="lev-26" />
+			<item ref="lev-27" />
+			<item ref="lev-28" />
+			<item ref="lev-29" />
+			<item ref="lev-30" />
+			<item ref="lev-31" />
+			<item ref="lev-32" />
+			<item ref="lev-33" />
+			<item ref="lev-34" />
+			<item ref="lev-35" />
+			<item ref="lev-36" />
+			<item ref="lev-37" />
+			<item ref="lev-38" />
+			<item ref="lev-39" />
+			<item ref="lev-40" />
+			<item ref="lev-41" />
+			<item ref="lev-42" />
 		</group>
 		<group name="Tiles">
-			<item ref="tls-f1" />
-			<item ref="tls-f2" />
-			<item ref="tls-f3" />
-			<item ref="tls-f4" />
+			<item ref="tls-f01" />
+			<item ref="tls-f02" />
+			<item ref="tls-f03" />
+			<item ref="tls-f04" />
+			<item ref="tls-f05" />
+			<item ref="tls-f06" />
+			<item ref="tls-f07" />
+			<item ref="tls-f08" />
+			<item ref="tls-f09" />
+			<item ref="tls-f10" />
+			<item ref="tls-f11" />
+			<item ref="tls-f12" />
+			<item ref="tls-f13" />
+			<item ref="tls-f14" />
+			<item ref="tls-f15" />
+			<item ref="tls-f16" />
+			<item ref="tls-f17" />
 		</group>
 	</display>
 
 	<files>
 		<archive name="wacky.dat" id="arch-wacky-dat" typeMinor="dat-wacky">
-			<file id="lev-01" name="1.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f1" supp:tiles2="tls-f2">Level 1</file>
-			<file id="lev-02" name="2.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f3" supp:tiles2="tls-f4">Level 2</file>
-			<file id="lev-03" name="3.m"  typeMajor="map" typeMinor="wacky">Level 3</file>
-			<file id="lev-04" name="4.m"  typeMajor="map" typeMinor="wacky">Level 4</file>
-			<file id="lev-05" name="5.m"  typeMajor="map" typeMinor="wacky">Level 5</file>
-			<file id="lev-06" name="6.m"  typeMajor="map" typeMinor="wacky">Level 6</file>
-			<file id="lev-07" name="7.m"  typeMajor="map" typeMinor="wacky">Level 7</file>
-			<file id="lev-08" name="8.m"  typeMajor="map" typeMinor="wacky">Level 8</file>
-			<file id="lev-09" name="9.m"  typeMajor="map" typeMinor="wacky">Level 9</file>
-			<file id="lev-10" name="10.m" typeMajor="map" typeMinor="wacky">Level 10</file>
+			<file id="lev-01" name="1.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Regular Bronze Wheels, Track 1</file>
+			<file id="lev-02" name="2.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04">Regular Bronze Wheels, Track 2</file>
+			<file id="lev-03" name="3.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Regular Bronze Wheels, Track 3</file>
+			<file id="lev-04" name="4.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Regular Bronze Wheels, Track 4</file>
+			<file id="lev-05" name="5.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Regular Bronze Wheels, Final</file>
+			<file id="lev-06" name="6.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Regular Silver Wheels, Track 1</file>
+			<file id="lev-07" name="7.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14">Regular Silver Wheels, Track 2</file>
+			<file id="lev-08" name="8.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Regular Silver Wheels, Track 3</file>
+			<file id="lev-09" name="9.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Regular Silver Wheels, Track 4</file>
+			<file id="lev-10" name="10.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15">Regular Silver Wheels, Final</file>
+			<file id="lev-11" name="11.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Regular Gold Wheels, Track 1</file>
+			<file id="lev-12" name="12.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04">Regular Gold Wheels, Track 2</file>
+			<file id="lev-13" name="13.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Regular Gold Wheels, Track 3</file>
+			<file id="lev-14" name="14.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14">Regular Gold Wheels, Track 4</file>
+			<file id="lev-15" name="15.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15">Regular Gold Wheels, Final</file>
+			<file id="lev-16" name="16.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f11">Regular Shootout Zone 1</file>
+			<file id="lev-17" name="17.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Regular Shootout Zone 2</file>
+			<file id="lev-18" name="18.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Regular Shootout Zone 3</file>
+			<file id="lev-19" name="19.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15">Regular Shootout Zone 4</file>
+			<file id="lev-20" name="20.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Regular Shootout Zone 5</file>
+			<file id="lev-21" name="21.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Regular Shootout Zone 6</file>
+			<file id="lev-22" name="22.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Bonus Bronze Wheels, Track 1</file> 
+			<file id="lev-23" name="23.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14">Bonus Bronze Wheels, Track 2</file> 
+			<file id="lev-24" name="24.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Bonus Bronze Wheels, Track 3</file> 
+			<file id="lev-25" name="25.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Bonus Bronze Wheels, Track 4</file> 
+			<file id="lev-26" name="26.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Bonus Bronze Wheels, Final</file>   
+			<file id="lev-27" name="27.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04">Bonus Silver Wheels, Track 1</file> 
+			<file id="lev-28" name="28.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Bonus Silver Wheels, Track 2</file> 
+			<file id="lev-29" name="29.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Bonus Silver Wheels, Track 3</file> 
+			<file id="lev-30" name="30.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14">Bonus Silver Wheels, Track 4</file> 
+			<file id="lev-31" name="31.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Bonus Silver Wheels, Final</file>   
+			<file id="lev-32" name="32.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Bonus Gold Wheels, Track 1</file>   
+			<file id="lev-33" name="33.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04">Bonus Gold Wheels, Track 2</file>   
+			<file id="lev-34" name="34.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Bonus Gold Wheels, Track 3</file>   
+			<file id="lev-35" name="35.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Bonus Gold Wheels, Track 4</file>   
+			<file id="lev-36" name="36.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Bonus Gold Wheels, Final</file>     
+			<file id="lev-37" name="37.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Bonus Shootout Zone 1</file>        
+			<file id="lev-38" name="38.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15">Bonus Shootout Zone 2</file>        
+			<file id="lev-39" name="39.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Bonus Shootout Zone 3</file>        
+			<file id="lev-40" name="40.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Bonus Shootout Zone 4</file>        
+			<file id="lev-41" name="41.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Bonus Shootout Zone 5</file>        
+			<file id="lev-42" name="42.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f11">Bonus Shootout Zone 6</file>        
 
-			<file id="tls-f1" name="a_f1.pcx" typeMajor="tileset" typeMinor="wacky">F1</file>
-			<file id="tls-f2" name="a_f2.pcx" typeMajor="tileset" typeMinor="wacky">F2</file>
-			<file id="tls-f3" name="a_f3.pcx" typeMajor="tileset" typeMinor="wacky">F3</file>
-			<file id="tls-f4" name="a_f4.pcx" typeMajor="tileset" typeMinor="wacky">F4</file>
+			<file id="tls-f01" name="a_f1.pcx" typeMajor="tileset" typeMinor="wacky">F1</file>
+			<file id="tls-f02" name="a_f2.pcx" typeMajor="tileset" typeMinor="wacky">F2</file>
+			<file id="tls-f03" name="a_f3.pcx" typeMajor="tileset" typeMinor="wacky">F3</file>
+			<file id="tls-f04" name="a_f4.pcx" typeMajor="tileset" typeMinor="wacky">F4</file>
+			<file id="tls-f05" name="a_f5.pcx" typeMajor="tileset" typeMinor="wacky">F5</file>
+			<file id="tls-f06" name="a_f6.pcx" typeMajor="tileset" typeMinor="wacky">F6</file>
+			<file id="tls-f07" name="a_f7.pcx" typeMajor="tileset" typeMinor="wacky">F7</file>
+			<file id="tls-f08" name="a_f8.pcx" typeMajor="tileset" typeMinor="wacky">F8</file>
+			<file id="tls-f09" name="a_f9.pcx" typeMajor="tileset" typeMinor="wacky">F9</file>
+			<file id="tls-f10" name="a_f10.pcx" typeMajor="tileset" typeMinor="wacky">F10</file>
+			<file id="tls-f11" name="a_f11.pcx" typeMajor="tileset" typeMinor="wacky">F11</file>
+			<file id="tls-f12" name="a_f12.pcx" typeMajor="tileset" typeMinor="wacky">F12</file>
+			<file id="tls-f13" name="a_f13.pcx" typeMajor="tileset" typeMinor="wacky">F13</file>
+			<file id="tls-f14" name="a_f14.pcx" typeMajor="tileset" typeMinor="wacky">F14</file>
+			<file id="tls-f15" name="a_f15.pcx" typeMajor="tileset" typeMinor="wacky">F15</file>
+			<file id="tls-f16" name="a_f16.pcx" typeMajor="tileset" typeMinor="wacky">F16</file>
+			<file id="tls-f17" name="a_f17.pcx" typeMajor="tileset" typeMinor="wacky">F17</file>
 		</archive>
 	</files>
 </game>
