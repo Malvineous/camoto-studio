@@ -64,23 +64,134 @@
 			<item ref="lev-42" />
 		</group>
 		<group name="Tiles">
-			<item ref="tls-f01" />
-			<item ref="tls-f02" />
-			<item ref="tls-f03" />
-			<item ref="tls-f04" />
-			<item ref="tls-f05" />
-			<item ref="tls-f06" />
-			<item ref="tls-f07" />
-			<item ref="tls-f08" />
-			<item ref="tls-f09" />
-			<item ref="tls-f10" />
-			<item ref="tls-f11" />
-			<item ref="tls-f12" />
-			<item ref="tls-f13" />
-			<item ref="tls-f14" />
-			<item ref="tls-f15" />
-			<item ref="tls-f16" />
-			<item ref="tls-f17" />
+			<group name="Tile graphics">
+				<item ref="tls-f01" />
+				<item ref="tls-f02" />
+				<item ref="tls-f03" />
+				<item ref="tls-f04" />
+				<item ref="tls-f05" />
+				<item ref="tls-f06" />
+				<item ref="tls-f07" />
+				<item ref="tls-f08" />
+				<item ref="tls-f09" />
+				<item ref="tls-f10" />
+				<item ref="tls-f11" />
+				<item ref="tls-f12" />
+				<item ref="tls-f13" />
+				<item ref="tls-f14" />
+				<item ref="tls-f15" />
+				<item ref="tls-f16" />
+				<item ref="tls-f17" />
+			</group>
+			<group name="Tile information">
+				<item ref="tls-ma01" />
+				<item ref="tls-ma02" />
+				<item ref="tls-ma03" />
+				<item ref="tls-ma04" />
+				<item ref="tls-ma05" />
+				<item ref="tls-ma06" />
+				<item ref="tls-ma07" />
+				<item ref="tls-ma08" />
+				<item ref="tls-ma09" />
+				<item ref="tls-ma10" />
+				<item ref="tls-ma11" />
+				<item ref="tls-ma12" />
+				<item ref="tls-ma13" />
+				<item ref="tls-ma14" />
+				<item ref="tls-ma15" />
+				<item ref="tls-ma16" />
+				<item ref="tls-ma17" />
+			</group>
+		</group>
+		<group name="Graphics">
+			<group name="Full-screen">
+				<item ref="apog1" />
+				<item ref="beavis" />
+				<item ref="wintro" />
+				<item ref="check" />
+				<item ref="lead" />
+				<item ref="order" />
+				<item ref="win" />
+				<item ref="end1" />
+				<item ref="instr-1" />
+				<item ref="instr-2" />
+				<item ref="instr-3" />
+				<item ref="instr-4" />
+				<item ref="instr-5" />
+				<item ref="instr-6" />
+				<item ref="instr-7" />
+				<item ref="instr-8" />
+				<item ref="order-01" />
+				<item ref="order-02" />
+				<item ref="order-03" />
+				<item ref="order-04" />
+				<item ref="order-05" />
+				<item ref="order-06" />
+				<item ref="order-07" />
+				<item ref="order-08" />
+				<item ref="order-09" />
+				<item ref="order-10" />
+				<item ref="order-11" />
+				<item ref="sb1" />
+				<item ref="sb2" />
+				<item ref="sb3" />
+				<item ref="sbcs" />
+				<item ref="bsb1" />
+				<item ref="bsb2" />
+				<item ref="bsb3" />
+				<item ref="bsbcs" />
+			</group>
+			<group name="Components">
+				<item ref="blank" />
+				<item ref="back1" />
+				<item ref="back2" />
+				<item ref="back3" />
+				<item ref="beach" />
+			</group>
+			<group name="Course previews">
+				<item ref="shrink-01" />
+				<item ref="shrink-02" />
+				<item ref="shrink-03" />
+				<item ref="shrink-04" />
+				<item ref="shrink-05" />
+				<item ref="shrink-06" />
+				<item ref="shrink-07" />
+				<item ref="shrink-08" />
+				<item ref="shrink-09" />
+				<item ref="shrink-10" />
+				<item ref="shrink-11" />
+				<item ref="shrink-12" />
+				<item ref="shrink-13" />
+				<item ref="shrink-14" />
+				<item ref="shrink-15" />
+				<item ref="shrink-16" />
+				<item ref="shrink-17" />
+				<item ref="shrink-18" />
+				<item ref="shrink-19" />
+				<item ref="shrink-20" />
+				<item ref="shrink-21" />
+				<item ref="shrink-22" />
+				<item ref="shrink-23" />
+				<item ref="shrink-24" />
+				<item ref="shrink-25" />
+				<item ref="shrink-26" />
+				<item ref="shrink-27" />
+				<item ref="shrink-28" />
+				<item ref="shrink-29" />
+				<item ref="shrink-30" />
+				<item ref="shrink-31" />
+				<item ref="shrink-32" />
+				<item ref="shrink-33" />
+				<item ref="shrink-34" />
+				<item ref="shrink-35" />
+				<item ref="shrink-36" />
+				<item ref="shrink-37" />
+				<item ref="shrink-38" />
+				<item ref="shrink-39" />
+				<item ref="shrink-40" />
+				<item ref="shrink-41" />
+				<item ref="shrink-42" />
+			</group>
 		</group>
 	</display>
 
@@ -107,45 +218,150 @@
 			<file id="lev-19" name="19.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15">Regular Shootout Zone 4</file>
 			<file id="lev-20" name="20.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Regular Shootout Zone 5</file>
 			<file id="lev-21" name="21.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Regular Shootout Zone 6</file>
-			<file id="lev-22" name="22.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Bonus Bronze Wheels, Track 1</file> 
-			<file id="lev-23" name="23.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14">Bonus Bronze Wheels, Track 2</file> 
-			<file id="lev-24" name="24.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Bonus Bronze Wheels, Track 3</file> 
-			<file id="lev-25" name="25.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Bonus Bronze Wheels, Track 4</file> 
-			<file id="lev-26" name="26.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Bonus Bronze Wheels, Final</file>   
-			<file id="lev-27" name="27.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04">Bonus Silver Wheels, Track 1</file> 
-			<file id="lev-28" name="28.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Bonus Silver Wheels, Track 2</file> 
-			<file id="lev-29" name="29.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Bonus Silver Wheels, Track 3</file> 
-			<file id="lev-30" name="30.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14">Bonus Silver Wheels, Track 4</file> 
-			<file id="lev-31" name="31.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Bonus Silver Wheels, Final</file>   
-			<file id="lev-32" name="32.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Bonus Gold Wheels, Track 1</file>   
-			<file id="lev-33" name="33.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04">Bonus Gold Wheels, Track 2</file>   
-			<file id="lev-34" name="34.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Bonus Gold Wheels, Track 3</file>   
-			<file id="lev-35" name="35.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Bonus Gold Wheels, Track 4</file>   
-			<file id="lev-36" name="36.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Bonus Gold Wheels, Final</file>     
-			<file id="lev-37" name="37.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Bonus Shootout Zone 1</file>        
-			<file id="lev-38" name="38.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15">Bonus Shootout Zone 2</file>        
-			<file id="lev-39" name="39.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Bonus Shootout Zone 3</file>        
-			<file id="lev-40" name="40.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Bonus Shootout Zone 4</file>        
-			<file id="lev-41" name="41.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Bonus Shootout Zone 5</file>        
-			<file id="lev-42" name="42.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f11">Bonus Shootout Zone 6</file>        
+			<file id="lev-22" name="22.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Bonus Bronze Wheels, Track 1</file>
+			<file id="lev-23" name="23.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14">Bonus Bronze Wheels, Track 2</file>
+			<file id="lev-24" name="24.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Bonus Bronze Wheels, Track 3</file>
+			<file id="lev-25" name="25.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Bonus Bronze Wheels, Track 4</file>
+			<file id="lev-26" name="26.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Bonus Bronze Wheels, Final</file>
+			<file id="lev-27" name="27.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04">Bonus Silver Wheels, Track 1</file>
+			<file id="lev-28" name="28.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Bonus Silver Wheels, Track 2</file>
+			<file id="lev-29" name="29.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Bonus Silver Wheels, Track 3</file>
+			<file id="lev-30" name="30.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14">Bonus Silver Wheels, Track 4</file>
+			<file id="lev-31" name="31.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Bonus Silver Wheels, Final</file>
+			<file id="lev-32" name="32.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Bonus Gold Wheels, Track 1</file>
+			<file id="lev-33" name="33.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04">Bonus Gold Wheels, Track 2</file>
+			<file id="lev-34" name="34.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Bonus Gold Wheels, Track 3</file>
+			<file id="lev-35" name="35.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Bonus Gold Wheels, Track 4</file>
+			<file id="lev-36" name="36.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Bonus Gold Wheels, Final</file>
+			<file id="lev-37" name="37.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Bonus Shootout Zone 1</file>
+			<file id="lev-38" name="38.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15">Bonus Shootout Zone 2</file>
+			<file id="lev-39" name="39.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Bonus Shootout Zone 3</file>
+			<file id="lev-40" name="40.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Bonus Shootout Zone 4</file>
+			<file id="lev-41" name="41.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Bonus Shootout Zone 5</file>
+			<file id="lev-42" name="42.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f11">Bonus Shootout Zone 6</file>
 
-			<file id="tls-f01" name="a_f1.pcx" typeMajor="tileset" typeMinor="wacky">F1</file>
-			<file id="tls-f02" name="a_f2.pcx" typeMajor="tileset" typeMinor="wacky">F2</file>
-			<file id="tls-f03" name="a_f3.pcx" typeMajor="tileset" typeMinor="wacky">F3</file>
-			<file id="tls-f04" name="a_f4.pcx" typeMajor="tileset" typeMinor="wacky">F4</file>
-			<file id="tls-f05" name="a_f5.pcx" typeMajor="tileset" typeMinor="wacky">F5</file>
-			<file id="tls-f06" name="a_f6.pcx" typeMajor="tileset" typeMinor="wacky">F6</file>
-			<file id="tls-f07" name="a_f7.pcx" typeMajor="tileset" typeMinor="wacky">F7</file>
-			<file id="tls-f08" name="a_f8.pcx" typeMajor="tileset" typeMinor="wacky">F8</file>
-			<file id="tls-f09" name="a_f9.pcx" typeMajor="tileset" typeMinor="wacky">F9</file>
-			<file id="tls-f10" name="a_f10.pcx" typeMajor="tileset" typeMinor="wacky">F10</file>
-			<file id="tls-f11" name="a_f11.pcx" typeMajor="tileset" typeMinor="wacky">F11</file>
-			<file id="tls-f12" name="a_f12.pcx" typeMajor="tileset" typeMinor="wacky">F12</file>
-			<file id="tls-f13" name="a_f13.pcx" typeMajor="tileset" typeMinor="wacky">F13</file>
-			<file id="tls-f14" name="a_f14.pcx" typeMajor="tileset" typeMinor="wacky">F14</file>
-			<file id="tls-f15" name="a_f15.pcx" typeMajor="tileset" typeMinor="wacky">F15</file>
-			<file id="tls-f16" name="a_f16.pcx" typeMajor="tileset" typeMinor="wacky">F16</file>
-			<file id="tls-f17" name="a_f17.pcx" typeMajor="tileset" typeMinor="wacky">F17</file>
+			<file id="lev-01-rd" name="1.rd">Regular Bronze Wheels, Track 1</file>
+
+			<file id="tls-f01"  name="a_f1.pcx"   typeMajor="tileset" typeMinor="wacky">F1</file>
+			<file id="tls-f02"  name="a_f2.pcx"   typeMajor="tileset" typeMinor="wacky">F2</file>
+			<file id="tls-f03"  name="a_f3.pcx"   typeMajor="tileset" typeMinor="wacky">F3</file>
+			<file id="tls-f04"  name="a_f4.pcx"   typeMajor="tileset" typeMinor="wacky">F4</file>
+			<file id="tls-f05"  name="a_f5.pcx"   typeMajor="tileset" typeMinor="wacky">F5</file>
+			<file id="tls-f06"  name="a_f6.pcx"   typeMajor="tileset" typeMinor="wacky">F6</file>
+			<file id="tls-f07"  name="a_f7.pcx"   typeMajor="tileset" typeMinor="wacky">F7</file>
+			<file id="tls-f08"  name="a_f8.pcx"   typeMajor="tileset" typeMinor="wacky">F8</file>
+			<file id="tls-f09"  name="a_f9.pcx"   typeMajor="tileset" typeMinor="wacky">F9</file>
+			<file id="tls-f10"  name="a_f10.pcx"  typeMajor="tileset" typeMinor="wacky">F10</file>
+			<file id="tls-f11"  name="a_f11.pcx"  typeMajor="tileset" typeMinor="wacky">F11</file>
+			<file id="tls-f12"  name="a_f12.pcx"  typeMajor="tileset" typeMinor="wacky">F12 (unused)</file>
+			<file id="tls-f13"  name="a_f13.pcx"  typeMajor="tileset" typeMinor="wacky">F13</file>
+			<file id="tls-f14"  name="a_f14.pcx"  typeMajor="tileset" typeMinor="wacky">F14</file>
+			<file id="tls-f15"  name="a_f15.pcx"  typeMajor="tileset" typeMinor="wacky">F15</file>
+			<file id="tls-f16"  name="a_f16.pcx"  typeMajor="tileset" typeMinor="wacky">F16</file>
+			<file id="tls-f17"  name="a_f17.pcx"  typeMajor="tileset" typeMinor="wacky">F17</file>
+
+			<file id="tls-ma01" name="a_ma1.pcx"  typeMajor="tileset" typeMinor="wacky">MA1</file>
+			<file id="tls-ma02" name="a_ma2.pcx"  typeMajor="tileset" typeMinor="wacky">MA2</file>
+			<file id="tls-ma03" name="a_ma3.pcx"  typeMajor="tileset" typeMinor="wacky">MA3</file>
+			<file id="tls-ma04" name="a_ma4.pcx"  typeMajor="tileset" typeMinor="wacky">MA4</file>
+			<file id="tls-ma05" name="a_ma5.pcx"  typeMajor="tileset" typeMinor="wacky">MA5</file>
+			<file id="tls-ma06" name="a_ma6.pcx"  typeMajor="tileset" typeMinor="wacky">MA6</file>
+			<file id="tls-ma07" name="a_ma7.pcx"  typeMajor="tileset" typeMinor="wacky">MA7</file>
+			<file id="tls-ma08" name="a_ma8.pcx"  typeMajor="tileset" typeMinor="wacky">MA8</file>
+			<file id="tls-ma09" name="a_ma9.pcx"  typeMajor="tileset" typeMinor="wacky">MA9</file>
+			<file id="tls-ma10" name="a_ma10.pcx" typeMajor="tileset" typeMinor="wacky">MA10</file>
+			<file id="tls-ma11" name="a_ma11.pcx" typeMajor="tileset" typeMinor="wacky">MA11</file>
+			<file id="tls-ma12" name="a_ma12.pcx" typeMajor="tileset" typeMinor="wacky">MA12 (unused)</file>
+			<file id="tls-ma13" name="a_ma13.pcx" typeMajor="tileset" typeMinor="wacky">MA13</file>
+			<file id="tls-ma14" name="a_ma14.pcx" typeMajor="tileset" typeMinor="wacky">MA14</file>
+			<file id="tls-ma15" name="a_ma15.pcx" typeMajor="tileset" typeMinor="wacky">MA15</file>
+			<file id="tls-ma16" name="a_ma16.pcx" typeMajor="tileset" typeMinor="wacky">MA16</file>
+			<file id="tls-ma17" name="a_ma17.pcx" typeMajor="tileset" typeMinor="wacky">MA17</file>
+
+			<file id="shrink-01" name="shrink1.pcx"  typeMajor="image" typeMinor="pcx">Regular Bronze Wheels, Track 1</file>
+			<file id="shrink-02" name="shrink2.pcx"  typeMajor="image" typeMinor="pcx">Regular Bronze Wheels, Track 2</file>
+			<file id="shrink-03" name="shrink3.pcx"  typeMajor="image" typeMinor="pcx">Regular Bronze Wheels, Track 3</file>
+			<file id="shrink-04" name="shrink4.pcx"  typeMajor="image" typeMinor="pcx">Regular Bronze Wheels, Track 4</file>
+			<file id="shrink-05" name="shrink5.pcx"  typeMajor="image" typeMinor="pcx">Regular Bronze Wheels, Final</file>
+			<file id="shrink-06" name="shrink6.pcx"  typeMajor="image" typeMinor="pcx">Regular Silver Wheels, Track 1</file>
+			<file id="shrink-07" name="shrink7.pcx"  typeMajor="image" typeMinor="pcx">Regular Silver Wheels, Track 2</file>
+			<file id="shrink-08" name="shrink8.pcx"  typeMajor="image" typeMinor="pcx">Regular Silver Wheels, Track 3</file>
+			<file id="shrink-09" name="shrink9.pcx"  typeMajor="image" typeMinor="pcx">Regular Silver Wheels, Track 4</file>
+			<file id="shrink-10" name="shrink10.pcx" typeMajor="image" typeMinor="pcx">Regular Silver Wheels, Final</file>
+			<file id="shrink-11" name="shrink11.pcx" typeMajor="image" typeMinor="pcx">Regular Gold Wheels, Track 1</file>
+			<file id="shrink-12" name="shrink12.pcx" typeMajor="image" typeMinor="pcx">Regular Gold Wheels, Track 2</file>
+			<file id="shrink-13" name="shrink13.pcx" typeMajor="image" typeMinor="pcx">Regular Gold Wheels, Track 3</file>
+			<file id="shrink-14" name="shrink14.pcx" typeMajor="image" typeMinor="pcx">Regular Gold Wheels, Track 4</file>
+			<file id="shrink-15" name="shrink15.pcx" typeMajor="image" typeMinor="pcx">Regular Gold Wheels, Final</file>
+			<file id="shrink-16" name="shrink16.pcx" typeMajor="image" typeMinor="pcx">Regular Shootout Zone 1</file>
+			<file id="shrink-17" name="shrink17.pcx" typeMajor="image" typeMinor="pcx">Regular Shootout Zone 2</file>
+			<file id="shrink-18" name="shrink18.pcx" typeMajor="image" typeMinor="pcx">Regular Shootout Zone 3</file>
+			<file id="shrink-19" name="shrink19.pcx" typeMajor="image" typeMinor="pcx">Regular Shootout Zone 4</file>
+			<file id="shrink-20" name="shrink20.pcx" typeMajor="image" typeMinor="pcx">Regular Shootout Zone 5</file>
+			<file id="shrink-21" name="shrink21.pcx" typeMajor="image" typeMinor="pcx">Regular Shootout Zone 6</file>
+			<file id="shrink-22" name="shrink22.pcx" typeMajor="image" typeMinor="pcx">Bonus Bronze Wheels, Track 1</file>
+			<file id="shrink-23" name="shrink23.pcx" typeMajor="image" typeMinor="pcx">Bonus Bronze Wheels, Track 2</file>
+			<file id="shrink-24" name="shrink24.pcx" typeMajor="image" typeMinor="pcx">Bonus Bronze Wheels, Track 3</file>
+			<file id="shrink-25" name="shrink25.pcx" typeMajor="image" typeMinor="pcx">Bonus Bronze Wheels, Track 4</file>
+			<file id="shrink-26" name="shrink26.pcx" typeMajor="image" typeMinor="pcx">Bonus Bronze Wheels, Final</file>
+			<file id="shrink-27" name="shrink27.pcx" typeMajor="image" typeMinor="pcx">Bonus Silver Wheels, Track 1</file>
+			<file id="shrink-28" name="shrink28.pcx" typeMajor="image" typeMinor="pcx">Bonus Silver Wheels, Track 2</file>
+			<file id="shrink-29" name="shrink29.pcx" typeMajor="image" typeMinor="pcx">Bonus Silver Wheels, Track 3</file>
+			<file id="shrink-30" name="shrink30.pcx" typeMajor="image" typeMinor="pcx">Bonus Silver Wheels, Track 4</file>
+			<file id="shrink-31" name="shrink31.pcx" typeMajor="image" typeMinor="pcx">Bonus Silver Wheels, Final</file>
+			<file id="shrink-32" name="shrink32.pcx" typeMajor="image" typeMinor="pcx">Bonus Gold Wheels, Track 1</file>
+			<file id="shrink-33" name="shrink33.pcx" typeMajor="image" typeMinor="pcx">Bonus Gold Wheels, Track 2</file>
+			<file id="shrink-34" name="shrink34.pcx" typeMajor="image" typeMinor="pcx">Bonus Gold Wheels, Track 3</file>
+			<file id="shrink-35" name="shrink35.pcx" typeMajor="image" typeMinor="pcx">Bonus Gold Wheels, Track 4</file>
+			<file id="shrink-36" name="shrink36.pcx" typeMajor="image" typeMinor="pcx">Bonus Gold Wheels, Final</file>
+			<file id="shrink-37" name="shrink37.pcx" typeMajor="image" typeMinor="pcx">Bonus Shootout Zone 1</file>
+			<file id="shrink-38" name="shrink38.pcx" typeMajor="image" typeMinor="pcx">Bonus Shootout Zone 2</file>
+			<file id="shrink-39" name="shrink39.pcx" typeMajor="image" typeMinor="pcx">Bonus Shootout Zone 3</file>
+			<file id="shrink-40" name="shrink40.pcx" typeMajor="image" typeMinor="pcx">Bonus Shootout Zone 4</file>
+			<file id="shrink-41" name="shrink41.pcx" typeMajor="image" typeMinor="pcx">Bonus Shootout Zone 5</file>
+			<file id="shrink-42" name="shrink42.pcx" typeMajor="image" typeMinor="pcx">Bonus Shootout Zone 6</file>
+
+			<file id="apog1"     name="apog1.pcx"    typeMajor="image" typeMinor="pcx">Apogee logo</file>
+			<file id="beavis"    name="beavis.pcx"   typeMajor="image" typeMinor="pcx">Beavis Soft logo</file>
+			<file id="wintro"    name="wintro.pcx"   typeMajor="image" typeMinor="pcx">Introduction screen</file>
+			<file id="check"     name="check.pcx"    typeMajor="image" typeMinor="pcx">Main Menu background</file>
+			<file id="lead"      name="lead.pcx"     typeMajor="image" typeMinor="pcx">Famous Drivers background</file>
+			<file id="order"     name="order.pcx"    typeMajor="image" typeMinor="pcx">Leaderboard background</file>
+			<file id="win"       name="win.pcx"      typeMajor="image" typeMinor="pcx">Winners cup</file>
+			<file id="end1"      name="end1.pcx"     typeMajor="image" typeMinor="pcx">Exit screen</file>
+			<file id="instr-1"   name="int1.pcx"     typeMajor="image" typeMinor="pcx">Instructions screen 1</file>
+			<file id="instr-2"   name="int2.pcx"     typeMajor="image" typeMinor="pcx">Instructions screen 2</file>
+			<file id="instr-3"   name="int3.pcx"     typeMajor="image" typeMinor="pcx">Instructions screen 3</file>
+			<file id="instr-4"   name="int4.pcx"     typeMajor="image" typeMinor="pcx">Instructions screen 4</file>
+			<file id="instr-5"   name="int5.pcx"     typeMajor="image" typeMinor="pcx">Instructions screen 5</file>
+			<file id="instr-6"   name="int6.pcx"     typeMajor="image" typeMinor="pcx">Instructions screen 6</file>
+			<file id="instr-7"   name="int7.pcx"     typeMajor="image" typeMinor="pcx">Instructions screen 7</file>
+			<file id="instr-8"   name="int8.pcx"     typeMajor="image" typeMinor="pcx">Instructions screen 8</file>
+			<file id="order-01"  name="or1.pcx"      typeMajor="image" typeMinor="pcx">Ordering screen 1</file>
+			<file id="order-02"  name="or2.pcx"      typeMajor="image" typeMinor="pcx">Ordering screen 2</file>
+			<file id="order-03"  name="or3.pcx"      typeMajor="image" typeMinor="pcx">Ordering screen 3</file>
+			<file id="order-04"  name="or4.pcx"      typeMajor="image" typeMinor="pcx">Ordering screen 4</file>
+			<file id="order-05"  name="or5.pcx"      typeMajor="image" typeMinor="pcx">Ordering screen 5</file>
+			<file id="order-06"  name="or6.pcx"      typeMajor="image" typeMinor="pcx">Ordering screen 6</file>
+			<file id="order-07"  name="or7.pcx"      typeMajor="image" typeMinor="pcx">Ordering screen 7</file>
+			<file id="order-08"  name="or8.pcx"      typeMajor="image" typeMinor="pcx">Ordering screen 8</file>
+			<file id="order-09"  name="or9.pcx"      typeMajor="image" typeMinor="pcx">Ordering screen 9</file>
+			<file id="order-10"  name="or10.pcx"     typeMajor="image" typeMinor="pcx">Ordering screen 10</file>
+			<file id="order-11"  name="or11.pcx"     typeMajor="image" typeMinor="pcx">Ordering screen 11</file>
+			<file id="sb1"       name="sb1.pcx"      typeMajor="image" typeMinor="pcx">Regular Bronze Wheels preview</file>
+			<file id="sb2"       name="sb2.pcx"      typeMajor="image" typeMinor="pcx">Regular Silver Wheels preview</file>
+			<file id="sb3"       name="sb3.pcx"      typeMajor="image" typeMinor="pcx">Regular Gold Wheels preview</file>
+			<file id="sbcs"      name="sbcs.pcx"     typeMajor="image" typeMinor="pcx">Regular Shootout Zone preview</file>
+			<file id="bsb1"      name="bsb1.pcx"     typeMajor="image" typeMinor="pcx">Bonus Bronze Wheels preview</file>
+			<file id="bsb2"      name="bsb2.pcx"     typeMajor="image" typeMinor="pcx">Bonus Silver Wheels preview</file>
+			<file id="bsb3"      name="bsb3.pcx"     typeMajor="image" typeMinor="pcx">Bonus Gold Wheels preview</file>
+			<file id="bsbcs"     name="bsbcs.pcx"    typeMajor="image" typeMinor="pcx">Bonus Shootout Zone preview</file>
+
+			<file id="blank"     name="blank.pcx"    typeMajor="image" typeMinor="pcx">Hedgehogs and lives overlay</file>
+			<file id="back1"     name="back1.pcx"    typeMajor="image" typeMinor="pcx">Sky 1</file>
+			<file id="back2"     name="back2.pcx"    typeMajor="image" typeMinor="pcx">Sky 2</file>
+			<file id="back3"     name="back3.pcx"    typeMajor="image" typeMinor="pcx">Sky 3</file>
+			<file id="beach"     name="beach.pcx"    typeMajor="image" typeMinor="pcx">Beach.pcx (unused?)</file>
 		</archive>
 	</files>
 </game>
