@@ -201,15 +201,15 @@
 				<item ref="mus-opl-bassattk"/>
 				<item ref="mus-opl-bricwall"/>
 				<item ref="mus-opl-dance"/>
+				<item ref="mus-opl-mainmenu"/>
 				<item ref="mus-opl-flight"/>
 				<item ref="mus-opl-gameover"/>
 				<item ref="mus-opl-kard"/>
-				<item ref="mus-opl-leadrbrd"/>
-				<item ref="mus-opl-mainmenu"/>
 				<item ref="mus-opl-overdriv"/>
 				<item ref="mus-opl-pumper"/>
 				<item ref="mus-opl-spacey"/>
 				<item ref="mus-opl-starbrai"/>
+				<item ref="mus-opl-leadrbrd"/>
 				<item ref="mus-opl-turbo"/>
 			</group>
 			<group name="MIDI">
@@ -219,15 +219,15 @@
 				<item ref="mus-mid-bassattk"/>
 				<item ref="mus-mid-bricwall"/>
 				<item ref="mus-mid-dance"/>
+				<item ref="mus-mid-mainmenu"/>
 				<item ref="mus-mid-flight"/>
 				<item ref="mus-mid-gameover"/>
 				<item ref="mus-mid-kard"/>
-				<item ref="mus-mid-leadrbrd"/>
-				<item ref="mus-mid-mainmenu"/>
 				<item ref="mus-mid-overdriv"/>
 				<item ref="mus-mid-pumper"/>
 				<item ref="mus-mid-spacey"/>
 				<item ref="mus-mid-starbrai"/>
+				<item ref="mus-mid-leadrbrd"/>
 				<item ref="mus-mid-turbo"/>
 			</group>
 		</group>
@@ -407,15 +407,15 @@
 			<file id="mus-opl-bassattk" name="bassattk.klm" typeMajor="music" typeMinor="klm-wacky">Bass Attack</file>
 			<file id="mus-opl-bricwall" name="bricwall.klm" typeMajor="music" typeMinor="klm-wacky">Brick Wall</file>
 			<file id="mus-opl-dance"    name="dance.klm"    typeMajor="music" typeMinor="klm-wacky">Dance</file>
+			<file id="mus-opl-mainmenu" name="mainmenu.klm" typeMajor="music" typeMinor="klm-wacky">Dream (main menu)</file>
 			<file id="mus-opl-flight"   name="flight.klm"   typeMajor="music" typeMinor="klm-wacky">Flight</file>
 			<file id="mus-opl-gameover" name="gameover.klm" typeMajor="music" typeMinor="klm-wacky">Game Over</file>
 			<file id="mus-opl-kard"     name="kard.klm"     typeMajor="music" typeMinor="klm-wacky">Kard</file>
-			<file id="mus-opl-leadrbrd" name="leadrbrd.klm" typeMajor="music" typeMinor="klm-wacky">Leader Board</file>
-			<file id="mus-opl-mainmenu" name="mainmenu.klm" typeMajor="music" typeMinor="klm-wacky">Main Menu</file>
 			<file id="mus-opl-overdriv" name="overdriv.klm" typeMajor="music" typeMinor="klm-wacky">Overdrive</file>
 			<file id="mus-opl-pumper"   name="pumper.klm"   typeMajor="music" typeMinor="klm-wacky">Pumper</file>
 			<file id="mus-opl-spacey"   name="spacey.klm"   typeMajor="music" typeMinor="klm-wacky">Spacey</file>
 			<file id="mus-opl-starbrai" name="starbrai.klm" typeMajor="music" typeMinor="klm-wacky">Star Brain</file>
+			<file id="mus-opl-leadrbrd" name="leadrbrd.klm" typeMajor="music" typeMinor="klm-wacky">The Rostrum</file>
 			<file id="mus-opl-turbo"    name="turbo.klm"    typeMajor="music" typeMinor="klm-wacky">Turbo</file>
 			<file id="mus-mid-apogee"   name="apogee.mid"   typeMajor="music" typeMinor="mid-type1">Apogee theme</file>
 			<file id="mus-mid-ashes"    name="ashes.mid"    typeMajor="music" typeMinor="mid-type1">Ashes</file>
@@ -423,15 +423,15 @@
 			<file id="mus-mid-bassattk" name="bassattk.mid" typeMajor="music" typeMinor="mid-type1">Bass Attack</file>
 			<file id="mus-mid-bricwall" name="bricwall.mid" typeMajor="music" typeMinor="mid-type1">Brick Wall</file>
 			<file id="mus-mid-dance"    name="dance.mid"    typeMajor="music" typeMinor="mid-type1">Dance</file>
+			<file id="mus-mid-mainmenu" name="mainmenu.mid" typeMajor="music" typeMinor="mid-type1">Dream (main menu)</file>
 			<file id="mus-mid-flight"   name="flight.mid"   typeMajor="music" typeMinor="mid-type1">Flight</file>
 			<file id="mus-mid-gameover" name="gameover.mid" typeMajor="music" typeMinor="mid-type1">Game Over</file>
 			<file id="mus-mid-kard"     name="kard.mid"     typeMajor="music" typeMinor="mid-type1">Kard</file>
-			<file id="mus-mid-leadrbrd" name="leadrbrd.mid" typeMajor="music" typeMinor="mid-type1">Leader Board</file>
-			<file id="mus-mid-mainmenu" name="mainmenu.mid" typeMajor="music" typeMinor="mid-type1">Main Menu</file>
 			<file id="mus-mid-overdriv" name="overdriv.mid" typeMajor="music" typeMinor="mid-type1">Overdrive</file>
 			<file id="mus-mid-pumper"   name="pumper.mid"   typeMajor="music" typeMinor="mid-type1">Pumper</file>
 			<file id="mus-mid-spacey"   name="spacey.mid"   typeMajor="music" typeMinor="mid-type1">Spacey</file>
 			<file id="mus-mid-starbrai" name="starbrai.mid" typeMajor="music" typeMinor="mid-type1">Star Brain</file>
+			<file id="mus-mid-leadrbrd" name="leadrbrd.mid" typeMajor="music" typeMinor="mid-type1">The Rostrum</file>
 			<file id="mus-mid-turbo"    name="turbo.mid"    typeMajor="music" typeMinor="mid-type1">Turbo</file>
 		</archive>
 	</files>
