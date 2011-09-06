@@ -235,50 +235,91 @@
 
 	<files>
 		<archive name="wacky.dat" id="arch-wacky-dat" typeMinor="dat-wacky">
-			<file id="lev-01" name="1.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Regular Bronze Wheels, Track 1</file>
-			<file id="lev-02" name="2.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04">Regular Bronze Wheels, Track 2</file>
-			<file id="lev-03" name="3.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Regular Bronze Wheels, Track 3</file>
-			<file id="lev-04" name="4.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Regular Bronze Wheels, Track 4</file>
-			<file id="lev-05" name="5.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Regular Bronze Wheels, Final</file>
-			<file id="lev-06" name="6.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Regular Silver Wheels, Track 1</file>
-			<file id="lev-07" name="7.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14">Regular Silver Wheels, Track 2</file>
-			<file id="lev-08" name="8.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Regular Silver Wheels, Track 3</file>
-			<file id="lev-09" name="9.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Regular Silver Wheels, Track 4</file>
-			<file id="lev-10" name="10.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15">Regular Silver Wheels, Final</file>
-			<file id="lev-11" name="11.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Regular Gold Wheels, Track 1</file>
-			<file id="lev-12" name="12.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04">Regular Gold Wheels, Track 2</file>
-			<file id="lev-13" name="13.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Regular Gold Wheels, Track 3</file>
-			<file id="lev-14" name="14.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14">Regular Gold Wheels, Track 4</file>
-			<file id="lev-15" name="15.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15">Regular Gold Wheels, Final</file>
-			<file id="lev-16" name="16.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f11">Regular Shootout Zone 1</file>
-			<file id="lev-17" name="17.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Regular Shootout Zone 2</file>
-			<file id="lev-18" name="18.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Regular Shootout Zone 3</file>
-			<file id="lev-19" name="19.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15">Regular Shootout Zone 4</file>
-			<file id="lev-20" name="20.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Regular Shootout Zone 5</file>
-			<file id="lev-21" name="21.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Regular Shootout Zone 6</file>
-			<file id="lev-22" name="22.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Bonus Bronze Wheels, Track 1</file>
-			<file id="lev-23" name="23.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14">Bonus Bronze Wheels, Track 2</file>
-			<file id="lev-24" name="24.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Bonus Bronze Wheels, Track 3</file>
-			<file id="lev-25" name="25.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Bonus Bronze Wheels, Track 4</file>
-			<file id="lev-26" name="26.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Bonus Bronze Wheels, Final</file>
-			<file id="lev-27" name="27.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04">Bonus Silver Wheels, Track 1</file>
-			<file id="lev-28" name="28.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Bonus Silver Wheels, Track 2</file>
-			<file id="lev-29" name="29.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Bonus Silver Wheels, Track 3</file>
-			<file id="lev-30" name="30.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14">Bonus Silver Wheels, Track 4</file>
-			<file id="lev-31" name="31.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Bonus Silver Wheels, Final</file>
-			<file id="lev-32" name="32.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Bonus Gold Wheels, Track 1</file>
-			<file id="lev-33" name="33.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04">Bonus Gold Wheels, Track 2</file>
-			<file id="lev-34" name="34.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Bonus Gold Wheels, Track 3</file>
-			<file id="lev-35" name="35.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Bonus Gold Wheels, Track 4</file>
-			<file id="lev-36" name="36.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02">Bonus Gold Wheels, Final</file>
-			<file id="lev-37" name="37.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06">Bonus Shootout Zone 1</file>
-			<file id="lev-38" name="38.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15">Bonus Shootout Zone 2</file>
-			<file id="lev-39" name="39.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10">Bonus Shootout Zone 3</file>
-			<file id="lev-40" name="40.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08">Bonus Shootout Zone 4</file>
-			<file id="lev-41" name="41.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17">Bonus Shootout Zone 5</file>
-			<file id="lev-42" name="42.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f11">Bonus Shootout Zone 6</file>
+			<file id="lev-01" name="1.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02" supp:layer1="lev-01-rd">Regular Bronze Wheels, Track 1</file>
+			<file id="lev-02" name="2.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04" supp:layer1="lev-02-rd">Regular Bronze Wheels, Track 2</file>
+			<file id="lev-03" name="3.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06" supp:layer1="lev-03-rd">Regular Bronze Wheels, Track 3</file>
+			<file id="lev-04" name="4.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08" supp:layer1="lev-04-rd">Regular Bronze Wheels, Track 4</file>
+			<file id="lev-05" name="5.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02" supp:layer1="lev-05-rd">Regular Bronze Wheels, Final</file>
+			<file id="lev-06" name="6.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10" supp:layer1="lev-06-rd">Regular Silver Wheels, Track 1</file>
+			<file id="lev-07" name="7.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14" supp:layer1="lev-07-rd">Regular Silver Wheels, Track 2</file>
+			<file id="lev-08" name="8.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08" supp:layer1="lev-08-rd">Regular Silver Wheels, Track 3</file>
+			<file id="lev-09" name="9.m"  typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06" supp:layer1="lev-09-rd">Regular Silver Wheels, Track 4</file>
+			<file id="lev-10" name="10.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15" supp:layer1="lev-10-rd">Regular Silver Wheels, Final</file>
+			<file id="lev-11" name="11.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17" supp:layer1="lev-11-rd">Regular Gold Wheels, Track 1</file>
+			<file id="lev-12" name="12.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04" supp:layer1="lev-12-rd">Regular Gold Wheels, Track 2</file>
+			<file id="lev-13" name="13.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10" supp:layer1="lev-13-rd">Regular Gold Wheels, Track 3</file>
+			<file id="lev-14" name="14.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14" supp:layer1="lev-14-rd">Regular Gold Wheels, Track 4</file>
+			<file id="lev-15" name="15.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15" supp:layer1="lev-15-rd">Regular Gold Wheels, Final</file>
+			<file id="lev-16" name="16.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f11" supp:layer1="lev-16-rd">Regular Shootout Zone 1</file>
+			<file id="lev-17" name="17.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17" supp:layer1="lev-17-rd">Regular Shootout Zone 2</file>
+			<file id="lev-18" name="18.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08" supp:layer1="lev-18-rd">Regular Shootout Zone 3</file>
+			<file id="lev-19" name="19.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15" supp:layer1="lev-19-rd">Regular Shootout Zone 4</file>
+			<file id="lev-20" name="20.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10" supp:layer1="lev-20-rd">Regular Shootout Zone 5</file>
+			<file id="lev-21" name="21.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06" supp:layer1="lev-21-rd">Regular Shootout Zone 6</file>
+			<file id="lev-22" name="22.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06" supp:layer1="lev-22-rd">Bonus Bronze Wheels, Track 1</file>
+			<file id="lev-23" name="23.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14" supp:layer1="lev-23-rd">Bonus Bronze Wheels, Track 2</file>
+			<file id="lev-24" name="24.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08" supp:layer1="lev-24-rd">Bonus Bronze Wheels, Track 3</file>
+			<file id="lev-25" name="25.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10" supp:layer1="lev-25-rd">Bonus Bronze Wheels, Track 4</file>
+			<file id="lev-26" name="26.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02" supp:layer1="lev-26-rd">Bonus Bronze Wheels, Final</file>
+			<file id="lev-27" name="27.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04" supp:layer1="lev-27-rd">Bonus Silver Wheels, Track 1</file>
+			<file id="lev-28" name="28.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17" supp:layer1="lev-28-rd">Bonus Silver Wheels, Track 2</file>
+			<file id="lev-29" name="29.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06" supp:layer1="lev-29-rd">Bonus Silver Wheels, Track 3</file>
+			<file id="lev-30" name="30.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f13" supp:tiles2="tls-f14" supp:layer1="lev-30-rd">Bonus Silver Wheels, Track 4</file>
+			<file id="lev-31" name="31.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02" supp:layer1="lev-31-rd">Bonus Silver Wheels, Final</file>
+			<file id="lev-32" name="32.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10" supp:layer1="lev-32-rd">Bonus Gold Wheels, Track 1</file>
+			<file id="lev-33" name="33.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f04" supp:layer1="lev-33-rd">Bonus Gold Wheels, Track 2</file>
+			<file id="lev-34" name="34.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17" supp:layer1="lev-34-rd">Bonus Gold Wheels, Track 3</file>
+			<file id="lev-35" name="35.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08" supp:layer1="lev-35-rd">Bonus Gold Wheels, Track 4</file>
+			<file id="lev-36" name="36.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f02" supp:layer1="lev-36-rd">Bonus Gold Wheels, Final</file>
+			<file id="lev-37" name="37.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f05" supp:tiles2="tls-f06" supp:layer1="lev-37-rd">Bonus Shootout Zone 1</file>
+			<file id="lev-38" name="38.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f01" supp:tiles2="tls-f15" supp:layer1="lev-38-rd">Bonus Shootout Zone 2</file>
+			<file id="lev-39" name="39.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f09" supp:tiles2="tls-f10" supp:layer1="lev-39-rd">Bonus Shootout Zone 3</file>
+			<file id="lev-40" name="40.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f07" supp:tiles2="tls-f08" supp:layer1="lev-40-rd">Bonus Shootout Zone 4</file>
+			<file id="lev-41" name="41.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f16" supp:tiles2="tls-f17" supp:layer1="lev-41-rd">Bonus Shootout Zone 5</file>
+			<file id="lev-42" name="42.m" typeMajor="map" typeMinor="wacky" supp:tiles="tls-f03" supp:tiles2="tls-f11" supp:layer1="lev-42-rd">Bonus Shootout Zone 6</file>
 
-			<file id="lev-01-rd" name="1.rd">Regular Bronze Wheels, Track 1</file>
+			<file id="lev-01-rd" name="1.rd" >Regular Bronze Wheels, Track 1</file>
+			<file id="lev-02-rd" name="2.rd" >Regular Bronze Wheels, Track 2</file>
+			<file id="lev-03-rd" name="3.rd" >Regular Bronze Wheels, Track 3</file>
+			<file id="lev-04-rd" name="4.rd" >Regular Bronze Wheels, Track 4</file>
+			<file id="lev-05-rd" name="5.rd" >Regular Bronze Wheels, Final</file>
+			<file id="lev-06-rd" name="6.rd" >Regular Silver Wheels, Track 1</file>
+			<file id="lev-07-rd" name="7.rd" >Regular Silver Wheels, Track 2</file>
+			<file id="lev-08-rd" name="8.rd" >Regular Silver Wheels, Track 3</file>
+			<file id="lev-09-rd" name="9.rd" >Regular Silver Wheels, Track 4</file>
+			<file id="lev-10-rd" name="10.rd">Regular Silver Wheels, Final</file>
+			<file id="lev-11-rd" name="11.rd">Regular Gold Wheels, Track 1</file>
+			<file id="lev-12-rd" name="12.rd">Regular Gold Wheels, Track 2</file>
+			<file id="lev-13-rd" name="13.rd">Regular Gold Wheels, Track 3</file>
+			<file id="lev-14-rd" name="14.rd">Regular Gold Wheels, Track 4</file>
+			<file id="lev-15-rd" name="15.rd">Regular Gold Wheels, Final</file>
+			<file id="lev-16-rd" name="16.rd">Regular Shootout Zone 1</file>
+			<file id="lev-17-rd" name="17.rd">Regular Shootout Zone 2</file>
+			<file id="lev-18-rd" name="18.rd">Regular Shootout Zone 3</file>
+			<file id="lev-19-rd" name="19.rd">Regular Shootout Zone 4</file>
+			<file id="lev-20-rd" name="20.rd">Regular Shootout Zone 5</file>
+			<file id="lev-21-rd" name="21.rd">Regular Shootout Zone 6</file>
+			<file id="lev-22-rd" name="22.rd">Bonus Bronze Wheels, Track 1</file>
+			<file id="lev-23-rd" name="23.rd">Bonus Bronze Wheels, Track 2</file>
+			<file id="lev-24-rd" name="24.rd">Bonus Bronze Wheels, Track 3</file>
+			<file id="lev-25-rd" name="25.rd">Bonus Bronze Wheels, Track 4</file>
+			<file id="lev-26-rd" name="26.rd">Bonus Bronze Wheels, Final</file>
+			<file id="lev-27-rd" name="27.rd">Bonus Silver Wheels, Track 1</file>
+			<file id="lev-28-rd" name="28.rd">Bonus Silver Wheels, Track 2</file>
+			<file id="lev-29-rd" name="29.rd">Bonus Silver Wheels, Track 3</file>
+			<file id="lev-30-rd" name="30.rd">Bonus Silver Wheels, Track 4</file>
+			<file id="lev-31-rd" name="31.rd">Bonus Silver Wheels, Final</file>
+			<file id="lev-32-rd" name="32.rd">Bonus Gold Wheels, Track 1</file>
+			<file id="lev-33-rd" name="33.rd">Bonus Gold Wheels, Track 2</file>
+			<file id="lev-34-rd" name="34.rd">Bonus Gold Wheels, Track 3</file>
+			<file id="lev-35-rd" name="35.rd">Bonus Gold Wheels, Track 4</file>
+			<file id="lev-36-rd" name="36.rd">Bonus Gold Wheels, Final</file>
+			<file id="lev-37-rd" name="37.rd">Bonus Shootout Zone 1</file>
+			<file id="lev-38-rd" name="38.rd">Bonus Shootout Zone 2</file>
+			<file id="lev-39-rd" name="39.rd">Bonus Shootout Zone 3</file>
+			<file id="lev-40-rd" name="40.rd">Bonus Shootout Zone 4</file>
+			<file id="lev-41-rd" name="41.rd">Bonus Shootout Zone 5</file>
+			<file id="lev-42-rd" name="42.rd">Bonus Shootout Zone 6</file>
 
 			<file id="tls-f01"  name="a_f1.pcx"   typeMajor="tileset" typeMinor="wacky">F1</file>
 			<file id="tls-f02"  name="a_f2.pcx"   typeMajor="tileset" typeMinor="wacky">F2</file>
@@ -399,7 +440,7 @@
 			<file id="back1"     name="back1.pcx"    typeMajor="image" typeMinor="pcx">Sky 1</file>
 			<file id="back2"     name="back2.pcx"    typeMajor="image" typeMinor="pcx">Sky 2</file>
 			<file id="back3"     name="back3.pcx"    typeMajor="image" typeMinor="pcx">Sky 3</file>
-			<file id="beach"     name="beach.pcx"    typeMajor="image" typeMinor="pcx">Beach.pcx (unused?)</file>
+			<file id="beach"     name="beach.pcx"    typeMajor="image" typeMinor="pcx">Beach/water color palette</file>
 
 			<file id="mus-opl-apogee"   name="apogee.klm"   typeMajor="music" typeMinor="klm-wacky">Apogee theme</file>
 			<file id="mus-opl-ashes"    name="ashes.klm"    typeMajor="music" typeMinor="klm-wacky">Ashes</file>
