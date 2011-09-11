@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <camoto/gamemaps/util.hpp>
 #include "editor-map-canvas.hpp"
 
 using namespace camoto;
@@ -181,31 +182,30 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 
 	this->glReset();
 
+	// Search tiles to find objects for object-mode
+
 	// TEMP: this does layer 0 only!
 	Map2D::LayerPtr layer = this->map->getLayer(0); // TEMP
 
 	int layerWidth, layerHeight;
-	if (layer->getCaps() & Map2D::Layer::HasOwnSize) {
-		layer->getLayerSize(&layerWidth, &layerHeight);
-	} else {
-		// Use global map size
-		if (this->map->getCaps() & Map2D::HasGlobalSize) {
-			this->map->getMapSize(&layerWidth, &layerHeight);
-		} else {
-			std::cout << "[editor-map] BUG: Layer uses map size, but map "
-				"doesn't have a global size!\n";
-		}
-		//continue;
-	}
 	int tileWidth, tileHeight;
-	this->getLayerTileSize(layer, &tileWidth, &tileHeight);
+	if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
+		&tileHeight)
+	) {
+		std::cout << "Warning: Layer has no dimensions, and "
+			"neither does the map!" << std::endl;
+	}
 
 	// Load the layer into an array
 	int *tile = new int[layerWidth * layerHeight];
 	for (int i = 0; i < layerWidth * layerHeight; i++) tile[i] = -1;
 	Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 	for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
-		tile[(*c)->y * layerWidth + (*c)->x] = (*c)->code;
+		if (((*c)->x >= layerWidth) || ((*c)->y >= layerHeight)) {
+			std::cerr << "ERROR: This map has items outside its boundary!" << std::endl;
+		} else {
+			tile[(*c)->y * layerWidth + (*c)->x] = (*c)->code;
+		}
 	}
 	// tile[] now uses -1 for no-tile-present and the actual tile code otherwise.
 
@@ -434,21 +434,14 @@ void MapCanvas::redraw()
 			Map2D::LayerPtr layer = this->map->getLayer(i);
 
 			int layerWidth, layerHeight;
-			if (layer->getCaps() & Map2D::Layer::HasOwnSize) {
-				layer->getLayerSize(&layerWidth, &layerHeight);
-			} else {
-				// Use global map size
-				if (this->map->getCaps() & Map2D::HasGlobalSize) {
-					this->map->getMapSize(&layerWidth, &layerHeight);
-				} else {
-					std::cout << "[editor-map] BUG: Layer uses map size, but map "
-						"doesn't have a global size!\n";
-					continue;
-				}
-			}
-
 			int tileWidth, tileHeight;
-			this->getLayerTileSize(layer, &tileWidth, &tileHeight);
+			if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
+				&tileHeight)
+			) {
+				std::cout << "Warning: Layer has no dimensions, and "
+					"neither does the map!" << std::endl;
+				continue;
+			}
 
 			int oX, oY;
 			bool drawSelection = false;
@@ -642,7 +635,15 @@ void MapCanvas::redraw()
 	int tileWidth, tileHeight;
 	if (this->activeLayer >= 0) {
 		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
-		this->getLayerTileSize(layer, &tileWidth, &tileHeight);
+		int layerWidth, layerHeight;
+		int tileWidth, tileHeight;
+		if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
+			&tileHeight)
+		) {
+			std::cout << "Warning: Layer has no dimensions, and "
+				"neither does the map!" << std::endl;
+			return;
+		}
 
 		// If the grid is visible, draw it using the tile size of the active layer
 		if (this->gridVisible) {
@@ -727,44 +728,6 @@ void MapCanvas::redraw()
 	return;
 }
 
-void MapCanvas::getLayerTileSize(Map2D::LayerPtr layer, int *tileWidth, int *tileHeight)
-	throw ()
-{
-	if (layer->getCaps() & Map2D::Layer::HasOwnTileSize) {
-		layer->getTileSize(tileWidth, tileHeight);
-	} else {
-		// Use global tile size
-		if (this->map->getCaps() & Map2D::HasGlobalTileSize) {
-			this->map->getTileSize(tileWidth, tileHeight);
-		} else {
-			std::cout << "[editor-map] BUG: Layer uses map's tile size, but "
-				"map doesn't have a global tile size!\n";
-			*tileWidth = *tileHeight = 64; // use some really weird value :-)
-			return;
-		}
-	}
-	return;
-}
-
-void MapCanvas::getLayerSize(Map2D::LayerPtr layer, int *width, int *height)
-	throw ()
-{
-	if (layer->getCaps() & Map2D::Layer::HasOwnSize) {
-		layer->getLayerSize(width, height);
-	} else {
-		// Use global tile size
-		if (this->map->getCaps() & Map2D::HasGlobalSize) {
-			this->map->getMapSize(width, height);
-		} else {
-			std::cout << "[editor-map] BUG: Layer uses map's size, but "
-				"map doesn't have a global size!\n";
-			*width = *height = 5; // use some really weird value :-)
-			return;
-		}
-	}
-	return;
-}
-
 bool MapCanvas::focusObject(ObjectVector::iterator start)
 {
 	bool needRedraw = false;
@@ -782,8 +745,15 @@ bool MapCanvas::focusObject(ObjectVector::iterator start)
 	if (this->activeLayer < 0) return (this->focusedObject != oldFocusedObject);
 
 	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
+	int layerWidth, layerHeight;
 	int tileWidth, tileHeight;
-	this->getLayerTileSize(layer, &tileWidth, &tileHeight);
+	if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
+		&tileHeight)
+	) {
+		std::cout << "Warning: Layer has no dimensions, and "
+			"neither does the map!" << std::endl;
+		return needRedraw;
+	}
 
 	for (int n = 0; n < 2; n++) {
 		for (ObjectVector::iterator i = start; i != end; i++) {
@@ -903,12 +873,17 @@ void MapCanvas::paintSelection(int x, int y)
 {
 	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
 
-	int tileWidth, tileHeight;
-	this->getLayerTileSize(layer, &tileWidth, &tileHeight);
-
 	int layerWidth, layerHeight;
-	this->getLayerSize(layer, &layerWidth, &layerHeight);
+	int tileWidth, tileHeight;
+	if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
+		&tileHeight)
+	) {
+		std::cout << "Warning: Layer has no dimensions, and "
+			"neither does the map!" << std::endl;
+		return;
+	}
 
+	// Origin of paste area
 	int oX = (x / this->zoomFactor + this->offX) / tileWidth - this->selection.width / 2;
 	int oY = (y / this->zoomFactor + this->offY) / tileHeight - this->selection.height / 2;
 
@@ -965,8 +940,15 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 	// Perform actions that require an active layer
 	if (this->activeLayer >= 0) {
 		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
+		int layerWidth, layerHeight;
 		int tileWidth, tileHeight;
-		this->getLayerTileSize(layer, &tileWidth, &tileHeight);
+		if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
+			&tileHeight)
+		) {
+			std::cout << "Warning: Layer has no dimensions, and "
+				"neither does the map!" << std::endl;
+			return;
+		}
 
 		int pointerTileX = mapPointerX / tileWidth;
 		int pointerTileY = mapPointerY / tileHeight;
@@ -1175,23 +1157,15 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 			// Select the tiles contained within the rectangle
 
 			Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
-
 			int layerWidth, layerHeight;
-			if (layer->getCaps() & Map2D::Layer::HasOwnSize) {
-				layer->getLayerSize(&layerWidth, &layerHeight);
-			} else {
-				// Use global map size
-				if (this->map->getCaps() & Map2D::HasGlobalSize) {
-					this->map->getMapSize(&layerWidth, &layerHeight);
-				} else {
-					std::cout << "[editor-map] BUG: Layer uses map size, but map "
-						"doesn't have a global size!\n";
-					return;
-				}
-			}
-
 			int tileWidth, tileHeight;
-			this->getLayerTileSize(layer, &tileWidth, &tileHeight);
+			if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
+				&tileHeight)
+			) {
+				std::cout << "Warning: Layer has no dimensions, and "
+					"neither does the map!" << std::endl;
+				return;
+			}
 
 			// Calculate the dimensions of the tiles in the selection rectangle
 			int x1, y1, x2, y2;

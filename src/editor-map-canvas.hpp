@@ -157,43 +157,6 @@ class MapCanvas: public wxGLCanvas
 		void redraw()
 			throw ();
 
-		/// Get the size of each tile in pixels.
-		/**
-		 * This function automatically handles the logic involved in getting the
-		 * tile size (falling back to the global tile size if the layer doesn't have
-		 * its own size.)
-		 *
-		 * @param layer
-		 *   Layer to query.
-		 *
-		 * @param tileWidth
-		 *   Pointer to a variable to hold the tile width, in pixels.
-		 *
-		 * @param tileHeight
-		 *   Pointer to a variable to hold the tile height, in pixels.
-		 */
-		void getLayerTileSize(camoto::gamemaps::Map2D::LayerPtr layer,
-			int *tileWidth, int *tileHeight)
-			throw ();
-
-		/// Get the size of each layer in tiles.
-		/**
-		 * This function automatically handles the logic involved in getting the
-		 * layer size (falling back to the global map size if the layer doesn't have
-		 * its own size.)
-		 *
-		 * @param layer
-		 *   Layer to query.
-		 *
-		 * @param width
-		 *   Pointer to a variable for the layer's width (as a number of tiles.)
-		 *
-		 * @param height
-		 *   Pointer to a variable for the layer's height (as a number of tiles.)
-		 */
-		void getLayerSize(camoto::gamemaps::Map2D::LayerPtr layer, int *width, int *height)
-			throw ();
-
 		/// Focus the object (if any) under the mouse cursor.
 		/**
 		 * @param start
