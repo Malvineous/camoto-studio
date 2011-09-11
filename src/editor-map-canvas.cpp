@@ -581,6 +581,30 @@ void MapCanvas::redraw()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	// Draw any visible paths
+	if (this->map->getCaps() & Map2D::HasPaths) {
+		Map2D::PathPtrVectorPtr paths = this->map->getPaths();
+		assert(paths);
+		for (Map2D::PathPtrVector::iterator p = paths->begin(); p != paths->end(); p++) {
+			glColor4f(0.0, 0.0, 1.0, 0.7);
+			for (Map2D::Path::point_vector::iterator st = (*p)->start.begin(); st != (*p)->start.end(); st++) {
+				if ((*p)->forceClosed) {
+					// This is a closed loop, so draw a line from the last point back to
+					// the first.
+					glBegin(GL_LINE_LOOP);
+				} else {
+					glBegin(GL_LINE_STRIP);
+				}
+				glVertex2i(st->first - this->offX, st->second - this->offY);
+				for (Map2D::Path::point_vector::iterator pt = (*p)->points.begin(); pt != (*p)->points.end(); pt++) {
+					glVertex2i((st->first + pt->first) - this->offX,
+						(st->second + pt->second) - this->offY);
+				}
+				glEnd();
+			}
+		}
+	}
+
 	// Draw the viewport overlay
 	if (this->viewportVisible) {
 		int vpX, vpY;
