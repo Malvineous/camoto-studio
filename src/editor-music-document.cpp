@@ -186,15 +186,24 @@ MusicDocument::MusicDocument(IMainWindow *parent, MusicReaderPtr music, AudioPtr
 	memset(&channels, 0, sizeof(channels));
 	this->optimalTicksPerRow = 10000;
 	int lastTick = 0;
-	while ((next = music->readNextEvent())) {
-		this->events.push_back(next);//->processEvent(&out); // Will block for song delays
-		assert(next->channel < 256); // should be safe/uint8_t
-		channels[next->channel] = true;
+	try {
+		while ((next = music->readNextEvent())) {
+			this->events.push_back(next);//->processEvent(&out); // Will block for song delays
+			assert(next->channel < 256); // should be safe/uint8_t
+			channels[next->channel] = true;
 
-		// See if this delta time is the smallest so far
-		int deltaTick = next->absTime - lastTick;
-		if ((deltaTick > 0) && (deltaTick < this->optimalTicksPerRow)) this->optimalTicksPerRow = deltaTick;
-		lastTick = next->absTime;
+			// See if this delta time is the smallest so far
+			int deltaTick = next->absTime - lastTick;
+			if ((deltaTick > 0) && (deltaTick < this->optimalTicksPerRow)) this->optimalTicksPerRow = deltaTick;
+			lastTick = next->absTime;
+		}
+	} catch (const std::ios::failure& e) {
+		wxMessageDialog dlg(this, wxString::Format(_T("Error reading file: %s\n\n"
+			"The loaded data is probably incomplete."),
+			wxString(e.what(), wxConvUTF8).c_str()),
+			_T("Read failure"), wxOK | wxICON_ERROR);
+		dlg.ShowModal();
+		// Keep going with a partial file
 	}
 	this->ticksPerRow = this->optimalTicksPerRow;
 
