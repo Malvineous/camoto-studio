@@ -19,6 +19,7 @@ pkgdata_DATA += data/games/harry.xml    data/games/screenshots/harry.png     dat
 pkgdata_DATA += data/games/hocus.xml    data/games/screenshots/hocus.png     data/games/icons/hocus.png
 pkgdata_DATA += data/games/wacky.xml    data/games/screenshots/wacky.png     data/games/icons/wacky.png
 pkgdata_DATA += data/games/wordresc.xml data/games/screenshots/wordresc.png  data/games/icons/wordresc.png
+pkgdata_DATA += data/games/xargon.xml   data/games/screenshots/xargon.png    data/games/icons/xargon.png
 
 pkgdata_DATA += data/icons/grid.png
 pkgdata_DATA += data/icons/zoom_1-1.png

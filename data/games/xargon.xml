@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Xargon description file for Camoto Studio
+	Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Xargon
+  -->
+<game title="Xargon" xmlns:supp="http://www.shikadi.net/camoto/supp">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Allen Pilgrim</developer>
+		<publisher>Epic Megagames</publisher>
+		<reverseEngineer>Malvineous</reverseEngineer>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+
+		<group name="Episode 1 - Beyond Reality">
+			<group name="Levels">
+				<item ref="lev-100" />
+				<item ref="lev-101" />
+				<item ref="lev-102" />
+				<item ref="lev-103" />
+				<item ref="lev-104" />
+				<item ref="lev-105" />
+				<item ref="lev-106" />
+				<item ref="lev-107" />
+				<item ref="lev-108" />
+				<item ref="lev-109" />
+				<item ref="lev-110" />
+				<item ref="lev-132" />
+				<item ref="lev-133" />
+				<item ref="lev-menu" />
+				<item ref="lev-demo1" />
+				<item ref="lev-demo2" />
+				<item ref="lev-demo3" />
+				<item ref="lev-story" />
+			</group>
+			<group name="Graphics">
+				<item ref="tls-1" />
+			</group>
+			<group name="Music">
+				<item ref="mus-100" />
+				<item ref="mus-101" />
+				<item ref="mus-102" />
+				<item ref="mus-103" />
+				<item ref="mus-104" />
+				<item ref="mus-105" />
+				<item ref="mus-106" />
+				<item ref="mus-109" />
+				<item ref="mus-110" />
+				<item ref="mus-132" />
+				<item ref="mus-133" />
+			</group>
+		</group>
+
+		<group name="All Episodes">
+			<group name="Music">
+				<item ref="mus-demo" />
+			</group>
+			<group name="Game loader">
+				<item ref="img-epsel" />
+				<item ref="img-noep" />
+				<item ref="img-exit" />
+			</group>
+		</group>
+
+	</display>
+
+	<files>
+		<file id="lev-100"   name="map.xr1"      typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Overhead map</file>
+		<file id="lev-101"   name="board_01.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 1 - This Bizarre World</file>
+		<file id="lev-102"   name="board_02.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 2 - A Strange New Dimension</file>
+		<file id="lev-103"   name="board_03.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 3 - The Forest of Enchanted Trees</file>
+		<file id="lev-104"   name="board_04.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 4 - Robot Development Plant</file>
+		<file id="lev-105"   name="board_05.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 5 - Corridors of Doom</file>
+		<file id="lev-106"   name="board_06.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 6 - Cave of the Ancients</file>
+		<file id="lev-107"   name="board_07.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 7 - Corkscrew Cave</file>
+		<file id="lev-108"   name="board_08.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 8 - Coral Cave</file>
+		<file id="lev-109"   name="board_09.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 9 - Tunnels of Terror</file>
+		<file id="lev-110"   name="board_10.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 10 - Xargon's Secret Factory</file>
+		<file id="lev-132"   name="board_32.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level ? - ?</file>
+		<file id="lev-133"   name="board_33.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level ? - ?</file>
+		<file id="lev-menu"  name="intro.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Demo Introduction and main menu background</file>
+		<file id="lev-demo1" name="demo1.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Demo Level 1</file>
+		<file id="lev-demo2" name="demo2.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Demo Level 2</file>
+		<file id="lev-demo3" name="demo3.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Demo Level 3</file>
+		<file id="lev-story" name="story.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Story</file>
+
+		<file id="tls-1"     name="graphics.xr1" typeMajor="tileset" typeMinor="xargon">Game graphics</file>
+
+		<file id="mus-100"   name="song_0.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Theme song</file>
+		<file id="mus-101"   name="song_1.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 1</file>
+		<file id="mus-102"   name="song_2.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 2</file>
+		<file id="mus-103"   name="song_3.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 3</file>
+		<file id="mus-104"   name="song_4.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 4</file>
+		<file id="mus-105"   name="song_5.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 5</file>
+		<file id="mus-106"   name="song_6.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 6</file>
+		<file id="mus-109"   name="song_9.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 9</file>
+		<file id="mus-110"   name="song_10.xr1"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 10</file>
+		<file id="mus-132"   name="song_32.xr1"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 32</file>
+		<file id="mus-133"   name="song_33.xr1"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 33</file>
+
+		<!-- All episodes -->
+		<file id="mus-demo" name="song_d.xr0" typeMajor="music" typeMinor="cmf-creativelabs">Demo song</file>
+
+		<file id="img-epsel" name="screen_1.xr0" typeMajor="image" typeMinor="pcx">Episode selection screen</file>
+		<file id="img-noep"  name="screen_2.xr0" typeMajor="image" typeMinor="pcx">Episode unavailable in shareware screen</file>
+		<file id="img-exit"  name="screen_3.xr0" typeMajor="b800"  typeMinor="80x25">Text mode ending screen</file>
+
+	</files>
+</game>
