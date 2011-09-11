@@ -60,7 +60,7 @@ class CopyTo: public wxDirTraverser
 
 			wxFileName target;
 			target.AssignDir(this->dest);
-			target.SetFullName(full.GetFullName());
+			target.SetFullName(full.GetFullName().MakeLower());
 			std::cout << "[copy] " << filename.ToAscii() << " -> "
 				<< target.GetFullPath().ToAscii();
 			if (!wxCopyFile(filename, target.GetFullPath())) {
