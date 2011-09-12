@@ -187,14 +187,8 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 	// TEMP: this does layer 0 only!
 	Map2D::LayerPtr layer = this->map->getLayer(0); // TEMP
 
-	int layerWidth, layerHeight;
-	int tileWidth, tileHeight;
-	if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
-		&tileHeight)
-	) {
-		std::cout << "Warning: Layer has no dimensions, and "
-			"neither does the map!" << std::endl;
-	}
+	int layerWidth, layerHeight, tileWidth, tileHeight;
+	getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 	// Load the layer into an array
 	int *tile = new int[layerWidth * layerHeight];
@@ -433,15 +427,8 @@ void MapCanvas::redraw()
 		if (this->visibleLayers[i]) {
 			Map2D::LayerPtr layer = this->map->getLayer(i);
 
-			int layerWidth, layerHeight;
-			int tileWidth, tileHeight;
-			if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
-				&tileHeight)
-			) {
-				std::cout << "Warning: Layer has no dimensions, and "
-					"neither does the map!" << std::endl;
-				continue;
-			}
+			int layerWidth, layerHeight, tileWidth, tileHeight;
+			getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 			int oX, oY;
 			bool drawSelection = false;
@@ -635,15 +622,8 @@ void MapCanvas::redraw()
 	int tileWidth, tileHeight;
 	if (this->activeLayer >= 0) {
 		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
-		int layerWidth, layerHeight;
-		int tileWidth, tileHeight;
-		if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
-			&tileHeight)
-		) {
-			std::cout << "Warning: Layer has no dimensions, and "
-				"neither does the map!" << std::endl;
-			return;
-		}
+		int layerWidth, layerHeight, tileWidth, tileHeight;
+		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 		// If the grid is visible, draw it using the tile size of the active layer
 		if (this->gridVisible) {
@@ -745,15 +725,8 @@ bool MapCanvas::focusObject(ObjectVector::iterator start)
 	if (this->activeLayer < 0) return (this->focusedObject != oldFocusedObject);
 
 	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
-	int layerWidth, layerHeight;
-	int tileWidth, tileHeight;
-	if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
-		&tileHeight)
-	) {
-		std::cout << "Warning: Layer has no dimensions, and "
-			"neither does the map!" << std::endl;
-		return needRedraw;
-	}
+	int layerWidth, layerHeight, tileWidth, tileHeight;
+	getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 	for (int n = 0; n < 2; n++) {
 		for (ObjectVector::iterator i = start; i != end; i++) {
@@ -873,15 +846,8 @@ void MapCanvas::paintSelection(int x, int y)
 {
 	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
 
-	int layerWidth, layerHeight;
-	int tileWidth, tileHeight;
-	if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
-		&tileHeight)
-	) {
-		std::cout << "Warning: Layer has no dimensions, and "
-			"neither does the map!" << std::endl;
-		return;
-	}
+	int layerWidth, layerHeight, tileWidth, tileHeight;
+	getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 	// Origin of paste area
 	int oX = (x / this->zoomFactor + this->offX) / tileWidth - this->selection.width / 2;
@@ -940,15 +906,8 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 	// Perform actions that require an active layer
 	if (this->activeLayer >= 0) {
 		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
-		int layerWidth, layerHeight;
-		int tileWidth, tileHeight;
-		if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
-			&tileHeight)
-		) {
-			std::cout << "Warning: Layer has no dimensions, and "
-				"neither does the map!" << std::endl;
-			return;
-		}
+		int layerWidth, layerHeight, tileWidth, tileHeight;
+		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 		int pointerTileX = mapPointerX / tileWidth;
 		int pointerTileY = mapPointerY / tileHeight;
@@ -1157,15 +1116,8 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 			// Select the tiles contained within the rectangle
 
 			Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
-			int layerWidth, layerHeight;
-			int tileWidth, tileHeight;
-			if (!getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth,
-				&tileHeight)
-			) {
-				std::cout << "Warning: Layer has no dimensions, and "
-					"neither does the map!" << std::endl;
-				return;
-			}
+			int layerWidth, layerHeight, tileWidth, tileHeight;
+			getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 			// Calculate the dimensions of the tiles in the selection rectangle
 			int x1, y1, x2, y2;

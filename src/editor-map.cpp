@@ -88,21 +88,12 @@ class LayerPanel: public IToolPanel
 			// Populate the list
 			int layerCount = this->doc->map->getLayerCount();
 			for (int i = 0; i < layerCount; i++) {
-				// Calculate layer size
-				int layerWidth, layerHeight;
 				Map2D::LayerPtr layer = this->doc->map->getLayer(i);
-				if (layer->getCaps() & Map2D::Layer::HasOwnSize) {
-					layer->getLayerSize(&layerWidth, &layerHeight);
-				} else {
-					// Use global map size
-					if (this->doc->map->getCaps() & Map2D::HasGlobalSize) {
-						this->doc->map->getMapSize(&layerWidth, &layerHeight);
-					} else {
-						std::cout << "[editor-map] BUG: Layer uses map size, but map "
-							"doesn't have a global size!\n";
-						layerWidth = layerHeight = 0;
-					}
-				}
+
+				// Calculate layer size
+				int layerWidth, layerHeight, tileWidth, tileHeight;
+				getLayerDims(this->doc->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
+
 				long id = this->list->InsertItem(i,
 					wxString(layer->getTitle().c_str(), wxConvUTF8),
 					this->doc->canvas->visibleLayers[i] ? 0 : 1);
