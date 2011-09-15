@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <camoto/util.hpp>
 #include "editor-map-document.hpp"
 
 using namespace camoto;
@@ -109,12 +110,12 @@ void MapDocument::save()
 {
 	try {
 		this->mapFile->seekp(0, std::ios::beg);
-		this->mapType->write(this->map, this->mapFile, this->suppData);
+		unsigned long len = this->mapType->write(this->map, this->mapFile, this->suppData);
+		camoto::flush(this->mapFile);
 
 		// Cut anything off the end since we're overwriting an existing file
-		this->fnTrunc(this->mapFile->tellp());
+		this->fnTrunc(len);
 
-		this->mapFile->flush();
 	} catch (const std::ios::failure& e) {
 		throw e;
 	} catch (const std::exception& e) {

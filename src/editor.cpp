@@ -42,28 +42,22 @@ IToolPanel::IToolPanel(IMainWindow *parent)
 {
 }
 
+#define SUPP_MAP(name, type) \
+	s = supp.find(name); \
+	if (s != supp.end()) { \
+		suppData[SuppItem::type].stream = s->second.stream; \
+		suppData[SuppItem::type].fnTruncate = s->second.fnTrunc; \
+	}
+
 void suppMapToData(SuppMap& supp, SuppData &suppData)
 	throw ()
 {
 	SuppMap::iterator s;
-
-	s = supp.find(_T("dict"));
-	if (s != supp.end()) suppData[SuppItem::Dictionary].stream = s->second.stream;
-
-	s = supp.find(_T("fat"));
-	if (s != supp.end()) suppData[SuppItem::FAT].stream = s->second.stream;
-
-	s = supp.find(_T("pal"));
-	if (s != supp.end()) suppData[SuppItem::Palette].stream = s->second.stream;
-
-	s = supp.find(_T("instruments"));
-	if (s != supp.end()) suppData[SuppItem::Instruments].stream = s->second.stream;
-
-	s = supp.find(_T("layer1"));
-	if (s != supp.end()) suppData[SuppItem::Layer1].stream = s->second.stream;
-
-	s = supp.find(_T("layer2"));
-	if (s != supp.end()) suppData[SuppItem::Layer2].stream = s->second.stream;
-
+	SUPP_MAP(_T("dict"), Dictionary);
+	SUPP_MAP(_T("fat"), FAT);
+	SUPP_MAP(_T("pal"), Palette);
+	SUPP_MAP(_T("instruments"), Instruments);
+	SUPP_MAP(_T("layer1"), Layer1);
+	SUPP_MAP(_T("layer2"), Layer2);
 	return;
 }
