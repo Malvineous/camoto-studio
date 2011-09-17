@@ -155,10 +155,8 @@ class CamotoFrame: public IMainWindow
 			menubar->Append(menuHelp, _T("&Help"));
 			this->SetMenuBar(menubar);
 
-			this->status = this->CreateStatusBar(2, wxST_SIZEGRIP);
-			int sbWidths[] = {-2, -3};
-			this->status->SetStatusWidths(sizeof(sbWidths) / sizeof(int), sbWidths);
-			this->status->SetStatusText(_T("Ready"), 0);
+			this->status = this->CreateStatusBar(1, wxST_SIZEGRIP);
+			this->status->SetStatusText(_T("Ready"));
 
 			this->SetMinSize(wxSize(400, 300));
 
@@ -748,7 +746,27 @@ class CamotoFrame: public IMainWindow
 		virtual void setStatusText(const wxString& text)
 			throw ()
 		{
-			this->status->SetStatusText(text, 1);
+			this->txtMessage = text;
+			this->updateStatusBar();
+			return;
+		}
+
+		virtual void setHelpText(const wxString& text)
+			throw ()
+		{
+			this->txtHelp = text;
+			this->updateStatusBar();
+		}
+
+		void updateStatusBar()
+		{
+			wxString text = this->txtHelp;
+			if (!this->txtMessage.empty()) {
+				text.append(_T(" ["));
+				text.append(this->txtMessage);
+				text.append(_T("]"));
+			}
+			this->status->SetStatusText(text, 0);
 			return;
 		}
 
@@ -863,6 +881,8 @@ class CamotoFrame: public IMainWindow
 		wxImageList *treeImages;
 
 		wxString defaultPerspective;
+		wxString txtMessage; ///< Last hint set for status bar
+		wxString txtHelp;    ///< Last keyboard help set for status bar
 
 		bool isStudio;     ///< true for full studio view, false for standalone editor
 		Project *project;  ///< Currently open project or NULL

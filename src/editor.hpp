@@ -60,6 +60,22 @@ class IDocument: public wxPanel
 		virtual void save()
 			throw (std::ios::failure) = 0;
 
+		/// Set the text in the hint part of the status bar.
+		/**
+		 * @param text
+		 *   Text to display, or wxString() to display nothing.
+		 */
+		void setStatusText(const wxString& text)
+			throw ();
+
+		/// Set the text in the keyboard help part of the status bar.
+		/**
+		 * @param text
+		 *   Text to display, or wxString() to display nothing.
+		 */
+		void setHelpText(const wxString& text)
+			throw ();
+
 	protected:
 		IMainWindow *frame;
 		wxString typeMajor;

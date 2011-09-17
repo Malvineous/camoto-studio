@@ -98,17 +98,26 @@ class LayerPanel: public IToolPanel
 					wxString(layer->getTitle().c_str(), wxConvUTF8),
 					this->doc->canvas->visibleLayers[i] ? 0 : 1);
 				this->list->SetItem(id, 1, wxString::Format(_T("%d x %d"), layerWidth, layerHeight));
-				this->list->SetItemData(id, i);
+				this->list->SetItemData(id, MapCanvas::ElementCount + i);
 			}
 
-			// Add a fake layer for the viewport box
-			if (this->doc->map->getCaps() & Map2D::HasViewport) {
+			int mapCaps = this->doc->map->getCaps();
+			// Add an element (fake) layer for any paths to be drawn in
+			if (mapCaps & Map2D::HasPaths) {
+				long id = this->list->InsertItem(layerCount, _T("Paths"),
+					this->doc->canvas->visibleElements[MapCanvas::ElPaths] ? 0 : 1);
+				this->list->SetItem(id, 1, _T("-"));
+				this->list->SetItemData(id, MapCanvas::ElPaths);
+			}
+
+			// Add an element (fake) layer for the viewport box
+			if (mapCaps & Map2D::HasViewport) {
 				long id = this->list->InsertItem(layerCount, _T("Viewport"),
-					this->doc->canvas->viewportVisible ? 0 : 1);
+					this->doc->canvas->visibleElements[MapCanvas::ElViewport] ? 0 : 1);
 				int vpWidth, vpHeight;
 				this->doc->map->getViewport(&vpWidth, &vpHeight);
 				this->list->SetItem(id, 1, wxString::Format(_T("%d x %d (px)"), vpWidth, vpHeight));
-				this->list->SetItemData(id, LAYER_ID_VIEWPORT);
+				this->list->SetItemData(id, MapCanvas::ElViewport);
 			}
 
 			this->list->SetColumnWidth(0, wxLIST_AUTOSIZE);
@@ -141,9 +150,10 @@ class LayerPanel: public IToolPanel
 
 			int layerIndex = ev.GetData();
 			bool newState;
-			if (layerIndex == LAYER_ID_VIEWPORT) {
-				newState = this->doc->canvas->viewportVisible ^= 1;
+			if (layerIndex < MapCanvas::ElementCount) {
+				newState = this->doc->canvas->visibleElements[layerIndex] ^= 1;
 			} else {
+				layerIndex -= MapCanvas::ElementCount;
 				newState = !this->doc->canvas->visibleLayers[layerIndex]; // ^=1 doesn't work :-(
 				this->doc->canvas->visibleLayers[layerIndex] = newState;
 			}

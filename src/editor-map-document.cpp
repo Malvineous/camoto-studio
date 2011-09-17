@@ -159,9 +159,3 @@ void MapDocument::onObjMode(wxCommandEvent& ev)
 	this->canvas->setObjMode();
 	return;
 }
-
-void MapDocument::setStatusText(const wxString& text)
-{
-	this->frame->setStatusText(text);
-	return;
-}

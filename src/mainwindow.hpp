@@ -33,8 +33,20 @@ class IMainWindow: public wxFrame
 			const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE,
 			const wxString& name = wxFrameNameStr);
 
-		/// Set the text in the status bar.
+		/// Set the text in the hint part of the status bar.
+		/**
+		 * @param text
+		 *   Text to display, or wxString() to display nothing.
+		 */
 		virtual void setStatusText(const wxString& text)
+			throw () = 0;
+
+		/// Set the text in the keyboard help part of the status bar.
+		/**
+		 * @param text
+		 *   Text to display, or wxString() to display nothing.
+		 */
+		virtual void setHelpText(const wxString& text)
 			throw () = 0;
 
 };

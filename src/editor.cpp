@@ -36,6 +36,20 @@ const wxString& IDocument::getTypeMajor() const
 	return this->typeMajor;
 }
 
+void IDocument::setStatusText(const wxString& text)
+	throw ()
+{
+	this->frame->setStatusText(text);
+	return;
+}
+
+void IDocument::setHelpText(const wxString& text)
+	throw ()
+{
+	this->frame->setHelpText(text);
+	return;
+}
+
 IToolPanel::IToolPanel(IMainWindow *parent)
 	throw () :
 		wxPanel(parent)

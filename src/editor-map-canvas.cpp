@@ -30,6 +30,34 @@ using namespace camoto::gamegraphics;
 // either side of the border that the mouse will perform a resize action.
 #define FOCUS_BOX_PADDING 2
 
+// Size of the grips when positioning path points
+#define PATH_ARROWHEAD_SIZE 5
+
+// Some colours (R, G, B, A)
+#define CLR_PATH              0.0, 0.0, 1.0, 1.0  ///< Path lines
+#define CLR_ARROWHEAD_SEL     1.0, 0.0, 0.0, 1.0  ///< Path arrow, selected
+#define CLR_ARROWHEAD_NORMAL  CLR_PATH            ///< Path arrow, normal
+#define CLR_PATH_PREVIEW      0.7, 0.7, 0.7, 0.7  ///< Changed path preview
+
+// Convert the given coordinate from client (window) coordinates
+// into map coordinates.
+#define CLIENT_TO_MAP_X(x) ((x) / this->zoomFactor + this->offX)
+#define CLIENT_TO_MAP_Y(y) ((y) / this->zoomFactor + this->offY)
+
+// Is the given point contained within the rectangle?
+#define POINT_IN_RECT(px, py, x1, y1, x2, y2) \
+	((px >= x1) && (px < x2) && \
+	 (py >= y1) && (py < y2))
+
+// Is the given point within a few pixels of the other point?
+#define CURSOR_OVER_POINT(mx, my, px, py) \
+	POINT_IN_RECT(mx, my, \
+		px - PATH_ARROWHEAD_SIZE / this->zoomFactor, \
+		py - PATH_ARROWHEAD_SIZE / this->zoomFactor, \
+		px + PATH_ARROWHEAD_SIZE / this->zoomFactor, \
+		py + PATH_ARROWHEAD_SIZE / this->zoomFactor \
+	)
+
 int matchTileRun(int *tile, const MapObject::TileRun *run)
 {
 	int matched = 0;
@@ -103,7 +131,8 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 	for (int i = 0; i < layerCount; i++) {
 		this->visibleLayers.push_back(true);
 	}
-	this->viewportVisible = this->map->getCaps() & Map2D::HasViewport;
+	this->visibleElements[ElViewport] = this->map->getCaps() & Map2D::HasViewport;
+	this->visibleElements[ElPaths] = this->map->getCaps() & Map2D::HasPaths;
 
 	this->SetCurrent();
 	glClearColor(0.5, 0.5, 0.5, 1);
@@ -334,6 +363,8 @@ void MapCanvas::setTileMode()
 
 	// Remove any selection markers
 	this->redraw();
+
+	this->updateHelpText();
 	return;
 }
 
@@ -350,6 +381,8 @@ void MapCanvas::setObjMode()
 
 	// Remove any selection markers
 	this->redraw();
+
+	this->updateHelpText();
 	return;
 }
 
@@ -358,6 +391,8 @@ void MapCanvas::setActiveLayer(int layer)
 	this->activeLayer = layer;
 	this->glReset();
 	this->redraw();
+
+	this->updateHelpText();
 	return;
 }
 
@@ -422,6 +457,9 @@ void MapCanvas::redraw()
 	glEnable(GL_ALPHA_TEST);
 	glAlphaFunc(GL_GREATER, 0.0);
 
+	int mapPointerX = CLIENT_TO_MAP_X(this->pointerX);
+	int mapPointerY = CLIENT_TO_MAP_Y(this->pointerY);
+
 	int layerCount = this->map->getLayerCount();
 	for (int i = 0; i < layerCount; i++) {
 		if (this->visibleLayers[i]) {
@@ -433,14 +471,14 @@ void MapCanvas::redraw()
 			int oX, oY;
 			bool drawSelection = false;
 			if (
-				(this->activeLayer == i) &&  // if this is the active layer
+				(this->activeLayer == ElementCount + i) &&  // if this is the active layer
 				(this->selection.tiles) &&   // and there are selected tiles
 				(this->selectFromX < 0)      // and we're not selecting new tiles
 			) {
 				// Draw the current selection
 				drawSelection = true;
-				oX = (this->pointerX / this->zoomFactor + this->offX) / tileWidth - this->selection.width / 2;
-				oY = (this->pointerY / this->zoomFactor + this->offY) / tileHeight - this->selection.height / 2;
+				oX = mapPointerX / tileWidth - this->selection.width / 2;
+				oY = mapPointerY / tileHeight - this->selection.height / 2;
 			}
 
 			// Set the selection colour to use as blending is turned on and off
@@ -562,31 +600,207 @@ void MapCanvas::redraw()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Draw any visible paths
-	if (this->map->getCaps() & Map2D::HasPaths) {
+	if (this->visibleElements[ElPaths] && (this->map->getCaps() & Map2D::HasPaths)) {
 		Map2D::PathPtrVectorPtr paths = this->map->getPaths();
 		assert(paths);
+
+		int selectedX, selectedY;
+		bool drawSelectedPoint = false;
+
+		glEnable(GL_LINE_SMOOTH);
+		glLineWidth(2.0);
+		glMatrixMode(GL_PROJECTION);
+		glPushMatrix();
+		glTranslatef(-this->offX, -this->offY, 0.0);
+
+		int selDeltaX = mapPointerX - this->selHotX;
+		int selDeltaY = mapPointerY - this->selHotY;
 		for (Map2D::PathPtrVector::iterator p = paths->begin(); p != paths->end(); p++) {
-			glColor4f(0.0, 0.0, 1.0, 0.7);
+			// TODO: Some way of selecting one of many overlapping path points
+			Map2D::PathPtr path = *p;
+			int stnum = 0;
+			bool entirePathSelected = false;
 			for (Map2D::Path::point_vector::iterator st = (*p)->start.begin(); st != (*p)->start.end(); st++) {
-				if ((*p)->forceClosed) {
-					// This is a closed loop, so draw a line from the last point back to
-					// the first.
-					glBegin(GL_LINE_LOOP);
-				} else {
+				int ptnum = 1;
+				bool previewNextSegment = false;
+
+				int lastX = st->first;
+				int lastY = st->second;
+				int lastSelX = st->first;
+				int lastSelY = st->second;
+
+				// Draw a line at the starting pos so it can be coloured on select
+				if (!(*p)->points.empty()) {
+					int nextX = lastX + (*p)->points[0].first;
+					int nextY = lastY + (*p)->points[0].second;
+					int dX = (*p)->points[0].first, dY = (*p)->points[0].second;
+					float angle = atan2(dY, dX) * 180 / M_PI - 90;
+					glPushMatrix();
+					glTranslatef(lastX, lastY, 0.0);
+					glScalef(1.0 / this->zoomFactor, 1.0 / this->zoomFactor, 1.0);
+					glRotatef(angle, 0.0, 0.0, 1.0);
+
+					glColor4f(CLR_ARROWHEAD_NORMAL);
+					for (std::vector<path_point>::iterator spt = this->pathSelection.begin();
+						spt != this->pathSelection.end(); spt++
+					) {
+						if ((spt->path == path) && (spt->point == 0) && (spt->start == stnum)) {
+							// This point has been selected
+							glColor4f(CLR_ARROWHEAD_SEL);
+							lastSelX += selDeltaX;
+							lastSelY += selDeltaY;
+							previewNextSegment = true;
+							// Selecting the start point selects the entire path (effectively,
+							// but the other points shouldn't be in the selection data.)
+							entirePathSelected = true;
+							break;
+						}
+					}
+
 					glBegin(GL_LINE_STRIP);
+					glVertex2i(-PATH_ARROWHEAD_SIZE, 0);
+					glVertex2i(PATH_ARROWHEAD_SIZE, 0);
+					glEnd();
+
+					glPopMatrix();
 				}
-				glVertex2i(st->first - this->offX, st->second - this->offY);
+
 				for (Map2D::Path::point_vector::iterator pt = (*p)->points.begin(); pt != (*p)->points.end(); pt++) {
-					glVertex2i((st->first + pt->first) - this->offX,
-						(st->second + pt->second) - this->offY);
+					int nextX = st->first + pt->first;
+					int nextY = st->second + pt->second;
+
+					// Where this point will go if it's selected and placed at the
+					// current cursor location (ish).
+					int nextSelX = nextX, nextSelY = nextY;
+
+					glColor4f(CLR_PATH);
+					glBegin(GL_LINES);
+					glVertex2i(lastX, lastY);
+					glVertex2i(nextX, nextY);
+					glEnd();
+
+					// While we're here, see if the mouse cursor is over the point
+					if (this->activeLayer == ElPaths) {
+
+						// Don't draw a preview (false) unless the last point was selected,
+						// in which case we'll need to draw a preview line from it to us,
+						// even if we're not in the selection.
+						bool drawPreview = previewNextSegment;
+
+						// But initially we don't want our next point to be part of a
+						// preview line, unless it turns up in the selection which we're
+						// about to check...
+						previewNextSegment = entirePathSelected; // usually false
+
+						// Don't draw the arrow head in the selection colour by default.
+						// This is separate to drawPreview because an unselected point
+						// following a selected point will have drawPreview=true but
+						// selected=false.
+						bool selected = entirePathSelected; // usually false
+
+						// Check to see if this point is selected
+						for (std::vector<path_point>::iterator spt = this->pathSelection.begin();
+							spt != this->pathSelection.end(); spt++
+						) {
+							if (entirePathSelected || ((spt->path == path) && (spt->point == ptnum))) {
+								// This point has been selected
+								nextSelX += selDeltaX;
+								nextSelY += selDeltaY;
+
+								// We now need to draw the next segment in the preview colour
+								// too, whether that point has moved or not (because the line
+								// needs to be drawn from this moved point to the next one no
+								// matter what.)
+								previewNextSegment = true;
+
+								// Draw this point as a preview line
+								drawPreview = true;
+
+								// Draw the arrow head in the selection colour
+								selected = true;
+
+								break;
+							}
+						}
+
+						if (drawPreview) {
+							// Draw a preview while we're here, showing where this point
+							// would go if the left mouse button was clicked right now.
+							glColor4f(CLR_PATH_PREVIEW);
+							glBegin(GL_LINES);
+							glVertex2i(lastSelX, lastSelY);
+							glVertex2i(nextSelX, nextSelY);
+							glEnd();
+
+							int dX = nextSelX - lastSelX, dY = nextSelY - lastSelY;
+							float angle = atan2(dY, dX) * 180 / M_PI - 90;
+							glPushMatrix();
+							glTranslatef(nextSelX, nextSelY, 0.0);
+							glScalef(1.0 / this->zoomFactor, 1.0 / this->zoomFactor, 1.0);
+							glRotatef(angle, 0.0, 0.0, 1.0);
+
+							glBegin(GL_LINE_STRIP);
+							glVertex2i(-PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
+							glVertex2i(0, 0);
+							glVertex2i(PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
+							glEnd();
+
+							glPopMatrix();
+						}
+
+						if (selected) {
+							// Set the selection colour for the arrow head
+							glColor4f(CLR_ARROWHEAD_SEL);
+						} else {
+							// Normal colour
+							glColor4f(CLR_ARROWHEAD_NORMAL);
+						}
+					}
+
+					int dX = nextX - lastX, dY = nextY - lastY;
+					float angle = atan2(dY, dX) * 180 / M_PI - 90;
+					glPushMatrix();
+					glTranslatef(nextX, nextY, 0.0);
+					glScalef(1.0 / this->zoomFactor, 1.0 / this->zoomFactor, 1.0);
+					glRotatef(angle, 0.0, 0.0, 1.0);
+
+					glBegin(GL_LINE_STRIP);
+					glVertex2i(-PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
+					glVertex2i(0, 0);
+					glVertex2i(PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
+					glEnd();
+
+					glPopMatrix();
+					lastX = nextX;
+					lastY = nextY;
+					lastSelX = nextSelX;
+					lastSelY = nextSelY;
+					ptnum++;
 				}
-				glEnd();
+
+				// If the path is treated as a closed loop, draw a final joining line
+				if ((*p)->forceClosed) {
+					// TODO: Include this dashed line in the live preview?
+					glEnable(GL_LINE_STIPPLE);
+					glLineStipple(3, 0xAAAA);
+					glColor4f(CLR_PATH);
+					glBegin(GL_LINES);
+					glVertex2i(lastX, lastY);
+					glVertex2i(st->first, st->second);
+					glEnd();
+					glDisable(GL_LINE_STIPPLE);
+				}
 			}
+			stnum++;
 		}
+		glPopMatrix();
+
+		glLineWidth(1.0);
+		glDisable(GL_LINE_SMOOTH);
 	}
 
 	// Draw the viewport overlay
-	if (this->viewportVisible) {
+	if (this->visibleElements[ElViewport]) {
 		int vpX, vpY;
 		this->map->getViewport(&vpX, &vpY);
 		int vpOffX = (s.x - vpX) / 2;
@@ -620,8 +834,8 @@ void MapCanvas::redraw()
 	// Do some operations which require a real map layer to be selected (as
 	// opposed to the viewport or other virtual layers.)
 	int tileWidth, tileHeight;
-	if (this->activeLayer >= 0) {
-		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
+	if (this->activeLayer >= ElementCount) {
+		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
 		int layerWidth, layerHeight, tileWidth, tileHeight;
 		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
@@ -713,8 +927,8 @@ bool MapCanvas::focusObject(ObjectVector::iterator start)
 	bool needRedraw = false;
 
 	// See if the mouse is over an object
-	int mapPointerX = this->pointerX / this->zoomFactor + this->offX;
-	int mapPointerY = this->pointerY / this->zoomFactor + this->offY;
+	int mapPointerX = CLIENT_TO_MAP_X(this->pointerX);
+	int mapPointerY = CLIENT_TO_MAP_Y(this->pointerY);
 
 	ObjectVector::iterator oldFocusedObject = this->focusedObject;
 	ObjectVector::iterator end = this->objects.end();
@@ -722,9 +936,9 @@ bool MapCanvas::focusObject(ObjectVector::iterator start)
 
 	// No active layer.  Only return true (redraw) if this caused
 	// the selected object to be deselected.
-	if (this->activeLayer < 0) return (this->focusedObject != oldFocusedObject);
+	if (this->activeLayer < ElementCount) return (this->focusedObject != oldFocusedObject);
 
-	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
+	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
 	int layerWidth, layerHeight, tileWidth, tileHeight;
 	getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
@@ -844,14 +1058,16 @@ bool MapCanvas::focusObject(ObjectVector::iterator start)
 void MapCanvas::paintSelection(int x, int y)
 	throw ()
 {
-	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
+	assert(this->activeLayer >= ElementCount);
+
+	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
 
 	int layerWidth, layerHeight, tileWidth, tileHeight;
 	getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 	// Origin of paste area
-	int oX = (x / this->zoomFactor + this->offX) / tileWidth - this->selection.width / 2;
-	int oY = (y / this->zoomFactor + this->offY) / tileHeight - this->selection.height / 2;
+	int oX = (CLIENT_TO_MAP_X(x)) / tileWidth - this->selection.width / 2;
+	int oY = (CLIENT_TO_MAP_Y(y)) / tileHeight - this->selection.height / 2;
 
 	Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 	bool *painted = new bool[this->selection.width * this->selection.height];
@@ -900,12 +1116,12 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 
 	bool needRedraw = false;
 
-	int mapPointerX = this->pointerX / this->zoomFactor + this->offX;
-	int mapPointerY = this->pointerY / this->zoomFactor + this->offY;
+	int mapPointerX = CLIENT_TO_MAP_X(this->pointerX);
+	int mapPointerY = CLIENT_TO_MAP_Y(this->pointerY);
 
 	// Perform actions that require an active layer
-	if (this->activeLayer >= 0) {
-		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
+	if (this->activeLayer >= ElementCount) {
+		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
 		int layerWidth, layerHeight, tileWidth, tileHeight;
 		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
@@ -1036,6 +1252,19 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 			}
 
 		} // if (not performing primary action)
+	} else if (this->activeLayer == ElPaths) {
+
+		if (this->pathSelection.size() > 0) {
+			// There's a selection, so redraw on every mouse movement because the
+			// preview will need to be updated to show where the path will go on
+			// a left-click.
+			needRedraw = true;
+
+		} else if (this->selectFromX >= 0) {
+			// The user is right-dragging, redraw the selection box
+			needRedraw = true;
+
+		}
 	} else { // no active layer
 		this->doc->setStatusText(wxString());
 	}
@@ -1053,33 +1282,80 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 
 void MapCanvas::onMouseDownLeft(wxMouseEvent& ev)
 {
-	switch (this->editingMode) {
+	bool needRedraw = false;
+	if (this->activeLayer == ElPaths) {
+		// Should never be able to set this layer as active if there are no paths
+		// in the map
+		//Map2D::PathPtrVectorPtr paths = this->map->getPaths();
+		//assert(paths);
 
-		case TileMode: {
-			// Paint the current selection, if any
-			if (
-				(this->activeLayer >= 0) &&  // if this is the active layer
-				(this->selection.tiles) &&   // and there are selected tiles
-				(this->selectFromX < 0)      // and we're not selecting new tiles
+		if (!this->pathSelection.empty()) {
+			int mapPointerX = CLIENT_TO_MAP_X(ev.m_x);
+			int mapPointerY = CLIENT_TO_MAP_Y(ev.m_y);
+			int selDeltaX = mapPointerX - this->selHotX;
+			int selDeltaY = mapPointerY - this->selHotY;
+			for (std::vector<path_point>::iterator spt = this->pathSelection.begin();
+				spt != this->pathSelection.end(); spt++
 			) {
-				this->actionFromX = ev.m_x;
-				this->actionFromY = ev.m_y;
-				this->CaptureMouse();
-				this->paintSelection(ev.m_x, ev.m_y);
+				if (spt->point == 0) {
+					// Need to move a starting point
+					if (spt->path->fixed) {
+						this->doc->setStatusText(_T("Path starting point is fixed in this map"));
+					} else {
+						assert(spt->start < spt->path->start.size());
+						Map2D::Path::point &pt = spt->path->start[spt->start];
+						pt.first += selDeltaX;
+						pt.second += selDeltaY;
+						needRedraw = true;
+					}
+				} else {
+					// Just a normal point
+					Map2D::Path::point_vector::iterator pt = spt->path->points.begin() + (spt->point - 1);
+					if (pt != spt->path->points.end()) {
+						pt->first += selDeltaX;
+						pt->second += selDeltaY;
+					}
+				}
 			}
-			break;
+			// Update the hotspot so points can be moved again
+			this->selHotX += selDeltaX;
+			this->selHotY += selDeltaY;
 		}
 
-		case ObjectMode:
-			if (this->resizeX || this->resizeY) {
-				// Mouse was over focus border, start a resize
-				this->actionFromX = ev.m_x;
-				this->actionFromY = ev.m_y;
-				this->CaptureMouse();
+	} else { // normal layer
+
+		switch (this->editingMode) {
+
+			case TileMode: {
+				// Paint the current selection, if any
+				if (
+					(this->activeLayer >= ElementCount) &&  // if this is the active layer
+					(this->selection.tiles) &&   // and there are selected tiles
+					(this->selectFromX < 0)      // and we're not selecting new tiles
+				) {
+					this->actionFromX = ev.m_x;
+					this->actionFromY = ev.m_y;
+					this->CaptureMouse();
+					this->paintSelection(ev.m_x, ev.m_y);
+					needRedraw = true;
+				}
+				break;
 			}
-			break;
+
+			case ObjectMode:
+				if (this->resizeX || this->resizeY) {
+					// Mouse was over focus border, start a resize
+					this->actionFromX = ev.m_x;
+					this->actionFromY = ev.m_y;
+					this->CaptureMouse();
+				}
+				break;
+		}
 	}
 	ev.Skip();
+
+	if (needRedraw) this->redraw();
+	this->updateHelpText();
 	return;
 }
 
@@ -1109,117 +1385,173 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 {
 	this->ReleaseMouse();
 
-	if (this->activeLayer < 0) return; // must have active layer
+	// Calculate the dimensions of the tiles in the selection rectangle
+	int x1, y1, x2, y2;
+	bool selectPartial;
+	if (this->selectFromX > ev.m_x) {
+		// Negative rectangle
+		x1 = ev.m_x;
+		x2 = this->selectFromX;
+		selectPartial = true;
+	} else {
+		x1 = this->selectFromX;
+		x2 = ev.m_x;
+		selectPartial = false;
+	}
+	if (this->selectFromY > ev.m_y) {
+		y1 = ev.m_y;
+		y2 = this->selectFromY;
+	} else {
+		y1 = this->selectFromY;
+		y2 = ev.m_y;
+	}
+	// (x1,y1) is now always top-left, (x2,y2) is always bottom-right
 
-	switch (this->editingMode) {
-		case TileMode: {
-			// Select the tiles contained within the rectangle
+	x1 = CLIENT_TO_MAP_X(x1);
+	y1 = CLIENT_TO_MAP_Y(y1);
+	x2 = CLIENT_TO_MAP_X(x2);
+	y2 = CLIENT_TO_MAP_Y(y2);
 
-			Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
-			int layerWidth, layerHeight, tileWidth, tileHeight;
-			getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
+	// Set the selection hotspot to be the middle of the rectangle
+	this->selHotX = CLIENT_TO_MAP_X(ev.m_x);
+	this->selHotY = CLIENT_TO_MAP_Y(ev.m_y);
 
-			// Calculate the dimensions of the tiles in the selection rectangle
-			int x1, y1, x2, y2;
-			bool selectPartial;
-			if (this->selectFromX > ev.m_x) {
-				// Negative rectangle
-				x1 = ev.m_x;
-				x2 = this->selectFromX;
-				selectPartial = true;
-			} else {
-				x1 = this->selectFromX;
-				x2 = ev.m_x;
-				selectPartial = false;
-			}
-			if (this->selectFromY > ev.m_y) {
-				y1 = ev.m_y;
-				y2 = this->selectFromY;
-			} else {
-				y1 = this->selectFromY;
-				y2 = ev.m_y;
-			}
-			// (x1,y1) is now always top-left, (x2,y2) is always bottom-right
+	if (this->activeLayer == ElPaths) { // select some points on a path
+		// Should never be able to set this layer as active if there are no paths
+		// in the map
+		Map2D::PathPtrVectorPtr paths = this->map->getPaths();
+		assert(paths);
 
-			x1 = x1 / this->zoomFactor + this->offX;
-			y1 = y1 / this->zoomFactor + this->offY;
-			x2 = x2 / this->zoomFactor + this->offX;
-			y2 = y2 / this->zoomFactor + this->offY;
-
-			// Convert the selection rectangle from pixel coords to tile coords,
-			// enlarging or shrinking it as necessary to accommodate selectPartial.
-			if (selectPartial) {
-				x2 += tileWidth - 1;
-				y2 += tileHeight - 1;
-			} else {
-				x1 += tileWidth - 1;
-				y1 += tileHeight - 1;
-			}
-			x1 /= tileWidth;
-			y1 /= tileHeight;
-			x2 /= tileWidth;
-			y2 /= tileHeight;
-
-			if (x1 < 0) x1 = 0;
-			if (y1 < 0) y1 = 0;
-			if (x2 < 0) x2 = 0;
-			if (y2 < 0) y2 = 0;
-
-			int minX = x2;
-			int minY = y2;
-			int maxX = x1;
-			int maxY = y1;
-			Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
-			for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
-				if (
-					((*c)->x >= x1) && ((*c)->x < x2) &&
-					((*c)->y >= y1) && ((*c)->y < y2)
+		this->pathSelection.clear();
+		this->doc->setStatusText(wxString()); // hide any previous error message
+		for (Map2D::PathPtrVector::iterator p = paths->begin();
+			p != paths->end(); p++
+		) {
+			int stnum = 0;
+			for (Map2D::Path::point_vector::iterator st = (*p)->start.begin();
+				st != (*p)->start.end(); st++
+			) {
+				if (POINT_IN_RECT(
+					st->first, st->second,
+					x1, y1, x2, y2)
 				) {
-					// This tile is contained within the selection rectangle
-					if (minX > (*c)->x) minX = (*c)->x;
-					if (minY > (*c)->y) minY = (*c)->y;
-					if (maxX < (*c)->x + 1) maxX = (*c)->x + 1;
-					if (maxY < (*c)->y + 1) maxY = (*c)->y + 1;
-				}
-			}
-			if (this->selection.tiles) delete[] this->selection.tiles;
-			this->selection.width = maxX - minX;
-			this->selection.height = maxY - minY;
-			if ((this->selection.width <= 0) || (this->selection.height <= 0)) {
-				// Empty selection
-				this->selection.tiles = NULL; // already deleted above
-			} else {
-				this->selection.tiles = new int[this->selection.width * this->selection.height];
-				for (int i = 0; i < this->selection.width * this->selection.height; i++) {
-					this->selection.tiles[i] = -1; // no tile present here
-				}
-
-				// Run through the tiles again, but this tile copy them into the selection
-				for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
-					if (
-						((*c)->x >= minX) && ((*c)->x < maxX) &&
-						((*c)->y >= minY) && ((*c)->y < maxY)
-					) {
-						// This tile is contained within the selection rectangle
-						int offset = ((*c)->y - minY) * this->selection.width + (*c)->x - minX;
-						assert(offset < this->selection.width * this->selection.height);
-						this->selection.tiles[offset] = (*c)->code;
+					path_point pp;
+					pp.path = *p;
+					pp.start = stnum;
+					pp.point = 0;
+					this->pathSelection.push_back(pp);
+					if ((*p)->fixed) {
+						this->doc->setStatusText(_T("You have selected the path's starting"
+							" point, but it cannot be moved in this map."));
+					}
+				} else {
+					// Starting point wasn't selected, add individual points for this path
+					int ptnum = 1;
+					for (Map2D::Path::point_vector::iterator pt = (*p)->points.begin(); pt != (*p)->points.end(); pt++) {
+						if (POINT_IN_RECT(
+							st->first + pt->first, st->second + pt->second,
+							x1, y1, x2, y2)
+						) {
+							// This point was inside the selection rectangle
+							path_point pp;
+							pp.path = *p;
+							pp.start = stnum;
+							pp.point = ptnum;
+							this->pathSelection.push_back(pp);
+						}
+						ptnum++;
 					}
 				}
-
-				// Remember the location of the original selection
-				this->selection.x = minX;
-				this->selection.y = minY;
 			}
-			break;
+			stnum++;
 		}
-		case ObjectMode:
-			// TODO: Select multiple objects?
-			break;
+
+	} else if (this->activeLayer >= ElementCount) { // normal map layer
+
+		switch (this->editingMode) {
+			case TileMode: {
+				// Select the tiles contained within the rectangle
+
+				Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
+				int layerWidth, layerHeight, tileWidth, tileHeight;
+				getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
+
+				// Convert the selection rectangle from pixel coords to tile coords,
+				// enlarging or shrinking it as necessary to accommodate selectPartial.
+				if (selectPartial) {
+					x2 += tileWidth - 1;
+					y2 += tileHeight - 1;
+				} else {
+					x1 += tileWidth - 1;
+					y1 += tileHeight - 1;
+				}
+				x1 /= tileWidth;
+				y1 /= tileHeight;
+				x2 /= tileWidth;
+				y2 /= tileHeight;
+
+				if (x1 < 0) x1 = 0;
+				if (y1 < 0) y1 = 0;
+				if (x2 < 0) x2 = 0;
+				if (y2 < 0) y2 = 0;
+
+				int minX = x2;
+				int minY = y2;
+				int maxX = x1;
+				int maxY = y1;
+				Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
+				for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
+					if (POINT_IN_RECT(
+						(*c)->x, (*c)->y,
+						x1, y1, x2, y2
+					)) {
+						// This tile is contained within the selection rectangle
+						if (minX > (*c)->x) minX = (*c)->x;
+						if (minY > (*c)->y) minY = (*c)->y;
+						if (maxX < (*c)->x + 1) maxX = (*c)->x + 1;
+						if (maxY < (*c)->y + 1) maxY = (*c)->y + 1;
+					}
+				}
+				if (this->selection.tiles) delete[] this->selection.tiles;
+				this->selection.width = maxX - minX;
+				this->selection.height = maxY - minY;
+				if ((this->selection.width <= 0) || (this->selection.height <= 0)) {
+					// Empty selection
+					this->selection.tiles = NULL; // already deleted above
+				} else {
+					this->selection.tiles = new int[this->selection.width * this->selection.height];
+					for (int i = 0; i < this->selection.width * this->selection.height; i++) {
+						this->selection.tiles[i] = -1; // no tile present here
+					}
+
+					// Run through the tiles again, but this tile copy them into the selection
+					for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
+						if (
+							((*c)->x >= minX) && ((*c)->x < maxX) &&
+							((*c)->y >= minY) && ((*c)->y < maxY)
+						) {
+							// This tile is contained within the selection rectangle
+							int offset = ((*c)->y - minY) * this->selection.width + (*c)->x - minX;
+							assert(offset < this->selection.width * this->selection.height);
+							this->selection.tiles[offset] = (*c)->code;
+						}
+					}
+
+					// Remember the location of the original selection
+					this->selection.x = minX;
+					this->selection.y = minY;
+				}
+				break;
+			}
+			case ObjectMode:
+				// TODO: Select multiple objects?
+				break;
+		}
 	}
 
 	this->selectFromX = -1;
 	this->redraw();
+	this->updateHelpText();
 	return;
 }
 
@@ -1242,6 +1574,7 @@ void MapCanvas::onMouseCaptureLost(wxMouseCaptureLostEvent& ev)
 {
 	this->scrollFromX = -1;
 	this->selectFromX = -1;
+	this->updateHelpText();
 	return;
 }
 
@@ -1260,12 +1593,93 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 		case WXK_NUMPAD_DELETE:
 		case WXK_DELETE:
 			// Delete the currently selected tiles
-			if ((this->activeLayer >= 0) && (this->selection.tiles)) {
+			if (this->activeLayer == ElPaths) {
+				if (!this->pathSelection.empty()) {
+					for (std::vector<path_point>::iterator spt = this->pathSelection.begin();
+						spt != this->pathSelection.end(); spt++
+					) {
+						if (spt->point == 0) {
+							if (this->map->getCaps() && Map2D::FixedPathCount) {
+								this->doc->setStatusText(_T("Can't delete whole paths in this "
+									"map - you tried to delete the starting point"));
+							} else {
+								wxMessageDialog dlg(this, _T("You are about to delete the "
+									"starting point for a path.  If you proceed, the entire path "
+									"will be removed.\n\nDelete the entire path?"),
+									_T("Delete path?"), wxYES_NO | wxNO_DEFAULT | wxICON_EXCLAMATION);
+								int r = dlg.ShowModal();
+								if (r == wxID_NO) return;
+
+								// Remove this path from the selection first.
+								Map2D::PathPtr path = spt->path;
+								unsigned int start = spt->start;
+								for (std::vector<path_point>::iterator spt2 = this->pathSelection.begin();
+									spt2 != this->pathSelection.end(); spt2++
+								) {
+									if ((spt2->path == path) && (spt2->start = start)) {
+										spt2 = this->pathSelection.erase(spt2) - 1;
+										// spt is now invalid too
+										needRedraw = true;
+									}
+								}
+
+								// Remove the instance
+								Map2D::Path::point_vector::iterator x = path->start.begin() + start;
+								if (x != path->start.end()) {
+									path->start.erase(x);
+									needRedraw = true;
+								}
+
+								if (path->start.empty()) {
+									// No start points, the path is now unused, delete it
+									Map2D::PathPtrVectorPtr allPaths = this->map->getPaths();
+									for (Map2D::PathPtrVector::iterator x = allPaths->begin();
+										x != allPaths->end(); x++
+									) {
+										if (*x == path) {
+											allPaths->erase(x);
+											break;
+										}
+									}
+								}
+
+								// Start the main loop again in case there are other paths to delete
+								spt = this->pathSelection.begin();
+							}
+						} else {
+							// Just a normal point to remove
+							Map2D::Path::point_vector::iterator pt = spt->path->points.begin() + (spt->point - 1);
+							if (pt != spt->path->points.end()) {
+								// Remove it from the path
+								spt->path->points.erase(pt);
+
+								// Update the index numbers in the remaining selection to take
+								// into account the point we're about to delete
+								Map2D::PathPtr path = spt->path;
+								unsigned int start = spt->start;
+								unsigned int point = spt->point;
+								for (std::vector<path_point>::iterator spt2 = this->pathSelection.begin();
+									spt2 != this->pathSelection.end(); spt2++
+								) {
+									if ((spt2->path == path) && (spt2->start = start) && (spt2->point > point)) {
+										spt2->point--;
+									}
+								}
+
+								// Remove it from the selection
+								spt = this->pathSelection.erase(spt) - 1;
+
+								needRedraw = true;
+							}
+						}
+					}
+				}
+			} else if ((this->activeLayer >= ElementCount) && (this->selection.tiles)) {
 				int x1 = this->selection.x;
 				int y1 = this->selection.y;
 				int x2 = x1 + this->selection.width;
 				int y2 = y1 + this->selection.height;
-				Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer);
+				Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
 				Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 				for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); ) {
 					if (
@@ -1287,9 +1701,75 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 				this->selection.tiles = NULL;
 				needRedraw = true;
 			}
+			if (!this->pathSelection.empty()) {
+				this->pathSelection.clear();
+				this->doc->setStatusText(wxString()); // hide any previous error message
+				needRedraw = true;
+			}
+			break;
+
+		case WXK_SPACE:
+			if (this->activeLayer == ElPaths) {
+				// Close all currently selected paths, by moving the last point in each
+				// selected path to (0,0).
+				if (!this->pathSelection.empty()) {
+					for (std::vector<path_point>::iterator spt = this->pathSelection.begin();
+						spt != this->pathSelection.end(); spt++
+					) {
+						if (spt->path->forceClosed) {
+							this->doc->setStatusText(_T("Can't close a continuous path!"));
+						} else {
+							if (!spt->path->points.empty()) {
+								int num = spt->path->points.size();
+								Map2D::Path::point &p = spt->path->points[num - 1];
+								p.first = 0;
+								p.second = 0;
+								needRedraw = true;
+							}
+						}
+					}
+				}
+			}
 			break;
 
 	}
 	if (needRedraw) this->redraw();
+	this->updateHelpText();
+	return;
+}
+
+#define HT_DEFAULT   "Ready"
+#define HT_PASTE     "L-click=paste"
+#define HT_APPLY     "L-click=apply"
+#define HT_COPY      "R-drag=copy"
+#define HT_SELECT    "R-drag=select"
+#define HT_SCROLL    "M-drag=scroll"
+#define HT_CLOSEPATH "Space=close path"
+#define HT_DEL       "Del=delete"
+#define HT_ESC       "Esc=cancel"
+#define __           " | "
+
+void MapCanvas::updateHelpText()
+	throw ()
+{
+	if (this->activeLayer == ElPaths) { // select some points on a path
+		if (this->pathSelection.empty()) {
+			return this->doc->setHelpText(_T(HT_SELECT __ HT_SCROLL));
+		} else {
+			return this->doc->setHelpText(_T(HT_APPLY __ HT_CLOSEPATH __ HT_DEL __ HT_SELECT __ HT_ESC));
+		}
+
+	} else if (this->activeLayer == ElViewport) {
+		return this->doc->setHelpText(_T(HT_SCROLL));
+
+	} else if (this->activeLayer >= ElementCount) { // normal map layer
+		if (this->selection.tiles) {
+			return this->doc->setHelpText(_T(HT_PASTE __ HT_DEL __ HT_COPY __ HT_ESC));
+		} else { // no selection
+			return this->doc->setHelpText(_T(HT_COPY __ HT_SCROLL));
+		}
+	}
+
+	this->doc->setHelpText(_T(HT_DEFAULT));
 	return;
 }

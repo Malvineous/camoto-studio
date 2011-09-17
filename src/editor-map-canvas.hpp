@@ -109,8 +109,13 @@ class MapCanvas: public wxGLCanvas
 		typedef std::vector<Object> ObjectVector;
 
 	public:
-		std::vector<bool> visibleLayers;
-		bool viewportVisible;
+		std::vector<bool> visibleLayers;     ///< Map layers
+		enum Elements {
+			ElViewport,
+			ElPaths,
+			ElementCount
+		};
+		bool visibleElements[ElementCount];  ///< Virtual layers (e.g. viewport)
 
 		MapCanvas(MapDocument *parent, camoto::gamemaps::Map2DPtr map,
 			camoto::gamegraphics::VC_TILESET tileset, int *attribList,
@@ -204,6 +209,10 @@ class MapCanvas: public wxGLCanvas
 
 		void onKeyDown(wxKeyEvent& ev);
 
+		/// Make sure the keyboard help reflects the current editor state.
+		void updateHelpText()
+			throw ();
+
 	protected:
 		MapDocument *doc;
 		camoto::gamemaps::Map2DPtr map;
@@ -227,6 +236,9 @@ class MapCanvas: public wxGLCanvas
 		int selectFromX;  ///< Mouse X pos when selecting started, or -1 if not selecting
 		int selectFromY;  ///< Mouse Y pos of selection origin
 
+		int selHotX;      ///< X pos of selection hotspot
+		int selHotY;      ///< Y pos of selection hotspot
+
 		int actionFromX;  ///< Mouse X pos when primary action started, or -1 if none
 		int actionFromY;  ///< Mouse Y pos of primary action (left click/drag)
 
@@ -247,6 +259,14 @@ class MapCanvas: public wxGLCanvas
 			int height; ///< Height of selection, in tiles
 			int *tiles; ///< Array of tiles selected
 		} selection;
+
+		/// Details about the current selection when editing paths.
+		struct path_point {
+			camoto::gamemaps::Map2D::PathPtr path; ///< Selected path
+			unsigned int start; ///< Which instance of the path?  Index into start point vector
+			unsigned int point; ///< Which point along the path is selected? 0 means start point, 1 means index 0 in point vector
+		};
+		std::vector<path_point> pathSelection;
 
 		DECLARE_EVENT_TABLE();
 

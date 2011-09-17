@@ -51,8 +51,6 @@ class MapDocument: public IDocument
 		void onTileMode(wxCommandEvent& ev);
 		void onObjMode(wxCommandEvent& ev);
 
-		void setStatusText(const wxString& text);
-
 	protected:
 		MapCanvas *canvas;
 		camoto::gamemaps::Map2DPtr map;
