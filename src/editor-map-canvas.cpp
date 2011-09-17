@@ -576,17 +576,42 @@ void MapCanvas::redraw()
 						if (tileY > this->offY + s.y) continue; // tile is off viewport to the bottom
 						if (tileY + tileHeight < this->offY) continue; // tile is off viewport to the top
 
-						glBindTexture(GL_TEXTURE_2D, this->textureMap[this->activeLayer][code]);
-						glBegin(GL_QUADS);
-						glTexCoord2d(0.0, 0.0);
-						glVertex2i(tileX - this->offX, tileY - this->offY);
-						glTexCoord2d(0.0, 1.0);
-						glVertex2i(tileX - this->offX, tileY + tileHeight - this->offY);
-						glTexCoord2d(1.0, 1.0);
-						glVertex2i(tileX + tileWidth - this->offX, tileY + tileHeight - this->offY);
-						glTexCoord2d(1.0, 0.0);
-						glVertex2i(tileX + tileWidth - this->offX, tileY - this->offY);
-						glEnd();
+						unsigned int maxInstances;
+						if (
+							!layer->tilePermittedAt(code, x + oX, y + oY, &maxInstances) ||
+							(x + oX < 0) ||
+							(y + oY < 0) ||
+							(x + oX >= layerWidth) ||
+							(y + oY >= layerHeight)
+						) {
+							// This tile cannot be placed here, draw a box with a red X in it
+							glDisable(GL_TEXTURE_2D);
+							glColor4f(1.0, 0.0, 0.0, 1.0);
+							glBegin(GL_LINE_LOOP);
+							glVertex2i(tileX - this->offX, tileY - this->offY);
+							glVertex2i(tileX - this->offX, tileY + tileHeight - this->offY);
+							glVertex2i(tileX + tileWidth - this->offX, tileY + tileHeight - this->offY);
+							glVertex2i(tileX - this->offX, tileY + tileHeight - this->offY);
+							glVertex2i(tileX + tileWidth - this->offX, tileY - this->offY);
+							glVertex2i(tileX + tileWidth - this->offX, tileY + tileHeight - this->offY);
+							glVertex2i(tileX - this->offX, tileY - this->offY);
+							glVertex2i(tileX + tileWidth - this->offX, tileY - this->offY);
+							glEnd();
+							glEnable(GL_TEXTURE_2D);
+						} else {
+							// This tile can be placed here, draw the tile
+							glBindTexture(GL_TEXTURE_2D, this->textureMap[this->activeLayer - ElementCount][code]);
+							glBegin(GL_QUADS);
+							glTexCoord2d(0.0, 0.0);
+							glVertex2i(tileX - this->offX, tileY - this->offY);
+							glTexCoord2d(0.0, 1.0);
+							glVertex2i(tileX - this->offX, tileY + tileHeight - this->offY);
+							glTexCoord2d(1.0, 1.0);
+							glVertex2i(tileX + tileWidth - this->offX, tileY + tileHeight - this->offY);
+							glTexCoord2d(1.0, 0.0);
+							glVertex2i(tileX + tileWidth - this->offX, tileY - this->offY);
+							glEnd();
+						}
 					}
 				}
 			}
