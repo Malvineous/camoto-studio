@@ -1736,6 +1736,11 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 				assert(path);
 				assert(path->points.size() > 1);
 				assert(path->start.size() > this->nearestPathPoint.start);
+				if ((path->maxPoints > 0) && (path->points.size() >= path->maxPoints)) {
+					this->doc->setStatusText(_T("Path is at maximum size, cannot insert "
+						"another point"));
+					break;
+				}
 				Map2D::Path::point ptOrigin = path->start[this->nearestPathPoint.start];
 				Map2D::Path::point ptA, ptB;
 				Map2D::Path::point_vector::iterator beforeThis;
@@ -1940,7 +1945,11 @@ void MapCanvas::updateHelpText()
 	if (this->activeLayer == ElPaths) { // select some points on a path
 		if (this->pathSelection.empty()) {
 			if (this->nearestPathPointOff >= 0) {
-				return this->doc->setHelpText(_T(HT_INS __ HT_SELECT __ HT_SCROLL));
+				Map2D::PathPtr path = this->nearestPathPoint.path;
+				assert(path);
+				if ((path->maxPoints == 0) || (path->points.size() < path->maxPoints)) {
+					return this->doc->setHelpText(_T(HT_INS __ HT_SELECT __ HT_SCROLL));
+				}
 			}
 			return this->doc->setHelpText(_T(HT_SELECT __ HT_SCROLL));
 		} else {
