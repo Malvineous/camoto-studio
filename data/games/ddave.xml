@@ -72,4 +72,8 @@
 		<file id="gfx-ega" name="egadave.dav" typeMajor="tileset" typeMinor="ddave-ega">EGA tiles</file>
 	</files>
 
+	<commands>
+		<command title="Normal">dave</command>
+	</commands>
+
 </game>

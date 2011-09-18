@@ -177,9 +177,7 @@
 	</files>
 
 	<commands>
-		<command>
-			hocus
-		</command>
+		<command title="Normal">hocus</command>
 	</commands>
 
 </game>

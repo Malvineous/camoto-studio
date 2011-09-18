@@ -81,4 +81,11 @@
 		<file id="img-end1" name="cc1.end" typeMajor="image" typeMinor="pcx">Ending</file>
 		<file id="img-ttl1" name="cc1.ttl" typeMajor="image" typeMinor="pcx">Title</file>
 	</files>
+
+	<commands>
+		<command title="Episode 1">cc1</command>
+		<command title="Episode 2">cc2</command>
+		<command title="Episode 3">cc3</command>
+	</commands>
+
 </game>

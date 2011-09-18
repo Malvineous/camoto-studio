@@ -189,7 +189,7 @@ Game *loadGameStructure(const wxString& id)
 	std::cout << "[gamelist] Parsing " << n << "\n";
 	xmlDoc *xml = xmlParseFile(n);
 	if (!xml) {
-		std::cout << "[gamelist] Error parsing " << n << std::endl;
+		std::cerr << "[gamelist] Error parsing " << n << std::endl;
 		return NULL;
 	}
 
@@ -204,6 +204,28 @@ Game *loadGameStructure(const wxString& id)
 		} else if (xmlStrcmp(i->name, _X("files")) == 0) {
 			// Process the <files/> chunk
 			processFilesChunk(g, i, wxString());
+		} else if (xmlStrcmp(i->name, _X("commands")) == 0) {
+			// Process the <commands/> chunk
+			for (xmlNode *j = i->children; j; j = j->next) {
+				if (xmlStrEqual(j->name, _X("command"))) {
+					wxString title;
+					for (xmlAttr *a = j->properties; a; a = a->next) {
+						if (xmlStrcmp(a->name, _X("title")) == 0) {
+							xmlChar *val = xmlNodeGetContent(a->children);
+							title = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+							xmlFree(val);
+						}
+					}
+					if (title.empty()) {
+						std::cerr << "[gamelist] Game \"" << id.ToAscii()
+							<< "\" has a <command/> with no title attribute." << std::endl;
+					} else {
+						xmlChar *val = xmlNodeGetContent(j);
+						g->dosCommands[title] = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+						xmlFree(val);
+					}
+				}
+			}
 		} else if (xmlStrcmp(i->name, _X("map")) == 0) {
 			// Process the <map/> chunk
 			for (xmlNode *j = i->children; j; j = j->next) {

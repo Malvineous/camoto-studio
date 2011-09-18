@@ -124,6 +124,7 @@ struct Game: public GameInfo
 	GameObjectMap objects;
 	tree<wxString> treeItems;
 	MapObjectVector mapObjects;
+	std::map<wxString, wxString> dosCommands;
 };
 
 /// List of basic game info.

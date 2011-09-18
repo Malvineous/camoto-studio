@@ -476,4 +476,10 @@
 			<file id="mus-mid-turbo"    name="turbo.mid"    typeMajor="music" typeMinor="mid-type1">Turbo</file>
 		</archive>
 	</files>
+
+	<commands>
+		<command title="Normal">ww</command>
+		<command title="Skip intro">ww now</command>
+	</commands>
+
 </game>

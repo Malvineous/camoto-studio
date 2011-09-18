@@ -267,4 +267,10 @@
 
 	</files>
 
+	<commands>
+		<command title="Episode 1">wr1</command>
+		<command title="Episode 2">wr2</command>
+		<command title="Episode 3">wr3</command>
+	</commands>
+
 </game>

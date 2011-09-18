@@ -107,4 +107,8 @@
 		<file id="tiles-space"   name="space.tt2"  typeMajor="tileset" typeMinor="ccomic">Space tiles</file>
 	</files>
 
+	<commands>
+		<command title="Normal">comic</command>
+	</commands>
+
 </game>

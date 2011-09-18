@@ -122,6 +122,12 @@
 
 	</files>
 
+	<commands>
+		<command title="Episode 1">cosmo1</command>
+		<command title="Episode 2">cosmo2</command>
+		<command title="Episode 3">cosmo3</command>
+	</commands>
+
 	<map>
 		<objects>
 			<object name="Vine">

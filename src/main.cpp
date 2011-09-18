@@ -146,12 +146,15 @@ class CamotoFrame: public IMainWindow
 			wxMenu *menuView = new wxMenu();
 			menuView->Append(IDC_RESET, _T("&Reset layout"));
 
+			this->menuTest = new wxMenu();
+
 			wxMenu *menuHelp = new wxMenu();
 			menuHelp->Append(wxID_ABOUT, _T("&About..."));
 
 			this->menubar = new wxMenuBar();
 			menubar->Append(menuFile, _T("&File"));
 			menubar->Append(menuView, _T("&View"));
+			menubar->Append(menuTest, _T("&Test"));
 			menubar->Append(menuHelp, _T("&Help"));
 			this->SetMenuBar(menubar);
 
@@ -287,6 +290,52 @@ class CamotoFrame: public IMainWindow
 		void onViewReset(wxCommandEvent& ev)
 		{
 			this->aui.LoadPerspective(this->defaultPerspective);
+			return;
+		}
+
+		/// Load DOSBox and run the game
+		void onRunGame(wxCommandEvent& ev)
+		{
+			std::map<long, wxString>::iterator i = this->commandMap.find(ev.GetId());
+			if (i == this->commandMap.end()) {
+				std::cerr << "[main] Menu item has no command associated with this ID!?"
+					<< std::endl;
+				return;
+			}
+
+			// Create a batch file to run the game with any parameters needed
+			wxFileName exe;
+			exe.AssignDir(this->project->getDataPath());
+			exe.SetFullName(_T("camoto.bat"));
+			wxString batName = exe.GetFullPath();
+
+			wxFile bat;
+			if (!bat.Create(batName, true)) {
+				wxMessageDialog dlg(this, _T("Could not create 'camoto.bat' in the "
+					"project data directory!  Make sure you have sufficient disk space "
+					"and write access to the folder."),
+					_T("Run game"), wxOK | wxICON_ERROR);
+				dlg.ShowModal();
+				return;
+			}
+			bat.Write(i->second);
+			//bat.Write(_T("\npause\n"));
+			bat.Close();
+
+			// Launch the batch file in DOSBox
+			const wxChar **argv = new const wxChar*[5];
+			argv[0] = _T("/usr/bin/dosbox");
+			argv[1] = batName.c_str();
+			argv[2] = _T("-noautoexec");
+			argv[3] = _T("-exit");
+			argv[4] = NULL;
+			if (::wxExecute((wxChar **)argv, wxEXEC_ASYNC) == 0) {
+				wxMessageDialog dlg(this, _T("Unable to launch DOSBox!  Make sure the "
+					"path is correct in the Camoto preferences window."),
+					_T("Run game"), wxOK | wxICON_ERROR);
+				dlg.ShowModal();
+			}
+			delete argv;
 			return;
 		}
 
@@ -561,6 +610,19 @@ class CamotoFrame: public IMainWindow
 			wxTreeItemId root = this->treeCtrl->AddRoot(this->game->title, imgIndexGame);
 			this->populateTreeItems(root, this->game->treeItems);
 			this->treeCtrl->ExpandAll();
+
+			// Add all the run commands to the Test menu
+			this->clearTestMenu();
+			for (std::map<wxString, wxString>::const_iterator i = this->game->dosCommands.begin();
+				i != this->game->dosCommands.end(); i++
+			) {
+				long id = ::wxNewId();
+				this->menuTest->Append(id, i->first);
+				this->commandMap[id] = i->second;
+				this->Connect(id, wxEVT_COMMAND_MENU_SELECTED,
+					wxCommandEventHandler(CamotoFrame::onRunGame));
+			}
+
 			return;
 		}
 
@@ -714,6 +776,9 @@ class CamotoFrame: public IMainWindow
 			// Unload any cached archives
 			this->archives.clear();
 
+			// Remove any run commands from the menu
+			this->clearTestMenu();
+
 			// Release the project
 			delete this->project;
 			this->project = NULL;
@@ -777,6 +842,19 @@ class CamotoFrame: public IMainWindow
 				text.append(_T("]"));
 			}
 			this->status->SetStatusText(text, 0);
+			return;
+		}
+
+		/// Remove any run commands from the 'Test' menu
+		void clearTestMenu()
+			throw ()
+		{
+			for (std::map<long, wxString>::iterator i = this->commandMap.begin();
+				i != this->commandMap.end(); i++
+			) {
+				this->menuTest->Delete(i->first);
+			}
+			this->commandMap.clear();
 			return;
 		}
 
@@ -886,6 +964,7 @@ class CamotoFrame: public IMainWindow
 		wxAuiManager aui;
 		wxStatusBar *status;
 		wxMenuBar *menubar;
+		wxMenu *menuTest;
 		wxAuiNotebook *notebook;
 		wxTreeCtrl *treeCtrl;
 		wxImageList *treeImages;
@@ -898,6 +977,8 @@ class CamotoFrame: public IMainWindow
 		Project *project;  ///< Currently open project or NULL
 		Game *game;        ///< Game being edited in current project
 		AudioPtr audio;    ///< Common audio output
+
+		std::map<long, wxString> commandMap;
 
 		/// Map containing typeMajor -> IEditor instance used to edit that type
 		typedef std::map<wxString, IEditor *> EditorMap;

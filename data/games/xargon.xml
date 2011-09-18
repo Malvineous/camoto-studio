@@ -114,4 +114,12 @@
 		<file id="img-exit"  name="screen_3.xr0" typeMajor="b800"  typeMinor="80x25">Text mode ending screen</file>
 
 	</files>
+
+	<commands>
+		<command title="Episode selection">xargon</command>
+		<command title="Episode 1">xrfile01</command>
+		<command title="Episode 2">xrfile02</command>
+		<command title="Episode 3">xrfile03</command>
+	</commands>
+
 </game>

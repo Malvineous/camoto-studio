@@ -91,15 +91,9 @@
 	</files>
 
 	<commands>
-		<command title="Episode 1">
-			bash1
-		</command>
-		<command title="Episode 2">
-			bash2
-		</command>
-		<command title="Episode 3">
-			bash3
-		</command>
+		<command title="Episode 1">bash1</command>
+		<command title="Episode 2">bash2</command>
+		<command title="Episode 3">bash3</command>
 	</commands>
 
 </game>
