@@ -268,6 +268,9 @@ class MapCanvas: public wxGLCanvas
 		};
 		std::vector<path_point> pathSelection;
 
+		path_point nearestPathPoint; ///< Nearest point to the cursor
+		int nearestPathPointOff;     ///< How far along the line after the nearest point
+
 		DECLARE_EVENT_TABLE();
 
 };

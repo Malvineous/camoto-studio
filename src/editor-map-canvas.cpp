@@ -37,6 +37,7 @@ using namespace camoto::gamegraphics;
 #define CLR_PATH              0.0, 0.0, 1.0, 1.0  ///< Path lines
 #define CLR_ARROWHEAD_SEL     1.0, 0.0, 0.0, 1.0  ///< Path arrow, selected
 #define CLR_ARROWHEAD_NORMAL  CLR_PATH            ///< Path arrow, normal
+#define CLR_ARROWHEAD_HOT     1.0, 1.0, 0.0, 1.0  ///< Path arrow, highlighted
 #define CLR_PATH_PREVIEW      0.7, 0.7, 0.7, 0.7  ///< Changed path preview
 
 // Convert the given coordinate from client (window) coordinates
@@ -123,7 +124,8 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 		actionFromX(-1),
 		// actionFromY doesn't matter when X is -1
 		pointerX(0),
-		pointerY(0)
+		pointerY(0),
+		nearestPathPointOff(-1)
 {
 	assert(tileset.size() > 0);
 	// Initial state is all layers visible
@@ -796,6 +798,7 @@ void MapCanvas::redraw()
 					glEnd();
 
 					glPopMatrix();
+
 					lastX = nextX;
 					lastY = nextY;
 					lastSelX = nextSelX;
@@ -818,6 +821,49 @@ void MapCanvas::redraw()
 			}
 			stnum++;
 		}
+
+		// Highlight any proposed position for inserting a new point
+		if (this->nearestPathPointOff >= 0) {
+			Map2D::PathPtr path = this->nearestPathPoint.path;
+			assert(path);
+			assert(path->points.size() > 1);
+			assert(path->start.size() > this->nearestPathPoint.start);
+			Map2D::Path::point ptOrigin = path->start[this->nearestPathPoint.start];
+			Map2D::Path::point ptA, ptB;
+			if (this->nearestPathPoint.point == 0) {
+				ptA.first = ptA.second = 0;
+				ptB = path->points[0];
+			} else {
+				int index = this->nearestPathPoint.point - 1;
+				ptA = path->points[index];
+				index++;
+				if (index < path->points.size()) {
+					ptB = path->points[index];
+				} else {
+					ptB.first = ptB.second = 0; // loop back to origin
+					// We don't need to check whether the path is a closed-loop type,
+					// because if it isn't we'd never have the last point in the path
+					// selected as the nearest point.
+				}
+			}
+			int dX = ptB.first - ptA.first, dY = ptB.second - ptA.second;
+			float angle = atan2(dY, dX) * 180 / M_PI - 90;
+			glPushMatrix();
+			glTranslatef(ptOrigin.first + ptA.first, ptOrigin.second + ptA.second, 0.0);
+			glScalef(1.0 / this->zoomFactor, 1.0 / this->zoomFactor, 1.0);
+			glRotatef(angle, 0.0, 0.0, 1.0);
+
+			glColor4f(CLR_ARROWHEAD_HOT);
+			int offset = this->nearestPathPointOff * this->zoomFactor;
+			glBegin(GL_LINE_STRIP);
+			glVertex2i(-PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE + offset);
+			glVertex2i(0, offset);
+			glVertex2i(PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE + offset);
+			glEnd();
+
+			glPopMatrix();
+		}
+
 		glPopMatrix();
 
 		glLineWidth(1.0);
@@ -1289,6 +1335,73 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 			// The user is right-dragging, redraw the selection box
 			needRedraw = true;
 
+		} else {
+			// No selection or right dragging, see how close the mouse is
+			bool bWasVisible = this->nearestPathPointOff >= 0;
+			this->nearestPathPointOff = -1;
+			Map2D::PathPtrVectorPtr paths = this->map->getPaths();
+			for (Map2D::PathPtrVector::iterator p = paths->begin(); p != paths->end(); p++) {
+				Map2D::PathPtr path = *p;
+				int stnum = 0;
+				for (Map2D::Path::point_vector::iterator st = (*p)->start.begin(); st != (*p)->start.end(); st++) {
+					int ptnum = 0;
+
+					int lastX = st->first;
+					int lastY = st->second;
+
+					for (Map2D::Path::point_vector::iterator pt = (*p)->points.begin(); pt != (*p)->points.end(); pt++) {
+						int nextX = st->first + pt->first;
+						int nextY = st->second + pt->second;
+
+						int dX = nextX - lastX, dY = nextY - lastY;
+						float lineLength = sqrt(dX*dX + dY*dY);
+						float angle = acos(dY / lineLength);
+						if (dX < 0) angle *= -1;
+
+						// Construct a rectangle with the current line segment running down
+						// the middle, but rotate it so the line segment is completely
+						// vertical.
+						int x1 = lastX - (10 / this->zoomFactor);
+						int y1 = lastY;
+						int x2 = lastX + (10 / this->zoomFactor);
+						int y2 = lastY + lineLength;
+
+						// Rotate the mouse cursor around the point, so we can pretend the
+						// line between the two points is straight.
+						int rPointerX = (mapPointerX - lastX) * cos(angle) - (mapPointerY - lastY) * sin(angle) + lastX;
+						int rPointerY = (mapPointerX - lastX) * sin(angle) + (mapPointerY - lastY) * cos(angle) + lastY;
+						if (POINT_IN_RECT(rPointerX, rPointerY, x1, y1, x2, y2)) {
+							// The cursor is close enough to this line that we should show
+							// an insertion point.
+							this->nearestPathPoint.path = path;
+							this->nearestPathPoint.start = stnum;
+							this->nearestPathPoint.point = ptnum;
+							this->nearestPathPointOff = rPointerY - y1;
+							needRedraw = true;
+							break;
+						}
+
+						lastX = nextX;
+						lastY = nextY;
+						ptnum++;
+					}
+					if (this->nearestPathPointOff >= 0) break; // done
+					stnum++;
+				}
+				if (this->nearestPathPointOff >= 0) break; // done
+			}
+			if ((bWasVisible) && (this->nearestPathPointOff == -1)) {
+				// There is currently a path point highlight on the screen but the mouse
+				// has now moved too far away, so we need to do a final redraw to hide
+				// the highlight.
+				needRedraw = true;
+				this->updateHelpText(); // hide mention of the key to add a point
+			} else if ((!bWasVisible) && (this->nearestPathPointOff >= 0)) {
+				// The mouse has just gotten close enough to for the highlight to
+				// reappear, so update the status bar to show that a new point can
+				// now be inserted.
+				this->updateHelpText();
+			}
 		}
 	} else { // no active layer
 		this->doc->setStatusText(wxString());
@@ -1403,6 +1516,7 @@ void MapCanvas::onMouseDownRight(wxMouseEvent& ev)
 	this->selectFromX = ev.m_x + 1;
 	this->selectFromY = ev.m_y + 1;
 	this->CaptureMouse();
+	this->nearestPathPointOff = -1; // hide highlight
 	return;
 }
 
@@ -1549,7 +1663,7 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 						this->selection.tiles[i] = -1; // no tile present here
 					}
 
-					// Run through the tiles again, but this tile copy them into the selection
+					// Run through the tiles again, but this time copy them into the selection
 					for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
 						if (
 							((*c)->x >= minX) && ((*c)->x < maxX) &&
@@ -1615,9 +1729,51 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 			}
 			break;
 
+		case WXK_NUMPAD_INSERT:
+		case WXK_INSERT:
+			if ((this->activeLayer == ElPaths) && (this->nearestPathPointOff >= 0)) {
+				Map2D::PathPtr path = this->nearestPathPoint.path;
+				assert(path);
+				assert(path->points.size() > 1);
+				assert(path->start.size() > this->nearestPathPoint.start);
+				Map2D::Path::point ptOrigin = path->start[this->nearestPathPoint.start];
+				Map2D::Path::point ptA, ptB;
+				Map2D::Path::point_vector::iterator beforeThis;
+				if (this->nearestPathPoint.point == 0) {
+					beforeThis = path->points.begin();
+					ptA.first = ptA.second = 0;
+					ptB = path->points[0];
+				} else {
+					int index = this->nearestPathPoint.point - 1;
+					ptA = path->points[index];
+					index++;
+					if (index < path->points.size()) {
+						beforeThis = path->points.begin() + index;
+						ptB = *beforeThis;//path->points[index];
+					} else {
+						beforeThis = path->points.end();
+						ptB.first = ptB.second = 0; // loop back to origin
+						// We don't need to check whether the path is a closed-loop type,
+						// because if it isn't we'd never have the last point in the path
+						// selected as the nearest point.
+					}
+				}
+				int dX = ptB.first - ptA.first, dY = ptB.second - ptA.second;
+				float lineLength = sqrt(dX*dX + dY*dY);
+				float angle = acos(dY / lineLength);
+				if (dX < 0) angle *= -1;
+				Map2D::Path::point newPoint;
+				newPoint.first = ptA.first + this->nearestPathPointOff * sin(angle);
+				newPoint.second = ptA.second + this->nearestPathPointOff * cos(angle);
+				path->points.insert(beforeThis, newPoint);
+				this->nearestPathPointOff = -1; // hide highlight
+				needRedraw = true;
+			}
+			break;
+
 		case WXK_NUMPAD_DELETE:
 		case WXK_DELETE:
-			// Delete the currently selected tiles
+			// Delete the currently selected tiles or path points
 			if (this->activeLayer == ElPaths) {
 				if (!this->pathSelection.empty()) {
 					for (std::vector<path_point>::iterator spt = this->pathSelection.begin();
@@ -1686,7 +1842,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 								for (std::vector<path_point>::iterator spt2 = this->pathSelection.begin();
 									spt2 != this->pathSelection.end(); spt2++
 								) {
-									if ((spt2->path == path) && (spt2->start = start) && (spt2->point > point)) {
+									if ((spt2->path == path) && (spt2->start == start) && (spt2->point > point)) {
 										spt2->point--;
 									}
 								}
@@ -1717,6 +1873,9 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 					} else c++;
 				}
 			}
+			// Hide any nearest point so it will be recalculated on the next mouse move
+			// TODO: Ideally we'd recalculate it here before doing the redraw...
+			this->nearestPathPointOff = -1;
 			break;
 
 		case WXK_ESCAPE:
@@ -1770,6 +1929,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 #define HT_SELECT    "R-drag=select"
 #define HT_SCROLL    "M-drag=scroll"
 #define HT_CLOSEPATH "Space=close path"
+#define HT_INS       "Ins=insert point"
 #define HT_DEL       "Del=delete"
 #define HT_ESC       "Esc=cancel"
 #define __           " | "
@@ -1779,6 +1939,9 @@ void MapCanvas::updateHelpText()
 {
 	if (this->activeLayer == ElPaths) { // select some points on a path
 		if (this->pathSelection.empty()) {
+			if (this->nearestPathPointOff >= 0) {
+				return this->doc->setHelpText(_T(HT_INS __ HT_SELECT __ HT_SCROLL));
+			}
 			return this->doc->setHelpText(_T(HT_SELECT __ HT_SCROLL));
 		} else {
 			return this->doc->setHelpText(_T(HT_APPLY __ HT_CLOSEPATH __ HT_DEL __ HT_SELECT __ HT_ESC));
