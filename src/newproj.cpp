@@ -70,7 +70,6 @@ NewProjectDialog::NewProjectDialog(wxWindow *parent)
 	wxDialog(parent, wxID_ANY, _T("New project"), wxDefaultPosition,
 		wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER)
 {
-
 	wxImageList *imgList = new wxImageList(16, 16, true, 2);
 	imgList->Add(wxArtProvider::GetBitmap(wxART_FOLDER, wxART_OTHER, wxSize(16, 16)));
 	imgList->Add(wxArtProvider::GetBitmap(wxART_NORMAL_FILE, wxART_OTHER, wxSize(16, 16)));
@@ -95,9 +94,9 @@ NewProjectDialog::NewProjectDialog(wxWindow *parent)
 	}
 	this->treeCtrl->ExpandAll();
 
-	wxStaticBox *infoBoxBorder =
-		new wxStaticBox(this, wxID_ANY, _T("Game information"));
-	wxStaticBoxSizer *infoBox = new wxStaticBoxSizer(infoBoxBorder, wxVERTICAL);
+	// Have to create the static box *before* the controls that go inside it
+	wxStaticBoxSizer *infoBox = new wxStaticBoxSizer(
+		new wxStaticBox(this, wxID_ANY, _T("Game information")), wxVERTICAL);
 	this->screenshot = new wxStaticBitmap(this, wxID_ANY, NULL,
 		wxDefaultPosition, wxSize(320, 200));
 	infoBox->Add(this->screenshot, 0, wxALIGN_CENTER | wxALL, 10);

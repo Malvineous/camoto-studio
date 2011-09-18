@@ -32,6 +32,7 @@
 #include "project.hpp"
 #include "gamelist.hpp"
 #include "newproj.hpp"
+#include "prefsdlg.hpp"
 #include "editor.hpp"
 #include "efailure.hpp"
 #include "audio.hpp"
@@ -54,6 +55,7 @@
 namespace ga = camoto::gamearchive;
 
 paths path;
+config_data config;
 
 /// Data for each item in the tree view
 class TreeItemData: public wxTreeItemData {
@@ -145,6 +147,7 @@ class CamotoFrame: public IMainWindow
 
 			wxMenu *menuView = new wxMenu();
 			menuView->Append(IDC_RESET, _T("&Reset layout"));
+			menuView->Append(wxID_SETUP, _T("&Options..."));
 
 			this->menuTest = new wxMenu();
 
@@ -293,6 +296,23 @@ class CamotoFrame: public IMainWindow
 			return;
 		}
 
+		/// Show the preferences window.
+		void onSetPrefs(wxCommandEvent& ev)
+		{
+			PrefsDialog prefs(this);
+			prefs.pathDOSBox = &::config.dosboxPath;
+			prefs.pauseAfterExecute = &::config.dosboxExitPause;
+			prefs.setControls();
+			if (prefs.ShowModal() == wxID_OK) {
+				// Save the user's preferences
+				wxConfigBase *configFile = wxConfigBase::Get(true);
+				configFile->Write(_T("camoto/dosbox"), ::config.dosboxPath);
+				configFile->Write(_T("camoto/pause"), ::config.dosboxExitPause);
+				configFile->Flush();
+			}
+			return;
+		}
+
 		/// Load DOSBox and run the game
 		void onRunGame(wxCommandEvent& ev)
 		{
@@ -318,13 +338,14 @@ class CamotoFrame: public IMainWindow
 				dlg.ShowModal();
 				return;
 			}
+			if (::config.dosboxExitPause) bat.Write(_T("@echo off\n"));
 			bat.Write(i->second);
-			//bat.Write(_T("\npause\n"));
+			if (::config.dosboxExitPause) bat.Write(_T("\npause > nul\n"));
 			bat.Close();
 
 			// Launch the batch file in DOSBox
 			const wxChar **argv = new const wxChar*[5];
-			argv[0] = _T("/usr/bin/dosbox");
+			argv[0] = ::config.dosboxPath.c_str();
 			argv[1] = batName.c_str();
 			argv[2] = _T("-noautoexec");
 			argv[3] = _T("-exit");
@@ -1008,6 +1029,7 @@ BEGIN_EVENT_TABLE(CamotoFrame, wxFrame)
 	EVT_MENU(wxID_SAVE, CamotoFrame::onSave)
 	EVT_MENU(wxID_CLOSE, CamotoFrame::onCloseProject)
 	EVT_MENU(IDC_RESET, CamotoFrame::onViewReset)
+	EVT_MENU(wxID_SETUP, CamotoFrame::onSetPrefs)
 	EVT_MENU(wxID_ABOUT, CamotoFrame::onHelpAbout)
 	EVT_MENU(wxID_EXIT, CamotoFrame::onExit)
 	EVT_TREE_ITEM_ACTIVATED(IDC_TREE, CamotoFrame::onItemOpened)
@@ -1059,6 +1081,17 @@ class CamotoApp: public wxApp {
 			next.AssignDir(::path.dataRoot);
 			next.AppendDir(_T("icons"));
 			::path.guiIcons = next.GetFullPath();
+
+			// Load the user's preferences
+			wxConfigBase *configFile = wxConfigBase::Get(true);
+			configFile->Read(_T("camoto/dosbox"), &::config.dosboxPath,
+#ifndef __WXMSW__
+				_T("/usr/bin/dosbox")
+#else
+				_T("dosbox.exe")
+#endif
+			);
+			configFile->Read(_T("camoto/pause"), &::config.dosboxExitPause, false);
 
 			CamotoFrame *f;
 			wxString filename;

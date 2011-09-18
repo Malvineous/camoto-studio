@@ -46,6 +46,13 @@ struct paths {
 
 extern paths path;
 
+struct config_data {
+	wxString dosboxPath;
+	bool dosboxExitPause;
+};
+
+extern config_data config;
+
 /// Show additional errors.
 /**
  * If this is defined, additional error message popups will appear.  Usually

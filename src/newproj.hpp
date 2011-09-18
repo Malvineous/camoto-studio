@@ -33,9 +33,6 @@ class NewProjectDialog: public wxDialog {
 		/**
 		 * @param parent
 		 *   Display the dialog within this window.
-		 *
-		 * @param gameDataPath
-		 *   Path to the XML description files for each game.
 		 */
 		NewProjectDialog(wxWindow *parent)
 			throw ();
