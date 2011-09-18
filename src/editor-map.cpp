@@ -122,6 +122,9 @@ class LayerPanel: public IToolPanel
 
 			this->list->SetColumnWidth(0, wxLIST_AUTOSIZE);
 			this->list->SetColumnWidth(1, wxLIST_AUTOSIZE);
+
+			this->list->Connect(wxID_ANY, wxEVT_SET_FOCUS,
+				wxFocusEventHandler(LayerPanel::onFocus), NULL, this);
 			return;
 		}
 
@@ -159,6 +162,13 @@ class LayerPanel: public IToolPanel
 			}
 			this->list->SetItemImage(ev.GetIndex(), newState ? 0 : 1);
 			this->doc->canvas->redraw();
+			return;
+		}
+
+		void onFocus(wxFocusEvent& ev)
+		{
+			// Push the focus back to the map canvas
+			this->doc->canvas->SetFocus();
 			return;
 		}
 
