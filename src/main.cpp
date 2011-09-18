@@ -469,6 +469,16 @@ class CamotoFrame: public IMainWindow
 			return;
 		}
 
+		/// Event handler for tab just been removed
+		void onDocTabClosed(wxAuiNotebookEvent& event)
+		{
+			// Hide the tool panes if this was the last document
+			if (!this->notebook->GetPage(0) && !this->notebook->GetPage(1)) {
+				this->updateToolPanes(NULL);
+			}
+			return;
+		}
+
 		/// Open a new project, replacing the current project.
 		/**
 		 * @param path
@@ -924,6 +934,7 @@ BEGIN_EVENT_TABLE(CamotoFrame, wxFrame)
 
 	EVT_AUINOTEBOOK_PAGE_CHANGED(IDC_NOTEBOOK, CamotoFrame::onDocTabChanged)
 	EVT_AUINOTEBOOK_PAGE_CLOSE(IDC_NOTEBOOK, CamotoFrame::onDocTabClose)
+	EVT_AUINOTEBOOK_PAGE_CLOSED(IDC_NOTEBOOK, CamotoFrame::onDocTabClosed)
 END_EVENT_TABLE()
 
 class CamotoApp: public wxApp {
