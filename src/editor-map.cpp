@@ -67,6 +67,11 @@ class LayerPanel: public IToolPanel
 			wxSizer *s = new wxBoxSizer(wxVERTICAL);
 			s->Add(this->list, 1, wxEXPAND);
 			this->SetSizer(s);
+
+			// Defaults, unless overridden by loadSettings()
+			for (int i = 0; i < MapCanvas::ElementCount; i++) {
+				this->visibleElements[i] = true;
+			}
 		}
 
 		virtual void getPanelInfo(wxString *id, wxString *label) const
@@ -104,6 +109,10 @@ class LayerPanel: public IToolPanel
 			int mapCaps = this->doc->map->getCaps();
 			// Add an element (fake) layer for any paths to be drawn in
 			if (mapCaps & Map2D::HasPaths) {
+				// Use the saved state
+				this->doc->canvas->visibleElements[MapCanvas::ElPaths] =
+					this->visibleElements[MapCanvas::ElPaths];
+
 				long id = this->list->InsertItem(layerCount, _T("Paths"),
 					this->doc->canvas->visibleElements[MapCanvas::ElPaths] ? 0 : 1);
 				this->list->SetItem(id, 1, _T("-"));
@@ -112,6 +121,10 @@ class LayerPanel: public IToolPanel
 
 			// Add an element (fake) layer for the viewport box
 			if (mapCaps & Map2D::HasViewport) {
+				// Use the saved state
+				this->doc->canvas->visibleElements[MapCanvas::ElViewport] =
+					this->visibleElements[MapCanvas::ElViewport];
+
 				long id = this->list->InsertItem(layerCount, _T("Viewport"),
 					this->doc->canvas->visibleElements[MapCanvas::ElViewport] ? 0 : 1);
 				int vpWidth, vpHeight;
@@ -131,12 +144,20 @@ class LayerPanel: public IToolPanel
 		virtual void loadSettings(Project *proj)
 			throw ()
 		{
+			for (int i = 0; i < MapCanvas::ElementCount; i++) {
+				proj->config.Read(wxString::Format(_T("map-editor/show-elementlayer%d"), i),
+					&this->visibleElements[i], true);
+			}
 			return;
 		}
 
 		virtual void saveSettings(Project *proj) const
 			throw ()
 		{
+			for (int i = 0; i < MapCanvas::ElementCount; i++) {
+				proj->config.Write(wxString::Format(_T("map-editor/show-elementlayer%d"), i),
+					this->visibleElements[i]);
+			}
 			return;
 		}
 
@@ -155,6 +176,7 @@ class LayerPanel: public IToolPanel
 			bool newState;
 			if (layerIndex < MapCanvas::ElementCount) {
 				newState = this->doc->canvas->visibleElements[layerIndex] ^= 1;
+				this->visibleElements[layerIndex] = newState;
 			} else {
 				layerIndex -= MapCanvas::ElementCount;
 				newState = !this->doc->canvas->visibleLayers[layerIndex]; // ^=1 doesn't work :-(
@@ -175,6 +197,8 @@ class LayerPanel: public IToolPanel
 	protected:
 		wxListCtrl *list;
 		MapDocument *doc;
+
+		bool visibleElements[MapCanvas::ElementCount];  ///< Virtual layers (e.g. viewport)
 
 		enum {
 			IDC_LAYER = wxID_HIGHEST + 1,

@@ -644,6 +644,14 @@ class CamotoFrame: public IMainWindow
 					wxCommandEventHandler(CamotoFrame::onRunGame));
 			}
 
+			// Load settings for each tool pane
+			for (PaneMap::iterator t = this->editorPanes.begin(); t != this->editorPanes.end(); t++) {
+				PaneVector& panes = this->editorPanes[t->first];
+				for (PaneVector::iterator i = panes.begin(); i != panes.end(); i++) {
+					(*i)->loadSettings(this->project);
+				}
+			}
+
 			return;
 		}
 
@@ -733,6 +741,14 @@ class CamotoFrame: public IMainWindow
 			// Update the current perspective
 			if (!this->project->config.Write(_T("camoto/perspective"),
 				this->aui.SavePerspective())) return false;
+
+			// Save settings for each tool pane
+			for (PaneMap::iterator t = this->editorPanes.begin(); t != this->editorPanes.end(); t++) {
+				PaneVector& panes = this->editorPanes[t->first];
+				for (PaneVector::iterator i = panes.begin(); i != panes.end(); i++) {
+					(*i)->saveSettings(this->project);
+				}
+			}
 
 			return this->project->save();
 		}
