@@ -125,7 +125,7 @@ Project *Project::create(const wxString& targetPath, const wxString& gameSource)
 		wxFileConfig config(wxEmptyString, wxEmptyString, strProjFilename,
 			wxEmptyString, wxCONFIG_USE_LOCAL_FILE);
 		config.Write(_T("camoto/version"), CONFIG_FILE_VERSION);
-		config.Write(_T("camoto/revision"), 1);
+		config.Write(_T("camoto/projrevision"), 1);
 		config.Flush();
 		// The file will be closed when we leave this block
 	}
@@ -157,6 +157,10 @@ Project::~Project()
 bool Project::save()
 	throw ()
 {
+	long rev;
+	this->config.Read(_T("camoto/projrevision"), &rev, 1);
+	rev++;
+	this->config.Write(_T("camoto/projrevision"), rev);
 	return this->config.Flush();
 }
 
