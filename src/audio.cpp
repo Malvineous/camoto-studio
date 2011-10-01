@@ -32,8 +32,7 @@ void SynthMixer::AddSamples_m32(Bitu samples, Bit32s *buffer)
 	int16_t *out = (int16_t *)this->buf;
 	for (int i = 0; i < samples; i++) {
 		int32_t a = 32768 + *out;
-		int32_t b = 32768 + (buffer[i] << 1);
-		//if ((a < 32768) && (b < 32768)) *out++ = -32768 + a * b / 32768; else
+		int32_t b = 32768 + buffer[i];
 		*out++ = -32768 + 2 * (a + b) - (a * b) / 32768 - 65536;
 	}
 	return;
