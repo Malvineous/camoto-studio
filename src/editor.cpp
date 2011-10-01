@@ -25,6 +25,7 @@ using namespace camoto;
 IDocument::IDocument(IMainWindow *parent, const wxString& typeMajor)
 	throw () :
 		wxPanel(parent),
+		isModified(false),
 		frame(parent),
 		typeMajor(typeMajor)
 {

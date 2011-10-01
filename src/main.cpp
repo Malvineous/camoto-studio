@@ -517,25 +517,27 @@ class CamotoFrame: public IMainWindow
 		/// Event handler for tab closing
 		void onDocTabClose(wxAuiNotebookEvent& event)
 		{
-			wxMessageDialog dlg(this, _T("Save changes?"),
-				_T("Close document"), wxYES_NO | wxCANCEL | wxYES_DEFAULT | wxICON_QUESTION);
-			int r = dlg.ShowModal();
-			if (r == wxID_YES) {
-				IDocument *doc = (IDocument *)this->notebook->GetPage(event.GetSelection());
-				try {
-					doc->save();
-				} catch (const std::ios::failure& e) {
-					wxString msg = _T("Unable to save document: ");
-					msg.Append(wxString(e.what(), wxConvUTF8));
-					wxMessageDialog dlg(this, msg, _T("Save failed"), wxOK | wxICON_ERROR);
-					dlg.ShowModal();
+			IDocument *doc = (IDocument *)this->notebook->GetPage(event.GetSelection());
+			if (doc->isModified) {
+				wxMessageDialog dlg(this, _T("Save changes?"),
+					_T("Close document"), wxYES_NO | wxCANCEL | wxYES_DEFAULT | wxICON_QUESTION);
+				int r = dlg.ShowModal();
+				if (r == wxID_YES) {
+					try {
+						doc->save();
+					} catch (const std::ios::failure& e) {
+						wxString msg = _T("Unable to save document: ");
+						msg.Append(wxString(e.what(), wxConvUTF8));
+						wxMessageDialog dlg(this, msg, _T("Save failed"), wxOK | wxICON_ERROR);
+						dlg.ShowModal();
+						event.Veto();
+					}
+				} else if (r == wxID_NO) {
+					// do nothing
+				} else { // cancel
 					event.Veto();
 				}
-			} else if (r == wxID_NO) {
-				// do nothing
-			} else { // cancel
-				event.Veto();
-			}
+			} // else doc hasn't been modified
 			return;
 		}
 
@@ -814,7 +816,10 @@ class CamotoFrame: public IMainWindow
 
 			// Close all open docs and return false if needed
 			this->notebook->SetSelection(0); // minimise page change events
+
 			this->updateToolPanes(NULL); // hide tool windows
+
+			// Close all open documents
 			for (int i = this->notebook->GetPageCount() - 1; i >= 0; i--) {
 				this->notebook->DeletePage(i);
 			}

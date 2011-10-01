@@ -1156,6 +1156,7 @@ void MapCanvas::paintSelection(int x, int y)
 			if (this->selection.tiles[selIndex] < 0) continue; // don't paint empty tiles
 			(*c)->code = this->selection.tiles[selIndex];
 			painted[selIndex] = true;
+			this->doc->isModified = true;
 		}
 	}
 	// Add any new tiles that didn't already exist
@@ -1174,6 +1175,7 @@ void MapCanvas::paintSelection(int x, int y)
 
 			c->code = this->selection.tiles[i];
 			content->push_back(c);
+			this->doc->isModified = true;
 		}
 	}
 	delete[] painted;
@@ -1445,6 +1447,7 @@ void MapCanvas::onMouseDownLeft(wxMouseEvent& ev)
 						pt.first += selDeltaX;
 						pt.second += selDeltaY;
 						needRedraw = true;
+						this->doc->isModified = true;
 					}
 				} else {
 					// Just a normal point
@@ -1452,6 +1455,7 @@ void MapCanvas::onMouseDownLeft(wxMouseEvent& ev)
 					if (pt != spt->path->points.end()) {
 						pt->first += selDeltaX;
 						pt->second += selDeltaY;
+						this->doc->isModified = true;
 					}
 				}
 			}
@@ -1771,6 +1775,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 				newPoint.first = ptA.first + this->nearestPathPointOff * sin(angle);
 				newPoint.second = ptA.second + this->nearestPathPointOff * cos(angle);
 				path->points.insert(beforeThis, newPoint);
+				this->doc->isModified = true;
 				this->nearestPathPointOff = -1; // hide highlight
 				needRedraw = true;
 			}
@@ -1813,6 +1818,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 								Map2D::Path::point_vector::iterator x = path->start.begin() + start;
 								if (x != path->start.end()) {
 									path->start.erase(x);
+									this->doc->isModified = true;
 									needRedraw = true;
 								}
 
@@ -1824,6 +1830,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 									) {
 										if (*x == path) {
 											allPaths->erase(x);
+											this->doc->isModified = true;
 											break;
 										}
 									}
@@ -1838,6 +1845,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 							if (pt != spt->path->points.end()) {
 								// Remove it from the path
 								spt->path->points.erase(pt);
+								this->doc->isModified = true;
 
 								// Update the index numbers in the remaining selection to take
 								// into account the point we're about to delete
@@ -1874,6 +1882,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 					) {
 						// Remove this tile
 						c = content->erase(c);
+						this->doc->isModified = true;
 						needRedraw = true;
 					} else c++;
 				}
@@ -1913,6 +1922,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 								Map2D::Path::point &p = spt->path->points[num - 1];
 								p.first = 0;
 								p.second = 0;
+								this->doc->isModified = true;
 								needRedraw = true;
 							}
 						}

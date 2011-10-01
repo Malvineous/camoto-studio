@@ -35,6 +35,17 @@
 class IDocument: public wxPanel
 {
 	public:
+
+		/// Has the document changed?
+		/**
+		 * Set to true whenever a change is made, and to false whenever the document
+		 * is saved or the change is otherwise reverted.  When the document is
+		 * closed and this is true, the user is prompted to save changes.
+		 *
+		 * @note Automatically set to false in the IDocument constructor.
+		 */
+		bool isModified;
+
 		/// Required to pass parameters to wxPanel parent class.
 		/**
 		 * @param parent

@@ -128,6 +128,8 @@ void MapDocument::save()
 		// Cut anything off the end since we're overwriting an existing file
 		this->fnTrunc(len);
 
+		this->isModified = false;
+
 	} catch (const std::ios::failure& e) {
 		throw e;
 	} catch (const std::exception& e) {
