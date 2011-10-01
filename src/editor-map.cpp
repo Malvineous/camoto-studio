@@ -37,9 +37,6 @@ bool tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& suppMap,
 	const wxString& id, VC_TILESET *tilesetVector)
 	throw (EFailure);
 
-// Must not overlap with normal layer IDs (0+)
-#define LAYER_ID_VIEWPORT -1
-
 class LayerPanel: public IToolPanel
 {
 	public:
@@ -50,6 +47,8 @@ class LayerPanel: public IToolPanel
 			this->list = new wxListCtrl(this, IDC_LAYER, wxDefaultPosition,
 				wxDefaultSize, wxLC_REPORT | wxBORDER_NONE | wxLC_NO_HEADER |
 				wxLC_SINGLE_SEL);
+			this->list->Connect(wxID_ANY, wxEVT_SET_FOCUS,
+				wxFocusEventHandler(LayerPanel::onFocus), NULL, this);
 
 			wxImageList *il = new wxImageList(16, 16, true, 3);
 			il->Add(wxArtProvider::GetBitmap(wxART_TICK_MARK, wxART_OTHER, wxSize(16, 16)));
@@ -139,8 +138,6 @@ class LayerPanel: public IToolPanel
 			this->list->SetColumnWidth(0, wxLIST_AUTOSIZE);
 			this->list->SetColumnWidth(1, wxLIST_AUTOSIZE);
 
-			this->list->Connect(wxID_ANY, wxEVT_SET_FOCUS,
-				wxFocusEventHandler(LayerPanel::onFocus), NULL, this);
 			return;
 		}
 

@@ -1426,8 +1426,6 @@ void MapCanvas::onMouseDownLeft(wxMouseEvent& ev)
 	if (this->activeLayer == ElPaths) {
 		// Should never be able to set this layer as active if there are no paths
 		// in the map
-		//Map2D::PathPtrVectorPtr paths = this->map->getPaths();
-		//assert(paths);
 
 		if (!this->pathSelection.empty()) {
 			int mapPointerX = CLIENT_TO_MAP_X(ev.m_x);
