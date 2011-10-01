@@ -27,10 +27,22 @@
 class ImageEditor: public IEditor
 {
 	public:
+
+		/// View settings for this editor which are saved with the project.
+		struct Settings {
+			unsigned int zoomFactor; ///< Amount of zoom (1,2,4)
+		};
+
 		ImageEditor(IMainWindow *parent)
 			throw ();
 
 		virtual IToolPanelVector createToolPanes() const
+			throw ();
+
+		virtual void loadSettings(Project *proj)
+			throw ();
+
+		virtual void saveSettings(Project *proj) const
 			throw ();
 
 		virtual bool isFormatSupported(const wxString& type) const
@@ -38,12 +50,13 @@ class ImageEditor: public IEditor
 
 		virtual IDocument *openObject(const wxString& typeMinor,
 			camoto::iostream_sptr data, camoto::FN_TRUNCATE fnTrunc,
-			const wxString& filename, SuppMap supp, const Game *game) const
+			const wxString& filename, SuppMap supp, const Game *game)
 			throw (EFailure);
 
 	protected:
 		IMainWindow *frame;
 		camoto::gamegraphics::ManagerPtr pManager;
+		Settings settings;
 
 };
 

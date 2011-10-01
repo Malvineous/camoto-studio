@@ -133,6 +133,22 @@ class IEditor
 		virtual IToolPanelVector createToolPanes() const
 			throw () = 0;
 
+		/// Load this editor's settings from the project.
+		/**
+		 * This is called when a project is loaded, to update the editor's view
+		 * settings with those in the project.
+		 */
+		virtual void loadSettings(Project *proj)
+			throw () = 0;
+
+		/// Save this editor's settings to the project.
+		/**
+		 * This is called when a project is saved, to store the editor's current
+		 * view settings in the project.
+		 */
+		virtual void saveSettings(Project *proj) const
+			throw () = 0;
+
 		/// Does this editor support this file type?
 		/**
 		 * @param type
@@ -165,7 +181,7 @@ class IEditor
 		 */
 		virtual IDocument *openObject(const wxString& typeMinor,
 			camoto::iostream_sptr data, camoto::FN_TRUNCATE fnTrunc,
-			const wxString& filename, SuppMap supp, const Game *game) const
+			const wxString& filename, SuppMap supp, const Game *game)
 			throw (EFailure) = 0;
 
 };

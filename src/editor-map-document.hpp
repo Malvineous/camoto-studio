@@ -28,14 +28,14 @@ class MapDocument;
 
 #include "efailure.hpp"
 #include "editor.hpp"
+#include "editor-map.hpp"
 #include "editor-map-canvas.hpp"
-
-class LayerPanel;
 
 class MapDocument: public IDocument
 {
 	public:
-		MapDocument(IMainWindow *parent, camoto::gamemaps::MapTypePtr mapType,
+		MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
+			camoto::gamemaps::MapTypePtr mapType,
 			camoto::SuppData suppData, camoto::iostream_sptr mapFile,
 			camoto::FN_TRUNCATE fnTrunc, camoto::gamegraphics::VC_TILESET tileset,
 			const MapObjectVector *mapObjectVector)
@@ -51,8 +51,12 @@ class MapDocument: public IDocument
 		void onTileMode(wxCommandEvent& ev);
 		void onObjMode(wxCommandEvent& ev);
 
+		void setZoomFactor(int f)
+			throw ();
+
 	protected:
 		MapCanvas *canvas;
+		MapEditor::Settings *settings;
 		camoto::gamemaps::Map2DPtr map;
 		camoto::gamegraphics::VC_TILESET tileset;
 		camoto::gamemaps::MapTypePtr mapType;

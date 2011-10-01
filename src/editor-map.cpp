@@ -26,6 +26,9 @@
 #include "editor-map-document.hpp"
 #include "editor-map-canvas.hpp"
 
+/// Default zoom level
+#define CFG_DEFAULT_ZOOM 2
+
 using namespace camoto;
 using namespace camoto::gamemaps;
 using namespace camoto::gamegraphics;
@@ -145,7 +148,7 @@ class LayerPanel: public IToolPanel
 			throw ()
 		{
 			for (int i = 0; i < MapCanvas::ElementCount; i++) {
-				proj->config.Read(wxString::Format(_T("map-editor/show-elementlayer%d"), i),
+				proj->config.Read(wxString::Format(_T("editor-map/show-elementlayer%d"), i),
 					&this->visibleElements[i], true);
 			}
 			return;
@@ -155,7 +158,7 @@ class LayerPanel: public IToolPanel
 			throw ()
 		{
 			for (int i = 0; i < MapCanvas::ElementCount; i++) {
-				proj->config.Write(wxString::Format(_T("map-editor/show-elementlayer%d"), i),
+				proj->config.Write(wxString::Format(_T("editor-map/show-elementlayer%d"), i),
 					this->visibleElements[i]);
 			}
 			return;
@@ -218,6 +221,8 @@ MapEditor::MapEditor(IMainWindow *parent)
 		frame(parent),
 		pManager(camoto::gamemaps::getManager())
 {
+	// Default settings
+	this->settings.zoomFactor = CFG_DEFAULT_ZOOM;
 }
 
 std::vector<IToolPanel *> MapEditor::createToolPanes() const
@@ -226,6 +231,20 @@ std::vector<IToolPanel *> MapEditor::createToolPanes() const
 	std::vector<IToolPanel *> panels;
 	panels.push_back(new LayerPanel(this->frame));
 	return panels;
+}
+
+void MapEditor::loadSettings(Project *proj)
+	throw ()
+{
+	proj->config.Read(_T("editor-map/zoom"), (int *)&this->settings.zoomFactor, CFG_DEFAULT_ZOOM);
+	return;
+}
+
+void MapEditor::saveSettings(Project *proj) const
+	throw ()
+{
+	proj->config.Write(_T("editor-map/zoom"), (int)this->settings.zoomFactor);
+	return;
 }
 
 bool MapEditor::isFormatSupported(const wxString& type) const
@@ -238,7 +257,7 @@ bool MapEditor::isFormatSupported(const wxString& type) const
 
 IDocument *MapEditor::openObject(const wxString& typeMinor,
 	camoto::iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
-	SuppMap supp, const Game *game) const
+	SuppMap supp, const Game *game)
 	throw (EFailure)
 {
 	assert(fnTrunc);
@@ -298,7 +317,7 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 
 	// Open the map file
 	try {
-		return new MapDocument(this->frame, pMapType, suppData, data, fnTrunc,
+		return new MapDocument(this->frame, &this->settings, pMapType, suppData, data, fnTrunc,
 			tilesetVector, &game->mapObjects);
 	} catch (const std::ios::failure& e) {
 		throw EFailure(wxString::Format(_T("Library exception: %s"),

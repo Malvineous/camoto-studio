@@ -19,7 +19,11 @@
  */
 
 #include <boost/bind.hpp>
+#include "main.hpp"
 #include "editor-image.hpp"
+
+/// Default zoom level
+#define CFG_DEFAULT_ZOOM 2
 
 using namespace camoto;
 using namespace camoto::gamegraphics;
@@ -28,15 +32,15 @@ class ImageCanvas: public wxPanel
 {
 	public:
 
-		ImageCanvas(wxWindow *parent, ImagePtr image)
+		ImageCanvas(wxWindow *parent, ImagePtr image, int zoomFactor)
 			throw () :
 				wxPanel(parent, wxID_ANY),
 				image(image),
-				wximg()
+				wximg(),
+				zoomFactor(zoomFactor)
 		{
 			StdImageDataPtr data = image->toStandard();
-			unsigned int width, height;
-			this->image->getDimensions(&width, &height);
+			this->image->getDimensions(&this->width, &this->height);
 
 			// Load the palette
 			PaletteTablePtr pal;
@@ -64,7 +68,9 @@ class ImageCanvas: public wxPanel
 			} else {
 				std::cout << "[editor-image] Error getting pixels out of wxImage\n";
 			}
-			this->wxbmp = wxBitmap(this->wximg, -1);
+
+			// Initialise the image
+			this->setZoomFactor(this->zoomFactor);
 		}
 
 		~ImageCanvas()
@@ -81,11 +87,11 @@ class ImageCanvas: public wxPanel
 		{
 			wxPaintDC dc(this);
 
-			unsigned int imgWidth, imgHeight;
-			this->image->getDimensions(&imgWidth, &imgHeight);
-
 			int canvasWidth, canvasHeight;
 			this->GetClientSize(&canvasWidth, &canvasHeight);
+
+			unsigned int imgWidth = this->width * this->zoomFactor;
+			unsigned int imgHeight = this->height * this->zoomFactor;
 
 			// Draw a dark grey background behind the image
 			dc.SetBrush(*wxMEDIUM_GREY_BRUSH);
@@ -98,13 +104,27 @@ class ImageCanvas: public wxPanel
 			return;
 		}
 
+		void setZoomFactor(int f)
+			throw ()
+		{
+			this->zoomFactor = f;
+			if (this->zoomFactor == 1) {
+				this->wxbmp = wxBitmap(this->wximg, -1);
+			} else {
+				this->wxbmp = wxBitmap(this->wximg.Scale(this->width * f, this->height * f), -1);
+			}
+			this->Refresh();
+			return;
+		}
+
 	protected:
-		ImagePtr image;
-		wxImage wximg;
-		wxBitmap wxbmp;
+		ImagePtr image;             ///< Camoto libgamegraphics image instance
+		wxImage wximg;              ///< Camoto image converted to wxImage
+		wxBitmap wxbmp;             ///< wxImage converted to wxBitmap ready to be drawn
+		unsigned int width, height; ///< Dimensions of underlying image
+		int zoomFactor;             ///< Zoom level, 1 == 1:1, 2 == doublesize, etc.
 
 		DECLARE_EVENT_TABLE();
-
 };
 
 BEGIN_EVENT_TABLE(ImageCanvas, wxPanel)
@@ -115,14 +135,45 @@ END_EVENT_TABLE()
 class ImageDocument: public IDocument
 {
 	public:
-		ImageDocument(IMainWindow *parent, ImagePtr image)
+		ImageDocument(IMainWindow *parent, ImageEditor::Settings *settings, ImagePtr image)
 			throw () :
 				IDocument(parent, _T("image")),
+				settings(settings),
 				image(image)
 		{
-			this->canvas = new ImageCanvas(this, image);
+			this->canvas = new ImageCanvas(this, image, this->settings->zoomFactor);
+
+			wxToolBar *tb = new wxToolBar(this, wxID_ANY, wxDefaultPosition,
+				wxDefaultSize, wxTB_FLAT | wxTB_NODIVIDER);
+			tb->SetToolBitmapSize(wxSize(16, 16));
+
+			tb->AddTool(wxID_ZOOM_OUT, wxEmptyString,
+				wxImage(::path.guiIcons + _T("zoom_1-1.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_RADIO, _T("Zoom 1:1 (small)"),
+				_T("Set the zoom level so that one screen pixel is used for each tile pixel"));
+
+			tb->AddTool(wxID_ZOOM_100, wxEmptyString,
+				wxImage(::path.guiIcons + _T("zoom_2-1.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_RADIO, _T("Zoom 2:1 (normal)"),
+				_T("Set the zoom level so that two screen pixels are used for each tile pixel"));
+
+			tb->AddTool(wxID_ZOOM_IN, wxEmptyString,
+				wxImage(::path.guiIcons + _T("zoom_3-1.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_RADIO, _T("Zoom 3:1 (big)"),
+				_T("Set the zoom level so that three screen pixels are used for each tile pixel"));
+
+			// Update the UI
+			switch (this->settings->zoomFactor) {
+				case 1: tb->ToggleTool(wxID_ZOOM_OUT, true); break;
+				case 2: tb->ToggleTool(wxID_ZOOM_100, true); break;
+				case 4: tb->ToggleTool(wxID_ZOOM_IN, true); break;
+					// default: don't select anything, just in case!
+			}
+
+			tb->Realize();
 
 			wxBoxSizer *s = new wxBoxSizer(wxVERTICAL);
+			s->Add(tb, 0, wxEXPAND);
 			s->Add(this->canvas, 1, wxEXPAND);
 			this->SetSizer(s);
 		}
@@ -133,14 +184,63 @@ class ImageDocument: public IDocument
 			throw std::ios::failure("Saving has not been implemented yet!");
 		}
 
+		void onZoomSmall(wxCommandEvent& ev)
+		{
+			this->setZoomFactor(1);
+			return;
+		}
+
+		void onZoomNormal(wxCommandEvent& ev)
+		{
+			this->setZoomFactor(2);
+			return;
+		}
+
+		void onZoomLarge(wxCommandEvent& ev)
+		{
+			this->setZoomFactor(4);
+			return;
+		}
+
+		void onImport(wxCommandEvent& ev)
+		{
+			return;
+		}
+
+		void onExport(wxCommandEvent& ev)
+		{
+			return;
+		}
+
+		void setZoomFactor(int f)
+			throw ()
+		{
+			this->settings->zoomFactor = f;
+			this->canvas->setZoomFactor(f);
+			return;
+		}
 
 	protected:
 		ImageCanvas *canvas;
 		ImagePtr image;
+		ImageEditor::Settings *settings;
 
 		friend class LayerPanel;
 
+		enum {
+			IDC_IMPORT = wxID_HIGHEST + 1,
+			IDC_EXPORT,
+		};
+		DECLARE_EVENT_TABLE();
 };
+
+BEGIN_EVENT_TABLE(ImageDocument, IDocument)
+	EVT_TOOL(wxID_ZOOM_OUT, ImageDocument::onZoomSmall)
+	EVT_TOOL(wxID_ZOOM_100, ImageDocument::onZoomNormal)
+	EVT_TOOL(wxID_ZOOM_IN, ImageDocument::onZoomLarge)
+	EVT_TOOL(IDC_IMPORT, ImageDocument::onImport)
+	EVT_TOOL(IDC_EXPORT, ImageDocument::onExport)
+END_EVENT_TABLE()
 
 
 ImageEditor::ImageEditor(IMainWindow *parent)
@@ -148,6 +248,8 @@ ImageEditor::ImageEditor(IMainWindow *parent)
 		frame(parent),
 		pManager(camoto::gamegraphics::getManager())
 {
+	// Default settings
+	this->settings.zoomFactor = CFG_DEFAULT_ZOOM;
 }
 
 std::vector<IToolPanel *> ImageEditor::createToolPanes() const
@@ -155,6 +257,20 @@ std::vector<IToolPanel *> ImageEditor::createToolPanes() const
 {
 	std::vector<IToolPanel *> panels;
 	return panels;
+}
+
+void ImageEditor::loadSettings(Project *proj)
+	throw ()
+{
+	proj->config.Read(_T("editor-image/zoom"), (int *)&this->settings.zoomFactor, CFG_DEFAULT_ZOOM);
+	return;
+}
+
+void ImageEditor::saveSettings(Project *proj) const
+	throw ()
+{
+	proj->config.Write(_T("editor-image/zoom"), (int)this->settings.zoomFactor);
+	return;
 }
 
 bool ImageEditor::isFormatSupported(const wxString& type) const
@@ -167,7 +283,7 @@ bool ImageEditor::isFormatSupported(const wxString& type) const
 
 IDocument *ImageEditor::openObject(const wxString& typeMinor,
 	iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
-	SuppMap supp, const Game *game) const
+	SuppMap supp, const Game *game)
 	throw (EFailure)
 {
 	ImageTypePtr pImageType;
@@ -211,7 +327,7 @@ IDocument *ImageEditor::openObject(const wxString& typeMinor,
 		ImagePtr pImage(pImageType->open(data, fnTruncate, suppData));
 		assert(pImage);
 
-		return new ImageDocument(this->frame, pImage);
+		return new ImageDocument(this->frame, &this->settings, pImage);
 	} catch (const std::ios::failure& e) {
 		throw EFailure(wxString::Format(_T("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));

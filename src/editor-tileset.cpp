@@ -252,6 +252,18 @@ std::vector<IToolPanel *> TilesetEditor::createToolPanes() const
 	return panels;
 }
 
+void TilesetEditor::loadSettings(Project *proj)
+	throw ()
+{
+	return;
+}
+
+void TilesetEditor::saveSettings(Project *proj) const
+	throw ()
+{
+	return;
+}
+
 bool TilesetEditor::isFormatSupported(const wxString& type) const
 	throw ()
 {
@@ -262,7 +274,7 @@ bool TilesetEditor::isFormatSupported(const wxString& type) const
 
 IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 	iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
-	SuppMap supp, const Game *game) const
+	SuppMap supp, const Game *game)
 	throw (EFailure)
 {
 	TilesetTypePtr pTilesetType;

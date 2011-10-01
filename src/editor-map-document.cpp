@@ -34,11 +34,13 @@ BEGIN_EVENT_TABLE(MapDocument, IDocument)
 	EVT_TOOL(IDC_MODE_OBJ, MapDocument::onObjMode)
 END_EVENT_TABLE()
 
-MapDocument::MapDocument(IMainWindow *parent, MapTypePtr mapType,
-	SuppData suppData, iostream_sptr mapFile, FN_TRUNCATE fnTrunc,
-	VC_TILESET tileset, const MapObjectVector *mapObjectVector)
+MapDocument::MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
+	MapTypePtr mapType, SuppData suppData, iostream_sptr mapFile,
+	FN_TRUNCATE fnTrunc, VC_TILESET tileset,
+	const MapObjectVector *mapObjectVector)
 	throw (std::ios::failure, EFailure) :
 		IDocument(parent, _T("map")),
+		settings(settings),
 		mapType(mapType),
 		suppData(suppData),
 		mapFile(mapFile),
@@ -56,7 +58,8 @@ MapDocument::MapDocument(IMainWindow *parent, MapTypePtr mapType,
 	int attribList[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 0, 0};
 	this->canvas = new MapCanvas(this, map, tileset, attribList, mapObjectVector);
 
-	wxToolBar *tb = new wxToolBar(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_FLAT | wxTB_NODIVIDER);
+	wxToolBar *tb = new wxToolBar(this, wxID_ANY, wxDefaultPosition,
+		wxDefaultSize, wxTB_FLAT | wxTB_NODIVIDER);
 	tb->SetToolBitmapSize(wxSize(16, 16));
 
 	tb->AddTool(wxID_ZOOM_OUT, wxEmptyString,
@@ -97,6 +100,15 @@ MapDocument::MapDocument(IMainWindow *parent, MapTypePtr mapType,
 	// Object-mode is the default for the canvas
 	tb->ToggleTool(IDC_MODE_OBJ, true);
 
+	// Update the UI
+	switch (this->settings->zoomFactor) {
+		case 1: tb->ToggleTool(wxID_ZOOM_OUT, true); break;
+		case 2: tb->ToggleTool(wxID_ZOOM_100, true); break;
+		case 4: tb->ToggleTool(wxID_ZOOM_IN, true); break;
+			// default: don't select anything, just in case!
+	}
+	this->canvas->setZoomFactor(this->settings->zoomFactor);
+
 	tb->Realize();
 
 	wxBoxSizer *s = new wxBoxSizer(wxVERTICAL);
@@ -126,19 +138,19 @@ void MapDocument::save()
 
 void MapDocument::onZoomSmall(wxCommandEvent& ev)
 {
-	this->canvas->setZoomFactor(1);
+	this->setZoomFactor(1);
 	return;
 }
 
 void MapDocument::onZoomNormal(wxCommandEvent& ev)
 {
-	this->canvas->setZoomFactor(2);
+	this->setZoomFactor(2);
 	return;
 }
 
 void MapDocument::onZoomLarge(wxCommandEvent& ev)
 {
-	this->canvas->setZoomFactor(4);
+	this->setZoomFactor(4);
 	return;
 }
 
@@ -157,5 +169,13 @@ void MapDocument::onTileMode(wxCommandEvent& ev)
 void MapDocument::onObjMode(wxCommandEvent& ev)
 {
 	this->canvas->setObjMode();
+	return;
+}
+
+void MapDocument::setZoomFactor(int f)
+	throw ()
+{
+	this->settings->zoomFactor = f;
+	this->canvas->setZoomFactor(f);
 	return;
 }

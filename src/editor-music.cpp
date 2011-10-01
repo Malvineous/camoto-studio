@@ -170,6 +170,18 @@ std::vector<IToolPanel *> MusicEditor::createToolPanes() const
 	return panels;
 }
 
+void MusicEditor::loadSettings(Project *proj)
+	throw ()
+{
+	return;
+}
+
+void MusicEditor::saveSettings(Project *proj) const
+	throw ()
+{
+	return;
+}
+
 bool MusicEditor::isFormatSupported(const wxString& type) const
 	throw ()
 {
@@ -179,7 +191,7 @@ bool MusicEditor::isFormatSupported(const wxString& type) const
 
 IDocument *MusicEditor::openObject(const wxString& typeMinor,
 	iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
-	SuppMap supp, const Game *game) const
+	SuppMap supp, const Game *game)
 	throw (EFailure)
 {
 	MusicTypePtr pMusicType;

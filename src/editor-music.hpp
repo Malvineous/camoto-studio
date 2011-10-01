@@ -34,12 +34,18 @@ class MusicEditor: public IEditor
 		virtual IToolPanelVector createToolPanes() const
 			throw ();
 
+		virtual void loadSettings(Project *proj)
+			throw ();
+
+		virtual void saveSettings(Project *proj) const
+			throw ();
+
 		virtual bool isFormatSupported(const wxString& type) const
 			throw ();
 
 		virtual IDocument *openObject(const wxString& typeMinor,
 			camoto::iostream_sptr data, camoto::FN_TRUNCATE fnTrunc,
-			const wxString& filename, SuppMap supp, const Game *game) const
+			const wxString& filename, SuppMap supp, const Game *game)
 			throw (EFailure);
 
 	protected:

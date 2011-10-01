@@ -652,6 +652,11 @@ class CamotoFrame: public IMainWindow
 				}
 			}
 
+			// Load settings for each editor
+			for (EditorMap::iterator e = this->editors.begin(); e != this->editors.end(); e++) {
+				e->second->loadSettings(this->project);
+			}
+
 			return;
 		}
 
@@ -748,6 +753,11 @@ class CamotoFrame: public IMainWindow
 				for (PaneVector::iterator i = panes.begin(); i != panes.end(); i++) {
 					(*i)->saveSettings(this->project);
 				}
+			}
+
+			// Save settings for each editor
+			for (EditorMap::iterator e = this->editors.begin(); e != this->editors.end(); e++) {
+				e->second->saveSettings(this->project);
 			}
 
 			return this->project->save();
