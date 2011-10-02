@@ -1149,7 +1149,8 @@ void MapCanvas::paintSelection(int x, int y)
 			((signed)(*c)->x >= oX) &&
 			((signed)(*c)->x < oX + this->selection.width) &&
 			((signed)(*c)->y >= oY) &&
-			((signed)(*c)->y < oY + this->selection.height)
+			((signed)(*c)->y < oY + this->selection.height) &&
+			layer->tilePermittedAt((*c)->code, (*c)->x + oX, (*c)->y + oY, &maxInstances)
 		) {
 			int selIndex = ((*c)->y - oY) * this->selection.width + ((*c)->x - oX);
 			assert(selIndex < this->selection.width * this->selection.height);
@@ -1159,21 +1160,29 @@ void MapCanvas::paintSelection(int x, int y)
 			this->doc->isModified = true;
 		}
 	}
+
 	// Add any new tiles that didn't already exist
 	for (int i = 0; i < this->selection.width * this->selection.height; i++) {
 		if (!painted[i]) {
 			if (this->selection.tiles[i] < 0) continue; // don't paint empty tiles
-			Map2D::Layer::ItemPtr c(new Map2D::Layer::Item());
-			c->x = oX + (i % this->selection.width);
-			c->y = oY + (i / this->selection.width);
+			unsigned int x = oX + (i % this->selection.width);
+			unsigned int y = oY + (i / this->selection.width);
+			int code = this->selection.tiles[i];
 
-			// Because c->x and c->y are unsigned, these conditions also match when
+			// Because x and y are unsigned, these conditions also match when
 			// the coords are < 0, effectively ignoring tiles attempted to be placed
 			// outside the bounds of the layer.
-			if (c->x >= layerWidth) continue;
-			if (c->y >= layerHeight) continue;
+			if (x >= layerWidth) continue;
+			if (y >= layerHeight) continue;
 
-			c->code = this->selection.tiles[i];
+			// Make sure the tile is allowed to go here
+			if (!layer->tilePermittedAt(code, x, y, &maxInstances)) continue;
+			// TODO: Respect maxInstances
+
+			Map2D::Layer::ItemPtr c(new Map2D::Layer::Item());
+			c->x = x;
+			c->y = y;
+			c->code = code;
 			content->push_back(c);
 			this->doc->isModified = true;
 		}
