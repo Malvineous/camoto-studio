@@ -27,5 +27,8 @@ libtool
 *.lo
 *.la
 
+# libpng++ files
+src/png++
+
 # Compiled binaries
 src/camoto-studio

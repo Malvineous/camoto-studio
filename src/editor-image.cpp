@@ -19,6 +19,8 @@
  */
 
 #include <boost/bind.hpp>
+#include <wx/filedlg.h>
+#include "png++/png.hpp"
 #include "main.hpp"
 #include "editor-image.hpp"
 
@@ -38,6 +40,11 @@ class ImageCanvas: public wxPanel
 				image(image),
 				wximg(),
 				zoomFactor(zoomFactor)
+		{
+			this->imageChanged();
+		}
+
+		void imageChanged()
 		{
 			StdImageDataPtr data = image->toStandard();
 			this->image->getDimensions(&this->width, &this->height);
@@ -162,6 +169,18 @@ class ImageDocument: public IDocument
 				wxNullBitmap, wxITEM_RADIO, _T("Zoom 3:1 (big)"),
 				_T("Set the zoom level so that three screen pixels are used for each tile pixel"));
 
+			tb->AddSeparator();
+
+			tb->AddTool(IDC_IMPORT, wxEmptyString,
+				wxImage(::path.guiIcons + _T("import.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_NORMAL, _T("Import"),
+				_T("Replace this image with one loaded from a file"));
+
+			tb->AddTool(IDC_EXPORT, wxEmptyString,
+				wxImage(::path.guiIcons + _T("export.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_NORMAL, _T("Export"),
+				_T("Save this image to a file"));
+
 			// Update the UI
 			switch (this->settings->zoomFactor) {
 				case 1: tb->ToggleTool(wxID_ZOOM_OUT, true); break;
@@ -181,7 +200,9 @@ class ImageDocument: public IDocument
 		virtual void save()
 			throw (std::ios::failure)
 		{
-			throw std::ios::failure("Saving has not been implemented yet!");
+			// Nothing to do - can't modify anything yet that isn't immediately saved
+			this->isModified = false;
+			return;
 		}
 
 		void onZoomSmall(wxCommandEvent& ev)
@@ -204,11 +225,222 @@ class ImageDocument: public IDocument
 
 		void onImport(wxCommandEvent& ev)
 		{
+			wxString path = wxFileSelector(_T("Open image"),
+				::path.lastUsed, wxEmptyString, _T(".png"),
+#ifdef __WXMSW__
+				_T("Supported image files (*.png)|*.png|All files (*.*)|*.*"),
+#else
+				_T("Supported image files (*.png)|*.png|All files (*)|*"),
+#endif
+				wxFD_OPEN | wxFD_FILE_MUST_EXIST, this);
+			if (!path.empty()) {
+				try {
+					unsigned int width, height;
+					this->image->getDimensions(&width, &height);
+
+					png::image<png::index_pixel> png;
+					try {
+						png.read(path.mb_str());
+					} catch (const png::error& e) {
+						wxString depth;
+						switch (this->image->getCaps() & Image::ColourDepthMask) {
+							case Image::ColourDepthVGA: depth = _T("256-colour"); break;
+							case Image::ColourDepthEGA: depth = _T("16-colour"); break;
+							case Image::ColourDepthCGA: depth = _T("4-colour"); break;
+							case Image::ColourDepthMono: depth = _T("monochrome"); break;
+							default: depth = _T("<unknown depth>"); break;
+						}
+						wxMessageDialog dlg(this,
+							wxString::Format(_T("Unsupported file.  Only indexed .png images "
+								"are supported, and the colour depth must match the image "
+								"being replaced (%s).\n\n[%s]"), depth.c_str(),
+								wxString(e.what(), wxConvUTF8).c_str()),
+							_T("Import image"), wxOK | wxICON_ERROR);
+						dlg.ShowModal();
+						return;
+					}
+
+					if ((png.get_width() != width) || (png.get_height() != height)) {
+						wxMessageDialog dlg(this,
+							_T("Bad image format.  The image to import must be the same "
+								"dimensions as the image being replaced."),
+							_T("Import image"), wxOK | wxICON_ERROR);
+						dlg.ShowModal();
+						return;
+					}
+
+					const png::palette& pngPal = png.get_palette();
+					int palSize = pngPal.size();
+					int targetDepth = this->image->getCaps() & Image::ColourDepthMask;
+					if (
+						((targetDepth == Image::ColourDepthEGA)  && (palSize > 16+1)) ||
+						((targetDepth == Image::ColourDepthCGA)  && (palSize > 4+1)) ||
+						((targetDepth == Image::ColourDepthMono) && (palSize > 1+1))
+					) {
+						wxString depth;
+						switch (this->image->getCaps() & Image::ColourDepthMask) {
+							case Image::ColourDepthVGA: depth = _T("256-colour"); break;
+							case Image::ColourDepthEGA: depth = _T("16-colour"); break;
+							case Image::ColourDepthCGA: depth = _T("4-colour"); break;
+							case Image::ColourDepthMono: depth = _T("monochrome"); break;
+							default: depth = _T("<unknown depth>"); break;
+						}
+						wxMessageDialog dlg(this,
+							wxString::Format(_T("There are too many colours in the image "
+								"being imported.  Only indexed .png images are supported, and "
+								"the colour depth must match the image being replaced (in "
+								"this case the image must be %s)."), depth.c_str()),
+							_T("Import image"), wxOK | wxICON_ERROR);
+						dlg.ShowModal();
+						return;
+					}
+
+					bool hasTransparency = true;
+					int pixelOffset = -1; // to account for palette #0 being inserted for use as transparency
+					png::tRNS transparency = png.get_tRNS();
+					if ((transparency.size() > 0) && (transparency[0] != 0)) {
+						wxMessageDialog dlg(this,
+							_T("Bad image format.  The image to import must have palette "
+								"entry #0 and only this entry set to transparent, or no "
+								"transparency at all."),
+							_T("Import image"), wxOK | wxICON_ERROR);
+						dlg.ShowModal();
+						return;
+					} else {
+						hasTransparency = false;
+						pixelOffset = 0;
+					}
+
+					int imgSizeBytes = width * height;
+					uint8_t *imgData = new uint8_t[imgSizeBytes];
+					uint8_t *maskData = new uint8_t[imgSizeBytes];
+					StdImageDataPtr stdimg(imgData);
+					StdImageDataPtr stdmask(maskData);
+
+					for (int y = 0; y < height; y++) {
+						for (int x = 0; x < width; x++) {
+							uint8_t pixel = png[y][x];
+							if (hasTransparency && (pixel == 0)) { // Palette #0 must be transparent
+								maskData[y * width + x] = 0x01; // transparent
+							} else {
+								maskData[y * width + x] = 0x00; // opaque
+								imgData[y * width + x] = pixel + pixelOffset;
+							}
+						}
+					}
+
+					if (this->image->getCaps() & Image::HasPalette) {
+						// This format supports custom palettes, so update it from the
+						// PNG image.
+						PaletteTablePtr newPal(new PaletteTable());
+						newPal->reserve(pngPal.size());
+						for (png::palette::const_iterator i = pngPal.begin(); i != pngPal.end(); i++) {
+							PaletteEntry p(i->red, i->green, i->blue, 255);
+							newPal->push_back(p);
+						}
+						this->image->setPalette(newPal);
+					}
+					this->image->fromStandard(stdimg, stdmask);
+
+					// This overwrites the image directly, it can't be undone
+					//this->isModified = true;
+					this->canvas->imageChanged();
+				} catch (const png::error& e) {
+					wxMessageDialog dlg(this,
+						wxString::Format(_T("Unexpected PNG error importing image!\n\n[%s]"),
+							wxString(e.what(), wxConvUTF8).c_str()),
+						_T("Import image"), wxOK | wxICON_ERROR);
+					dlg.ShowModal();
+					return;
+				} catch (const std::exception& e) {
+					wxMessageDialog dlg(this,
+						wxString::Format(_T("Unexpected error importing image!\n\n[%s]"),
+							wxString(e.what(), wxConvUTF8).c_str()),
+						_T("Import image"), wxOK | wxICON_ERROR);
+					dlg.ShowModal();
+					return;
+				}
+			}
 			return;
 		}
 
 		void onExport(wxCommandEvent& ev)
 		{
+			wxString path = wxFileSelector(_T("Save image"),
+				::path.lastUsed, wxEmptyString, _T(".png"),
+#ifdef __WXMSW__
+				_T("Supported image files (*.png)|*.png|All files (*.*)|*.*"),
+#else
+				_T("Supported image files (*.png)|*.png|All files (*)|*"),
+#endif
+				wxFD_SAVE | wxFD_OVERWRITE_PROMPT, this);
+			if (!path.empty()) {
+				// Save path for next time
+				wxFileName fn(path, wxPATH_NATIVE);
+				::path.lastUsed = fn.GetPath();
+
+				// Export the image
+				unsigned int width, height;
+				this->image->getDimensions(&width, &height);
+
+				StdImageDataPtr data = this->image->toStandard();
+				StdImageDataPtr mask = this->image->toStandardMask();
+
+				png::image<png::index_pixel> png(width, height);
+
+				PaletteTablePtr srcPal;
+				if (this->image->getCaps() & Image::HasPalette) {
+					srcPal = this->image->getPalette();
+				} else {
+					srcPal = createDefaultCGAPalette();
+				}
+				if (srcPal->size() == 0) {
+					std::cout << "[editor-image] Palette contains no entries, using default\n";
+					srcPal = createDefaultCGAPalette();
+				}
+
+				int palSize = srcPal->size();
+				bool useMask = palSize < 255;
+				if (useMask) palSize++;
+
+				png::palette pngPal(palSize);
+				int j = 0;
+				if (useMask) {
+					// Assign first colour as transparent
+					png::tRNS transparency;
+					transparency.push_back(j);
+					png.set_tRNS(transparency);
+
+					pngPal[j] = png::color(0xFF, 0x00, 0xFF);
+					j++;
+				}
+
+				for (PaletteTable::iterator i = srcPal->begin();
+					i != srcPal->end();
+					i++, j++
+				) {
+					pngPal[j] = png::color(i->red, i->green, i->blue);
+				}
+
+				png.set_palette(pngPal);
+
+				// Copy the pixel data across
+				for (int y = 0; y < height; y++) {
+					for (int x = 0; x < width; x++) {
+						if (useMask) {
+							if (mask[y*width+x] & 0x01) {
+								png[y][x] = png::index_pixel(0);
+							} else {
+								png[y][x] = png::index_pixel(data[y*width+x] + 1);
+							}
+						} else {
+							png[y][x] = png::index_pixel(data[y*width+x]);
+						}
+					}
+				}
+
+				png.write(path.mb_str());
+			}
 			return;
 		}
 

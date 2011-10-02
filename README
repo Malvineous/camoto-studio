@@ -45,6 +45,10 @@ In order to compile this program, you will need the following dependencies:
  - SDL
  - wxWidgets
 
+If you are using the git version, you will also need to download png++ from
+<http://www.nongnu.org/pngpp/> and extract it into a folder called png++ in the
+src/ directory.
+
 This program and associated source code is released under the GPLv3 license.
 It includes the DOSBox OPL synth which is Copyright 2002-2010 The DOSBox Team.
 

@@ -1123,6 +1123,7 @@ class CamotoApp: public wxApp {
 #endif
 			);
 			configFile->Read(_T("camoto/pause"), &::config.dosboxExitPause, false);
+			configFile->Read(_T("camoto/lastpath"), &::path.lastUsed, wxEmptyString);
 
 			CamotoFrame *f;
 			wxString filename;
@@ -1157,6 +1158,14 @@ class CamotoApp: public wxApp {
 			std::cout << CAMOTO_HEADER "\n";
 			if (!wxApp::OnInit()) return false;
 			return true;
+		}
+
+		virtual int OnExit()
+		{
+			wxConfigBase *configFile = wxConfigBase::Get(true);
+			configFile->Write(_T("camoto/lastpath"), ::path.lastUsed);
+			configFile->Flush();
+			return 0;
 		}
 
 };

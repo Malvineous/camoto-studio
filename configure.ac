@@ -33,8 +33,26 @@ PKG_CHECK_MODULES([libgamemusic], [libgamemusic])
 
 PKG_CHECK_MODULES([libxml2], [libxml-2.0 >= 2.7.8])
 PKG_CHECK_MODULES([sdl], [sdl])
+PKG_CHECK_MODULES([libpng], [libpng])
+
+SAVE_CPPFLAGS=$CPPFLAGS
+CPPFLAGS="$CPPFLAGS $libpng_CFLAGS"
 
 # Checks for header files.
+
+AC_CACHE_CHECK([for png++ in src folder],
+	[ac_cv_pngpp],
+	[AC_COMPILE_IFELSE(
+		[AC_LANG_PROGRAM([#include "src/png++/png.hpp"], [return 0;])],
+		[ac_cv_pngpp=yes],
+		[AC_MSG_ERROR([src/png++/png.hpp not found or unusable.
+
+Please download png++ and extract into ./src/png++/ as per README.  See config.log for failure messages if required.])
+		]
+	)]
+)
+
+CPPFLAGS=$SAVE_CPPFLAGS
 
 # Checks for typedefs, structures, and compiler characteristics.
 
