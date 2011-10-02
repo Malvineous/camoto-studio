@@ -74,5 +74,10 @@ void suppMapToData(SuppMap& supp, SuppData &suppData)
 	SUPP_MAP(_T("instruments"), Instruments);
 	SUPP_MAP(_T("layer1"), Layer1);
 	SUPP_MAP(_T("layer2"), Layer2);
+	SUPP_MAP(_T("extra1"), Extra1);
+	SUPP_MAP(_T("extra2"), Extra2);
+	SUPP_MAP(_T("extra3"), Extra3);
+	SUPP_MAP(_T("extra4"), Extra4);
+	SUPP_MAP(_T("extra5"), Extra5);
 	return;
 }
