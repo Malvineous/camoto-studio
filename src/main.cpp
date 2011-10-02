@@ -406,13 +406,13 @@ class CamotoFrame: public IMainWindow
 					"but there is no item with this ID."),
 					data->id.c_str()));
 			}
-			GameObject &o = io->second;
+			GameObjectPtr &o = io->second;
 
 			// Find an editor for the item
-			EditorMap::iterator itEditor = this->editors.find(o.typeMajor);
+			EditorMap::iterator itEditor = this->editors.find(o->typeMajor);
 			if (itEditor == this->editors.end()) {
 				wxString msg = wxString::Format(_T("Sorry, there is no editor "
-					"available for \"%s\" items."), o.typeMajor.c_str());
+					"available for \"%s\" items."), o->typeMajor.c_str());
 				wxMessageDialog dlg(this, msg, _T("Open item"), wxOK | wxICON_ERROR);
 				dlg.ShowModal();
 				return;
@@ -425,9 +425,9 @@ class CamotoFrame: public IMainWindow
 				this->openObject(data->id, &stream, &fnTrunc, &supp);
 				assert(fnTrunc);
 
-				IDocument *doc = itEditor->second->openObject(o.typeMinor, stream,
-					fnTrunc, o.filename, supp, this->game);
-				this->notebook->AddPage(doc, this->game->objects[data->id].friendlyName,
+				IDocument *doc = itEditor->second->openObject(o->typeMinor, stream,
+					fnTrunc, o->filename, supp, this->game);
+				this->notebook->AddPage(doc, this->game->objects[data->id]->friendlyName,
 					true, wxNullBitmap);
 			} catch (const EFailure& e) {
 				wxMessageDialog dlg(this, e.getMessage(), _T("Open failure"), wxOK | wxICON_ERROR);
@@ -450,13 +450,13 @@ class CamotoFrame: public IMainWindow
 					"but there is no item with this ID."),
 					id.c_str()));
 			}
-			GameObject &o = io->second;
+			GameObjectPtr& o = io->second;
 
 			// Open the file containing the item's data
-			if (!o.idParent.empty()) {
+			if (!o->idParent.empty()) {
 				// This file is contained within an archive
 				try {
-					*stream = this->openFileFromArchive(o.idParent, o.filename, fnTrunc);
+					*stream = this->openFileFromArchive(o->idParent, o->filename, fnTrunc);
 					assert(*stream); // should have thrown an exception on error
 				} catch (const std::ios::failure& e) {
 					throw EFailure(wxString::Format(_T("Could not open this item:\n\n%s"),
@@ -466,13 +466,13 @@ class CamotoFrame: public IMainWindow
 				// This is an actual file to open
 				wxFileName fn;
 				fn.AssignDir(this->project->getDataPath());
-				fn.SetFullName(o.filename);
+				fn.SetFullName(o->filename);
 
 				// Make sure the filename isn't empty.  If it is, either the XML file
 				// has a blank filename (not allowed) or some code has accidentally
 				// accessed the object map with an invalid ID, creating an empty entry
 				// for that ID which we're now trying to load.
-				assert(!o.filename.empty());
+				assert(!o->filename.empty());
 
 				std::cout << "[main] Opening " << fn.GetFullPath().ToAscii() << "\n";
 				if (!::wxFileExists(fn.GetFullPath())) {
@@ -494,14 +494,14 @@ class CamotoFrame: public IMainWindow
 			}
 
 			// Load any supplementary files
-			for (std::map<wxString, wxString>::iterator i = o.supp.begin(); i != o.supp.end(); i++) {
+			for (std::map<wxString, wxString>::iterator i = o->supp.begin(); i != o->supp.end(); i++) {
 				OpenedSuppItem& si = (*supp)[i->first];
 				this->openObject(i->second, &si.stream, &si.fnTrunc, supp);
 
 				// Have to put this after openObject() otherwise if i->second is an
 				// invalid ID an empty entry will be created, making it look like a
 				// valid ID when openObject() checks it.
-				si.typeMinor = this->game->objects[i->second].typeMinor;
+				si.typeMinor = this->game->objects[i->second]->typeMinor;
 			}
 			return;
 		}
@@ -676,18 +676,18 @@ class CamotoFrame: public IMainWindow
 							i->item.mb_str() << "\" to tree list, skipping\n";
 						continue;
 					}
-					GameObject &o = io->second;
+					GameObjectPtr &o = io->second;
 
 					wxTreeItemData *d = new TreeItemData(i->item);
 					wxTreeItemId newItem = this->treeCtrl->AppendItem(root,
-						this->game->objects[i->item].friendlyName, IMG_FILE, IMG_FILE, d);
+						this->game->objects[i->item]->friendlyName, IMG_FILE, IMG_FILE, d);
 
 					// If this file doesn't have an editor, colour it grey
-					EditorMap::iterator ed = this->editors.find(this->game->objects[i->item].typeMajor);
+					EditorMap::iterator ed = this->editors.find(this->game->objects[i->item]->typeMajor);
 					if (ed == this->editors.end()) {
 						// No editor
 						this->treeCtrl->SetItemTextColour(newItem, *wxLIGHT_GREY);
-					} else if (!ed->second->isFormatSupported(this->game->objects[i->item].typeMinor)) {
+					} else if (!ed->second->isFormatSupported(this->game->objects[i->item]->typeMinor)) {
 						// Have editor, but it doesn't support this filetype
 						this->treeCtrl->SetItemTextColour(newItem, *wxLIGHT_GREY);
 					}
@@ -929,7 +929,7 @@ class CamotoFrame: public IMainWindow
 				// Now the archive file is open, so create an Archive object around it
 
 				// No need to check if idArchive is valid, as openObject() just did that
-				const wxString& typeMinor = this->game->objects[idArchive].typeMinor;
+				const wxString& typeMinor = this->game->objects[idArchive]->typeMinor;
 				std::string strType(typeMinor.ToUTF8());
 				ga::ArchiveTypePtr pArchType(this->archManager->getArchiveTypeByCode(strType));
 				if (!pArchType) {
@@ -942,7 +942,7 @@ class CamotoFrame: public IMainWindow
 				camoto::SuppData suppData;
 				suppMapToData(supp, suppData);
 
-				std::string baseFilename(this->game->objects[idArchive].filename.mb_str());
+				std::string baseFilename(this->game->objects[idArchive]->filename.mb_str());
 				camoto::SuppFilenames reqd = pArchType->getRequiredSupps(baseFilename);
 				for (camoto::SuppFilenames::iterator i = reqd.begin(); i != reqd.end(); i++) {
 					if (suppData.find(i->first) == suppData.end()) {

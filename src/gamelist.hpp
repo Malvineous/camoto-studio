@@ -21,6 +21,7 @@
 #ifndef _GAMELIST_HPP_
 #define _GAMELIST_HPP_
 
+#include <boost/shared_ptr.hpp>
 #include <wx/wx.h>
 #include <vector>
 #include <map>
@@ -39,6 +40,8 @@ struct tree
 /// Details about a single game object, such as a map or a song.
 struct GameObject
 {
+	inline virtual ~GameObject() {};
+
 	wxString id;           ///< Unique ID for this object
 	wxString filename;     ///< Object's filename
 	wxString idParent;     ///< ID of containing object, or empty for local file
@@ -48,8 +51,11 @@ struct GameObject
 	std::map<wxString, wxString> supp;  ///< SuppItem -> ID mapping
 };
 
+/// Shared pointer to a GameObject
+typedef boost::shared_ptr<GameObject> GameObjectPtr;
+
 /// Map between id and game object
-typedef std::map<wxString, GameObject> GameObjectMap;
+typedef std::map<wxString, GameObjectPtr> GameObjectMap;
 
 /// Game details for the UI
 struct GameInfo
