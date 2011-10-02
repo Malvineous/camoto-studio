@@ -194,23 +194,20 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 	SuppMap supp, const Game *game)
 	throw (EFailure)
 {
-	MusicTypePtr pMusicType;
+	assert(fnTrunc);
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_T("No file type was specified for this item!"));
-	} else {
-		std::string strType;
-		strType.append(typeMinor.ToUTF8());
-		MusicTypePtr pTestType(this->pManager->getMusicTypeByCode(strType));
-		if (!pTestType) {
-			wxString wxtype(strType.c_str(), wxConvUTF8);
-			throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
-				"song as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
-				typeMinor.c_str(), wxtype.c_str()));
-		}
-		pMusicType = pTestType;
 	}
 
-	assert(pMusicType);
+	std::string strType;
+	strType.append(typeMinor.ToUTF8());
+	MusicTypePtr pMusicType(this->pManager->getMusicTypeByCode(strType));
+	if (!pMusicType) {
+		wxString wxtype(strType.c_str(), wxConvUTF8);
+		throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
+			"song as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
+			typeMinor.c_str(), wxtype.c_str()));
+	}
 	std::cout << "[editor-music] Using handler for " << pMusicType->getFriendlyName() << "\n";
 
 	// Check to see if the file is actually in this format

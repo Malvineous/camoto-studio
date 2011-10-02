@@ -258,24 +258,19 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 	throw (EFailure)
 {
 	assert(fnTrunc);
-
-	MapTypePtr pMapType;
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_T("No file type was specified for this item!"));
-	} else {
-		std::string strType("map-");
-		strType.append(typeMinor.ToUTF8());
-		MapTypePtr pTestType(this->pManager->getMapTypeByCode(strType));
-		if (!pTestType) {
-			wxString wxtype(strType.c_str(), wxConvUTF8);
-			throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
-				"map as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
-				typeMinor.c_str(), wxtype.c_str()));
-		}
-		pMapType = pTestType;
 	}
 
-	assert(pMapType);
+	std::string strType("map-");
+	strType.append(typeMinor.ToUTF8());
+	MapTypePtr pMapType(this->pManager->getMapTypeByCode(strType));
+	if (!pMapType) {
+		wxString wxtype(strType.c_str(), wxConvUTF8);
+		throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
+			"map as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
+			typeMinor.c_str(), wxtype.c_str()));
+	}
 	std::cout << "[editor-map] Using handler for " << pMapType->getFriendlyName() << "\n";
 
 	// Check to see if the file is actually in this format

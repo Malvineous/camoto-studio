@@ -518,20 +518,19 @@ IDocument *ImageEditor::openObject(const wxString& typeMinor,
 	SuppMap supp, const Game *game)
 	throw (EFailure)
 {
-	ImageTypePtr pImageType;
+	assert(fnTrunc);
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_T("No file type was specified for this item!"));
-	} else {
-		std::string strType("img-");
-		strType.append(typeMinor.ToUTF8());
-		ImageTypePtr pTestType(this->pManager->getImageTypeByCode(strType));
-		if (!pTestType) {
-			wxString wxtype(strType.c_str(), wxConvUTF8);
-			throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
-				"image as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
-				typeMinor.c_str(), wxtype.c_str()));
-		}
-		pImageType = pTestType;
+	}
+
+	std::string strType("img-");
+	strType.append(typeMinor.ToUTF8());
+	ImageTypePtr pImageType(this->pManager->getImageTypeByCode(strType));
+	if (!pImageType) {
+		wxString wxtype(strType.c_str(), wxConvUTF8);
+		throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
+			"image as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
+			typeMinor.c_str(), wxtype.c_str()));
 	}
 
 	assert(pImageType);

@@ -277,24 +277,22 @@ IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 	SuppMap supp, const Game *game)
 	throw (EFailure)
 {
-	TilesetTypePtr pTilesetType;
+	assert(fnTrunc);
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_T("No file type was specified for this item!"));
-	} else {
-		std::string strType("tls-");
-		strType.append(typeMinor.ToUTF8());
-		TilesetTypePtr pTestType(this->pManager->getTilesetTypeByCode(strType));
-		if (!pTestType) {
-			wxString wxtype(strType.c_str(), wxConvUTF8);
-			throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
-				"tileset as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
-				typeMinor.c_str(), wxtype.c_str()));
-		}
-		pTilesetType = pTestType;
 	}
 
-	assert(pTilesetType);
-	std::cout << "[editor-tileset] Using handler for " << pTilesetType->getFriendlyName() << "\n";
+	std::string strType("tls-");
+	strType.append(typeMinor.ToUTF8());
+	TilesetTypePtr pTilesetType(this->pManager->getTilesetTypeByCode(strType));
+	if (!pTilesetType) {
+		wxString wxtype(strType.c_str(), wxConvUTF8);
+		throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
+			"tileset as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
+			typeMinor.c_str(), wxtype.c_str()));
+	}
+	std::cout << "[editor-tileset] Using handler for "
+		<< pTilesetType->getFriendlyName() << "\n";
 
 	// Check to see if the file is actually in this format
 	if (pTilesetType->isInstance(data) < TilesetType::PossiblyYes) {
@@ -303,7 +301,9 @@ IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 		wxString msg = wxString::Format(_T("This file is supposed to be in \"%s\" "
 			"format, but it seems this may not be the case.  Would you like to try "
 			"opening it anyway?"), wxtype.c_str());
-		wxMessageDialog dlg(this->frame, msg, _T("Open item"), wxYES_NO | wxICON_ERROR);
+
+		wxMessageDialog dlg(this->frame, msg, _T("Open item"),
+			wxYES_NO | wxICON_ERROR);
 		int r = dlg.ShowModal();
 		if (r != wxID_YES) return NULL;
 	}
@@ -312,15 +312,16 @@ IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 	SuppData suppData;
 	suppMapToData(supp, suppData);
 
-	// Open the tileset file
+	FN_TRUNCATE fnTruncate = boost::bind<void>(truncate, filename.fn_str(), _1);
+
 	try {
-		FN_TRUNCATE fnTruncate = boost::bind<void>(truncate, filename.fn_str(), _1);
+		// Open the tileset file
 		TilesetPtr pTileset(pTilesetType->open(data, fnTruncate, suppData));
 		assert(pTileset);
 
 		return new TilesetDocument(this->frame, pTileset);
 	} catch (const std::ios::failure& e) {
 		throw EFailure(wxString::Format(_T("Library exception: %s"),
-			wxString(e.what(), wxConvUTF8).c_str()));
+				wxString(e.what(), wxConvUTF8).c_str()));
 	}
 }
