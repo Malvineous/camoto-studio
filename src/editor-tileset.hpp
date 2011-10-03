@@ -27,6 +27,12 @@
 class TilesetEditor: public IEditor
 {
 	public:
+
+		/// View settings for this editor which are saved with the project.
+		struct Settings {
+			unsigned int zoomFactor; ///< Amount of zoom (1,2,4)
+		};
+
 		TilesetEditor(IMainWindow *parent)
 			throw ();
 
@@ -50,6 +56,7 @@ class TilesetEditor: public IEditor
 	protected:
 		IMainWindow *frame;
 		camoto::gamegraphics::ManagerPtr pManager;
+		Settings settings;
 
 };
 

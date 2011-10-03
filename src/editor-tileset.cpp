@@ -24,6 +24,7 @@
 #include "editor-tileset.hpp"
 #include <wx/glcanvas.h> // must be after editor-tileset.hpp?!
 #include "efailure.hpp"
+#include "main.hpp"
 
 #ifdef HAVE_GL_GL_H
 #include <GL/gl.h>
@@ -33,23 +34,23 @@
 #endif
 #endif
 
+/// Default zoom level
+#define CFG_DEFAULT_ZOOM 2
+
 using namespace camoto;
 using namespace camoto::gamegraphics;
-
-enum {
-	IDC_LAYER = wxID_HIGHEST + 1,
-};
-
 
 class TilesetCanvas: public wxGLCanvas
 {
 	public:
 
-		TilesetCanvas(wxWindow *parent, TilesetPtr tileset, int *attribList)
+		TilesetCanvas(wxWindow *parent, TilesetPtr tileset, int *attribList,
+			int zoomFactor)
 			throw () :
 				wxGLCanvas(parent, wxID_ANY, wxDefaultPosition,
 					wxDefaultSize, 0, wxEmptyString, attribList),
-				tileset(tileset)
+				tileset(tileset),
+				zoomFactor(zoomFactor)
 		{
 			this->SetCurrent();
 			glClearColor(0.5, 0.5, 0.5, 1);
@@ -144,7 +145,7 @@ class TilesetCanvas: public wxGLCanvas
 			glViewport(0, 0, s.x, s.y);
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
-			glOrtho(0, s.x/2, s.y/2, 0, -1, 1);
+			glOrtho(0, s.x/this->zoomFactor, s.y/this->zoomFactor, 0, -1, 1);
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
 			return;
@@ -190,11 +191,21 @@ class TilesetCanvas: public wxGLCanvas
 			return;
 		}
 
+		void setZoomFactor(int f)
+			throw ()
+		{
+			this->zoomFactor = f;
+			this->glReset();
+			this->redraw();
+			return;
+		}
+
 	protected:
 		TilesetPtr tileset;
 
 		int textureCount;
 		GLuint *texture;
+		int zoomFactor;             ///< Zoom level, 1 == 1:1, 2 == doublesize, etc.
 
 		DECLARE_EVENT_TABLE();
 
@@ -209,15 +220,46 @@ END_EVENT_TABLE()
 class TilesetDocument: public IDocument
 {
 	public:
-		TilesetDocument(IMainWindow *parent, TilesetPtr tileset)
+		TilesetDocument(IMainWindow *parent, TilesetEditor::Settings *settings, TilesetPtr tileset)
 			throw () :
 				IDocument(parent, _T("tileset")),
+				settings(settings),
 				tileset(tileset)
 		{
 			int attribList[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 0, 0};
-			this->canvas = new TilesetCanvas(this, tileset, attribList);
+			this->canvas = new TilesetCanvas(this, tileset, attribList, this->settings->zoomFactor);
+
+			wxToolBar *tb = new wxToolBar(this, wxID_ANY, wxDefaultPosition,
+				wxDefaultSize, wxTB_FLAT | wxTB_NODIVIDER);
+			tb->SetToolBitmapSize(wxSize(16, 16));
+
+			tb->AddTool(wxID_ZOOM_OUT, wxEmptyString,
+				wxImage(::path.guiIcons + _T("zoom_1-1.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_RADIO, _T("Zoom 1:1 (small)"),
+				_T("Set the zoom level so that one screen pixel is used for each tile pixel"));
+
+			tb->AddTool(wxID_ZOOM_100, wxEmptyString,
+				wxImage(::path.guiIcons + _T("zoom_2-1.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_RADIO, _T("Zoom 2:1 (normal)"),
+				_T("Set the zoom level so that two screen pixels are used for each tile pixel"));
+
+			tb->AddTool(wxID_ZOOM_IN, wxEmptyString,
+				wxImage(::path.guiIcons + _T("zoom_3-1.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_RADIO, _T("Zoom 3:1 (big)"),
+				_T("Set the zoom level so that three screen pixels are used for each tile pixel"));
+
+			// Update the UI
+			switch (this->settings->zoomFactor) {
+				case 1: tb->ToggleTool(wxID_ZOOM_OUT, true); break;
+				case 2: tb->ToggleTool(wxID_ZOOM_100, true); break;
+				case 4: tb->ToggleTool(wxID_ZOOM_IN, true); break;
+					// default: don't select anything, just in case!
+			}
+
+			tb->Realize();
 
 			wxBoxSizer *s = new wxBoxSizer(wxVERTICAL);
+			s->Add(tb, 0, wxEXPAND);
 			s->Add(this->canvas, 1, wxEXPAND);
 			this->SetSizer(s);
 		}
@@ -228,14 +270,47 @@ class TilesetDocument: public IDocument
 			throw std::ios::failure("Saving has not been implemented yet!");
 		}
 
+		void onZoomSmall(wxCommandEvent& ev)
+		{
+			this->setZoomFactor(1);
+			return;
+		}
+
+		void onZoomNormal(wxCommandEvent& ev)
+		{
+			this->setZoomFactor(2);
+			return;
+		}
+
+		void onZoomLarge(wxCommandEvent& ev)
+		{
+			this->setZoomFactor(4);
+			return;
+		}
+
+		void setZoomFactor(int f)
+			throw ()
+		{
+			this->settings->zoomFactor = f;
+			this->canvas->setZoomFactor(f);
+			return;
+		}
 
 	protected:
 		TilesetCanvas *canvas;
 		TilesetPtr tileset;
+		TilesetEditor::Settings *settings;
 
 		friend class LayerPanel;
 
+		DECLARE_EVENT_TABLE();
 };
+
+BEGIN_EVENT_TABLE(TilesetDocument, IDocument)
+	EVT_TOOL(wxID_ZOOM_OUT, TilesetDocument::onZoomSmall)
+	EVT_TOOL(wxID_ZOOM_100, TilesetDocument::onZoomNormal)
+	EVT_TOOL(wxID_ZOOM_IN, TilesetDocument::onZoomLarge)
+END_EVENT_TABLE()
 
 
 TilesetEditor::TilesetEditor(IMainWindow *parent)
@@ -243,6 +318,8 @@ TilesetEditor::TilesetEditor(IMainWindow *parent)
 		frame(parent),
 		pManager(camoto::gamegraphics::getManager())
 {
+	// Default settings
+	this->settings.zoomFactor = CFG_DEFAULT_ZOOM;
 }
 
 std::vector<IToolPanel *> TilesetEditor::createToolPanes() const
@@ -255,12 +332,14 @@ std::vector<IToolPanel *> TilesetEditor::createToolPanes() const
 void TilesetEditor::loadSettings(Project *proj)
 	throw ()
 {
+	proj->config.Read(_T("editor-tileset/zoom"), (int *)&this->settings.zoomFactor, CFG_DEFAULT_ZOOM);
 	return;
 }
 
 void TilesetEditor::saveSettings(Project *proj) const
 	throw ()
 {
+	proj->config.Write(_T("editor-tileset/zoom"), (int)this->settings.zoomFactor);
 	return;
 }
 
@@ -319,7 +398,7 @@ IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 		TilesetPtr pTileset(pTilesetType->open(data, fnTruncate, suppData));
 		assert(pTileset);
 
-		return new TilesetDocument(this->frame, pTileset);
+		return new TilesetDocument(this->frame, &this->settings, pTileset);
 	} catch (const std::ios::failure& e) {
 		throw EFailure(wxString::Format(_T("Library exception: %s"),
 				wxString(e.what(), wxConvUTF8).c_str()));
