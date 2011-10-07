@@ -21,6 +21,7 @@
 #include <boost/bind.hpp>
 #include <wx/imaglist.h>
 #include <wx/artprov.h>
+#include "png++/png.hpp"
 #include "editor-tileset.hpp"
 #include <wx/glcanvas.h> // must be after editor-tileset.hpp?!
 #include "efailure.hpp"
@@ -300,6 +301,13 @@ class TilesetDocument: public IDocument
 				wxNullBitmap, wxITEM_NORMAL, _T("Decrease offset"),
 				_T("Return the first tile if it has been skipped"));
 
+			tb->AddSeparator();
+
+			tb->AddTool(IDC_EXPORT, wxEmptyString,
+				wxImage(::path.guiIcons + _T("export.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_NORMAL, _T("Export"),
+				_T("Save this image to a file"));
+
 			// Update the UI
 			switch (this->settings->zoomFactor) {
 				case 1: tb->ToggleTool(wxID_ZOOM_OUT, true); break;
@@ -376,6 +384,127 @@ class TilesetDocument: public IDocument
 			return;
 		}
 
+		void onExport(wxCommandEvent& ev)
+		{
+			assert(this->tilesX > 0);
+
+			wxString path = wxFileSelector(_T("Save image"),
+				::path.lastUsed, wxEmptyString, _T(".png"),
+#ifdef __WXMSW__
+				_T("Supported image files (*.png)|*.png|All files (*.*)|*.*"),
+#else
+				_T("Supported image files (*.png)|*.png|All files (*)|*"),
+#endif
+				wxFD_SAVE | wxFD_OVERWRITE_PROMPT, this);
+			if (!path.empty()) {
+				// Save path for next time
+				wxFileName fn(path, wxPATH_NATIVE);
+				::path.lastUsed = fn.GetPath();
+
+				const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
+				unsigned int numTiles = tiles.size();
+				if (this->tilesX > numTiles) this->tilesX = numTiles;
+
+				// Find the width and height of the output image
+				int x = 0, y = 0, nx = 0, maxHeight = 0, maxWidth = 0;
+				for (int i = 0, tileIndex = this->offset; tileIndex < numTiles; i++, tileIndex++) {
+					ImagePtr image = this->tileset->openImage(tiles[tileIndex]);
+					unsigned int width, height;
+					image->getDimensions(&width, &height);
+
+					if (height > maxHeight) maxHeight = height;
+					x += width;
+					nx++;
+					if (nx > this->tilesX) {
+						if (x > maxWidth) maxWidth = x;
+						x = 0;
+						nx = 0;
+						y += maxHeight;
+						maxHeight = 0;
+					}
+				}
+
+				png::image<png::index_pixel> png(maxWidth, y + maxHeight);
+
+				PaletteTablePtr srcPal;
+				if (this->tileset->getCaps() & Tileset::HasPalette) {
+					srcPal = this->tileset->getPalette();
+				} else {
+					srcPal = createDefaultCGAPalette();
+				}
+				if (srcPal->size() == 0) {
+					std::cout << "[editor-image] Palette contains no entries, using default\n";
+					srcPal = createDefaultCGAPalette();
+				}
+
+				int palSize = srcPal->size();
+				bool useMask = palSize < 255;
+				if (useMask) palSize++;
+
+				png::palette pngPal(palSize);
+				int j = 0;
+				if (useMask) {
+					// Assign first colour as transparent
+					png::tRNS transparency;
+					transparency.push_back(j);
+					png.set_tRNS(transparency);
+
+					pngPal[j] = png::color(0xFF, 0x00, 0xFF);
+					j++;
+				}
+
+				for (PaletteTable::iterator i = srcPal->begin();
+					i != srcPal->end();
+					i++, j++
+				) {
+					pngPal[j] = png::color(i->red, i->green, i->blue);
+				}
+
+				png.set_palette(pngPal);
+
+				x = 0; y = 0; nx = 0; maxHeight = 0;
+				for (int i = 0, tileIndex = this->offset; tileIndex < numTiles; i++, tileIndex++) {
+					if (tiles[tileIndex]->attr & Tileset::SubTileset) continue; // aah! tileset! bad!
+
+					ImagePtr image = tileset->openImage(tiles[tileIndex]);
+					StdImageDataPtr data = image->toStandard();
+					StdImageDataPtr mask = image->toStandardMask();
+
+					unsigned int width, height;
+					image->getDimensions(&width, &height);
+
+					for (int py = 0; py < height; py++) {
+						for (int px = 0; px < width; px++) {
+							if (useMask) {
+								if (mask[py*width+x] & 0x01) {
+									png[y+py][x+px] = png::index_pixel(0);
+								} else {
+									png[y+py][x+px] =
+										// +1 to the colour to skip over transparent (#0)
+										png::index_pixel(data[py*width+px] + 1);
+								}
+							} else {
+								png[y+py][x+px] = png::index_pixel(data[py*width+px]);
+							}
+						}
+					}
+
+					if (height > maxHeight) maxHeight = height;
+					x += width;
+					nx++;
+					if (nx > this->tilesX) {
+						x = 0;
+						nx = 0;
+						y += maxHeight;
+						maxHeight = 0;
+					}
+				}
+
+				png.write(path.mb_str());
+			}
+			return;
+		}
+
 		void setZoomFactor(int f)
 			throw ()
 		{
@@ -399,6 +528,7 @@ class TilesetDocument: public IDocument
 			IDC_DEC_WIDTH,
 			IDC_INC_OFFSET,
 			IDC_DEC_OFFSET,
+			IDC_EXPORT,
 		};
 		DECLARE_EVENT_TABLE();
 };
@@ -411,6 +541,7 @@ BEGIN_EVENT_TABLE(TilesetDocument, IDocument)
 	EVT_TOOL(IDC_DEC_WIDTH, TilesetDocument::onDecWidth)
 	EVT_TOOL(IDC_INC_OFFSET, TilesetDocument::onIncOffset)
 	EVT_TOOL(IDC_DEC_OFFSET, TilesetDocument::onDecOffset)
+	EVT_TOOL(IDC_EXPORT, TilesetDocument::onExport)
 END_EVENT_TABLE()
 
 
