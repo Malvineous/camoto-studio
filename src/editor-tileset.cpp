@@ -50,7 +50,9 @@ class TilesetCanvas: public wxGLCanvas
 				wxGLCanvas(parent, wxID_ANY, wxDefaultPosition,
 					wxDefaultSize, 0, wxEmptyString, attribList),
 				tileset(tileset),
-				zoomFactor(zoomFactor)
+				zoomFactor(zoomFactor),
+				tilesX(0), // must be updated before first redraw() call
+				offset(0)
 		{
 			this->SetCurrent();
 			glClearColor(0.5, 0.5, 0.5, 1);
@@ -155,6 +157,9 @@ class TilesetCanvas: public wxGLCanvas
 		void redraw()
 			throw ()
 		{
+			assert(this->tilesX > 0);
+			assert(this->offset >= 0);
+
 			this->SetCurrent();
 			glClear(GL_COLOR_BUFFER_BIT);
 
@@ -162,19 +167,14 @@ class TilesetCanvas: public wxGLCanvas
 
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 
-			int tilesX = this->tileset->getLayoutWidth();
-			if (tilesX == 0) tilesX = 8;
-
 			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
-			for (int i = 0; i < this->textureCount; i++) {
-				glBindTexture(GL_TEXTURE_2D, this->texture[i]);
+			int x = 0, y = 0, nx = 0, maxHeight = 0;
+			for (int i = 0, tileIndex = this->offset; tileIndex < this->textureCount; i++, tileIndex++) {
+				glBindTexture(GL_TEXTURE_2D, this->texture[tileIndex]);
 
-				ImagePtr image = this->tileset->openImage(tiles[i]);
+				ImagePtr image = this->tileset->openImage(tiles[tileIndex]);
 				unsigned int width, height;
 				image->getDimensions(&width, &height);
-
-				int x = (i % tilesX) * width;
-				int y = (i / tilesX) * height;
 
 				glBegin(GL_QUADS);
 				glTexCoord2d(0.0, 0.0);  glVertex2i(x,  y);
@@ -183,6 +183,15 @@ class TilesetCanvas: public wxGLCanvas
 				glTexCoord2d(1.0, 0.0);  glVertex2i(x + width, y);
 				glEnd();
 
+				if (height > maxHeight) maxHeight = height;
+				x += width;
+				nx++;
+				if (nx > this->tilesX) {
+					x = 0;
+					nx = 0;
+					y += maxHeight;
+					maxHeight = 0;
+				}
 			}
 
 			glDisable(GL_TEXTURE_2D);
@@ -200,12 +209,32 @@ class TilesetCanvas: public wxGLCanvas
 			return;
 		}
 
+		void setTilesX(int t)
+			throw ()
+		{
+			this->tilesX = t;
+			this->redraw();
+			return;
+		}
+
+		void setOffset(int o)
+			throw ()
+		{
+			if (o < this->textureCount) {
+				this->offset = o;
+				this->redraw();
+			}
+			return;
+		}
+
 	protected:
 		TilesetPtr tileset;
 
 		int textureCount;
 		GLuint *texture;
 		int zoomFactor;             ///< Zoom level, 1 == 1:1, 2 == doublesize, etc.
+		int tilesX;                 ///< Number of tiles to draw before wrapping to the next row
+		int offset;                 ///< Number of tiles to skip drawing from the start of the tileset
 
 		DECLARE_EVENT_TABLE();
 
@@ -224,7 +253,8 @@ class TilesetDocument: public IDocument
 			throw () :
 				IDocument(parent, _T("tileset")),
 				settings(settings),
-				tileset(tileset)
+				tileset(tileset),
+				offset(0)
 		{
 			int attribList[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 0, 0};
 			this->canvas = new TilesetCanvas(this, tileset, attribList, this->settings->zoomFactor);
@@ -248,6 +278,28 @@ class TilesetDocument: public IDocument
 				wxNullBitmap, wxITEM_RADIO, _T("Zoom 3:1 (big)"),
 				_T("Set the zoom level so that three screen pixels are used for each tile pixel"));
 
+			tb->AddSeparator();
+
+			tb->AddTool(IDC_INC_WIDTH, wxEmptyString,
+				wxImage(::path.guiIcons + _T("inc-width.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_NORMAL, _T("Increase width"),
+				_T("Draw more tiles horizontally before wrapping to the next row"));
+
+			tb->AddTool(IDC_DEC_WIDTH, wxEmptyString,
+				wxImage(::path.guiIcons + _T("dec-width.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_NORMAL, _T("Decrease width"),
+				_T("Draw fewer tiles horizontally before wrapping to the next row"));
+
+			tb->AddTool(IDC_INC_OFFSET, wxEmptyString,
+				wxImage(::path.guiIcons + _T("inc-offset.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_NORMAL, _T("Increase offset"),
+				_T("Skip the first tile"));
+
+			tb->AddTool(IDC_DEC_OFFSET, wxEmptyString,
+				wxImage(::path.guiIcons + _T("dec-offset.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_NORMAL, _T("Decrease offset"),
+				_T("Return the first tile if it has been skipped"));
+
 			// Update the UI
 			switch (this->settings->zoomFactor) {
 				case 1: tb->ToggleTool(wxID_ZOOM_OUT, true); break;
@@ -262,6 +314,10 @@ class TilesetDocument: public IDocument
 			s->Add(tb, 0, wxEXPAND);
 			s->Add(this->canvas, 1, wxEXPAND);
 			this->SetSizer(s);
+
+			this->tilesX = this->tileset->getLayoutWidth();
+			if (this->tilesX == 0) this->tilesX = 8;
+			this->canvas->setTilesX(this->tilesX); // set initial value
 		}
 
 		virtual void save()
@@ -288,6 +344,38 @@ class TilesetDocument: public IDocument
 			return;
 		}
 
+		void onIncWidth(wxCommandEvent& ev)
+		{
+			this->tilesX++;
+			this->canvas->setTilesX(this->tilesX);
+			return;
+		}
+
+		void onDecWidth(wxCommandEvent& ev)
+		{
+			if (this->tilesX > 1) {
+				this->tilesX--;
+				this->canvas->setTilesX(this->tilesX);
+			}
+			return;
+		}
+
+		void onIncOffset(wxCommandEvent& ev)
+		{
+			this->offset++;
+			this->canvas->setOffset(this->offset);
+			return;
+		}
+
+		void onDecOffset(wxCommandEvent& ev)
+		{
+			if (this->offset > 0) {
+				this->offset--;
+				this->canvas->setOffset(this->offset);
+			}
+			return;
+		}
+
 		void setZoomFactor(int f)
 			throw ()
 		{
@@ -301,8 +389,17 @@ class TilesetDocument: public IDocument
 		TilesetPtr tileset;
 		TilesetEditor::Settings *settings;
 
+		int tilesX;                 ///< Number of tiles to draw before wrapping to the next row
+		int offset;                 ///< Number of tiles to skip drawing from the start of the tileset
+
 		friend class LayerPanel;
 
+		enum {
+			IDC_INC_WIDTH = wxID_HIGHEST + 1,
+			IDC_DEC_WIDTH,
+			IDC_INC_OFFSET,
+			IDC_DEC_OFFSET,
+		};
 		DECLARE_EVENT_TABLE();
 };
 
@@ -310,6 +407,10 @@ BEGIN_EVENT_TABLE(TilesetDocument, IDocument)
 	EVT_TOOL(wxID_ZOOM_OUT, TilesetDocument::onZoomSmall)
 	EVT_TOOL(wxID_ZOOM_100, TilesetDocument::onZoomNormal)
 	EVT_TOOL(wxID_ZOOM_IN, TilesetDocument::onZoomLarge)
+	EVT_TOOL(IDC_INC_WIDTH, TilesetDocument::onIncWidth)
+	EVT_TOOL(IDC_DEC_WIDTH, TilesetDocument::onDecWidth)
+	EVT_TOOL(IDC_INC_OFFSET, TilesetDocument::onIncOffset)
+	EVT_TOOL(IDC_DEC_OFFSET, TilesetDocument::onDecOffset)
 END_EVENT_TABLE()
 
 
