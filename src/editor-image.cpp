@@ -261,12 +261,32 @@ class ImageDocument: public IDocument
 					}
 
 					if ((png.get_width() != width) || (png.get_height() != height)) {
-						wxMessageDialog dlg(this,
-							_T("Bad image format.  The image to import must be the same "
-								"dimensions as the image being replaced."),
-							_T("Import image"), wxOK | wxICON_ERROR);
-						dlg.ShowModal();
-						return;
+						// The image is a different size, see if we can resize it.
+						if (this->image->getCaps() & Image::CanSetDimensions) {
+							wxMessageDialog dlg(this,
+								_T("The image to be imported is a different size to the image "
+									"being replaced.  The target image will be resized to match "
+									"the image being imported.  This can have unpredictable "
+									"consequences if the game cannot cope with the new image "
+									"size.\n\nDo you want to continue?"),
+								_T("Import image"), wxYES_NO | wxNO_DEFAULT | wxICON_WARNING);
+							int r = dlg.ShowModal();
+							if (r == wxID_YES) {
+								width = png.get_width();
+								height = png.get_height();
+								this->image->setDimensions(width, height);
+							} else {
+								return;
+							}
+						} else {
+							wxMessageDialog dlg(this,
+								_T("Bad image format.  The image to import must be the same "
+									"dimensions as the image being replaced (this particular "
+									"image has a fixed size.)"),
+								_T("Import image"), wxOK | wxICON_ERROR);
+							dlg.ShowModal();
+							return;
+						}
 					}
 
 					const png::palette& pngPal = png.get_palette();
