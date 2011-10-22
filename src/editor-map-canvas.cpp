@@ -1143,7 +1143,10 @@ void MapCanvas::paintSelection(int x, int y)
 	Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 	bool *painted = new bool[this->selection.width * this->selection.height];
 	for (int i = 0; i < this->selection.width * this->selection.height; i++) painted[i] = false;
+
 	// Overwrite any existing tiles
+
+	unsigned int maxInstances;
 	for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
 		if (
 			((signed)(*c)->x >= oX) &&
