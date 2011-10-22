@@ -49,8 +49,8 @@ class ImageEditor: public IEditor
 			throw ();
 
 		virtual IDocument *openObject(const wxString& typeMinor,
-			camoto::iostream_sptr data, camoto::FN_TRUNCATE fnTrunc,
-			const wxString& filename, SuppMap supp, const Game *game)
+			camoto::stream::inout_sptr data, const wxString& filename, SuppMap supp,
+			const Game *game)
 			throw (EFailure);
 
 	protected:

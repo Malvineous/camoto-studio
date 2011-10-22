@@ -36,13 +36,13 @@ class MapDocument: public IDocument
 	public:
 		MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
 			camoto::gamemaps::MapTypePtr mapType,
-			camoto::SuppData suppData, camoto::iostream_sptr mapFile,
-			camoto::FN_TRUNCATE fnTrunc, camoto::gamegraphics::VC_TILESET tileset,
+			camoto::SuppData suppData, camoto::stream::inout_sptr mapFile,
+			camoto::gamegraphics::VC_TILESET tileset,
 			const MapObjectVector *mapObjectVector)
-			throw (std::ios::failure, EFailure);
+			throw (camoto::stream::error, EFailure);
 
 		virtual void save()
-			throw (std::ios::failure);
+			throw (camoto::stream::error);
 
 		void onZoomSmall(wxCommandEvent& ev);
 		void onZoomNormal(wxCommandEvent& ev);
@@ -61,8 +61,7 @@ class MapDocument: public IDocument
 		camoto::gamegraphics::VC_TILESET tileset;
 		camoto::gamemaps::MapTypePtr mapType;
 		camoto::SuppData suppData;
-		camoto::iostream_sptr mapFile;
-		camoto::FN_TRUNCATE fnTrunc;
+		camoto::stream::inout_sptr mapFile;
 
 		friend class LayerPanel;
 

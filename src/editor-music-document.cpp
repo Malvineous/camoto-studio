@@ -197,7 +197,7 @@ MusicDocument::MusicDocument(IMainWindow *parent, MusicReaderPtr music, AudioPtr
 			if ((deltaTick > 0) && (deltaTick < this->optimalTicksPerRow)) this->optimalTicksPerRow = deltaTick;
 			lastTick = next->absTime;
 		}
-	} catch (const std::ios::failure& e) {
+	} catch (const camoto::stream::error& e) {
 		wxMessageDialog dlg(this, wxString::Format(_T("Error reading file: %s\n\n"
 			"The loaded data is probably incomplete."),
 			wxString(e.what(), wxConvUTF8).c_str()),
@@ -242,9 +242,9 @@ MusicDocument::~MusicDocument()
 }
 
 void MusicDocument::save()
-	throw (std::ios::failure)
+	throw (camoto::stream::error)
 {
-	throw std::ios::failure("Saving has not been implemented yet!");
+	throw camoto::stream::error("Saving has not been implemented yet!");
 }
 
 void MusicDocument::onSeekPrev(wxCommandEvent& ev)

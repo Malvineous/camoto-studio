@@ -35,7 +35,7 @@ MusicWriter_OPLSynth::~MusicWriter_OPLSynth()
 }
 
 void MusicWriter_OPLSynth::start()
-	throw (std::ios::failure)
+	throw (camoto::stream::error)
 {
 	this->opl->write(0x01, 0x20); // Enable WaveSel
 	this->opl->write(0x05, 0x01); // Enable OPL3
@@ -51,7 +51,7 @@ void MusicWriter_OPLSynth::changeSpeed(uint32_t usPerTick)
 
 void MusicWriter_OPLSynth::nextPair(uint32_t delay, uint8_t chipIndex, uint8_t reg,
 	uint8_t val)
-	throw (std::ios::failure)
+	throw (camoto::stream::error)
 {
 	if (chipIndex > 0) {
 		std::cerr << "[MusicWriter_OPLSynth] Multiple OPL chips not yet implemented!\n";

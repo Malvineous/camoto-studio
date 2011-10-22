@@ -103,7 +103,7 @@ void EventPanel::onResize(wxSizeEvent& ev)
 }
 
 void EventPanel::handleEvent(TempoEvent *ev)
-	throw (std::ios::failure)
+	throw (camoto::stream::error)
 {
 	this->pdc->SetTextForeground(*wxGREEN);
 	wxString txt;
@@ -113,7 +113,7 @@ void EventPanel::handleEvent(TempoEvent *ev)
 }
 
 void EventPanel::handleEvent(NoteOnEvent *ev)
-	throw (std::ios::failure, EChannelMismatch, EBadPatchType)
+	throw (camoto::stream::error, EChannelMismatch, EBadPatchType)
 {
 	this->pdc->SetTextForeground(*wxBLACK);
 	this->drawNoteOn(ev->milliHertz, ev->instrument);
@@ -121,7 +121,7 @@ void EventPanel::handleEvent(NoteOnEvent *ev)
 }
 
 void EventPanel::handleEvent(NoteOffEvent *ev)
-	throw (std::ios::failure)
+	throw (camoto::stream::error)
 {
 	this->pdc->SetTextForeground(*wxBLACK);
 	this->pdc->DrawText(_T("    -- ----"), 0, this->paintY);
@@ -129,7 +129,7 @@ void EventPanel::handleEvent(NoteOffEvent *ev)
 }
 
 void EventPanel::handleEvent(PitchbendEvent *ev)
-	throw (std::ios::failure)
+	throw (camoto::stream::error)
 {
 	this->pdc->SetTextForeground(*wxBLUE);
 	this->drawNoteOn(ev->milliHertz, -1);
@@ -137,7 +137,7 @@ void EventPanel::handleEvent(PitchbendEvent *ev)
 }
 
 void EventPanel::handleEvent(ConfigurationEvent *ev)
-	throw (std::ios::failure)
+	throw (camoto::stream::error)
 {
 	this->pdc->SetTextForeground(*wxCYAN);
 	wxString txt;

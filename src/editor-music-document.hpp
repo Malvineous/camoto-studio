@@ -42,7 +42,7 @@ class MusicDocument: public IDocument
 		~MusicDocument();
 
 		virtual void save()
-			throw (std::ios::failure);
+			throw (camoto::stream::error);
 
 		void onSeekPrev(wxCommandEvent& ev);
 		void onPlay(wxCommandEvent& ev);

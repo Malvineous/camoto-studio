@@ -24,7 +24,7 @@
 #include <map>
 #include <vector>
 #include <wx/wx.h>
-#include <camoto/types.hpp>
+#include <camoto/stream.hpp>
 #include <camoto/suppitem.hpp>
 #include "mainwindow.hpp"
 #include "project.hpp"
@@ -69,7 +69,7 @@ class IDocument: public wxPanel
 
 		/// Save changes to the document.
 		virtual void save()
-			throw (std::ios::failure) = 0;
+			throw (camoto::stream::error) = 0;
 
 		/// Set the text in the hint part of the status bar.
 		/**
@@ -120,8 +120,7 @@ typedef std::vector<IToolPanel *> IToolPanelVector;
 struct OpenedSuppItem
 {
 	wxString typeMinor;
-	camoto::iostream_sptr stream;
-	camoto::FN_TRUNCATE fnTrunc;
+	camoto::stream::inout_sptr stream;
 };
 
 /// Map between string and input stream, used for supp data.
@@ -191,8 +190,8 @@ class IEditor
 		 * @return IDocument interface to an editor instance.
 		 */
 		virtual IDocument *openObject(const wxString& typeMinor,
-			camoto::iostream_sptr data, camoto::FN_TRUNCATE fnTrunc,
-			const wxString& filename, SuppMap supp, const Game *game)
+			camoto::stream::inout_sptr data, const wxString& filename, SuppMap supp,
+			const Game *game)
 			throw (EFailure) = 0;
 
 };

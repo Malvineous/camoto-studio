@@ -44,20 +44,20 @@ class EventPanel: public wxPanel, camoto::gamemusic::EventHandler
 		// Event handler functions (used to paint events)
 
 		virtual void handleEvent(camoto::gamemusic::TempoEvent *ev)
-			throw (std::ios::failure);
+			throw (camoto::stream::error);
 
 		virtual void handleEvent(camoto::gamemusic::NoteOnEvent *ev)
-			throw (std::ios::failure, camoto::gamemusic::EChannelMismatch,
+			throw (camoto::stream::error, camoto::gamemusic::EChannelMismatch,
 				camoto::gamemusic::EBadPatchType);
 
 		virtual void handleEvent(camoto::gamemusic::NoteOffEvent *ev)
-			throw (std::ios::failure);
+			throw (camoto::stream::error);
 
 		virtual void handleEvent(camoto::gamemusic::PitchbendEvent *ev)
-			throw (std::ios::failure);
+			throw (camoto::stream::error);
 
 		virtual void handleEvent(camoto::gamemusic::ConfigurationEvent *ev)
-			throw (std::ios::failure);
+			throw (camoto::stream::error);
 
 		void drawNoteOn(int milliHertz, int instrument)
 			throw ();

@@ -198,7 +198,7 @@ class ImageDocument: public IDocument
 		}
 
 		virtual void save()
-			throw (std::ios::failure)
+			throw (camoto::stream::error)
 		{
 			// Nothing to do - can't modify anything yet that isn't immediately saved
 			this->isModified = false;
@@ -534,11 +534,9 @@ bool ImageEditor::isFormatSupported(const wxString& type) const
 }
 
 IDocument *ImageEditor::openObject(const wxString& typeMinor,
-	iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
-	SuppMap supp, const Game *game)
+	stream::inout_sptr data, const wxString& filename, SuppMap supp, const Game *game)
 	throw (EFailure)
 {
-	assert(fnTrunc);
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_T("No file type was specified for this item!"));
 	}
@@ -574,12 +572,11 @@ IDocument *ImageEditor::openObject(const wxString& typeMinor,
 
 	// Open the image file
 	try {
-		FN_TRUNCATE fnTruncate = boost::bind<void>(truncate, filename.fn_str(), _1);
-		ImagePtr pImage(pImageType->open(data, fnTruncate, suppData));
+		ImagePtr pImage(pImageType->open(data, suppData));
 		assert(pImage);
 
 		return new ImageDocument(this->frame, &this->settings, pImage);
-	} catch (const std::ios::failure& e) {
+	} catch (const camoto::stream::error& e) {
 		throw EFailure(wxString::Format(_T("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));
 	}

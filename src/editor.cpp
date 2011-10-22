@@ -60,8 +60,7 @@ IToolPanel::IToolPanel(IMainWindow *parent)
 #define SUPP_MAP(name, type) \
 	s = supp.find(name); \
 	if (s != supp.end()) { \
-		suppData[SuppItem::type].stream = s->second.stream; \
-		suppData[SuppItem::type].fnTruncate = s->second.fnTrunc; \
+		suppData[SuppItem::type] = s->second.stream; \
 	}
 
 void suppMapToData(SuppMap& supp, SuppData &suppData)

@@ -35,14 +35,14 @@ class MusicWriter_OPLSynth: virtual public camoto::gamemusic::MusicWriter_Generi
 			throw ();
 
 		virtual void start()
-			throw (std::ios::failure);
+			throw (camoto::stream::error);
 
 		virtual void changeSpeed(uint32_t usPerTick)
 			throw ();
 
 		virtual void nextPair(uint32_t delay, uint8_t chipIndex, uint8_t reg,
 			uint8_t val)
-			throw (std::ios::failure);
+			throw (camoto::stream::error);
 
 	protected:
 		Audio::OPLPtr opl;  ///< OPL chip to write to

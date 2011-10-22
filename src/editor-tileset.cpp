@@ -187,7 +187,7 @@ class TilesetCanvas: public wxGLCanvas
 				if (height > maxHeight) maxHeight = height;
 				x += width;
 				nx++;
-				if (nx > this->tilesX) {
+				if (nx >= this->tilesX) {
 					x = 0;
 					nx = 0;
 					y += maxHeight;
@@ -329,9 +329,9 @@ class TilesetDocument: public IDocument
 		}
 
 		virtual void save()
-			throw (std::ios::failure)
+			throw (camoto::stream::error)
 		{
-			throw std::ios::failure("Saving has not been implemented yet!");
+			throw camoto::stream::error("Saving has not been implemented yet!");
 		}
 
 		void onZoomSmall(wxCommandEvent& ev)
@@ -584,11 +584,9 @@ bool TilesetEditor::isFormatSupported(const wxString& type) const
 }
 
 IDocument *TilesetEditor::openObject(const wxString& typeMinor,
-	iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
-	SuppMap supp, const Game *game)
+	stream::inout_sptr data, const wxString& filename, SuppMap supp, const Game *game)
 	throw (EFailure)
 {
-	assert(fnTrunc);
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_T("No file type was specified for this item!"));
 	}
@@ -623,15 +621,13 @@ IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 	SuppData suppData;
 	suppMapToData(supp, suppData);
 
-	FN_TRUNCATE fnTruncate = boost::bind<void>(truncate, filename.fn_str(), _1);
-
 	try {
 		// Open the tileset file
-		TilesetPtr pTileset(pTilesetType->open(data, fnTruncate, suppData));
+		TilesetPtr pTileset(pTilesetType->open(data, suppData));
 		assert(pTileset);
 
 		return new TilesetDocument(this->frame, &this->settings, pTileset);
-	} catch (const std::ios::failure& e) {
+	} catch (const camoto::stream::error& e) {
 		throw EFailure(wxString::Format(_T("Library exception: %s"),
 				wxString(e.what(), wxConvUTF8).c_str()));
 	}

@@ -190,11 +190,10 @@ bool MusicEditor::isFormatSupported(const wxString& type) const
 }
 
 IDocument *MusicEditor::openObject(const wxString& typeMinor,
-	iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
-	SuppMap supp, const Game *game)
+	stream::inout_sptr data, const wxString& filename, SuppMap supp,
+	const Game *game)
 	throw (EFailure)
 {
-	assert(fnTrunc);
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_T("No file type was specified for this item!"));
 	}
@@ -232,7 +231,7 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 		assert(pMusic);
 
 		return new MusicDocument(this->frame, pMusic, this->audio);
-	} catch (const std::ios::failure& e) {
+	} catch (const camoto::stream::error& e) {
 		throw EFailure(wxString::Format(_T("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));
 	}

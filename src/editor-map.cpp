@@ -253,11 +253,10 @@ bool MapEditor::isFormatSupported(const wxString& type) const
 }
 
 IDocument *MapEditor::openObject(const wxString& typeMinor,
-	camoto::iostream_sptr data, FN_TRUNCATE fnTrunc, const wxString& filename,
-	SuppMap supp, const Game *game)
+	camoto::stream::inout_sptr data, const wxString& filename, SuppMap supp,
+	const Game *game)
 	throw (EFailure)
 {
-	assert(fnTrunc);
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_T("No file type was specified for this item!"));
 	}
@@ -309,9 +308,9 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 
 	// Open the map file
 	try {
-		return new MapDocument(this->frame, &this->settings, pMapType, suppData, data, fnTrunc,
-			tilesetVector, &game->mapObjects);
-	} catch (const std::ios::failure& e) {
+		return new MapDocument(this->frame, &this->settings, pMapType, suppData,
+			data, tilesetVector, &game->mapObjects);
+	} catch (const camoto::stream::error& e) {
 		throw EFailure(wxString::Format(_T("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));
 	}
@@ -341,14 +340,14 @@ bool tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& supp,
 	}
 
 	try {
-		TilesetPtr tileset = ttp->open(s->second.stream, NULL, suppData);
+		TilesetPtr tileset = ttp->open(s->second.stream, suppData);
 		if (!tileset) {
 			wxString wxtype(strGfxType.c_str(), wxConvUTF8);
 			throw EFailure(wxString::Format(_T("Tileset was rejected by \"%s\" handler"
 				" (wrong format?)"), wxtype.c_str()));
 		}
 		tilesetVector->push_back(tileset);
-	} catch (const std::ios::failure& e) {
+	} catch (const camoto::stream::error& e) {
 		throw EFailure(wxString::Format(_T("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));
 	}

@@ -35,16 +35,14 @@ BEGIN_EVENT_TABLE(MapDocument, IDocument)
 END_EVENT_TABLE()
 
 MapDocument::MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
-	MapTypePtr mapType, SuppData suppData, iostream_sptr mapFile,
-	FN_TRUNCATE fnTrunc, VC_TILESET tileset,
-	const MapObjectVector *mapObjectVector)
-	throw (std::ios::failure, EFailure) :
+	MapTypePtr mapType, SuppData suppData, stream::inout_sptr mapFile,
+	VC_TILESET tileset, const MapObjectVector *mapObjectVector)
+	throw (camoto::stream::error, EFailure) :
 		IDocument(parent, _T("map")),
 		settings(settings),
 		mapType(mapType),
 		suppData(suppData),
 		mapFile(mapFile),
-		fnTrunc(fnTrunc),
 		tileset(tileset)
 {
 	MapPtr genMap = mapType->open(mapFile, suppData);
@@ -118,22 +116,21 @@ MapDocument::MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
 }
 
 void MapDocument::save()
-	throw (std::ios::failure)
+	throw (camoto::stream::error)
 {
 	try {
-		this->mapFile->seekp(0, std::ios::beg);
+		this->mapFile->seekp(0, stream::start);
 		unsigned long len = this->mapType->write(this->map, this->mapFile, this->suppData);
-		camoto::flush(this->mapFile);
 
 		// Cut anything off the end since we're overwriting an existing file
-		this->fnTrunc(len);
+		this->mapFile->truncate(len);
 
 		this->isModified = false;
 
-	} catch (const std::ios::failure& e) {
+	} catch (const camoto::stream::error& e) {
 		throw e;
 	} catch (const std::exception& e) {
-		throw std::ios::failure(e.what());
+		throw camoto::stream::error(e.what());
 	}
 	return;
 }
