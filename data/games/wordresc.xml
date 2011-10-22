@@ -39,6 +39,7 @@
 		<group name="Graphics">
 			<group name="Tilesets">
 				<item ref="tls-101"/>
+				<item ref="tls-extra1"/>
 				<item ref="tls-102"/>
 				<item ref="tls-103"/>
 				<item ref="tls-104"/>
@@ -79,6 +80,116 @@
 				<item ref="img-ui-112"/>
 				<item ref="img-ui-113"/>
 				<item ref="img-ui-114"/>
+			</group>
+			<group name="Word icons">
+				<item ref="img-item101"/>
+				<item ref="img-item102"/>
+				<item ref="img-item103"/>
+				<item ref="img-item104"/>
+				<item ref="img-item105"/>
+				<item ref="img-item106"/>
+				<item ref="img-item107"/>
+				<item ref="img-item108"/>
+				<item ref="img-item109"/>
+				<item ref="img-item110"/>
+				<item ref="img-item111"/>
+				<item ref="img-item112"/>
+				<item ref="img-item113"/>
+				<item ref="img-item114"/>
+				<item ref="img-item115"/>
+				<item ref="img-item116"/>
+				<item ref="img-item117"/>
+				<item ref="img-item118"/>
+				<item ref="img-item119"/>
+				<item ref="img-item120"/>
+				<item ref="img-item121"/>
+				<item ref="img-item122"/>
+				<item ref="img-item123"/>
+				<item ref="img-item124"/>
+				<item ref="img-item125"/>
+				<item ref="img-item126"/>
+				<item ref="img-item127"/>
+				<item ref="img-item128"/>
+				<item ref="img-item129"/>
+				<item ref="img-item130"/>
+				<item ref="img-item131"/>
+				<item ref="img-item132"/>
+				<item ref="img-item133"/>
+				<item ref="img-item134"/>
+				<item ref="img-item135"/>
+				<item ref="img-item136"/>
+				<item ref="img-item137"/>
+				<item ref="img-item138"/>
+				<item ref="img-item139"/>
+				<item ref="img-item140"/>
+				<item ref="img-item141"/>
+				<item ref="img-item142"/>
+				<item ref="img-item143"/>
+				<item ref="img-item144"/>
+				<item ref="img-item145"/>
+				<item ref="img-item146"/>
+				<item ref="img-item147"/>
+				<item ref="img-item148"/>
+				<item ref="img-item149"/>
+				<item ref="img-item150"/>
+				<item ref="img-item151"/>
+				<item ref="img-item152"/>
+				<item ref="img-item153"/>
+				<item ref="img-item154"/>
+				<item ref="img-item155"/>
+				<item ref="img-item156"/>
+				<item ref="img-item157"/>
+				<item ref="img-item158"/>
+				<item ref="img-item159"/>
+				<item ref="img-item160"/>
+				<item ref="img-item161"/>
+				<item ref="img-item162"/>
+				<item ref="img-item163"/>
+				<item ref="img-item164"/>
+				<item ref="img-item165"/>
+				<item ref="img-item166"/>
+				<item ref="img-item167"/>
+				<item ref="img-item168"/>
+				<item ref="img-item169"/>
+				<item ref="img-item170"/>
+				<item ref="img-item171"/>
+				<item ref="img-item172"/>
+				<item ref="img-item173"/>
+				<item ref="img-item174"/>
+				<item ref="img-item175"/>
+				<item ref="img-item176"/>
+				<item ref="img-item177"/>
+				<item ref="img-item178"/>
+				<item ref="img-item179"/>
+				<item ref="img-item180"/>
+				<item ref="img-item181"/>
+				<item ref="img-item182"/>
+				<item ref="img-item183"/>
+				<item ref="img-item184"/>
+				<item ref="img-item185"/>
+				<item ref="img-item186"/>
+				<item ref="img-item187"/>
+				<item ref="img-item188"/>
+				<item ref="img-item189"/>
+				<item ref="img-item190"/>
+				<item ref="img-item191"/>
+				<item ref="img-item192"/>
+				<item ref="img-item193"/>
+				<item ref="img-item194"/>
+				<item ref="img-item195"/>
+				<item ref="img-item196"/>
+				<item ref="img-item197"/>
+				<item ref="img-item198"/>
+				<item ref="img-item199"/>
+				<item ref="img-item1a0"/>
+				<item ref="img-item1a1"/>
+				<item ref="img-item1a2"/>
+				<item ref="img-item1a3"/>
+				<item ref="img-item1a4"/>
+				<item ref="img-item1a5"/>
+				<item ref="img-item1a6"/>
+				<item ref="img-item1a7"/>
+				<item ref="img-item1a8"/>
 			</group>
 		</group>
 		<group name="Music">
@@ -125,7 +236,11 @@
 			<file id="img-ui-112"    name="wr1.32"     typeMajor="image"   typeMinor="pcx-1b4p">Story 3</file>
 			<file id="img-ui-113"    name="wr1.33"     typeMajor="image"   typeMinor="pcx-1b4p">Story 4</file>
 			<file id="img-ui-114"    name="wr1.34"     typeMajor="image"   typeMinor="pcx-1b4p">Story 5</file>
+
+			<file id="tls-extra1"    name="static.wr"  typeMajor="tileset" typeMinor="wordresc-extra"
+				supp:extra1="img-font-1">Virtual tileset</file>
 		</archive>
+
 		<archive name="wr1.2" id="arch-wr1-2" typeMinor="pcxlib">
 			<file id="img-item101" name="acorn.wr1"    typeMajor="image"   typeMinor="pcx-1b4p">acorn</file>
 			<file id="img-item102" name="anchor.wr1"   typeMajor="image"   typeMinor="pcx-1b4p">anchor</file>
@@ -245,7 +360,7 @@
 		<file id="mus-302"   name="wr3.5"    typeMajor="music" typeMinor="cmf-creativelabs">E3 Song 2</file>
 		<file id="mus-303"   name="wr3.6"    typeMajor="music" typeMinor="cmf-creativelabs">E3 Song 3</file>
 
-		<file id="lev-101"   name="wr1.s0"   typeMajor="map"   typeMinor="wordresc" supp:tiles="tls-103">Level 1 - Main Street: Gruzzleville</file>
+		<file id="lev-101"   name="wr1.s0"   typeMajor="map"   typeMinor="wordresc" supp:tiles="tls-103" supp:tiles2="tls-extra1">Level 1 - Main Street: Gruzzleville</file>
 		<file id="lev-102"   name="wr1.s1"   typeMajor="map"   typeMinor="wordresc">Level 2 - Gruzzleville Waterworks</file>
 		<file id="lev-103"   name="wr1.s2"   typeMajor="map"   typeMinor="wordresc">Level 3 - Rock Climbing</file>
 		<file id="lev-104"   name="wr1.s3"   typeMajor="map"   typeMinor="wordresc">Level 4 - Castle MacGruzzle: Entrance</file>
