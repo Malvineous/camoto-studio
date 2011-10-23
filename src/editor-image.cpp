@@ -46,7 +46,16 @@ class ImageCanvas: public wxPanel
 
 		void imageChanged()
 		{
-			StdImageDataPtr data = image->toStandard();
+			StdImageDataPtr data;
+			try {
+				data = image->toStandard();
+			} catch (const stream::error& e) {
+				wxMessageDialog dlg(this,
+					wxString::Format(_T("Error reading image from native format:\n\n%s"),
+						wxString(e.what(), wxConvUTF8).c_str()),
+					_T("Conversion error"), wxOK | wxICON_ERROR);
+				dlg.ShowModal();
+			}
 			this->image->getDimensions(&this->width, &this->height);
 
 			// Load the palette
@@ -65,12 +74,17 @@ class ImageCanvas: public wxPanel
 			uint8_t *pixels = this->wximg.GetData();
 			if (pixels) {
 				int size = width * height;
-				for (int i = 0, p = 0; i < size; i++) {
-					uint8_t clr = data[i];
-					if (clr >= pal->size()) clr = 0;
-					pixels[p++] = pal->at(clr).red;
-					pixels[p++] = pal->at(clr).green;
-					pixels[p++] = pal->at(clr).blue;
+				if (data) {
+					for (int i = 0, p = 0; i < size; i++) {
+						uint8_t clr = data[i];
+						if (clr >= pal->size()) clr = 0;
+						pixels[p++] = pal->at(clr).red;
+						pixels[p++] = pal->at(clr).green;
+						pixels[p++] = pal->at(clr).blue;
+					}
+				} else {
+					// no data, corrupted image
+					memset(pixels, 0, size * 3);
 				}
 			} else {
 				std::cout << "[editor-image] Error getting pixels out of wxImage\n";
