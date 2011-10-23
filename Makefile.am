@@ -10,16 +10,16 @@ ACLOCAL_AMFLAGS = -I m4
 srcdir = @srcdir@
 VPATH = @srcdir@
 
-pkgdata_DATA  = data/games/bash.xml     data/games/screenshots/bash.png      data/games/icons/bash.png
-pkgdata_DATA += data/games/ccaves.xml   data/games/screenshots/ccaves.png    data/games/icons/ccaves.png
-pkgdata_DATA += data/games/ccomic.xml   data/games/screenshots/ccomic.png    data/games/icons/ccomic.png
-pkgdata_DATA += data/games/cosmo.xml    data/games/screenshots/cosmo.png     data/games/icons/cosmo.png
-pkgdata_DATA += data/games/ddave.xml    data/games/screenshots/ddave.png     data/games/icons/ddave.png
-pkgdata_DATA += data/games/harry.xml    data/games/screenshots/harry.png     data/games/icons/harry.png
-pkgdata_DATA += data/games/hocus.xml    data/games/screenshots/hocus.png     data/games/icons/hocus.png
-pkgdata_DATA += data/games/wacky.xml    data/games/screenshots/wacky.png     data/games/icons/wacky.png
-pkgdata_DATA += data/games/wordresc.xml data/games/screenshots/wordresc.png  data/games/icons/wordresc.png
-pkgdata_DATA += data/games/xargon.xml   data/games/screenshots/xargon.png    data/games/icons/xargon.png
+pkgdata_DATA  = data/games/captain-comic.xml      data/games/screenshots/captain-comic.png      data/games/icons/captain-comic.png
+pkgdata_DATA += data/games/cosmos-cosmic-adventures.xml data/games/screenshots/cosmos-cosmic-adventures.png data/games/icons/cosmos-cosmic-adventures.png
+pkgdata_DATA += data/games/crystal-caves.xml      data/games/screenshots/crystal-caves.png      data/games/icons/crystal-caves.png
+pkgdata_DATA += data/games/dangerous-dave.xml     data/games/screenshots/dangerous-dave.png     data/games/icons/dangerous-dave.png
+pkgdata_DATA += data/games/halloween-harry.xml    data/games/screenshots/halloween-harry.png    data/games/icons/halloween-harry.png
+pkgdata_DATA += data/games/hocus-pocus.xml        data/games/screenshots/hocus-pocus.png        data/games/icons/hocus-pocus.png
+pkgdata_DATA += data/games/monster-bash.xml       data/games/screenshots/monster-bash.png       data/games/icons/monster-bash.png
+pkgdata_DATA += data/games/wacky-wheels.xml       data/games/screenshots/wacky-wheels.png       data/games/icons/wacky-wheels.png
+pkgdata_DATA += data/games/word-rescue.xml        data/games/screenshots/word-rescue.png        data/games/icons/word-rescue.png
+pkgdata_DATA += data/games/xargon.xml             data/games/screenshots/xargon.png             data/games/icons/xargon.png
 
 pkgdata_DATA += data/icons/grid.png
 pkgdata_DATA += data/icons/zoom_1-1.png

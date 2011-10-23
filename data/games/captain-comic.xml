@@ -111,4 +111,35 @@
 		<command title="Normal">comic</command>
 	</commands>
 
+	<map>
+		<objects><!-- Only valid with tiles-forest! -->
+
+			<object name="Castle spire">
+				<min width="4"/>
+				<max width="4"/>
+				<top>
+					<row>
+						<l>
+							<tile id="0x1"/>
+							<tile id="0x2"/>
+						</l>
+					</row>
+					<row>
+						<l>
+							<tile id="0x3"/>
+							<tile id="0x4"/>
+						</l>
+					</row>
+					<row>
+						<l>
+							<tile id="0x5"/>
+							<tile id="0x6"/>
+						</l>
+					</row>
+				</top>
+			</object>
+
+		</objects>
+	</map>
+
 </game>
