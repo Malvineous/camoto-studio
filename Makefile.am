@@ -16,6 +16,7 @@ pkgdata_DATA += data/games/crystal-caves.xml      data/games/screenshots/crystal
 pkgdata_DATA += data/games/dangerous-dave.xml     data/games/screenshots/dangerous-dave.png     data/games/icons/dangerous-dave.png
 pkgdata_DATA += data/games/halloween-harry.xml    data/games/screenshots/halloween-harry.png    data/games/icons/halloween-harry.png
 pkgdata_DATA += data/games/hocus-pocus.xml        data/games/screenshots/hocus-pocus.png        data/games/icons/hocus-pocus.png
+pkgdata_DATA += data/games/major-stryker.xml      data/games/screenshots/major-stryker.png      data/games/icons/major-stryker.png
 pkgdata_DATA += data/games/monster-bash.xml       data/games/screenshots/monster-bash.png       data/games/icons/monster-bash.png
 pkgdata_DATA += data/games/secret-agent.xml       data/games/screenshots/secret-agent.png       data/games/icons/secret-agent.png
 pkgdata_DATA += data/games/wacky-wheels.xml       data/games/screenshots/wacky-wheels.png       data/games/icons/wacky-wheels.png
