@@ -110,21 +110,21 @@ class CamotoFrame: public IMainWindow
 
 			wxMenu *menuFile = new wxMenu();
 			if (isStudio) {
-				menuFile->Append(wxID_NEW,    _T("&New project..."));
-				menuFile->Append(wxID_OPEN,   _T("&Open project..."));
-				menuFile->Append(wxID_SAVE,   _T("&Save project"));
-				menuFile->Append(wxID_CLOSE,  _T("&Close project"));
+				menuFile->Append(wxID_NEW,    _T("&New project..."), _T("Choose a new game to work with"));
+				menuFile->Append(wxID_OPEN,   _T("&Open project..."), _T("Resume work on a previous mod"));
+				menuFile->Append(wxID_SAVE,   _T("&Save project"), _T("Save options and all open documents"));
+				menuFile->Append(wxID_CLOSE,  _T("&Close project"), _("Close all open documents"));
 			} else {
-				menuFile->Append(wxID_OPEN,   _T("&Open..."));
-				menuFile->Append(wxID_SAVE,   _T("&Save"));
-				menuFile->Append(wxID_SAVEAS, _T("Save &As..."));
+				menuFile->Append(wxID_OPEN,   _T("&Open..."), _T("Open a new file"));
+				menuFile->Append(wxID_SAVE,   _T("&Save"), _T("Save changes"));
+				menuFile->Append(wxID_SAVEAS, _T("Save &As..."), _T("Save changes to a separate file"));
 			}
 			menuFile->AppendSeparator();
 			menuFile->Append(wxID_EXIT, _T("E&xit"));
 
 			wxMenu *menuView = new wxMenu();
-			menuView->Append(IDC_RESET, _T("&Reset layout"));
-			menuView->Append(wxID_SETUP, _T("&Options..."));
+			menuView->Append(IDC_RESET, _T("&Reset layout"), _T("Reset all windows to default sizes"));
+			menuView->Append(wxID_SETUP, _T("&Options..."), _T("Change settings"));
 
 			this->menuTest = new wxMenu();
 
@@ -188,10 +188,10 @@ class CamotoFrame: public IMainWindow
 			}
 
 			this->popup = new wxMenu();
-			this->popup->Append(IDM_EXTRACT,       _T("&Extract file..."));
-			this->popup->Append(IDM_EXTRACT_RAW,   _T("&Extract raw..."));
-			this->popup->Append(IDM_OVERWRITE,     _T("&Overwrite file..."));
-			this->popup->Append(IDM_OVERWRITE_RAW, _T("&Overwrite raw..."));
+			this->popup->Append(IDM_EXTRACT,       _T("&Extract file..."), _T("Save this file in its native format"));
+			this->popup->Append(IDM_EXTRACT_RAW,   _T("&Extract raw..."), _T("Save this file in its raw format (no decompression or decryption)"));
+			this->popup->Append(IDM_OVERWRITE,     _T("&Overwrite file..."), _T("Replace this item with the contents of another file"));
+			this->popup->Append(IDM_OVERWRITE_RAW, _T("&Overwrite raw..."), _T("Replace this item with a file already encrypted or compressed in the correct format"));
 
 			this->aui.Update();
 			this->setControlStates();
@@ -810,7 +810,7 @@ class CamotoFrame: public IMainWindow
 				i != this->game->dosCommands.end(); i++
 			) {
 				long id = ::wxNewId();
-				this->menuTest->Append(id, i->first);
+				this->menuTest->Append(id, i->first, _T("Run the game through DOSBox"));
 				this->commandMap[id] = i->second;
 				this->Connect(id, wxEVT_COMMAND_MENU_SELECTED,
 					wxCommandEventHandler(CamotoFrame::onRunGame));
