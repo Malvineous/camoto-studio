@@ -915,6 +915,11 @@ class CamotoFrame: public IMainWindow
 				}
 			}
 
+			// Flush all open archives
+			for (ArchiveMap::iterator itArch = this->archives.begin(); itArch != this->archives.end(); itArch++) {
+				itArch->second->flush();
+			}
+
 			// Update the current perspective
 			if (!this->project->config.Write(_T("camoto/perspective"),
 				this->aui.SavePerspective())) return false;
@@ -994,6 +999,11 @@ class CamotoFrame: public IMainWindow
 				this->notebook->DeletePage(i);
 			}
 			this->treeCtrl->DeleteAllItems();
+
+			// Flush all open archives
+			for (ArchiveMap::iterator itArch = this->archives.begin(); itArch != this->archives.end(); itArch++) {
+				itArch->second->flush();
+			}
 
 			// Unload any cached archives
 			this->archives.clear();
