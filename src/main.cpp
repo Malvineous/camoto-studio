@@ -187,6 +187,12 @@ class CamotoFrame: public IMainWindow
 				std::cout << "\n";
 			}
 
+			this->popup = new wxMenu();
+			this->popup->Append(IDM_EXTRACT,       _T("&Extract file..."));
+			this->popup->Append(IDM_EXTRACT_RAW,   _T("&Extract raw..."));
+			this->popup->Append(IDM_OVERWRITE,     _T("&Overwrite file..."));
+			this->popup->Append(IDM_OVERWRITE_RAW, _T("&Overwrite raw..."));
+
 			this->aui.Update();
 			this->setControlStates();
 		}
@@ -201,6 +207,8 @@ class CamotoFrame: public IMainWindow
 			for (EditorMap::iterator e = this->editors.begin(); e != this->editors.end(); e++) {
 				delete e->second;
 			}
+
+			delete this->popup;
 		}
 
 		/// Enable/disable menu items according to current state.
@@ -357,6 +365,148 @@ class CamotoFrame: public IMainWindow
 			return;
 		}
 
+		/// Event handler for extracting an item in the tree view.
+		void onExtractItem(wxCommandEvent& ev)
+		{
+			TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(this->treeCtrl->GetSelection());
+			if (!data) return;
+			this->extractItem(data->id, true); // true == use filters
+			return;
+		}
+
+		/// Event handler for extracting an item without filters.
+		void onExtractUnfilteredItem(wxCommandEvent& ev)
+		{
+			TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(this->treeCtrl->GetSelection());
+			if (!data) return;
+			this->extractItem(data->id, false); // false == don't use filters
+			return;
+		}
+
+		/// Event handler for overwriting an item in the tree view.
+		void onOverwriteItem(wxCommandEvent& ev)
+		{
+			TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(this->treeCtrl->GetSelection());
+			if (!data) return;
+			this->overwriteItem(data->id, true); // true == use filters
+			return;
+		}
+
+		/// Event handler for overwriting an item without filtering.
+		void onOverwriteUnfilteredItem(wxCommandEvent& ev)
+		{
+			TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(this->treeCtrl->GetSelection());
+			if (!data) return;
+			this->overwriteItem(data->id, false); // false == don't use filters
+			return;
+		}
+
+		void extractItem(const wxString& id, bool useFilters)
+		{
+			if (!this->project) return; // just in case
+
+			// Make sure the ID is valid
+			GameObjectMap::iterator io = this->game->objects.find(id);
+			if (io == this->game->objects.end()) {
+				throw EFailure(wxString::Format(_T("Cannot open this item.  It refers "
+					"to an entry in the game description XML file with an ID of \"%s\", "
+					"but there is no item with this ID."),
+					id.c_str()));
+			}
+			GameObjectPtr& o = io->second;
+
+			wxString path = wxFileSelector(_T("Save file"),
+				::path.lastUsed, o->filename, wxEmptyString,
+#ifdef __WXMSW__
+				_T("All files (*.*)|*.*"),
+#else
+				_T("All files (*)|*"),
+#endif
+				wxFD_SAVE | wxFD_OVERWRITE_PROMPT, this);
+			if (!path.empty()) {
+				try {
+					stream::inout_sptr extract = this->openFile(o, useFilters);
+					assert(extract); // should have thrown an exception on error
+
+					stream::output_file_sptr out(new stream::output_file());
+					out->create(path.fn_str());
+
+					stream::copy(out, extract);
+					out->flush();
+
+				} catch (const stream::open_error& e) {
+					wxMessageDialog dlg(this,
+						wxString::Format(_T("Unable to create file!\n\n[%s]"),
+							wxString(e.what(), wxConvUTF8).c_str()),
+						_T("Extract item"), wxOK | wxICON_ERROR);
+					dlg.ShowModal();
+					return;
+
+				} catch (const std::exception& e) {
+					wxMessageDialog dlg(this,
+						wxString::Format(_T("Unexpected error while replacing the item!\n\n[%s]"),
+							wxString(e.what(), wxConvUTF8).c_str()),
+						_T("Extract item"), wxOK | wxICON_ERROR);
+					dlg.ShowModal();
+					return;
+				}
+			}
+			return;
+		}
+
+		void overwriteItem(const wxString& id, bool useFilters)
+		{
+			if (!this->project) return; // just in case
+
+			// Make sure the ID is valid
+			GameObjectMap::iterator io = this->game->objects.find(id);
+			if (io == this->game->objects.end()) {
+				throw EFailure(wxString::Format(_T("Cannot open this item.  It refers "
+					"to an entry in the game description XML file with an ID of \"%s\", "
+					"but there is no item with this ID."),
+					id.c_str()));
+			}
+			GameObjectPtr& o = io->second;
+
+			wxString path = wxFileSelector(_T("Open file"),
+				::path.lastUsed, o->filename, wxEmptyString,
+#ifdef __WXMSW__
+				_T("All files (*.*)|*.*"),
+#else
+				_T("All files (*)|*"),
+#endif
+				wxFD_OPEN | wxFD_FILE_MUST_EXIST, this);
+			if (!path.empty()) {
+				try {
+					stream::inout_sptr dest = this->openFile(o, useFilters);
+					assert(dest); // should have thrown an exception on error
+
+					stream::input_file_sptr in(new stream::input_file());
+					in->open(path.fn_str());
+
+					stream::copy(dest, in);
+					dest->flush();
+
+				} catch (const stream::open_error& e) {
+					wxMessageDialog dlg(this,
+						wxString::Format(_T("Unable to open source file!\n\n[%s]"),
+							wxString(e.what(), wxConvUTF8).c_str()),
+						_T("Overwrite item"), wxOK | wxICON_ERROR);
+					dlg.ShowModal();
+					return;
+
+				} catch (const std::exception& e) {
+					wxMessageDialog dlg(this,
+						wxString::Format(_T("Unexpected error while replacing the item!\n\n[%s]"),
+							wxString(e.what(), wxConvUTF8).c_str()),
+						_T("Overwrite item"), wxOK | wxICON_ERROR);
+					dlg.ShowModal();
+					return;
+				}
+			}
+			return;
+		}
+
 		/// Event handler for main window closing.
 		void onClose(wxCloseEvent& ev)
 		{
@@ -413,6 +563,7 @@ class CamotoFrame: public IMainWindow
 			return;
 		}
 
+		/// Open an object by ID, complete with supp items.
 		void openObject(const wxString& id, camoto::stream::inout_sptr *stream,
 			SuppMap *supp)
 			throw (EFailure)
@@ -427,11 +578,34 @@ class CamotoFrame: public IMainWindow
 			}
 			GameObjectPtr& o = io->second;
 
+			*stream = this->openFile(o, true); // true == apply filters
+			assert(*stream); // should have thrown an exception on error
+
+			// Load any supplementary files
+			for (std::map<wxString, wxString>::iterator i = o->supp.begin(); i != o->supp.end(); i++) {
+				OpenedSuppItem& si = (*supp)[i->first];
+				this->openObject(i->second, &si.stream, supp);
+
+				// Have to put this after openObject() otherwise if i->second is an
+				// invalid ID an empty entry will be created, making it look like a
+				// valid ID when openObject() checks it.
+				si.typeMinor = this->game->objects[i->second]->typeMinor;
+			}
+
+			return;
+		}
+
+		/// Open an file by object, without suppitems.
+		stream::inout_sptr openFile(const GameObjectPtr& o, bool useFilters)
+			throw (EFailure)
+		{
+			stream::inout_sptr s;
+
 			// Open the file containing the item's data
 			if (!o->idParent.empty()) {
 				// This file is contained within an archive
 				try {
-					*stream = this->openFileFromArchive(o->idParent, o->filename);
+					s = this->openFileFromArchive(o->idParent, o->filename, useFilters);
 				} catch (const camoto::stream::error& e) {
 					throw EFailure(wxString::Format(_T("Could not open this item:\n\n%s"),
 							wxString(e.what(), wxConvUTF8).c_str()));
@@ -457,26 +631,13 @@ class CamotoFrame: public IMainWindow
 				stream::file_sptr pf(new stream::file());
 				try {
 					pf->open(fn.GetFullPath().fn_str());
-					*stream = pf;
+					s = pf;
 				} catch (camoto::stream::open_error& e) {
 					throw EFailure(wxString::Format(_T("Unable to open %s\n\nReason: %s"),
 						fn.GetFullPath().c_str(), wxString(e.what(), wxConvUTF8).c_str()));
 				}
 			}
-
-			// Load any supplementary files
-			for (std::map<wxString, wxString>::iterator i = o->supp.begin(); i != o->supp.end(); i++) {
-				OpenedSuppItem& si = (*supp)[i->first];
-				this->openObject(i->second, &si.stream, supp);
-
-				// Have to put this after openObject() otherwise if i->second is an
-				// invalid ID an empty entry will be created, making it look like a
-				// valid ID when openObject() checks it.
-				si.typeMinor = this->game->objects[i->second]->typeMinor;
-			}
-
-			assert(*stream); // should have thrown an exception on error
-			return;
+			return s;
 		}
 
 		/// Event handler for moving between open documents.
@@ -511,6 +672,42 @@ class CamotoFrame: public IMainWindow
 					event.Veto();
 				}
 			} // else doc hasn't been modified
+			return;
+		}
+
+		void onItemRightClick(wxTreeEvent& ev)
+		{
+			// Find the item that was opened
+			TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(ev.GetItem());
+			if (!data) return;
+
+			// Make sure the ID is valid
+			GameObjectMap::iterator io = this->game->objects.find(data->id);
+			if (io == this->game->objects.end()) {
+				return;
+			}
+			GameObjectPtr& o = io->second;
+
+			bool hasFilters = false;
+			try {
+				if (!o->idParent.empty()) {
+					// This file is contained within an archive
+					ga::ArchivePtr arch = this->getArchive(o->idParent);
+					if (arch) {
+						std::string nativeFilename(o->filename.fn_str());
+						ga::Archive::EntryPtr f = ga::findFile(arch, nativeFilename);
+						if (f) {
+							// Found file
+							hasFilters = !f->filter.empty();
+						}
+					}
+				}
+			} catch (...) {
+				// just ignore any errors
+			}
+			this->popup->Enable(IDM_EXTRACT_RAW, hasFilters);
+			this->popup->Enable(IDM_OVERWRITE_RAW, hasFilters);
+			this->PopupMenu(this->popup);
 			return;
 		}
 
@@ -883,8 +1080,18 @@ class CamotoFrame: public IMainWindow
 			return;
 		}
 
-		camoto::stream::inout_sptr openFileFromArchive(const wxString& idArchive,
-			const wxString& filename)
+		/// Get an Archive instance for the given ID.
+		/**
+		 * This function will return the existing instance if the archive has
+		 * already been opened, otherwise it will open it and return the new
+		 * instance, caching it for future use.
+		 *
+		 * @param idArchive
+		 *   ID of the archive to open.
+		 *
+		 * @return A shared pointer to the archive instance.
+		 */
+		ga::ArchivePtr getArchive(const wxString& idArchive)
 			throw (EFailure)
 		{
 			// See if idArchive is open
@@ -944,6 +1151,15 @@ class CamotoFrame: public IMainWindow
 				arch = itArch->second;
 			}
 
+			return arch;
+		}
+
+		camoto::stream::inout_sptr openFileFromArchive(const wxString& idArchive,
+			const wxString& filename, bool useFilters)
+			throw (EFailure)
+		{
+			ga::ArchivePtr arch = this->getArchive(idArchive);
+
 			// Now we have the archive containing our file, so find and open it
 			std::string nativeFilename(filename.fn_str());
 			ga::Archive::EntryPtr f = ga::findFile(arch, nativeFilename);
@@ -958,7 +1174,7 @@ class CamotoFrame: public IMainWindow
 			assert(file);
 
 			// If it has any filters, apply them
-			if (!f->filter.empty()) {
+			if (useFilters && (!f->filter.empty())) {
 				// The file needs to be filtered first
 				ga::FilterTypePtr pFilterType(this->archManager->getFilterTypeByCode(f->filter));
 				if (!pFilterType) {
@@ -989,6 +1205,7 @@ class CamotoFrame: public IMainWindow
 		wxAuiNotebook *notebook;
 		wxTreeCtrl *treeCtrl;
 		wxImageList *treeImages;
+		wxMenu *popup;     ///< Popup menu when right-clicking in tree view
 
 		wxString defaultPerspective;
 		wxString txtMessage; ///< Last hint set for status bar
@@ -1018,6 +1235,10 @@ class CamotoFrame: public IMainWindow
 			IDC_RESET = wxID_HIGHEST + 1,
 			IDC_NOTEBOOK,
 			IDC_TREE,
+			IDM_EXTRACT,
+			IDM_EXTRACT_RAW,
+			IDM_OVERWRITE,
+			IDM_OVERWRITE_RAW,
 		};
 
 		DECLARE_EVENT_TABLE();
@@ -1032,7 +1253,12 @@ BEGIN_EVENT_TABLE(CamotoFrame, wxFrame)
 	EVT_MENU(wxID_SETUP, CamotoFrame::onSetPrefs)
 	EVT_MENU(wxID_ABOUT, CamotoFrame::onHelpAbout)
 	EVT_MENU(wxID_EXIT, CamotoFrame::onExit)
+	EVT_MENU(IDM_EXTRACT, CamotoFrame::onExtractItem)
+	EVT_MENU(IDM_EXTRACT_RAW, CamotoFrame::onExtractUnfilteredItem)
+	EVT_MENU(IDM_OVERWRITE, CamotoFrame::onOverwriteItem)
+	EVT_MENU(IDM_OVERWRITE_RAW, CamotoFrame::onOverwriteUnfilteredItem)
 	EVT_TREE_ITEM_ACTIVATED(IDC_TREE, CamotoFrame::onItemOpened)
+	EVT_TREE_ITEM_MENU(IDC_TREE, CamotoFrame::onItemRightClick)
 	EVT_CLOSE(CamotoFrame::onClose)
 
 	EVT_AUINOTEBOOK_PAGE_CHANGED(IDC_NOTEBOOK, CamotoFrame::onDocTabChanged)

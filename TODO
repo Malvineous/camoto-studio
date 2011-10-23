@@ -1,0 +1,6 @@
+Outstanding tasks
+~~~~~~~~~~~~~~~~~
+ - Right-clicking to replace a file in raw format will not update the
+   prefiltered (decompressed) file size.  This should either be obtained
+   from the user or the new data run through the filter to obtain the
+   correct size.
