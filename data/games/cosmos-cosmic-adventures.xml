@@ -111,10 +111,10 @@
 			<file id="gfx-masked1" name="masktile.mni" typeMajor="tileset" typeMinor="cosmo-masked">Masked tileset</file>
 			<file id="gfx-actors1" name="actors.mni"   typeMajor="tileset" typeMinor="cosmo-masked">Raw actor tiles</file>
 
-			<file id="img-pretitle" name="pretitle.mni" typeMajor="image" typeMinor="ega-raw">Pre-title</file>
-			<file id="img-bonus"    name="bonus.mni"    typeMajor="image" typeMinor="ega-raw">Bonus</file>
-			<file id="img-credit"   name="credit.mni"   typeMajor="image" typeMinor="ega-raw">Credits</file>
-			<file id="img-onemomnt" name="onemomnt.mni" typeMajor="image" typeMinor="ega-raw">One moment</file>
+			<file id="img-pretitle" name="pretitle.mni" typeMajor="image" typeMinor="ega-raw-planar-fullscreen">Pre-title</file>
+			<file id="img-bonus"    name="bonus.mni"    typeMajor="image" typeMinor="ega-raw-planar-fullscreen">Bonus</file>
+			<file id="img-credit"   name="credit.mni"   typeMajor="image" typeMinor="ega-raw-planar-fullscreen">Credits</file>
+			<file id="img-onemomnt" name="onemomnt.mni" typeMajor="image" typeMinor="ega-raw-planar-fullscreen">One moment</file>
 
 			<file id="gfx-bdstar2"  name="bdstar2.mni"  typeMajor="tileset" typeMinor="cosmo">Star 2</file>
 			<file id="gfx-bdstar3"  name="bdstar3.mni"  typeMajor="tileset" typeMinor="cosmo">Star 3</file>
