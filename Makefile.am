@@ -17,6 +17,7 @@ pkgdata_DATA += data/games/dangerous-dave.xml     data/games/screenshots/dangero
 pkgdata_DATA += data/games/halloween-harry.xml    data/games/screenshots/halloween-harry.png    data/games/icons/halloween-harry.png
 pkgdata_DATA += data/games/hocus-pocus.xml        data/games/screenshots/hocus-pocus.png        data/games/icons/hocus-pocus.png
 pkgdata_DATA += data/games/monster-bash.xml       data/games/screenshots/monster-bash.png       data/games/icons/monster-bash.png
+pkgdata_DATA += data/games/secret-agent.xml       data/games/screenshots/secret-agent.png       data/games/icons/secret-agent.png
 pkgdata_DATA += data/games/wacky-wheels.xml       data/games/screenshots/wacky-wheels.png       data/games/icons/wacky-wheels.png
 pkgdata_DATA += data/games/word-rescue.xml        data/games/screenshots/word-rescue.png        data/games/icons/word-rescue.png
 pkgdata_DATA += data/games/xargon.xml             data/games/screenshots/xargon.png             data/games/icons/xargon.png
