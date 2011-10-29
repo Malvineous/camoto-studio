@@ -110,50 +110,50 @@
 			<file id="lev-101-fg1" name="@456" typeMajor="map" typeMinor="hocus-fg">E1L1 FG layer 1</file>
 			<file id="lev-101-fg2" name="@457" typeMajor="map" typeMinor="hocus-fg">E1L1 FG layer 2</file>
 
-			<file id="img-i1" name="@1" typeMajor="image" typeMinor="pcx">Apogee logo</file>
-			<file id="img-i3" name="@2" typeMajor="image" typeMinor="pcx">Title</file>
+			<file id="img-i1" name="@1" typeMajor="image" typeMinor="pcx-8b1p">Apogee logo</file>
+			<file id="img-i3" name="@2" typeMajor="image" typeMinor="pcx-8b1p">Title</file>
 
-			<file id="img-i4" name="@4" typeMajor="image" typeMinor="pcx">img04</file>
+			<file id="img-i4" name="@4" typeMajor="image" typeMinor="pcx-8b1p">img04</file>
 
-			<file id="img-i2" name="@17" typeMajor="image" typeMinor="pcx">Piracy warning</file>
+			<file id="img-i2" name="@17" typeMajor="image" typeMinor="pcx-8b1p">Piracy warning</file>
 
-			<file id="img-c1" name="@23" typeMajor="image" typeMinor="pcx">Credits 1</file>
-			<file id="img-c2" name="@24" typeMajor="image" typeMinor="pcx">Credits 2</file>
-			<file id="img-h1" name="@25" typeMajor="image" typeMinor="pcx">Help 1</file>
-			<file id="img-h2" name="@26" typeMajor="image" typeMinor="pcx">Help 2</file>
-			<file id="img-h3" name="@27" typeMajor="image" typeMinor="pcx">Help 3</file>
-			<file id="img-h4" name="@28" typeMajor="image" typeMinor="pcx">Help 4</file>
-			<file id="img-h5" name="@29" typeMajor="image" typeMinor="pcx">Help 5</file>
-			<file id="img-p1" name="@30" typeMajor="image" typeMinor="pcx">Preview 1</file>
-			<file id="img-p2" name="@31" typeMajor="image" typeMinor="pcx">Preview 2</file>
-			<file id="img-p3" name="@32" typeMajor="image" typeMinor="pcx">Preview 3</file>
-			<file id="img-p4" name="@33" typeMajor="image" typeMinor="pcx">Preview 4</file>
-			<file id="img-p5" name="@34" typeMajor="image" typeMinor="pcx">Preview 5</file>
-			<file id="img-p6" name="@35" typeMajor="image" typeMinor="pcx">Preview 6</file>
-			<file id="img-p7" name="@36" typeMajor="image" typeMinor="pcx">Preview 7</file>
-			<file id="img-p8" name="@37" typeMajor="image" typeMinor="pcx">Preview 8</file>
-			<file id="img-p9" name="@38" typeMajor="image" typeMinor="pcx">Preview 9</file>
-			<file id="img-pa" name="@39" typeMajor="image" typeMinor="pcx">Preview 10</file>
-			<file id="img-pb" name="@40" typeMajor="image" typeMinor="pcx">Preview 11</file>
+			<file id="img-c1" name="@23" typeMajor="image" typeMinor="pcx-8b1p">Credits 1</file>
+			<file id="img-c2" name="@24" typeMajor="image" typeMinor="pcx-8b1p">Credits 2</file>
+			<file id="img-h1" name="@25" typeMajor="image" typeMinor="pcx-8b1p">Help 1</file>
+			<file id="img-h2" name="@26" typeMajor="image" typeMinor="pcx-8b1p">Help 2</file>
+			<file id="img-h3" name="@27" typeMajor="image" typeMinor="pcx-8b1p">Help 3</file>
+			<file id="img-h4" name="@28" typeMajor="image" typeMinor="pcx-8b1p">Help 4</file>
+			<file id="img-h5" name="@29" typeMajor="image" typeMinor="pcx-8b1p">Help 5</file>
+			<file id="img-p1" name="@30" typeMajor="image" typeMinor="pcx-8b1p">Preview 1</file>
+			<file id="img-p2" name="@31" typeMajor="image" typeMinor="pcx-8b1p">Preview 2</file>
+			<file id="img-p3" name="@32" typeMajor="image" typeMinor="pcx-8b1p">Preview 3</file>
+			<file id="img-p4" name="@33" typeMajor="image" typeMinor="pcx-8b1p">Preview 4</file>
+			<file id="img-p5" name="@34" typeMajor="image" typeMinor="pcx-8b1p">Preview 5</file>
+			<file id="img-p6" name="@35" typeMajor="image" typeMinor="pcx-8b1p">Preview 6</file>
+			<file id="img-p7" name="@36" typeMajor="image" typeMinor="pcx-8b1p">Preview 7</file>
+			<file id="img-p8" name="@37" typeMajor="image" typeMinor="pcx-8b1p">Preview 8</file>
+			<file id="img-p9" name="@38" typeMajor="image" typeMinor="pcx-8b1p">Preview 9</file>
+			<file id="img-pa" name="@39" typeMajor="image" typeMinor="pcx-8b1p">Preview 10</file>
+			<file id="img-pb" name="@40" typeMajor="image" typeMinor="pcx-8b1p">Preview 11</file>
 
-			<file id="img-72" name="@72" typeMajor="image" typeMinor="pcx">Ending</file>
+			<file id="img-72" name="@72" typeMajor="image" typeMinor="pcx-8b1p">Ending</file>
 
-			<file id="img-bd01" name="@89"  typeMajor="image" typeMinor="pcx">Backdrop 1</file>
-			<file id="img-bd02" name="@90"  typeMajor="image" typeMinor="pcx">Backdrop 2</file>
-			<file id="img-bd03" name="@91"  typeMajor="image" typeMinor="pcx">Backdrop 3</file>
-			<file id="img-bd04" name="@92"  typeMajor="image" typeMinor="pcx">Backdrop 4</file>
-			<file id="img-bd05" name="@93"  typeMajor="image" typeMinor="pcx">Backdrop 5</file>
-			<file id="img-bd06" name="@94"  typeMajor="image" typeMinor="pcx">Backdrop 6</file>
-			<file id="img-bd07" name="@95"  typeMajor="image" typeMinor="pcx">Backdrop 7</file>
-			<file id="img-bd08" name="@96"  typeMajor="image" typeMinor="pcx">Backdrop 8</file>
-			<file id="img-bd09" name="@97"  typeMajor="image" typeMinor="pcx">Backdrop 9</file>
-			<file id="img-bd10" name="@98"  typeMajor="image" typeMinor="pcx">Backdrop 10</file>
-			<file id="img-bd11" name="@99"  typeMajor="image" typeMinor="pcx">Backdrop 11</file>
-			<file id="img-bd12" name="@100" typeMajor="image" typeMinor="pcx">Backdrop 12</file>
-			<file id="img-bd13" name="@101" typeMajor="image" typeMinor="pcx">Backdrop 13</file>
-			<file id="img-bd14" name="@102" typeMajor="image" typeMinor="pcx">Backdrop 14</file>
-			<file id="img-bd15" name="@103" typeMajor="image" typeMinor="pcx">Backdrop 15</file>
-			<file id="img-bd16" name="@104" typeMajor="image" typeMinor="pcx">Backdrop 16</file>
+			<file id="img-bd01" name="@89"  typeMajor="image" typeMinor="pcx-8b1p">Backdrop 1</file>
+			<file id="img-bd02" name="@90"  typeMajor="image" typeMinor="pcx-8b1p">Backdrop 2</file>
+			<file id="img-bd03" name="@91"  typeMajor="image" typeMinor="pcx-8b1p">Backdrop 3</file>
+			<file id="img-bd04" name="@92"  typeMajor="image" typeMinor="pcx-8b1p">Backdrop 4</file>
+			<file id="img-bd05" name="@93"  typeMajor="image" typeMinor="pcx-8b1p">Backdrop 5</file>
+			<file id="img-bd06" name="@94"  typeMajor="image" typeMinor="pcx-8b1p">Backdrop 6</file>
+			<file id="img-bd07" name="@95"  typeMajor="image" typeMinor="pcx-8b1p">Backdrop 7</file>
+			<file id="img-bd08" name="@96"  typeMajor="image" typeMinor="pcx-8b1p">Backdrop 8</file>
+			<file id="img-bd09" name="@97"  typeMajor="image" typeMinor="pcx-8b1p">Backdrop 9</file>
+			<file id="img-bd10" name="@98"  typeMajor="image" typeMinor="pcx-8b1p">Backdrop 10</file>
+			<file id="img-bd11" name="@99"  typeMajor="image" typeMinor="pcx-8b1p">Backdrop 11</file>
+			<file id="img-bd12" name="@100" typeMajor="image" typeMinor="pcx-8b1p">Backdrop 12</file>
+			<file id="img-bd13" name="@101" typeMajor="image" typeMinor="pcx-8b1p">Backdrop 13</file>
+			<file id="img-bd14" name="@102" typeMajor="image" typeMinor="pcx-8b1p">Backdrop 14</file>
+			<file id="img-bd15" name="@103" typeMajor="image" typeMinor="pcx-8b1p">Backdrop 15</file>
+			<file id="img-bd16" name="@104" typeMajor="image" typeMinor="pcx-8b1p">Backdrop 16</file>
 			<file id="tls-01" name="@105" typeMajor="tileset" typeMinor="hocus">Tileset 1</file>
 			<file id="tls-02" name="@106" typeMajor="tileset" typeMinor="hocus">Tileset 2</file>
 			<file id="tls-03" name="@107" typeMajor="tileset" typeMinor="hocus">Tileset 3</file>
@@ -171,7 +171,7 @@
 			<file id="tls-15" name="@119" typeMajor="tileset" typeMinor="hocus">Tileset 15</file>
 			<file id="tls-16" name="@120" typeMajor="tileset" typeMinor="hocus">Tileset 16</file>
 
-			<file id="img-122" name="@122" typeMajor="image" typeMinor="pcx">Ending?</file>
+			<file id="img-122" name="@122" typeMajor="image" typeMinor="pcx-8b1p">Ending?</file>
 
 		</archive>
 	</files>

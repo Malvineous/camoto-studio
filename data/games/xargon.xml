@@ -109,8 +109,8 @@
 		<!-- All episodes -->
 		<file id="mus-demo" name="song_d.xr0" typeMajor="music" typeMinor="cmf-creativelabs">Demo song</file>
 
-		<file id="img-epsel" name="screen_1.xr0" typeMajor="image" typeMinor="pcx">Episode selection screen</file>
-		<file id="img-noep"  name="screen_2.xr0" typeMajor="image" typeMinor="pcx">Episode unavailable in shareware screen</file>
+		<file id="img-epsel" name="screen_1.xr0" typeMajor="image" typeMinor="pcx-8b1p">Episode selection screen</file>
+		<file id="img-noep"  name="screen_2.xr0" typeMajor="image" typeMinor="pcx-8b1p">Episode unavailable in shareware screen</file>
 		<file id="img-exit"  name="screen_3.xr0" typeMajor="b800"  typeMinor="80x25">Text mode ending screen</file>
 
 	</files>

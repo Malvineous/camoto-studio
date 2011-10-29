@@ -244,38 +244,38 @@
 			<file id="tls-3" name="mission3.chr" typeMajor="tileset" typeMinor="harry" supp:pal="pal-301">Mission 3 tileset</file>
 			<file id="tls-4" name="mission4.chr" typeMajor="tileset" typeMinor="harry" supp:pal="pal-401">Mission 4 tileset</file>
 
-			<file id="img-missions" name="missions.pcx" typeMajor="image" typeMinor="pcx">Mission selection</file>
-			<file id="img-mission1" name="mission1.pcx" typeMajor="image" typeMinor="pcx">Mission 1 loading</file>
-			<file id="img-mission2" name="mission2.pcx" typeMajor="image" typeMinor="pcx">Mission 2 loading</file>
-			<file id="img-mission3" name="mission3.pcx" typeMajor="image" typeMinor="pcx">Mission 3 loading</file>
-			<file id="img-mission4" name="mission3.pcx" typeMajor="image" typeMinor="pcx">Mission 4 loading</file>
+			<file id="img-missions" name="missions.pcx" typeMajor="image" typeMinor="pcx-8b1p">Mission selection</file>
+			<file id="img-mission1" name="mission1.pcx" typeMajor="image" typeMinor="pcx-8b1p">Mission 1 loading</file>
+			<file id="img-mission2" name="mission2.pcx" typeMajor="image" typeMinor="pcx-8b1p">Mission 2 loading</file>
+			<file id="img-mission3" name="mission3.pcx" typeMajor="image" typeMinor="pcx-8b1p">Mission 3 loading</file>
+			<file id="img-mission4" name="mission3.pcx" typeMajor="image" typeMinor="pcx-8b1p">Mission 4 loading</file>
 
-			<file id="img-apogee"   name="apogee.pcx"   typeMajor="image" typeMinor="pcx">Apogee</file>
-			<file id="img-config2"  name="config2.pcx"  typeMajor="image" typeMinor="pcx">Config</file>
-			<file id="img-cont3"    name="cont3.pcx"    typeMajor="image" typeMinor="pcx">Continue</file>
-			<file id="img-credscr"  name="credscr.pcx"  typeMajor="image" typeMinor="pcx">Credits</file>
-			<file id="img-diane1"   name="diane1.pcx"   typeMajor="image" typeMinor="pcx">Diane</file>
-			<file id="img-dl"       name="dl.pcx"       typeMajor="image" typeMinor="pcx">Dl</file>
-			<file id="img-elevator" name="elevator.pcx" typeMajor="image" typeMinor="pcx">Elevator</file>
-			<file id="img-gover"    name="gover.pcx"    typeMajor="image" typeMinor="pcx">Gover</file>
-			<file id="img-harry1"   name="harry1.pcx"   typeMajor="image" typeMinor="pcx">Harry</file>
-			<file id="img-helpscr"  name="helpscr.pcx"  typeMajor="image" typeMinor="pcx">Help</file>
-			<file id="img-hhp4"     name="hhp4.pcx"     typeMajor="image" typeMinor="pcx">P4</file>
-			<file id="img-hhprev4"  name="hhprev4.pcx"  typeMajor="image" typeMinor="pcx">Preview4</file>
-			<file id="img-ibi"      name="ibi.pcx"      typeMajor="image" typeMinor="pcx">Ibi</file>
-			<file id="img-infocom"  name="infocom.pcx"  typeMajor="image" typeMinor="pcx">Infocom</file>
-			<file id="img-m1droid"  name="m1droid.pcx"  typeMajor="image" typeMinor="pcx">M1 Droid</file>
-			<file id="img-missc"    name="miss-c.pcx"   typeMajor="image" typeMinor="pcx">Miss-c</file>
-			<file id="img-piracy"   name="piracy.pcx"   typeMajor="image" typeMinor="pcx">Piracy</file>
-			<file id="img-pre2"     name="pre2.pcx"     typeMajor="image" typeMinor="pcx">Pre2</file>
-			<file id="img-resume1"  name="resume1.pcx"  typeMajor="image" typeMinor="pcx">Resume</file>
-			<file id="img-save1"    name="save1.pcx"    typeMajor="image" typeMinor="pcx">Save game</file>
-			<file id="img-starbase" name="starbase.pcx" typeMajor="image" typeMinor="pcx">Starbase</file>
-			<file id="img-stars"    name="stars.pcx"    typeMajor="image" typeMinor="pcx">Stars</file>
-			<file id="img-studio9"  name="studio9.pcx"  typeMajor="image" typeMinor="pcx">Music Studio</file>
-			<file id="img-sub0"     name="sub-0.pcx"    typeMajor="image" typeMinor="pcx">SubZero</file>
-			<file id="img-tease2"   name="tease2.pcx"   typeMajor="image" typeMinor="pcx">Tease</file>
-			<file id="img-terminal" name="terminal.pcx" typeMajor="image" typeMinor="pcx">Terminal</file>
+			<file id="img-apogee"   name="apogee.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Apogee</file>
+			<file id="img-config2"  name="config2.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Config</file>
+			<file id="img-cont3"    name="cont3.pcx"    typeMajor="image" typeMinor="pcx-8b1p">Continue</file>
+			<file id="img-credscr"  name="credscr.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Credits</file>
+			<file id="img-diane1"   name="diane1.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Diane</file>
+			<file id="img-dl"       name="dl.pcx"       typeMajor="image" typeMinor="pcx-8b1p">Dl</file>
+			<file id="img-elevator" name="elevator.pcx" typeMajor="image" typeMinor="pcx-8b1p">Elevator</file>
+			<file id="img-gover"    name="gover.pcx"    typeMajor="image" typeMinor="pcx-8b1p">Gover</file>
+			<file id="img-harry1"   name="harry1.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Harry</file>
+			<file id="img-helpscr"  name="helpscr.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Help</file>
+			<file id="img-hhp4"     name="hhp4.pcx"     typeMajor="image" typeMinor="pcx-8b1p">P4</file>
+			<file id="img-hhprev4"  name="hhprev4.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Preview4</file>
+			<file id="img-ibi"      name="ibi.pcx"      typeMajor="image" typeMinor="pcx-8b1p">Ibi</file>
+			<file id="img-infocom"  name="infocom.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Infocom</file>
+			<file id="img-m1droid"  name="m1droid.pcx"  typeMajor="image" typeMinor="pcx-8b1p">M1 Droid</file>
+			<file id="img-missc"    name="miss-c.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Miss-c</file>
+			<file id="img-piracy"   name="piracy.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Piracy</file>
+			<file id="img-pre2"     name="pre2.pcx"     typeMajor="image" typeMinor="pcx-8b1p">Pre2</file>
+			<file id="img-resume1"  name="resume1.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Resume</file>
+			<file id="img-save1"    name="save1.pcx"    typeMajor="image" typeMinor="pcx-8b1p">Save game</file>
+			<file id="img-starbase" name="starbase.pcx" typeMajor="image" typeMinor="pcx-8b1p">Starbase</file>
+			<file id="img-stars"    name="stars.pcx"    typeMajor="image" typeMinor="pcx-8b1p">Stars</file>
+			<file id="img-studio9"  name="studio9.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Music Studio</file>
+			<file id="img-sub0"     name="sub-0.pcx"    typeMajor="image" typeMinor="pcx-8b1p">SubZero</file>
+			<file id="img-tease2"   name="tease2.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Tease</file>
+			<file id="img-terminal" name="terminal.pcx" typeMajor="image" typeMinor="pcx-8b1p">Terminal</file>
 
 			<file id="mus-apogee"   name="apogee.4md"   typeMajor="music" typeMinor="4md">Apogee</file>
 			<file id="mus-clear"    name="clear.4md"    typeMajor="music" typeMinor="4md">Clear</file>
@@ -302,15 +302,15 @@
 		<archive name="intro.bnk" id="arch-intro-bnk" typeMinor="bnk-harry" supp:fat="fat-intro">
 			<file id="unk-jft-i"    name="harry1.jft"   typeMajor=""      typeMinor="">JFT (intro)</file>
 			<file id="fnt-d-i"      name="font-d.fnt"   typeMajor="font"  typeMinor="harry">Font (intro)</file>
-			<file id="img-guiger-i" name="guiger1.pcx"  typeMajor="image" typeMinor="pcx">Guiger (intro)</file>
-			<file id="img-harry1-i" name="harry1.pcx"   typeMajor="image" typeMinor="pcx">Harry (intro)</file>
+			<file id="img-guiger-i" name="guiger1.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Guiger (intro)</file>
+			<file id="img-harry1-i" name="harry1.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Harry (intro)</file>
 			<file id="tls-faces-i"  name="faces.ico"    typeMajor=""      typeMinor="">Faces (intro)</file>
-			<file id="img-diane1-i" name="diane1.pcx"   typeMajor="image" typeMinor="pcx">Diane (intro)</file>
-			<file id="img-king1-i"  name="king1.pcx"    typeMajor="image" typeMinor="pcx">King (intro)</file>
+			<file id="img-diane1-i" name="diane1.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Diane (intro)</file>
+			<file id="img-king1-i"  name="king1.pcx"    typeMajor="image" typeMinor="pcx-8b1p">King (intro)</file>
 			<file id="ani-ship-i"   name="ship.rob"     typeMajor=""      typeMinor="">Ship animation (intro)</file>
-			<file id="img-zhunt1-i" name="zhunt1.pcx"   typeMajor="image" typeMinor="pcx">ZHunt (intro)</file>
+			<file id="img-zhunt1-i" name="zhunt1.pcx"   typeMajor="image" typeMinor="pcx-8b1p">ZHunt (intro)</file>
 			<file id="ani-zap-i"    name="zap.rob"      typeMajor=""      typeMinor="">Zap animation (intro)</file>
-			<file id="img-starb-i"  name="starbase.pcx" typeMajor="image" typeMinor="pcx">Starbase (intro)</file>
+			<file id="img-starb-i"  name="starbase.pcx" typeMajor="image" typeMinor="pcx-8b1p">Starbase (intro)</file>
 			<file id="unk-intro-i"  name="intro.dlg"    typeMajor=""      typeMinor="">Dialogue (intro)</file>
 			<file id="mus-seb3-i"   name="seb3.4md"     typeMajor="music" typeMinor="4md">Seb 3 (intro)</file>
 			<file id="mus-ins-i"    name="ins.4md"      typeMajor="music" typeMinor="4md">Ins (intro)</file>
@@ -343,7 +343,7 @@
 		</archive>
 
 		<archive name="order.bnk" id="arch-order-bnk" typeMinor="bnk-harry" supp:fat="fat-order">
-			<file id="img-intro-o"  name="intro.pcx"    typeMajor="image" typeMinor="pcx">Intro</file>
+			<file id="img-intro-o"  name="intro.pcx"    typeMajor="image" typeMinor="pcx-8b1p">Intro</file>
 			<file id="txt-swend"    name="shwrend.scr"  typeMajor="b800"  typeMinor="80b">Shareware exit screen</file>
 			<!-- TODO: Add rest of files -->
 		</archive>

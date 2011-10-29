@@ -76,10 +76,10 @@
 
 		<file id="tls-1" name="cc1.gfx" typeMajor="tileset" typeMinor="ccaves-main">EGA tiles</file>
 
-		<file id="img-apg1" name="cc1.apg" typeMajor="image" typeMinor="pcx">Apogee logo</file>
-		<file id="img-cdt1" name="cc1.cdt" typeMajor="image" typeMinor="pcx">Credits</file>
-		<file id="img-end1" name="cc1.end" typeMajor="image" typeMinor="pcx">Ending</file>
-		<file id="img-ttl1" name="cc1.ttl" typeMajor="image" typeMinor="pcx">Title</file>
+		<file id="img-apg1" name="cc1.apg" typeMajor="image" typeMinor="pcx-1b4p">Apogee logo</file>
+		<file id="img-cdt1" name="cc1.cdt" typeMajor="image" typeMinor="pcx-1b4p">Credits</file>
+		<file id="img-end1" name="cc1.end" typeMajor="image" typeMinor="pcx-1b4p">Ending</file>
+		<file id="img-ttl1" name="cc1.ttl" typeMajor="image" typeMinor="pcx-1b4p">Title</file>
 	</files>
 
 	<commands>
