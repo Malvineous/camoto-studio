@@ -281,7 +281,6 @@ void NewProjectDialog::onTreeSelChanged(wxTreeEvent& ev)
 		wxFileName fn(::path.gameScreenshots);
 		fn.SetName(data->id);
 		fn.SetExt(_T("png"));
-		int imgIndex = 1;
 		if (::wxFileExists(fn.GetFullPath())) {
 			wxImage *image = new wxImage(fn.GetFullPath(), wxBITMAP_TYPE_PNG);
 			wxBitmap bitmap(*image);

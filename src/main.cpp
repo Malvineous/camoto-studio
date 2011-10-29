@@ -846,7 +846,6 @@ class CamotoFrame: public IMainWindow
 							i->item.mb_str() << "\" to tree list, skipping\n";
 						continue;
 					}
-					GameObjectPtr &o = io->second;
 
 					wxTreeItemData *d = new TreeItemData(i->item);
 					wxTreeItemId newItem = this->treeCtrl->AppendItem(root,

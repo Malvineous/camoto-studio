@@ -30,7 +30,7 @@ void SynthMixer::AddSamples_m32(Bitu samples, Bit32s *buffer)
 {
 	// Convert samples from mono s32 to s16
 	int16_t *out = (int16_t *)this->buf;
-	for (int i = 0; i < samples; i++) {
+	for (unsigned int i = 0; i < samples; i++) {
 		int32_t a = 32768 + *out;
 		int32_t b = 32768 + buffer[i];
 		*out++ = -32768 + 2 * (a + b) - (a * b) / 32768 - 65536;
@@ -144,11 +144,11 @@ void Audio::releaseOPL(OPLPtr opl)
 	return;
 }
 
-void Audio::fillAudioBuffer(uint8_t *stream, int len)
+void Audio::fillAudioBuffer(uint8_t *stream, unsigned int len)
 {
 	boost::mutex::scoped_lock chips_lock(this->chips_mutex);
-	int bufvalid_bytes = min(len, sizeof(this->sound_buffer));
-	int bufvalid_samples = bufvalid_bytes / sizeof(int16_t);
+	unsigned int bufvalid_bytes = min(len, sizeof(this->sound_buffer));
+	unsigned int bufvalid_samples = bufvalid_bytes / sizeof(int16_t);
 
 	memset(this->sound_buffer, 0, bufvalid_bytes);
 

@@ -158,9 +158,6 @@ class TilesetCanvas: public wxGLCanvas
 		void redraw()
 			throw ()
 		{
-			assert(this->tilesX > 0);
-			assert(this->offset >= 0);
-
 			this->SetCurrent();
 			glClear(GL_COLOR_BUFFER_BIT);
 
@@ -169,8 +166,8 @@ class TilesetCanvas: public wxGLCanvas
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 
 			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
-			int x = 0, y = 0, nx = 0, maxHeight = 0;
-			for (int i = 0, tileIndex = this->offset; tileIndex < this->textureCount; i++, tileIndex++) {
+			unsigned int x = 0, y = 0, nx = 0, maxHeight = 0;
+			for (unsigned int i = 0, tileIndex = this->offset; tileIndex < this->textureCount; i++, tileIndex++) {
 				glBindTexture(GL_TEXTURE_2D, this->texture[tileIndex]);
 
 				ImagePtr image = this->tileset->openImage(tiles[tileIndex]);
@@ -218,7 +215,7 @@ class TilesetCanvas: public wxGLCanvas
 			return;
 		}
 
-		void setOffset(int o)
+		void setOffset(unsigned int o)
 			throw ()
 		{
 			if (o < this->textureCount) {
@@ -231,11 +228,11 @@ class TilesetCanvas: public wxGLCanvas
 	protected:
 		TilesetPtr tileset;
 
-		int textureCount;
+		unsigned int textureCount;
 		GLuint *texture;
 		int zoomFactor;             ///< Zoom level, 1 == 1:1, 2 == doublesize, etc.
-		int tilesX;                 ///< Number of tiles to draw before wrapping to the next row
-		int offset;                 ///< Number of tiles to skip drawing from the start of the tileset
+		unsigned int tilesX;        ///< Number of tiles to draw before wrapping to the next row
+		unsigned int offset;        ///< Number of tiles to skip drawing from the start of the tileset
 
 		DECLARE_EVENT_TABLE();
 
@@ -253,8 +250,8 @@ class TilesetDocument: public IDocument
 		TilesetDocument(IMainWindow *parent, TilesetEditor::Settings *settings, TilesetPtr tileset)
 			throw () :
 				IDocument(parent, _T("tileset")),
-				settings(settings),
 				tileset(tileset),
+				settings(settings),
 				offset(0)
 		{
 			int attribList[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 0, 0};
@@ -406,8 +403,8 @@ class TilesetDocument: public IDocument
 				if (this->tilesX > numTiles) this->tilesX = numTiles;
 
 				// Find the width and height of the output image
-				int x = 0, y = 0, nx = 0, maxHeight = 0, maxWidth = 0;
-				for (int i = 0, tileIndex = this->offset; tileIndex < numTiles; i++, tileIndex++) {
+				unsigned int x = 0, y = 0, nx = 0, maxHeight = 0, maxWidth = 0;
+				for (unsigned int i = 0, tileIndex = this->offset; tileIndex < numTiles; i++, tileIndex++) {
 					ImagePtr image = this->tileset->openImage(tiles[tileIndex]);
 					unsigned int width, height;
 					image->getDimensions(&width, &height);
@@ -463,7 +460,7 @@ class TilesetDocument: public IDocument
 				png.set_palette(pngPal);
 
 				x = 0; y = 0; nx = 0; maxHeight = 0;
-				for (int i = 0, tileIndex = this->offset; tileIndex < numTiles; i++, tileIndex++) {
+				for (unsigned int i = 0, tileIndex = this->offset; tileIndex < numTiles; i++, tileIndex++) {
 					if (tiles[tileIndex]->attr & Tileset::SubTileset) continue; // aah! tileset! bad!
 
 					ImagePtr image = tileset->openImage(tiles[tileIndex]);
@@ -473,8 +470,8 @@ class TilesetDocument: public IDocument
 					unsigned int width, height;
 					image->getDimensions(&width, &height);
 
-					for (int py = 0; py < height; py++) {
-						for (int px = 0; px < width; px++) {
+					for (unsigned int py = 0; py < height; py++) {
+						for (unsigned int px = 0; px < width; px++) {
 							if (useMask) {
 								if (mask[py*width+x] & 0x01) {
 									png[y+py][x+px] = png::index_pixel(0);
@@ -518,8 +515,8 @@ class TilesetDocument: public IDocument
 		TilesetPtr tileset;
 		TilesetEditor::Settings *settings;
 
-		int tilesX;                 ///< Number of tiles to draw before wrapping to the next row
-		int offset;                 ///< Number of tiles to skip drawing from the start of the tileset
+		unsigned int tilesX;        ///< Number of tiles to draw before wrapping to the next row
+		unsigned int offset;        ///< Number of tiles to skip drawing from the start of the tileset
 
 		friend class LayerPanel;
 

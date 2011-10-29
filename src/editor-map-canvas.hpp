@@ -55,16 +55,16 @@ class MapCanvas: public wxGLCanvas
 			const MapObject *obj;
 
 			/// Location of the object, in layer grid coordinates.
-			int x;
+			unsigned int x;
 
 			/// Location of the object, in layer grid coordinates.
-			int y;
+			unsigned int y;
 
 			/// Width of the object, in layer grid coordinates.
-			int width;
+			unsigned int width;
 
 			/// Height of the object, in layer grid coordinates.
-			int height;
+			unsigned int height;
 
 			/// True to use all 'left' tiles before any right.
 			/**
@@ -103,7 +103,7 @@ class MapCanvas: public wxGLCanvas
 			 * background tile.)  This way when the object is moved, it doesn't leave
 			 * behind a copy of itself.
 			 */
-			int *tiles;
+			unsigned int *tiles;
 		};
 
 		typedef std::vector<Object> ObjectVector;
@@ -152,7 +152,7 @@ class MapCanvas: public wxGLCanvas
 		void setObjMode()
 			throw ();
 
-		void setActiveLayer(int layer);
+		void setActiveLayer(unsigned int layer);
 		void onEraseBG(wxEraseEvent& ev);
 		void onPaint(wxPaintEvent& ev);
 		void onResize(wxSizeEvent& ev);
@@ -225,7 +225,7 @@ class MapCanvas: public wxGLCanvas
 		int zoomFactor;   ///< Zoom level (1 == 1:1, 2 == 2:1/doublesize, etc.)
 		bool gridVisible; ///< Draw a grid over the active layer?
 		enum {TileMode, ObjectMode} editingMode; ///< Current editing mode
-		int activeLayer;  ///< Index of layer currently selected in layer palette
+		unsigned int activeLayer;  ///< Index of layer currently selected in layer palette
 
 		int offX;         ///< Current X position (in pixels) to draw at (0,0)
 		int offY;         ///< Current Y position (in pixels) to draw at (0,0)
@@ -253,11 +253,11 @@ class MapCanvas: public wxGLCanvas
 
 		/// Details about the current selection in tile-mode.
 		struct {
-			int x;      ///< X-coordinate of original selection's top-right corner
-			int y;      ///< Y-coordinate of original selection's top-right corner
-			int width;  ///< Width of selection, in tiles
-			int height; ///< Height of selection, in tiles
-			int *tiles; ///< Array of tiles selected
+			unsigned int x;      ///< X-coordinate of original selection's top-right corner
+			unsigned int y;      ///< Y-coordinate of original selection's top-right corner
+			unsigned int width;  ///< Width of selection, in tiles
+			unsigned int height; ///< Height of selection, in tiles
+			unsigned int *tiles; ///< Array of tiles selected
 		} selection;
 
 		/// Details about the current selection when editing paths.

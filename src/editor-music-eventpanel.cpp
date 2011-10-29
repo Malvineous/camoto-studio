@@ -48,7 +48,7 @@ void EventPanel::onPaint(wxPaintEvent& pev)
 	wxSize s = this->GetClientSize();
 	this->pdc->SetFont(this->doc->font);
 	int height = s.GetHeight();
-	int rowTime = this->doc->absTimeStart;
+	unsigned int rowTime = this->doc->absTimeStart;
 	EventVector::iterator ev = this->doc->events.begin();
 
 	for (this->paintY = 0; this->paintY < height; this->paintY += this->doc->fontHeight) {

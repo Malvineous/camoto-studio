@@ -59,24 +59,24 @@ using namespace camoto::gamegraphics;
 		py + PATH_ARROWHEAD_SIZE / this->zoomFactor \
 	)
 
-int matchTileRun(int *tile, const MapObject::TileRun *run)
+int matchTileRun(unsigned int *tile, const MapObject::TileRun *run)
 {
 	int matched = 0;
 	for (MapObject::TileRun::const_iterator t = run->begin(); t != run->end(); t++) {
-		if ((*t != -1) && (*t != *tile)) break; // no more matches
+		if ((*t != INVALID_TILECODE) && (*t != *tile)) break; // no more matches
 		tile++; matched++;
 	}
 	return matched;
 }
 
-int matchAnyTileRun(int *tile, const MapObject::TileRun *run)
+int matchAnyTileRun(unsigned int *tile, const MapObject::TileRun *run)
 {
 	int matched = 0;
 	bool found;
 	do {
 		found = false;
 		for (MapObject::TileRun::const_iterator t = run->begin(); t != run->end(); t++) {
-			if ((*t == -1) || (*t == *tile)) {
+			if ((*t == INVALID_TILECODE) || (*t == *tile)) {
 				found = true;
 				matched++;
 				tile++;
@@ -129,8 +129,8 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 {
 	assert(tileset.size() > 0);
 	// Initial state is all layers visible
-	int layerCount = map->getLayerCount();
-	for (int i = 0; i < layerCount; i++) {
+	unsigned int layerCount = map->getLayerCount();
+	for (unsigned int i = 0; i < layerCount; i++) {
 		this->visibleLayers.push_back(true);
 	}
 	this->visibleElements[ElViewport] = this->map->getCaps() & Map2D::HasViewport;
@@ -154,7 +154,7 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 	// TODO: Load unknown/default tile the same size (if possible) as the grid
 	GLuint unknownTile = 0;
 
-	for (int i = 0; i < layerCount; i++) {
+	for (unsigned int i = 0; i < layerCount; i++) {
 		Map2D::LayerPtr layer = this->map->getLayer(i);
 		Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 		TEXTURE_MAP tm;
@@ -189,7 +189,7 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 					boost::shared_array<uint32_t> combined(new uint32_t[width * height]);
 					uint8_t *d = data.get(), *m = mask.get();
 					uint8_t *c = (uint8_t *)combined.get();
-					for (int p = 0; p < width * height; p++) {
+					for (unsigned int p = 0; p < width * height; p++) {
 						*c++ = *m & 0x01 ? 255 : (*pal)[*d].blue;
 						*c++ = *m & 0x01 ?   0 : (*pal)[*d].green;
 						*c++ = *m & 0x01 ? 255 : (*pal)[*d].red;
@@ -218,12 +218,12 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 	// TEMP: this does layer 0 only!
 	Map2D::LayerPtr layer = this->map->getLayer(0); // TEMP
 
-	int layerWidth, layerHeight, tileWidth, tileHeight;
+	unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 	getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 	// Load the layer into an array
-	int *tile = new int[layerWidth * layerHeight];
-	for (int i = 0; i < layerWidth * layerHeight; i++) tile[i] = -1;
+	unsigned int *tile = new unsigned int[layerWidth * layerHeight];
+	for (unsigned int i = 0; i < layerWidth * layerHeight; i++) tile[i] = INVALID_TILECODE;
 	Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 	for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
 		if (((*c)->x >= layerWidth) || ((*c)->y >= layerHeight)) {
@@ -234,16 +234,16 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 	}
 	// tile[] now uses -1 for no-tile-present and the actual tile code otherwise.
 
-	for (int y = 0; y < layerHeight; y++) {
-		for (int x = 0; x < layerWidth; x++) {
-			int startCode = tile[y * layerWidth + x];
+	for (unsigned int y = 0; y < layerHeight; y++) {
+		for (unsigned int x = 0; x < layerWidth; x++) {
+			unsigned int startCode = tile[y * layerWidth + x];
 			if (startCode == 0) continue; // skip empty tiles
 			for (MapObjectVector::const_iterator i = this->mapObjects->begin();
 				i != this->mapObjects->end();
 				i++
 			) {
-				int y2 = y;
-				int x2 = x;
+				unsigned int y2 = y;
+				unsigned int x2 = x;
 
 				// Start tracking this in case it turns out to be an actual object
 				Object newObject;
@@ -255,11 +255,11 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 
 				bool done = false;
 
-				for (int s = 0; s < MapObject::SectionCount; s++) {
+				for (unsigned int s = 0; s < MapObject::SectionCount; s++) {
 					if ((!done) && (i->section[s].size() > 0)) {
 						// There are top/mid/bot rows, see if they match the map
 						for (MapObject::RowVector::const_iterator oY = i->section[s].begin(); oY != i->section[s].end(); oY++) {
-							int leftMatched = matchTileRun(&tile[y2 * layerWidth + x2], &oY->segment[MapObject::Row::L]);
+							unsigned int leftMatched = matchTileRun(&tile[y2 * layerWidth + x2], &oY->segment[MapObject::Row::L]);
 
 							// If no tiles were matched, then the current tile is not a starting
 							// point for one of these objects.
@@ -286,7 +286,7 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 							newObject.height++;
 
 							// Now we should have as many tiles as are valid on the top row
-							int width = x2 - x;
+							unsigned int width = x2 - x;
 							if (newObject.width < width) newObject.width = width;
 
 							x2 = x;
@@ -388,7 +388,7 @@ void MapCanvas::setObjMode()
 	return;
 }
 
-void MapCanvas::setActiveLayer(int layer)
+void MapCanvas::setActiveLayer(unsigned int layer)
 {
 	this->activeLayer = layer;
 	this->glReset();
@@ -462,12 +462,12 @@ void MapCanvas::redraw()
 	int mapPointerX = CLIENT_TO_MAP_X(this->pointerX);
 	int mapPointerY = CLIENT_TO_MAP_Y(this->pointerY);
 
-	int layerCount = this->map->getLayerCount();
-	for (int i = 0; i < layerCount; i++) {
+	unsigned int layerCount = this->map->getLayerCount();
+	for (unsigned int i = 0; i < layerCount; i++) {
 		if (this->visibleLayers[i]) {
 			Map2D::LayerPtr layer = this->map->getLayer(i);
 
-			int layerWidth, layerHeight, tileWidth, tileHeight;
+			unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 			getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 			int oX, oY;
@@ -494,9 +494,9 @@ void MapCanvas::redraw()
 				int tileY = (*c)->y * tileHeight;
 
 				if (tileX > this->offX + s.x) continue; // tile is off viewport to the right
-				if (tileX + tileWidth < this->offX) continue; // tile is off viewport to the left
+				if (tileX + (signed)tileWidth < this->offX) continue; // tile is off viewport to the left
 				if (tileY > this->offY + s.y) continue; // tile is off viewport to the bottom
-				if (tileY + tileHeight < this->offY) continue; // tile is off viewport to the top
+				if (tileY + (signed)tileHeight < this->offY) continue; // tile is off viewport to the top
 
 				// If there's a selection, see whether the current tile is where one of
 				// the selected tiles should be drawn.  If so we skip it, so there's an
@@ -516,7 +516,10 @@ void MapCanvas::redraw()
 					// This item is contained within the selection rendering area, so
 					// don't draw the map tile - unless the selection has no tile for
 					// that bit.
-					if (this->selection.tiles[((*c)->y - oY) * this->selection.width + ((*c)->x - oX)] >= 0) {
+					if (this->selection.tiles[
+							((*c)->y - oY) * this->selection.width + ((*c)->x - oX)
+						] != INVALID_TILECODE
+					) {
 						continue;
 					}
 				}
@@ -535,7 +538,7 @@ void MapCanvas::redraw()
 					// that will be removed if the delete key is pressed, so colour it.
 					int relX = (*c)->x - this->selection.x;
 					int relY = (*c)->y - this->selection.y;
-					if (this->selection.tiles[relY * this->selection.width + relX] >= 0) {
+					if (this->selection.tiles[relY * this->selection.width + relX] != INVALID_TILECODE) {
 						// There is a selected tile at this point, so highlight it
 						glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
 						glColor4f(1.0, 0.2, 0.2, 1.0);
@@ -566,25 +569,25 @@ void MapCanvas::redraw()
 				glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_CONSTANT_ALPHA);
 				glBlendColor(0.0, 0.0, 0.0, 0.65);
 
-				for (int y = 0; y < this->selection.height; y++) {
-					for (int x = 0; x < this->selection.width; x++) {
+				for (int y = 0; y < (signed)this->selection.height; y++) {
+					for (int x = 0; x < (signed)this->selection.width; x++) {
 						int tileX = (x + oX) * tileWidth;
 						int tileY = (y + oY) * tileHeight;
-						int code = this->selection.tiles[y * this->selection.width + x];
-						if (code < 0) continue; // omitted tile
+						unsigned int code = this->selection.tiles[y * this->selection.width + x];
+						if (code == INVALID_TILECODE) continue; // omitted tile
 
 						if (tileX > this->offX + s.x) continue; // tile is off viewport to the right
-						if (tileX + tileWidth < this->offX) continue; // tile is off viewport to the left
+						if (tileX + (signed)tileWidth < this->offX) continue; // tile is off viewport to the left
 						if (tileY > this->offY + s.y) continue; // tile is off viewport to the bottom
-						if (tileY + tileHeight < this->offY) continue; // tile is off viewport to the top
+						if (tileY + (signed)tileHeight < this->offY) continue; // tile is off viewport to the top
 
 						unsigned int maxInstances;
 						if (
 							!layer->tilePermittedAt(code, x + oX, y + oY, &maxInstances) ||
 							(x + oX < 0) ||
 							(y + oY < 0) ||
-							(x + oX >= layerWidth) ||
-							(y + oY >= layerHeight)
+							(x + oX >= (signed)layerWidth) ||
+							(y + oY >= (signed)layerHeight)
 						) {
 							// This tile cannot be placed here, draw a box with a red X in it
 							glDisable(GL_TEXTURE_2D);
@@ -631,9 +634,6 @@ void MapCanvas::redraw()
 		Map2D::PathPtrVectorPtr paths = this->map->getPaths();
 		assert(paths);
 
-		int selectedX, selectedY;
-		bool drawSelectedPoint = false;
-
 		glEnable(GL_LINE_SMOOTH);
 		glLineWidth(2.0);
 		glMatrixMode(GL_PROJECTION);
@@ -645,10 +645,10 @@ void MapCanvas::redraw()
 		for (Map2D::PathPtrVector::iterator p = paths->begin(); p != paths->end(); p++) {
 			// TODO: Some way of selecting one of many overlapping path points
 			Map2D::PathPtr path = *p;
-			int stnum = 0;
+			unsigned int stnum = 0;
 			bool entirePathSelected = false;
 			for (Map2D::Path::point_vector::iterator st = (*p)->start.begin(); st != (*p)->start.end(); st++) {
-				int ptnum = 1;
+				unsigned int ptnum = 1;
 				bool previewNextSegment = false;
 
 				int lastX = st->first;
@@ -658,8 +658,6 @@ void MapCanvas::redraw()
 
 				// Draw a line at the starting pos so it can be coloured on select
 				if (!(*p)->points.empty()) {
-					int nextX = lastX + (*p)->points[0].first;
-					int nextY = lastY + (*p)->points[0].second;
 					int dX = (*p)->points[0].first, dY = (*p)->points[0].second;
 					float angle = atan2(dY, dX) * 180 / M_PI - 90;
 					glPushMatrix();
@@ -834,7 +832,7 @@ void MapCanvas::redraw()
 				ptA.first = ptA.second = 0;
 				ptB = path->points[0];
 			} else {
-				int index = this->nearestPathPoint.point - 1;
+				unsigned int index = this->nearestPathPoint.point - 1;
 				ptA = path->points[index];
 				index++;
 				if (index < path->points.size()) {
@@ -872,7 +870,7 @@ void MapCanvas::redraw()
 
 	// Draw the viewport overlay
 	if (this->visibleElements[ElViewport]) {
-		int vpX, vpY;
+		unsigned int vpX, vpY;
 		this->map->getViewport(&vpX, &vpY);
 		int vpOffX = (s.x - vpX) / 2;
 		int vpOffY = (s.y - vpY) / 2;
@@ -904,10 +902,9 @@ void MapCanvas::redraw()
 
 	// Do some operations which require a real map layer to be selected (as
 	// opposed to the viewport or other virtual layers.)
-	int tileWidth, tileHeight;
 	if (this->activeLayer >= ElementCount) {
 		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
-		int layerWidth, layerHeight, tileWidth, tileHeight;
+		unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 		// If the grid is visible, draw it using the tile size of the active layer
@@ -1010,16 +1007,16 @@ bool MapCanvas::focusObject(ObjectVector::iterator start)
 	if (this->activeLayer < ElementCount) return (this->focusedObject != oldFocusedObject);
 
 	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
-	int layerWidth, layerHeight, tileWidth, tileHeight;
+	unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 	getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 	for (int n = 0; n < 2; n++) {
 		for (ObjectVector::iterator i = start; i != end; i++) {
 			if (
-				(mapPointerX >= i->x * tileWidth - FOCUS_BOX_PADDING) &&
-				(mapPointerX < (i->x + i->width) * tileWidth + FOCUS_BOX_PADDING) &&
-				(mapPointerY >= i->y * tileHeight - FOCUS_BOX_PADDING) &&
-				(mapPointerY < (i->y + i->height) * tileHeight + FOCUS_BOX_PADDING)
+				(mapPointerX >= (signed)(i->x * tileWidth) - FOCUS_BOX_PADDING) &&
+				(mapPointerX < (signed)((i->x + i->width) * tileWidth + FOCUS_BOX_PADDING)) &&
+				(mapPointerY >= (signed)(i->y * tileHeight) - FOCUS_BOX_PADDING) &&
+				(mapPointerY < (signed)((i->y + i->height) * tileHeight + FOCUS_BOX_PADDING))
 			) {
 				// The pointer is over this object
 				this->focusedObject = i;
@@ -1041,25 +1038,25 @@ bool MapCanvas::focusObject(ObjectVector::iterator start)
 		this->resizeX = 0;
 		this->resizeY = 0;
 		if (
-			(mapPointerX >= this->focusedObject->x * tileWidth - FOCUS_BOX_PADDING) &&
-			(mapPointerX < this->focusedObject->x * tileWidth + FOCUS_BOX_PADDING)
+			(mapPointerX >= (signed)(this->focusedObject->x * tileWidth) - FOCUS_BOX_PADDING) &&
+			(mapPointerX < (signed)(this->focusedObject->x * tileWidth) + FOCUS_BOX_PADDING)
 		) {
 			this->resizeX = -1;
 		} else if (
-			(mapPointerX >= (this->focusedObject->x + this->focusedObject->width) * tileWidth - FOCUS_BOX_PADDING) &&
-			(mapPointerX < (this->focusedObject->x + this->focusedObject->width) * tileWidth + FOCUS_BOX_PADDING)
+			(mapPointerX >= (signed)((this->focusedObject->x + this->focusedObject->width) * tileWidth) - FOCUS_BOX_PADDING) &&
+			(mapPointerX < (signed)((this->focusedObject->x + this->focusedObject->width) * tileWidth) + FOCUS_BOX_PADDING)
 		) {
 			this->resizeX = 1;
 		}
 
 		if (
-			(mapPointerY >= this->focusedObject->y * tileHeight - FOCUS_BOX_PADDING) &&
-			(mapPointerY < this->focusedObject->y * tileHeight + FOCUS_BOX_PADDING)
+			(mapPointerY >= (signed)(this->focusedObject->y * tileHeight) - FOCUS_BOX_PADDING) &&
+			(mapPointerY < (signed)(this->focusedObject->y * tileHeight) + FOCUS_BOX_PADDING)
 		) {
 			this->resizeY = -1;
 		} else if (
-			(mapPointerY >= (this->focusedObject->y + this->focusedObject->height) * tileHeight - FOCUS_BOX_PADDING) &&
-			(mapPointerY < (this->focusedObject->y + this->focusedObject->height) * tileHeight + FOCUS_BOX_PADDING)
+			(mapPointerY >= (signed)((this->focusedObject->y + this->focusedObject->height) * tileHeight) - FOCUS_BOX_PADDING) &&
+			(mapPointerY < (signed)((this->focusedObject->y + this->focusedObject->height) * tileHeight) + FOCUS_BOX_PADDING)
 		) {
 			this->resizeY = 1;
 		}
@@ -1133,7 +1130,7 @@ void MapCanvas::paintSelection(int x, int y)
 
 	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
 
-	int layerWidth, layerHeight, tileWidth, tileHeight;
+	unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 	getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 	// Origin of paste area
@@ -1142,7 +1139,7 @@ void MapCanvas::paintSelection(int x, int y)
 
 	Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 	bool *painted = new bool[this->selection.width * this->selection.height];
-	for (int i = 0; i < this->selection.width * this->selection.height; i++) painted[i] = false;
+	for (unsigned int i = 0; i < this->selection.width * this->selection.height; i++) painted[i] = false;
 
 	// Overwrite any existing tiles
 
@@ -1155,9 +1152,9 @@ void MapCanvas::paintSelection(int x, int y)
 			((signed)(*c)->y < oY + this->selection.height) &&
 			layer->tilePermittedAt((*c)->code, (*c)->x + oX, (*c)->y + oY, &maxInstances)
 		) {
-			int selIndex = ((*c)->y - oY) * this->selection.width + ((*c)->x - oX);
+			unsigned int selIndex = ((*c)->y - oY) * this->selection.width + ((*c)->x - oX);
 			assert(selIndex < this->selection.width * this->selection.height);
-			if (this->selection.tiles[selIndex] < 0) continue; // don't paint empty tiles
+			if (this->selection.tiles[selIndex] == INVALID_TILECODE) continue; // don't paint empty tiles
 			(*c)->code = this->selection.tiles[selIndex];
 			painted[selIndex] = true;
 			this->doc->isModified = true;
@@ -1165,12 +1162,12 @@ void MapCanvas::paintSelection(int x, int y)
 	}
 
 	// Add any new tiles that didn't already exist
-	for (int i = 0; i < this->selection.width * this->selection.height; i++) {
+	for (unsigned int i = 0; i < this->selection.width * this->selection.height; i++) {
 		if (!painted[i]) {
-			if (this->selection.tiles[i] < 0) continue; // don't paint empty tiles
+			if (this->selection.tiles[i] == INVALID_TILECODE) continue; // don't paint empty tiles
 			unsigned int x = oX + (i % this->selection.width);
 			unsigned int y = oY + (i / this->selection.width);
-			int code = this->selection.tiles[i];
+			unsigned int code = this->selection.tiles[i];
 
 			// Because x and y are unsigned, these conditions also match when
 			// the coords are < 0, effectively ignoring tiles attempted to be placed
@@ -1207,7 +1204,7 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 	// Perform actions that require an active layer
 	if (this->activeLayer >= ElementCount) {
 		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
-		int layerWidth, layerHeight, tileWidth, tileHeight;
+		unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 		int pointerTileX = mapPointerX / tileWidth;
@@ -1224,8 +1221,8 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 				int tileX = (*c)->x * tileWidth;
 				int tileY = (*c)->y * tileHeight;
 				if (
-					(tileX <= mapPointerX) && (tileX + tileWidth > mapPointerX) &&
-					(tileY <= mapPointerY) && (tileY + tileHeight > mapPointerY)
+					(tileX <= mapPointerX) && (tileX + (signed)tileWidth > mapPointerX) &&
+					(tileY <= mapPointerY) && (tileY + (signed)tileHeight > mapPointerY)
 				) {
 					this->doc->setStatusText(wxString::Format(_T("%d,%d [0x%04X]"),
 						pointerTileX, pointerTileY, (*c)->code));
@@ -1260,7 +1257,7 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 
 						// Make sure the delta values are within range so we can apply them
 						// with no further checks.
-						int finalX = this->focusedObject->width * tileWidth + deltaX;
+						unsigned int finalX = this->focusedObject->width * tileWidth + deltaX;
 						if ((this->focusedObject->obj->maxWidth > 0) && (finalX > this->focusedObject->obj->maxWidth)) {
 							int overflowX = finalX - this->focusedObject->obj->maxWidth;
 							if (overflowX < deltaX) deltaX -= overflowX;
@@ -1270,7 +1267,7 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 							if (overflowX > deltaX) deltaX -= overflowX;
 							else deltaX = 0;
 						}
-						int finalY = this->focusedObject->height * tileHeight + deltaY;
+						unsigned int finalY = this->focusedObject->height * tileHeight + deltaY;
 						if ((this->focusedObject->obj->maxHeight > 0) && (finalY > this->focusedObject->obj->maxHeight)) {
 							int overflowY = finalY - this->focusedObject->obj->maxHeight;
 							if (overflowY < deltaY) deltaY -= overflowY;
@@ -1626,7 +1623,7 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 				// Select the tiles contained within the rectangle
 
 				Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
-				int layerWidth, layerHeight, tileWidth, tileHeight;
+				unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 				getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 				// Convert the selection rectangle from pixel coords to tile coords,
@@ -1648,14 +1645,14 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 				if (x2 < 0) x2 = 0;
 				if (y2 < 0) y2 = 0;
 
-				int minX = x2;
-				int minY = y2;
-				int maxX = x1;
-				int maxY = y1;
+				unsigned int minX = x2;
+				unsigned int minY = y2;
+				unsigned int maxX = x1;
+				unsigned int maxY = y1;
 				Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 				for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
 					if (POINT_IN_RECT(
-						(*c)->x, (*c)->y,
+						(signed)(*c)->x, (signed)(*c)->y,
 						x1, y1, x2, y2
 					)) {
 						// This tile is contained within the selection rectangle
@@ -1672,9 +1669,9 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 					// Empty selection
 					this->selection.tiles = NULL; // already deleted above
 				} else {
-					this->selection.tiles = new int[this->selection.width * this->selection.height];
-					for (int i = 0; i < this->selection.width * this->selection.height; i++) {
-						this->selection.tiles[i] = -1; // no tile present here
+					this->selection.tiles = new unsigned int[this->selection.width * this->selection.height];
+					for (unsigned int i = 0; i < this->selection.width * this->selection.height; i++) {
+						this->selection.tiles[i] = INVALID_TILECODE; // no tile present here
 					}
 
 					// Run through the tiles again, but this time copy them into the selection
@@ -1684,7 +1681,7 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 							((*c)->y >= minY) && ((*c)->y < maxY)
 						) {
 							// This tile is contained within the selection rectangle
-							int offset = ((*c)->y - minY) * this->selection.width + (*c)->x - minX;
+							unsigned int offset = ((*c)->y - minY) * this->selection.width + (*c)->x - minX;
 							assert(offset < this->selection.width * this->selection.height);
 							this->selection.tiles[offset] = (*c)->code;
 						}
@@ -1755,7 +1752,6 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 						"another point"));
 					break;
 				}
-				Map2D::Path::point ptOrigin = path->start[this->nearestPathPoint.start];
 				Map2D::Path::point ptA, ptB;
 				Map2D::Path::point_vector::iterator beforeThis;
 				if (this->nearestPathPoint.point == 0) {
@@ -1763,7 +1759,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 					ptA.first = ptA.second = 0;
 					ptB = path->points[0];
 				} else {
-					int index = this->nearestPathPoint.point - 1;
+					unsigned int index = this->nearestPathPoint.point - 1;
 					ptA = path->points[index];
 					index++;
 					if (index < path->points.size()) {
@@ -1879,10 +1875,10 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 					}
 				}
 			} else if ((this->activeLayer >= ElementCount) && (this->selection.tiles)) {
-				int x1 = this->selection.x;
-				int y1 = this->selection.y;
-				int x2 = x1 + this->selection.width;
-				int y2 = y1 + this->selection.height;
+				unsigned int x1 = this->selection.x;
+				unsigned int y1 = this->selection.y;
+				unsigned int x2 = x1 + this->selection.width;
+				unsigned int y2 = y1 + this->selection.height;
 				Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
 				Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 				for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); ) {

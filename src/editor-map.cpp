@@ -93,12 +93,12 @@ class LayerPanel: public IToolPanel
 			if (!this->doc) return; // NULL was passed in
 
 			// Populate the list
-			int layerCount = this->doc->map->getLayerCount();
-			for (int i = 0; i < layerCount; i++) {
+			unsigned int layerCount = this->doc->map->getLayerCount();
+			for (unsigned int i = 0; i < layerCount; i++) {
 				Map2D::LayerPtr layer = this->doc->map->getLayer(i);
 
 				// Calculate layer size
-				int layerWidth, layerHeight, tileWidth, tileHeight;
+				unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 				getLayerDims(this->doc->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 				long id = this->list->InsertItem(i,
@@ -129,7 +129,7 @@ class LayerPanel: public IToolPanel
 
 				long id = this->list->InsertItem(layerCount, _T("Viewport"),
 					this->doc->canvas->visibleElements[MapCanvas::ElViewport] ? 0 : 1);
-				int vpWidth, vpHeight;
+				unsigned int vpWidth, vpHeight;
 				this->doc->map->getViewport(&vpWidth, &vpHeight);
 				this->list->SetItem(id, 1, wxString::Format(_T("%d x %d (px)"), vpWidth, vpHeight));
 				this->list->SetItemData(id, MapCanvas::ElViewport);

@@ -80,7 +80,7 @@ class InstrumentPanel: public IToolPanel
 
 			// Populate the list
 			PatchBankPtr instruments = this->doc->music->getPatchBank();
-			for (int i = 0; i < instruments->getPatchCount(); i++) {
+			for (unsigned int i = 0; i < instruments->getPatchCount(); i++) {
 				PatchPtr patch = instruments->getPatch(i);
 				std::string name = patch->name;
 				if (name.empty()) name = "[no name]";
@@ -157,8 +157,8 @@ END_EVENT_TABLE()
 MusicEditor::MusicEditor(IMainWindow *parent, AudioPtr audio)
 	throw () :
 		frame(parent),
-		pManager(camoto::gamemusic::getManager()),
-		audio(audio)
+		audio(audio),
+		pManager(camoto::gamemusic::getManager())
 {
 }
 

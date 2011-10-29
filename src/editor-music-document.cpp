@@ -125,8 +125,8 @@ MusicDocument::MusicDocument(IMainWindow *parent, MusicReaderPtr music, AudioPtr
 		IDocument(parent, _T("music")),
 		music(music),
 		audio(audio),
-		absTimeStart(0),
 		playing(false),
+		absTimeStart(0),
 		font(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL)
 {
 	wxClientDC dc(this);
@@ -314,9 +314,10 @@ void MusicDocument::onZoomOut(wxCommandEvent& ev)
 
 void MusicDocument::onMouseWheel(wxMouseEvent& ev)
 {
-	this->absTimeStart -= ev.m_wheelRotation / ev.m_wheelDelta *
+	unsigned int amount = ev.m_wheelRotation / ev.m_wheelDelta *
 		ev.m_linesPerAction * this->ticksPerRow;
-	if (this->absTimeStart < 0) this->absTimeStart = 0;
+	if (amount > this->absTimeStart) this->absTimeStart = 0;
+	else this->absTimeStart -= amount;
 	this->pushViewSettings();
 	return;
 }

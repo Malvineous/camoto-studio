@@ -134,7 +134,7 @@ class Audio
 		 * @param len
 		 *   Length of buffer in bytes.
 		 */
-		void fillAudioBuffer(uint8_t *stream, int len);
+		void fillAudioBuffer(uint8_t *stream, unsigned int len);
 
 	protected:
 		typedef std::vector<OPLPtr> OPLVector;

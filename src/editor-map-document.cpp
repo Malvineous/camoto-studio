@@ -40,10 +40,10 @@ MapDocument::MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
 	throw (camoto::stream::error, EFailure) :
 		IDocument(parent, _T("map")),
 		settings(settings),
+		tileset(tileset),
 		mapType(mapType),
 		suppData(suppData),
-		mapFile(mapFile),
-		tileset(tileset)
+		mapFile(mapFile)
 {
 	MapPtr genMap = mapType->open(mapFile, suppData);
 	assert(genMap);

@@ -159,8 +159,8 @@ class ImageDocument: public IDocument
 		ImageDocument(IMainWindow *parent, ImageEditor::Settings *settings, ImagePtr image)
 			throw () :
 				IDocument(parent, _T("image")),
-				settings(settings),
-				image(image)
+				image(image),
+				settings(settings)
 		{
 			this->canvas = new ImageCanvas(this, image, this->settings->zoomFactor);
 
@@ -351,8 +351,8 @@ class ImageDocument: public IDocument
 					StdImageDataPtr stdimg(imgData);
 					StdImageDataPtr stdmask(maskData);
 
-					for (int y = 0; y < height; y++) {
-						for (int x = 0; x < width; x++) {
+					for (unsigned int y = 0; y < height; y++) {
+						for (unsigned int x = 0; x < width; x++) {
 							uint8_t pixel = png[y][x];
 							if (hasTransparency && (pixel == 0)) { // Palette #0 must be transparent
 								maskData[y * width + x] = 0x01; // transparent
@@ -459,8 +459,8 @@ class ImageDocument: public IDocument
 				png.set_palette(pngPal);
 
 				// Copy the pixel data across
-				for (int y = 0; y < height; y++) {
-					for (int x = 0; x < width; x++) {
+				for (unsigned int y = 0; y < height; y++) {
+					for (unsigned int x = 0; x < width; x++) {
 						if (useMask) {
 							if (mask[y*width+x] & 0x01) {
 								png[y][x] = png::index_pixel(0);

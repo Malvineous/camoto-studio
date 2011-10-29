@@ -113,7 +113,7 @@ Project *Project::create(const wxString& targetPath, const wxString& gameSource)
 	fnCopyDest.AppendDir(_T(PROJECT_GAME_DATA));
 	wxDir dir(gameSource);
 	CopyTo copy(fnCopyDest.GetFullPath(), gameSource); // creates 'data' dir
-	if ((dir.Traverse(copy) < 0) || (copy.error)) throw EProjectCopyFailure();
+	if ((dir.Traverse(copy) == (size_t)-1) || (copy.error)) throw EProjectCopyFailure();
 
 	// Create the project config file.
 	wxFileName projFilename;
@@ -136,8 +136,8 @@ Project *Project::create(const wxString& targetPath, const wxString& gameSource)
 
 Project::Project(const wxString& path)
 	throw (EProjectOpenFailure) :
-	path(path),
-	config(wxEmptyString, wxEmptyString, path, wxEmptyString, wxCONFIG_USE_LOCAL_FILE)
+	config(wxEmptyString, wxEmptyString, path, wxEmptyString, wxCONFIG_USE_LOCAL_FILE),
+	path(path)
 {
 	long version;
 	if (!this->config.Read(_T("camoto/version"), &version)) {

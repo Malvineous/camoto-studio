@@ -68,9 +68,9 @@ class MusicDocument: public IDocument
 		bool playing;
 
 		int optimalTicksPerRow; ///< Cache best value for ticksPerRow (for zoom reset)
-		int ticksPerRow;        ///< Current zoom level for all channels
-		int absTimeStart;       ///< Current scroll pos for all channels
-		int playPos;            ///< Current absTime of playback (for row highlight)
+		unsigned int ticksPerRow;        ///< Current zoom level for all channels
+		unsigned int absTimeStart;       ///< Current scroll pos for all channels
+		unsigned int playPos;            ///< Current absTime of playback (for row highlight)
 
 		PlayerThread *player;
 		boost::thread thread;

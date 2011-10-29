@@ -70,7 +70,7 @@ struct GameInfo
 struct MapObject
 {
 	/// Run of tile codes
-	typedef std::vector<int> TileRun;
+	typedef std::vector<unsigned int> TileRun;
 
 	/// A row of tiles in the object.
 	/**
@@ -99,16 +99,16 @@ struct MapObject
 	wxString name;
 
 	/// Minimum width for this object in tiles, or zero for no minimum.
-	int minWidth;
+	unsigned int minWidth;
 
 	/// Minimum height for this object in tiles, or zero for no minimum.
-	int minHeight;
+	unsigned int minHeight;
 
 	/// Maximum width for this object in tiles, or zero for no maximum.
-	int maxWidth;
+	unsigned int maxWidth;
 
 	/// Maximum height for this object in tiles, or zero for no maximum.
-	int maxHeight;
+	unsigned int maxHeight;
 
 	/// Array indices for section.
 	enum DirY {
