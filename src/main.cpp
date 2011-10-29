@@ -1132,7 +1132,7 @@ class CamotoFrame: public IMainWindow
 				suppMapToData(supp, suppData);
 
 				std::string baseFilename(this->game->objects[idArchive]->filename.mb_str());
-				camoto::SuppFilenames reqd = pArchType->getRequiredSupps(baseFilename);
+				camoto::SuppFilenames reqd = pArchType->getRequiredSupps(archStream, baseFilename);
 				for (camoto::SuppFilenames::iterator i = reqd.begin(); i != reqd.end(); i++) {
 					if (suppData.find(i->first) == suppData.end()) {
 						throw EFailure(wxString::Format(_T("Unable to open archive \"%s\" "
