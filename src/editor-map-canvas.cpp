@@ -1663,12 +1663,15 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 					}
 				}
 				if (this->selection.tiles) delete[] this->selection.tiles;
-				this->selection.width = maxX - minX;
-				this->selection.height = maxY - minY;
-				if ((this->selection.width <= 0) || (this->selection.height <= 0)) {
+				if ((maxX < minX) || (maxY < minY)) {
 					// Empty selection
 					this->selection.tiles = NULL; // already deleted above
+					this->selection.width = 0;
+					this->selection.height = 0;
 				} else {
+					this->selection.width = maxX - minX;
+					this->selection.height = maxY - minY;
+
 					this->selection.tiles = new unsigned int[this->selection.width * this->selection.height];
 					for (unsigned int i = 0; i < this->selection.width * this->selection.height; i++) {
 						this->selection.tiles[i] = INVALID_TILECODE; // no tile present here
