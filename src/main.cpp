@@ -424,6 +424,7 @@ class CamotoFrame: public IMainWindow
 #endif
 				wxFD_SAVE | wxFD_OVERWRITE_PROMPT, this);
 			if (!path.empty()) {
+				::path.lastUsed = wxFileName::FileName(path).GetPath();
 				try {
 					stream::inout_sptr extract = this->openFile(o, useFilters);
 					assert(extract); // should have thrown an exception on error
@@ -444,7 +445,7 @@ class CamotoFrame: public IMainWindow
 
 				} catch (const std::exception& e) {
 					wxMessageDialog dlg(this,
-						wxString::Format(_T("Unexpected error while replacing the item!\n\n[%s]"),
+						wxString::Format(_T("Unexpected error while extracting the item!\n\n[%s]"),
 							wxString(e.what(), wxConvUTF8).c_str()),
 						_T("Extract item"), wxOK | wxICON_ERROR);
 					dlg.ShowModal();
@@ -477,6 +478,7 @@ class CamotoFrame: public IMainWindow
 #endif
 				wxFD_OPEN | wxFD_FILE_MUST_EXIST, this);
 			if (!path.empty()) {
+				::path.lastUsed = wxFileName::FileName(path).GetPath();
 				try {
 					stream::inout_sptr dest = this->openFile(o, useFilters);
 					assert(dest); // should have thrown an exception on error
