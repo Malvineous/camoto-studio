@@ -1119,39 +1119,58 @@ class CamotoFrame: public IMainWindow
 
 				// No need to check if idArchive is valid, as openObject() just did that
 				const wxString& typeMinor = this->game->objects[idArchive]->typeMinor;
-				std::string strType(typeMinor.ToUTF8());
-				ga::ArchiveTypePtr pArchType(this->archManager->getArchiveTypeByCode(strType));
-				if (!pArchType) {
-					throw EFailure(wxString::Format(_T("Cannot open this item.  The "
-						"archive \"%s\" is in the unsupported format \"%s\""),
-						idArchive.c_str(), typeMinor.c_str()));
-				}
-
-				// Collect any supplemental files supplied
-				camoto::SuppData suppData;
-				suppMapToData(supp, suppData);
-
-				std::string baseFilename(this->game->objects[idArchive]->filename.mb_str());
-				camoto::SuppFilenames reqd = pArchType->getRequiredSupps(archStream, baseFilename);
-				for (camoto::SuppFilenames::iterator i = reqd.begin(); i != reqd.end(); i++) {
-					if (suppData.find(i->first) == suppData.end()) {
-						throw EFailure(wxString::Format(_T("Unable to open archive \"%s\" "
-							"as the XML description file does not specify the required "
-							"supplementary file \"%s\""),
-							idArchive.c_str(),
-							wxString(i->second.c_str(), wxConvUTF8).c_str()
-						));
+				if (typeMinor.Cmp(_T(ARCHTYPE_MINOR_FIXED)) == 0) {
+					// This is a fixed archive, with its files described in the XML
+					std::vector<ga::FixedArchiveFile> items;
+					for (GameObjectMap::iterator i = this->game->objects.begin(); i != this->game->objects.end(); i++) {
+						if (idArchive.Cmp(i->second->idParent) == 0) {
+							// This item is a subfile
+							ga::FixedArchiveFile next;
+							next.offset = i->second->offset;
+							next.size = i->second->size;
+							next.name = i->second->filename.ToUTF8();
+							std::cout << "name is " << next.name << std::endl;
+							// next.filter is unused
+							items.push_back(next);
+						}
 					}
-				}
+					arch.reset(new ga::FixedArchive(archStream, items));
+				} else {
+					// Normal archive file
+					std::string strType(typeMinor.ToUTF8());
+					ga::ArchiveTypePtr pArchType(this->archManager->getArchiveTypeByCode(strType));
+					if (!pArchType) {
+						throw EFailure(wxString::Format(_T("Cannot open this item.  The "
+									"archive \"%s\" is in the unsupported format \"%s\""),
+								idArchive.c_str(), typeMinor.c_str()));
+					}
 
-				try {
-					arch = pArchType->open(archStream, suppData);
-				} catch (const camoto::stream::error& e) {
-					wxString msg = _T("Library exception opening archive \"");
-					msg += idArchive;
-					msg += _T("\":\n\n");
-					msg += wxString(e.what(), wxConvUTF8);
-					throw EFailure(msg);
+					// Collect any supplemental files supplied
+					camoto::SuppData suppData;
+					suppMapToData(supp, suppData);
+
+					std::string baseFilename(this->game->objects[idArchive]->filename.mb_str());
+					camoto::SuppFilenames reqd = pArchType->getRequiredSupps(archStream, baseFilename);
+					for (camoto::SuppFilenames::iterator i = reqd.begin(); i != reqd.end(); i++) {
+						if (suppData.find(i->first) == suppData.end()) {
+							throw EFailure(wxString::Format(_T("Unable to open archive \"%s\" "
+										"as the XML description file does not specify the required "
+										"supplementary file \"%s\""),
+									idArchive.c_str(),
+									wxString(i->second.c_str(), wxConvUTF8).c_str()
+								));
+						}
+					}
+
+					try {
+						arch = pArchType->open(archStream, suppData);
+					} catch (const camoto::stream::error& e) {
+						wxString msg = _T("Library exception opening archive \"");
+						msg += idArchive;
+						msg += _T("\":\n\n");
+						msg += wxString(e.what(), wxConvUTF8);
+						throw EFailure(msg);
+					}
 				}
 
 				// Cache for future access

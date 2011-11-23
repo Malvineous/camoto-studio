@@ -145,6 +145,14 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 					xmlChar *val = xmlNodeGetContent(a->children);
 					o->filename = wxString::FromUTF8((const char *)val, xmlStrlen(val));
 					xmlFree(val);
+				} else if (xmlStrcmp(a->name, _X("offset")) == 0) {
+					xmlChar *val = xmlNodeGetContent(a->children);
+					o->offset = strtod((const char *)val, NULL);
+					xmlFree(val);
+				} else if (xmlStrcmp(a->name, _X("size")) == 0) {
+					xmlChar *val = xmlNodeGetContent(a->children);
+					o->size = strtod((const char *)val, NULL);
+					xmlFree(val);
 				}
 			}
 

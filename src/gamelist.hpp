@@ -26,6 +26,9 @@
 #include <vector>
 #include <map>
 
+/// Minor type for an archive where the file offsets are listed in the XML
+#define ARCHTYPE_MINOR_FIXED "fixed"
+
 /// A basic tree implementation for storing the game item structure
 template <typename T>
 struct tree
@@ -49,6 +52,9 @@ struct GameObject
 	wxString typeMinor;    ///< Minor type (file format)
 	wxString friendlyName; ///< Name to show user
 	std::map<wxString, wxString> supp;  ///< SuppItem -> ID mapping
+
+	int offset;            ///< [Fixed archive only] Offset of this file
+	int size;              ///< [Fixed archive only] Size of this file
 };
 
 /// Shared pointer to a GameObject
