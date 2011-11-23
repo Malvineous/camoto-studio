@@ -28,6 +28,7 @@
 class EFailure: virtual public std::exception {
 	protected:
 		wxString msg;
+		mutable wxCharBuffer buf;
 
 	public:
 		EFailure(const wxString& msg)

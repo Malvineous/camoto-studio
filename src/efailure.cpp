@@ -34,7 +34,10 @@ EFailure::~EFailure()
 const char *EFailure::what() const
 	throw ()
 {
-	return this->msg.mb_str();
+	// Have to store the wxCharBuffer otherwise it gets deallocated and we end up
+	// returning an invalid pointer.
+	this->buf = this->msg.ToUTF8();
+	return this->buf;
 }
 
 const wxString& EFailure::getMessage() const
