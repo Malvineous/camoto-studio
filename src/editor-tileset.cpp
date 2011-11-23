@@ -91,6 +91,9 @@ class TilesetCanvas: public wxGLCanvas
 			for (Tileset::VC_ENTRYPTR::const_iterator i = tiles.begin();
 				i != tiles.end(); i++, t++)
 			{
+				if ((*i)->attr & Tileset::EmptySlot) continue;
+				if ((*i)->attr & Tileset::SubTileset) continue;
+
 				// Bind each texture in turn to the 2D target
 				glBindTexture(GL_TEXTURE_2D, *t);
 
@@ -170,6 +173,8 @@ class TilesetCanvas: public wxGLCanvas
 			for (unsigned int i = 0, tileIndex = this->offset; tileIndex < this->textureCount; i++, tileIndex++) {
 				glBindTexture(GL_TEXTURE_2D, this->texture[tileIndex]);
 
+				if (tiles[tileIndex]->attr & Tileset::EmptySlot) continue;
+				if (tiles[tileIndex]->attr & Tileset::SubTileset) continue;
 				ImagePtr image = this->tileset->openImage(tiles[tileIndex]);
 				unsigned int width, height;
 				image->getDimensions(&width, &height);
