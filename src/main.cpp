@@ -179,8 +179,8 @@ class CamotoFrame: public IMainWindow
 					std::cout << name.ToAscii() << " ";
 					wxAuiPaneInfo pane;
 					pane.Name(name).Caption(label).MinSize(200, 100).
-						Right().CloseButton(true).MaximizeButton(true).Hide();//Show();
-					this->aui.AddPane(*p, pane); // show is temp!
+						Right().CloseButton(true).MaximizeButton(true).Hide();
+					this->aui.AddPane(*p, pane);
 					v.push_back(*p);
 				}
 				this->editorPanes[e->first] = v;
@@ -823,6 +823,8 @@ class CamotoFrame: public IMainWindow
 				PaneVector& panes = this->editorPanes[t->first];
 				for (PaneVector::iterator i = panes.begin(); i != panes.end(); i++) {
 					(*i)->loadSettings(this->project);
+					wxAuiPaneInfo& pane = this->aui.GetPane(*i);
+					pane.Hide(); // don't want the pane visible until an editor is loaded
 				}
 			}
 
@@ -831,6 +833,7 @@ class CamotoFrame: public IMainWindow
 				e->second->loadSettings(this->project);
 			}
 
+			this->aui.Update();
 			return;
 		}
 
