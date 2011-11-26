@@ -39,6 +39,7 @@ class MapCanvas;
 
 #include "editor-map-document.hpp"
 #include "gamelist.hpp" // MapObject
+#include "editor-tileset-canvas.hpp" // TEXTURE_MAP
 
 // How many *pixels* (i.e. irrespective of zoom) the mouse pointer can be moved
 // out of the focus box without losing focus.  This is also the number of pixels
@@ -117,9 +118,9 @@ class MapCanvas: public wxGLCanvas
 		};
 		bool visibleElements[ElementCount];  ///< Virtual layers (e.g. viewport)
 
-		MapCanvas(MapDocument *parent, camoto::gamemaps::Map2DPtr map,
-			camoto::gamegraphics::VC_TILESET tileset, int *attribList,
-			const MapObjectVector *mapObjects)
+		MapCanvas(MapDocument *parent, wxGLContext *glcx,
+			camoto::gamemaps::Map2DPtr map, camoto::gamegraphics::VC_TILESET tileset,
+			int *attribList, const MapObjectVector *mapObjects)
 			throw ();
 
 		~MapCanvas()
@@ -214,12 +215,27 @@ class MapCanvas: public wxGLCanvas
 			throw ();
 
 	protected:
+		/// Load an image into an OpenGL texture.
+		/**
+		 * @param code
+		 *   Map code.
+		 *
+		 * @pre There should not be an existing entry for this code to avoid wasting
+		 *   resources on duplicate entries.
+		 *
+		 * @post textureMap has an additional entry added.
+		 */
+		void loadTileImage(TEXTURE_MAP& tm,
+			camoto::gamegraphics::PaletteTablePtr& palDefault, unsigned int code,
+			camoto::gamemaps::Map2D::LayerPtr& layer,
+			camoto::gamegraphics::VC_TILESET& tileset, Texture& unknownTile)
+			throw ();
+
 		MapDocument *doc;
 		camoto::gamemaps::Map2DPtr map;
 		camoto::gamegraphics::VC_TILESET tileset;
 		const MapObjectVector *mapObjects;
 
-		typedef std::map<unsigned int, GLuint> TEXTURE_MAP;
 		std::vector<TEXTURE_MAP> textureMap;
 
 		int zoomFactor;   ///< Zoom level (1 == 1:1, 2 == 2:1/doublesize, etc.)

@@ -19,6 +19,7 @@ camoto_studio_SOURCES += editor-music.cpp
 camoto_studio_SOURCES += editor-music-document.cpp
 camoto_studio_SOURCES += editor-music-eventpanel.cpp
 camoto_studio_SOURCES += editor-tileset.cpp
+camoto_studio_SOURCES += editor-tileset-canvas.cpp
 camoto_studio_SOURCES += efailure.cpp
 
 EXTRA_camoto_studio_SOURCES = main.hpp
@@ -41,6 +42,7 @@ EXTRA_camoto_studio_SOURCES += editor-music.hpp
 EXTRA_camoto_studio_SOURCES += editor-music-document.hpp
 EXTRA_camoto_studio_SOURCES += editor-music-eventpanel.hpp
 EXTRA_camoto_studio_SOURCES += editor-tileset.hpp
+EXTRA_camoto_studio_SOURCES += editor-tileset-canvas.hpp
 EXTRA_camoto_studio_SOURCES += efailure.hpp
 
 pngpp_sources = png++/color.hpp

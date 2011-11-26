@@ -53,8 +53,8 @@ MapDocument::MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
 		throw EFailure(_T("Map is not a 2D grid-based map!"));
 	}
 
-	int attribList[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 0, 0};
-	this->canvas = new MapCanvas(this, map, tileset, attribList, mapObjectVector);
+	this->canvas = new MapCanvas(this, parent->getGLContext(), map, tileset,
+		parent->getGLAttributes(), mapObjectVector);
 
 	wxToolBar *tb = new wxToolBar(this, wxID_ANY, wxDefaultPosition,
 		wxDefaultSize, wxTB_FLAT | wxTB_NODIVIDER);

@@ -102,10 +102,10 @@ BEGIN_EVENT_TABLE(MapCanvas, wxGLCanvas)
 	EVT_KEY_DOWN(MapCanvas::onKeyDown)
 END_EVENT_TABLE()
 
-MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
-	int *attribList, const MapObjectVector *mapObjects)
+MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
+	VC_TILESET tileset, int *attribList, const MapObjectVector *mapObjects)
 	throw () :
-		wxGLCanvas(parent, wxID_ANY, wxDefaultPosition,
+		wxGLCanvas(parent, glcx, wxID_ANY, wxDefaultPosition,
 			wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS, wxEmptyString, attribList),
 		doc(parent),
 		map(map),
@@ -142,72 +142,49 @@ MapCanvas::MapCanvas(MapDocument *parent, Map2DPtr map, VC_TILESET tileset,
 	glEnable(GL_TEXTURE_2D);
 	glDisable(GL_DEPTH_TEST);
 
-	PaletteTablePtr palDefault;
-	if (tileset[0]->getCaps() & Tileset::HasPalette) {
-		palDefault = tileset[0]->getPalette();
-		assert(palDefault);
-	} else {
-		// Load default palette
-		palDefault = createDefaultCGAPalette();
-	}
-
-	// TODO: Load unknown/default tile the same size (if possible) as the grid
-	GLuint unknownTile = 0;
-
 	for (unsigned int i = 0; i < layerCount; i++) {
 		Map2D::LayerPtr layer = this->map->getLayer(i);
-		Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
+
+		unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
+		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
+
+		Texture unknownTile;
+		// TODO: Load unknown/default tile the same size (if possible) as the grid
+		unknownTile.glid = 0;
+		unknownTile.width = tileWidth;
+		unknownTile.height = tileHeight;
+
+		PaletteTablePtr palDefault;
+		if (layer->getCaps() & Map2D::Layer::HasPalette) {
+			palDefault = layer->getPalette(tileset);
+			assert(palDefault);
+		} else {
+			// Load default palette
+			palDefault = createDefaultCGAPalette();
+		}
+
 		TEXTURE_MAP tm;
-		for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
-			GLuint t;
-			glGenTextures(1, &t);
-			glBindTexture(GL_TEXTURE_2D, t);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+		// Load all the allowed tiles first, so the tile list will always be in the
+		// same order
+		Map2D::Layer::ItemPtrVectorPtr valid = layer->getValidItemList();
+		for (Map2D::Layer::ItemPtrVector::iterator c = valid->begin(); c != valid->end(); c++) {
 			unsigned int code = (*c)->code;
 			if (tm.find(code) == tm.end()) {
-				// This tile code doesn't have an associated image yet
-				ImagePtr image = layer->imageFromCode(code, tileset);
-				if (image) {
-					// Got an image for this tile code
-
-					unsigned int width, height;
-					image->getDimensions(&width, &height);
-					if ((width > 512) || (height > 512)) continue; // image too large
-
-					PaletteTablePtr pal;
-					if (image->getCaps() & Image::HasPalette) {
-						pal = image->getPalette();
-					} else {
-						pal = palDefault;
-					}
-					assert(pal);
-					StdImageDataPtr data = image->toStandard();
-					StdImageDataPtr mask = image->toStandardMask();
-					boost::shared_array<uint32_t> combined(new uint32_t[width * height]);
-					uint8_t *d = data.get(), *m = mask.get();
-					uint8_t *c = (uint8_t *)combined.get();
-					for (unsigned int p = 0; p < width * height; p++) {
-						*c++ = *m & 0x01 ? 255 : (*pal)[*d].blue;
-						*c++ = *m & 0x01 ?   0 : (*pal)[*d].green;
-						*c++ = *m & 0x01 ? 255 : (*pal)[*d].red;
-						*c++ = *m & 0x01 ?   0 : (*pal)[*d].alpha;
-						m++; d++;
-					}
-
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, combined.get());
-					if (glGetError()) std::cerr << "[editor-tileset] GL error loading texture into id " << t << std::endl;
-				} else {
-					std::cerr << "[editor-map] Could not get an image for tile "
-						"code " << code << std::endl;
-					glDeleteTextures(1, &t);
-					t = unknownTile;
-				}
-				tm[code] = t;
+				this->loadTileImage(tm, palDefault, code, layer, tileset, unknownTile);
 			}
 		}
+
+		// Load the tiles used in the map next, in case any are missing from the
+		// list of allowed tiles
+		Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
+		for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
+			unsigned int code = (*c)->code;
+			if (tm.find(code) == tm.end()) {
+				this->loadTileImage(tm, palDefault, code, layer, tileset, unknownTile);
+			}
+		}
+
 		this->textureMap.push_back(tm);
 	}
 
@@ -325,9 +302,76 @@ MapCanvas::~MapCanvas()
 {
 	for (std::vector<TEXTURE_MAP>::iterator l = this->textureMap.begin(); l != this->textureMap.end(); l++) {
 		for (TEXTURE_MAP::iterator t = l->begin(); t != l->end(); t++) {
-			glDeleteTextures(1, &t->second);
+			glDeleteTextures(1, &t->second.glid);
 		}
 	}
+}
+
+void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
+	unsigned int code, Map2D::LayerPtr& layer, VC_TILESET& tileset,
+	Texture& unknownTile)
+	throw ()
+{
+	// This tile code doesn't have an associated image yet
+	ImagePtr image = layer->imageFromCode(code, tileset);
+	if (image) {
+		// Got an image for this tile code
+
+		Texture t;
+		glGenTextures(1, &t.glid);
+		glBindTexture(GL_TEXTURE_2D, t.glid);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+		image->getDimensions(&t.width, &t.height);
+		if ((t.width > 512) || (t.height > 512)) {
+			// Image too large
+			std::cerr << "[editor-map-canvas] Tile too large, using default image" << std::endl;
+			tm[code] = unknownTile;
+			return;
+		}
+
+		PaletteTablePtr pal;
+		if (image->getCaps() & Image::HasPalette) {
+			pal = image->getPalette();
+		} else {
+			pal = palDefault;
+		}
+		assert(pal);
+		StdImageDataPtr data = image->toStandard();
+		StdImageDataPtr mask = image->toStandardMask();
+
+		// Convert the 8-bit data into 32-bit BGRA (so it is possible to have a
+		// 256-colour image with transparency as a "257th colour".)
+		boost::shared_array<uint32_t> combined(new uint32_t[t.width * t.height]);
+		uint8_t *d = data.get(), *m = mask.get();
+		uint8_t *c = (uint8_t *)combined.get();
+		for (unsigned int p = 0; p < t.width * t.height; p++) {
+			*c++ = *m & 0x01 ? 255 : (*pal)[*d].blue;
+			*c++ = *m & 0x01 ?   0 : (*pal)[*d].green;
+			*c++ = *m & 0x01 ? 255 : (*pal)[*d].red;
+			*c++ = *m & 0x01 ?   0 : (*pal)[*d].alpha;
+			m++; d++;
+		}
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, t.width, t.height, 0, GL_BGRA,
+			GL_UNSIGNED_BYTE, combined.get());
+		if (glGetError()) {
+			std::cerr << "[editor-tileset] GL error loading texture "
+				"into id " << t.glid << std::endl;
+		}
+
+		tm[code] = t;
+	} else {
+		std::cerr << "[editor-map] Could not get an image for tile "
+			"code " << code << std::endl;
+
+		tm[code] = unknownTile;
+	}
+
+	return;
 }
 
 void MapCanvas::setZoomFactor(int f)
@@ -545,7 +589,7 @@ void MapCanvas::redraw()
 					}
 				}
 
-				glBindTexture(GL_TEXTURE_2D, this->textureMap[i][(*c)->code]);
+				glBindTexture(GL_TEXTURE_2D, this->textureMap[i][(*c)->code].glid);
 				glBegin(GL_QUADS);
 				glTexCoord2d(0.0, 0.0);
 				glVertex2i(tileX - this->offX, tileY - this->offY);
@@ -605,7 +649,7 @@ void MapCanvas::redraw()
 							glEnable(GL_TEXTURE_2D);
 						} else {
 							// This tile can be placed here, draw the tile
-							glBindTexture(GL_TEXTURE_2D, this->textureMap[this->activeLayer - ElementCount][code]);
+							glBindTexture(GL_TEXTURE_2D, this->textureMap[this->activeLayer - ElementCount][code].glid);
 							glBegin(GL_QUADS);
 							glTexCoord2d(0.0, 0.0);
 							glVertex2i(tileX - this->offX, tileY - this->offY);

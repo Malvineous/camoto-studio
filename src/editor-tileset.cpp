@@ -21,11 +21,12 @@
 #include <boost/bind.hpp>
 #include <wx/imaglist.h>
 #include <wx/artprov.h>
+#include <wx/glcanvas.h>
 #include "png++/png.hpp"
 #include "editor-tileset.hpp"
-#include <wx/glcanvas.h> // must be after editor-tileset.hpp?!
 #include "efailure.hpp"
 #include "main.hpp"
+#include "editor-tileset-canvas.hpp"
 
 #ifdef HAVE_GL_GL_H
 #include <GL/gl.h>
@@ -41,31 +42,16 @@
 using namespace camoto;
 using namespace camoto::gamegraphics;
 
-class TilesetCanvas: public wxGLCanvas
+class TilesetDocument: public IDocument
 {
 	public:
-
-		TilesetCanvas(wxWindow *parent, TilesetPtr tileset, int *attribList,
-			int zoomFactor)
+		TilesetDocument(IMainWindow *parent, TilesetEditor::Settings *settings, TilesetPtr tileset)
 			throw () :
-				wxGLCanvas(parent, wxID_ANY, wxDefaultPosition,
-					wxDefaultSize, 0, wxEmptyString, attribList),
+				IDocument(parent, _T("tileset")),
 				tileset(tileset),
-				zoomFactor(zoomFactor),
-				tilesX(0), // must be updated before first redraw() call
+				settings(settings),
 				offset(0)
 		{
-			this->SetCurrent();
-			glClearColor(0.5, 0.5, 0.5, 1);
-			glShadeModel(GL_FLAT);
-			glEnable(GL_TEXTURE_2D);
-			glDisable(GL_DEPTH_TEST);
-
-			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
-			this->textureCount = tiles.size();
-			this->texture = new GLuint[this->textureCount];
-			glGenTextures(this->textureCount, this->texture);
-
 			// Load the palette
 			PaletteTablePtr pal;
 			if (tileset->getCaps() & Tileset::HasPalette) {
@@ -73,7 +59,14 @@ class TilesetCanvas: public wxGLCanvas
 			} else {
 				pal = createDefaultCGAPalette();
 			}
-			GLushort r[256], g[256], b[256], a[256];;
+
+			this->canvas = new TilesetCanvas(this, this->frame->getGLContext(),
+				this->frame->getGLAttributes(), this->settings->zoomFactor);
+
+			// Make the texture operations below apply to this OpenGL surface
+			this->canvas->SetCurrent();
+
+			GLushort r[256], g[256], b[256], a[256];
 			for (int i = 0; i < 256; i++) {
 				r[i] = ((*pal)[i].red << 8) | (*pal)[i].red;
 				g[i] = ((*pal)[i].green << 8) | (*pal)[i].green;
@@ -87,15 +80,20 @@ class TilesetCanvas: public wxGLCanvas
 			glPixelMapusv(GL_PIXEL_MAP_I_TO_B, 256, b);
 			glPixelMapusv(GL_PIXEL_MAP_I_TO_A, 256, a);
 
-			GLuint *t = this->texture;
+			// Load all the tiles into OpenGL textures
+			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
+			int j = 0;
 			for (Tileset::VC_ENTRYPTR::const_iterator i = tiles.begin();
-				i != tiles.end(); i++, t++)
+				i != tiles.end(); i++, j++)
 			{
 				if ((*i)->attr & Tileset::EmptySlot) continue;
 				if ((*i)->attr & Tileset::SubTileset) continue;
 
+				Texture t;
+				glGenTextures(1, &t.glid);
+
 				// Bind each texture in turn to the 2D target
-				glBindTexture(GL_TEXTURE_2D, *t);
+				glBindTexture(GL_TEXTURE_2D, t.glid);
 
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -106,161 +104,20 @@ class TilesetCanvas: public wxGLCanvas
 				// previously bound to it.
 				ImagePtr image = tileset->openImage(*i);
 				StdImageDataPtr data = image->toStandard();
-				unsigned int width, height;
-				image->getDimensions(&width, &height);
-				if ((width > 512) || (height > 512)) continue; // image too large
-				// TODO: If this image has a palette, load it
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_COLOR_INDEX, GL_UNSIGNED_BYTE, data.get());
-				if (glGetError()) std::cerr << "[editor-tileset] GL error loading texture into id " << *t << std::endl;
-			}
-			glPixelTransferi(GL_MAP_COLOR, GL_FALSE);
+				image->getDimensions(&t.width, &t.height);
+				if ((t.width > 512) || (t.height > 512)) continue; // image too large
 
-			this->glReset();
-		}
-
-		~TilesetCanvas()
-			throw ()
-		{
-			glDeleteTextures(this->textureCount, this->texture);
-			delete[] this->texture;
-		}
-
-		void onEraseBG(wxEraseEvent& ev)
-		{
-			return;
-		}
-
-		void onPaint(wxPaintEvent& ev)
-		{
-			wxPaintDC dummy(this);
-			this->redraw();
-			return;
-		}
-
-		void onResize(wxSizeEvent& ev)
-		{
-			this->Layout();
-			this->glReset();
-			return;
-		}
-
-		void glReset()
-		{
-			this->SetCurrent();
-			wxSize s = this->GetClientSize();
-			glViewport(0, 0, s.x, s.y);
-			glMatrixMode(GL_PROJECTION);
-			glLoadIdentity();
-			glOrtho(0, s.x/this->zoomFactor, s.y/this->zoomFactor, 0, -1, 1);
-			glMatrixMode(GL_MODELVIEW);
-			glLoadIdentity();
-			return;
-		}
-
-		/// Redraw the document.  Used after toggling layers.
-		void redraw()
-			throw ()
-		{
-			this->SetCurrent();
-			glClear(GL_COLOR_BUFFER_BIT);
-
-			glEnable(GL_TEXTURE_2D);
-
-			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-
-			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
-			unsigned int x = 0, y = 0, nx = 0, maxHeight = 0;
-			for (unsigned int i = 0, tileIndex = this->offset; tileIndex < this->textureCount; i++, tileIndex++) {
-				glBindTexture(GL_TEXTURE_2D, this->texture[tileIndex]);
-
-				if (tiles[tileIndex]->attr & Tileset::EmptySlot) continue;
-				if (tiles[tileIndex]->attr & Tileset::SubTileset) continue;
-				ImagePtr image = this->tileset->openImage(tiles[tileIndex]);
-				unsigned int width, height;
-				image->getDimensions(&width, &height);
-
-				glBegin(GL_QUADS);
-				glTexCoord2d(0.0, 0.0);  glVertex2i(x,  y);
-				glTexCoord2d(0.0, 1.0);  glVertex2i(x,  y + height);
-				glTexCoord2d(1.0, 1.0);  glVertex2i(x + width, y + height);
-				glTexCoord2d(1.0, 0.0);  glVertex2i(x + width, y);
-				glEnd();
-
-				if (height > maxHeight) maxHeight = height;
-				x += width;
-				nx++;
-				if (nx >= this->tilesX) {
-					x = 0;
-					nx = 0;
-					y += maxHeight;
-					maxHeight = 0;
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, t.width, t.height, 0,
+					GL_COLOR_INDEX, GL_UNSIGNED_BYTE, data.get());
+				if (glGetError()) {
+					std::cerr << "[editor-tileset] GL error loading texture into id " << t.glid << std::endl;
+				} else {
+					// Store this tile in the map, by its index
+					this->tm[j] = t;
 				}
 			}
-
-			glDisable(GL_TEXTURE_2D);
-
-			this->SwapBuffers();
-			return;
-		}
-
-		void setZoomFactor(int f)
-			throw ()
-		{
-			this->zoomFactor = f;
-			this->glReset();
-			this->redraw();
-			return;
-		}
-
-		void setTilesX(int t)
-			throw ()
-		{
-			this->tilesX = t;
-			this->redraw();
-			return;
-		}
-
-		void setOffset(unsigned int o)
-			throw ()
-		{
-			if (o < this->textureCount) {
-				this->offset = o;
-				this->redraw();
-			}
-			return;
-		}
-
-	protected:
-		TilesetPtr tileset;
-
-		unsigned int textureCount;
-		GLuint *texture;
-		int zoomFactor;             ///< Zoom level, 1 == 1:1, 2 == doublesize, etc.
-		unsigned int tilesX;        ///< Number of tiles to draw before wrapping to the next row
-		unsigned int offset;        ///< Number of tiles to skip drawing from the start of the tileset
-
-		DECLARE_EVENT_TABLE();
-
-};
-
-BEGIN_EVENT_TABLE(TilesetCanvas, wxGLCanvas)
-	EVT_PAINT(TilesetCanvas::onPaint)
-	EVT_ERASE_BACKGROUND(TilesetCanvas::onEraseBG)
-	EVT_SIZE(TilesetCanvas::onResize)
-END_EVENT_TABLE()
-
-class TilesetDocument: public IDocument
-{
-	public:
-		TilesetDocument(IMainWindow *parent, TilesetEditor::Settings *settings, TilesetPtr tileset)
-			throw () :
-				IDocument(parent, _T("tileset")),
-				tileset(tileset),
-				settings(settings),
-				offset(0)
-		{
-			int attribList[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 0, 0};
-			this->canvas = new TilesetCanvas(this, tileset, attribList, this->settings->zoomFactor);
+			glPixelTransferi(GL_MAP_COLOR, GL_FALSE);
+			this->canvas->setTextures(this->tm);
 
 			wxToolBar *tb = new wxToolBar(this, wxID_ANY, wxDefaultPosition,
 				wxDefaultSize, wxTB_FLAT | wxTB_NODIVIDER);
@@ -328,6 +185,16 @@ class TilesetDocument: public IDocument
 			this->tilesX = this->tileset->getLayoutWidth();
 			if (this->tilesX == 0) this->tilesX = 8;
 			this->canvas->setTilesX(this->tilesX); // set initial value
+		}
+
+		~TilesetDocument()
+			throw ()
+		{
+			// Unload all the textures
+			this->canvas->SetCurrent();
+			for (TEXTURE_MAP::iterator t = this->tm.begin(); t != this->tm.end(); t++) {
+				glDeleteTextures(1, &t->second.glid);
+			}
 		}
 
 		virtual void save()
@@ -512,18 +379,18 @@ class TilesetDocument: public IDocument
 		{
 			this->settings->zoomFactor = f;
 			this->canvas->setZoomFactor(f);
+			this->canvas->redraw();
 			return;
 		}
 
 	protected:
-		TilesetCanvas *canvas;
-		TilesetPtr tileset;
+		TilesetCanvas *canvas; ///< Drawing surface
+		TilesetPtr tileset;    ///< Tileset to display
 		TilesetEditor::Settings *settings;
+		TEXTURE_MAP tm;        ///< Map between tile indices and OpenGL texture info
 
-		unsigned int tilesX;        ///< Number of tiles to draw before wrapping to the next row
-		unsigned int offset;        ///< Number of tiles to skip drawing from the start of the tileset
-
-		friend class LayerPanel;
+		unsigned int tilesX;   ///< Number of tiles to draw before wrapping to the next row
+		unsigned int offset;   ///< Number of tiles to skip drawing from the start of the tileset
 
 		enum {
 			IDC_INC_WIDTH = wxID_HIGHEST + 1,

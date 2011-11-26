@@ -35,7 +35,6 @@
 class IDocument: public wxPanel
 {
 	public:
-
 		/// Has the document changed?
 		/**
 		 * Set to true whenever a change is made, and to false whenever the document
@@ -90,7 +89,6 @@ class IDocument: public wxPanel
 	protected:
 		IMainWindow *frame;
 		wxString typeMajor;
-
 };
 
 /// Small window for additional information about the document being edited.

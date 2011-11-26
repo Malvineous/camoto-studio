@@ -55,6 +55,9 @@
 namespace ga = camoto::gamearchive;
 namespace stream = camoto::stream;
 
+/// Attribute list for all OpenGL surfaces
+int glAttribList[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 0, 0};
+
 paths path;
 config_data config;
 
@@ -107,6 +110,12 @@ class CamotoFrame: public IMainWindow
 			archManager(ga::getManager())
 		{
 			this->aui.SetManagedWindow(this);
+
+			// Create a base OpenGL context to share among all editors
+			wxGLCanvas *canvas = new wxGLCanvas(this, glcx, wxID_ANY, wxDefaultPosition,
+				wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS, wxEmptyString, ::glAttribList);
+			this->glcx = new wxGLContext(canvas, NULL);
+			delete canvas;
 
 			wxMenu *menuFile = new wxMenu();
 			if (isStudio) {
@@ -209,6 +218,8 @@ class CamotoFrame: public IMainWindow
 			}
 
 			delete this->popup;
+
+			delete this->glcx;
 		}
 
 		/// Enable/disable menu items according to current state.
@@ -1069,6 +1080,18 @@ class CamotoFrame: public IMainWindow
 			this->updateStatusBar();
 		}
 
+		virtual wxGLContext *getGLContext()
+			throw ()
+		{
+			return this->glcx;
+		}
+
+		virtual int *getGLAttributes()
+			throw ()
+		{
+			return ::glAttribList;
+		}
+
 		void updateStatusBar()
 		{
 			wxString text = this->txtHelp;
@@ -1231,6 +1254,7 @@ class CamotoFrame: public IMainWindow
 		}
 
 	protected:
+		wxGLContext *glcx; ///< Shared OpenGL context
 		wxAuiManager aui;
 		wxStatusBar *status;
 		wxMenuBar *menubar;

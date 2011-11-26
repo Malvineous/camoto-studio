@@ -23,6 +23,7 @@
 #define _MAINWINDOW_HPP_
 
 #include <wx/frame.h>
+#include <wx/glcanvas.h>
 
 /// Base class for main window.
 class IMainWindow: public wxFrame
@@ -49,6 +50,25 @@ class IMainWindow: public wxFrame
 		virtual void setHelpText(const wxString& text)
 			throw () = 0;
 
+		/// Get a shared OpenGL context.
+		/**
+		 * @return OpenGL context to share among subsequent OpenGL canvases.
+		 */
+		virtual wxGLContext *getGLContext()
+			throw () = 0;
+
+		/// Get the OpenGL attribute list to use for all shared surfaces.
+		/**
+		 * This returns the attribute list used to create the shared context
+		 * returned by getGLContext() so that subsequent GL canvases can make
+		 * use of the shared context.  If other canvases are created with
+		 * different attribute lists then they will be unable to share the
+		 * context returned by getGLContext().
+		 *
+		 * @return Integer array suitable for passing to wxGLCanvas c'tor.
+		 */
+		virtual int *getGLAttributes()
+			throw () = 0;
 };
 
 #endif // _MAINWINDOW_HPP_
