@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Jill of the Jungle description file for Camoto Studio
+	Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Jill_of_the_Jungle
+  -->
+<game title="Jill of the Jungle" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Tim Sweeney</developer>
+		<publisher>Epic Megagames</publisher>
+		<reverser>Malvineous</reverser>
+	</info>
+
+	<display>
+		<group name="Episode 1 - Jill of the Jungle">
+			<group name="Levels">
+				<item ref="lev-100" />
+				<item ref="lev-101" />
+				<item ref="lev-102" />
+				<item ref="lev-103" />
+				<item ref="lev-104" />
+				<item ref="lev-106" />
+				<item ref="lev-109" />
+				<item ref="lev-150" />
+				<item ref="lev-1in" />
+			</group>
+			<group name="Graphics">
+				<item ref="tls-1" />
+				<item ref="pal-1" />
+			</group>
+		</group>
+
+		<group name="Episode 2 - Jill Goes Underground">
+		</group>
+
+		<group name="Episode 3 - Jill Saves the Prince">
+		</group>
+
+		<group name="Music">
+			<item ref="mus-01" />
+			<item ref="mus-02" />
+			<item ref="mus-03" />
+			<item ref="mus-04" />
+			<item ref="mus-05" />
+			<item ref="mus-06" />
+			<item ref="mus-07" />
+			<item ref="mus-08" />
+			<item ref="mus-09" />
+			<item ref="mus-10" />
+			<item ref="mus-11" />
+			<item ref="mus-12" />
+			<item ref="mus-13" />
+			<item ref="mus-14" />
+			<item ref="mus-15" />
+			<item ref="mus-16" />
+			<item ref="mus-17" />
+			<item ref="mus-18" />
+			<item ref="mus-19" />
+		</group>
+
+		<group name="Game loader">
+		</group>
+	</display>
+
+	<files>
+		<file id="lev-100"   name="map.jn1"      typeMajor="map" typeMinor="jill" supp:tiles="tls-1">Map level</file>
+		<file id="lev-101"   name="1.jn1"        typeMajor="map" typeMinor="jill" supp:tiles="tls-1">Level 1 - The Boulders + Level 7 - The Forest</file>
+		<file id="lev-102"   name="2.jn1"        typeMajor="map" typeMinor="jill" supp:tiles="tls-1">Level 2 - The Forest + Level 14 - The Plateau</file>
+		<file id="lev-103"   name="3.jn1"        typeMajor="map" typeMinor="jill" supp:tiles="tls-1">Levels 3-5 - The Hut + Level 20 - Bonus</file>
+		<file id="lev-104"   name="4.jn1"        typeMajor="map" typeMinor="jill" supp:tiles="tls-1">Level 6 - The Castle + Level 13 - Yet Another Puzzle</file>
+		<file id="lev-106"   name="6.jn1"        typeMajor="map" typeMinor="jill" supp:tiles="tls-1">Level 8 - Arg's Dungeon + Level 9 - Phoenix Max + Level 10 - The Knight's Puzzle</file>
+		<file id="lev-109"   name="9.jn1"        typeMajor="map" typeMinor="jill" supp:tiles="tls-1">Level 11 - The Dark Forest + Level 12 - The Underground River</file>
+		<file id="lev-150"   name="50.jn1"       typeMajor="map" typeMinor="jill" supp:tiles="tls-1">Level 50 - The Ending</file>
+		<file id="lev-1in"   name="intro.jn1"    typeMajor="map" typeMinor="jill" supp:tiles="tls-1">Main menu background</file>
+
+		<file id="tls-1"     name="jill1.sha"    typeMajor="tileset" typeMinor="jill" supp:extra1="dma" supp:pal="pal-1">Game graphics</file>
+		<file id="dma"       name="jill.dma">Tile properties</file>
+
+		<file id="mus-01"    name="action.ddt"   typeMajor="music"   typeMinor="cmf-creativelabs">Action</file>
+		<file id="mus-02"    name="alien.ddt"    typeMajor="music"   typeMinor="cmf-creativelabs">Alien</file>
+		<file id="mus-03"    name="bonzo.ddt"    typeMajor="music"   typeMinor="cmf-creativelabs">Bonzo</file>
+		<file id="mus-04"    name="cubist.ddt"   typeMajor="music"   typeMinor="cmf-creativelabs">Cubist</file>
+		<file id="mus-05"    name="dan.ddt"      typeMajor="music"   typeMinor="cmf-creativelabs">Dan</file>
+		<file id="mus-06"    name="deepevil.ddt" typeMajor="music"   typeMinor="cmf-creativelabs">Deep Evil</file>
+		<file id="mus-07"    name="desert.ddt"   typeMajor="music"   typeMinor="cmf-creativelabs">Desert</file>
+		<file id="mus-08"    name="dungo.ddt"    typeMajor="music"   typeMinor="cmf-creativelabs">Dungo</file>
+		<file id="mus-09"    name="funky.ddt"    typeMajor="music"   typeMinor="cmf-creativelabs">Funky</file>
+		<file id="mus-10"    name="it.ddt"       typeMajor="music"   typeMinor="cmf-creativelabs">It</file>
+		<file id="mus-11"    name="jupiter.ddt"  typeMajor="music"   typeMinor="cmf-creativelabs">Jupiter</file>
+		<file id="mus-12"    name="kuntamon.ddt" typeMajor="music"   typeMinor="cmf-creativelabs">Kuntamon</file>
+		<file id="mus-13"    name="neoclass.ddt" typeMajor="music"   typeMinor="cmf-creativelabs">Neoclass</file>
+		<file id="mus-14"    name="ominous.ddt"  typeMajor="music"   typeMinor="cmf-creativelabs">Ominous</file>
+		<file id="mus-15"    name="seven.ddt"    typeMajor="music"   typeMinor="cmf-creativelabs">Seven</file>
+		<file id="mus-16"    name="spiders.ddt"  typeMajor="music"   typeMinor="cmf-creativelabs">Spiders</file>
+		<file id="mus-17"    name="stealth.ddt"  typeMajor="music"   typeMinor="cmf-creativelabs">Stealth</file>
+		<file id="mus-18"    name="wild.ddt"     typeMajor="music"   typeMinor="cmf-creativelabs">Wild</file>
+		<file id="mus-19"    name="zeppelin.ddt" typeMajor="music"   typeMinor="cmf-creativelabs">Zeppelin</file>
+
+		<archive id="exe-1"  name="jjfile1.exe" typeMinor="fixed">
+			<file id="pal-1"   name="jill1.pal" offset="0x1ed84" size="768" typeMajor="image" typeMinor="pal-vga">VGA palette</file>
+		</archive>
+
+		<archive id="exe-2"  name="jjfile2.exe" typeMinor="fixed">
+			<file id="pal-2"   name="jill2.pal" offset="0x1ed84" size="768" typeMajor="image" typeMinor="pal-vga">VGA palette</file>
+		</archive>
+
+		<archive id="exe-3"  name="jjfile3.exe" typeMinor="fixed">
+			<file id="pal-3"   name="jill3.pal" offset="0x1ed84" size="768" typeMajor="image" typeMinor="pal-vga">VGA palette</file>
+		</archive>
+
+	</files>
+
+	<commands>
+		<command title="Episode selection">jill</command>
+		<command title="Episode 1">jjfile1</command>
+		<command title="Episode 2">jjfile2</command>
+		<command title="Episode 3">jjfile3</command>
+	</commands>
+
+</game>
