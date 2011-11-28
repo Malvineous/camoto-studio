@@ -514,7 +514,7 @@ void MapCanvas::redraw()
 			unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 			getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
-			int oX, oY;
+			int oX = 0, oY = 0;
 			bool drawSelection = false;
 			if (
 				(this->activeLayer == ElementCount + i) &&  // if this is the active layer
