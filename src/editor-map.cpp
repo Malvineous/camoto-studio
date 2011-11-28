@@ -33,7 +33,7 @@ using namespace camoto;
 using namespace camoto::gamemaps;
 using namespace camoto::gamegraphics;
 
-bool tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& suppMap,
+void tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& suppMap,
 	const wxString& id, VC_TILESET *tilesetVector)
 	throw (EFailure);
 
@@ -290,10 +290,10 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 
 	VC_TILESET tilesetVector;
 	try {
-		if (!tryLoadTileset(this->frame, suppData, supp, _T("tiles"), &tilesetVector)) return NULL;
-		if (!tryLoadTileset(this->frame, suppData, supp, _T("tiles2"), &tilesetVector)) return NULL;
-		if (!tryLoadTileset(this->frame, suppData, supp, _T("tiles3"), &tilesetVector)) return NULL;
-		if (!tryLoadTileset(this->frame, suppData, supp, _T("sprites"), &tilesetVector)) return NULL;
+		tryLoadTileset(this->frame, suppData, supp, _T("tiles"), &tilesetVector);
+		tryLoadTileset(this->frame, suppData, supp, _T("tiles2"), &tilesetVector);
+		tryLoadTileset(this->frame, suppData, supp, _T("tiles3"), &tilesetVector);
+		tryLoadTileset(this->frame, suppData, supp, _T("sprites"), &tilesetVector);
 	} catch (const EFailure& e) {
 		wxString msg = _T("Error opening the map tileset:\n\n");
 		msg += e.getMessage();
@@ -319,13 +319,13 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 		"been written yet!"));
 }
 
-bool tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& supp,
+void tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& supp,
 	const wxString& id, VC_TILESET *tilesetVector)
 	throw (EFailure)
 {
 	SuppMap::iterator s;
 	s = supp.find(id);
-	if (s == supp.end()) return true;
+	if (s == supp.end()) return;
 
 	std::string strGfxType("tls-");
 	strGfxType.append(s->second.typeMinor.ToUTF8());
@@ -351,6 +351,5 @@ bool tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& supp,
 		throw EFailure(wxString::Format(_T("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));
 	}
-
-	return true;
+	return;
 }
