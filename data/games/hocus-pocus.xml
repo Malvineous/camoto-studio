@@ -11,7 +11,7 @@
 	<info>
 		<developer>Mike Voss</developer>
 		<publisher>Apogee</publisher>
-		<reverser>Spinal, Malvineous</reverser>
+		<reverser>K1n9 Duk3, Spinal, Malvineous</reverser>
 	</info>
 
 	<!-- This section indicates which folders and groups the game elements should
@@ -22,6 +22,44 @@
 
 		<group name="Levels">
 			<item ref="lev-101"/>
+			<item ref="lev-102"/>
+			<item ref="lev-103"/>
+			<item ref="lev-104"/>
+			<item ref="lev-105"/>
+			<item ref="lev-106"/>
+			<item ref="lev-107"/>
+			<item ref="lev-108"/>
+			<item ref="lev-109"/>
+
+			<item ref="lev-201"/>
+			<item ref="lev-202"/>
+			<item ref="lev-203"/>
+			<item ref="lev-204"/>
+			<item ref="lev-205"/>
+			<item ref="lev-206"/>
+			<item ref="lev-207"/>
+			<item ref="lev-208"/>
+			<item ref="lev-209"/>
+
+			<item ref="lev-301"/>
+			<item ref="lev-302"/>
+			<item ref="lev-303"/>
+			<item ref="lev-304"/>
+			<item ref="lev-305"/>
+			<item ref="lev-306"/>
+			<item ref="lev-307"/>
+			<item ref="lev-308"/>
+			<item ref="lev-309"/>
+
+			<item ref="lev-401"/>
+			<item ref="lev-402"/>
+			<item ref="lev-403"/>
+			<item ref="lev-404"/>
+			<item ref="lev-405"/>
+			<item ref="lev-406"/>
+			<item ref="lev-407"/>
+			<item ref="lev-408"/>
+			<item ref="lev-409"/>
 		</group>
 
 		<group name="Graphics">
@@ -103,12 +141,125 @@
 		<file id="exe-hocus" name="hocus.exe" typeMajor="binary" typeMinor="exe">Main EXE file</file>
 		<archive name="hocus.dat" id="arch-hocus-dat" typeMinor="dat-hocus" supp:fat="exe-hocus">
 
-			<file id="lev-101" name="@455" typeMajor="map" typeMinor="hocus"
-						supp:layer1="lev-101-fg1" supp:layer2="lev-101-fg2"
-						supp:tiles="tls-01">E1L1</file>
+			<file id="lev-101" name="@455" typeMajor="map" typeMinor="hocus" supp:layer1="lev-101-fg1" supp:layer2="lev-101-fg2" supp:tiles="tls-01">E1L1</file>
+			<file id="lev-102" name="@456" typeMajor="map" typeMinor="hocus" supp:layer1="lev-102-fg1" supp:layer2="lev-102-fg2" supp:tiles="tls-01">E1L2</file>
+			<file id="lev-103" name="@457" typeMajor="map" typeMinor="hocus" supp:layer1="lev-103-fg1" supp:layer2="lev-103-fg2" supp:tiles="tls-02">E1L3</file>
+			<file id="lev-104" name="@458" typeMajor="map" typeMinor="hocus" supp:layer1="lev-104-fg1" supp:layer2="lev-104-fg2" supp:tiles="tls-02">E1L4</file>
+			<file id="lev-105" name="@459" typeMajor="map" typeMinor="hocus" supp:layer1="lev-105-fg1" supp:layer2="lev-105-fg2" supp:tiles="tls-03">E1L5</file>
+			<file id="lev-106" name="@460" typeMajor="map" typeMinor="hocus" supp:layer1="lev-106-fg1" supp:layer2="lev-106-fg2" supp:tiles="tls-03">E1L6</file>
+			<file id="lev-107" name="@461" typeMajor="map" typeMinor="hocus" supp:layer1="lev-107-fg1" supp:layer2="lev-107-fg2" supp:tiles="tls-04">E1L7</file>
+			<file id="lev-108" name="@462" typeMajor="map" typeMinor="hocus" supp:layer1="lev-108-fg1" supp:layer2="lev-108-fg2" supp:tiles="tls-04">E1L8</file>
+			<file id="lev-109" name="@463" typeMajor="map" typeMinor="hocus" supp:layer1="lev-109-fg1" supp:layer2="lev-109-fg2" supp:tiles="tls-04">E1L9</file>
 
-			<file id="lev-101-fg1" name="@456" typeMajor="map" typeMinor="hocus-fg">E1L1 FG layer 1</file>
-			<file id="lev-101-fg2" name="@457" typeMajor="map" typeMinor="hocus-fg">E1L1 FG layer 2</file>
+			<file id="lev-201" name="@464" typeMajor="map" typeMinor="hocus" supp:layer1="lev-201-fg1" supp:layer2="lev-201-fg2" supp:tiles="tls-05">E2L1</file>
+			<file id="lev-202" name="@465" typeMajor="map" typeMinor="hocus" supp:layer1="lev-202-fg1" supp:layer2="lev-202-fg2" supp:tiles="tls-05">E2L2</file>
+			<file id="lev-203" name="@466" typeMajor="map" typeMinor="hocus" supp:layer1="lev-203-fg1" supp:layer2="lev-203-fg2" supp:tiles="tls-06">E2L3</file>
+			<file id="lev-204" name="@467" typeMajor="map" typeMinor="hocus" supp:layer1="lev-204-fg1" supp:layer2="lev-204-fg2" supp:tiles="tls-06">E2L4</file>
+			<file id="lev-205" name="@468" typeMajor="map" typeMinor="hocus" supp:layer1="lev-205-fg1" supp:layer2="lev-205-fg2" supp:tiles="tls-07">E2L5</file>
+			<file id="lev-206" name="@469" typeMajor="map" typeMinor="hocus" supp:layer1="lev-206-fg1" supp:layer2="lev-206-fg2" supp:tiles="tls-07">E2L6</file>
+			<file id="lev-207" name="@470" typeMajor="map" typeMinor="hocus" supp:layer1="lev-207-fg1" supp:layer2="lev-207-fg2" supp:tiles="tls-08">E2L7</file>
+			<file id="lev-208" name="@471" typeMajor="map" typeMinor="hocus" supp:layer1="lev-208-fg1" supp:layer2="lev-208-fg2" supp:tiles="tls-08">E2L8</file>
+			<file id="lev-209" name="@472" typeMajor="map" typeMinor="hocus" supp:layer1="lev-209-fg1" supp:layer2="lev-209-fg2" supp:tiles="tls-08">E2L9</file>
+
+			<file id="lev-301" name="@473" typeMajor="map" typeMinor="hocus" supp:layer1="lev-301-fg1" supp:layer2="lev-301-fg2" supp:tiles="tls-09">E3L1</file>
+			<file id="lev-302" name="@474" typeMajor="map" typeMinor="hocus" supp:layer1="lev-302-fg1" supp:layer2="lev-302-fg2" supp:tiles="tls-09">E3L2</file>
+			<file id="lev-303" name="@475" typeMajor="map" typeMinor="hocus" supp:layer1="lev-303-fg1" supp:layer2="lev-303-fg2" supp:tiles="tls-10">E3L3</file>
+			<file id="lev-304" name="@476" typeMajor="map" typeMinor="hocus" supp:layer1="lev-304-fg1" supp:layer2="lev-304-fg2" supp:tiles="tls-10">E3L4</file>
+			<file id="lev-305" name="@477" typeMajor="map" typeMinor="hocus" supp:layer1="lev-305-fg1" supp:layer2="lev-305-fg2" supp:tiles="tls-11">E3L5</file>
+			<file id="lev-306" name="@478" typeMajor="map" typeMinor="hocus" supp:layer1="lev-306-fg1" supp:layer2="lev-306-fg2" supp:tiles="tls-11">E3L6</file>
+			<file id="lev-307" name="@479" typeMajor="map" typeMinor="hocus" supp:layer1="lev-307-fg1" supp:layer2="lev-307-fg2" supp:tiles="tls-12">E3L7</file>
+			<file id="lev-308" name="@480" typeMajor="map" typeMinor="hocus" supp:layer1="lev-308-fg1" supp:layer2="lev-308-fg2" supp:tiles="tls-12">E3L8</file>
+			<file id="lev-309" name="@481" typeMajor="map" typeMinor="hocus" supp:layer1="lev-309-fg1" supp:layer2="lev-309-fg2" supp:tiles="tls-12">E3L9</file>
+
+			<file id="lev-401" name="@482" typeMajor="map" typeMinor="hocus" supp:layer1="lev-401-fg1" supp:layer2="lev-401-fg2" supp:tiles="tls-13">E4L1</file>
+			<file id="lev-402" name="@483" typeMajor="map" typeMinor="hocus" supp:layer1="lev-402-fg1" supp:layer2="lev-402-fg2" supp:tiles="tls-13">E4L2</file>
+			<file id="lev-403" name="@484" typeMajor="map" typeMinor="hocus" supp:layer1="lev-403-fg1" supp:layer2="lev-403-fg2" supp:tiles="tls-14">E4L3</file>
+			<file id="lev-404" name="@485" typeMajor="map" typeMinor="hocus" supp:layer1="lev-404-fg1" supp:layer2="lev-404-fg2" supp:tiles="tls-14">E4L4</file>
+			<file id="lev-405" name="@486" typeMajor="map" typeMinor="hocus" supp:layer1="lev-405-fg1" supp:layer2="lev-405-fg2" supp:tiles="tls-15">E4L5</file>
+			<file id="lev-406" name="@487" typeMajor="map" typeMinor="hocus" supp:layer1="lev-406-fg1" supp:layer2="lev-406-fg2" supp:tiles="tls-15">E4L6</file>
+			<file id="lev-407" name="@488" typeMajor="map" typeMinor="hocus" supp:layer1="lev-407-fg1" supp:layer2="lev-407-fg2" supp:tiles="tls-16">E4L7</file>
+			<file id="lev-408" name="@489" typeMajor="map" typeMinor="hocus" supp:layer1="lev-408-fg1" supp:layer2="lev-408-fg2" supp:tiles="tls-16">E4L8</file>
+			<file id="lev-409" name="@490" typeMajor="map" typeMinor="hocus" supp:layer1="lev-409-fg1" supp:layer2="lev-409-fg2" supp:tiles="tls-16">E4L9</file>
+
+			<file id="lev-101-fg1" name="@491" typeMajor="map" typeMinor="hocus-fg">E1L1 FG layer 1</file>
+			<file id="lev-102-fg1" name="@492" typeMajor="map" typeMinor="hocus-fg">E1L2 FG layer 1</file>
+			<file id="lev-103-fg1" name="@493" typeMajor="map" typeMinor="hocus-fg">E1L3 FG layer 1</file>
+			<file id="lev-104-fg1" name="@494" typeMajor="map" typeMinor="hocus-fg">E1L4 FG layer 1</file>
+			<file id="lev-105-fg1" name="@495" typeMajor="map" typeMinor="hocus-fg">E1L5 FG layer 1</file>
+			<file id="lev-106-fg1" name="@496" typeMajor="map" typeMinor="hocus-fg">E1L6 FG layer 1</file>
+			<file id="lev-107-fg1" name="@497" typeMajor="map" typeMinor="hocus-fg">E1L7 FG layer 1</file>
+			<file id="lev-108-fg1" name="@498" typeMajor="map" typeMinor="hocus-fg">E1L8 FG layer 1</file>
+			<file id="lev-109-fg1" name="@499" typeMajor="map" typeMinor="hocus-fg">E1L9 FG layer 1</file>
+
+			<file id="lev-201-fg1" name="@500" typeMajor="map" typeMinor="hocus-fg">E2L1 FG layer 1</file>
+			<file id="lev-202-fg1" name="@501" typeMajor="map" typeMinor="hocus-fg">E2L2 FG layer 1</file>
+			<file id="lev-203-fg1" name="@502" typeMajor="map" typeMinor="hocus-fg">E2L3 FG layer 1</file>
+			<file id="lev-204-fg1" name="@503" typeMajor="map" typeMinor="hocus-fg">E2L4 FG layer 1</file>
+			<file id="lev-205-fg1" name="@504" typeMajor="map" typeMinor="hocus-fg">E2L5 FG layer 1</file>
+			<file id="lev-206-fg1" name="@505" typeMajor="map" typeMinor="hocus-fg">E2L6 FG layer 1</file>
+			<file id="lev-207-fg1" name="@506" typeMajor="map" typeMinor="hocus-fg">E2L7 FG layer 1</file>
+			<file id="lev-208-fg1" name="@507" typeMajor="map" typeMinor="hocus-fg">E2L8 FG layer 1</file>
+			<file id="lev-209-fg1" name="@508" typeMajor="map" typeMinor="hocus-fg">E2L9 FG layer 1</file>
+
+			<file id="lev-301-fg1" name="@509" typeMajor="map" typeMinor="hocus-fg">E3L1 FG layer 1</file>
+			<file id="lev-302-fg1" name="@510" typeMajor="map" typeMinor="hocus-fg">E3L2 FG layer 1</file>
+			<file id="lev-303-fg1" name="@511" typeMajor="map" typeMinor="hocus-fg">E3L3 FG layer 1</file>
+			<file id="lev-304-fg1" name="@512" typeMajor="map" typeMinor="hocus-fg">E3L4 FG layer 1</file>
+			<file id="lev-305-fg1" name="@513" typeMajor="map" typeMinor="hocus-fg">E3L5 FG layer 1</file>
+			<file id="lev-306-fg1" name="@514" typeMajor="map" typeMinor="hocus-fg">E3L6 FG layer 1</file>
+			<file id="lev-307-fg1" name="@515" typeMajor="map" typeMinor="hocus-fg">E3L7 FG layer 1</file>
+			<file id="lev-308-fg1" name="@516" typeMajor="map" typeMinor="hocus-fg">E3L8 FG layer 1</file>
+			<file id="lev-309-fg1" name="@517" typeMajor="map" typeMinor="hocus-fg">E3L9 FG layer 1</file>
+
+			<file id="lev-401-fg1" name="@518" typeMajor="map" typeMinor="hocus-fg">E4L1 FG layer 1</file>
+			<file id="lev-402-fg1" name="@519" typeMajor="map" typeMinor="hocus-fg">E4L2 FG layer 1</file>
+			<file id="lev-403-fg1" name="@520" typeMajor="map" typeMinor="hocus-fg">E4L3 FG layer 1</file>
+			<file id="lev-404-fg1" name="@521" typeMajor="map" typeMinor="hocus-fg">E4L4 FG layer 1</file>
+			<file id="lev-405-fg1" name="@522" typeMajor="map" typeMinor="hocus-fg">E4L5 FG layer 1</file>
+			<file id="lev-406-fg1" name="@523" typeMajor="map" typeMinor="hocus-fg">E4L6 FG layer 1</file>
+			<file id="lev-407-fg1" name="@524" typeMajor="map" typeMinor="hocus-fg">E4L7 FG layer 1</file>
+			<file id="lev-408-fg1" name="@525" typeMajor="map" typeMinor="hocus-fg">E4L8 FG layer 1</file>
+			<file id="lev-409-fg1" name="@526" typeMajor="map" typeMinor="hocus-fg">E4L9 FG layer 1</file>
+
+			<file id="lev-101-fg2" name="@527" typeMajor="map" typeMinor="hocus-fg">E1L1 FG layer 2</file>
+			<file id="lev-102-fg2" name="@528" typeMajor="map" typeMinor="hocus-fg">E1L2 FG layer 2</file>
+			<file id="lev-103-fg2" name="@529" typeMajor="map" typeMinor="hocus-fg">E1L3 FG layer 2</file>
+			<file id="lev-104-fg2" name="@530" typeMajor="map" typeMinor="hocus-fg">E1L4 FG layer 2</file>
+			<file id="lev-105-fg2" name="@531" typeMajor="map" typeMinor="hocus-fg">E1L5 FG layer 2</file>
+			<file id="lev-106-fg2" name="@532" typeMajor="map" typeMinor="hocus-fg">E1L6 FG layer 2</file>
+			<file id="lev-107-fg2" name="@533" typeMajor="map" typeMinor="hocus-fg">E1L7 FG layer 2</file>
+			<file id="lev-108-fg2" name="@534" typeMajor="map" typeMinor="hocus-fg">E1L8 FG layer 2</file>
+			<file id="lev-109-fg2" name="@535" typeMajor="map" typeMinor="hocus-fg">E1L9 FG layer 2</file>
+
+			<file id="lev-201-fg2" name="@527" typeMajor="map" typeMinor="hocus-fg">E2L1 FG layer 2</file>
+			<file id="lev-202-fg2" name="@528" typeMajor="map" typeMinor="hocus-fg">E2L2 FG layer 2</file>
+			<file id="lev-203-fg2" name="@529" typeMajor="map" typeMinor="hocus-fg">E2L3 FG layer 2</file>
+			<file id="lev-204-fg2" name="@530" typeMajor="map" typeMinor="hocus-fg">E2L4 FG layer 2</file>
+			<file id="lev-205-fg2" name="@531" typeMajor="map" typeMinor="hocus-fg">E2L5 FG layer 2</file>
+			<file id="lev-206-fg2" name="@532" typeMajor="map" typeMinor="hocus-fg">E2L6 FG layer 2</file>
+			<file id="lev-207-fg2" name="@533" typeMajor="map" typeMinor="hocus-fg">E2L7 FG layer 2</file>
+			<file id="lev-208-fg2" name="@534" typeMajor="map" typeMinor="hocus-fg">E2L8 FG layer 2</file>
+			<file id="lev-209-fg2" name="@535" typeMajor="map" typeMinor="hocus-fg">E2L9 FG layer 2</file>
+
+			<file id="lev-301-fg2" name="@527" typeMajor="map" typeMinor="hocus-fg">E3L1 FG layer 2</file>
+			<file id="lev-302-fg2" name="@528" typeMajor="map" typeMinor="hocus-fg">E3L2 FG layer 2</file>
+			<file id="lev-303-fg2" name="@529" typeMajor="map" typeMinor="hocus-fg">E3L3 FG layer 2</file>
+			<file id="lev-304-fg2" name="@530" typeMajor="map" typeMinor="hocus-fg">E3L4 FG layer 2</file>
+			<file id="lev-305-fg2" name="@531" typeMajor="map" typeMinor="hocus-fg">E3L5 FG layer 2</file>
+			<file id="lev-306-fg2" name="@532" typeMajor="map" typeMinor="hocus-fg">E3L6 FG layer 2</file>
+			<file id="lev-307-fg2" name="@533" typeMajor="map" typeMinor="hocus-fg">E3L7 FG layer 2</file>
+			<file id="lev-308-fg2" name="@534" typeMajor="map" typeMinor="hocus-fg">E3L8 FG layer 2</file>
+			<file id="lev-309-fg2" name="@535" typeMajor="map" typeMinor="hocus-fg">E3L9 FG layer 2</file>
+
+			<file id="lev-401-fg2" name="@527" typeMajor="map" typeMinor="hocus-fg">E4L1 FG layer 2</file>
+			<file id="lev-402-fg2" name="@528" typeMajor="map" typeMinor="hocus-fg">E4L2 FG layer 2</file>
+			<file id="lev-403-fg2" name="@529" typeMajor="map" typeMinor="hocus-fg">E4L3 FG layer 2</file>
+			<file id="lev-404-fg2" name="@530" typeMajor="map" typeMinor="hocus-fg">E4L4 FG layer 2</file>
+			<file id="lev-405-fg2" name="@531" typeMajor="map" typeMinor="hocus-fg">E4L5 FG layer 2</file>
+			<file id="lev-406-fg2" name="@532" typeMajor="map" typeMinor="hocus-fg">E4L6 FG layer 2</file>
+			<file id="lev-407-fg2" name="@533" typeMajor="map" typeMinor="hocus-fg">E4L7 FG layer 2</file>
+			<file id="lev-408-fg2" name="@534" typeMajor="map" typeMinor="hocus-fg">E4L8 FG layer 2</file>
+			<file id="lev-409-fg2" name="@535" typeMajor="map" typeMinor="hocus-fg">E4L9 FG layer 2</file>
 
 			<file id="img-i1" name="@1" typeMajor="image" typeMinor="pcx-8b1p">Apogee logo</file>
 			<file id="img-i3" name="@2" typeMajor="image" typeMinor="pcx-8b1p">Title</file>
