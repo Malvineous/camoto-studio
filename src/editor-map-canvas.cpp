@@ -156,12 +156,16 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 
 		PaletteTablePtr palDefault;
 		if (layer->getCaps() & Map2D::Layer::HasPalette) {
+			// Use the palette supplied by the map layer
 			palDefault = layer->getPalette(tileset);
-			assert(palDefault);
+		} else if (tileset[0]->getCaps() & Tileset::HasPalette) {
+			// Use the palette supplied by the tileset
+			palDefault = tileset[0]->getPalette();
 		} else {
 			// Load default palette
 			palDefault = createDefaultCGAPalette();
 		}
+		assert(palDefault);
 
 		TEXTURE_MAP tm;
 
