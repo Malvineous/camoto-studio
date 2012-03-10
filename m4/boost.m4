@@ -22,7 +22,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 m4_define([_BOOST_SERIAL], [m4_translit([
-# serial 15
+# serial 16
 ], [#
 ], [])])
 
@@ -480,6 +480,33 @@ BOOST_DEFUN([Bind],
 [BOOST_FIND_HEADER([boost/bind.hpp])])
 
 
+# BOOST_CHRONO()
+# ------------------
+# Look for Boost.Chrono
+BOOST_DEFUN([Chrono],
+[# Do we have to check for Boost.System?  This link-time dependency was
+# added as of 1.35.0.  If we have a version <1.35, we must not attempt to
+# find Boost.System as it didn't exist by then.
+if test $boost_major_version -ge 135; then
+BOOST_SYSTEM([$1])
+fi # end of the Boost.System check.
+boost_filesystem_save_LIBS=$LIBS
+boost_filesystem_save_LDFLAGS=$LDFLAGS
+m4_pattern_allow([^BOOST_SYSTEM_(LIBS|LDFLAGS)$])dnl
+LIBS="$LIBS $BOOST_SYSTEM_LIBS"
+LDFLAGS="$LDFLAGS $BOOST_SYSTEM_LDFLAGS"
+BOOST_FIND_LIB([chrono], [$1],
+                [boost/chrono.hpp],
+                [boost::chrono::thread_clock d;])
+if test $enable_static_boost = yes && test $boost_major_version -ge 135; then
+    AC_SUBST([BOOST_FILESYSTEM_LIBS], ["$BOOST_FILESYSTEM_LIBS $BOOST_SYSTEM_LIBS"])
+fi
+LIBS=$boost_filesystem_save_LIBS
+LDFLAGS=$boost_filesystem_save_LDFLAGS               
+                
+])# BOOST_CHRONO
+
+
 # BOOST_CONVERSION()
 # ------------------
 # Look for Boost.Conversion (cast / lexical_cast)
@@ -588,6 +615,29 @@ BOOST_DEFUN([Lambda],
 [BOOST_FIND_HEADER([boost/lambda/lambda.hpp])])
 
 
+# BOOST_LOG([PREFERRED-RT-OPT])
+# -----------------------------
+# Look for Boost.Log For the documentation of PREFERRED-RT-OPT, see the
+# documentation of BOOST_FIND_LIB above.
+BOOST_DEFUN([Log],
+[BOOST_FIND_LIB([log], [$1],
+    [boost/log/core/core.hpp],
+    [boost::log::attribute a; a.get_value();])
+])# BOOST_LOG
+
+
+# BOOST_LOG_SETUP([PREFERRED-RT-OPT])
+# -----------------------------------
+# Look for Boost.Log For the documentation of PREFERRED-RT-OPT, see the
+# documentation of BOOST_FIND_LIB above.
+BOOST_DEFUN([Log_Setup],
+[AC_REQUIRE([BOOST_LOG])dnl
+BOOST_FIND_LIB([log_setup], [$1],
+    [boost/log/utility/init/from_settings.hpp],
+    [boost::log::basic_settings<char> bs; bs.empty();])
+])# BOOST_LOG_SETUP
+
+
 # BOOST_MATH()
 # ------------
 # Look for Boost.Math
@@ -627,6 +677,20 @@ BOOST_DEFUN([Optional],
 # Look for Boost.Preprocessor
 BOOST_DEFUN([Preprocessor],
 [BOOST_FIND_HEADER([boost/preprocessor/repeat.hpp])])
+
+
+# BOOST_UNORDERED()
+# -----------------
+# Look for Boost.Unordered
+BOOST_DEFUN([Unordered],
+[BOOST_FIND_HEADER([boost/unordered_map.hpp])])
+
+
+# BOOST_UUID()
+# ------------
+# Look for Boost.Uuid
+BOOST_DEFUN([Uuid],
+[BOOST_FIND_HEADER([boost/uuid/uuid.hpp])])
 
 
 # BOOST_PROGRAM_OPTIONS([PREFERRED-RT-OPT])
@@ -697,7 +761,7 @@ BOOST_DEFUN([Serialization],
                 [boost/archive/text_oarchive.hpp],
                 [std::ostream* o = 0; // Cheap way to get an ostream...
                 boost::archive::text_oarchive t(*o);])
-])# BOOST_SIGNALS
+])# BOOST_SERIALIZATION
 
 
 # BOOST_SIGNALS([PREFERRED-RT-OPT])
@@ -772,19 +836,40 @@ dnl boost/thread.hpp would complain if we try to compile without
 dnl -pthread on GNU/Linux.
 AC_REQUIRE([_BOOST_PTHREAD_FLAG])dnl
 boost_threads_save_LIBS=$LIBS
+boost_threads_save_LDFLAGS=$LDFLAGS
 boost_threads_save_CPPFLAGS=$CPPFLAGS
-LIBS="$LIBS $boost_cv_pthread_flag"
+# Link-time dependency from thread to system was added as of 1.49.0.
+if test $boost_major_version -ge 149; then
+BOOST_SYSTEM([$1])
+fi # end of the Boost.System check.
+m4_pattern_allow([^BOOST_SYSTEM_(LIBS|LDFLAGS)$])dnl
+LIBS="$LIBS $BOOST_SYSTEM_LIBS $boost_cv_pthread_flag"
+LDFLAGS="$LDFLAGS $BOOST_SYSTEM_LDFLAGS"
 # Yes, we *need* to put the -pthread thing in CPPFLAGS because with GCC3,
 # boost/thread.hpp will trigger a #error if -pthread isn't used:
 #   boost/config/requires_threads.hpp:47:5: #error "Compiler threading support
 #   is not turned on. Please set the correct command line options for
 #   threading: -pthread (Linux), -pthreads (Solaris) or -mthreads (Mingw32)"
 CPPFLAGS="$CPPFLAGS $boost_cv_pthread_flag"
-BOOST_FIND_LIB([thread], [$1],
-               [boost/thread.hpp], [boost::thread t; boost::mutex m;])
-BOOST_THREAD_LIBS="$BOOST_THREAD_LIBS $boost_cv_pthread_flag"
+
+# When compiling for the Windows platform, the threads library is named
+# differently.
+case "$host_os" in
+  *mingw*)
+    BOOST_FIND_LIB([thread_win32], [$1],
+                   [boost/thread.hpp], [boost::thread t; boost::mutex m;])
+  ;;
+  *)
+    BOOST_FIND_LIB([thread], [$1],
+                   [boost/thread.hpp], [boost::thread t; boost::mutex m;])
+  ;;
+esac
+
+BOOST_THREAD_LIBS="$BOOST_THREAD_LIBS $BOOST_THREAD_WIN32_LIBS $BOOST_SYSTEM_LIBS $boost_cv_pthread_flag"
+BOOST_THREAD_LDFLAGS="$BOOST_SYSTEM_LDFLAGS"
 BOOST_CPPFLAGS="$BOOST_CPPFLAGS $boost_cv_pthread_flag"
 LIBS=$boost_threads_save_LIBS
+LDFLAGS=$boost_threads_save_LDFLAGS
 CPPFLAGS=$boost_threads_save_CPPFLAGS
 ])# BOOST_THREADS
 
@@ -847,9 +932,9 @@ AC_REQUIRE([BOOST_DATE_TIME])dnl
 boost_wave_save_LIBS=$LIBS
 boost_wave_save_LDFLAGS=$LDFLAGS
 m4_pattern_allow([^BOOST_((FILE)?SYSTEM|DATE_TIME|THREAD)_(LIBS|LDFLAGS)$])dnl
-LIBS="$LIBS $BOOST_SYSTEM_LIBS $BOOST_FILESYSTEM_LIBS $BOOST_DATE_TIME_LIBS\
+LIBS="$LIBS $BOOST_SYSTEM_LIBS $BOOST_FILESYSTEM_LIBS $BOOST_DATE_TIME_LIBS \
 $BOOST_THREAD_LIBS"
-LDFLAGS="$LDFLAGS $BOOST_SYSTEM_LDFLAGS $BOOST_FILESYSTEM_LDFLAGS\
+LDFLAGS="$LDFLAGS $BOOST_SYSTEM_LDFLAGS $BOOST_FILESYSTEM_LDFLAGS \
 $BOOST_DATE_TIME_LDFLAGS $BOOST_THREAD_LDFLAGS"
 BOOST_FIND_LIB([wave], [$1],
                 [boost/wave.hpp],
