@@ -40,14 +40,14 @@ CPPFLAGS="$CPPFLAGS $libpng_CFLAGS"
 
 # Checks for header files.
 
-AC_CACHE_CHECK([for png++ in src folder],
+AC_CACHE_CHECK([for png++],
 	[ac_cv_pngpp],
 	[AC_COMPILE_IFELSE(
-		[AC_LANG_PROGRAM([#include "src/png++/png.hpp"], [return 0;])],
+		[AC_LANG_PROGRAM([#include <png++/png.hpp>], [return 0;])],
 		[ac_cv_pngpp=yes],
-		[AC_MSG_ERROR([src/png++/png.hpp not found or unusable.
+		[AC_MSG_ERROR([<png++/png.hpp> not found or unusable.
 
-Please download png++ and extract into ./src/png++/ as per README.  See config.log for failure messages if required.])
+Please download and install png++.  See config.log for failure messages if required.])
 		]
 	)]
 )

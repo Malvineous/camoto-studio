@@ -20,7 +20,7 @@
 
 #include <boost/bind.hpp>
 #include <wx/filedlg.h>
-#include "png++/png.hpp"
+#include <png++/png.hpp>
 #include "main.hpp"
 #include "editor-image.hpp"
 

@@ -22,7 +22,7 @@
 #include <wx/imaglist.h>
 #include <wx/artprov.h>
 #include <wx/glcanvas.h>
-#include "png++/png.hpp"
+#include <png++/png.hpp>
 #include "editor-tileset.hpp"
 #include "efailure.hpp"
 #include "main.hpp"
