@@ -77,30 +77,40 @@ pngpp_sources += png++/writer.hpp
 # Include the png++ files in the tarball
 EXTRA_camoto_studio_SOURCES += $(pngpp_sources)
 
-CAMOTO_CFLAGS = $(libgamecommon_CFLAGS)
-CAMOTO_CFLAGS += $(libgamearchive_CFLAGS)
-CAMOTO_CFLAGS += $(libgamegraphics_CFLAGS)
-CAMOTO_CFLAGS += $(libgamemaps_CFLAGS)
-CAMOTO_CFLAGS += $(libgamemusic_CFLAGS)
-
-CAMOTO_LIBS = $(libgamecommon_LIBS)
-CAMOTO_LIBS += $(libgamearchive_LIBS)
-CAMOTO_LIBS += $(libgamegraphics_LIBS)
-CAMOTO_LIBS += $(libgamemaps_LIBS)
-CAMOTO_LIBS += $(libgamemusic_LIBS)
-
-BOOST_LIBS = $(BOOST_SYSTEM_LIBS)
-BOOST_LIBS += $(BOOST_FILESYSTEM_LIBS)
-BOOST_LIBS += $(BOOST_PROGRAM_OPTIONS_LIBS)
-BOOST_LIBS += $(BOOST_UNIT_TEST_FRAMEWORK_LIBS)
-BOOST_LIBS += $(BOOST_THREAD_LIBS)
-
 WARNINGS = -Wall -Wextra -Wno-unused-parameter
 
-AM_CPPFLAGS = $(BOOST_CPPFLAGS) $(libxml2_CFLAGS) $(CAMOTO_CFLAGS) $(GL_CFLAGS) $(sdl_CFLAGS) -DDATA_PATH=\"$(pkgdatadir)\" $(WARNINGS)
-AM_LDFLAGS = $(BOOST_LIBS)
+AM_CPPFLAGS  = $(BOOST_CPPFLAGS)
+AM_CPPFLAGS += -I $(top_srcdir)/include
+AM_CPPFLAGS += $(libgamecommon_CPPFLAGS)
+AM_CPPFLAGS += $(libgamearchive_CPPFLAGS)
+AM_CPPFLAGS += $(libgamegraphics_CPPFLAGS)
+AM_CPPFLAGS += $(libgamemaps_CPPFLAGS)
+AM_CPPFLAGS += $(libgamemusic_CPPFLAGS)
+AM_CPPFLAGS += $(WARNINGS)
+
+AM_CXXFLAGS  = $(DEBUG_CXXFLAGS)
+AM_CXXFLAGS += $(libxml2_CFLAGS)
+AM_CXXFLAGS += $(GL_CFLAGS)
+AM_CXXFLAGS += $(sdl_CFLAGS)
+AM_CXXFLAGS += $(libgamecommon_CFLAGS)
+AM_CXXFLAGS += $(libgamearchive_CFLAGS)
+AM_CXXFLAGS += $(libgamegraphics_CFLAGS)
+AM_CXXFLAGS += $(libgamemaps_CFLAGS)
+AM_CXXFLAGS += $(libgamemusic_CFLAGS)
+AM_CXXFLAGS += $(sdl_CFLAGS)
+AM_CXXFLAGS += -DDATA_PATH=\"$(pkgdatadir)\"
+
+AM_LDFLAGS  = $(BOOST_SYSTEM_LIBS)
+AM_LDFLAGS += $(BOOST_FILESYSTEM_LIBS)
+AM_LDFLAGS += $(BOOST_PROGRAM_OPTIONS_LIBS)
+AM_LDFLAGS += $(BOOST_UNIT_TEST_FRAMEWORK_LIBS)
+AM_LDFLAGS += $(BOOST_THREAD_LIBS)
 AM_LDFLAGS += $(libxml2_LIBS)
-AM_LDFLAGS += $(CAMOTO_LIBS)
 AM_LDFLAGS += $(GL_LIBS)
 AM_LDFLAGS += $(sdl_LIBS)
 AM_LDFLAGS += $(libpng_LIBS)
+AM_LDFLAGS += $(libgamecommon_LIBS)
+AM_LDFLAGS += $(libgamearchive_LIBS)
+AM_LDFLAGS += $(libgamegraphics_LIBS)
+AM_LDFLAGS += $(libgamemaps_LIBS)
+AM_LDFLAGS += $(libgamemusic_LIBS)
