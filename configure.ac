@@ -18,11 +18,6 @@ AC_PROG_CXX
 # Checks for libraries.
 AC_PROG_LIBTOOL
 
-BOOST_REQUIRE([1.46])
-BOOST_FILESYSTEM
-BOOST_TEST
-BOOST_THREADS
-
 AX_CHECK_GL
 
 PKG_CHECK_MODULES([libgamecommon], [libgamecommon])
@@ -54,6 +49,12 @@ Please download and install png++.  See config.log for failure messages if requi
 
 CPPFLAGS=$SAVE_CPPFLAGS
 
+# This has to go before the WX tests because they break CXXFLAGS
+BOOST_REQUIRE([1.46])
+BOOST_FILESYSTEM
+BOOST_TEST
+BOOST_THREADS
+
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
@@ -76,6 +77,19 @@ CPPFLAGS="$CPPFLAGS $WX_CPPFLAGS"
 CXXFLAGS="$CXXFLAGS $WX_CXXFLAGS_ONLY"
 CFLAGS="$CFLAGS $WX_CFLAGS_ONLY"
 LIBS="$LIBS $WX_LIBS"
+
+AC_CACHE_CHECK([for wxWidgets OpenGL support],
+	[ac_cv_wxgl],
+	[AC_COMPILE_IFELSE(
+		[AC_LANG_PROGRAM([#include <wx/glcanvas.h>], [wxGLContext *dummy; return 0;])],
+		[ac_cv_wxgl=yes],
+		[AC_MSG_ERROR([wxWidgets was found, but it was not compiled with OpenGL support.
+
+You will need a version of wxWidgets with OpenGL enabled to continue.
+See config.log for failure messages if required.])
+		]
+	)]
+)
 
 AC_ARG_ENABLE(debug, AC_HELP_STRING([--enable-debug],[enable extra debugging output]))
 

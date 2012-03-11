@@ -22,6 +22,7 @@
 #define _MAIN_HPP_
 
 #ifdef __WIN32
+#include <fstream>
 int truncate(const char *path, off_t length);
 #endif
 

@@ -20,6 +20,7 @@
 
 #include <wx/imaglist.h>
 #include <wx/artprov.h>
+#include <wx/listctrl.h>
 #include "main.hpp"
 #include "editor-music.hpp"
 #include "editor-music-eventpanel.hpp"

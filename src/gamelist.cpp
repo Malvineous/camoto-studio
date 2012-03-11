@@ -72,9 +72,9 @@ GameInfoMap getAllGames()
 		wxFileName fn;
 		fn.AssignDir(::path.gameData);
 		fn.SetFullName(filename);
-		const wxCharBuffer n = fn.GetFullPath().fn_str();
+		const wxString n = fn.GetFullPath();
 		std::cout << "[gamelist] Parsing " << n << "\n";
-		xmlDoc *xml = xmlParseFile(n);
+		xmlDoc *xml = xmlParseFile(n.fn_str());
 		if (!xml) {
 			std::cout << "[gamelist] Error parsing " << n << std::endl;
 		} else {
@@ -189,9 +189,9 @@ Game *loadGameStructure(const wxString& id)
 	fn.SetName(id);
 	fn.SetExt(_T("xml"));
 
-	const wxCharBuffer n = fn.GetFullPath().fn_str();
+	const wxString n = fn.GetFullPath();
 	std::cout << "[gamelist] Parsing " << n << "\n";
-	xmlDoc *xml = xmlParseFile(n);
+	xmlDoc *xml = xmlParseFile(n.fn_str());
 	if (!xml) {
 		std::cerr << "[gamelist] Error parsing " << n << std::endl;
 		return NULL;

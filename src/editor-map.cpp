@@ -21,6 +21,7 @@
 #include <camoto/gamegraphics.hpp>
 #include <wx/imaglist.h>
 #include <wx/artprov.h>
+#include <wx/listctrl.h>
 #include "efailure.hpp"
 #include "editor-map.hpp"
 #include "editor-map-document.hpp"

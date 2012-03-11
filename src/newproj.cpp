@@ -97,7 +97,7 @@ NewProjectDialog::NewProjectDialog(wxWindow *parent)
 	// Have to create the static box *before* the controls that go inside it
 	wxStaticBoxSizer *infoBox = new wxStaticBoxSizer(
 		new wxStaticBox(this, wxID_ANY, _T("Game information")), wxVERTICAL);
-	this->screenshot = new wxStaticBitmap(this, wxID_ANY, NULL,
+	this->screenshot = new wxStaticBitmap(this, wxID_ANY, wxBitmap(),
 		wxDefaultPosition, wxSize(320, 200));
 	infoBox->Add(this->screenshot, 0, wxALIGN_CENTER | wxALL, 10);
 

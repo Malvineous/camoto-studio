@@ -1345,8 +1345,14 @@ class CamotoApp: public wxApp {
 
 			wxImage::AddHandler(new wxPNGHandler());
 
+#ifdef _WIN32
+			// Use the path of the executable
+			::path.dataRoot = wxStandardPaths::Get().GetDataDir();
+#else
+			// Use the value given to the configure script by --datadir
 			::path.dataRoot = _T(DATA_PATH);
-			std::cout << "[init] Data root is " DATA_PATH "\n";
+#endif
+			std::cout << "[init] Data root is " << ::path.dataRoot << "\n";
 			wxFileName next;
 
 			next.AssignDir(::path.dataRoot);

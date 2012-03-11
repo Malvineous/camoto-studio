@@ -21,6 +21,8 @@
 #include <wx/statline.h>
 #include <wx/filedlg.h>
 #include <wx/sizer.h>
+#include <wx/stattext.h>
+#include <wx/button.h>
 #ifndef __WXMSW__
 #include <wx/cshelp.h>
 #endif

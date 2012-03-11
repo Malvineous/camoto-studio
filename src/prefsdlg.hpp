@@ -22,6 +22,8 @@
 #define _PREFSDLG_HPP_
 
 #include <wx/dialog.h>
+#include <wx/textctrl.h>
+#include <wx/checkbox.h>
 
 /// Main window.
 class PrefsDialog: public wxDialog {
