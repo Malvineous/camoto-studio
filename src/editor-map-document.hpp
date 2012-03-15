@@ -64,6 +64,7 @@ class MapDocument: public IDocument
 		camoto::stream::inout_sptr mapFile;
 
 		friend class LayerPanel;
+		friend class TilePanel;
 
 		enum {
 			IDC_TOGGLEGRID = wxID_HIGHEST + 1,

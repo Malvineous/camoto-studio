@@ -26,6 +26,7 @@
 #include "editor-map.hpp"
 #include "editor-map-document.hpp"
 #include "editor-map-canvas.hpp"
+#include "editor-map-tilepanel.hpp"
 
 /// Default zoom level
 #define CFG_DEFAULT_ZOOM 2
@@ -228,6 +229,7 @@ std::vector<IToolPanel *> MapEditor::createToolPanes() const
 {
 	std::vector<IToolPanel *> panels;
 	panels.push_back(new LayerPanel(this->frame));
+	panels.push_back(new TilePanel(this->frame));
 	return panels;
 }
 

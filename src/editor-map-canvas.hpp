@@ -287,6 +287,8 @@ class MapCanvas: public wxGLCanvas
 		path_point nearestPathPoint; ///< Nearest point to the cursor
 		int nearestPathPointOff;     ///< How far along the line after the nearest point
 
+		friend class TilePanel;
+
 		DECLARE_EVENT_TABLE();
 
 };
