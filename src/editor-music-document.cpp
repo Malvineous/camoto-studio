@@ -28,11 +28,12 @@ using namespace camoto::gamemusic;
 class PlayerThread: virtual public OPLWriterCallback
 {
 	public:
-		PlayerThread(MusicDocument *doc)//PatchBankPtr instruments, EventVector *events, Audio::OPLPtr opl) :
+		PlayerThread(MusicDocument *doc)
 			throw () :
 				doc(doc),
 				playpause_lock(playpause_mutex), // initial state is locked (paused)
 				doquit(false),
+				dorewind(false),
 				usPerTick(1000) // sensible default, just in case
 		{
 		}
@@ -64,10 +65,11 @@ class PlayerThread: virtual public OPLWriterCallback
 					(*pos++)->processEvent(&conv); // Will block for song delays
 
 					// Loop once we reach the end of the song
-					if (pos == this->doc->music->events->end()) {
+					if ((this->dorewind) || (pos == this->doc->music->events->end())) {
 						// Notify output that the event time is about to loop back to zero
 						pos = this->doc->music->events->begin();
 						conv.rewind();
+						this->dorewind = false;
 					}
 				} catch (...) {
 					std::cerr << "Error converting event into OPL data!  Ignoring.\n";
@@ -100,6 +102,13 @@ class PlayerThread: virtual public OPLWriterCallback
 			return;
 		}
 
+		void rewind()
+			throw ()
+		{
+			this->dorewind = true;
+			return;
+		}
+
 		void writeNextPair(const OPLEvent *oplEvent)
 			throw (stream::error)
 		{
@@ -120,6 +129,7 @@ class PlayerThread: virtual public OPLWriterCallback
 		boost::mutex playpause_mutex; ///< Mutex to pause playback
 		boost::unique_lock<boost::mutex> playpause_lock; ///< Main play/pause lock
 		bool doquit;                  ///< Set to true to make thread terminate
+		bool dorewind;                ///< Set to true to go back to start of song
 		unsigned long usPerTick;      ///< Tempo
 };
 
@@ -254,8 +264,7 @@ void MusicDocument::save()
 
 void MusicDocument::onSeekPrev(wxCommandEvent& ev)
 {
-	// TODO: rewind song
-	//this->music->rewind();
+	this->player->rewind();
 	this->absTimeStart = 0;
 	this->pushViewSettings();
 	return;
