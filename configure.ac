@@ -26,7 +26,7 @@ PKG_CHECK_MODULES([libgamegraphics], [libgamegraphics])
 PKG_CHECK_MODULES([libgamemaps], [libgamemaps])
 PKG_CHECK_MODULES([libgamemusic], [libgamemusic])
 
-PKG_CHECK_MODULES([libxml2], [libxml-2.0 >= 2.7.8])
+PKG_CHECK_MODULES([libxml2], [libxml-2.0 >= 2.7.6])
 PKG_CHECK_MODULES([sdl], [sdl])
 PKG_CHECK_MODULES([libpng], [libpng])
 
