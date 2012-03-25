@@ -2,7 +2,7 @@
  * @file   editor-music-document.hpp
  * @brief  Music IDocument interface.
  *
- * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ typedef std::vector<camoto::gamemusic::EventPtr> EventVector;
 class MusicDocument: public IDocument
 {
 	public:
-		MusicDocument(IMainWindow *parent, camoto::gamemusic::MusicReaderPtr music,
+		MusicDocument(IMainWindow *parent, camoto::gamemusic::MusicPtr music,
 			AudioPtr audio)
 			throw ();
 
@@ -62,7 +62,7 @@ class MusicDocument: public IDocument
 		void pushViewSettings();
 
 	protected:
-		camoto::gamemusic::MusicReaderPtr music;
+		camoto::gamemusic::MusicPtr music;
 		AudioPtr audio;
 		Audio::OPLPtr opl;
 		bool playing;
@@ -76,8 +76,6 @@ class MusicDocument: public IDocument
 		boost::thread thread;
 		typedef std::vector<EventPanel *> EventPanelVector;
 		EventPanelVector channelPanels;
-
-		EventVector events;
 
 		wxFont font;         ///< Font to use for event text
 		int fontWidth;       ///< Width of each char in pixels

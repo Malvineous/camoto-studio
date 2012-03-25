@@ -2,7 +2,7 @@
  * @file   editor-music-document.cpp
  * @brief  Music IDocument interface.
  *
- * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,30 +18,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <camoto/gamemusic/eventconverter-opl.hpp>
 #include "main.hpp"
 #include "editor-music-document.hpp"
-#include "MusicWriter_OPLSynth.hpp"
 
 using namespace camoto;
 using namespace camoto::gamemusic;
 
-class PlayerThread
+class PlayerThread: virtual public OPLWriterCallback
 {
 	public:
 		PlayerThread(MusicDocument *doc)//PatchBankPtr instruments, EventVector *events, Audio::OPLPtr opl) :
 			throw () :
 				doc(doc),
 				playpause_lock(playpause_mutex), // initial state is locked (paused)
-				doquit(false)
+				doquit(false),
+				usPerTick(1000) // sensible default, just in case
 		{
 		}
 
 		void operator()()
 		{
-			MusicWriter_OPLSynth out(this->doc->opl);
-			out.setPatchBank(this->doc->music->getPatchBank());
-			out.start();
-			EventVector::iterator pos = this->doc->events.begin();
+			EventConverter_OPL conv(this, OPL_FNUM_DEFAULT, Default);
+			conv.setPatchBank(this->doc->music->patches);
+
+			this->doc->opl->write(0x01, 0x20); // Enable WaveSel
+			this->doc->opl->write(0x05, 0x01); // Enable OPL3
+
+			EventVector::iterator pos = this->doc->music->events->begin();
 			for (;;) {
 				// Block if we've been paused.  This has to be in a control block as we
 				// don't want to hold the mutex while we're blocking in the delay()
@@ -57,21 +61,18 @@ class PlayerThread
 					// Update the playback time so the highlight gets moved
 					this->doc->setHighlight((*pos)->absTime);
 
-					(*pos++)->processEvent(&out); // Will block for song delays
+					(*pos++)->processEvent(&conv); // Will block for song delays
 
 					// Loop once we reach the end of the song
-					if (pos == this->doc->events.end()) {
+					if (pos == this->doc->music->events->end()) {
 						// Notify output that the event time is about to loop back to zero
-						out.finish();
-						out.start();
-
-						pos = this->doc->events.begin();
+						pos = this->doc->music->events->begin();
 					}
 				} catch (...) {
 					std::cerr << "Error converting event into OPL data!  Ignoring.\n";
 				}
 			}
-			out.finish();
+			/// @todo Turn all notes off?
 			return;
 		}
 
@@ -98,13 +99,27 @@ class PlayerThread
 			return;
 		}
 
+		void writeNextPair(const OPLEvent *oplEvent)
+			throw (stream::error)
+		{
+			this->doc->opl->delay(oplEvent->delay * this->usPerTick / 1000);
+			this->doc->opl->write(oplEvent->reg, oplEvent->val);
+			return;
+		}
+
+		void writeTempoChange(unsigned long usPerTick)
+			throw (stream::error)
+		{
+			this->usPerTick = usPerTick;
+			return;
+		}
+
 	protected:
 		MusicDocument *doc;           ///< Music data to play (and notify about progress)
-		Audio::OPLPtr opl;            ///< OPL device
 		boost::mutex playpause_mutex; ///< Mutex to pause playback
 		boost::unique_lock<boost::mutex> playpause_lock; ///< Main play/pause lock
 		bool doquit;                  ///< Set to true to make thread terminate
-
+		unsigned long usPerTick;      ///< Tempo
 };
 
 
@@ -120,7 +135,7 @@ BEGIN_EVENT_TABLE(MusicDocument, IDocument)
 	EVT_SIZE(EventPanel::onResize)
 END_EVENT_TABLE()
 
-MusicDocument::MusicDocument(IMainWindow *parent, MusicReaderPtr music, AudioPtr audio)
+MusicDocument::MusicDocument(IMainWindow *parent, MusicPtr music, AudioPtr audio)
 	throw () :
 		IDocument(parent, _T("music")),
 		music(music),
@@ -175,35 +190,24 @@ MusicDocument::MusicDocument(IMainWindow *parent, MusicReaderPtr music, AudioPtr
 		wxNullBitmap, wxITEM_NORMAL, _T("Zoom out"),
 		_T("Space events closer together in the event list"));
 
-	// Need this later, but have to do it before reading any events.
-	PatchBankPtr patches = this->music->getPatchBank();
-
-	// Read all the events into a buffer, and while we're there figure out
-	// how many channels are in use and what the best value is to space
+	// Figure out how many channels are in use and what the best value is to space
 	// events evenly and as close together as possible.
-	EventPtr next;
 	bool channels[256];
 	memset(&channels, 0, sizeof(channels));
 	this->optimalTicksPerRow = 10000;
 	int lastTick = 0;
-	try {
-		while ((next = music->readNextEvent())) {
-			this->events.push_back(next);//->processEvent(&out); // Will block for song delays
-			assert(next->channel < 256); // should be safe/uint8_t
-			channels[next->channel] = true;
+	for (EventVector::const_iterator i =
+		this->music->events->begin(); i != this->music->events->end(); i++)
+	{
+		assert((*i)->channel < 256); // should be safe/uint8_t
+		channels[(*i)->channel] = true;
 
-			// See if this delta time is the smallest so far
-			int deltaTick = next->absTime - lastTick;
-			if ((deltaTick > 0) && (deltaTick < this->optimalTicksPerRow)) this->optimalTicksPerRow = deltaTick;
-			lastTick = next->absTime;
+		// See if this delta time is the smallest so far
+		int deltaTick = (*i)->absTime - lastTick;
+		if ((deltaTick > 0) && (deltaTick < this->optimalTicksPerRow)) {
+			this->optimalTicksPerRow = deltaTick;
 		}
-	} catch (const camoto::stream::error& e) {
-		wxMessageDialog dlg(this, wxString::Format(_T("Error reading file: %s\n\n"
-			"The loaded data is probably incomplete."),
-			wxString(e.what(), wxConvUTF8).c_str()),
-			_T("Read failure"), wxOK | wxICON_ERROR);
-		dlg.ShowModal();
-		// Keep going with a partial file
+		lastTick = (*i)->absTime;
 	}
 	this->ticksPerRow = this->optimalTicksPerRow;
 
@@ -223,7 +227,7 @@ MusicDocument::MusicDocument(IMainWindow *parent, MusicReaderPtr music, AudioPtr
 	this->SetSizer(s);
 
 	this->opl = this->audio->createOPL();
-	this->player = new PlayerThread(this);//patches, &this->events, this->opl);
+	this->player = new PlayerThread(this);
 	this->thread = boost::thread(boost::ref(*this->player));
 }
 

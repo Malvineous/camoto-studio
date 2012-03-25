@@ -2,7 +2,7 @@
  * @file   editor-music-eventpanel.cpp
  * @brief  Single channel list of events UI control for the music editor.
  *
- * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,12 +49,12 @@ void EventPanel::onPaint(wxPaintEvent& pev)
 	this->pdc->SetFont(this->doc->font);
 	int height = s.GetHeight();
 	unsigned int rowTime = this->doc->absTimeStart;
-	EventVector::iterator ev = this->doc->events.begin();
+	EventVector::iterator ev = this->doc->music->events->begin();
 
 	for (this->paintY = 0; this->paintY < height; this->paintY += this->doc->fontHeight) {
 		// Get the next event for this view
 		while (
-			(ev != this->doc->events.end()) &&
+			(ev != this->doc->music->events->end()) &&
 			(
 				((*ev)->absTime < rowTime) ||
 				(
@@ -65,7 +65,7 @@ void EventPanel::onPaint(wxPaintEvent& pev)
 		) {
 			ev++;
 		}
-		if (ev == this->doc->events.end()) break; // no more events
+		if (ev == this->doc->music->events->end()) break; // no more events
 
 		// At this point we have an event at or after the current row time
 		assert((*ev)->absTime >= rowTime);
@@ -102,7 +102,7 @@ void EventPanel::onResize(wxSizeEvent& ev)
 	return;
 }
 
-void EventPanel::handleEvent(TempoEvent *ev)
+void EventPanel::handleEvent(const TempoEvent *ev)
 	throw (camoto::stream::error)
 {
 	this->pdc->SetTextForeground(*wxGREEN);
@@ -112,7 +112,7 @@ void EventPanel::handleEvent(TempoEvent *ev)
 	return;
 }
 
-void EventPanel::handleEvent(NoteOnEvent *ev)
+void EventPanel::handleEvent(const NoteOnEvent *ev)
 	throw (camoto::stream::error, EChannelMismatch, EBadPatchType)
 {
 	this->pdc->SetTextForeground(*wxBLACK);
@@ -120,7 +120,7 @@ void EventPanel::handleEvent(NoteOnEvent *ev)
 	return;
 }
 
-void EventPanel::handleEvent(NoteOffEvent *ev)
+void EventPanel::handleEvent(const NoteOffEvent *ev)
 	throw (camoto::stream::error)
 {
 	this->pdc->SetTextForeground(*wxBLACK);
@@ -128,7 +128,7 @@ void EventPanel::handleEvent(NoteOffEvent *ev)
 	return;
 }
 
-void EventPanel::handleEvent(PitchbendEvent *ev)
+void EventPanel::handleEvent(const PitchbendEvent *ev)
 	throw (camoto::stream::error)
 {
 	this->pdc->SetTextForeground(*wxBLUE);
@@ -136,7 +136,7 @@ void EventPanel::handleEvent(PitchbendEvent *ev)
 	return;
 }
 
-void EventPanel::handleEvent(ConfigurationEvent *ev)
+void EventPanel::handleEvent(const ConfigurationEvent *ev)
 	throw (camoto::stream::error)
 {
 	this->pdc->SetTextForeground(*wxCYAN);

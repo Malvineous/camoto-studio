@@ -2,7 +2,7 @@
  * @file   editor-music-eventpanel.hpp
  * @brief  Single channel list of events UI control for the music editor.
  *
- * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,20 +43,20 @@ class EventPanel: public wxPanel, camoto::gamemusic::EventHandler
 
 		// Event handler functions (used to paint events)
 
-		virtual void handleEvent(camoto::gamemusic::TempoEvent *ev)
+		virtual void handleEvent(const camoto::gamemusic::TempoEvent *ev)
 			throw (camoto::stream::error);
 
-		virtual void handleEvent(camoto::gamemusic::NoteOnEvent *ev)
+		virtual void handleEvent(const camoto::gamemusic::NoteOnEvent *ev)
 			throw (camoto::stream::error, camoto::gamemusic::EChannelMismatch,
 				camoto::gamemusic::EBadPatchType);
 
-		virtual void handleEvent(camoto::gamemusic::NoteOffEvent *ev)
+		virtual void handleEvent(const camoto::gamemusic::NoteOffEvent *ev)
 			throw (camoto::stream::error);
 
-		virtual void handleEvent(camoto::gamemusic::PitchbendEvent *ev)
+		virtual void handleEvent(const camoto::gamemusic::PitchbendEvent *ev)
 			throw (camoto::stream::error);
 
-		virtual void handleEvent(camoto::gamemusic::ConfigurationEvent *ev)
+		virtual void handleEvent(const camoto::gamemusic::ConfigurationEvent *ev)
 			throw (camoto::stream::error);
 
 		void drawNoteOn(int milliHertz, int instrument)
@@ -64,7 +64,7 @@ class EventPanel: public wxPanel, camoto::gamemusic::EventHandler
 
 	protected:
 		MusicDocument *doc;  ///< Music data to draw
-		int channel;         ///< Only show events from this channel (and chan 0)
+		unsigned int channel; ///< Only show events from this channel (and chan 0)
 
 		wxPaintDC *pdc;      ///< DC used in painting by EventHandler functions
 		int paintY;          ///< Y-coord of line to write in EventHandler funcs

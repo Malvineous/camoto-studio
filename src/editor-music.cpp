@@ -80,7 +80,7 @@ class InstrumentPanel: public IToolPanel
 			if (!this->doc) return; // NULL was passed in
 
 			// Populate the list
-			PatchBankPtr instruments = this->doc->music->getPatchBank();
+			PatchBankPtr instruments = this->doc->music->patches;
 			for (unsigned int i = 0; i < instruments->getPatchCount(); i++) {
 				PatchPtr patch = instruments->getPatch(i);
 				std::string name = patch->name;
@@ -131,7 +131,7 @@ class InstrumentPanel: public IToolPanel
 			if (muted) {
 				image = 1;
 			} else {
-				PatchBankPtr instruments = this->doc->music->getPatchBank();
+				PatchBankPtr instruments = this->doc->music->patches;
 				PatchPtr patch = instruments->getPatch(instIndex);
 				if (dynamic_cast<OPLPatch *>(patch.get())) image = 2;
 				else if (dynamic_cast<MIDIPatch *>(patch.get())) image = 3;
@@ -228,7 +228,7 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 
 	// Open the music file
 	try {
-		MusicReaderPtr pMusic(pMusicType->open(data, suppData));
+		MusicPtr pMusic = pMusicType->read(data, suppData);
 		assert(pMusic);
 
 		return new MusicDocument(this->frame, pMusic, this->audio);
