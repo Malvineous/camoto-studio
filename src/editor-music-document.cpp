@@ -67,6 +67,7 @@ class PlayerThread: virtual public OPLWriterCallback
 					if (pos == this->doc->music->events->end()) {
 						// Notify output that the event time is about to loop back to zero
 						pos = this->doc->music->events->begin();
+						conv.rewind();
 					}
 				} catch (...) {
 					std::cerr << "Error converting event into OPL data!  Ignoring.\n";
