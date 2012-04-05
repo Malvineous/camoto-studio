@@ -32,34 +32,8 @@ PKG_CHECK_MODULES([libpng], [libpng])
 
 # Check for MIDI support
 REQUIRE_RTMIDI
-SAVE_CPPFLAGS=$CPPFLAGS
-CPPFLAGS="$CPPFLAGS $libpng_CFLAGS"
 
-# Checks for header files.
-
-AC_CACHE_CHECK([for png++],
-	[ac_cv_pngpp],
-	[AC_COMPILE_IFELSE(
-		[AC_LANG_PROGRAM([#include <png++/png.hpp>], [return 0;])],
-		[ac_cv_pngpp=yes],
-		[AC_MSG_ERROR([<png++/png.hpp> not found or unusable.
-
-Please download and install png++.  See config.log for failure messages if required.])
-		]
-	)]
-)
-
-CPPFLAGS=$SAVE_CPPFLAGS
-
-# This has to go before the WX tests because they break CXXFLAGS
-BOOST_REQUIRE([1.46])
-BOOST_FILESYSTEM
-BOOST_TEST
-BOOST_THREADS
-
-# Checks for typedefs, structures, and compiler characteristics.
-
-# Checks for library functions.
+# Check for wxWidgets
 AM_OPTIONS_WXCONFIG
 reqwx=2.8.12
 AM_PATH_WXCONFIG([$reqwx], [wxWin=1], [wxWin=0], [std,gl])
@@ -75,11 +49,41 @@ wxWidgets version is $reqwx or above.
 	])
 fi
 
-CPPFLAGS="$CPPFLAGS $WX_CPPFLAGS"
-CXXFLAGS="$CXXFLAGS $WX_CXXFLAGS_ONLY"
-CFLAGS="$CFLAGS $WX_CFLAGS_ONLY"
-LIBS="$LIBS $WX_LIBS"
+# This has to go before the WX tests because they break CXXFLAGS
+BOOST_REQUIRE([1.46])
+BOOST_FILESYSTEM
+BOOST_TEST
+BOOST_THREADS
 
+# Save the global CFLAGS etc. while we run some more tests
+SAVE_CPPFLAGS="$CPPFLAGS"
+SAVE_CXXFLAGS="$CXXFLAGS"
+SAVE_CFLAGS="$CFLAGS"
+SAVE_LIBS="$LIBS"
+
+# Set up flags for libpng
+CPPFLAGS="$SAVE_CPPFLAGS $libpng_CFLAGS"
+
+# Run png++ test
+AC_CACHE_CHECK([for png++],
+	[ac_cv_pngpp],
+	[AC_COMPILE_IFELSE(
+		[AC_LANG_PROGRAM([#include <png++/png.hpp>], [return 0;])],
+		[ac_cv_pngpp=yes],
+		[AC_MSG_ERROR([<png++/png.hpp> not found or unusable.
+
+Please download and install png++.  See config.log for failure messages if required.])
+		]
+	)]
+)
+
+# Reset flags for wxWidgets
+CPPFLAGS="$SAVE_CPPFLAGS $WX_CPPFLAGS"
+CXXFLAGS="$SAVE_CXXFLAGS $WX_CXXFLAGS_ONLY"
+CFLAGS="$SAVE_CFLAGS $WX_CFLAGS_ONLY"
+LIBS="$SAVE_LIBS $WX_LIBS"
+
+# Test for wxWidgets GL support
 AC_CACHE_CHECK([for wxWidgets OpenGL support],
 	[ac_cv_wxgl],
 	[AC_COMPILE_IFELSE(
@@ -92,6 +96,12 @@ See config.log for failure messages if required.])
 		]
 	)]
 )
+
+# Reset compiler flags back to what they were originally
+CPPFLAGS="$SAVE_CPPFLAGS"
+CXXFLAGS="$SAVE_CXXFLAGS"
+CFLAGS="$SAVE_CFLAGS"
+LIBS="$SAVE_LIBS"
 
 AC_ARG_ENABLE(debug, AC_HELP_STRING([--enable-debug],[enable extra debugging output]))
 
