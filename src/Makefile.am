@@ -47,6 +47,10 @@ EXTRA_camoto_studio_SOURCES += editor-tileset.hpp
 EXTRA_camoto_studio_SOURCES += editor-tileset-canvas.hpp
 EXTRA_camoto_studio_SOURCES += efailure.hpp
 
+# RtMidi code
+camoto_studio_SOURCES += RtMidi.cpp
+EXTRA_camoto_studio_SOURCES += RtMidi.h RtError.h
+
 WARNINGS = -Wall -Wextra -Wno-unused-parameter
 
 AM_CPPFLAGS  = $(BOOST_CPPFLAGS)
@@ -56,6 +60,7 @@ AM_CPPFLAGS += $(libgamearchive_CPPFLAGS)
 AM_CPPFLAGS += $(libgamegraphics_CPPFLAGS)
 AM_CPPFLAGS += $(libgamemaps_CPPFLAGS)
 AM_CPPFLAGS += $(libgamemusic_CPPFLAGS)
+AM_CPPFLAGS += $(RTMIDI_CPPFLAGS)
 AM_CPPFLAGS += $(WARNINGS)
 
 AM_CXXFLAGS  = $(DEBUG_CXXFLAGS)
@@ -84,3 +89,4 @@ AM_LDFLAGS += $(libgamearchive_LIBS)
 AM_LDFLAGS += $(libgamegraphics_LIBS)
 AM_LDFLAGS += $(libgamemaps_LIBS)
 AM_LDFLAGS += $(libgamemusic_LIBS)
+AM_LDFLAGS += $(RTMIDI_LIBS)

@@ -30,6 +30,8 @@ PKG_CHECK_MODULES([libxml2], [libxml-2.0 >= 2.7.6])
 PKG_CHECK_MODULES([sdl], [sdl])
 PKG_CHECK_MODULES([libpng], [libpng])
 
+# Check for MIDI support
+REQUIRE_RTMIDI
 SAVE_CPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS $libpng_CFLAGS"
 
