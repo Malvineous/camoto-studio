@@ -502,8 +502,8 @@ if test $enable_static_boost = yes && test $boost_major_version -ge 135; then
     AC_SUBST([BOOST_FILESYSTEM_LIBS], ["$BOOST_FILESYSTEM_LIBS $BOOST_SYSTEM_LIBS"])
 fi
 LIBS=$boost_filesystem_save_LIBS
-LDFLAGS=$boost_filesystem_save_LDFLAGS               
-                
+LDFLAGS=$boost_filesystem_save_LDFLAGS
+
 ])# BOOST_CHRONO
 
 
@@ -854,18 +854,21 @@ CPPFLAGS="$CPPFLAGS $boost_cv_pthread_flag"
 
 # When compiling for the Windows platform, the threads library is named
 # differently.
-case "$host_os" in
-  *mingw*)
+case $host_os in
+  (*mingw*)
     BOOST_FIND_LIB([thread_win32], [$1],
                    [boost/thread.hpp], [boost::thread t; boost::mutex m;])
+    BOOST_THREAD_LDFLAGS=$BOOST_THREAD_WIN32_LDFLAGS
+    BOOST_THREAD_LDPATH=$BOOST_THREAD_WIN32_LDPATH
+    BOOST_THREAD_LIBS=$BOOST_THREAD_WIN32_LIBS
   ;;
-  *)
+  (*)
     BOOST_FIND_LIB([thread], [$1],
                    [boost/thread.hpp], [boost::thread t; boost::mutex m;])
   ;;
 esac
 
-BOOST_THREAD_LIBS="$BOOST_THREAD_LIBS $BOOST_THREAD_WIN32_LIBS $BOOST_SYSTEM_LIBS $boost_cv_pthread_flag"
+BOOST_THREAD_LIBS="$BOOST_THREAD_LIBS $BOOST_SYSTEM_LIBS $boost_cv_pthread_flag"
 BOOST_THREAD_LDFLAGS="$BOOST_SYSTEM_LDFLAGS"
 BOOST_CPPFLAGS="$BOOST_CPPFLAGS $boost_cv_pthread_flag"
 LIBS=$boost_threads_save_LIBS
