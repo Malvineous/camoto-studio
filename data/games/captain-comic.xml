@@ -78,6 +78,14 @@
 			<item ref="spr-star2"/>
 			<item ref="spr-star3"/>
 		</group>
+		<group name="Images">
+			<item ref="img-000"/>
+			<item ref="img-001"/>
+			<item ref="img-002"/>
+			<item ref="img-003"/>
+			<item ref="img-004"/>
+			<item ref="img-005"/>
+		</group>
 	</display>
 
 	<files>
@@ -136,6 +144,13 @@
 		<file id="spr-star1"     name="star1.shp"  typeMajor="tileset" typeMinor="ccomic-sprite">Star 1</file>
 		<file id="spr-star2"     name="star2.shp"  typeMajor="tileset" typeMinor="ccomic-sprite">Star 2</file>
 		<file id="spr-star3"     name="star3.shp"  typeMajor="tileset" typeMinor="ccomic-sprite">Star 3</file>
+
+		<file id="img-000"       name="sys000.ega" typeMajor="image"   typeMinor="ccomic">Title</file>
+		<file id="img-001"       name="sys001.ega" typeMajor="image"   typeMinor="ccomic">Story 1</file>
+		<file id="img-002"       name="sys002.ega" typeMajor="image"   typeMinor="ccomic">Story 2</file>
+		<file id="img-003"       name="sys003.ega" typeMajor="image"   typeMinor="ccomic">Tambi</file>
+		<file id="img-004"       name="sys004.ega" typeMajor="image"   typeMinor="ccomic">Items</file>
+		<file id="img-005"       name="sys005.ega" typeMajor="image"   typeMinor="ccomic">High scores</file>
 	</files>
 
 	<commands>
