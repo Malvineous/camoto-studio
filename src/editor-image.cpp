@@ -329,20 +329,21 @@ class ImageDocument: public IDocument
 						return;
 					}
 
-					bool hasTransparency = true;
-					int pixelOffset = -1; // to account for palette #0 being inserted for use as transparency
+					bool hasTransparency = false;
+					int pixelOffset = 0;
 					png::tRNS transparency = png.get_tRNS();
-					if ((transparency.size() > 0) && (transparency[0] != 0)) {
-						wxMessageDialog dlg(this,
-							_T("Bad image format.  The image to import must have palette "
-								"entry #0 and only this entry set to transparent, or no "
-								"transparency at all."),
-							_T("Import image"), wxOK | wxICON_ERROR);
-						dlg.ShowModal();
-						return;
-					} else {
-						hasTransparency = false;
-						pixelOffset = 0;
+					if (transparency.size() > 0) {
+						if (transparency[0] != 0) {
+							wxMessageDialog dlg(this,
+								_T("Bad image format.  The image to import must have palette "
+									"entry #0 and only this entry set to transparent, or no "
+									"transparency at all."),
+								_T("Import image"), wxOK | wxICON_ERROR);
+							dlg.ShowModal();
+							return;
+						}
+						hasTransparency = true;
+						pixelOffset = -1; // to account for palette #0 being inserted for use as transparency
 					}
 
 					int imgSizeBytes = width * height;
@@ -356,6 +357,7 @@ class ImageDocument: public IDocument
 							uint8_t pixel = png[y][x];
 							if (hasTransparency && (pixel == 0)) { // Palette #0 must be transparent
 								maskData[y * width + x] = 0x01; // transparent
+								imgData[y * width + x] = 0;
 							} else {
 								maskData[y * width + x] = 0x00; // opaque
 								imgData[y * width + x] = pixel + pixelOffset;
