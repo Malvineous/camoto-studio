@@ -1446,9 +1446,9 @@ class CamotoApp: public wxApp {
 };
 
 const wxCmdLineEntryDesc CamotoApp::cmdLineDesc[] = {
-	{wxCMD_LINE_OPTION, NULL, _T("project"), _T("Open the given project")},
-	{wxCMD_LINE_OPTION, NULL, _T("music"), _T("Open a song in a standalone editor")},
-	{wxCMD_LINE_NONE}
+	{wxCMD_LINE_OPTION, NULL, _T("project"), _T("Open the given project"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL},
+	{wxCMD_LINE_OPTION, NULL, _T("music"), _T("Open a song in a standalone editor"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL},
+	{wxCMD_LINE_NONE, NULL, NULL, NULL, (wxCmdLineParamType)NULL, 0}
 };
 
 IMPLEMENT_APP(CamotoApp)
