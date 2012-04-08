@@ -75,18 +75,20 @@ class InstrumentPanel: public IToolPanel
 
 			// Populate the list
 			PatchBankPtr instruments = this->doc->music->patches;
-			for (unsigned int i = 0; i < instruments->getPatchCount(); i++) {
-				PatchPtr patch = instruments->getPatch(i);
-				std::string name = patch->name;
-				if (name.empty()) name = "[no name]";
-				int image;
-				if (dynamic_cast<OPLPatch *>(patch.get())) image = ImageListIndex::InstOPL;
-				else if (dynamic_cast<MIDIPatch *>(patch.get())) image = ImageListIndex::InstMIDI;
-				//else if (dynamic_cast<PCMPatch *>(patch.get())) image = ImageListIndex::InstPCM;
-				else image = 0;
-				long id = this->list->InsertItem(i,
-					wxString(name.c_str(), wxConvUTF8), image);
-				this->list->SetItemData(id, i);
+			if (instruments) {
+				for (unsigned int i = 0; i < instruments->getPatchCount(); i++) {
+					PatchPtr patch = instruments->getPatch(i);
+					std::string name = patch->name;
+					if (name.empty()) name = "[no name]";
+					int image;
+					if (dynamic_cast<OPLPatch *>(patch.get())) image = ImageListIndex::InstOPL;
+					else if (dynamic_cast<MIDIPatch *>(patch.get())) image = ImageListIndex::InstMIDI;
+					//else if (dynamic_cast<PCMPatch *>(patch.get())) image = ImageListIndex::InstPCM;
+					else image = 0;
+					long id = this->list->InsertItem(i,
+						wxString(name.c_str(), wxConvUTF8), image);
+					this->list->SetItemData(id, i);
+				}
 			}
 
 			this->list->SetColumnWidth(0, wxLIST_AUTOSIZE);
