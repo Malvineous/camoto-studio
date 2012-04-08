@@ -2,7 +2,7 @@
  * @file   editor-music.cpp
  * @brief  Music editor.
  *
- * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,13 +43,7 @@ class InstrumentPanel: public IToolPanel
 				wxDefaultSize, wxLC_REPORT | wxBORDER_NONE | wxLC_NO_HEADER |
 				wxLC_SINGLE_SEL);
 
-			wxImageList *il = new wxImageList(16, 16, true, 5);
-			il->Add(wxArtProvider::GetBitmap(wxART_NORMAL_FILE, wxART_OTHER, wxSize(16, 16)));
-			il->Add(wxImage(::path.guiIcons + _T("inst-mute.png"), wxBITMAP_TYPE_PNG));
-			il->Add(wxImage(::path.guiIcons + _T("inst-opl.png"), wxBITMAP_TYPE_PNG));
-			il->Add(wxImage(::path.guiIcons + _T("inst-midi.png"), wxBITMAP_TYPE_PNG));
-			il->Add(wxImage(::path.guiIcons + _T("inst-pcm.png"), wxBITMAP_TYPE_PNG));
-			this->list->AssignImageList(il, wxIMAGE_LIST_SMALL);
+			this->list->SetImageList(parent->smallImages, wxIMAGE_LIST_SMALL);
 
 			wxListItem info;
 			info.m_mask = wxLIST_MASK_TEXT | wxLIST_MASK_IMAGE | wxLIST_MASK_FORMAT;
@@ -86,9 +80,9 @@ class InstrumentPanel: public IToolPanel
 				std::string name = patch->name;
 				if (name.empty()) name = "[no name]";
 				int image;
-				if (dynamic_cast<OPLPatch *>(patch.get())) image = 2;
-				else if (dynamic_cast<MIDIPatch *>(patch.get())) image = 3;
-				//else if (dynamic_cast<PCMPatch *>(patch.get())) image = 4;
+				if (dynamic_cast<OPLPatch *>(patch.get())) image = ImageListIndex::InstOPL;
+				else if (dynamic_cast<MIDIPatch *>(patch.get())) image = ImageListIndex::InstMIDI;
+				//else if (dynamic_cast<PCMPatch *>(patch.get())) image = ImageListIndex::InstPCM;
 				else image = 0;
 				long id = this->list->InsertItem(i,
 					wxString(name.c_str(), wxConvUTF8), image);

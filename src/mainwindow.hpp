@@ -3,7 +3,7 @@
  * @brief  Interface definition for callback functions implemented by the main
  *         window.
  *
- * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,11 +24,38 @@
 
 #include <wx/frame.h>
 #include <wx/glcanvas.h>
+#include <wx/imaglist.h>
+
+/// Order of images in IMainWindow::smallImages
+struct ImageListIndex
+{
+	enum Type {
+		Folder,     ///< Directory
+		File,       ///< Generic file
+		Game,       ///< Game being edited
+		InstMute,   ///< Muted instrument
+		InstOPL,    ///< Adlib instrument
+		InstMIDI,   ///< MIDI patch
+		InstPCM,    ///< Sampled instrument
+		SeekPrev,   ///< Media: Seek backwards
+		Play,       ///< Media: Start playback
+		Pause,      ///< Media: Pause playback
+		SeekNext,   ///< Media: Seek forwards
+		ZoomIn,     ///< Zoom closer
+		ZoomNormal, ///< Zoom to 1:1
+		ZoomOut,    ///< Zoom out
+		Import,     ///< Import document
+		Export,     ///< Export to file
+	};
+};
 
 /// Base class for main window.
 class IMainWindow: public wxFrame
 {
 	public:
+		/// Shared imagelist providing 16x16 icons to all controls that need them
+		wxImageList *smallImages;
+
 		IMainWindow(wxWindow *parent, wxWindowID winid, const wxString& title,
 			const wxPoint& pos = wxDefaultPosition,
 			const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE,

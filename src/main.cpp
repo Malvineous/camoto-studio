@@ -74,11 +74,6 @@ class TreeItemData: public wxTreeItemData {
 
 };
 
-enum {
-	IMG_FOLDER = 0,
-	IMG_FILE,
-};
-
 /// Callback function to set expanded/native file size.
 void setNativeSize(camoto::gamearchive::ArchivePtr arch,
 	camoto::gamearchive::Archive::EntryPtr id, stream::len newSize)
@@ -110,6 +105,26 @@ class CamotoFrame: public IMainWindow
 			archManager(ga::getManager())
 		{
 			this->aui.SetManagedWindow(this);
+
+			// Load all the images into the shared image list, in the order given by
+			// ImageListIndex::Type.
+			this->smallImages = new wxImageList(16, 16, true, 5);
+			this->smallImages->Add(wxArtProvider::GetBitmap(wxART_FOLDER, wxART_OTHER, wxSize(16, 16)));
+			this->smallImages->Add(wxArtProvider::GetBitmap(wxART_NORMAL_FILE, wxART_OTHER, wxSize(16, 16)));
+			this->smallImages->Add(wxArtProvider::GetBitmap(wxART_FOLDER, wxART_OTHER, wxSize(16, 16)));
+			this->smallImages->Add(wxImage(::path.guiIcons + _T("inst-mute.png"), wxBITMAP_TYPE_PNG));
+			this->smallImages->Add(wxImage(::path.guiIcons + _T("inst-opl.png"), wxBITMAP_TYPE_PNG));
+			this->smallImages->Add(wxImage(::path.guiIcons + _T("inst-midi.png"), wxBITMAP_TYPE_PNG));
+			this->smallImages->Add(wxImage(::path.guiIcons + _T("inst-pcm.png"), wxBITMAP_TYPE_PNG));
+			this->smallImages->Add(wxImage(::path.guiIcons + _T("gtk-media-previous-ltr.png"), wxBITMAP_TYPE_PNG));
+			this->smallImages->Add(wxImage(::path.guiIcons + _T("gtk-media-play-ltr.png"), wxBITMAP_TYPE_PNG));
+			this->smallImages->Add(wxImage(::path.guiIcons + _T("gtk-media-pause.png"), wxBITMAP_TYPE_PNG));
+			this->smallImages->Add(wxImage(::path.guiIcons + _T("gtk-media-next-ltr.png"), wxBITMAP_TYPE_PNG));
+			this->smallImages->Add(wxImage(::path.guiIcons + _T("gtk-zoom-in.png"), wxBITMAP_TYPE_PNG));
+			this->smallImages->Add(wxImage(::path.guiIcons + _T("gtk-zoom-100.png"), wxBITMAP_TYPE_PNG));
+			this->smallImages->Add(wxImage(::path.guiIcons + _T("gtk-zoom-out.png"), wxBITMAP_TYPE_PNG));
+			this->smallImages->Add(wxImage(::path.guiIcons + _T("import.png"), wxBITMAP_TYPE_PNG));
+			this->smallImages->Add(wxImage(::path.guiIcons + _T("export.png"), wxBITMAP_TYPE_PNG));
 
 			// Create a base OpenGL context to share among all editors
 			wxGLCanvas *canvas = new wxGLCanvas(this, glcx, wxID_ANY, wxDefaultPosition,
@@ -157,13 +172,9 @@ class CamotoFrame: public IMainWindow
 				CenterPane().PaneBorder(false));
 
 			if (isStudio) {
-				this->treeImages = new wxImageList(16, 16, true, 3);
-				this->treeImages->Add(wxArtProvider::GetBitmap(wxART_FOLDER, wxART_OTHER, wxSize(16, 16)));
-				this->treeImages->Add(wxArtProvider::GetBitmap(wxART_NORMAL_FILE, wxART_OTHER, wxSize(16, 16)));
-
 				this->treeCtrl = new wxTreeCtrl(this, IDC_TREE, wxDefaultPosition,
 					wxDefaultSize, wxTR_DEFAULT_STYLE | wxNO_BORDER);
-				this->treeCtrl->AssignImageList(this->treeImages);
+				this->treeCtrl->SetImageList(this->smallImages);
 				this->aui.AddPane(this->treeCtrl, wxAuiPaneInfo().Name(_T("tree")).Caption(_T("Items")).
 					Left().Layer(1).Position(1).CloseButton(true).MaximizeButton(true));
 			}
@@ -807,16 +818,19 @@ class CamotoFrame: public IMainWindow
 			wxFileName fn(::path.gameIcons);
 			fn.SetName(this->game->id);
 			fn.SetExt(_T("png"));
-			int imgIndexGame = IMG_FOLDER; // fallback image
 			if (::wxFileExists(fn.GetFullPath())) {
 				wxImage *image = new wxImage(fn.GetFullPath(), wxBITMAP_TYPE_PNG);
 				wxBitmap bitmap(*image);
-				imgIndexGame = this->treeImages->Add(bitmap);
+				delete image;
+				this->smallImages->Replace(ImageListIndex::Game, bitmap);
+			} else {
+				// If the image file couldn't be opened, use a generic folder image
+				this->smallImages->Replace(ImageListIndex::Game, wxArtProvider::GetBitmap(wxART_FOLDER, wxART_OTHER, wxSize(16, 16)));
 			}
 
 			// Populate the treeview
 			this->treeCtrl->DeleteAllItems();
-			wxTreeItemId root = this->treeCtrl->AddRoot(this->game->title, imgIndexGame);
+			wxTreeItemId root = this->treeCtrl->AddRoot(this->game->title, ImageListIndex::Game);
 			this->populateTreeItems(root, this->game->treeItems);
 			this->treeCtrl->ExpandAll();
 
@@ -868,7 +882,8 @@ class CamotoFrame: public IMainWindow
 
 					wxTreeItemData *d = new TreeItemData(i->item);
 					wxTreeItemId newItem = this->treeCtrl->AppendItem(root,
-						this->game->objects[i->item]->friendlyName, IMG_FILE, IMG_FILE, d);
+						this->game->objects[i->item]->friendlyName, ImageListIndex::File,
+						ImageListIndex::File, d);
 
 					// If this file doesn't have an editor, colour it grey
 					EditorMap::iterator ed = this->editors.find(this->game->objects[i->item]->typeMajor);
@@ -882,7 +897,7 @@ class CamotoFrame: public IMainWindow
 				} else {
 					// This is a folder as it has children
 					wxTreeItemId folder = this->treeCtrl->AppendItem(root,
-						i->item, IMG_FOLDER, IMG_FOLDER, NULL);
+						i->item, ImageListIndex::Folder, ImageListIndex::Folder, NULL);
 					this->populateTreeItems(folder, *i);
 				}
 			}
@@ -1264,7 +1279,6 @@ class CamotoFrame: public IMainWindow
 		wxMenu *menuTest;
 		wxAuiNotebook *notebook;
 		wxTreeCtrl *treeCtrl;
-		wxImageList *treeImages;
 		wxMenu *popup;     ///< Popup menu when right-clicking in tree view
 
 		wxString defaultPerspective;

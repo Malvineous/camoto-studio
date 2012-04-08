@@ -159,45 +159,46 @@ MusicDocument::MusicDocument(IMainWindow *parent, MusicPtr music, AudioPtr audio
 	dc.SetFont(this->font);
 	dc.GetTextExtent(_T("X"), &this->fontWidth, &this->fontHeight);
 
-	wxToolBar *tb = new wxToolBar(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_FLAT | wxTB_NODIVIDER);
+	wxToolBar *tb = new wxToolBar(this, wxID_ANY, wxDefaultPosition,
+		wxDefaultSize, wxTB_FLAT | wxTB_NODIVIDER);
 	tb->SetToolBitmapSize(wxSize(16, 16));
 
 	tb->AddTool(IDC_SEEK_PREV, wxEmptyString,
-		wxImage(::path.guiIcons + _T("gtk-media-previous-ltr.png"), wxBITMAP_TYPE_PNG),
+		parent->smallImages->GetBitmap(ImageListIndex::SeekPrev),
 		wxNullBitmap, wxITEM_NORMAL, _T("Seek to start"),
 		_T("Go back to the beginning of the song"));
 
 	tb->AddTool(IDC_PLAY, wxEmptyString,
-		wxImage(::path.guiIcons + _T("gtk-media-play-ltr.png"), wxBITMAP_TYPE_PNG),
+		parent->smallImages->GetBitmap(ImageListIndex::Play),
 		wxNullBitmap, wxITEM_NORMAL, _T("Play"),
 		_T("Start playback"));
 	tb->ToggleTool(wxID_ZOOM_100, true);
 
 	tb->AddTool(IDC_PAUSE, wxEmptyString,
-		wxImage(::path.guiIcons + _T("gtk-media-pause.png"), wxBITMAP_TYPE_PNG),
+		parent->smallImages->GetBitmap(ImageListIndex::Pause),
 		wxNullBitmap, wxITEM_NORMAL, _T("Pause"),
 		_T("Pause playback"));
 
 	tb->AddTool(IDC_SEEK_NEXT, wxEmptyString,
-		wxImage(::path.guiIcons + _T("gtk-media-next-ltr.png"), wxBITMAP_TYPE_PNG),
+		parent->smallImages->GetBitmap(ImageListIndex::SeekNext),
 		wxNullBitmap, wxITEM_NORMAL, _T("Seek to end"),
 		_T("Go to the end of the song"));
 
 	tb->AddSeparator();
 
 	tb->AddTool(wxID_ZOOM_IN, wxEmptyString,
-		wxImage(::path.guiIcons + _T("gtk-zoom-in.png"), wxBITMAP_TYPE_PNG),
+		parent->smallImages->GetBitmap(ImageListIndex::ZoomIn),
 		wxNullBitmap, wxITEM_NORMAL, _T("Zoom in"),
 		_T("Space events further apart in the event list"));
 
 	tb->AddTool(wxID_ZOOM_100, wxEmptyString,
-		wxImage(::path.guiIcons + _T("gtk-zoom-100.png"), wxBITMAP_TYPE_PNG),
+		parent->smallImages->GetBitmap(ImageListIndex::ZoomNormal),
 		wxNullBitmap, wxITEM_NORMAL, _T("Zoom normal"),
 		_T("Space events as close as possible in the event list without losing detail"));
 	tb->ToggleTool(wxID_ZOOM_100, true);
 
 	tb->AddTool(wxID_ZOOM_OUT, wxEmptyString,
-		wxImage(::path.guiIcons + _T("gtk-zoom-out.png"), wxBITMAP_TYPE_PNG),
+		parent->smallImages->GetBitmap(ImageListIndex::ZoomOut),
 		wxNullBitmap, wxITEM_NORMAL, _T("Zoom out"),
 		_T("Space events closer together in the event list"));
 
