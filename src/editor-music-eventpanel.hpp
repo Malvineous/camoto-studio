@@ -48,7 +48,7 @@ class EventPanel: public wxPanel, camoto::gamemusic::EventHandler
 
 		virtual void handleEvent(const camoto::gamemusic::NoteOnEvent *ev)
 			throw (camoto::stream::error, camoto::gamemusic::EChannelMismatch,
-				camoto::gamemusic::EBadPatchType);
+				camoto::gamemusic::bad_patch);
 
 		virtual void handleEvent(const camoto::gamemusic::NoteOffEvent *ev)
 			throw (camoto::stream::error);

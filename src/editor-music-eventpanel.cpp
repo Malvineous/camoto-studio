@@ -113,7 +113,7 @@ void EventPanel::handleEvent(const TempoEvent *ev)
 }
 
 void EventPanel::handleEvent(const NoteOnEvent *ev)
-	throw (camoto::stream::error, EChannelMismatch, EBadPatchType)
+	throw (camoto::stream::error, EChannelMismatch, bad_patch)
 {
 	this->pdc->SetTextForeground(*wxBLACK);
 	this->drawNoteOn(ev->milliHertz, ev->instrument);
