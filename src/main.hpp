@@ -38,7 +38,9 @@ int truncate(const char *path, off_t length);
 
 #include <wx/string.h>
 
-struct paths {
+/// File paths
+struct paths
+{
 	wxString dataRoot;          ///< Main data folder
 	wxString gameData;          ///< Location of XML game description files
 	wxString gameScreenshots;   ///< Game screenshots used in 'new project' dialog
@@ -49,9 +51,20 @@ struct paths {
 
 extern paths path;
 
-struct config_data {
+/// User preferences
+struct config_data
+{
+	/// Path to DOSBox binary
 	wxString dosboxPath;
+
+	/// True to add a DOS 'pause' command before exiting DOSBox
 	bool dosboxExitPause;
+
+	/// Index of MIDI device to use
+	int midiDevice;
+
+	/// Digital output delay (relative to MIDI output) in milliseconds
+	int pcmDelay;
 };
 
 extern config_data config;

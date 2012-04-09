@@ -2,7 +2,7 @@
  * @file   prefsdlg.hpp
  * @brief  Dialog box for the preferences window.
  *
- * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,23 +21,32 @@
 #ifndef _PREFSDLG_HPP_
 #define _PREFSDLG_HPP_
 
-#include <wx/dialog.h>
-#include <wx/textctrl.h>
+#include <boost/thread/thread.hpp>
 #include <wx/checkbox.h>
+#include <wx/dialog.h>
+#include <wx/spinctrl.h>
+#include <wx/textctrl.h>
+#include "mainwindow.hpp"
+#include "audio.hpp"
+#include "playerthread.hpp"
+#include "RtMidi.h"
 
 /// Main window.
-class PrefsDialog: public wxDialog {
+class PrefsDialog: public wxDialog,
+                   virtual public PlayerCallback
+{
 	public:
-
 		wxString *pathDOSBox;     ///< Path of DOSBox .exe
 		bool *pauseAfterExecute;  ///< Pause in DOSBox after running game?
+		int *midiDevice;          ///< Index of selected MIDI device
+		int *pcmDelay;            ///< Digital output delay, in milliseconds
 
 		/// Initialise main window.
 		/**
 		 * @param parent
 		 *   Display the dialog within this window.
 		 */
-		PrefsDialog(wxWindow *parent)
+		PrefsDialog(IMainWindow *parent, AudioPtr audio)
 			throw ();
 
 		~PrefsDialog()
@@ -50,12 +59,36 @@ class PrefsDialog: public wxDialog {
 		/// Event handler for OK button.
 		void onOK(wxCommandEvent& ev);
 
+		/// Event handler for cancel/close button.
+		void onCancel(wxCommandEvent& ev);
+
 		/// Event handler for DOSBox .exe browse button.
 		void onBrowseDOSBox(wxCommandEvent& ev);
 
+		/// Event handler for PCM delay adjustment.
+		void onDelayChange(wxSpinEvent& ev);
+
+		/// Event handler for audio test button.
+		void onTestAudio(wxCommandEvent& ev);
+
+		// PlayerCallback
+
+		virtual void notifyPosition(unsigned long absTime)
+			throw ();
+
 	protected:
+		AudioPtr audio;
+
 		wxTextCtrl *txtDOSBoxPath;
 		wxCheckBox *chkDOSBoxPause;
+		wxSpinCtrl *spinDelay;
+		wxListCtrl *portList;
+		boost::shared_ptr<RtMidiOut> midi;
+		PlayerThread *player;
+		boost::thread thread;
+
+		int o_pcmDelay;    ///< Preserve original value
+		int o_midiDevice;  ///< Preserve original value
 
 		DECLARE_EVENT_TABLE();
 };
