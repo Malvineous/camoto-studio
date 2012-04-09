@@ -59,44 +59,22 @@ void fillAudioBuffer(void *udata, Uint8 *stream, int len)
 OPLDevice::OPLDevice()
 	throw () :
 		chip(new DBOPL::Handler()),
-		active(false),
-		delayMS(0)
+		active(false)
 {
 }
 
 void OPLDevice::write(int reg, int val)
 	throw ()
 {
-	boost::mutex::scoped_lock(this->delay_mutex);
 	this->chip->WriteReg(reg, val);
 	return;
 }
 
-void OPLDevice::delay(int ms)
-	throw ()
-{
-	try {
-		boost::mutex::scoped_lock opl_lock(this->delay_mutex);
-		this->delayMS += ms;
-		while ((this->delayMS > 0) && (this->active)) {
-			// Notify the audio routine that there is now a delay ready to be processed
-			this->delay_cond.notify_one();
-
-			// Now wait until the delay has reached zero again
-			this->delay_cond.wait(opl_lock);
-		}
-	} catch (boost::thread_interrupted) {
-		// Just finish the delay if we were interrupted.  This can happen when the
-		// song is paused (i.e. we're blocking) and the user quits.
-	}
-	return;
-}
-
-
 Audio::Audio(wxWindow *parent, int sampleRate)
 	throw () :
 		parent(parent),
-		sampleRate(sampleRate)
+		sampleRate(sampleRate),
+		audioGood(false)
 {
 	this->mixer = new SynthMixer();
 }
@@ -128,17 +106,13 @@ void Audio::pause(OPLPtr opl, bool pause)
 void Audio::releaseOPL(OPLPtr opl)
 	throw ()
 {
-	OPLVector::iterator x = std::find(this->chips.begin(), this->chips.end(), opl);
-	assert(x != this->chips.end());
-	(*x)->active = false; // in case anyone else is watching, like the playback thread
-
-	// Don't want this to disappear while being used by fillAudioBuffer
 	{
-		// Wake up the thread if it's waiting for more delays.  It will realise in
-		// the next loop the chip is now inactive and won't keep waiting.
-		(*x)->delay_cond.notify_one();
-
+		// Don't want this to disappear while being used by fillAudioBuffer
 		boost::mutex::scoped_lock chips_lock(this->chips_mutex);
+
+		OPLVector::iterator x = std::find(this->chips.begin(), this->chips.end(), opl);
+		assert(x != this->chips.end());
+		(*x)->active = false; // in case anyone else is watching, like the playback thread
 		this->chips.erase(x);
 	}
 
@@ -158,27 +132,13 @@ void Audio::fillAudioBuffer(uint8_t *stream, unsigned int len)
 		OPLPtr& opl = *i; // This is thread-safe as we're protected by chips_mutex
 		if (!opl->active) continue;
 
-		boost::mutex::scoped_lock opl_lock(opl->delay_mutex);
-
 		this->mixer->buf = (uint8_t *)this->sound_buffer;
 		int remaining_samples = bufvalid_samples;
 		do {
-			while ((opl->delayMS <= 0) && (opl->active)) {
-				// No more delay, get more song notes
-				opl->delay_cond.notify_one();
-
-				// Wait until we're notified that there's another delay
-				opl->delay_cond.wait(opl_lock);
-			}
-			if (opl->delayMS == 0) break; // end of playback
-
-			int chunk_samples = min(remaining_samples, 48 * opl->delayMS);
-			int generated_samples = min(48*10, chunk_samples);
+			int generated_samples = min(remaining_samples, 48*10);
 			opl->chip->Generate(this->mixer, generated_samples);
 			remaining_samples -= generated_samples;
 			this->mixer->buf += generated_samples * sizeof(int16_t);
-			opl->delayMS -= generated_samples / 48;
-			//assert(opl->delayMS > 0);
 		} while (remaining_samples > 0);
 	}
 
@@ -215,6 +175,7 @@ void Audio::openDevice()
 void Audio::adjustDevice()
 	throw ()
 {
+	boost::mutex::scoped_lock chips_lock(this->chips_mutex);
 	int totalActive = 0;
 	for (OPLVector::iterator i = this->chips.begin(); i != this->chips.end(); i++) {
 		if ((*i)->active) totalActive++;

@@ -42,7 +42,7 @@ class SynthMixer: public MixerChannel {
 		virtual void AddSamples_s32(Bitu samples, Bit32s *buffer);
 };
 
-/// Thread-safe wrapper around DOSBox OPL device.
+/// Wrapper around DOSBox OPL device.
 class OPLDevice
 {
 	public:
@@ -63,22 +63,9 @@ class OPLDevice
 		void write(int reg, int val)
 			throw ();
 
-		/// Block for the specified number of ticks.
-		/**
-		 * @param ms
-		 *   Delay time, in milliseconds.
-		 *
-		 * @post The elapsed time has passed.
-		 */
-		void delay(int ms)
-			throw ();
-
 	protected:
 		DBOPL::Handler *chip;
 		bool active;
-		int delayMS;                 ///< Number of milliseconds to delay for
-		boost::mutex delay_mutex;    ///< Mutex for delay_lock
-		boost::condition delay_cond; ///< To notify when the delay has reached zero
 
 		friend class Audio;
 };

@@ -227,7 +227,7 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 		MusicPtr pMusic = pMusicType->read(data, suppData);
 		assert(pMusic);
 
-		return new MusicDocument(this->frame, pMusic, this->audio);
+		return new MusicDocument(this->frame, pMusic, this->audio, this->pManager);
 	} catch (const camoto::stream::error& e) {
 		throw EFailure(wxString::Format(_T("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));

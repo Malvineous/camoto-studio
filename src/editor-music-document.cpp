@@ -18,121 +18,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <camoto/gamemusic/eventconverter-opl.hpp>
-#include "main.hpp"
 #include "editor-music-document.hpp"
 
 using namespace camoto;
 using namespace camoto::gamemusic;
-
-class PlayerThread: virtual public OPLWriterCallback
-{
-	public:
-		PlayerThread(MusicDocument *doc)
-			throw () :
-				doc(doc),
-				playpause_lock(playpause_mutex), // initial state is locked (paused)
-				doquit(false),
-				dorewind(false),
-				usPerTick(1000) // sensible default, just in case
-		{
-		}
-
-		void operator()()
-		{
-			EventConverter_OPL conv(this, OPL_FNUM_DEFAULT, Default);
-			conv.setPatchBank(this->doc->music->patches);
-
-			this->doc->opl->write(0x01, 0x20); // Enable WaveSel
-			this->doc->opl->write(0x05, 0x01); // Enable OPL3
-
-			EventVector::iterator pos = this->doc->music->events->begin();
-			for (;;) {
-				// Block if we've been paused.  This has to be in a control block as we
-				// don't want to hold the mutex while we're blocking in the delay()
-				// call, which is in processEvent().
-				{
-					boost::mutex::scoped_lock loop_lock(this->playpause_mutex);
-				}
-
-				// If we've just been resumed, check to see if it's because we're exiting
-				if (this->doquit) break;
-
-				try {
-					// Update the playback time so the highlight gets moved
-					this->doc->setHighlight((*pos)->absTime);
-
-					(*pos++)->processEvent(&conv); // Will block for song delays
-
-					// Loop once we reach the end of the song
-					if ((this->dorewind) || (pos == this->doc->music->events->end())) {
-						// Notify output that the event time is about to loop back to zero
-						pos = this->doc->music->events->begin();
-						conv.rewind();
-						this->dorewind = false;
-					}
-				} catch (...) {
-					std::cerr << "Error converting event into OPL data!  Ignoring.\n";
-				}
-			}
-			/// @todo Turn all notes off?
-			return;
-		}
-
-		void resume()
-			throw ()
-		{
-			this->playpause_lock.unlock();
-			return;
-		}
-
-		void pause()
-			throw ()
-		{
-			this->playpause_lock.lock();
-			return;
-		}
-
-		void quit()
-			throw ()
-		{
-			this->doquit = true;
-			// Wake up the thread if need be
-			if (this->playpause_lock.owns_lock()) this->resume();
-			return;
-		}
-
-		void rewind()
-			throw ()
-		{
-			this->dorewind = true;
-			return;
-		}
-
-		void writeNextPair(const OPLEvent *oplEvent)
-			throw (stream::error)
-		{
-			this->doc->opl->delay(oplEvent->delay * this->usPerTick / 1000);
-			this->doc->opl->write(oplEvent->reg, oplEvent->val);
-			return;
-		}
-
-		void writeTempoChange(unsigned long usPerTick)
-			throw (stream::error)
-		{
-			this->usPerTick = usPerTick;
-			return;
-		}
-
-	protected:
-		MusicDocument *doc;           ///< Music data to play (and notify about progress)
-		boost::mutex playpause_mutex; ///< Mutex to pause playback
-		boost::unique_lock<boost::mutex> playpause_lock; ///< Main play/pause lock
-		bool doquit;                  ///< Set to true to make thread terminate
-		bool dorewind;                ///< Set to true to go back to start of song
-		unsigned long usPerTick;      ///< Tempo
-};
-
 
 BEGIN_EVENT_TABLE(MusicDocument, IDocument)
 	EVT_TOOL(IDC_SEEK_PREV, MusicDocument::onSeekPrev)
@@ -146,11 +35,12 @@ BEGIN_EVENT_TABLE(MusicDocument, IDocument)
 	EVT_SIZE(EventPanel::onResize)
 END_EVENT_TABLE()
 
-MusicDocument::MusicDocument(IMainWindow *parent, MusicPtr music, AudioPtr audio)
+MusicDocument::MusicDocument(IMainWindow *parent, MusicPtr music,
+	AudioPtr audio, ManagerPtr pManager)
 	throw () :
 		IDocument(parent, _T("music")),
 		music(music),
-		audio(audio),
+		pManager(pManager),
 		playing(false),
 		absTimeStart(0),
 		font(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL)
@@ -238,8 +128,7 @@ MusicDocument::MusicDocument(IMainWindow *parent, MusicPtr music, AudioPtr audio
 	s->Add(szChannels, 1, wxEXPAND);
 	this->SetSizer(s);
 
-	this->opl = this->audio->createOPL();
-	this->player = new PlayerThread(this);
+	this->player = new PlayerThread(audio, this->music, this);
 	this->thread = boost::thread(boost::ref(*this->player));
 }
 
@@ -254,7 +143,8 @@ MusicDocument::~MusicDocument()
 	// Wait for playback thread to terminate
 	this->thread.join();
 
-	this->audio->releaseOPL(this->opl);
+	// Unload everything
+	delete this->player;
 }
 
 void MusicDocument::save()
@@ -273,10 +163,7 @@ void MusicDocument::onSeekPrev(wxCommandEvent& ev)
 
 void MusicDocument::onPlay(wxCommandEvent& ev)
 {
-	// TODO
 	if (this->playing) return;
-
-	this->audio->pause(this->opl, false); // this makes delays start blocking
 
 	// Resume playback thread
 	this->player->resume();
@@ -288,13 +175,11 @@ void MusicDocument::onPlay(wxCommandEvent& ev)
 
 void MusicDocument::onPause(wxCommandEvent& ev)
 {
-	// TODO
 	if (!this->playing) return;
 
 	// Pause playback thread
 	this->player->pause();
 
-	this->audio->pause(this->opl, true); // this makes delays expire immediately
 	this->playing = false;
 	return;
 }
@@ -345,12 +230,12 @@ void MusicDocument::onResize(wxSizeEvent& ev)
 	return;
 }
 
-void MusicDocument::setHighlight(int ticks)
+void MusicDocument::notifyPosition(unsigned long absTime)
 	throw ()
 {
 	// This is called from the player thread so we can't directly use the UI
 
-	this->playPos = ticks;
+	this->playPos = absTime;
 	if (this->absTimeStart + this->halfHeight < this->playPos) {
 		// Scroll to keep highlight in the middle
 		this->absTimeStart = this->playPos - this->halfHeight;

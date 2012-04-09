@@ -23,6 +23,7 @@
 
 #include <boost/thread/thread.hpp>
 #include <camoto/gamemusic.hpp>
+#include "playerthread.hpp"
 #include "editor-music.hpp"
 
 class MusicDocument;
@@ -32,11 +33,11 @@ class PlayerThread;
 
 typedef std::vector<camoto::gamemusic::EventPtr> EventVector;
 
-class MusicDocument: public IDocument
+class MusicDocument: public IDocument, PlayerCallback
 {
 	public:
 		MusicDocument(IMainWindow *parent, camoto::gamemusic::MusicPtr music,
-			AudioPtr audio)
+			AudioPtr audio, camoto::gamemusic::ManagerPtr pManager)
 			throw ();
 
 		~MusicDocument();
@@ -54,17 +55,18 @@ class MusicDocument: public IDocument
 		void onMouseWheel(wxMouseEvent& ev);
 		void onResize(wxSizeEvent& ev);
 
-		/// Set the position of the playback time highlight row.
-		void setHighlight(int ticks)
-			throw ();
-
 		/// Push the current scroll and zoom settings to each channel and redraw
 		void pushViewSettings();
 
+		// PlayerCallback
+
+		/// Set the position of the playback time highlight row.
+		virtual void notifyPosition(unsigned long absTime)
+			throw ();
+
 	protected:
 		camoto::gamemusic::MusicPtr music;
-		AudioPtr audio;
-		Audio::OPLPtr opl;
+		camoto::gamemusic::ManagerPtr pManager;
 		bool playing;
 
 		int optimalTicksPerRow; ///< Cache best value for ticksPerRow (for zoom reset)
