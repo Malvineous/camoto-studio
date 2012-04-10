@@ -31,6 +31,9 @@ class MusicEditor: public IEditor
 		MusicEditor(IMainWindow *parent, AudioPtr audio)
 			throw ();
 
+		virtual ~MusicEditor()
+			throw ();
+
 		virtual IToolPanelVector createToolPanes() const
 			throw ();
 

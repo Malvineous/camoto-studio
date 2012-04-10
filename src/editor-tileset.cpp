@@ -423,6 +423,11 @@ TilesetEditor::TilesetEditor(IMainWindow *parent)
 	this->settings.zoomFactor = CFG_DEFAULT_ZOOM;
 }
 
+TilesetEditor::~TilesetEditor()
+	throw ()
+{
+}
+
 std::vector<IToolPanel *> TilesetEditor::createToolPanes() const
 	throw ()
 {

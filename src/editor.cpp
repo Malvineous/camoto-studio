@@ -57,6 +57,11 @@ IToolPanel::IToolPanel(IMainWindow *parent)
 {
 }
 
+IEditor::~IEditor()
+	throw ()
+{
+}
+
 #define SUPP_MAP(name, type) \
 	s = supp.find(name); \
 	if (s != supp.end()) { \

@@ -27,13 +27,15 @@
 class MapEditor: public IEditor
 {
 	public:
-
 		/// View settings for this editor which are saved with the project.
 		struct Settings {
 			unsigned int zoomFactor; ///< Amount of zoom (1,2,4)
 		};
 
 		MapEditor(IMainWindow *parent)
+			throw ();
+
+		virtual ~MapEditor()
 			throw ();
 
 		virtual IToolPanelVector createToolPanes() const

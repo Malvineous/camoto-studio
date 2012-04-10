@@ -38,6 +38,9 @@ class SynthMixer: public MixerChannel {
 	public:
 		uint8_t *buf;
 
+		virtual ~SynthMixer()
+			throw ();
+
 		virtual void AddSamples_m32(Bitu samples, Bit32s *buffer);
 		virtual void AddSamples_s32(Bitu samples, Bit32s *buffer);
 };

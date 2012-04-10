@@ -54,7 +54,7 @@ class PlayerThread: virtual public camoto::gamemusic::OPLWriterCallback,
 			PlayerCallback *cb)
 			throw ();
 
-		~PlayerThread()
+		virtual ~PlayerThread()
 			throw ();
 
 		/// Start the playback thread.

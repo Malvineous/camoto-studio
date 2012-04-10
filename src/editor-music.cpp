@@ -159,6 +159,11 @@ MusicEditor::MusicEditor(IMainWindow *parent, AudioPtr audio)
 {
 }
 
+MusicEditor::~MusicEditor()
+	throw ()
+{
+}
+
 std::vector<IToolPanel *> MusicEditor::createToolPanes() const
 	throw ()
 {

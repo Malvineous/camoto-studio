@@ -28,6 +28,11 @@
 
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 
+SynthMixer::~SynthMixer()
+	throw ()
+{
+}
+
 void SynthMixer::AddSamples_m32(Bitu samples, Bit32s *buffer)
 {
 	// Convert samples from mono s32 to s16

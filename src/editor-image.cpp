@@ -520,6 +520,11 @@ ImageEditor::ImageEditor(IMainWindow *parent)
 	this->settings.zoomFactor = CFG_DEFAULT_ZOOM;
 }
 
+ImageEditor::~ImageEditor()
+	throw ()
+{
+}
+
 std::vector<IToolPanel *> ImageEditor::createToolPanes() const
 	throw ()
 {

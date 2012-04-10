@@ -224,6 +224,11 @@ MapEditor::MapEditor(IMainWindow *parent)
 	this->settings.zoomFactor = CFG_DEFAULT_ZOOM;
 }
 
+MapEditor::~MapEditor()
+	throw ()
+{
+}
+
 std::vector<IToolPanel *> MapEditor::createToolPanes() const
 	throw ()
 {

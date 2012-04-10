@@ -131,6 +131,9 @@ void suppMapToData(SuppMap& supp, camoto::SuppData &suppData)
 class IEditor
 {
 	public:
+		virtual ~IEditor()
+			throw ();
+
 		/// Create tool windows that this editor uses.
 		/**
 		 * This is called when the editor is first created.  It should create any
