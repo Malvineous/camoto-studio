@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Kiloblaster description file for Camoto Studio
+	Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Kiloblaster
+  -->
+<game title="Kiloblaster" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Allen Pilgrim</developer>
+		<publisher>Epic Megagames</publisher>
+		<reverser>Malvineous</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+
+		<group name="Episode 1 - Death of a Starship">
+			<group name="Levels">
+				<item ref="lev-1bk"/>
+				<item ref="lev-101"/>
+				<item ref="lev-102"/>
+				<item ref="lev-103"/>
+				<item ref="lev-104"/>
+				<item ref="lev-105"/>
+				<item ref="lev-106"/>
+				<item ref="lev-107"/>
+				<item ref="lev-108"/>
+				<item ref="lev-109"/>
+				<item ref="lev-110"/>
+				<item ref="lev-1i1"/>
+				<item ref="lev-1i2"/>
+				<item ref="lev-1e1"/>
+				<item ref="lev-1e2"/>
+				<item ref="lev-1mn"/>
+				<item ref="lev-1s1"/>
+				<item ref="lev-1s2"/>
+				<item ref="lev-1s3"/>
+			</group>
+			<group name="Graphics">
+				<item ref="tls-1" />
+				<item ref="pal-1" />
+			</group>
+			<group name="Music">
+				<item ref="mus-101" />
+				<item ref="mus-102" />
+				<item ref="mus-103" />
+				<item ref="mus-104" />
+				<item ref="mus-105" />
+				<item ref="mus-106" />
+				<item ref="mus-107" />
+				<item ref="mus-111" />
+			</group>
+		</group>
+
+		<group name="Episode 2 - No Way Out">
+			<group name="Levels">
+				<item ref="lev-2bk"/>
+				<item ref="lev-201"/>
+				<item ref="lev-202"/>
+				<item ref="lev-203"/>
+				<item ref="lev-204"/>
+				<item ref="lev-205"/>
+				<item ref="lev-206"/>
+				<item ref="lev-207"/>
+				<item ref="lev-208"/>
+				<item ref="lev-209"/>
+				<item ref="lev-210"/>
+				<item ref="lev-2i1"/>
+				<item ref="lev-2i2"/>
+				<item ref="lev-2e1"/>
+				<item ref="lev-2e2"/>
+				<item ref="lev-2mn"/>
+				<item ref="lev-2s1"/>
+				<item ref="lev-2s2"/>
+				<item ref="lev-2s3"/>
+			</group>
+			<group name="Graphics">
+				<item ref="tls-2" />
+				<item ref="pal-2" />
+			</group>
+			<group name="Music">
+				<item ref="mus-201"/>
+				<item ref="mus-202"/>
+				<item ref="mus-203"/>
+				<item ref="mus-204"/>
+				<item ref="mus-205"/>
+				<item ref="mus-206"/>
+				<item ref="mus-207"/>
+				<item ref="mus-208"/>
+				<item ref="mus-209"/>
+			</group>
+		</group>
+
+		<group name="Episode 3 - The Final Battle">
+			<group name="Levels">
+				<item ref="lev-3bk"/>
+				<item ref="lev-301"/>
+				<item ref="lev-302"/>
+				<item ref="lev-303"/>
+				<item ref="lev-304"/>
+				<item ref="lev-305"/>
+				<item ref="lev-306"/>
+				<item ref="lev-307"/>
+				<item ref="lev-308"/>
+				<item ref="lev-309"/>
+				<item ref="lev-310"/>
+				<item ref="lev-3i1"/>
+				<item ref="lev-3i2"/>
+				<item ref="lev-3e1"/>
+				<item ref="lev-3e2"/>
+				<item ref="lev-3mn"/>
+				<item ref="lev-3s1"/>
+				<item ref="lev-3s2"/>
+				<item ref="lev-3s3"/>
+			</group>
+			<group name="Graphics">
+				<item ref="tls-3" />
+				<item ref="pal-3" />
+			</group>
+			<group name="Music">
+				<item ref="mus-301"/>
+				<item ref="mus-302"/>
+				<item ref="mus-303"/>
+				<item ref="mus-304"/>
+				<item ref="mus-305"/>
+				<item ref="mus-306"/>
+				<item ref="mus-307"/>
+				<item ref="mus-308"/>
+				<item ref="mus-309"/>
+			</group>
+		</group>
+
+	</display>
+
+	<files>
+		<file id="lev-1bk"  name="back.kb1"     typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Back</file>
+		<file id="lev-101"  name="board1.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Level 1</file>
+		<file id="lev-102"  name="board2.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Level 2</file>
+		<file id="lev-103"  name="board3.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Level 3</file>
+		<file id="lev-104"  name="board4.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Level 4</file>
+		<file id="lev-105"  name="board5.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Level 5</file>
+		<file id="lev-106"  name="board6.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Level 6</file>
+		<file id="lev-107"  name="board7.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Level 7</file>
+		<file id="lev-108"  name="board8.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Level 8</file>
+		<file id="lev-109"  name="board9.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Level 9</file>
+		<file id="lev-110"  name="boarda.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Level 10</file>
+		<file id="lev-1i1"  name="intro1.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Intro 1</file>
+		<file id="lev-1i2"  name="intro2.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Intro 2</file>
+		<file id="lev-1e1"  name="end.kb1"      typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">End 1</file>
+		<file id="lev-1e2"  name="end2.kb1"     typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">End 2</file>
+		<file id="lev-1mn"  name="menu.kb1"     typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Menu</file>
+		<file id="lev-1s1"  name="story.kb1"    typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Story 1</file>
+		<file id="lev-1s2"  name="story2.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Story 2</file>
+		<file id="lev-1s3"  name="story3.kb1"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-1">Story 3</file>
+
+		<file id="lev-2bk"  name="back.kb2"     typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Back</file>
+		<file id="lev-201"  name="board1.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Level 1</file>
+		<file id="lev-202"  name="board2.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Level 2</file>
+		<file id="lev-203"  name="board3.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Level 3</file>
+		<file id="lev-204"  name="board4.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Level 4</file>
+		<file id="lev-205"  name="board5.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Level 5</file>
+		<file id="lev-206"  name="board6.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Level 6</file>
+		<file id="lev-207"  name="board7.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Level 7</file>
+		<file id="lev-208"  name="board8.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Level 8</file>
+		<file id="lev-209"  name="board9.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Level 9</file>
+		<file id="lev-210"  name="boarda.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Level 10</file>
+		<file id="lev-2i1"  name="intro1.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Intro 1</file>
+		<file id="lev-2i2"  name="intro2.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Intro 2</file>
+		<file id="lev-2e1"  name="end.kb2"      typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">End 1</file>
+		<file id="lev-2e2"  name="end2.kb2"     typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">End 2</file>
+		<file id="lev-2mn"  name="menu.kb2"     typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Menu</file>
+		<file id="lev-2s1"  name="story.kb2"    typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Story 1</file>
+		<file id="lev-2s2"  name="story2.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Story 2</file>
+		<file id="lev-2s3"  name="story3.kb2"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-2">Story 3</file>
+
+		<file id="lev-3bk"  name="back.kb3"     typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Back</file>
+		<file id="lev-301"  name="board1.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Level 1</file>
+		<file id="lev-302"  name="board2.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Level 2</file>
+		<file id="lev-303"  name="board3.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Level 3</file>
+		<file id="lev-304"  name="board4.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Level 4</file>
+		<file id="lev-305"  name="board5.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Level 5</file>
+		<file id="lev-306"  name="board6.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Level 6</file>
+		<file id="lev-307"  name="board7.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Level 7</file>
+		<file id="lev-308"  name="board8.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Level 8</file>
+		<file id="lev-309"  name="board9.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Level 9</file>
+		<file id="lev-310"  name="boarda.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Level 10</file>
+		<file id="lev-3i1"  name="intro1.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Intro 1</file>
+		<file id="lev-3i2"  name="intro2.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Intro 2</file>
+		<file id="lev-3e1"  name="end.kb3"      typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">End 1</file>
+		<file id="lev-3e2"  name="end2.kb3"     typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">End 2</file>
+		<file id="lev-3mn"  name="menu.kb3"     typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Menu</file>
+		<file id="lev-3s1"  name="story.kb3"    typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Story 1</file>
+		<file id="lev-3s2"  name="story2.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Story 2</file>
+		<file id="lev-3s3"  name="story3.kb3"   typeMajor="map" typeMinor="kiloblaster" supp:tiles="tls-3">Story 3</file>
+
+		<file id="tls-1"    name="shapes.kb1"   typeMajor="tileset" typeMinor="jill">Game graphics</file>
+		<file id="tls-2"    name="shapes.kb2"   typeMajor="tileset" typeMinor="jill">Game graphics</file>
+		<file id="tls-3"    name="shapes.kb3"   typeMajor="tileset" typeMinor="jill">Game graphics</file>
+
+		<file id="mus-101"  name="song_1.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 1 - 5gear</file>
+		<file id="mus-102"  name="song_2.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 2 - Butterfly</file>
+		<file id="mus-103"  name="song_3.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 3 - Fugue</file>
+		<file id="mus-104"  name="song_4.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 4 - Funkit</file>
+		<file id="mus-105"  name="song_5.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 5 - Glassman</file>
+		<file id="mus-106"  name="song_6.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 6 - Hero</file>
+		<file id="mus-107"  name="song_7.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 7 - Doom</file>
+		<file id="mus-111"  name="song_11.kb1"  typeMajor="music"   typeMinor="cmf-creativelabs">Song 11 - Nemo</file>
+
+		<file id="mus-201"  name="song_1.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 1 - Robot</file>
+		<file id="mus-202"  name="song_2.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 2 - Doom</file>
+		<file id="mus-203"  name="song_3.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 3 - Creepy</file>
+		<file id="mus-204"  name="song_4.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 4 - Nemo</file>
+		<file id="mus-205"  name="song_5.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 5 - Oblong</file>
+		<file id="mus-206"  name="song_6.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 6 - Waiting</file>
+		<file id="mus-207"  name="song_7.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 7 - Funkit</file>
+		<file id="mus-208"  name="song_8.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 8 - Butterfly</file>
+		<file id="mus-209"  name="song_9.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 9 - Hero 2</file>
+
+		<file id="mus-301"  name="song_1.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 1 - Thinking</file>
+		<file id="mus-302"  name="song_2.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 2 - Rap It Up!</file>
+		<file id="mus-303"  name="song_3.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 3 - Haunted</file>
+		<file id="mus-304"  name="song_4.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 4 - Trek</file>
+		<file id="mus-305"  name="song_5.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 5 - Walk Limp</file>
+		<file id="mus-306"  name="song_6.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 6 - Jungle</file>
+		<file id="mus-307"  name="song_7.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 7 - Fugue</file>
+		<file id="mus-308"  name="song_8.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 8 - Robot</file>
+		<file id="mus-309"  name="song_9.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs">Song 9 - Hero 2</file>
+
+		<archive id="exe-1" name="kfile1.exe" typeMinor="fixed">
+			<file id="pal-1"  name="kilo1.pal" offset="0x228e0" size="768" typeMajor="image" typeMinor="pal-vga">VGA palette</file>
+		</archive>
+
+		<archive id="exe-2" name="kfile2.exe" typeMinor="fixed">
+			<file id="pal-2"  name="kilo2.pal" offset="0x228e0" size="768" typeMajor="image" typeMinor="pal-vga">VGA palette</file>
+		</archive>
+
+		<archive id="exe-3" name="kfile3.exe" typeMinor="fixed">
+			<file id="pal-3"  name="kilo3.pal" offset="0x228e0" size="768" typeMajor="image" typeMinor="pal-vga">VGA palette</file>
+		</archive>
+	</files>
+
+	<commands>
+		<command title="Episode selection">kilo</command>
+		<command title="Episode 1">kfile1</command>
+		<command title="Episode 2">kfile2</command>
+		<command title="Episode 3">kfile3</command>
+	</commands>
+
+</game>
