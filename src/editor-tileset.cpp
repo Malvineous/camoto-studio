@@ -284,7 +284,7 @@ class TilesetDocument: public IDocument
 					if (height > maxHeight) maxHeight = height;
 					x += width;
 					nx++;
-					if (nx > this->tilesX) {
+					if (nx >= this->tilesX) {
 						if (x > maxWidth) maxWidth = x;
 						x = 0;
 						nx = 0;
@@ -361,7 +361,7 @@ class TilesetDocument: public IDocument
 					if (height > maxHeight) maxHeight = height;
 					x += width;
 					nx++;
-					if (nx > this->tilesX) {
+					if (nx >= this->tilesX) {
 						x = 0;
 						nx = 0;
 						y += maxHeight;
