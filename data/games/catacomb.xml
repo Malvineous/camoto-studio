@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Catacomb description file for Camoto Studio
+	Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Catacomb
+  -->
+<game title="Catacomb" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>John Romero</developer>
+		<publisher>Softdisk</publisher>
+		<reverser>K1n9 Duk3</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+		<group name="Levels">
+			<item ref="lev-1" />
+			<item ref="lev-2" />
+			<item ref="lev-3" />
+			<item ref="lev-4" />
+			<item ref="lev-5" />
+			<item ref="lev-6" />
+			<item ref="lev-7" />
+			<item ref="lev-8" />
+			<item ref="lev-9" />
+			<item ref="lev-a" />
+		</group>
+		<group name="Graphics">
+			<item ref="gfx-tiles-cga" />
+			<item ref="gfx-tiles-ega" />
+			<item ref="img-title" />
+			<item ref="img-end" />
+		</group>
+		<group name="Audio">
+			<item ref="sfx" />
+		</group>
+	</display>
+
+	<files>
+		<file id="lev-1" name="level1.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 1</file>
+		<file id="lev-2" name="level2.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 2</file>
+		<file id="lev-3" name="level3.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 3</file>
+		<file id="lev-4" name="level4.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 4</file>
+		<file id="lev-5" name="level5.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 5</file>
+		<file id="lev-6" name="level6.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 6</file>
+		<file id="lev-7" name="level7.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 7</file>
+		<file id="lev-8" name="level8.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 8</file>
+		<file id="lev-9" name="level9.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 9</file>
+		<file id="lev-a" name="level10.cat" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 10</file>
+
+		<file id="sfx"   name="sounds.cat"  typeMajor="sfx" typeMinor="catacomb">PC Speaker sounds</file>
+
+		<file id="gfx-tiles-cga" name="cgachars.ca2" typeMajor="tileset" typeMinor="catacomb-cga">CGA tileset</file>
+		<file id="gfx-tiles-ega" name="egachars.ca2" typeMajor="tileset" typeMinor="catacomb-ega">EGA tileset</file>
+
+		<archive id="exe"  name="catacomb.exe" typeMinor="fixed">
+			<file id="gfx-tiles-ega" name="egachars.cat" offset="0x06100" size="0xb6c0" typeMajor="tileset" typeMinor="catacomb-ega">EGA tileset</file>
+			<file id="gfx-tiles-cga" name="cgachars.cat" offset="0x117d0" size="0x5b60" typeMajor="tileset" typeMinor="catacomb-cga">CGA tileset</file>
+			<file id="img-title"     name="title.pic"    offset="0x17997" size="0x4000" typeMajor="image" typeMinor="cga-raw-interlaced-fullscreen">Title screen</file>
+			<file id="img-end"       name="end.pic"      offset="0x1b997" size="0x4000" typeMajor="image" typeMinor="cga-raw-interlaced-fullscreen">Ending screen</file>
+		</archive>
+	</files>
+
+	<commands>
+		<command title="Normal">catacomb</command>
+	</commands>
+
+</game>

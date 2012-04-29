@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Catacomb II description file for Camoto Studio
+	Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Catacomb_II
+  -->
+<game title="Catacomb II" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>John Romero</developer>
+		<publisher>Softdisk</publisher>
+		<reverser>K1n9 Duk3</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+		<group name="Levels">
+			<item ref="lev-01" />
+			<item ref="lev-02" />
+			<item ref="lev-03" />
+			<item ref="lev-04" />
+			<item ref="lev-05" />
+			<item ref="lev-06" />
+			<item ref="lev-07" />
+			<item ref="lev-08" />
+			<item ref="lev-09" />
+			<item ref="lev-10" />
+			<item ref="lev-11" />
+			<item ref="lev-12" />
+			<item ref="lev-13" />
+			<item ref="lev-14" />
+			<item ref="lev-15" />
+			<item ref="lev-16" />
+			<item ref="lev-17" />
+			<item ref="lev-18" />
+			<item ref="lev-19" />
+			<item ref="lev-20" />
+			<item ref="lev-21" />
+			<item ref="lev-22" />
+			<item ref="lev-23" />
+			<item ref="lev-24" />
+			<item ref="lev-25" />
+			<item ref="lev-26" />
+			<item ref="lev-27" />
+			<item ref="lev-28" />
+			<item ref="lev-29" />
+			<item ref="lev-30" />
+		</group>
+		<group name="Graphics">
+			<item ref="gfx-tiles-cga" />
+			<item ref="gfx-tiles-ega" />
+			<item ref="gfx-pics-cga" />
+			<item ref="gfx-pics-ega" />
+		</group>
+		<group name="Audio">
+			<item ref="sfx" />
+		</group>
+	</display>
+
+	<files>
+		<file id="lev-01" name="level1.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 1</file>
+		<file id="lev-02" name="level2.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 2</file>
+		<file id="lev-03" name="level3.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 3</file>
+		<file id="lev-04" name="level4.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 4</file>
+		<file id="lev-05" name="level5.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 5</file>
+		<file id="lev-06" name="level6.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 6</file>
+		<file id="lev-07" name="level7.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 7</file>
+		<file id="lev-08" name="level8.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 8</file>
+		<file id="lev-09" name="level9.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 9</file>
+		<file id="lev-10" name="level10.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 10</file>
+		<file id="lev-11" name="level11.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 11</file>
+		<file id="lev-12" name="level12.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 12</file>
+		<file id="lev-13" name="level13.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 13</file>
+		<file id="lev-14" name="level14.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 14</file>
+		<file id="lev-15" name="level15.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 15</file>
+		<file id="lev-16" name="level16.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 16</file>
+		<file id="lev-17" name="level17.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 17</file>
+		<file id="lev-18" name="level18.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 18</file>
+		<file id="lev-19" name="level19.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 19</file>
+		<file id="lev-20" name="level20.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 20</file>
+		<file id="lev-21" name="level21.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 21</file>
+		<file id="lev-22" name="level22.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 22</file>
+		<file id="lev-23" name="level23.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 23</file>
+		<file id="lev-24" name="level24.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 24</file>
+		<file id="lev-25" name="level25.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 25</file>
+		<file id="lev-26" name="level26.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 26</file>
+		<file id="lev-27" name="level27.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 27</file>
+		<file id="lev-28" name="level28.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 28</file>
+		<file id="lev-29" name="level29.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 29</file>
+		<file id="lev-30" name="level30.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 30</file>
+
+		<file id="sfx"    name="sounds.ca2"  typeMajor="sfx" typeMinor="catacomb">PC Speaker sounds</file>
+
+		<file id="gfx-tiles-cga" name="cgachars.ca2" typeMajor="tileset" typeMinor="catacomb-cga">CGA tileset</file>
+		<file id="gfx-tiles-ega" name="egachars.ca2" typeMajor="tileset" typeMinor="catacomb-ega">EGA tileset</file>
+		<file id="gfx-pics-cga"  name="cgapics.ca2" typeMajor="tileset" typeMinor="catacomb-pics-cga">CGA pics</file>
+		<file id="gfx-pics-ega"  name="egapics.ca2" typeMajor="tileset" typeMinor="catacomb-pics-ega">EGA pics</file>
+
+	</files>
+
+	<commands>
+		<command title="Normal">catacomb</command>
+	</commands>
+
+</game>

@@ -1,5 +1,5 @@
 Camoto: Classic-game Modding Tools
-Copyright 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+Copyright 2010-2012 Adam Nielsen <malvineous@shikadi.net>
 http://www.shikadi.net/camoto/
 
 Camoto is a collection of utilities for editing (modding) "classic games",
@@ -12,6 +12,8 @@ use.
 The GUI currently supports at least partial editing of these games:
 
  - Captain Comic
+ - Catacomb
+ - Catacomb II
  - Cosmo's Cosmic Adventures
  - Dangerous Dave
  - Halloween Harry
