@@ -26,6 +26,7 @@
 #include <wx/dialog.h>
 #include <wx/spinctrl.h>
 #include <wx/textctrl.h>
+#include <wx/listctrl.h>
 #include "mainwindow.hpp"
 #include "audio.hpp"
 #include "playerthread.hpp"
