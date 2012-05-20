@@ -1,5 +1,5 @@
 /**
- * @file   dlg-export-mus.cpp
+ * @file   dlg-import-mus.cpp
  * @brief  Dialog box for the preferences window.
  *
  * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
@@ -29,9 +29,10 @@
 #ifndef __WXMSW__
 #include <wx/cshelp.h>
 #endif
+#include <camoto/stream_file.hpp>
 #include <camoto/gamemusic/musictype.hpp>
 #include "main.hpp"
-#include "dlg-export-mus.hpp"
+#include "dlg-import-mus.hpp"
 
 using namespace camoto;
 using namespace camoto::gamemusic;
@@ -44,13 +45,13 @@ enum {
 	IDC_PITCHBENDS,
 };
 
-BEGIN_EVENT_TABLE(DlgExportMusic, wxDialog)
-	EVT_BUTTON(wxID_OK, DlgExportMusic::onOK)
-	EVT_BUTTON(wxID_CANCEL, DlgExportMusic::onCancel)
-	EVT_BUTTON(IDC_BROWSE, DlgExportMusic::onBrowse)
+BEGIN_EVENT_TABLE(DlgImportMusic, wxDialog)
+	EVT_BUTTON(wxID_OK, DlgImportMusic::onOK)
+	EVT_BUTTON(wxID_CANCEL, DlgImportMusic::onCancel)
+	EVT_BUTTON(IDC_BROWSE, DlgImportMusic::onBrowse)
 END_EVENT_TABLE()
 
-DlgExportMusic::DlgExportMusic(IMainWindow *parent, ManagerPtr pManager)
+DlgImportMusic::DlgImportMusic(IMainWindow *parent, ManagerPtr pManager)
 	throw ()
 	: wxDialog(parent, wxID_ANY, _T("Preferences"), wxDefaultPosition,
 		wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER),
@@ -59,11 +60,11 @@ DlgExportMusic::DlgExportMusic(IMainWindow *parent, ManagerPtr pManager)
 	wxBoxSizer *szMain = new wxBoxSizer(wxVERTICAL);
 
 	// Have to create the static box *before* the controls that go inside it
-	wxStaticBoxSizer *szFilename = new wxStaticBoxSizer(wxVERTICAL, this, _T("Export"));
+	wxStaticBoxSizer *szFilename = new wxStaticBoxSizer(wxVERTICAL, this, _T("Import"));
 
 	// First text field
-	wxString helpText = _T("The file to create.");
-	wxStaticText *label = new wxStaticText(this, wxID_ANY, _T("Save as:"));
+	wxString helpText = _T("The file to open.");
+	wxStaticText *label = new wxStaticText(this, wxID_ANY, _T("Open:"));
 	label->SetHelpText(helpText);
 	szFilename->Add(label, 0, wxEXPAND | wxALIGN_LEFT | wxLEFT, 4);
 
@@ -116,17 +117,6 @@ DlgExportMusic::DlgExportMusic(IMainWindow *parent, ManagerPtr pManager)
 
 	szMain->Add(szFilename, 0, wxEXPAND | wxALL, 8);
 
-	wxStaticBoxSizer *szOptions = new wxStaticBoxSizer(wxVERTICAL, this, _T("Options"));
-
-	this->chkPitchBends = new wxCheckBox(this, IDC_PITCHBENDS, _T("Use pitch bends?"));
-	this->chkPitchBends->SetHelpText(_T("Use pitch bend events (if available) to "
-		"precisely control note pitch.  Disable these if the output file has so "
-		"many pitchbend events it is difficult to work with."));
-
-	szOptions->Add(this->chkPitchBends, 0, wxEXPAND | wxALIGN_LEFT | wxALL, 8);
-
-	szMain->Add(szOptions, 0, wxEXPAND | wxALL, 8);
-
 	// Add dialog buttons (ok/cancel/help)
 //	wxStdDialogButtonSizer *szButtons = CreateStdDialogButtonSizer(wxOK | wxCANCEL);
 	wxStdDialogButtonSizer *szButtons = new wxStdDialogButtonSizer();
@@ -147,7 +137,7 @@ DlgExportMusic::DlgExportMusic(IMainWindow *parent, ManagerPtr pManager)
 	szMain->Fit(this);
 }
 
-void DlgExportMusic::setControls()
+void DlgImportMusic::setControls()
 	throw ()
 {
 	this->txtPath->SetValue(this->filename);
@@ -163,17 +153,15 @@ void DlgExportMusic::setControls()
 		fileTypeIndex++;
 	}
 	// Unknown fileType will result in no default setting (combobox will be blank)
-
-	this->chkPitchBends->SetValue(!(bool)(this->flags & MusicType::IntegerNotesOnly));
 	return;
 }
 
-DlgExportMusic::~DlgExportMusic()
+DlgImportMusic::~DlgImportMusic()
 	throw ()
 {
 }
 
-void DlgExportMusic::onOK(wxCommandEvent& ev)
+void DlgImportMusic::onOK(wxCommandEvent& ev)
 {
 	this->filename = this->txtPath->GetValue();
 
@@ -184,27 +172,66 @@ void DlgExportMusic::onOK(wxCommandEvent& ev)
 		this->fileType = wxEmptyString;
 	}
 
-	this->flags = 0;
-	if (!this->chkPitchBends->IsChecked()) this->flags |= MusicType::IntegerNotesOnly;
-
 	this->EndModal(wxID_OK);
 	return;
 }
 
-void DlgExportMusic::onCancel(wxCommandEvent& ev)
+void DlgImportMusic::onCancel(wxCommandEvent& ev)
 {
 	this->EndModal(wxID_CANCEL);
 	return;
 }
 
-void DlgExportMusic::onBrowse(wxCommandEvent& ev)
+void DlgImportMusic::onBrowse(wxCommandEvent& ev)
 {
 	wxFileName fn(this->filename, wxPATH_NATIVE);
-	wxString path = wxFileSelector(_T("Export song"), fn.GetPath(),
+	wxString path = wxFileSelector(_T("Import song"), fn.GetPath(),
 		wxEmptyString, wxEmptyString, _T("All files|*"),
-		wxFD_SAVE | wxFD_OVERWRITE_PROMPT, this);
+		wxFD_OPEN | wxFD_FILE_MUST_EXIST, this);
 	if (!path.empty()) {
 		this->txtPath->SetValue(path);
+
+		// Test filetype and set combobox accordingly
+		this->cbFileType->SetValue(wxEmptyString); // default to blank
+		stream::input_file_sptr infile(new stream::input_file());
+		infile->open(path.fn_str());
+
+		MusicTypePtr pTestType;
+		int i = 0;
+		bool tryUnsure = true;
+		while ((pTestType = pManager->getMusicType(i))) {
+			MusicType::Certainty cert = pTestType->isInstance(infile);
+			switch (cert) {
+				case MusicType::DefinitelyNo:
+					break;
+				case MusicType::Unsure:
+					std::cout << "File could be: " << pTestType->getFriendlyName()
+						<< " [" << pTestType->getCode() << "]" << std::endl;
+					// If we haven't found a match already, use this one
+					if (tryUnsure) {
+						this->cbFileType->SetSelection(i);
+						tryUnsure = false;
+					}
+					break;
+				case MusicType::PossiblyYes:
+					std::cout << "File is likely to be: " << pTestType->getFriendlyName()
+						<< " [" << pTestType->getCode() << "]" << std::endl;
+					// Take this one as it's better than an uncertain match
+					this->cbFileType->SetSelection(i);
+					tryUnsure = false;
+					break;
+				case MusicType::DefinitelyYes:
+					std::cout << "File is definitely: " << pTestType->getFriendlyName()
+						<< " [" << pTestType->getCode() << "]" << std::endl;
+					this->cbFileType->SetSelection(i);
+					// Don't bother checking any other formats if we got a 100% match
+					goto finishTesting;
+			}
+			i++;
+		}
+finishTesting:
+		;
 	}
+
 	return;
 }

@@ -21,6 +21,7 @@
 #include <camoto/stream_file.hpp>
 #include "editor-music-document.hpp"
 #include "dlg-export-mus.hpp"
+#include "dlg-import-mus.hpp"
 
 using namespace camoto;
 using namespace camoto::gamemusic;
@@ -33,22 +34,29 @@ BEGIN_EVENT_TABLE(MusicDocument, IDocument)
 	EVT_TOOL(wxID_ZOOM_IN, MusicDocument::onZoomIn)
 	EVT_TOOL(wxID_ZOOM_100, MusicDocument::onZoomNormal)
 	EVT_TOOL(wxID_ZOOM_OUT, MusicDocument::onZoomOut)
+	EVT_TOOL(IDC_IMPORT, MusicDocument::onImport)
 	EVT_TOOL(IDC_EXPORT, MusicDocument::onExport)
 	EVT_MOUSEWHEEL(MusicDocument::onMouseWheel)
 	EVT_SIZE(EventPanel::onResize)
 END_EVENT_TABLE()
 
-MusicDocument::MusicDocument(IMainWindow *parent, MusicPtr music,
-	AudioPtr audio, ManagerPtr pManager, MusicEditor::Settings *settings)
-	throw () :
-		IDocument(parent, _T("music")),
-		music(music),
-		pManager(pManager),
-		settings(settings),
+MusicDocument::MusicDocument(MusicEditor *editor, MusicTypePtr musicType,
+	stream::inout_sptr musFile, SuppData suppData)
+	throw (camoto::stream::error) :
+		IDocument(editor->frame, _T("music")),
+		editor(editor),
+		musicType(musicType),
+		musFile(musFile),
+		suppData(suppData),
 		playing(false),
 		absTimeStart(0),
 		font(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL)
 {
+	this->music = this->musicType->read(this->musFile, this->suppData);
+	assert(music);
+
+	IMainWindow *parent = this->editor->frame;
+
 	wxClientDC dc(this);
 	dc.SetFont(this->font);
 	dc.GetTextExtent(_T("X"), &this->fontWidth, &this->fontHeight);
@@ -98,6 +106,11 @@ MusicDocument::MusicDocument(IMainWindow *parent, MusicPtr music,
 
 	tb->AddSeparator();
 
+	tb->AddTool(IDC_IMPORT, wxEmptyString,
+		parent->smallImages->GetBitmap(ImageListIndex::Import),
+		wxNullBitmap, wxITEM_NORMAL, _T("Import"),
+		_T("Replace this song with one loaded from a file"));
+
 	tb->AddTool(IDC_EXPORT, wxEmptyString,
 		parent->smallImages->GetBitmap(ImageListIndex::Export),
 		wxNullBitmap, wxITEM_NORMAL, _T("Export"),
@@ -139,7 +152,7 @@ MusicDocument::MusicDocument(IMainWindow *parent, MusicPtr music,
 	s->Add(szChannels, 1, wxEXPAND);
 	this->SetSizer(s);
 
-	this->player = new PlayerThread(audio, this->music, this);
+	this->player = new PlayerThread(this->editor->audio, this->music, this);
 	this->thread = boost::thread(boost::ref(*this->player));
 }
 
@@ -161,7 +174,19 @@ MusicDocument::~MusicDocument()
 void MusicDocument::save()
 	throw (camoto::stream::error)
 {
-	throw camoto::stream::error("Saving has not been implemented yet!");
+	try {
+		this->musFile->seekp(0, stream::start);
+		this->musicType->write(this->musFile, this->suppData, this->music, 0);
+		this->isModified = false;
+	} catch (const format_limitation& e) {
+		std::string msg("This song cannot be saved in its current form, due "
+			"to a limitation imposed by the underlying file format:\n\n");
+		msg.append(e.what());
+		msg.append("\n\nYou will need to adjust the song accordingly and try "
+			"again.");
+		throw camoto::stream::error(msg);
+	}
+	return;
 }
 
 void MusicDocument::onSeekPrev(wxCommandEvent& ev)
@@ -223,21 +248,88 @@ void MusicDocument::onZoomOut(wxCommandEvent& ev)
 	return;
 }
 
+void MusicDocument::onImport(wxCommandEvent& ev)
+{
+	DlgImportMusic importdlg(this->frame, this->editor->pManager);
+	importdlg.filename = this->editor->settings.lastExportPath;
+	importdlg.fileType = this->editor->settings.lastExportType;
+	importdlg.setControls();
+
+	for (;;) {
+		if (importdlg.ShowModal() != wxID_OK) return;
+
+		// Save some of the options to preset next time
+		this->editor->settings.lastExportPath = importdlg.filename;
+		this->editor->settings.lastExportType = importdlg.fileType;
+
+		if (importdlg.fileType.empty()) {
+			wxMessageDialog dlg(this, _T("You must select a file type."),
+				_T("Import error"), wxOK | wxICON_ERROR);
+			dlg.ShowModal();
+			continue;
+		}
+
+		// Perform the actual import
+		wxString errmsg;
+		try {
+			stream::input_file_sptr infile(new stream::input_file());
+			infile->open(importdlg.filename.fn_str());
+
+			MusicTypePtr pMusicInType(this->editor->pManager->getMusicTypeByCode(
+				(const char *)importdlg.fileType.mb_str()));
+
+			// We can't have a type chosen that we didn't supply in the first place
+			assert(pMusicInType);
+
+			// TODO: figure out whether we need to open any supplemental files
+			// (e.g. Vinyl will need to create an external instrument file, whereas
+			// Kenslab has one but won't need to use it for this.)
+			SuppData inSuppData;
+
+			MusicPtr newMusic = pMusicInType->read(infile, inSuppData);
+			assert(newMusic);
+
+			//this->music->events = newMusic->events;
+
+			this->music = newMusic; // TODO: Does this update the player thread?
+			this->isModified = true;
+
+			// Success
+			break;
+		} catch (const stream::open_error& e) {
+			errmsg = _T("Error reading file ");
+			errmsg += importdlg.filename;
+			errmsg += _T(": ");
+			errmsg += wxString::FromUTF8(e.what());
+		}
+		wxMessageDialog dlg(this, errmsg, _T("Import error"), wxOK | wxICON_ERROR);
+		dlg.ShowModal();
+	}
+	return;
+}
+
 void MusicDocument::onExport(wxCommandEvent& ev)
 {
-	DlgExportMusic exportdlg(this->frame, this->pManager);
-	exportdlg.filename = this->settings->lastExportPath;
-	exportdlg.fileType = this->settings->lastExportType;
-	exportdlg.flags = this->settings->lastExportFlags;
+	DlgExportMusic exportdlg(this->frame, this->editor->pManager);
+	exportdlg.filename = this->editor->settings.lastExportPath;
+	exportdlg.fileType = this->editor->settings.lastExportType;
+	exportdlg.flags = this->editor->settings.lastExportFlags;
 	exportdlg.setControls();
 
 	for (;;) {
 		if (exportdlg.ShowModal() != wxID_OK) return;
 
 		// Save some of the options to preset next time
-		this->settings->lastExportPath = exportdlg.filename;
-		this->settings->lastExportType = exportdlg.fileType;
-		this->settings->lastExportFlags = exportdlg.flags;
+		this->editor->settings.lastExportPath = exportdlg.filename;
+		this->editor->settings.lastExportType = exportdlg.fileType;
+		this->editor->settings.lastExportFlags = exportdlg.flags;
+
+		if (exportdlg.fileType.empty()) {
+			wxMessageDialog dlg(this, _T("You must select a file type."),
+				_T("Import error"), wxOK | wxICON_ERROR);
+			dlg.ShowModal();
+			continue;
+		}
 
 		// Perform the actual export
 		wxString errmsg;
@@ -246,7 +338,7 @@ void MusicDocument::onExport(wxCommandEvent& ev)
 			outfile.reset(new stream::output_file());
 			outfile->create(exportdlg.filename.fn_str());
 
-			MusicTypePtr pMusicOutType(this->pManager->getMusicTypeByCode(
+			MusicTypePtr pMusicOutType(this->editor->pManager->getMusicTypeByCode(
 				(const char *)exportdlg.fileType.mb_str()));
 
 			// We can't have a type chosen that we didn't supply in the first place
@@ -299,6 +391,17 @@ void MusicDocument::onResize(wxSizeEvent& ev)
 	return;
 }
 
+void MusicDocument::pushViewSettings()
+{
+	for (EventPanelVector::iterator i = this->channelPanels.begin();
+		i != this->channelPanels.end();
+		i++
+	) {
+		(*i)->Refresh();
+	}
+	return;
+}
+
 void MusicDocument::notifyPosition(unsigned long absTime)
 	throw ()
 {
@@ -310,16 +413,5 @@ void MusicDocument::notifyPosition(unsigned long absTime)
 		this->absTimeStart = this->playPos - this->halfHeight;
 	}
 	//this->pushViewSettings();
-	return;
-}
-
-void MusicDocument::pushViewSettings()
-{
-	for (EventPanelVector::iterator i = this->channelPanels.begin();
-		i != this->channelPanels.end();
-		i++
-	) {
-		(*i)->Refresh();
-	}
 	return;
 }

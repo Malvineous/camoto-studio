@@ -23,6 +23,7 @@ camoto_studio_SOURCES += editor-tileset.cpp
 camoto_studio_SOURCES += editor-tileset-canvas.cpp
 camoto_studio_SOURCES += efailure.cpp
 camoto_studio_SOURCES += dlg-export-mus.cpp
+camoto_studio_SOURCES += dlg-import-mus.cpp
 camoto_studio_SOURCES += playerthread.cpp
 
 EXTRA_camoto_studio_SOURCES = main.hpp
@@ -49,6 +50,7 @@ EXTRA_camoto_studio_SOURCES += editor-tileset.hpp
 EXTRA_camoto_studio_SOURCES += editor-tileset-canvas.hpp
 EXTRA_camoto_studio_SOURCES += efailure.hpp
 EXTRA_camoto_studio_SOURCES += dlg-export-mus.hpp
+EXTRA_camoto_studio_SOURCES += dlg-import-mus.hpp
 EXTRA_camoto_studio_SOURCES += playerthread.hpp
 
 # RtMidi code

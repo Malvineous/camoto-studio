@@ -25,6 +25,10 @@
 #include "audio.hpp"
 #include "editor.hpp"
 
+class MusicEditor;
+
+#include "editor-music-document.hpp"
+
 class MusicEditor: public IEditor
 {
 	public:
@@ -63,6 +67,8 @@ class MusicEditor: public IEditor
 		AudioPtr audio;
 		camoto::gamemusic::ManagerPtr pManager;
 		Settings settings;
+
+		friend class MusicDocument;
 };
 
 #endif // _EDITOR_MUSIC_HPP_

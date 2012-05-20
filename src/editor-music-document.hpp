@@ -23,12 +23,11 @@
 
 #include <boost/thread/thread.hpp>
 #include <camoto/gamemusic.hpp>
-#include "playerthread.hpp"
-#include "editor-music.hpp"
 
 class MusicDocument;
-class PlayerThread;
 
+#include "playerthread.hpp"
+#include "editor-music.hpp"
 #include "editor-music-eventpanel.hpp"
 
 typedef std::vector<camoto::gamemusic::EventPtr> EventVector;
@@ -36,10 +35,9 @@ typedef std::vector<camoto::gamemusic::EventPtr> EventVector;
 class MusicDocument: public IDocument, PlayerCallback
 {
 	public:
-		MusicDocument(IMainWindow *parent, camoto::gamemusic::MusicPtr music,
-			AudioPtr audio, camoto::gamemusic::ManagerPtr pManager,
-			MusicEditor::Settings *settings)
-			throw ();
+		MusicDocument(MusicEditor *editor, camoto::gamemusic::MusicTypePtr musicType,
+			camoto::stream::inout_sptr musFile, camoto::SuppData suppData)
+			throw (camoto::stream::error);
 
 		~MusicDocument();
 
@@ -53,6 +51,7 @@ class MusicDocument: public IDocument, PlayerCallback
 		void onZoomIn(wxCommandEvent& ev);
 		void onZoomNormal(wxCommandEvent& ev);
 		void onZoomOut(wxCommandEvent& ev);
+		void onImport(wxCommandEvent& ev);
 		void onExport(wxCommandEvent& ev);
 		void onMouseWheel(wxMouseEvent& ev);
 		void onResize(wxSizeEvent& ev);
@@ -67,9 +66,12 @@ class MusicDocument: public IDocument, PlayerCallback
 			throw ();
 
 	protected:
+		MusicEditor *editor;
+		camoto::gamemusic::MusicTypePtr musicType;
+		camoto::stream::inout_sptr musFile;
+		camoto::SuppData suppData;
+
 		camoto::gamemusic::MusicPtr music;
-		camoto::gamemusic::ManagerPtr pManager;
-		MusicEditor::Settings *settings;
 		bool playing;
 
 		int optimalTicksPerRow; ///< Cache best value for ticksPerRow (for zoom reset)
@@ -96,6 +98,7 @@ class MusicDocument: public IDocument, PlayerCallback
 			IDC_PLAY,
 			IDC_PAUSE,
 			IDC_SEEK_NEXT,
+			IDC_IMPORT,
 			IDC_EXPORT,
 		};
 		DECLARE_EVENT_TABLE();
