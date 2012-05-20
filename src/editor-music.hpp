@@ -2,7 +2,7 @@
  * @file   editor-music.hpp
  * @brief  Music editor.
  *
- * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,6 +28,13 @@
 class MusicEditor: public IEditor
 {
 	public:
+		/// Settings for this editor which are saved with the project.
+		struct Settings {
+			wxString lastExportPath;      ///< Filename and path of last exported file
+			wxString lastExportType;      ///< File format used for last export
+			unsigned int lastExportFlags; ///< Flags used for last export
+		};
+
 		MusicEditor(IMainWindow *parent, AudioPtr audio)
 			throw ();
 
@@ -55,7 +62,7 @@ class MusicEditor: public IEditor
 		IMainWindow *frame;
 		AudioPtr audio;
 		camoto::gamemusic::ManagerPtr pManager;
-
+		Settings settings;
 };
 
 #endif // _EDITOR_MUSIC_HPP_

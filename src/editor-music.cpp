@@ -175,12 +175,18 @@ std::vector<IToolPanel *> MusicEditor::createToolPanes() const
 void MusicEditor::loadSettings(Project *proj)
 	throw ()
 {
+	proj->config.Read(_T("editor-music/last-export-path"), &this->settings.lastExportPath);
+	proj->config.Read(_T("editor-music/last-export-type"), &this->settings.lastExportType);
+	proj->config.Read(_T("editor-music/last-export-flags"), (int *)&this->settings.lastExportFlags);
 	return;
 }
 
 void MusicEditor::saveSettings(Project *proj) const
 	throw ()
 {
+	proj->config.Write(_T("editor-music/last-export-path"), this->settings.lastExportPath);
+	proj->config.Write(_T("editor-music/last-export-type"), this->settings.lastExportType);
+	proj->config.Write(_T("editor-music/last-export-flags"), (int)this->settings.lastExportFlags);
 	return;
 }
 
@@ -232,7 +238,8 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 		MusicPtr pMusic = pMusicType->read(data, suppData);
 		assert(pMusic);
 
-		return new MusicDocument(this->frame, pMusic, this->audio, this->pManager);
+		return new MusicDocument(this->frame, pMusic, this->audio, this->pManager,
+			&this->settings);
 	} catch (const camoto::stream::error& e) {
 		throw EFailure(wxString::Format(_T("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));

@@ -18,7 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <camoto/stream_file.hpp>
 #include "editor-music-document.hpp"
+#include "dlg-export-mus.hpp"
 
 using namespace camoto;
 using namespace camoto::gamemusic;
@@ -31,16 +33,18 @@ BEGIN_EVENT_TABLE(MusicDocument, IDocument)
 	EVT_TOOL(wxID_ZOOM_IN, MusicDocument::onZoomIn)
 	EVT_TOOL(wxID_ZOOM_100, MusicDocument::onZoomNormal)
 	EVT_TOOL(wxID_ZOOM_OUT, MusicDocument::onZoomOut)
+	EVT_TOOL(IDC_EXPORT, MusicDocument::onExport)
 	EVT_MOUSEWHEEL(MusicDocument::onMouseWheel)
 	EVT_SIZE(EventPanel::onResize)
 END_EVENT_TABLE()
 
 MusicDocument::MusicDocument(IMainWindow *parent, MusicPtr music,
-	AudioPtr audio, ManagerPtr pManager)
+	AudioPtr audio, ManagerPtr pManager, MusicEditor::Settings *settings)
 	throw () :
 		IDocument(parent, _T("music")),
 		music(music),
 		pManager(pManager),
+		settings(settings),
 		playing(false),
 		absTimeStart(0),
 		font(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL)
@@ -91,6 +95,13 @@ MusicDocument::MusicDocument(IMainWindow *parent, MusicPtr music,
 		parent->smallImages->GetBitmap(ImageListIndex::ZoomOut),
 		wxNullBitmap, wxITEM_NORMAL, _T("Zoom out"),
 		_T("Space events closer together in the event list"));
+
+	tb->AddSeparator();
+
+	tb->AddTool(IDC_EXPORT, wxEmptyString,
+		parent->smallImages->GetBitmap(ImageListIndex::Export),
+		wxNullBitmap, wxITEM_NORMAL, _T("Export"),
+		_T("Save this song to a file"));
 
 	// Figure out how many channels are in use and what the best value is to space
 	// events evenly and as close together as possible.
@@ -209,6 +220,64 @@ void MusicDocument::onZoomOut(wxCommandEvent& ev)
 {
 	this->ticksPerRow *= 2;
 	this->pushViewSettings();
+	return;
+}
+
+void MusicDocument::onExport(wxCommandEvent& ev)
+{
+	DlgExportMusic exportdlg(this->frame, this->pManager);
+	exportdlg.filename = this->settings->lastExportPath;
+	exportdlg.fileType = this->settings->lastExportType;
+	exportdlg.flags = this->settings->lastExportFlags;
+	exportdlg.setControls();
+
+	for (;;) {
+		if (exportdlg.ShowModal() != wxID_OK) return;
+
+		// Save some of the options to preset next time
+		this->settings->lastExportPath = exportdlg.filename;
+		this->settings->lastExportType = exportdlg.fileType;
+		this->settings->lastExportFlags = exportdlg.flags;
+
+		// Perform the actual export
+		wxString errmsg;
+		stream::output_file_sptr outfile;
+		try {
+			outfile.reset(new stream::output_file());
+			outfile->create(exportdlg.filename.fn_str());
+
+			MusicTypePtr pMusicOutType(this->pManager->getMusicTypeByCode(
+				(const char *)exportdlg.fileType.mb_str()));
+
+			// We can't have a type chosen that we didn't supply in the first place
+			assert(pMusicOutType);
+
+			// TODO: figure out whether we need to open any supplemental files
+			// (e.g. Vinyl will need to create an external instrument file, whereas
+			// Kenslab has one but won't need to use it for this.)
+			SuppData suppData;
+
+			pMusicOutType->write(outfile, suppData, this->music, exportdlg.flags);
+
+			// Success
+			break;
+		} catch (const stream::open_error& e) {
+			errmsg = _T("Error creating file ");
+			errmsg += exportdlg.filename;
+			errmsg += _T(": ");
+			errmsg += wxString::FromUTF8(e.what());
+		} catch (const format_limitation& e) {
+			errmsg = _T("This song cannot be exported in the selected format, due "
+				"to a limitation imposed by the format itself:\n\n");
+			errmsg += wxString::FromUTF8(e.what());
+			errmsg += _T("\n\nYou will need to adjust the song accordingly and try "
+				"again, or select a different export file format.");
+		}
+		if (outfile) outfile->remove(); // delete broken file
+		outfile.reset(); // force file close/delete
+		wxMessageDialog dlg(this, errmsg, _T("Export error"), wxOK | wxICON_ERROR);
+		dlg.ShowModal();
+	}
 	return;
 }
 
