@@ -75,6 +75,13 @@
 				<item ref="tls-2"/>
 				<item ref="tls-3"/>
 				<item ref="tls-4"/>
+				<item ref="tls-faces"/>
+				<item ref="tls-contdig"/>
+				<item ref="tls-harry-ico"/>
+			</group>
+
+			<group name="Sprites">
+				<item ref="tls-harry-hsb"/>
 			</group>
 
 			<group name="Full-screen images">
@@ -162,23 +169,32 @@
 			<item ref="snd-zhit"/>
 		</group>
 
-		<group name="Intro sequence specific">
-			<item ref="unk-jft-i"/>
-			<item ref="fnt-d-i"/>
-			<item ref="img-guiger-i"/>
-			<item ref="img-harry1-i"/>
-			<item ref="tls-faces-i"/>
-			<item ref="img-diane1-i"/>
-			<item ref="img-king1-i"/>
-			<item ref="ani-ship-i"/>
-			<item ref="img-zhunt1-i"/>
-			<item ref="ani-zap-i"/>
-			<item ref="img-starb-i"/>
-			<item ref="unk-intro-i"/>
-			<item ref="mus-seb3-i"/>
-			<item ref="mus-ins-i"/>
+		<group name="Story">
+			<item ref="txt-mis1"/>
+			<item ref="txt-mis1end"/>
+			<item ref="txt-mis2"/>
+			<item ref="txt-mis2end"/>
+			<item ref="txt-mis3"/>
+			<item ref="txt-mis3end"/>
+			<item ref="txt-mis4"/>
+			<item ref="txt-mis4end"/>
+			<group name="Intro sequence specific">
+				<item ref="unk-jft-i"/>
+				<item ref="fnt-d-i"/>
+				<item ref="img-guiger-i"/>
+				<item ref="img-harry1-i"/>
+				<item ref="tls-faces-i"/>
+				<item ref="img-diane1-i"/>
+				<item ref="img-king1-i"/>
+				<item ref="ani-ship-i"/>
+				<item ref="img-zhunt1-i"/>
+				<item ref="ani-zap-i"/>
+				<item ref="img-starb-i"/>
+				<item ref="txt-intro-i"/>
+				<item ref="mus-seb3-i"/>
+				<item ref="mus-ins-i"/>
+			</group>
 		</group>
-
 	</display>
 
 	<files>
@@ -239,10 +255,13 @@
 		</archive>
 
 		<archive name="harry.-0" id="arch-harry-0" typeMinor="bnk-harry" supp:fat="fat-harry">
-			<file id="tls-1" name="mission1.chr" typeMajor="tileset" typeMinor="harry" supp:pal="pal-101">Mission 1 tileset</file>
-			<file id="tls-2" name="mission2.chr" typeMajor="tileset" typeMinor="harry" supp:pal="pal-201">Mission 2 tileset</file>
-			<file id="tls-3" name="mission3.chr" typeMajor="tileset" typeMinor="harry" supp:pal="pal-301">Mission 3 tileset</file>
-			<file id="tls-4" name="mission4.chr" typeMajor="tileset" typeMinor="harry" supp:pal="pal-401">Mission 4 tileset</file>
+			<file id="tls-1" name="mission1.chr" typeMajor="tileset" typeMinor="harry-chr" supp:pal="pal-101">Mission 1 tileset</file>
+			<file id="tls-2" name="mission2.chr" typeMajor="tileset" typeMinor="harry-chr" supp:pal="pal-201">Mission 2 tileset</file>
+			<file id="tls-3" name="mission3.chr" typeMajor="tileset" typeMinor="harry-chr" supp:pal="pal-301">Mission 3 tileset</file>
+			<file id="tls-4" name="mission4.chr" typeMajor="tileset" typeMinor="harry-chr" supp:pal="pal-401">Mission 4 tileset</file>
+
+			<file id="tls-faces"    name="faces.ico"    typeMajor="tileset" typeMinor="harry-ico" supp:pal="pal-101">Face animations (main)</file>
+			<file id="tls-contdig"  name="contdig.ico"  typeMajor="tileset" typeMinor="harry-ico" supp:pal="pal-101">Continue digits</file>
 
 			<file id="img-missions" name="missions.pcx" typeMajor="image" typeMinor="pcx-8b1p">Mission selection</file>
 			<file id="img-mission1" name="mission1.pcx" typeMajor="image" typeMinor="pcx-8b1p">Mission 1 loading</file>
@@ -255,25 +274,25 @@
 			<file id="img-cont3"    name="cont3.pcx"    typeMajor="image" typeMinor="pcx-8b1p">Continue</file>
 			<file id="img-credscr"  name="credscr.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Credits</file>
 			<file id="img-diane1"   name="diane1.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Diane</file>
-			<file id="img-dl"       name="dl.pcx"       typeMajor="image" typeMinor="pcx-8b1p">Dl</file>
+			<file id="img-dl"       name="dl.pcx"       typeMajor="image" typeMinor="pcx-8b1p">Difficulty</file>
 			<file id="img-elevator" name="elevator.pcx" typeMajor="image" typeMinor="pcx-8b1p">Elevator</file>
-			<file id="img-gover"    name="gover.pcx"    typeMajor="image" typeMinor="pcx-8b1p">Gover</file>
+			<file id="img-gover"    name="gover.pcx"    typeMajor="image" typeMinor="pcx-8b1p">Game over</file>
 			<file id="img-harry1"   name="harry1.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Harry</file>
 			<file id="img-helpscr"  name="helpscr.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Help</file>
-			<file id="img-hhp4"     name="hhp4.pcx"     typeMajor="image" typeMinor="pcx-8b1p">P4</file>
-			<file id="img-hhprev4"  name="hhprev4.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Preview4</file>
-			<file id="img-ibi"      name="ibi.pcx"      typeMajor="image" typeMinor="pcx-8b1p">Ibi</file>
+			<file id="img-hhp4"     name="hhp4.pcx"     typeMajor="image" typeMinor="pcx-8b1p">Preview 1</file>
+			<file id="img-hhprev4"  name="hhprev4.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Preview 2</file>
+			<file id="img-ibi"      name="ibi.pcx"      typeMajor="image" typeMinor="pcx-8b1p">IBI logo</file>
 			<file id="img-infocom"  name="infocom.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Infocom</file>
 			<file id="img-m1droid"  name="m1droid.pcx"  typeMajor="image" typeMinor="pcx-8b1p">M1 Droid</file>
-			<file id="img-missc"    name="miss-c.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Miss-c</file>
+			<file id="img-missc"    name="miss-c.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Mission order</file>
 			<file id="img-piracy"   name="piracy.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Piracy</file>
-			<file id="img-pre2"     name="pre2.pcx"     typeMajor="image" typeMinor="pcx-8b1p">Pre2</file>
+			<file id="img-pre2"     name="pre2.pcx"     typeMajor="image" typeMinor="pcx-8b1p">Title</file>
 			<file id="img-resume1"  name="resume1.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Resume</file>
 			<file id="img-save1"    name="save1.pcx"    typeMajor="image" typeMinor="pcx-8b1p">Save game</file>
 			<file id="img-starbase" name="starbase.pcx" typeMajor="image" typeMinor="pcx-8b1p">Starbase</file>
 			<file id="img-stars"    name="stars.pcx"    typeMajor="image" typeMinor="pcx-8b1p">Stars</file>
 			<file id="img-studio9"  name="studio9.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Music Studio</file>
-			<file id="img-sub0"     name="sub-0.pcx"    typeMajor="image" typeMinor="pcx-8b1p">SubZero</file>
+			<file id="img-sub0"     name="sub-0.pcx"    typeMajor="image" typeMinor="pcx-8b1p">Sub Zero logo</file>
 			<file id="img-tease2"   name="tease2.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Tease</file>
 			<file id="img-terminal" name="terminal.pcx" typeMajor="image" typeMinor="pcx-8b1p">Terminal</file>
 
@@ -297,6 +316,15 @@
 			<file id="mus-z4a"      name="zone-4a.4md"  typeMajor="music" typeMinor="4md">Zone 4A</file>
 			<file id="mus-z4b"      name="zone-4b.4md"  typeMajor="music" typeMinor="4md">Zone 4B</file>
 			<file id="mus-z4c"      name="zone-4c.4md"  typeMajor="music" typeMinor="4md">Zone 4C</file>
+
+			<file id="txt-mis1"     name="mission1.dlg" typeMajor="text"  typeMinor="dlg-harry">Mission 1 intro</file>
+			<file id="txt-mis1end"  name="mis1end.dlg"  typeMajor="text"  typeMinor="dlg-harry">Mission 1 finish</file>
+			<file id="txt-mis2"     name="mission2.dlg" typeMajor="text"  typeMinor="dlg-harry">Mission 2 intro</file>
+			<file id="txt-mis2end"  name="mis2end.dlg"  typeMajor="text"  typeMinor="dlg-harry">Mission 2 finish</file>
+			<file id="txt-mis3"     name="mission3.dlg" typeMajor="text"  typeMinor="dlg-harry">Mission 3 intro</file>
+			<file id="txt-mis3end"  name="mis3end.dlg"  typeMajor="text"  typeMinor="dlg-harry">Mission 3 finish</file>
+			<file id="txt-mis4"     name="mission4.dlg" typeMajor="text"  typeMinor="dlg-harry">Mission 4 intro</file>
+			<file id="txt-mis4end"  name="mis4end.dlg"  typeMajor="text"  typeMinor="dlg-harry">Mission 4 finish</file>
 		</archive>
 
 		<archive name="intro.bnk" id="arch-intro-bnk" typeMinor="bnk-harry" supp:fat="fat-intro">
@@ -304,14 +332,14 @@
 			<file id="fnt-d-i"      name="font-d.fnt"   typeMajor="font"  typeMinor="harry">Font (intro)</file>
 			<file id="img-guiger-i" name="guiger1.pcx"  typeMajor="image" typeMinor="pcx-8b1p">Guiger (intro)</file>
 			<file id="img-harry1-i" name="harry1.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Harry (intro)</file>
-			<file id="tls-faces-i"  name="faces.ico"    typeMajor=""      typeMinor="">Faces (intro)</file>
+			<file id="tls-faces-i"  name="faces.ico"    typeMajor="tileset" typeMinor="harry-ico" supp:pal="pal-101">Faces (intro)</file>
 			<file id="img-diane1-i" name="diane1.pcx"   typeMajor="image" typeMinor="pcx-8b1p">Diane (intro)</file>
 			<file id="img-king1-i"  name="king1.pcx"    typeMajor="image" typeMinor="pcx-8b1p">King (intro)</file>
 			<file id="ani-ship-i"   name="ship.rob"     typeMajor=""      typeMinor="">Ship animation (intro)</file>
 			<file id="img-zhunt1-i" name="zhunt1.pcx"   typeMajor="image" typeMinor="pcx-8b1p">ZHunt (intro)</file>
 			<file id="ani-zap-i"    name="zap.rob"      typeMajor=""      typeMinor="">Zap animation (intro)</file>
 			<file id="img-starb-i"  name="starbase.pcx" typeMajor="image" typeMinor="pcx-8b1p">Starbase (intro)</file>
-			<file id="unk-intro-i"  name="intro.dlg"    typeMajor=""      typeMinor="">Dialogue (intro)</file>
+			<file id="txt-intro-i"  name="intro.dlg"    typeMajor="text"  typeMinor="dlg-harry">Dialogue (intro)</file>
 			<file id="mus-seb3-i"   name="seb3.4md"     typeMajor="music" typeMinor="4md">Seb 3 (intro)</file>
 			<file id="mus-ins-i"    name="ins.4md"      typeMajor="music" typeMinor="4md">Ins (intro)</file>
 		</archive>
@@ -348,10 +376,14 @@
 			<!-- TODO: Add rest of files -->
 		</archive>
 
+		<file id="tls-harry-hsb"  name="harry.hsb"    typeMajor="tileset" typeMinor="harry-hsb" supp:pal="pal-101">All sprites</file>
+		<file id="tls-harry-ico"  name="harry.ico"    typeMajor="tileset" typeMinor="harry-ico" supp:pal="pal-101">UI images</file>
+
 	</files>
 
 	<commands>
 		<command title="Normal">harry</command>
+		<command title="Skip titles">harry skip</command>
 		<command title="Studio">studio</command>
 	</commands>
 
