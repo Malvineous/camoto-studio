@@ -558,9 +558,9 @@ void MapCanvas::redraw()
 				if (
 					(drawSelection) &&
 					((signed)(*c)->x >= oX) &&
-					((signed)(*c)->x < oX + this->selection.width) &&
+					((signed)(*c)->x < oX + (signed)this->selection.width) &&
 					((signed)(*c)->y >= oY) &&
-					((signed)(*c)->y < oY + this->selection.height)
+					((signed)(*c)->y < oY + (signed)this->selection.height)
 				) {
 					// This item is contained within the selection rendering area, so
 					// don't draw the map tile - unless the selection has no tile for
@@ -1196,9 +1196,9 @@ void MapCanvas::paintSelection(int x, int y)
 	for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
 		if (
 			((signed)(*c)->x >= oX) &&
-			((signed)(*c)->x < oX + this->selection.width) &&
+			((signed)(*c)->x < oX + (signed)this->selection.width) &&
 			((signed)(*c)->y >= oY) &&
-			((signed)(*c)->y < oY + this->selection.height) &&
+			((signed)(*c)->y < oY + (signed)this->selection.height) &&
 			layer->tilePermittedAt((*c)->code, (*c)->x + oX, (*c)->y + oY, &maxInstances)
 		) {
 			unsigned int selIndex = ((*c)->y - oY) * this->selection.width + ((*c)->x - oX);
