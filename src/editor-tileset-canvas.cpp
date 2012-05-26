@@ -96,11 +96,16 @@ void TilesetCanvas::redraw()
 {
 	this->SetCurrent();
 this->glReset();
+	glClearColor(0.5, 0.5, 0.5, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glEnable(GL_TEXTURE_2D);
 
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
+	// Enable on/off transparency
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.0);
 
 	wxSize s = this->GetClientSize();
 
@@ -109,18 +114,7 @@ this->glReset();
 	TEXTURE_MAP::iterator t = this->tm.begin();
 	std::advance(t, this->offset);
 	for (; t != this->tm.end(); t++) {
-		//for (unsigned int i = 0, tileIndex = this->offset; tileIndex < this->textureCount; i++, tileIndex++) {
-		//glBindTexture(GL_TEXTURE_2D, this->texture[tileIndex]);
 		glBindTexture(GL_TEXTURE_2D, t->second.glid);
-
-std::cout << "drawing tile " << t->second.glid << " as " << t->second.width
-	<< "x" << t->second.height << " @ " << x << "," << y << std::endl;
-		// TODO: cache this for redraw speed
-		//if (tiles[tileIndex]->attr & Tileset::EmptySlot) continue;
-		//if (tiles[tileIndex]->attr & Tileset::SubTileset) continue;
-		//ImagePtr image = this->tileset->openImage(tiles[tileIndex]);
-		//unsigned int width, height;
-		//image->getDimensions(&width, &height);
 
 		if (this->tilesX == 0) { // fit width
 			if ((x + t->second.width) * this->zoomFactor > (unsigned)s.x) {
@@ -137,7 +131,7 @@ std::cout << "drawing tile " << t->second.glid << " as " << t->second.width
 			maxHeight = 0;
 		}
 
-		if (y > s.y) break; // gone past bottom of window
+		if (y > (unsigned)s.y) break; // gone past bottom of window
 
 		glBegin(GL_QUADS);
 		glTexCoord2d(0.0, 0.0);  glVertex2i(x,  y);

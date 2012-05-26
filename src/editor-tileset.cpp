@@ -71,7 +71,7 @@ class TilesetDocument: public IDocument
 				r[i] = ((*pal)[i].red << 8) | (*pal)[i].red;
 				g[i] = ((*pal)[i].green << 8) | (*pal)[i].green;
 				b[i] = ((*pal)[i].blue << 8) | (*pal)[i].blue;
-				a[i] = (GLushort)-1;
+				a[i] = ((*pal)[i].alpha << 8) | (*pal)[i].alpha;
 			}
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 			glPixelTransferi(GL_MAP_COLOR, GL_TRUE);
@@ -90,6 +90,14 @@ class TilesetDocument: public IDocument
 				if ((*i)->attr & Tileset::SubTileset) continue;
 
 				Texture t;
+
+				ImagePtr image = tileset->openImage(*i);
+
+				image->getDimensions(&t.width, &t.height);
+				if ((t.width > 512) || (t.height > 512)) continue; // image too large
+
+				StdImageDataPtr data = image->toStandard();
+
 				glGenTextures(1, &t.glid);
 
 				// Bind each texture in turn to the 2D target
@@ -102,10 +110,6 @@ class TilesetDocument: public IDocument
 
 				// Load an image into the 2D target, which will affect the texture
 				// previously bound to it.
-				ImagePtr image = tileset->openImage(*i);
-				StdImageDataPtr data = image->toStandard();
-				image->getDimensions(&t.width, &t.height);
-				if ((t.width > 512) || (t.height > 512)) continue; // image too large
 
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, t.width, t.height, 0,
 					GL_COLOR_INDEX, GL_UNSIGNED_BYTE, data.get());
