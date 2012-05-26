@@ -162,8 +162,9 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 			// Use the palette supplied by the tileset
 			palDefault = tileset[0]->getPalette();
 		} else {
-			// Load default palette
-			palDefault = createDefaultCGAPalette();
+			// Load a default palette.  The VGA one is backwards compatible with
+			// 16-color EGA/CGA images.
+			palDefault = createPalette_DefaultVGA();
 		}
 		assert(palDefault);
 

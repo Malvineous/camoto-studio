@@ -30,6 +30,38 @@
 using namespace camoto;
 using namespace camoto::gamegraphics;
 
+/// Load the palette from the image if it has one, otherwise use the default
+PaletteTablePtr getImagePalette(const ImagePtr& image)
+{
+	PaletteTablePtr pal;
+	bool hasPal = image->getCaps() & Image::HasPalette;
+	if (hasPal) {
+		pal = image->getPalette();
+		if (pal->size() == 0) {
+			std::cout << "[editor-image] Palette contains no entries, using default\n";
+			hasPal = false;
+		}
+	}
+	if (!hasPal) {
+		// Need to use the default palette
+		switch (image->getCaps() & Image::ColourDepthMask) {
+			case Image::ColourDepthVGA:
+				pal = createPalette_DefaultVGA();
+				break;
+			case Image::ColourDepthEGA:
+				pal = createPalette_DefaultEGA();
+				break;
+			case Image::ColourDepthCGA:
+				pal = createPalette_CGA(CGAPal_CyanMagenta);
+				break;
+			case Image::ColourDepthMono:
+				pal = createPalette_DefaultMono();
+				break;
+		}
+	}
+	return pal;
+}
+
 class ImageCanvas: public wxPanel
 {
 	public:
@@ -58,17 +90,7 @@ class ImageCanvas: public wxPanel
 			}
 			this->image->getDimensions(&this->width, &this->height);
 
-			// Load the palette
-			PaletteTablePtr pal;
-			if (image->getCaps() & Image::HasPalette) {
-				pal = image->getPalette();
-			} else {
-				pal = createDefaultCGAPalette();
-			}
-			if (pal->size() == 0) {
-				std::cout << "[editor-image] Palette contains no entries, using default\n";
-				pal = createDefaultCGAPalette();
-			}
+			PaletteTablePtr pal = getImagePalette(image);
 
 			this->wximg = wxImage(width, height, false);
 			uint8_t *pixels = this->wximg.GetData();
@@ -424,28 +446,18 @@ class ImageDocument: public IDocument
 
 				png::image<png::index_pixel> png(width, height);
 
-				PaletteTablePtr srcPal;
-				if (this->image->getCaps() & Image::HasPalette) {
-					srcPal = this->image->getPalette();
-				} else {
-					srcPal = createDefaultCGAPalette();
-				}
-				if (srcPal->size() == 0) {
-					std::cout << "[editor-image] Palette contains no entries, using default\n";
-					srcPal = createDefaultCGAPalette();
-				}
+				PaletteTablePtr srcPal = getImagePalette(this->image);
 
 				int palSize = srcPal->size();
 				bool useMask = palSize < 255;
 				if (useMask) palSize++;
 
+				png::tRNS transparency;
 				png::palette pngPal(palSize);
 				int j = 0;
 				if (useMask) {
 					// Assign first colour as transparent
-					png::tRNS transparency;
 					transparency.push_back(j);
-					png.set_tRNS(transparency);
 
 					pngPal[j] = png::color(0xFF, 0x00, 0xFF);
 					j++;
@@ -456,9 +468,12 @@ class ImageDocument: public IDocument
 					i++, j++
 				) {
 					pngPal[j] = png::color(i->red, i->green, i->blue);
+					if (i->alpha == 0x00) transparency.push_back(j);
 				}
 
 				png.set_palette(pngPal);
+
+				if (transparency.size()) png.set_tRNS(transparency);
 
 				// Copy the pixel data across
 				for (unsigned int y = 0; y < height; y++) {

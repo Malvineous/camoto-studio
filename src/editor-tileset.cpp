@@ -57,7 +57,7 @@ class TilesetDocument: public IDocument
 			if (tileset->getCaps() & Tileset::HasPalette) {
 				pal = tileset->getPalette();
 			} else {
-				pal = createDefaultCGAPalette();
+				pal = createPalette_DefaultVGA();
 			}
 
 			this->canvas = new TilesetCanvas(this, this->frame->getGLContext(),
@@ -299,11 +299,11 @@ class TilesetDocument: public IDocument
 				if (this->tileset->getCaps() & Tileset::HasPalette) {
 					srcPal = this->tileset->getPalette();
 				} else {
-					srcPal = createDefaultCGAPalette();
+					srcPal = createPalette_DefaultVGA();
 				}
 				if (srcPal->size() == 0) {
 					std::cout << "[editor-image] Palette contains no entries, using default\n";
-					srcPal = createDefaultCGAPalette();
+					srcPal = createPalette_DefaultVGA();
 				}
 
 				int palSize = srcPal->size();
