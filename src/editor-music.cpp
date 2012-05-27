@@ -18,138 +18,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <wx/imaglist.h>
-#include <wx/artprov.h>
-#include <wx/listctrl.h>
 #include "main.hpp"
 #include "editor-music.hpp"
 #include "editor-music-eventpanel.hpp"
+#include "editor-music-instrumentpanel.hpp"
+#include "editor-music-instrumentlistpanel.hpp"
 
 using namespace camoto;
 using namespace camoto::gamemusic;
-
-enum {
-	IDC_LAYER = wxID_HIGHEST + 1,
-};
-
-class InstrumentPanel: public IToolPanel
-{
-	public:
-		InstrumentPanel(IMainWindow *parent)
-			throw () :
-				IToolPanel(parent)
-		{
-			this->list = new wxListCtrl(this, IDC_LAYER, wxDefaultPosition,
-				wxDefaultSize, wxLC_REPORT | wxBORDER_NONE | wxLC_NO_HEADER |
-				wxLC_SINGLE_SEL);
-
-			this->list->SetImageList(parent->smallImages, wxIMAGE_LIST_SMALL);
-
-			wxListItem info;
-			info.m_mask = wxLIST_MASK_TEXT | wxLIST_MASK_IMAGE | wxLIST_MASK_FORMAT;
-			info.m_image = 0;
-			info.m_format = 0;
-			info.m_text = _T("Instrument");
-			this->list->InsertColumn(0, info);
-
-			wxSizer *s = new wxBoxSizer(wxVERTICAL);
-			s->Add(this->list, 1, wxEXPAND);
-			this->SetSizer(s);
-		}
-
-		virtual void getPanelInfo(wxString *id, wxString *label) const
-			throw ()
-		{
-			*id = _T("music.instruments");
-			*label = _T("Instruments");
-			return;
-		}
-
-		virtual void switchDocument(IDocument *doc)
-			throw ()
-		{
-			this->list->DeleteAllItems();
-
-			this->doc = static_cast<MusicDocument *>(doc);
-			if (!this->doc) return; // NULL was passed in
-
-			// Populate the list
-			PatchBankPtr instruments = this->doc->music->patches;
-			if (instruments) {
-				for (unsigned int i = 0; i < instruments->getPatchCount(); i++) {
-					PatchPtr patch = instruments->getPatch(i);
-					std::string name = patch->name;
-					if (name.empty()) name = "[no name]";
-					int image;
-					if (dynamic_cast<OPLPatch *>(patch.get())) image = ImageListIndex::InstOPL;
-					else if (dynamic_cast<MIDIPatch *>(patch.get())) image = ImageListIndex::InstMIDI;
-					//else if (dynamic_cast<PCMPatch *>(patch.get())) image = ImageListIndex::InstPCM;
-					else image = 0;
-					long id = this->list->InsertItem(i,
-						wxString(name.c_str(), wxConvUTF8), image);
-					this->list->SetItemData(id, i);
-				}
-			}
-
-			this->list->SetColumnWidth(0, wxLIST_AUTOSIZE);
-			return;
-		}
-
-		virtual void loadSettings(Project *proj)
-			throw ()
-		{
-			return;
-		}
-
-		virtual void saveSettings(Project *proj) const
-			throw ()
-		{
-			return;
-		}
-
-		/// Open the selected instrument in the instrument editor
-		void onItemOpen(wxListEvent& ev)
-		{
-			if (!this->doc) return;
-			// TODO: Open instrument in instrument editor
-			return;
-		}
-
-		void onItemRightClick(wxListEvent& ev)
-		{
-			if (!this->doc) return;
-
-			// TODO: Mute instrument
-			int instIndex = ev.GetData();
-
-			int image;
-			bool muted = true; // temp
-			if (muted) {
-				image = 1;
-			} else {
-				PatchBankPtr instruments = this->doc->music->patches;
-				PatchPtr patch = instruments->getPatch(instIndex);
-				if (dynamic_cast<OPLPatch *>(patch.get())) image = 2;
-				else if (dynamic_cast<MIDIPatch *>(patch.get())) image = 3;
-				//else if (dynamic_cast<PCMPatch *>(patch.get())) image = 4;
-				else image = 0;
-			}
-			this->list->SetItemImage(ev.GetIndex(), image);
-			return;
-		}
-
-	protected:
-		wxListCtrl *list;
-		MusicDocument *doc;
-
-		DECLARE_EVENT_TABLE();
-};
-
-BEGIN_EVENT_TABLE(InstrumentPanel, IToolPanel)
-	EVT_LIST_ITEM_ACTIVATED(IDC_LAYER, InstrumentPanel::onItemOpen)
-	EVT_LIST_ITEM_RIGHT_CLICK(IDC_LAYER, InstrumentPanel::onItemRightClick)
-END_EVENT_TABLE()
-
 
 MusicEditor::MusicEditor(IMainWindow *parent, AudioPtr audio)
 	throw () :
@@ -168,7 +44,9 @@ std::vector<IToolPanel *> MusicEditor::createToolPanes() const
 	throw ()
 {
 	std::vector<IToolPanel *> panels;
-	panels.push_back(new InstrumentPanel(this->frame));
+	InstrumentPanel *inst = new InstrumentPanel(this->frame);
+	panels.push_back(new InstrumentListPanel(this->frame, inst));
+	panels.push_back(inst);
 	return panels;
 }
 

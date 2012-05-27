@@ -90,7 +90,7 @@ class MusicDocument: public IDocument, PlayerCallback
 		int halfHeight;      ///< Number of char rows in half a screen (for positioning highlight row)
 
 		friend class PlayerThread;
-		friend class InstrumentPanel;
+		friend class InstrumentListPanel;
 		friend class EventPanel;
 
 		enum {
