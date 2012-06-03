@@ -308,7 +308,7 @@ void PrefsDialog::onTestAudio(wxCommandEvent& ev)
 		MusicPtr music(new Music());
 		music->patches.reset(new PatchBank());
 		music->events.reset(new EventVector());
-		music->patches->setPatchCount(2);
+		music->patches->reserve(2);
 
 		OPLPatchPtr po(new OPLPatch());
 		po->c.enableTremolo = false;
@@ -338,13 +338,11 @@ void PrefsDialog::onTestAudio(wxCommandEvent& ev)
 		po->feedback = 4;
 		po->connection = false;
 		po->rhythm = 0;
-		po->deepTremolo = false;
-		po->deepVibrato = false;
-		music->patches->setPatch(0, po);
+		music->patches->push_back(po);
 
 		MIDIPatchPtr pm(new MIDIPatch());
 		pm->midiPatch = 0; // Piano
-		music->patches->setPatch(1, pm);
+		music->patches->push_back(pm);
 
 		TempoEvent *e0 = new TempoEvent();
 		e0->absTime = 0;

@@ -78,8 +78,9 @@ void InstrumentListPanel::switchDocument(IDocument *doc)
 	// Populate the list
 	PatchBankPtr instruments = this->doc->music->patches;
 	if (instruments) {
-		for (unsigned int i = 0; i < instruments->getPatchCount(); i++) {
-			PatchPtr patch = instruments->getPatch(i);
+		unsigned int numInst = instruments->size();
+		for (unsigned int i = 0; i < numInst; i++) {
+			PatchPtr patch = instruments->at(i);
 
 			wxString title;
 			title.Printf(_T("%02X: "), i);
@@ -124,7 +125,7 @@ void InstrumentListPanel::replaceInstrument(unsigned int index,
 	PatchPtr newInstrument)
 	throw ()
 {
-	this->doc->music->patches->setPatch(index, newInstrument);
+	this->doc->music->patches->at(index) = newInstrument;
 	this->updateInstrumentView(index);
 	return;
 }
@@ -160,7 +161,7 @@ void InstrumentListPanel::onItemRightClick(wxListEvent& ev)
 void InstrumentListPanel::updateInstrumentView(unsigned int index)
 	throw ()
 {
-	PatchPtr patch = this->doc->music->patches->getPatch(index);
+	PatchPtr patch = this->doc->music->patches->at(index);
 	if (!patch) return;
 
 	int image;

@@ -197,14 +197,14 @@ void InstrumentPanel::setInstrument(unsigned int newIndex)
 	this->instIndex = newIndex;
 	if (!this->patchBank) return; // just in case
 
-	if (newIndex >= this->patchBank->getPatchCount()) {
+	if (newIndex >= this->patchBank->size()) {
 		std::cerr << "ERROR: Tried to edit patch #" << newIndex << " but only "
-			<< this->patchBank->getPatchCount() << " instruments in bank!"
+			<< this->patchBank->size() << " instruments in bank!"
 			<< std::endl;
 		return;
 	}
 
-	this->inst = patchBank->getPatch(newIndex);
+	this->inst = patchBank->at(newIndex);
 	if (!this->inst) {
 		std::cerr << "ERROR: Tried to edit in-range patch #" << newIndex
 			<< " but bank returned a NULL pointer!" << std::endl;
