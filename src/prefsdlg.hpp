@@ -32,7 +32,7 @@
 #include "playerthread.hpp"
 #include "RtMidi.h"
 
-/// Main window.
+/// User preferences dialog box.
 class PrefsDialog: public wxDialog,
                    virtual public PlayerCallback
 {

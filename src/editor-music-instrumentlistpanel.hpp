@@ -23,6 +23,7 @@
 
 class InstrumentListPanel;
 
+#include <wx/listctrl.h>
 #include <camoto/gamemusic/patchbank.hpp>
 #include "editor.hpp"
 #include "editor-music.hpp"
