@@ -2,7 +2,7 @@
  * @file   editor-image.cpp
  * @brief  Image editor.
  *
- * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -270,6 +270,10 @@ class ImageDocument: public IDocument
 #endif
 				wxFD_OPEN | wxFD_FILE_MUST_EXIST, this);
 			if (!path.empty()) {
+				// Save path for next time
+				wxFileName fn(path, wxPATH_NATIVE);
+				::path.lastUsed = fn.GetPath();
+
 				try {
 					unsigned int width, height;
 					this->image->getDimensions(&width, &height);

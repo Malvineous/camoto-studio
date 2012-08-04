@@ -2,7 +2,7 @@
  * @file   editor-tileset.cpp
  * @brief  Tileset editor.
  *
- * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,75 +52,20 @@ class TilesetDocument: public IDocument
 				settings(settings),
 				offset(0)
 		{
-			// Load the palette
-			PaletteTablePtr pal;
-			if (tileset->getCaps() & Tileset::HasPalette) {
-				pal = tileset->getPalette();
-			} else {
-				pal = createPalette_DefaultVGA();
-			}
-
 			this->canvas = new TilesetCanvas(this, this->frame->getGLContext(),
 				this->frame->getGLAttributes(), this->settings->zoomFactor);
 
-			// Make the texture operations below apply to this OpenGL surface
-			this->canvas->SetCurrent();
-
-			GLushort r[256], g[256], b[256], a[256];
-			for (int i = 0; i < 256; i++) {
-				r[i] = ((*pal)[i].red << 8) | (*pal)[i].red;
-				g[i] = ((*pal)[i].green << 8) | (*pal)[i].green;
-				b[i] = ((*pal)[i].blue << 8) | (*pal)[i].blue;
-				a[i] = ((*pal)[i].alpha << 8) | (*pal)[i].alpha;
-			}
-			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-			glPixelTransferi(GL_MAP_COLOR, GL_TRUE);
-			glPixelMapusv(GL_PIXEL_MAP_I_TO_R, 256, r);
-			glPixelMapusv(GL_PIXEL_MAP_I_TO_G, 256, g);
-			glPixelMapusv(GL_PIXEL_MAP_I_TO_B, 256, b);
-			glPixelMapusv(GL_PIXEL_MAP_I_TO_A, 256, a);
-
-			// Load all the tiles into OpenGL textures
+			// Allocate all the textures
 			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
 			int j = 0;
 			for (Tileset::VC_ENTRYPTR::const_iterator i = tiles.begin();
 				i != tiles.end(); i++, j++)
 			{
-				if ((*i)->attr & Tileset::EmptySlot) continue;
-				if ((*i)->attr & Tileset::SubTileset) continue;
-
 				Texture t;
-
-				ImagePtr image = tileset->openImage(*i);
-
-				image->getDimensions(&t.width, &t.height);
-				if ((t.width > 512) || (t.height > 512)) continue; // image too large
-
-				StdImageDataPtr data = image->toStandard();
-
 				glGenTextures(1, &t.glid);
-
-				// Bind each texture in turn to the 2D target
-				glBindTexture(GL_TEXTURE_2D, t.glid);
-
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-				// Load an image into the 2D target, which will affect the texture
-				// previously bound to it.
-
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, t.width, t.height, 0,
-					GL_COLOR_INDEX, GL_UNSIGNED_BYTE, data.get());
-				if (glGetError()) {
-					std::cerr << "[editor-tileset] GL error loading texture into id " << t.glid << std::endl;
-				} else {
-					// Store this tile in the map, by its index
-					this->tm[j] = t;
-				}
+				this->tm[j] = t;
 			}
-			glPixelTransferi(GL_MAP_COLOR, GL_FALSE);
+			this->updateTiles();
 			this->canvas->setTextures(this->tm);
 
 			wxToolBar *tb = new wxToolBar(this, wxID_ANY, wxDefaultPosition,
@@ -166,6 +111,11 @@ class TilesetDocument: public IDocument
 
 			tb->AddSeparator();
 
+			tb->AddTool(IDC_IMPORT, wxEmptyString,
+				wxImage(::path.guiIcons + _T("import.png"), wxBITMAP_TYPE_PNG),
+				wxNullBitmap, wxITEM_NORMAL, _T("Import"),
+				_T("Replace this image with one loaded from a file"));
+
 			tb->AddTool(IDC_EXPORT, wxEmptyString,
 				wxImage(::path.guiIcons + _T("export.png"), wxBITMAP_TYPE_PNG),
 				wxNullBitmap, wxITEM_NORMAL, _T("Export"),
@@ -201,10 +151,80 @@ class TilesetDocument: public IDocument
 			}
 		}
 
+		void updateTiles()
+			throw ()
+		{
+			// Load the palette
+			PaletteTablePtr pal;
+			if (tileset->getCaps() & Tileset::HasPalette) {
+				pal = tileset->getPalette();
+			} else {
+				pal = createPalette_DefaultVGA();
+			}
+
+			// Make the texture operations below apply to this OpenGL surface
+			this->canvas->SetCurrent();
+
+			GLushort r[256], g[256], b[256], a[256];
+			for (int i = 0; i < 256; i++) {
+				r[i] = ((*pal)[i].red << 8) | (*pal)[i].red;
+				g[i] = ((*pal)[i].green << 8) | (*pal)[i].green;
+				b[i] = ((*pal)[i].blue << 8) | (*pal)[i].blue;
+				a[i] = ((*pal)[i].alpha << 8) | (*pal)[i].alpha;
+			}
+			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+			glPixelTransferi(GL_MAP_COLOR, GL_TRUE);
+			glPixelMapusv(GL_PIXEL_MAP_I_TO_R, 256, r);
+			glPixelMapusv(GL_PIXEL_MAP_I_TO_G, 256, g);
+			glPixelMapusv(GL_PIXEL_MAP_I_TO_B, 256, b);
+			glPixelMapusv(GL_PIXEL_MAP_I_TO_A, 256, a);
+
+			// Load all the tiles into OpenGL textures
+			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
+			int j = 0;
+			for (Tileset::VC_ENTRYPTR::const_iterator i = tiles.begin();
+				i != tiles.end(); i++, j++)
+			{
+				if ((*i)->attr & Tileset::EmptySlot) continue;
+				if ((*i)->attr & Tileset::SubTileset) continue;
+
+				Texture& t = this->tm[j];
+
+				ImagePtr image = tileset->openImage(*i);
+
+				image->getDimensions(&t.width, &t.height);
+				if ((t.width > 512) || (t.height > 512)) continue; // image too large
+
+				StdImageDataPtr data = image->toStandard();
+				// TODO: Handle exceptions
+
+				// Bind each texture in turn to the 2D target
+				glBindTexture(GL_TEXTURE_2D, t.glid);
+
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+				// Load an image into the 2D target, which will affect the texture
+				// previously bound to it.
+
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, t.width, t.height, 0,
+					GL_COLOR_INDEX, GL_UNSIGNED_BYTE, data.get());
+				if (glGetError()) {
+					std::cerr << "[editor-tileset] GL error loading texture into id " << t.glid << std::endl;
+					t.width = 0;
+					t.height = 0;
+				}
+			}
+			glPixelTransferi(GL_MAP_COLOR, GL_FALSE);
+		}
+
 		virtual void save()
 			throw (camoto::stream::error)
 		{
-			throw camoto::stream::error("Saving has not been implemented yet!");
+			// Nothing to save (imports are done directly)
+			return;
 		}
 
 		void onZoomSmall(wxCommandEvent& ev)
@@ -253,6 +273,168 @@ class TilesetDocument: public IDocument
 			if (this->offset > 0) {
 				this->offset--;
 				this->canvas->setOffset(this->offset);
+			}
+			return;
+		}
+
+		void onImport(wxCommandEvent& ev)
+		{
+			assert(this->tilesX > 0);
+
+			wxString path = wxFileSelector(_T("Open image"),
+				::path.lastUsed, wxEmptyString, _T(".png"),
+#ifdef __WXMSW__
+				_T("Supported image files (*.png)|*.png|All files (*.*)|*.*"),
+#else
+				_T("Supported image files (*.png)|*.png|All files (*)|*"),
+#endif
+				wxFD_OPEN | wxFD_FILE_MUST_EXIST, this);
+			if (!path.empty()) {
+				// Save path for next time
+				wxFileName fn(path, wxPATH_NATIVE);
+				::path.lastUsed = fn.GetPath();
+
+				try {
+					png::image<png::index_pixel> png;
+					try {
+						png.read(path.mb_str());
+					} catch (const png::error& e) {
+						wxMessageDialog dlg(this,
+							wxString::Format(_T("Unsupported file.  Only indexed .png images "
+								"are supported.\n\n[%s]"),
+								wxString(e.what(), wxConvUTF8).c_str()),
+							_T("Import tileset"), wxOK | wxICON_ERROR);
+						dlg.ShowModal();
+						return;
+					}
+
+					png::tRNS transparency = png.get_tRNS();
+					bool hasTransparency = transparency.size() > 0;
+
+					unsigned int tileWidth, tileHeight;
+					this->tileset->getTilesetDimensions(&tileWidth, &tileHeight);
+					unsigned int thisTileWidth = tileWidth, thisTileHeight = tileHeight;
+					unsigned int lastMaxHeight = tileHeight;
+
+					uint8_t *imgData, *maskData;
+					StdImageDataPtr stdimg, stdmask;
+
+					unsigned int curAlloc = tileWidth * tileHeight;
+					if (curAlloc > 0) {
+						// Allocate once for all tiles, since they're all the same size
+						imgData = new uint8_t[curAlloc];
+						maskData = new uint8_t[curAlloc];
+						stdimg.reset(imgData);
+						stdmask.reset(maskData);
+					}
+
+					unsigned int srcWidth = png.get_width();
+					unsigned int srcHeight = png.get_height();
+					unsigned int srcOffX = 0, srcOffY = 0;
+					const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
+					int t = 0;
+					for (Tileset::VC_ENTRYPTR::const_iterator
+						i = tiles.begin(); i != tiles.end(); i++, t++
+					) {
+						if ((*i)->attr & Tileset::SubTileset) continue; // aah! tileset! bad!
+
+						ImagePtr img = tileset->openImage(*i);
+
+						if ((tileWidth == 0) || (tileHeight == 0)) {
+							// All tiles are different sizes
+							img->getDimensions(&thisTileWidth, &thisTileHeight);
+							unsigned int targetAlloc = thisTileWidth * thisTileHeight;
+							if (targetAlloc > curAlloc) {
+								// Buffer needs to be enlarged
+								imgData = new uint8_t[targetAlloc];
+								maskData = new uint8_t[targetAlloc];
+								stdimg.reset(imgData);
+								stdmask.reset(maskData);
+								curAlloc = targetAlloc;
+							} // else previous buffer is big enough, reuse it
+						}
+
+						// Figure out the location of this tile in the source image
+						if (srcOffX + thisTileWidth > srcWidth) {
+							// This tile would go past the right-hand edge of the source, so
+							// wrap around to the next row.
+							srcOffX = 0;
+							srcOffY += lastMaxHeight;
+							lastMaxHeight = thisTileHeight;
+						}
+						if (srcOffY + thisTileHeight > srcHeight) {
+							// This tile would go past the bottom edge of the source, so we
+							// have to stop.
+							wxMessageDialog dlg(this, _T("Not all tiles could be imported, "
+								"as the .png image was smaller than the full tileset.  Only "
+								"complete tiles have been imported.\n\n"
+								"You should not have this problem if you start work on an "
+								"exported image, and do not resize the image in your editor."),
+								_T("Import tileset"), wxOK | wxICON_WARNING);
+							dlg.ShowModal();
+							return;
+						}
+
+						// Update the height of the largest tile in this row
+						if (thisTileHeight > lastMaxHeight) lastMaxHeight = thisTileHeight;
+
+						for (unsigned int y = 0; y < thisTileHeight; y++) {
+							for (unsigned int x = 0; x < thisTileWidth; x++) {
+								uint8_t pixel = png[srcOffY + y][srcOffX + x];
+								if (hasTransparency) {
+									uint8_t origPixel = pixel;
+									bool done = false;
+									for (png::tRNS::const_iterator
+										tx = transparency.begin(); tx != transparency.end(); tx++
+									) {
+										if (origPixel == *tx) {
+											maskData[y * thisTileWidth + x] = 0x01; // transparent
+											imgData[y * thisTileWidth + x] = 0x00; // just in case
+											done = true;
+											break;
+										} else {
+											// If this transparent entry fell before the current
+											// palette index, subtract one.  After processing all the
+											// palette entries, this will result in an index into the
+											// original game palette.
+											if (origPixel > *tx) pixel--;
+										}
+									}
+									if (done) continue; // pixel was transparent
+									// Keep going if pixel was opaque
+								} // else no transparency in image
+
+								maskData[y * thisTileWidth + x] = 0x00; // opaque
+								imgData[y * thisTileWidth + x] = pixel;
+							}
+						}
+
+						img->fromStandard(stdimg, stdmask);
+
+						srcOffX += thisTileWidth;
+
+					} // for (all tiles)
+
+					// This overwrites the image directly, it can't be undone
+					//this->isModified = true;
+					this->updateTiles();
+					this->canvas->redraw();
+
+				} catch (const png::error& e) {
+					wxMessageDialog dlg(this,
+						wxString::Format(_T("Unexpected PNG error importing image!\n\n[%s]"),
+						wxString(e.what(), wxConvUTF8).c_str()),
+						_T("Import image"), wxOK | wxICON_ERROR);
+					dlg.ShowModal();
+					return;
+				} catch (const std::exception& e) {
+					wxMessageDialog dlg(this,
+						wxString::Format(_T("Unexpected error importing image!\n\n[%s]"),
+						wxString(e.what(), wxConvUTF8).c_str()),
+						_T("Import image"), wxOK | wxICON_ERROR);
+					dlg.ShowModal();
+					return;
+				}
 			}
 			return;
 		}
@@ -401,6 +583,7 @@ class TilesetDocument: public IDocument
 			IDC_DEC_WIDTH,
 			IDC_INC_OFFSET,
 			IDC_DEC_OFFSET,
+			IDC_IMPORT,
 			IDC_EXPORT,
 		};
 		DECLARE_EVENT_TABLE();
@@ -414,6 +597,7 @@ BEGIN_EVENT_TABLE(TilesetDocument, IDocument)
 	EVT_TOOL(IDC_DEC_WIDTH, TilesetDocument::onDecWidth)
 	EVT_TOOL(IDC_INC_OFFSET, TilesetDocument::onIncOffset)
 	EVT_TOOL(IDC_DEC_OFFSET, TilesetDocument::onDecOffset)
+	EVT_TOOL(IDC_IMPORT, TilesetDocument::onImport)
 	EVT_TOOL(IDC_EXPORT, TilesetDocument::onExport)
 END_EVENT_TABLE()
 
