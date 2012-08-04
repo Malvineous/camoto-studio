@@ -95,8 +95,9 @@ MapDocument::MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
 		wxNullBitmap, wxITEM_RADIO, _T("Object mode"),
 		_T("Edit the map as collection of objects"));
 
-	// Object-mode is the default for the canvas
-	tb->ToggleTool(IDC_MODE_OBJ, true);
+	// Tile-mode is the default for the canvas
+	tb->ToggleTool(IDC_MODE_TILE, true);
+	this->canvas->setTileMode();
 
 	// Update the UI
 	switch (this->settings->zoomFactor) {
