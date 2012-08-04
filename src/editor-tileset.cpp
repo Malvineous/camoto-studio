@@ -481,20 +481,23 @@ class TilesetDocument: public IDocument
 
 				png::image<png::index_pixel> png(maxWidth, y + maxHeight);
 
+				int palSize;
+				bool useMask;
 				PaletteTablePtr srcPal;
 				if (this->tileset->getCaps() & Tileset::HasPalette) {
 					srcPal = this->tileset->getPalette();
+					palSize = srcPal->size();
+					useMask = palSize < 255;
+					if (useMask) palSize++;
 				} else {
 					srcPal = createPalette_DefaultVGA();
+					palSize = srcPal->size();
+					useMask = true; // drops colour 255
 				}
 				if (srcPal->size() == 0) {
 					std::cout << "[editor-image] Palette contains no entries, using default\n";
 					srcPal = createPalette_DefaultVGA();
 				}
-
-				int palSize = srcPal->size();
-				bool useMask = palSize < 255;
-				if (useMask) palSize++;
 
 				png::palette pngPal(palSize);
 				int j = 0;
@@ -508,9 +511,8 @@ class TilesetDocument: public IDocument
 					j++;
 				}
 
-				for (PaletteTable::iterator i = srcPal->begin();
-					i != srcPal->end();
-					i++, j++
+				for (PaletteTable::iterator
+					i = srcPal->begin(); (i != srcPal->end()) && (j < 256); i++, j++
 				) {
 					pngPal[j] = png::color(i->red, i->green, i->blue);
 				}
@@ -531,7 +533,7 @@ class TilesetDocument: public IDocument
 					for (unsigned int py = 0; py < height; py++) {
 						for (unsigned int px = 0; px < width; px++) {
 							if (useMask) {
-								if (mask[py*width+x] & 0x01) {
+								if (mask[py*width+px] & 0x01) {
 									png[y+py][x+px] = png::index_pixel(0);
 								} else {
 									png[y+py][x+px] =
