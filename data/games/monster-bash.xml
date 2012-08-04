@@ -23,6 +23,22 @@
 		<group name="Levels">
 			<group name="Episode 1">
 				<item ref="lev-101-map"/>
+				<item ref="lev-102-map"/>
+				<item ref="lev-104-map"/>
+				<item ref="lev-105-map"/>
+				<item ref="lev-106-map"/>
+				<item ref="lev-107-map"/>
+				<item ref="lev-108-map"/>
+				<item ref="lev-110-map"/>
+				<item ref="lev-111-map"/>
+				<item ref="lev-choose-map"/>
+				<item ref="lev-grave3-map"/>
+				<item ref="lev-intro-map"/>
+				<item ref="lev-pogee-map"/>
+				<item ref="lev-preview-map"/>
+				<item ref="lev-share-map"/>
+				<item ref="lev-stat-map"/>
+				<item ref="lev-title-map"/>
 			</group>
 		</group>
 
@@ -30,8 +46,40 @@
 
 			<group name="Tilesets">
 				<item ref="tls-101-bg"/>
-				<item ref="tls-101-bon"/>
+				<item ref="tls-102-bg"/>
+				<item ref="tls-103-bg"/>
+				<item ref="tls-104-bg"/>
+				<item ref="tls-105-bg"/>
+				<item ref="tls-106-bg"/>
+				<item ref="tls-108-bg"/>
+				<item ref="tls-choose-bg"/>
+				<item ref="tls-intro-bg"/>
+				<item ref="tls-pogee-bg"/>
+				<item ref="tls-preview-bg"/>
+				<item ref="tls-share-bg"/>
+				<item ref="tls-stat-bg"/>
+
 				<item ref="tls-101-fg"/>
+				<item ref="tls-102-fg"/>
+				<item ref="tls-104-fg"/>
+				<item ref="tls-105-fg"/>
+				<item ref="tls-106-fg"/>
+				<item ref="tls-108-fg"/>
+				<item ref="tls-choose-fg"/>
+				<item ref="tls-end1-fg"/>
+				<item ref="tls-intro-fg"/>
+				<item ref="tls-pogee-fg"/>
+				<item ref="tls-preview-fg"/>
+
+				<item ref="tls-101-bon"/>
+				<item ref="tls-103-bon"/>
+				<item ref="tls-104-bon"/>
+				<item ref="tls-105-bon"/>
+				<item ref="tls-106-bon"/>
+				<item ref="tls-intro-bon"/>
+				<item ref="tls-end1-bon"/>
+				<item ref="tls-preview-bon"/>
+				<item ref="tls-stat-bon"/>
 			</group>
 
 		</group>
@@ -60,14 +108,145 @@
 
 	<files>
 		<archive name="bash1.dat" id="arch-bash1-dat" typeMinor="dat-bash">
-			<file id="tls-101-bg" name="bk1.tbg" typeMajor="tileset" typeMinor="bash-bg">E1L1 BG tiles</file>
-			<file id="tls-101-fg" name="fg1.tfg" typeMajor="tileset" typeMinor="bash-fg">E1L1 FG tiles</file>
-			<file id="tls-101-bon" name="bon1.tbn" typeMajor="tileset" typeMinor="bash-fg">E1L1 BON tiles</file>
-			<file id="lev-101-bg" name="lev1.mbg" typeMajor="map" typeMinor="bash-bg">E1L1 BG layer</file>
-			<file id="lev-101-fg" name="lev1.mfg" typeMajor="map" typeMinor="bash-fg">E1L1 FG layer</file>
+			<file id="tls-101-bg"     name="bk1.tbg"     typeMajor="tileset" typeMinor="bash-bg">Background tiles 1</file>
+			<file id="tls-102-bg"     name="bk2.tbg"     typeMajor="tileset" typeMinor="bash-bg">Background tiles 2</file>
+			<file id="tls-103-bg"     name="bk3.tbg"     typeMajor="tileset" typeMinor="bash-bg">Background tiles 3</file>
+			<file id="tls-104-bg"     name="bk4.tbg"     typeMajor="tileset" typeMinor="bash-bg">Background tiles 4</file>
+			<file id="tls-105-bg"     name="bk5.tbg"     typeMajor="tileset" typeMinor="bash-bg">Background tiles 5</file>
+			<file id="tls-106-bg"     name="bk6.tbg"     typeMajor="tileset" typeMinor="bash-bg">Background tiles 6</file>
+			<file id="tls-108-bg"     name="bk8.tbg"     typeMajor="tileset" typeMinor="bash-bg">Background tiles 8</file>
+			<file id="tls-choose-bg"  name="choose.tbg"  typeMajor="tileset" typeMinor="bash-bg">Choose background tiles</file>
+			<file id="tls-intro-bg"   name="intro.tbg"   typeMajor="tileset" typeMinor="bash-bg">Intro background tiles</file>
+			<file id="tls-pogee-bg"   name="pogee.tbg"   typeMajor="tileset" typeMinor="bash-bg">Apogee background tiles</file>
+			<file id="tls-preview-bg" name="preview.tbg" typeMajor="tileset" typeMinor="bash-bg">Preview background tiles</file>
+			<file id="tls-share-bg"   name="share.tbg"   typeMajor="tileset" typeMinor="bash-bg">Share background tiles</file>
+			<file id="tls-stat-bg"    name="stat.tbg"    typeMajor="tileset" typeMinor="bash-bg">Stat background tiles</file>
+
+			<file id="tls-101-fg"     name="fg1.tfg"     typeMajor="tileset" typeMinor="bash-fg">Foreground tiles 1</file>
+			<file id="tls-102-fg"     name="fg2.tfg"     typeMajor="tileset" typeMinor="bash-fg">Foreground tiles 2</file>
+			<file id="tls-103-fg"     name="fg3.tfg"     typeMajor="tileset" typeMinor="bash-fg">Foreground tiles 3</file>
+			<file id="tls-104-fg"     name="fg4.tfg"     typeMajor="tileset" typeMinor="bash-fg">Foreground tiles 4</file>
+			<file id="tls-105-fg"     name="fg5.tfg"     typeMajor="tileset" typeMinor="bash-fg">Foreground tiles 5</file>
+			<file id="tls-106-fg"     name="fg6.tfg"     typeMajor="tileset" typeMinor="bash-fg">Foreground tiles 6</file>
+			<file id="tls-choose-fg"  name="choose.tfg"  typeMajor="tileset" typeMinor="bash-fg">Choose foreground tiles</file>
+			<file id="tls-end1-fg"    name="end1.tfg"    typeMajor="tileset" typeMinor="bash-fg">End foreground tiles</file>
+			<file id="tls-intro-fg"   name="intro.tfg"   typeMajor="tileset" typeMinor="bash-fg">Intro foreground tiles</file>
+			<file id="tls-pogee-fg"   name="pogee.tfg"   typeMajor="tileset" typeMinor="bash-fg">Apogee foreground tiles</file>
+			<file id="tls-preview-fg" name="preview.tfg" typeMajor="tileset" typeMinor="bash-fg">Preview foreground tiles</file>
+
+			<file id="tls-101-bon"     name="bon1.tbn"     typeMajor="tileset" typeMinor="bash-fg">Bonus tiles 1</file>
+			<file id="tls-103-bon"     name="bon3.tbn"     typeMajor="tileset" typeMinor="bash-fg">Bonus tiles 3</file>
+			<file id="tls-104-bon"     name="bon4.tbn"     typeMajor="tileset" typeMinor="bash-fg">Bonus tiles 4</file>
+			<file id="tls-105-bon"     name="bon5.tbn"     typeMajor="tileset" typeMinor="bash-fg">Bonus tiles 5</file>
+			<file id="tls-106-bon"     name="lev6.tbn"     typeMajor="tileset" typeMinor="bash-fg">Bonus tiles 6</file>
+			<file id="tls-intro-bon"   name="intro.tbn"    typeMajor="tileset" typeMinor="bash-fg">Intro bonus tiles</file>
+			<file id="tls-end1-bon"    name="end1.tbn"     typeMajor="tileset" typeMinor="bash-fg">End bonus tiles</file>
+			<file id="tls-preview-bon" name="preview.tbn"  typeMajor="tileset" typeMinor="bash-fg">Preview bonus tiles</file>
+			<file id="tls-stat-bon"    name="stat.tbn"     typeMajor="tileset" typeMinor="bash-fg">Stat bonus tiles</file>
+
+			<file id="lev-101-bg"     name="lev1.mbg"    typeMajor="map" typeMinor="bash-bg">E1L1 BG layer</file>
+			<file id="lev-102-bg"     name="lev2.mbg"    typeMajor="map" typeMinor="bash-bg">E1L2 BG layer</file>
+			<file id="lev-104-bg"     name="lev4.mbg"    typeMajor="map" typeMinor="bash-bg">E1L4 BG layer</file>
+			<file id="lev-105-bg"     name="lev5.mbg"    typeMajor="map" typeMinor="bash-bg">E1L5 BG layer</file>
+			<file id="lev-106-bg"     name="lev6.mbg"    typeMajor="map" typeMinor="bash-bg">E1L6 BG layer</file>
+			<file id="lev-107-bg"     name="lev7.mbg"    typeMajor="map" typeMinor="bash-bg">E1L7 BG layer</file>
+			<file id="lev-108-bg"     name="lev8.mbg"    typeMajor="map" typeMinor="bash-bg">E1L8 BG layer</file>
+			<file id="lev-110-bg"     name="lev10.mbg"   typeMajor="map" typeMinor="bash-bg">E1L10 BG layer</file>
+			<file id="lev-111-bg"     name="lev11.mbg"   typeMajor="map" typeMinor="bash-bg">E1L11 BG layer</file>
+			<file id="lev-choose-bg"  name="choose.mbg"  typeMajor="map" typeMinor="bash-bg">Choose BG layer</file>
+			<file id="lev-grave3-bg"  name="grave3.mbg"  typeMajor="map" typeMinor="bash-bg">Grave BG layer</file>
+			<file id="lev-intro-bg"   name="intro.mbg"   typeMajor="map" typeMinor="bash-bg">Intro BG layer</file>
+			<file id="lev-pogee-bg"   name="pogee.mbg"   typeMajor="map" typeMinor="bash-bg">Apogee BG layer</file>
+			<file id="lev-preview-bg" name="preview.mbg" typeMajor="map" typeMinor="bash-bg">Preview BG layer</file>
+			<file id="lev-share-bg"   name="share.mbg"   typeMajor="map" typeMinor="bash-bg">Share BG layer</file>
+			<file id="lev-stat-bg"    name="stat.mbg"    typeMajor="map" typeMinor="bash-bg">Stat BG layer</file>
+			<file id="lev-title-bg"   name="title.mbg"   typeMajor="map" typeMinor="bash-bg">Title BG layer</file>
+
+			<file id="lev-101-fg"     name="lev1.mfg"    typeMajor="map" typeMinor="bash-fg">E1L1 FG layer</file>
+			<file id="lev-102-fg"     name="lev2.mfg"    typeMajor="map" typeMinor="bash-fg">E1L2 FG layer</file>
+			<file id="lev-104-fg"     name="lev4.mfg"    typeMajor="map" typeMinor="bash-fg">E1L4 FG layer</file>
+			<file id="lev-105-fg"     name="lev5.mfg"    typeMajor="map" typeMinor="bash-fg">E1L5 FG layer</file>
+			<file id="lev-106-fg"     name="lev6.mfg"    typeMajor="map" typeMinor="bash-fg">E1L6 FG layer</file>
+			<file id="lev-107-fg"     name="lev7.mfg"    typeMajor="map" typeMinor="bash-fg">E1L7 FG layer</file>
+			<file id="lev-108-fg"     name="lev8.mfg"    typeMajor="map" typeMinor="bash-fg">E1L8 FG layer</file>
+			<file id="lev-110-fg"     name="lev10.mfg"   typeMajor="map" typeMinor="bash-fg">E1L10 FG layer</file>
+			<file id="lev-111-fg"     name="lev11.mfg"   typeMajor="map" typeMinor="bash-fg">E1L11 FG layer</file>
+			<file id="lev-choose-fg"  name="choose.mfg"  typeMajor="map" typeMinor="bash-fg">Choose FG layer</file>
+			<file id="lev-grave3-fg"  name="grave3.mfg"  typeMajor="map" typeMinor="bash-fg">Grave FG layer</file>
+			<file id="lev-intro-fg"   name="intro.mfg"   typeMajor="map" typeMinor="bash-fg">Intro FG layer</file>
+			<file id="lev-pogee-fg"   name="pogee.mfg"   typeMajor="map" typeMinor="bash-fg">Apogee FG layer</file>
+			<file id="lev-preview-fg" name="preview.mfg" typeMajor="map" typeMinor="bash-fg">Preview FG layer</file>
+			<file id="lev-share-fg"   name="share.mfg"   typeMajor="map" typeMinor="bash-fg">Share FG layer</file>
+			<file id="lev-stat-fg"    name="stat.mfg"    typeMajor="map" typeMinor="bash-fg">Stat FG layer</file>
+			<file id="lev-title-fg"   name="title.mfg"   typeMajor="map" typeMinor="bash-fg">Title FG layer</file>
+
 			<file id="lev-101-map" name="lev1.mif" typeMajor="map" typeMinor="bash"
 				supp:layer1="lev-101-bg" supp:layer2="lev-101-fg"
 				supp:tiles="tls-101-bg" supp:tiles2="tls-101-bon" supp:tiles3="tls-101-fg">Level 1</file>
+
+			<file id="lev-102-map" name="lev2.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-102-bg" supp:layer2="lev-102-fg"
+				supp:tiles="tls-102-bg" supp:tiles2="tls-101-bon" supp:tiles3="tls-102-fg">Level 2</file>
+
+			<file id="lev-104-map" name="lev4.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-104-bg" supp:layer2="lev-104-fg"
+				supp:tiles="tls-104-bg" supp:tiles2="tls-104-bon" supp:tiles3="tls-104-fg">Level 4</file>
+
+			<file id="lev-105-map" name="lev5.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-105-bg" supp:layer2="lev-105-fg"
+				supp:tiles="tls-105-bg" supp:tiles2="tls-105-bon" supp:tiles3="tls-105-fg">Level 5</file>
+
+			<file id="lev-106-map" name="lev6.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-106-bg" supp:layer2="lev-106-fg"
+				supp:tiles="tls-106-bg" supp:tiles2="tls-106-bon" supp:tiles3="tls-106-fg">Level 6</file>
+
+			<file id="lev-107-map" name="lev7.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-107-bg" supp:layer2="lev-107-fg"
+				supp:tiles="tls-106-bg" supp:tiles2="tls-106-bon" supp:tiles3="tls-106-fg">Level 7</file>
+
+			<file id="lev-108-map" name="lev8.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-108-bg" supp:layer2="lev-108-fg"
+				supp:tiles="tls-108-bg" supp:tiles2="tls-106-bon" supp:tiles3="tls-106-fg">Level 8</file>
+
+			<file id="lev-110-map" name="lev10.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-110-bg" supp:layer2="lev-110-fg"
+				supp:tiles="tls-103-bg" supp:tiles2="tls-103-bon" supp:tiles3="tls-103-fg">Level 10</file>
+
+			<file id="lev-111-map" name="lev11.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-111-bg" supp:layer2="lev-111-fg"
+				supp:tiles="tls-104-bg" supp:tiles2="tls-104-bon" supp:tiles3="tls-104-fg">Level 11</file>
+
+			<file id="lev-choose-map" name="choose.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-choose-bg" supp:layer2="lev-choose-fg"
+				supp:tiles="tls-choose-bg" supp:tiles2="tls-intro-bon" supp:tiles3="tls-choose-fg">Choose level</file>
+
+			<file id="lev-grave3-map" name="grave3.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-grave3-bg" supp:layer2="lev-grave3-fg"
+				supp:tiles="tls-102-bg" supp:tiles2="tls-101-bon" supp:tiles3="tls-102-fg">Grave level</file>
+
+			<file id="lev-intro-map" name="intro.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-intro-bg" supp:layer2="lev-intro-fg"
+				supp:tiles="tls-intro-bg" supp:tiles2="tls-intro-bon" supp:tiles3="tls-intro-fg">Intro level</file>
+
+			<file id="lev-pogee-map" name="pogee.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-pogee-bg" supp:layer2="lev-pogee-fg"
+				supp:tiles="tls-pogee-bg" supp:tiles3="tls-pogee-fg">Apogee level</file>
+
+			<file id="lev-preview-map" name="preview.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-preview-bg" supp:layer2="lev-preview-fg"
+				supp:tiles="tls-preview-bg" supp:tiles2="tls-preview-bon" supp:tiles3="tls-preview-fg">Preview level</file>
+
+			<file id="lev-share-map" name="share.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-share-bg" supp:layer2="lev-share-fg"
+				supp:tiles="tls-share-bg">Share level</file>
+
+			<file id="lev-stat-map" name="stat.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-stat-bg" supp:layer2="lev-stat-fg"
+				supp:tiles="tls-stat-bg" supp:tiles2="tls-stat-bon">Stat level</file>
+
+			<file id="lev-title-map" name="title.mif" typeMajor="map" typeMinor="bash"
+				supp:layer1="lev-title-bg" supp:layer2="lev-title-fg"
+				supp:tiles="tls-104-bg" supp:tiles2="tls-end1-bon" supp:tiles3="tls-end1-fg">Title level</file>
 
 
 			<file id="m_apogfnfr" name="apogfnfr.imf" typeMajor="music" typeMinor="imf-idsoftware-type0">apogfnfr</file>
