@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	Monster Bash description file for Camoto Studio
-	Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+	Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
 	http://www.shikadi.net/camoto
 	http://www.shikadi.net/moddingwiki/Halloween_Harry
   -->
@@ -64,7 +64,6 @@
 				<item ref="tls-104-fg"/>
 				<item ref="tls-105-fg"/>
 				<item ref="tls-106-fg"/>
-				<item ref="tls-108-fg"/>
 				<item ref="tls-choose-fg"/>
 				<item ref="tls-end1-fg"/>
 				<item ref="tls-intro-fg"/>
