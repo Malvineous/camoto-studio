@@ -75,12 +75,11 @@ class TreeItemData: public wxTreeItemData {
 };
 
 /// Callback function to set expanded/native file size.
-void setNativeSize(camoto::gamearchive::ArchivePtr arch,
-	camoto::gamearchive::Archive::EntryPtr id, stream::len newSize)
+void setRealSize(camoto::gamearchive::ArchivePtr arch,
+	camoto::gamearchive::Archive::EntryPtr id, stream::len newRealSize)
 	throw (camoto::stream::error)
 {
-	arch->resize(id, newSize, id->iPrefilteredSize);
-	arch->flush();
+	arch->resize(id, id->storedSize, newRealSize);
 	return;
 }
 
@@ -1263,8 +1262,8 @@ class CamotoFrame: public IMainWindow
 				}
 				try {
 					file = pFilterType->apply(file,
-						// Set the truncation function for the postfiltered (uncompressed) size.
-						boost::bind<void>(&setNativeSize, arch, f, _1)
+						// Set the truncation function for the prefiltered (uncompressed) size.
+						boost::bind<void>(&setRealSize, arch, f, _1)
 					);
 				} catch (const camoto::filter_error& e) {
 					throw EFailure(wxString::Format(_T("Error decoding this file: %s"),
