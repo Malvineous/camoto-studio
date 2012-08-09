@@ -1,5 +1,3 @@
-AUTOMAKE_OPTIONS = foreign dist-bzip2
-
 SUBDIRS = src doc
 
 EXTRA_DIST = README

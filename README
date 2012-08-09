@@ -34,12 +34,14 @@ The GUI currently has editors for the following object types:
  - 2D Maps (overhead/platformer)
  - Music
  - Tilesets
+ - Instruments (MIDI/OPL)
 
-With editors for the remaining object types coming soon:
+With editors for the following object types planned:
 
- - Instruments (MIDI/OPL/PCM)
+ - Instruments (PCM)
  - Sound effects
- - Text
+ - Plain text (e.g. story)
+ - B800 text (e.g. exit screens)
 
 In order to compile this program, you will need the following dependencies:
 
