@@ -172,9 +172,9 @@ void Audio::openDevice()
 	wanted.userdata = this;
 	if (SDL_OpenAudio(&wanted, NULL) < 0) {
 		this->audioGood = false;
-		wxMessageDialog dlg(this->parent, _T("Unable to open audio device!  "
+		wxMessageDialog dlg(this->parent, _("Unable to open audio device!  "
 			"Another program may be using it."),
-			_T("Audio error"), wxOK | wxICON_ERROR);
+			_("Audio error"), wxOK | wxICON_ERROR);
 		dlg.ShowModal();
 		return;
 	}

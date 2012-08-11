@@ -84,31 +84,31 @@ InstrumentPanel::InstrumentPanel(IMainWindow *parent)
 	wxScrolledWindow *pnlOPL = new wxScrolledWindow(this->tabs);
 	wxGridBagSizer *s = new wxGridBagSizer(2, 2);
 	int row = 0;
-	wxStaticText *label = new wxStaticText(pnlOPL, wxID_ANY, _T("Carrier:"));
+	wxStaticText *label = new wxStaticText(pnlOPL, wxID_ANY, _("Carrier:"));
 	s->Add(label, wxGBPosition(row++, 0), wxGBSpan(1, 2), wxEXPAND | wxALIGN_CENTRE_VERTICAL);
 
-	this->addNumberControl(pnlOPL, s, &row, IDC_C_FREQMULT, _T("Freq. multiplier"), 0,  7);
-	this->addNumberControl(pnlOPL, s, &row, IDC_C_SCALE,    _T("Scale level"),      0,  3);
-	this->addNumberControl(pnlOPL, s, &row, IDC_C_OUTPUT,   _T("Output level"),     0, 63);
-	this->addNumberControl(pnlOPL, s, &row, IDC_C_ATTACK,   _T("Attack rate"),      0, 15);
-	this->addNumberControl(pnlOPL, s, &row, IDC_C_DECAY,    _T("Decay rate"),       0, 15);
-	this->addNumberControl(pnlOPL, s, &row, IDC_C_SUSTAIN,  _T("Sustain rate"),     0, 15);
-	this->addNumberControl(pnlOPL, s, &row, IDC_C_RELEASE,  _T("Release rate"),     0, 15);
-	this->addNumberControl(pnlOPL, s, &row, IDC_C_WAVESEL,  _T("Waveform"),         0,  7);
+	this->addNumberControl(pnlOPL, s, &row, IDC_C_FREQMULT, _("Freq. multiplier"), 0,  7);
+	this->addNumberControl(pnlOPL, s, &row, IDC_C_SCALE,    _("Scale level"),      0,  3);
+	this->addNumberControl(pnlOPL, s, &row, IDC_C_OUTPUT,   _("Output level"),     0, 63);
+	this->addNumberControl(pnlOPL, s, &row, IDC_C_ATTACK,   _("Attack rate"),      0, 15);
+	this->addNumberControl(pnlOPL, s, &row, IDC_C_DECAY,    _("Decay rate"),       0, 15);
+	this->addNumberControl(pnlOPL, s, &row, IDC_C_SUSTAIN,  _("Sustain rate"),     0, 15);
+	this->addNumberControl(pnlOPL, s, &row, IDC_C_RELEASE,  _("Release rate"),     0, 15);
+	this->addNumberControl(pnlOPL, s, &row, IDC_C_WAVESEL,  _("Waveform"),         0,  7);
 
-	label = new wxStaticText(pnlOPL, wxID_ANY, _T("Modulator:"));
+	label = new wxStaticText(pnlOPL, wxID_ANY, _("Modulator:"));
 	s->Add(label, wxGBPosition(row++, 0), wxGBSpan(1, 2), wxEXPAND | wxALIGN_CENTRE_VERTICAL);
 
-	this->addNumberControl(pnlOPL, s, &row, IDC_M_FREQMULT, _T("Freq. multiplier"), 0,  7);
-	this->addNumberControl(pnlOPL, s, &row, IDC_M_SCALE,    _T("Scale level"),      0,  3);
-	this->addNumberControl(pnlOPL, s, &row, IDC_M_OUTPUT,   _T("Output level"),     0, 63);
-	this->addNumberControl(pnlOPL, s, &row, IDC_M_ATTACK,   _T("Attack rate"),      0, 15);
-	this->addNumberControl(pnlOPL, s, &row, IDC_M_DECAY,    _T("Decay rate"),       0, 15);
-	this->addNumberControl(pnlOPL, s, &row, IDC_M_SUSTAIN,  _T("Sustain rate"),     0, 15);
-	this->addNumberControl(pnlOPL, s, &row, IDC_M_RELEASE,  _T("Release rate"),     0, 15);
-	this->addNumberControl(pnlOPL, s, &row, IDC_M_WAVESEL,  _T("Waveform"),         0,  7);
+	this->addNumberControl(pnlOPL, s, &row, IDC_M_FREQMULT, _("Freq. multiplier"), 0,  7);
+	this->addNumberControl(pnlOPL, s, &row, IDC_M_SCALE,    _("Scale level"),      0,  3);
+	this->addNumberControl(pnlOPL, s, &row, IDC_M_OUTPUT,   _("Output level"),     0, 63);
+	this->addNumberControl(pnlOPL, s, &row, IDC_M_ATTACK,   _("Attack rate"),      0, 15);
+	this->addNumberControl(pnlOPL, s, &row, IDC_M_DECAY,    _("Decay rate"),       0, 15);
+	this->addNumberControl(pnlOPL, s, &row, IDC_M_SUSTAIN,  _("Sustain rate"),     0, 15);
+	this->addNumberControl(pnlOPL, s, &row, IDC_M_RELEASE,  _("Release rate"),     0, 15);
+	this->addNumberControl(pnlOPL, s, &row, IDC_M_WAVESEL,  _("Waveform"),         0,  7);
 
-	this->tabs->AddPage(pnlOPL, _T("FM/OPL"));
+	this->tabs->AddPage(pnlOPL, _("FM/OPL"));
 
 	pnlOPL->SetSizer(s);
 	pnlOPL->FitInside();
@@ -117,15 +117,15 @@ InstrumentPanel::InstrumentPanel(IMainWindow *parent)
 	wxScrolledWindow *pnlMIDI = new wxScrolledWindow(this->tabs);
 	s = new wxGridBagSizer(2, 2);
 	row = 0;
-	this->addNumberControl(pnlMIDI, s, &row, IDC_PATCH, _T("Patch"), 1,  128);
+	this->addNumberControl(pnlMIDI, s, &row, IDC_PATCH, _("Patch"), 1,  128);
 
-	this->tabs->AddPage(pnlMIDI, _T("MIDI"));
+	this->tabs->AddPage(pnlMIDI, _("MIDI"));
 	pnlMIDI->SetSizer(s);
 	pnlMIDI->FitInside();
 	pnlMIDI->SetScrollRate(0, 16);
 
 	this->txtInstNum = new wxStaticText(this, wxID_ANY, _T("??: "));
-	this->txtInstName = new wxTextCtrl(this, IDC_INST_NAME, _T("[no selection]"));
+	this->txtInstName = new wxTextCtrl(this, IDC_INST_NAME, _("[no selection]"));
 	wxBoxSizer *titleSizer = new wxBoxSizer(wxHORIZONTAL);
 	titleSizer->Add(this->txtInstNum, 0, wxEXPAND | wxRIGHT, 2);
 	titleSizer->Add(this->txtInstName, 1, wxEXPAND);
@@ -156,7 +156,7 @@ void InstrumentPanel::getPanelInfo(wxString *id, wxString *label) const
 	throw ()
 {
 	*id = _T("music.instrument");
-	*label = _T("Instrument settings");
+	*label = _("Instrument settings");
 	return;
 }
 
@@ -245,7 +245,7 @@ void InstrumentPanel::setInstrument(unsigned int newIndex)
 	newNum.Printf(_T("%02X: "), newIndex);
 	this->txtInstNum->SetLabel(newNum);
 	if (this->inst->name.empty()) {
-		this->txtInstName->ChangeValue(_T("[no name]"));
+		this->txtInstName->ChangeValue(_("[no name]"));
 	} else {
 		this->txtInstName->ChangeValue(wxString(this->inst->name.c_str(), wxConvUTF8));
 	}

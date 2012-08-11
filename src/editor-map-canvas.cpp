@@ -1496,7 +1496,7 @@ void MapCanvas::onMouseDownLeft(wxMouseEvent& ev)
 				if (spt->point == 0) {
 					// Need to move a starting point
 					if (spt->path->fixed) {
-						this->doc->setStatusText(_T("Path starting point is fixed in this map"));
+						this->doc->setStatusText(_("Path starting point is fixed in this map"));
 					} else {
 						assert(spt->start < spt->path->start.size());
 						Map2D::Path::point &pt = spt->path->start[spt->start];
@@ -1640,7 +1640,7 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 					pp.point = 0;
 					this->pathSelection.push_back(pp);
 					if ((*p)->fixed) {
-						this->doc->setStatusText(_T("You have selected the path's starting"
+						this->doc->setStatusText(_("You have selected the path's starting"
 							" point, but it cannot be moved in this map."));
 					}
 				} else {
@@ -1800,7 +1800,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 				assert(path->points.size() > 1);
 				assert(path->start.size() > this->nearestPathPoint.start);
 				if ((path->maxPoints > 0) && (path->points.size() >= path->maxPoints)) {
-					this->doc->setStatusText(_T("Path is at maximum size, cannot insert "
+					this->doc->setStatusText(_("Path is at maximum size, cannot insert "
 						"another point"));
 					break;
 				}
@@ -1849,13 +1849,13 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 					) {
 						if (spt->point == 0) {
 							if (this->map->getCaps() && Map2D::FixedPathCount) {
-								this->doc->setStatusText(_T("Can't delete whole paths in this "
+								this->doc->setStatusText(_("Can't delete whole paths in this "
 									"map - you tried to delete the starting point"));
 							} else {
-								wxMessageDialog dlg(this, _T("You are about to delete the "
+								wxMessageDialog dlg(this, _("You are about to delete the "
 									"starting point for a path.  If you proceed, the entire path "
 									"will be removed.\n\nDelete the entire path?"),
-									_T("Delete path?"), wxYES_NO | wxNO_DEFAULT | wxICON_EXCLAMATION);
+									_("Delete path?"), wxYES_NO | wxNO_DEFAULT | wxICON_EXCLAMATION);
 								int r = dlg.ShowModal();
 								if (r == wxID_NO) return;
 
@@ -1973,7 +1973,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 						spt != this->pathSelection.end(); spt++
 					) {
 						if (spt->path->forceClosed) {
-							this->doc->setStatusText(_T("Can't close a continuous path!"));
+							this->doc->setStatusText(_("Can't close a continuous path!"));
 						} else {
 							if (!spt->path->points.empty()) {
 								int num = spt->path->points.size();
@@ -1995,17 +1995,17 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 	return;
 }
 
-#define HT_DEFAULT   "Ready"
-#define HT_PASTE     "L-click=paste"
-#define HT_APPLY     "L-click=apply"
-#define HT_COPY      "R-drag=copy"
-#define HT_SELECT    "R-drag=select"
-#define HT_SCROLL    "M-drag=scroll"
-#define HT_CLOSEPATH "Space=close path"
-#define HT_INS       "Ins=insert point"
-#define HT_DEL       "Del=delete"
-#define HT_ESC       "Esc=cancel"
-#define __           " | "
+#define HT_DEFAULT   _("Ready")
+#define HT_PASTE     _("L-click=paste")
+#define HT_APPLY     _("L-click=apply")
+#define HT_COPY      _("R-drag=copy")
+#define HT_SELECT    _("R-drag=select")
+#define HT_SCROLL    _("M-drag=scroll")
+#define HT_CLOSEPATH _("Space=close path")
+#define HT_INS       _("Ins=insert point")
+#define HT_DEL       _("Del=delete")
+#define HT_ESC       _("Esc=cancel")
+#define __           _(" | ")
 
 void MapCanvas::updateHelpText()
 	throw ()
@@ -2016,25 +2016,27 @@ void MapCanvas::updateHelpText()
 				Map2D::PathPtr path = this->nearestPathPoint.path;
 				assert(path);
 				if ((path->maxPoints == 0) || (path->points.size() < path->maxPoints)) {
-					return this->doc->setHelpText(_T(HT_INS __ HT_SELECT __ HT_SCROLL));
+					return this->doc->setHelpText(wxString(HT_INS) + __ + HT_SELECT + __ +  HT_SCROLL);
 				}
 			}
-			return this->doc->setHelpText(_T(HT_SELECT __ HT_SCROLL));
+			return this->doc->setHelpText(wxString(HT_SELECT) + __ + HT_SCROLL);
 		} else {
-			return this->doc->setHelpText(_T(HT_APPLY __ HT_CLOSEPATH __ HT_DEL __ HT_SELECT __ HT_ESC));
+			return this->doc->setHelpText(wxString(HT_APPLY) + __ + HT_CLOSEPATH + __ + HT_DEL
+				+ __ + HT_SELECT + __ + HT_ESC);
 		}
 
 	} else if (this->activeLayer == ElViewport) {
-		return this->doc->setHelpText(_T(HT_SCROLL));
+		return this->doc->setHelpText(HT_SCROLL);
 
 	} else if (this->activeLayer >= ElementCount) { // normal map layer
 		if (this->selection.tiles) {
-			return this->doc->setHelpText(_T(HT_PASTE __ HT_DEL __ HT_COPY __ HT_ESC));
+			return this->doc->setHelpText(wxString(HT_PASTE) + __ + HT_DEL + __ + HT_COPY + __
+				+ HT_ESC);
 		} else { // no selection
-			return this->doc->setHelpText(_T(HT_COPY __ HT_SCROLL));
+			return this->doc->setHelpText(wxString(HT_COPY) + __ + HT_SCROLL);
 		}
 	}
 
-	this->doc->setHelpText(_T(HT_DEFAULT));
+	this->doc->setHelpText(HT_DEFAULT);
 	return;
 }

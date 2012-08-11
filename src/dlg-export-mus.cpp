@@ -53,18 +53,18 @@ END_EVENT_TABLE()
 
 DlgExportMusic::DlgExportMusic(IMainWindow *parent, ManagerPtr pManager)
 	throw ()
-	: wxDialog(parent, wxID_ANY, _T("Preferences"), wxDefaultPosition,
+	: wxDialog(parent, wxID_ANY, _("Export song"), wxDefaultPosition,
 		wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER),
 		pManager(pManager)
 {
 	wxBoxSizer *szMain = new wxBoxSizer(wxVERTICAL);
 
 	// Have to create the static box *before* the controls that go inside it
-	wxStaticBoxSizer *szFilename = new wxStaticBoxSizer(wxVERTICAL, this, _T("Export"));
+	wxStaticBoxSizer *szFilename = new wxStaticBoxSizer(wxVERTICAL, this, _("Export"));
 
 	// First text field
-	wxString helpText = _T("The file to create.");
-	wxStaticText *label = new wxStaticText(this, wxID_ANY, _T("Save as:"));
+	wxString helpText = _("The file to create.");
+	wxStaticText *label = new wxStaticText(this, wxID_ANY, _("Save as:"));
 	label->SetHelpText(helpText);
 	szFilename->Add(label, 0, wxEXPAND | wxALIGN_LEFT | wxLEFT, 4);
 
@@ -77,7 +77,7 @@ DlgExportMusic::DlgExportMusic(IMainWindow *parent, ManagerPtr pManager)
 
 	wxBoxSizer *field = new wxBoxSizer(wxHORIZONTAL);
 	field->Add(textbox, 1, wxEXPAND);
-	wxButton *button = new wxButton(this, IDC_BROWSE, _T("Browse..."));
+	wxButton *button = new wxButton(this, IDC_BROWSE, _("Browse..."));
 	button->SetHelpText(helpText);
 	field->Add(button, 0, wxALIGN_CENTRE);
 
@@ -117,10 +117,10 @@ DlgExportMusic::DlgExportMusic(IMainWindow *parent, ManagerPtr pManager)
 
 	szMain->Add(szFilename, 0, wxEXPAND | wxALL, 8);
 
-	wxStaticBoxSizer *szOptions = new wxStaticBoxSizer(wxVERTICAL, this, _T("Options"));
+	wxStaticBoxSizer *szOptions = new wxStaticBoxSizer(wxVERTICAL, this, _("Options"));
 
-	this->chkPitchBends = new wxCheckBox(this, IDC_PITCHBENDS, _T("Use pitch bends?"));
-	this->chkPitchBends->SetHelpText(_T("Use pitch bend events (if available) to "
+	this->chkPitchBends = new wxCheckBox(this, IDC_PITCHBENDS, _("Use pitch bends?"));
+	this->chkPitchBends->SetHelpText(_("Use pitch bend events (if available) to "
 		"precisely control note pitch.  Disable these if the output file has so "
 		"many pitchbend events it is difficult to work with."));
 
@@ -201,8 +201,8 @@ void DlgExportMusic::onCancel(wxCommandEvent& ev)
 void DlgExportMusic::onBrowse(wxCommandEvent& ev)
 {
 	wxFileName fn(this->filename, wxPATH_NATIVE);
-	wxString path = wxFileSelector(_T("Export song"), fn.GetPath(),
-		wxEmptyString, wxEmptyString, _T("All files|*"),
+	wxString path = wxFileSelector(_("Export song"), fn.GetPath(),
+		wxEmptyString, wxEmptyString, _("All files|*"),
 		wxFD_SAVE | wxFD_OVERWRITE_PROMPT, this);
 	if (!path.empty()) {
 		this->txtPath->SetValue(path);

@@ -67,7 +67,7 @@ class TreeItemData: public wxTreeItemData {
 
 NewProjectDialog::NewProjectDialog(wxWindow *parent)
 	throw () :
-	wxDialog(parent, wxID_ANY, _T("New project"), wxDefaultPosition,
+	wxDialog(parent, wxID_ANY, _("New project"), wxDefaultPosition,
 		wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER)
 {
 	wxImageList *imgList = new wxImageList(16, 16, true, 2);
@@ -77,7 +77,7 @@ NewProjectDialog::NewProjectDialog(wxWindow *parent)
 		wxDefaultSize, wxGROW | wxTR_DEFAULT_STYLE);
 	this->treeCtrl->AssignImageList(imgList);
 
-	wxTreeItemId root = this->treeCtrl->AddRoot(_T("Games"), 0);
+	wxTreeItemId root = this->treeCtrl->AddRoot(_("Games"), 0);
 	this->games = ::getAllGames();
 	for (GameInfoMap::iterator i = games.begin(); i != games.end(); i++) {
 		wxFileName fn(::path.gameIcons);
@@ -96,7 +96,7 @@ NewProjectDialog::NewProjectDialog(wxWindow *parent)
 
 	// Have to create the static box *before* the controls that go inside it
 	wxStaticBoxSizer *infoBox = new wxStaticBoxSizer(
-		new wxStaticBox(this, wxID_ANY, _T("Game information")), wxVERTICAL);
+		new wxStaticBox(this, wxID_ANY, _("Game information")), wxVERTICAL);
 	this->screenshot = new wxStaticBitmap(this, wxID_ANY, wxBitmap(),
 		wxDefaultPosition, wxSize(320, 200));
 	infoBox->Add(this->screenshot, 0, wxALIGN_CENTER | wxALL, 10);
@@ -108,13 +108,13 @@ NewProjectDialog::NewProjectDialog(wxWindow *parent)
 	this->txtDeveloper = new wxStaticText(this, IDC_AUTHOR, wxEmptyString);
 	this->txtReverser = new wxTextCtrl(this, IDC_REVERSER, wxEmptyString,
 		wxDefaultPosition, wxDefaultSize, wxTE_READONLY | wxTE_MULTILINE);
-	this->txtReverser->SetHelpText(_T("These are the people who deciphered the "
+	this->txtReverser->SetHelpText(_("These are the people who deciphered the "
 		"file formats this game uses, making modification possible!"));
-	details->Add(new wxStaticText(this, wxID_ANY, _T("Game:")), 0, wxALIGN_RIGHT | wxALL, 2);
+	details->Add(new wxStaticText(this, wxID_ANY, _("Game:")), 0, wxALIGN_RIGHT | wxALL, 2);
 	details->Add(this->txtGame, 1, wxEXPAND | wxALIGN_LEFT | wxALL, 2);
-	details->Add(new wxStaticText(this, wxID_ANY, _T("Developer:")), 0, wxALIGN_RIGHT | wxALL, 2);
+	details->Add(new wxStaticText(this, wxID_ANY, _("Developer:")), 0, wxALIGN_RIGHT | wxALL, 2);
 	details->Add(this->txtDeveloper, 1, wxEXPAND | wxALIGN_LEFT | wxALL, 2);
-	details->Add(new wxStaticText(this, wxID_ANY, _T("Reversed by:")), 0, wxALIGN_RIGHT | wxALL, 2);
+	details->Add(new wxStaticText(this, wxID_ANY, _("Reversed by:")), 0, wxALIGN_RIGHT | wxALL, 2);
 	details->Add(this->txtReverser, 1, wxEXPAND | wxALIGN_LEFT | wxALL, 2);
 	infoBox->Add(details, 1, wxEXPAND);
 
@@ -122,9 +122,9 @@ NewProjectDialog::NewProjectDialog(wxWindow *parent)
 	szOptions->Add(infoBox, 1, wxEXPAND | wxALIGN_CENTER | wxALL, 8);
 
 	// First text field
-	wxString helpText = _T("A folder in which to store a copy of the game, along "
+	wxString helpText = _("A folder in which to store a copy of the game, along "
 		"with your changes to it.  The folder should be empty.");
-	wxStaticText *label = new wxStaticText(this, wxID_ANY, _T("Project location:"));
+	wxStaticText *label = new wxStaticText(this, wxID_ANY, _("Project location:"));
 	label->SetHelpText(helpText);
 	szOptions->Add(label, 0, wxEXPAND | wxALIGN_LEFT | wxLEFT, 4);
 
@@ -137,17 +137,17 @@ NewProjectDialog::NewProjectDialog(wxWindow *parent)
 
 	wxBoxSizer *field = new wxBoxSizer(wxHORIZONTAL);
 	field->Add(textbox, 1, wxEXPAND);
-	wxButton *button = new wxButton(this, IDC_BROWSE_DEST, _T("Browse..."));
+	wxButton *button = new wxButton(this, IDC_BROWSE_DEST, _("Browse..."));
 	button->SetHelpText(helpText);
 	field->Add(button, 0, wxALIGN_CENTRE);
 
 	szOptions->Add(field, 0, wxEXPAND | wxALIGN_CENTER_VERTICAL | wxALL, 4);
 
 	// Second text field
-	helpText = _T("Location of the game and its data files.  The files "
+	helpText = _("Location of the game and its data files.  The files "
 		"in here will not be altered in any way, they will be copied to the "
 		"project folder.");
-	label = new wxStaticText(this, wxID_ANY, _T("Copy game files from:"));
+	label = new wxStaticText(this, wxID_ANY, _("Copy game files from:"));
 	label->SetHelpText(helpText);
 	szOptions->Add(label, 0, wxEXPAND | wxALIGN_LEFT | wxLEFT, 4);
 
@@ -160,7 +160,7 @@ NewProjectDialog::NewProjectDialog(wxWindow *parent)
 
 	field = new wxBoxSizer(wxHORIZONTAL);
 	field->Add(textbox, 1, wxEXPAND);
-	button = new wxButton(this, IDC_BROWSE_SRC, _T("Browse..."));
+	button = new wxButton(this, IDC_BROWSE_SRC, _("Browse..."));
 	button->SetHelpText(helpText);
 	field->Add(button, 0, wxALIGN_CENTRE);
 
@@ -194,7 +194,7 @@ NewProjectDialog::NewProjectDialog(wxWindow *parent)
 	wxFileName defaultProjDir;
 	wxStandardPathsBase& std = wxStandardPaths::Get();
 	defaultProjDir.AssignDir(std.GetDocumentsDir());
-	defaultProjDir.AppendDir(_T("my_project"));
+	defaultProjDir.AppendDir(_("my_project"));
 	this->txtDest->SetValue(defaultProjDir.GetFullPath());
 }
 
@@ -206,17 +206,17 @@ NewProjectDialog::~NewProjectDialog()
 void NewProjectDialog::onOK(wxCommandEvent& ev)
 {
 	if (!this->idGame) {
-		wxMessageDialog dlg(this, _T("You must select the game you would like to "
-			"edit!"), _T("Create project"), wxOK | wxICON_ERROR);
+		wxMessageDialog dlg(this, _("You must select the game you would like to "
+			"edit!"), _("Create project"), wxOK | wxICON_ERROR);
 		dlg.ShowModal();
 		return;
 	}
 
 	wxString gameSource = this->txtSrc->GetValue();
 	if (!::wxDirExists(gameSource)) {
-		wxMessageDialog dlg(this, _T("The game folder does not exist!  It "
+		wxMessageDialog dlg(this, _("The game folder does not exist!  It "
 			"must contain the game files so a copy can be made."),
-			_T("Create project"), wxOK | wxICON_ERROR);
+			_("Create project"), wxOK | wxICON_ERROR);
 		dlg.ShowModal();
 		return;
 	}
@@ -226,8 +226,8 @@ void NewProjectDialog::onOK(wxCommandEvent& ev)
 		// Create the main project folder.
 		if (!wxMkdir(projFolder, 0755)) {
 #ifdef NO_WXLOG_POPUPS
-			wxMessageDialog dlg(this, _T("Could not create project directory!"),
-				_T("Create project"), wxOK | wxICON_ERROR);
+			wxMessageDialog dlg(this, _("Could not create project directory!"),
+				_("Create project"), wxOK | wxICON_ERROR);
 			dlg.ShowModal();
 #endif
 			return;
@@ -235,8 +235,8 @@ void NewProjectDialog::onOK(wxCommandEvent& ev)
 	} else {
 		wxDir dir(projFolder);
 		if (dir.HasFiles() || dir.HasSubDirs()) {
-			wxMessageDialog dlg(this, _T("The project folder already has files in it!  "
-					"Please choose an empty folder."), _T("Create project"), wxOK | wxICON_ERROR);
+			wxMessageDialog dlg(this, _("The project folder already has files in it!  "
+					"Please choose an empty folder."), _("Create project"), wxOK | wxICON_ERROR);
 			dlg.ShowModal();
 			return;
 		}
@@ -260,7 +260,7 @@ void NewProjectDialog::onOK(wxCommandEvent& ev)
 
 void NewProjectDialog::onBrowseDest(wxCommandEvent& ev)
 {
-	wxString path = wxDirSelector(_T("Project folder selection"),
+	wxString path = wxDirSelector(_("Project folder selection"),
 		wxEmptyString, 0, wxDefaultPosition, this);
 	if (!path.empty()) this->txtDest->SetValue(path);
 	return;
@@ -268,7 +268,7 @@ void NewProjectDialog::onBrowseDest(wxCommandEvent& ev)
 
 void NewProjectDialog::onBrowseSrc(wxCommandEvent& ev)
 {
-	wxString path = wxDirSelector(_T("Game location"),
+	wxString path = wxDirSelector(_("Game location"),
 		wxEmptyString, 0, wxDefaultPosition, this);
 	if (!path.empty()) this->txtSrc->SetValue(path);
 	return;

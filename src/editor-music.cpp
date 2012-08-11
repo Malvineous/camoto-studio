@@ -81,7 +81,7 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 	throw (EFailure)
 {
 	if (typeMinor.IsEmpty()) {
-		throw EFailure(_T("No file type was specified for this item!"));
+		throw EFailure(_("No file type was specified for this item!"));
 	}
 
 	std::string strType;
@@ -89,7 +89,7 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 	MusicTypePtr pMusicType(this->pManager->getMusicTypeByCode(strType));
 	if (!pMusicType) {
 		wxString wxtype(strType.c_str(), wxConvUTF8);
-		throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
+		throw EFailure(wxString::Format(_("Sorry, it is not possible to edit this "
 			"song as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
 			typeMinor.c_str(), wxtype.c_str()));
 	}
@@ -99,10 +99,10 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 	if (pMusicType->isInstance(data) < MusicType::PossiblyYes) {
 		std::string friendlyType = pMusicType->getFriendlyName();
 		wxString wxtype(friendlyType.c_str(), wxConvUTF8);
-		wxString msg = wxString::Format(_T("This file is supposed to be in \"%s\" "
+		wxString msg = wxString::Format(_("This file is supposed to be in \"%s\" "
 			"format, but it seems this may not be the case.  Would you like to try "
 			"opening it anyway?"), wxtype.c_str());
-		wxMessageDialog dlg(this->frame, msg, _T("Open item"), wxYES_NO | wxICON_ERROR);
+		wxMessageDialog dlg(this->frame, msg, _("Open item"), wxYES_NO | wxICON_ERROR);
 		int r = dlg.ShowModal();
 		if (r != wxID_YES) return NULL;
 	}
@@ -115,7 +115,7 @@ IDocument *MusicEditor::openObject(const wxString& typeMinor,
 	try {
 		return new MusicDocument(this, pMusicType, data, suppData);
 	} catch (const camoto::stream::error& e) {
-		throw EFailure(wxString::Format(_T("Library exception: %s"),
+		throw EFailure(wxString::Format(_("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));
 	}
 }

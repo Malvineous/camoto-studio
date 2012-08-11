@@ -61,11 +61,11 @@ class LayerPanel: public IToolPanel
 			info.m_mask = wxLIST_MASK_TEXT | wxLIST_MASK_IMAGE | wxLIST_MASK_FORMAT;
 			info.m_image = 0;
 			info.m_format = 0;
-			info.m_text = _T("Layer");
+			info.m_text = _("Layer");
 			this->list->InsertColumn(0, info);
 
 			info.m_format = wxLIST_FORMAT_CENTRE;
-			info.m_text = _T("Size");
+			info.m_text = _("Size");
 			this->list->InsertColumn(1, info);
 
 			wxSizer *s = new wxBoxSizer(wxVERTICAL);
@@ -82,7 +82,7 @@ class LayerPanel: public IToolPanel
 			throw ()
 		{
 			*id = _T("map.layer");
-			*label = _T("Layers");
+			*label = _("Layers");
 			return;
 		}
 
@@ -117,7 +117,7 @@ class LayerPanel: public IToolPanel
 				this->doc->canvas->visibleElements[MapCanvas::ElPaths] =
 					this->visibleElements[MapCanvas::ElPaths];
 
-				long id = this->list->InsertItem(layerCount, _T("Paths"),
+				long id = this->list->InsertItem(layerCount, _("Paths"),
 					this->doc->canvas->visibleElements[MapCanvas::ElPaths] ? 0 : 1);
 				this->list->SetItem(id, 1, _T("-"));
 				this->list->SetItemData(id, MapCanvas::ElPaths);
@@ -129,7 +129,7 @@ class LayerPanel: public IToolPanel
 				this->doc->canvas->visibleElements[MapCanvas::ElViewport] =
 					this->visibleElements[MapCanvas::ElViewport];
 
-				long id = this->list->InsertItem(layerCount, _T("Viewport"),
+				long id = this->list->InsertItem(layerCount, _("Viewport"),
 					this->doc->canvas->visibleElements[MapCanvas::ElViewport] ? 0 : 1);
 				unsigned int vpWidth, vpHeight;
 				this->doc->map->getViewport(&vpWidth, &vpHeight);
@@ -266,7 +266,7 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 	throw (EFailure)
 {
 	if (typeMinor.IsEmpty()) {
-		throw EFailure(_T("No file type was specified for this item!"));
+		throw EFailure(_("No file type was specified for this item!"));
 	}
 
 	std::string strType("map-");
@@ -274,7 +274,7 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 	MapTypePtr pMapType(this->pManager->getMapTypeByCode(strType));
 	if (!pMapType) {
 		wxString wxtype(strType.c_str(), wxConvUTF8);
-		throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
+		throw EFailure(wxString::Format(_("Sorry, it is not possible to edit this "
 			"map as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
 			typeMinor.c_str(), wxtype.c_str()));
 	}
@@ -284,10 +284,10 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 	if (pMapType->isInstance(data) < MapType::PossiblyYes) {
 		std::string friendlyType = pMapType->getFriendlyName();
 		wxString wxtype(friendlyType.c_str(), wxConvUTF8);
-		wxString msg = wxString::Format(_T("This file is supposed to be in \"%s\" "
+		wxString msg = wxString::Format(_("This file is supposed to be in \"%s\" "
 			"format, but it seems this may not be the case.  Would you like to try "
 			"opening it anyway?"), wxtype.c_str());
-		wxMessageDialog dlg(this->frame, msg, _T("Open item"), wxYES_NO | wxICON_ERROR);
+		wxMessageDialog dlg(this->frame, msg, _("Open item"), wxYES_NO | wxICON_ERROR);
 		int r = dlg.ShowModal();
 		if (r != wxID_YES) return NULL;
 	}
@@ -303,13 +303,13 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 		tryLoadTileset(this->frame, suppData, supp, _T("tiles3"), &tilesetVector);
 		tryLoadTileset(this->frame, suppData, supp, _T("sprites"), &tilesetVector);
 	} catch (const EFailure& e) {
-		wxString msg = _T("Error opening the map tileset:\n\n");
+		wxString msg = _("Error opening the map tileset:\n\n");
 		msg += e.getMessage();
 		throw EFailure(msg);
 	}
 
 	if (tilesetVector.empty()) {
-		throw EFailure(_T("Map files require a tileset to be "
+		throw EFailure(_("Map files require a tileset to be "
 			"specified in the game description .xml file, however none has been "
 			"given for this file."));
 	}
@@ -319,11 +319,11 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 		return new MapDocument(this->frame, &this->settings, pMapType, suppData,
 			data, tilesetVector, &game->mapObjects);
 	} catch (const camoto::stream::error& e) {
-		throw EFailure(wxString::Format(_T("Library exception: %s"),
+		throw EFailure(wxString::Format(_("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));
 	}
 
-	throw EFailure(_T("Sorry, this map is in a variant for which no editor has "
+	throw EFailure(_("Sorry, this map is in a variant for which no editor has "
 		"been written yet!"));
 }
 
@@ -342,7 +342,7 @@ void tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& supp,
 	TilesetTypePtr ttp = gfxMgr->getTilesetTypeByCode(strGfxType);
 	if (!ttp) {
 		wxString wxtype(strGfxType.c_str(), wxConvUTF8);
-		throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
+		throw EFailure(wxString::Format(_("Sorry, it is not possible to edit this "
 			"map as the \"%s\" tileset format is unsupported.  (No handler for \"%s\")"),
 			s->second.typeMinor.c_str(), wxtype.c_str()));
 	}
@@ -351,12 +351,12 @@ void tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& supp,
 		TilesetPtr tileset = ttp->open(s->second.stream, suppData);
 		if (!tileset) {
 			wxString wxtype(strGfxType.c_str(), wxConvUTF8);
-			throw EFailure(wxString::Format(_T("Tileset was rejected by \"%s\" handler"
+			throw EFailure(wxString::Format(_("Tileset was rejected by \"%s\" handler"
 				" (wrong format?)"), wxtype.c_str()));
 		}
 		tilesetVector->push_back(tileset);
 	} catch (const camoto::stream::error& e) {
-		throw EFailure(wxString::Format(_T("Library exception: %s"),
+		throw EFailure(wxString::Format(_("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));
 	}
 	return;

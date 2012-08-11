@@ -55,7 +55,7 @@ END_EVENT_TABLE()
 
 PrefsDialog::PrefsDialog(IMainWindow *parent, AudioPtr audio)
 	throw ()
-	: wxDialog(parent, wxID_ANY, _T("Preferences"), wxDefaultPosition,
+	: wxDialog(parent, wxID_ANY, _("Preferences"), wxDefaultPosition,
 		wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER),
 	  audio(audio),
 	  player(NULL)
@@ -69,11 +69,11 @@ PrefsDialog::PrefsDialog(IMainWindow *parent, AudioPtr audio)
 	tabAudio->SetSizer(szAudio);
 
 	// Have to create the static box *before* the controls that go inside it
-	wxStaticBoxSizer *szDOSBox = new wxStaticBoxSizer(wxVERTICAL, tabTesting, _T("DOSBox"));
+	wxStaticBoxSizer *szDOSBox = new wxStaticBoxSizer(wxVERTICAL, tabTesting, _("DOSBox"));
 
 	// First text field
-	wxString helpText = _T("The location of the DOSBox .exe file.");
-	wxStaticText *label = new wxStaticText(tabTesting, wxID_ANY, _T("DOSBox executable:"));
+	wxString helpText = _("The location of the DOSBox .exe file.");
+	wxStaticText *label = new wxStaticText(tabTesting, wxID_ANY, _("DOSBox executable:"));
 	label->SetHelpText(helpText);
 	szDOSBox->Add(label, 0, wxEXPAND | wxALIGN_LEFT | wxLEFT, 4);
 
@@ -86,15 +86,15 @@ PrefsDialog::PrefsDialog(IMainWindow *parent, AudioPtr audio)
 
 	wxBoxSizer *field = new wxBoxSizer(wxHORIZONTAL);
 	field->Add(textbox, 1, wxEXPAND);
-	wxButton *button = new wxButton(tabTesting, IDC_BROWSE_DOSBOX, _T("Browse..."));
+	wxButton *button = new wxButton(tabTesting, IDC_BROWSE_DOSBOX, _("Browse..."));
 	button->SetHelpText(helpText);
 	field->Add(button, 0, wxALIGN_CENTRE);
 
 	szDOSBox->Add(field, 0, wxEXPAND | wxALIGN_CENTER_VERTICAL | wxALL, 4);
 
-	this->chkDOSBoxPause = new wxCheckBox(tabTesting, IDC_PAUSE, _T("Pause after "
+	this->chkDOSBoxPause = new wxCheckBox(tabTesting, IDC_PAUSE, _("Pause after "
 		"exiting game, before closing DOSBox?"));
-	this->chkDOSBoxPause->SetHelpText(_T("This option will cause DOSBox to wait "
+	this->chkDOSBoxPause->SetHelpText(_("This option will cause DOSBox to wait "
 		"for you to press a key after the game has exited, so you can see the "
 		"exit screen."));
 
@@ -102,8 +102,8 @@ PrefsDialog::PrefsDialog(IMainWindow *parent, AudioPtr audio)
 
 	szTesting->Add(szDOSBox, 0, wxEXPAND | wxALL, 8);
 
-	wxStaticBoxSizer *szMIDI = new wxStaticBoxSizer(wxVERTICAL, tabAudio, _T("MIDI Output"));
-	label = new wxStaticText(tabAudio, wxID_ANY, _T("Select a device to use "
+	wxStaticBoxSizer *szMIDI = new wxStaticBoxSizer(wxVERTICAL, tabAudio, _("MIDI Output"));
+	label = new wxStaticText(tabAudio, wxID_ANY, _("Select a device to use "
 		"for MIDI output.  If you click the Test button below and you cannot hear "
 		"a piano, try a different device."));
 	label->Wrap(480);
@@ -118,13 +118,13 @@ PrefsDialog::PrefsDialog(IMainWindow *parent, AudioPtr audio)
 	info.m_mask = wxLIST_MASK_TEXT | wxLIST_MASK_IMAGE | wxLIST_MASK_FORMAT;
 	info.m_image = 0;
 	info.m_format = 0;
-	info.m_text = _T("MIDI Port");
+	info.m_text = _("MIDI Port");
 	this->portList->InsertColumn(0, info);
 
-	wxStaticBoxSizer *szSync = new wxStaticBoxSizer(wxVERTICAL, tabAudio, _T("Synchronisation"));
+	wxStaticBoxSizer *szSync = new wxStaticBoxSizer(wxVERTICAL, tabAudio, _("Synchronisation"));
 	szAudio->Add(szSync, 0, wxEXPAND | wxALL, 8);
 
-	label = new wxStaticText(tabAudio, wxID_ANY, _T("Set the delay in "
+	label = new wxStaticText(tabAudio, wxID_ANY, _("Set the delay in "
 		"milliseconds applied to compensate for differing latency between the "
 		"digital audio stream and the MIDI device.  The Test button will play two "
 		"notes at the same time (one digitised and one MIDI.)  If you hear the "
@@ -138,7 +138,7 @@ PrefsDialog::PrefsDialog(IMainWindow *parent, AudioPtr audio)
 	this->spinDelay->SetRange(-1000, 1000);
 	field->Add(this->spinDelay, 0, wxEXPAND);
 
-	wxToggleButton *tbutton = new wxToggleButton(tabAudio, IDC_TEST_AUDIO, _T("Test"));
+	wxToggleButton *tbutton = new wxToggleButton(tabAudio, IDC_TEST_AUDIO, _("Test"));
 #if wxMINOR_VERSION > 8
 	tbutton->SetBitmap(parent->smallImages->GetBitmap(ImageListIndex::Play));
 #endif
@@ -160,8 +160,8 @@ PrefsDialog::PrefsDialog(IMainWindow *parent, AudioPtr audio)
 	szButtons->AddButton(b);
 	szButtons->Realize();
 
-	tabs->AddPage(tabTesting, _T("Testing"));
-	tabs->AddPage(tabAudio, _T("Audio"));
+	tabs->AddPage(tabTesting, _("Testing"));
+	tabs->AddPage(tabAudio, _("Audio"));
 
 	wxBoxSizer *szMain = new wxBoxSizer(wxVERTICAL);
 	szMain->Add(tabs, 1, wxEXPAND | wxALIGN_CENTER | wxALL, 8);
@@ -173,9 +173,9 @@ PrefsDialog::PrefsDialog(IMainWindow *parent, AudioPtr audio)
 		this->midi.reset(new RtMidiOut());
 	} catch (RtError& e) {
 		std::cerr << "Unable to initialise RtMidi: " << e.getMessage() << std::endl;
-		wxString msg(_T("Unable to initialise MIDI support: "));
+		wxString msg(_("Unable to initialise MIDI support: "));
 		msg += wxString::FromUTF8(e.getMessage().c_str());
-		wxMessageDialog dlg(this, msg, _T("RtMidi error"), wxOK | wxICON_ERROR);
+		wxMessageDialog dlg(this, msg, _("RtMidi error"), wxOK | wxICON_ERROR);
 		dlg.ShowModal();
 	}
 }
@@ -187,7 +187,7 @@ void PrefsDialog::setControls()
 	this->chkDOSBoxPause->SetValue(*this->pauseAfterExecute);
 
 	this->portList->DeleteAllItems();
-	this->portList->InsertItem(0, _T("Virtual MIDI port"),
+	this->portList->InsertItem(0, _("Virtual MIDI port"),
 		ImageListIndex::InstMIDI);
 	unsigned int portCount = this->midi->getPortCount();
 	for (unsigned int i = 0; i < portCount; i++) {
@@ -252,12 +252,12 @@ void PrefsDialog::onCancel(wxCommandEvent& ev)
 
 void PrefsDialog::onBrowseDOSBox(wxCommandEvent& ev)
 {
-	wxString path = wxFileSelector(_T("DOSBox executable location"),
+	wxString path = wxFileSelector(_("DOSBox executable location"),
 		wxEmptyString,
 #ifdef __WXMSW__
-		_T("dosbox.exe"), _T(".exe"), _T("Executable files (*.exe)|*.exe|All files (*.*)|*.*"),
+		_T("dosbox.exe"), _T(".exe"), _("Executable files (*.exe)|*.exe|All files (*.*)|*.*"),
 #else
-		_T("dosbox"), wxEmptyString, _T("All files|*"),
+		_T("dosbox"), wxEmptyString, _("All files|*"),
 #endif
 		wxFD_OPEN | wxFD_FILE_MUST_EXIST, this);
 	if (!path.empty()) this->txtDOSBoxPath->SetValue(path);
@@ -293,9 +293,9 @@ void PrefsDialog::onTestAudio(wxCommandEvent& ev)
 		} catch (const RtError& e) {
 			std::cerr << "Unable to open the selected MIDI device: "
 				<< e.getMessage() << std::endl;
-			wxString msg(_T("Unable to open the selected MIDI device: "));
+			wxString msg(_("Unable to open the selected MIDI device: "));
 			msg += wxString::FromUTF8(e.getMessage().c_str());
-			wxMessageDialog dlg(this, msg, _T("MIDI error"), wxOK | wxICON_ERROR);
+			wxMessageDialog dlg(this, msg, _("MIDI error"), wxOK | wxICON_ERROR);
 			dlg.ShowModal();
 
 			// Undo the button toggle

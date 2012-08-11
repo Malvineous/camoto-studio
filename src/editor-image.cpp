@@ -83,9 +83,9 @@ class ImageCanvas: public wxPanel
 				data = image->toStandard();
 			} catch (const stream::error& e) {
 				wxMessageDialog dlg(this,
-					wxString::Format(_T("Error reading image from native format:\n\n%s"),
+					wxString::Format(_("Error reading image from native format:\n\n%s"),
 						wxString(e.what(), wxConvUTF8).c_str()),
-					_T("Conversion error"), wxOK | wxICON_ERROR);
+					_("Conversion error"), wxOK | wxICON_ERROR);
 				dlg.ShowModal();
 			}
 			this->image->getDimensions(&this->width, &this->height);
@@ -192,30 +192,30 @@ class ImageDocument: public IDocument
 
 			tb->AddTool(wxID_ZOOM_OUT, wxEmptyString,
 				wxImage(::path.guiIcons + _T("zoom_1-1.png"), wxBITMAP_TYPE_PNG),
-				wxNullBitmap, wxITEM_RADIO, _T("Zoom 1:1 (small)"),
-				_T("Set the zoom level so that one screen pixel is used for each tile pixel"));
+				wxNullBitmap, wxITEM_RADIO, _("Zoom 1:1 (small)"),
+				_("Set the zoom level so that one screen pixel is used for each tile pixel"));
 
 			tb->AddTool(wxID_ZOOM_100, wxEmptyString,
 				wxImage(::path.guiIcons + _T("zoom_2-1.png"), wxBITMAP_TYPE_PNG),
-				wxNullBitmap, wxITEM_RADIO, _T("Zoom 2:1 (normal)"),
-				_T("Set the zoom level so that two screen pixels are used for each tile pixel"));
+				wxNullBitmap, wxITEM_RADIO, _("Zoom 2:1 (normal)"),
+				_("Set the zoom level so that two screen pixels are used for each tile pixel"));
 
 			tb->AddTool(wxID_ZOOM_IN, wxEmptyString,
 				wxImage(::path.guiIcons + _T("zoom_3-1.png"), wxBITMAP_TYPE_PNG),
-				wxNullBitmap, wxITEM_RADIO, _T("Zoom 3:1 (big)"),
-				_T("Set the zoom level so that three screen pixels are used for each tile pixel"));
+				wxNullBitmap, wxITEM_RADIO, _("Zoom 3:1 (big)"),
+				_("Set the zoom level so that three screen pixels are used for each tile pixel"));
 
 			tb->AddSeparator();
 
 			tb->AddTool(IDC_IMPORT, wxEmptyString,
 				wxImage(::path.guiIcons + _T("import.png"), wxBITMAP_TYPE_PNG),
-				wxNullBitmap, wxITEM_NORMAL, _T("Import"),
-				_T("Replace this image with one loaded from a file"));
+				wxNullBitmap, wxITEM_NORMAL, _("Import"),
+				_("Replace this image with one loaded from a file"));
 
 			tb->AddTool(IDC_EXPORT, wxEmptyString,
 				wxImage(::path.guiIcons + _T("export.png"), wxBITMAP_TYPE_PNG),
-				wxNullBitmap, wxITEM_NORMAL, _T("Export"),
-				_T("Save this image to a file"));
+				wxNullBitmap, wxITEM_NORMAL, _("Export"),
+				_("Save this image to a file"));
 
 			// Update the UI
 			switch (this->settings->zoomFactor) {
@@ -261,12 +261,12 @@ class ImageDocument: public IDocument
 
 		void onImport(wxCommandEvent& ev)
 		{
-			wxString path = wxFileSelector(_T("Open image"),
+			wxString path = wxFileSelector(_("Open image"),
 				::path.lastUsed, wxEmptyString, _T(".png"),
 #ifdef __WXMSW__
-				_T("Supported image files (*.png)|*.png|All files (*.*)|*.*"),
+				_("Supported image files (*.png)|*.png|All files (*.*)|*.*"),
 #else
-				_T("Supported image files (*.png)|*.png|All files (*)|*"),
+				_("Supported image files (*.png)|*.png|All files (*)|*"),
 #endif
 				wxFD_OPEN | wxFD_FILE_MUST_EXIST, this);
 			if (!path.empty()) {
@@ -284,18 +284,18 @@ class ImageDocument: public IDocument
 					} catch (const png::error& e) {
 						wxString depth;
 						switch (this->image->getCaps() & Image::ColourDepthMask) {
-							case Image::ColourDepthVGA: depth = _T("256-colour"); break;
-							case Image::ColourDepthEGA: depth = _T("16-colour"); break;
-							case Image::ColourDepthCGA: depth = _T("4-colour"); break;
-							case Image::ColourDepthMono: depth = _T("monochrome"); break;
-							default: depth = _T("<unknown depth>"); break;
+							case Image::ColourDepthVGA: depth = _("256-colour"); break;
+							case Image::ColourDepthEGA: depth = _("16-colour"); break;
+							case Image::ColourDepthCGA: depth = _("4-colour"); break;
+							case Image::ColourDepthMono: depth = _("monochrome"); break;
+							default: depth = _("<unknown depth>"); break;
 						}
 						wxMessageDialog dlg(this,
-							wxString::Format(_T("Unsupported file.  Only indexed .png images "
+							wxString::Format(_("Unsupported file.  Only indexed .png images "
 								"are supported, and the colour depth must match the image "
 								"being replaced (%s).\n\n[%s]"), depth.c_str(),
 								wxString(e.what(), wxConvUTF8).c_str()),
-							_T("Import image"), wxOK | wxICON_ERROR);
+							_("Import image"), wxOK | wxICON_ERROR);
 						dlg.ShowModal();
 						return;
 					}
@@ -304,12 +304,12 @@ class ImageDocument: public IDocument
 						// The image is a different size, see if we can resize it.
 						if (this->image->getCaps() & Image::CanSetDimensions) {
 							wxMessageDialog dlg(this,
-								_T("The image to be imported is a different size to the image "
+								_("The image to be imported is a different size to the image "
 									"being replaced.  The target image will be resized to match "
 									"the image being imported.  This can have unpredictable "
 									"consequences if the game cannot cope with the new image "
 									"size.\n\nDo you want to continue?"),
-								_T("Import image"), wxYES_NO | wxNO_DEFAULT | wxICON_WARNING);
+								_("Import image"), wxYES_NO | wxNO_DEFAULT | wxICON_WARNING);
 							int r = dlg.ShowModal();
 							if (r == wxID_YES) {
 								width = png.get_width();
@@ -320,10 +320,10 @@ class ImageDocument: public IDocument
 							}
 						} else {
 							wxMessageDialog dlg(this,
-								_T("Bad image format.  The image to import must be the same "
+								_("Bad image format.  The image to import must be the same "
 									"dimensions as the image being replaced (this particular "
 									"image has a fixed size.)"),
-								_T("Import image"), wxOK | wxICON_ERROR);
+								_("Import image"), wxOK | wxICON_ERROR);
 							dlg.ShowModal();
 							return;
 						}
@@ -339,18 +339,18 @@ class ImageDocument: public IDocument
 					) {
 						wxString depth;
 						switch (this->image->getCaps() & Image::ColourDepthMask) {
-							case Image::ColourDepthVGA: depth = _T("256-colour"); break;
-							case Image::ColourDepthEGA: depth = _T("16-colour"); break;
-							case Image::ColourDepthCGA: depth = _T("4-colour"); break;
-							case Image::ColourDepthMono: depth = _T("monochrome"); break;
-							default: depth = _T("<unknown depth>"); break;
+							case Image::ColourDepthVGA: depth = _("256-colour"); break;
+							case Image::ColourDepthEGA: depth = _("16-colour"); break;
+							case Image::ColourDepthCGA: depth = _("4-colour"); break;
+							case Image::ColourDepthMono: depth = _("monochrome"); break;
+							default: depth = _("<unknown depth>"); break;
 						}
 						wxMessageDialog dlg(this,
-							wxString::Format(_T("There are too many colours in the image "
+							wxString::Format(_("There are too many colours in the image "
 								"being imported.  Only indexed .png images are supported, and "
 								"the colour depth must match the image being replaced (in "
 								"this case the image must be %s)."), depth.c_str()),
-							_T("Import image"), wxOK | wxICON_ERROR);
+							_("Import image"), wxOK | wxICON_ERROR);
 						dlg.ShowModal();
 						return;
 					}
@@ -361,10 +361,10 @@ class ImageDocument: public IDocument
 					if (transparency.size() > 0) {
 						if (transparency[0] != 0) {
 							wxMessageDialog dlg(this,
-								_T("Bad image format.  The image to import must have palette "
+								_("Bad image format.  The image to import must have palette "
 									"entry #0 and only this entry set to transparent, or no "
 									"transparency at all."),
-								_T("Import image"), wxOK | wxICON_ERROR);
+								_("Import image"), wxOK | wxICON_ERROR);
 							dlg.ShowModal();
 							return;
 						}
@@ -409,16 +409,16 @@ class ImageDocument: public IDocument
 					this->canvas->imageChanged();
 				} catch (const png::error& e) {
 					wxMessageDialog dlg(this,
-						wxString::Format(_T("Unexpected PNG error importing image!\n\n[%s]"),
+						wxString::Format(_("Unexpected PNG error importing image!\n\n[%s]"),
 							wxString(e.what(), wxConvUTF8).c_str()),
-						_T("Import image"), wxOK | wxICON_ERROR);
+						_("Import image"), wxOK | wxICON_ERROR);
 					dlg.ShowModal();
 					return;
 				} catch (const std::exception& e) {
 					wxMessageDialog dlg(this,
-						wxString::Format(_T("Unexpected error importing image!\n\n[%s]"),
+						wxString::Format(_("Unexpected error importing image!\n\n[%s]"),
 							wxString(e.what(), wxConvUTF8).c_str()),
-						_T("Import image"), wxOK | wxICON_ERROR);
+						_("Import image"), wxOK | wxICON_ERROR);
 					dlg.ShowModal();
 					return;
 				}
@@ -428,12 +428,12 @@ class ImageDocument: public IDocument
 
 		void onExport(wxCommandEvent& ev)
 		{
-			wxString path = wxFileSelector(_T("Save image"),
+			wxString path = wxFileSelector(_("Save image"),
 				::path.lastUsed, wxEmptyString, _T(".png"),
 #ifdef __WXMSW__
-				_T("Supported image files (*.png)|*.png|All files (*.*)|*.*"),
+				_("Supported image files (*.png)|*.png|All files (*.*)|*.*"),
 #else
-				_T("Supported image files (*.png)|*.png|All files (*)|*"),
+				_("Supported image files (*.png)|*.png|All files (*)|*"),
 #endif
 				wxFD_SAVE | wxFD_OVERWRITE_PROMPT, this);
 			if (!path.empty()) {
@@ -578,7 +578,7 @@ IDocument *ImageEditor::openObject(const wxString& typeMinor,
 	throw (EFailure)
 {
 	if (typeMinor.IsEmpty()) {
-		throw EFailure(_T("No file type was specified for this item!"));
+		throw EFailure(_("No file type was specified for this item!"));
 	}
 
 	std::string strType("img-");
@@ -586,7 +586,7 @@ IDocument *ImageEditor::openObject(const wxString& typeMinor,
 	ImageTypePtr pImageType(this->pManager->getImageTypeByCode(strType));
 	if (!pImageType) {
 		wxString wxtype(strType.c_str(), wxConvUTF8);
-		throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
+		throw EFailure(wxString::Format(_("Sorry, it is not possible to edit this "
 			"image as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
 			typeMinor.c_str(), wxtype.c_str()));
 	}
@@ -598,10 +598,10 @@ IDocument *ImageEditor::openObject(const wxString& typeMinor,
 	if (pImageType->isInstance(data) < ImageType::PossiblyYes) {
 		std::string friendlyType = pImageType->getFriendlyName();
 		wxString wxtype(friendlyType.c_str(), wxConvUTF8);
-		wxString msg = wxString::Format(_T("This file is supposed to be in \"%s\" "
+		wxString msg = wxString::Format(_("This file is supposed to be in \"%s\" "
 			"format, but it seems this may not be the case.  Would you like to try "
 			"opening it anyway?"), wxtype.c_str());
-		wxMessageDialog dlg(this->frame, msg, _T("Open item"), wxYES_NO | wxICON_ERROR);
+		wxMessageDialog dlg(this->frame, msg, _("Open item"), wxYES_NO | wxICON_ERROR);
 		int r = dlg.ShowModal();
 		if (r != wxID_YES) return NULL;
 	}
@@ -617,7 +617,7 @@ IDocument *ImageEditor::openObject(const wxString& typeMinor,
 
 		return new ImageDocument(this->frame, &this->settings, pImage);
 	} catch (const camoto::stream::error& e) {
-		throw EFailure(wxString::Format(_T("Library exception: %s"),
+		throw EFailure(wxString::Format(_("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));
 	}
 }

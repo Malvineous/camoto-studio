@@ -133,36 +133,36 @@ class CamotoFrame: public IMainWindow
 
 			wxMenu *menuFile = new wxMenu();
 			if (isStudio) {
-				menuFile->Append(wxID_NEW,    _T("&New project..."), _T("Choose a new game to work with"));
-				menuFile->Append(wxID_OPEN,   _T("&Open project..."), _T("Resume work on a previous mod"));
-				menuFile->Append(wxID_SAVE,   _T("&Save project"), _T("Save options and all open documents"));
-				menuFile->Append(wxID_CLOSE,  _T("&Close project"), _("Close all open documents"));
+				menuFile->Append(wxID_NEW,    _("&New project..."), _("Choose a new game to work with"));
+				menuFile->Append(wxID_OPEN,   _("&Open project..."), _("Resume work on a previous mod"));
+				menuFile->Append(wxID_SAVE,   _("&Save project"), _("Save options and all open documents"));
+				menuFile->Append(wxID_CLOSE,  _("&Close project"), _("Close all open documents"));
 			} else {
-				menuFile->Append(wxID_OPEN,   _T("&Open..."), _T("Open a new file"));
-				menuFile->Append(wxID_SAVE,   _T("&Save"), _T("Save changes"));
-				menuFile->Append(wxID_SAVEAS, _T("Save &As..."), _T("Save changes to a separate file"));
+				menuFile->Append(wxID_OPEN,   _("&Open..."), _("Open a new file"));
+				menuFile->Append(wxID_SAVE,   _("&Save"), _("Save changes"));
+				menuFile->Append(wxID_SAVEAS, _("Save &As..."), _("Save changes to a separate file"));
 			}
 			menuFile->AppendSeparator();
-			menuFile->Append(wxID_EXIT, _T("E&xit"));
+			menuFile->Append(wxID_EXIT, _("E&xit"));
 
 			wxMenu *menuView = new wxMenu();
-			menuView->Append(IDC_RESET, _T("&Reset layout"), _T("Reset all windows to default sizes"));
-			menuView->Append(wxID_SETUP, _T("&Options..."), _T("Change settings"));
+			menuView->Append(IDC_RESET, _("&Reset layout"), _("Reset all windows to default sizes"));
+			menuView->Append(wxID_SETUP, _("&Options..."), _("Change settings"));
 
 			this->menuTest = new wxMenu();
 
 			wxMenu *menuHelp = new wxMenu();
-			menuHelp->Append(wxID_ABOUT, _T("&About..."));
+			menuHelp->Append(wxID_ABOUT, _("&About..."));
 
 			this->menubar = new wxMenuBar();
-			menubar->Append(menuFile, _T("&File"));
-			menubar->Append(menuView, _T("&View"));
-			menubar->Append(menuTest, _T("&Test"));
-			menubar->Append(menuHelp, _T("&Help"));
+			menubar->Append(menuFile, _("&File"));
+			menubar->Append(menuView, _("&View"));
+			menubar->Append(menuTest, _("&Test"));
+			menubar->Append(menuHelp, _("&Help"));
 			this->SetMenuBar(menubar);
 
 			this->status = this->CreateStatusBar(1, wxST_SIZEGRIP);
-			this->status->SetStatusText(_T("Ready"));
+			this->status->SetStatusText(_("Ready"));
 
 			this->SetMinSize(wxSize(400, 300));
 
@@ -174,7 +174,7 @@ class CamotoFrame: public IMainWindow
 				this->treeCtrl = new wxTreeCtrl(this, IDC_TREE, wxDefaultPosition,
 					wxDefaultSize, wxTR_DEFAULT_STYLE | wxNO_BORDER);
 				this->treeCtrl->SetImageList(this->smallImages);
-				this->aui.AddPane(this->treeCtrl, wxAuiPaneInfo().Name(_T("tree")).Caption(_T("Items")).
+				this->aui.AddPane(this->treeCtrl, wxAuiPaneInfo().Name(_T("tree")).Caption(_("Items")).
 					Left().Layer(1).Position(1).CloseButton(true).MaximizeButton(true));
 			}
 
@@ -207,10 +207,10 @@ class CamotoFrame: public IMainWindow
 			}
 
 			this->popup = new wxMenu();
-			this->popup->Append(IDM_EXTRACT,       _T("&Extract file..."), _T("Save this file in its native format"));
-			this->popup->Append(IDM_EXTRACT_RAW,   _T("&Extract raw..."), _T("Save this file in its raw format (no decompression or decryption)"));
-			this->popup->Append(IDM_OVERWRITE,     _T("&Overwrite file..."), _T("Replace this item with the contents of another file"));
-			this->popup->Append(IDM_OVERWRITE_RAW, _T("&Overwrite raw..."), _T("Replace this item with a file already encrypted or compressed in the correct format"));
+			this->popup->Append(IDM_EXTRACT,       _("&Extract file..."), _("Save this file in its native format"));
+			this->popup->Append(IDM_EXTRACT_RAW,   _("&Extract raw..."), _("Save this file in its raw format (no decompression or decryption)"));
+			this->popup->Append(IDM_OVERWRITE,     _("&Overwrite file..."), _("Replace this item with the contents of another file"));
+			this->popup->Append(IDM_OVERWRITE_RAW, _("&Overwrite raw..."), _("Replace this item with a file already encrypted or compressed in the correct format"));
 
 			this->aui.Update();
 			this->setControlStates();
@@ -244,7 +244,7 @@ class CamotoFrame: public IMainWindow
 		void onNewProject(wxCommandEvent& ev)
 		{
 			if (this->project) {
-				if (!this->confirmSave(_T("Close current project"))) return;
+				if (!this->confirmSave(_("Close current project"))) return;
 			}
 			NewProjectDialog newProj(this);
 			if (newProj.ShowModal() == wxID_OK) {
@@ -258,18 +258,18 @@ class CamotoFrame: public IMainWindow
 		void onOpen(wxCommandEvent& ev)
 		{
 			if (this->project) {
-				if (!this->confirmSave(_T("Close current project"))) return;
+				if (!this->confirmSave(_("Close current project"))) return;
 			}
-			wxDirDialog dlg(this, _T("Open project"), wxEmptyString,
+			wxDirDialog dlg(this, _("Open project"), wxEmptyString,
 				wxDD_DEFAULT_STYLE | wxDD_DIR_MUST_EXIST);
-			dlg.SetMessage(_T("Select the folder where the project is located."));
+			dlg.SetMessage(_("Select the folder where the project is located."));
 			if (dlg.ShowModal() == wxID_OK) {
 				wxFileName fn;
 				fn.AssignDir(dlg.GetPath());
 				fn.SetFullName(_T("project.camoto"));
 				if (!::wxFileExists(fn.GetFullPath())) {
-					wxMessageDialog dlg(this, _T("This folder does not contain a camoto project."),
-						_T("Open project"), wxOK | wxICON_ERROR);
+					wxMessageDialog dlg(this, _("This folder does not contain a camoto project."),
+						_("Open project"), wxOK | wxICON_ERROR);
 					dlg.ShowModal();
 				} else {
 					this->openProject(fn.GetFullPath());
@@ -290,7 +290,7 @@ class CamotoFrame: public IMainWindow
 		void onCloseProject(wxCommandEvent& ev)
 		{
 			if (!this->project) return;
-			if (!this->confirmSave(_T("Close project"))) return;
+			if (!this->confirmSave(_("Close project"))) return;
 			this->closeProject();
 			return;
 		}
@@ -341,10 +341,10 @@ class CamotoFrame: public IMainWindow
 
 			wxFile bat;
 			if (!bat.Create(batName, true)) {
-				wxMessageDialog dlg(this, _T("Could not create 'camoto.bat' in the "
+				wxMessageDialog dlg(this, _("Could not create 'camoto.bat' in the "
 					"project data directory!  Make sure you have sufficient disk space "
 					"and write access to the folder."),
-					_T("Run game"), wxOK | wxICON_ERROR);
+					_("Run game"), wxOK | wxICON_ERROR);
 				dlg.ShowModal();
 				return;
 			}
@@ -361,9 +361,9 @@ class CamotoFrame: public IMainWindow
 			argv[3] = _T("-exit");
 			argv[4] = NULL;
 			if (::wxExecute((wxChar **)argv, wxEXEC_ASYNC) == 0) {
-				wxMessageDialog dlg(this, _T("Unable to launch DOSBox!  Make sure the "
+				wxMessageDialog dlg(this, _("Unable to launch DOSBox!  Make sure the "
 					"path is correct in the Camoto preferences window."),
-					_T("Run game"), wxOK | wxICON_ERROR);
+					_("Run game"), wxOK | wxICON_ERROR);
 				dlg.ShowModal();
 			}
 			delete argv;
@@ -373,7 +373,7 @@ class CamotoFrame: public IMainWindow
 		/// Event handler for Help | About.
 		void onHelpAbout(wxCommandEvent& ev)
 		{
-			wxMessageDialog dlg(this, _T(
+			wxMessageDialog dlg(this, _(
 				CAMOTO_HEADER
 				"\n"
 				"Camoto Studio is an integrated editing environment for \n"
@@ -382,7 +382,7 @@ class CamotoFrame: public IMainWindow
 				"\n"
 				"Special thanks to NY00123 for helping with the Windows port."
 				),
-				_T("About Camoto Studio"), wxOK | wxICON_INFORMATION);
+				_("About Camoto Studio"), wxOK | wxICON_INFORMATION);
 			dlg.ShowModal();
 			return;
 		}
@@ -436,19 +436,19 @@ class CamotoFrame: public IMainWindow
 			// Make sure the ID is valid
 			GameObjectMap::iterator io = this->game->objects.find(id);
 			if (io == this->game->objects.end()) {
-				throw EFailure(wxString::Format(_T("Cannot open this item.  It refers "
+				throw EFailure(wxString::Format(_("Cannot open this item.  It refers "
 					"to an entry in the game description XML file with an ID of \"%s\", "
 					"but there is no item with this ID."),
 					id.c_str()));
 			}
 			GameObjectPtr& o = io->second;
 
-			wxString path = wxFileSelector(_T("Save file"),
+			wxString path = wxFileSelector(_("Save file"),
 				::path.lastUsed, o->filename, wxEmptyString,
 #ifdef __WXMSW__
-				_T("All files (*.*)|*.*"),
+				_("All files (*.*)|*.*"),
 #else
-				_T("All files (*)|*"),
+				_("All files (*)|*"),
 #endif
 				wxFD_SAVE | wxFD_OVERWRITE_PROMPT, this);
 			if (!path.empty()) {
@@ -465,17 +465,17 @@ class CamotoFrame: public IMainWindow
 
 				} catch (const stream::open_error& e) {
 					wxMessageDialog dlg(this,
-						wxString::Format(_T("Unable to create file!\n\n[%s]"),
+						wxString::Format(_("Unable to create file!\n\n[%s]"),
 							wxString(e.what(), wxConvUTF8).c_str()),
-						_T("Extract item"), wxOK | wxICON_ERROR);
+						_("Extract item"), wxOK | wxICON_ERROR);
 					dlg.ShowModal();
 					return;
 
 				} catch (const std::exception& e) {
 					wxMessageDialog dlg(this,
-						wxString::Format(_T("Unexpected error while extracting the item!\n\n[%s]"),
+						wxString::Format(_("Unexpected error while extracting the item!\n\n[%s]"),
 							wxString(e.what(), wxConvUTF8).c_str()),
-						_T("Extract item"), wxOK | wxICON_ERROR);
+						_("Extract item"), wxOK | wxICON_ERROR);
 					dlg.ShowModal();
 					return;
 				}
@@ -490,19 +490,19 @@ class CamotoFrame: public IMainWindow
 			// Make sure the ID is valid
 			GameObjectMap::iterator io = this->game->objects.find(id);
 			if (io == this->game->objects.end()) {
-				throw EFailure(wxString::Format(_T("Cannot open this item.  It refers "
+				throw EFailure(wxString::Format(_("Cannot open this item.  It refers "
 					"to an entry in the game description XML file with an ID of \"%s\", "
 					"but there is no item with this ID."),
 					id.c_str()));
 			}
 			GameObjectPtr& o = io->second;
 
-			wxString path = wxFileSelector(_T("Open file"),
+			wxString path = wxFileSelector(_("Open file"),
 				::path.lastUsed, o->filename, wxEmptyString,
 #ifdef __WXMSW__
-				_T("All files (*.*)|*.*"),
+				_("All files (*.*)|*.*"),
 #else
-				_T("All files (*)|*"),
+				_("All files (*)|*"),
 #endif
 				wxFD_OPEN | wxFD_FILE_MUST_EXIST, this);
 			if (!path.empty()) {
@@ -519,17 +519,17 @@ class CamotoFrame: public IMainWindow
 
 				} catch (const stream::open_error& e) {
 					wxMessageDialog dlg(this,
-						wxString::Format(_T("Unable to open source file!\n\n[%s]"),
+						wxString::Format(_("Unable to open source file!\n\n[%s]"),
 							wxString(e.what(), wxConvUTF8).c_str()),
-						_T("Overwrite item"), wxOK | wxICON_ERROR);
+						_("Overwrite item"), wxOK | wxICON_ERROR);
 					dlg.ShowModal();
 					return;
 
 				} catch (const std::exception& e) {
 					wxMessageDialog dlg(this,
-						wxString::Format(_T("Unexpected error while replacing the item!\n\n[%s]"),
+						wxString::Format(_("Unexpected error while replacing the item!\n\n[%s]"),
 							wxString(e.what(), wxConvUTF8).c_str()),
-						_T("Overwrite item"), wxOK | wxICON_ERROR);
+						_("Overwrite item"), wxOK | wxICON_ERROR);
 					dlg.ShowModal();
 					return;
 				}
@@ -541,7 +541,7 @@ class CamotoFrame: public IMainWindow
 		void onClose(wxCloseEvent& ev)
 		{
 			if (this->project) {
-				if (!this->confirmSave(_T("Exit"))) return;
+				if (!this->confirmSave(_("Exit"))) return;
 				this->closeProject();
 			}
 			this->aui.UnInit();
@@ -558,7 +558,7 @@ class CamotoFrame: public IMainWindow
 			// Make sure the ID is valid
 			GameObjectMap::iterator io = this->game->objects.find(data->id);
 			if (io == this->game->objects.end()) {
-				throw EFailure(wxString::Format(_T("Cannot open this item.  It refers "
+				throw EFailure(wxString::Format(_("Cannot open this item.  It refers "
 					"to an entry in the game description XML file with an ID of \"%s\", "
 					"but there is no item with this ID."),
 					data->id.c_str()));
@@ -568,9 +568,9 @@ class CamotoFrame: public IMainWindow
 			// Find an editor for the item
 			EditorMap::iterator itEditor = this->editors.find(o->typeMajor);
 			if (itEditor == this->editors.end()) {
-				wxString msg = wxString::Format(_T("Sorry, there is no editor "
+				wxString msg = wxString::Format(_("Sorry, there is no editor "
 					"available for \"%s\" items."), o->typeMajor.c_str());
-				wxMessageDialog dlg(this, msg, _T("Open item"), wxOK | wxICON_ERROR);
+				wxMessageDialog dlg(this, msg, _("Open item"), wxOK | wxICON_ERROR);
 				dlg.ShowModal();
 				return;
 			}
@@ -585,7 +585,7 @@ class CamotoFrame: public IMainWindow
 				this->notebook->AddPage(doc, this->game->objects[data->id]->friendlyName,
 					true, wxNullBitmap);
 			} catch (const EFailure& e) {
-				wxMessageDialog dlg(this, e.getMessage(), _T("Open failure"), wxOK | wxICON_ERROR);
+				wxMessageDialog dlg(this, e.getMessage(), _("Open failure"), wxOK | wxICON_ERROR);
 				dlg.ShowModal();
 				return;
 			}
@@ -601,7 +601,7 @@ class CamotoFrame: public IMainWindow
 			// Make sure the ID is valid
 			GameObjectMap::iterator io = this->game->objects.find(id);
 			if (io == this->game->objects.end()) {
-				throw EFailure(wxString::Format(_T("Cannot open this item.  It refers "
+				throw EFailure(wxString::Format(_("Cannot open this item.  It refers "
 					"to an entry in the game description XML file with an ID of \"%s\", "
 					"but there is no item with this ID."),
 					id.c_str()));
@@ -637,7 +637,7 @@ class CamotoFrame: public IMainWindow
 				try {
 					s = this->openFileFromArchive(o->idParent, o->filename, useFilters);
 				} catch (const camoto::stream::error& e) {
-					throw EFailure(wxString::Format(_T("Could not open this item:\n\n%s"),
+					throw EFailure(wxString::Format(_("Could not open this item:\n\n%s"),
 							wxString(e.what(), wxConvUTF8).c_str()));
 				}
 			} else {
@@ -654,7 +654,7 @@ class CamotoFrame: public IMainWindow
 
 				std::cout << "[main] Opening " << fn.GetFullPath().ToAscii() << "\n";
 				if (!::wxFileExists(fn.GetFullPath())) {
-					throw EFailure(wxString::Format(_T("Cannot open this item.  There is a "
+					throw EFailure(wxString::Format(_("Cannot open this item.  There is a "
 						"file missing from the project's copy of the game data files:\n\n%s"),
 						fn.GetFullPath().c_str()));
 				}
@@ -663,7 +663,7 @@ class CamotoFrame: public IMainWindow
 					pf->open(fn.GetFullPath().mb_str());
 					s = pf;
 				} catch (camoto::stream::open_error& e) {
-					throw EFailure(wxString::Format(_T("Unable to open %s\n\nReason: %s"),
+					throw EFailure(wxString::Format(_("Unable to open %s\n\nReason: %s"),
 						fn.GetFullPath().c_str(), wxString(e.what(), wxConvUTF8).c_str()));
 				}
 			}
@@ -683,16 +683,16 @@ class CamotoFrame: public IMainWindow
 		{
 			IDocument *doc = (IDocument *)this->notebook->GetPage(event.GetSelection());
 			if (doc->isModified) {
-				wxMessageDialog dlg(this, _T("Save changes?"),
-					_T("Close document"), wxYES_NO | wxCANCEL | wxYES_DEFAULT | wxICON_QUESTION);
+				wxMessageDialog dlg(this, _("Save changes?"),
+					_("Close document"), wxYES_NO | wxCANCEL | wxYES_DEFAULT | wxICON_QUESTION);
 				int r = dlg.ShowModal();
 				if (r == wxID_YES) {
 					try {
 						doc->save();
 					} catch (const camoto::stream::error& e) {
-						wxString msg = _T("Unable to save document: ");
+						wxString msg = _("Unable to save document: ");
 						msg.Append(wxString(e.what(), wxConvUTF8));
-						wxMessageDialog dlg(this, msg, _T("Save failed"), wxOK | wxICON_ERROR);
+						wxMessageDialog dlg(this, msg, _("Save failed"), wxOK | wxICON_ERROR);
 						dlg.ShowModal();
 						event.Veto();
 					}
@@ -772,9 +772,9 @@ class CamotoFrame: public IMainWindow
 				if (this->project) this->closeProject();
 				this->project = newProj;
 			} catch (EBase& e) {
-				wxString msg = _T("Unable to open project: ");
+				wxString msg = _("Unable to open project: ");
 				msg.Append(e.getMessage());
-				wxMessageDialog dlg(this, msg, _T("Open project"), wxOK | wxICON_ERROR);
+				wxMessageDialog dlg(this, msg, _("Open project"), wxOK | wxICON_ERROR);
 				dlg.ShowModal();
 				return;
 			}
@@ -798,8 +798,8 @@ class CamotoFrame: public IMainWindow
 				this->project = NULL;
 
 				wxMessageDialog dlg(this,
-					_T("Unable to open, project file is corrupted (missing game ID)"),
-					_T("Open project"), wxOK | wxICON_ERROR);
+					_("Unable to open, project file is corrupted (missing game ID)"),
+					_("Open project"), wxOK | wxICON_ERROR);
 				dlg.ShowModal();
 				return;
 			}
@@ -811,8 +811,8 @@ class CamotoFrame: public IMainWindow
 				this->project = NULL;
 
 				wxMessageDialog dlg(this,
-					_T("Unable to parse XML description file for this game!"),
-					_T("Open project"), wxOK | wxICON_ERROR);
+					_("Unable to parse XML description file for this game!"),
+					_("Open project"), wxOK | wxICON_ERROR);
 				dlg.ShowModal();
 				return;
 			}
@@ -843,7 +843,7 @@ class CamotoFrame: public IMainWindow
 				i != this->game->dosCommands.end(); i++
 			) {
 				long id = ::wxNewId();
-				this->menuTest->Append(id, i->first, _T("Run the game through DOSBox"));
+				this->menuTest->Append(id, i->first, _("Run the game through DOSBox"));
 				this->commandMap[id] = i->second;
 				this->Connect(id, wxEVT_COMMAND_MENU_SELECTED,
 					wxCommandEventHandler(CamotoFrame::onRunGame));
@@ -916,10 +916,10 @@ class CamotoFrame: public IMainWindow
 			throw ()
 		{
 			if (!this->saveProjectQuiet()) {
-				wxMessageDialog dlg(this, _T("Unable to save the project!  Make sure "
+				wxMessageDialog dlg(this, _("Unable to save the project!  Make sure "
 					"there is enough disk space and the project folder hasn't been moved "
 					"or deleted."),
-					_T("Save project"), wxOK | wxICON_ERROR);
+					_("Save project"), wxOK | wxICON_ERROR);
 				dlg.ShowModal();
 				return false;
 			}
@@ -943,9 +943,9 @@ class CamotoFrame: public IMainWindow
 					doc->save();
 				} catch (const camoto::stream::error& e) {
 					this->notebook->SetSelection(i); // focus the cause of the error
-					wxString msg = _T("Unable to save document: ");
+					wxString msg = _("Unable to save document: ");
 					msg.Append(wxString(e.what(), wxConvUTF8));
-					wxMessageDialog dlg(this, msg, _T("Save failed"), wxOK | wxICON_ERROR);
+					wxMessageDialog dlg(this, msg, _("Save failed"), wxOK | wxICON_ERROR);
 					dlg.ShowModal();
 					return false;
 				}
@@ -998,7 +998,7 @@ class CamotoFrame: public IMainWindow
 		{
 			if (!this->project) return true;
 
-			wxMessageDialog dlg(this, _T("Save project?"),
+			wxMessageDialog dlg(this, _("Save project?"),
 				title, wxYES_NO | wxCANCEL | wxYES_DEFAULT | wxICON_QUESTION);
 			int r = dlg.ShowModal();
 			if (r == wxID_YES) {
@@ -1189,7 +1189,7 @@ class CamotoFrame: public IMainWindow
 					std::string strType(typeMinor.ToUTF8());
 					ga::ArchiveTypePtr pArchType(this->archManager->getArchiveTypeByCode(strType));
 					if (!pArchType) {
-						throw EFailure(wxString::Format(_T("Cannot open this item.  The "
+						throw EFailure(wxString::Format(_("Cannot open this item.  The "
 									"archive \"%s\" is in the unsupported format \"%s\""),
 								idArchive.c_str(), typeMinor.c_str()));
 					}
@@ -1202,23 +1202,23 @@ class CamotoFrame: public IMainWindow
 					camoto::SuppFilenames reqd = pArchType->getRequiredSupps(archStream, baseFilename);
 					for (camoto::SuppFilenames::iterator i = reqd.begin(); i != reqd.end(); i++) {
 						if (suppData.find(i->first) == suppData.end()) {
-							throw EFailure(wxString::Format(_T("Unable to open archive \"%s\" "
-										"as the XML description file does not specify the required "
-										"supplementary file \"%s\""),
-									idArchive.c_str(),
-									wxString(i->second.c_str(), wxConvUTF8).c_str()
-								));
+							throw EFailure(wxString::Format(_("Unable to open archive \"%s\" "
+								"as the XML description file does not specify the required "
+								"supplementary file \"%s\""),
+								idArchive.c_str(),
+								wxString(i->second.c_str(), wxConvUTF8).c_str()
+							));
 						}
 					}
 
 					try {
 						arch = pArchType->open(archStream, suppData);
 					} catch (const camoto::stream::error& e) {
-						wxString msg = _T("Library exception opening archive \"");
-						msg += idArchive;
-						msg += _T("\":\n\n");
-						msg += wxString(e.what(), wxConvUTF8);
-						throw EFailure(msg);
+						throw EFailure(wxString::Format(_("Library exception opening "
+							"archive \"%s\":\n\n%s"),
+							idArchive.c_str(),
+							wxString(e.what(), wxConvUTF8).c_str()
+						));
 					}
 				}
 
@@ -1241,7 +1241,7 @@ class CamotoFrame: public IMainWindow
 			std::string nativeFilename(filename.mb_str());
 			ga::Archive::EntryPtr f = ga::findFile(arch, nativeFilename);
 			if (!f) {
-				throw EFailure(wxString::Format(_T("Cannot open this item.  The file "
+				throw EFailure(wxString::Format(_("Cannot open this item.  The file "
 					"\"%s\" could not be found inside the archive \"%s\""),
 					filename.c_str(), idArchive.c_str()));
 			}
@@ -1255,7 +1255,7 @@ class CamotoFrame: public IMainWindow
 				// The file needs to be filtered first
 				ga::FilterTypePtr pFilterType(this->archManager->getFilterTypeByCode(f->filter));
 				if (!pFilterType) {
-					throw EFailure(wxString::Format(_T("This file requires decoding, but "
+					throw EFailure(wxString::Format(_("This file requires decoding, but "
 						"the \"%s\" filter to do this couldn't be found (is your installed "
 						"version of libgamearchive too old?)"),
 						f->filter.c_str()));
@@ -1266,7 +1266,7 @@ class CamotoFrame: public IMainWindow
 						boost::bind<void>(&setRealSize, arch, f, _1)
 					);
 				} catch (const camoto::filter_error& e) {
-					throw EFailure(wxString::Format(_T("Error decoding this file: %s"),
+					throw EFailure(wxString::Format(_("Error decoding this file: %s"),
 						wxString(e.what(), wxConvUTF8).c_str()));
 				}
 			}
@@ -1410,11 +1410,11 @@ class CamotoApp: public wxApp {
 			if (parser.Found(_T("project"), &filename)) {
 				f = new CamotoFrame(true);
 				if (!::wxFileExists(filename)) {
-					wxMessageDialog dlg(f, _T("The supplied project file does not exist!"
+					wxMessageDialog dlg(f, _("The supplied project file does not exist!"
 							"  The --project option must be given the full path (and "
 							"filename) of the 'project.camoto' file inside the project "
 							"directory."),
-						_T("Open project"), wxOK | wxICON_ERROR);
+						_("Open project"), wxOK | wxICON_ERROR);
 					dlg.ShowModal();
 				} else {
 					f->openProject(filename);
@@ -1422,9 +1422,9 @@ class CamotoApp: public wxApp {
 			} else if (parser.Found(_T("music"), &filename)) {
 				f = new CamotoFrame(false);
 				//f->loadMusic(filename);
-				wxMessageDialog dlg(f, _T("Sorry, standalone music editor not yet "
+				wxMessageDialog dlg(f, _("Sorry, standalone music editor not yet "
 						"implemented!"),
-					_T("Open song"), wxOK | wxICON_ERROR);
+					_("Open song"), wxOK | wxICON_ERROR);
 				dlg.ShowModal();
 			} else {
 				f = new CamotoFrame(true);
@@ -1451,8 +1451,8 @@ class CamotoApp: public wxApp {
 };
 
 const wxCmdLineEntryDesc CamotoApp::cmdLineDesc[] = {
-	{wxCMD_LINE_OPTION, NULL, _T("project"), _T("Open the given project"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL},
-	{wxCMD_LINE_OPTION, NULL, _T("music"), _T("Open a song in a standalone editor"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL},
+	{wxCMD_LINE_OPTION, NULL, _T("project"), _("Open the given project"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL},
+	{wxCMD_LINE_OPTION, NULL, _T("music"), _("Open a song in a standalone editor"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL},
 	{wxCMD_LINE_NONE, NULL, NULL, NULL, (wxCmdLineParamType)NULL, 0}
 };
 

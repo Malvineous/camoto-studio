@@ -50,7 +50,7 @@ MapDocument::MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
 
 	this->map = boost::dynamic_pointer_cast<Map2D>(genMap);
 	if (!this->map) {
-		throw EFailure(_T("Map is not a 2D grid-based map!"));
+		throw EFailure(_("Map is not a 2D grid-based map!"));
 	}
 
 	this->canvas = new MapCanvas(this, parent->getGLContext(), map, tileset,
@@ -62,38 +62,38 @@ MapDocument::MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
 
 	tb->AddTool(wxID_ZOOM_OUT, wxEmptyString,
 		wxImage(::path.guiIcons + _T("zoom_1-1.png"), wxBITMAP_TYPE_PNG),
-		wxNullBitmap, wxITEM_RADIO, _T("Zoom 1:1 (small)"),
-		_T("Set the zoom level so that one screen pixel is used for each tile pixel"));
+		wxNullBitmap, wxITEM_RADIO, _("Zoom 1:1 (small)"),
+		_("Set the zoom level so that one screen pixel is used for each tile pixel"));
 
 	tb->AddTool(wxID_ZOOM_100, wxEmptyString,
 		wxImage(::path.guiIcons + _T("zoom_2-1.png"), wxBITMAP_TYPE_PNG),
-		wxNullBitmap, wxITEM_RADIO, _T("Zoom 2:1 (normal)"),
-		_T("Set the zoom level so that two screen pixels are used for each tile pixel"));
+		wxNullBitmap, wxITEM_RADIO, _("Zoom 2:1 (normal)"),
+		_("Set the zoom level so that two screen pixels are used for each tile pixel"));
 	tb->ToggleTool(wxID_ZOOM_100, true);
 
 	tb->AddTool(wxID_ZOOM_IN, wxEmptyString,
 		wxImage(::path.guiIcons + _T("zoom_3-1.png"), wxBITMAP_TYPE_PNG),
-		wxNullBitmap, wxITEM_RADIO, _T("Zoom 3:1 (big)"),
-		_T("Set the zoom level so that three screen pixels are used for each tile pixel"));
+		wxNullBitmap, wxITEM_RADIO, _("Zoom 3:1 (big)"),
+		_("Set the zoom level so that three screen pixels are used for each tile pixel"));
 
 	tb->AddSeparator();
 
 	tb->AddTool(IDC_TOGGLEGRID, wxEmptyString,
 		wxImage(::path.guiIcons + _T("grid.png"), wxBITMAP_TYPE_PNG),
-		wxNullBitmap, wxITEM_CHECK, _T("Show grid?"),
-		_T("Draw a grid to show where each tile is?"));
+		wxNullBitmap, wxITEM_CHECK, _("Show grid?"),
+		_("Draw a grid to show where each tile is?"));
 
 	tb->AddSeparator();
 
 	tb->AddTool(IDC_MODE_TILE, wxEmptyString,
 		wxImage(::path.guiIcons + _T("mode-tile.png"), wxBITMAP_TYPE_PNG),
-		wxNullBitmap, wxITEM_RADIO, _T("Tile mode"),
-		_T("Edit the map as a grid of tiles"));
+		wxNullBitmap, wxITEM_RADIO, _("Tile mode"),
+		_("Edit the map as a grid of tiles"));
 
 	tb->AddTool(IDC_MODE_OBJ, wxEmptyString,
 		wxImage(::path.guiIcons + _T("mode-obj.png"), wxBITMAP_TYPE_PNG),
-		wxNullBitmap, wxITEM_RADIO, _T("Object mode"),
-		_T("Edit the map as collection of objects"));
+		wxNullBitmap, wxITEM_RADIO, _("Object mode"),
+		_("Edit the map as collection of objects"));
 
 	// Tile-mode is the default for the canvas
 	tb->ToggleTool(IDC_MODE_TILE, true);

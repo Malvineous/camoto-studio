@@ -30,7 +30,7 @@ EProjectOpenFailure::EProjectOpenFailure(const wxString& msg) :
 }
 
 EProjectCopyFailure::EProjectCopyFailure() :
-	EBase(_T("Unable to copy the game files into the project folder."))
+	EBase(_("Unable to copy the game files into the project folder."))
 {
 }
 
@@ -143,9 +143,9 @@ Project::Project(const wxString& path)
 	long version;
 	if (!this->config.Read(_T("camoto/version"), &version)) {
 		throw EProjectOpenFailure(
-			_T("The project file could not be opened or is corrupted!"));
+			_("The project file could not be opened or is corrupted!"));
 	}
-	if (version > CONFIG_FILE_VERSION) throw EProjectOpenFailure(_T(
+	if (version > CONFIG_FILE_VERSION) throw EProjectOpenFailure(_(
 			"This project was created by a newer version of Camoto Studio.  You "
 			"will need to upgrade before you can open it."));
 }

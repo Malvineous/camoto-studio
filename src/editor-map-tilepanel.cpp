@@ -45,7 +45,7 @@ void TilePanel::getPanelInfo(wxString *id, wxString *label) const
 	throw ()
 {
 	*id = _T("map.tiles");
-	*label = _T("Tiles");
+	*label = _("Tiles");
 	return;
 }
 

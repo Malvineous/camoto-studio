@@ -49,7 +49,7 @@ InstrumentListPanel::InstrumentListPanel(IMainWindow *parent, InstrumentPanel *i
 	info.m_mask = wxLIST_MASK_TEXT | wxLIST_MASK_IMAGE | wxLIST_MASK_FORMAT;
 	info.m_image = 0;
 	info.m_format = 0;
-	info.m_text = _T("Instrument");
+	info.m_text = _("Instrument");
 	this->list->InsertColumn(0, info);
 
 	wxSizer *s = new wxBoxSizer(wxVERTICAL);
@@ -63,7 +63,7 @@ void InstrumentListPanel::getPanelInfo(wxString *id, wxString *label) const
 	throw ()
 {
 	*id = _T("music.instrumentlist");
-	*label = _T("Instrument list");
+	*label = _("Instrument list");
 	return;
 }
 
@@ -85,7 +85,7 @@ void InstrumentListPanel::switchDocument(IDocument *doc)
 			wxString title;
 			title.Printf(_T("%02X: "), i);
 			if (patch->name.empty()) {
-				title.Append(_T("[no name]"));
+				title.Append(_("[no name]"));
 			} else {
 				title.Append(wxString(patch->name.c_str(), wxConvUTF8));
 			}
@@ -179,7 +179,7 @@ void InstrumentListPanel::updateInstrumentView(unsigned int index)
 	wxString title;
 	title.Printf(_T("%02X: "), index);
 	if (patch->name.empty()) {
-		title.Append(_T("[no name]"));
+		title.Append(_("[no name]"));
 	} else {
 		title.Append(wxString(patch->name.c_str(), wxConvUTF8));
 	}

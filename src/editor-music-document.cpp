@@ -67,54 +67,54 @@ MusicDocument::MusicDocument(MusicEditor *editor, MusicTypePtr musicType,
 
 	tb->AddTool(IDC_SEEK_PREV, wxEmptyString,
 		parent->smallImages->GetBitmap(ImageListIndex::SeekPrev),
-		wxNullBitmap, wxITEM_NORMAL, _T("Seek to start"),
-		_T("Go back to the beginning of the song"));
+		wxNullBitmap, wxITEM_NORMAL, _("Seek to start"),
+		_("Go back to the beginning of the song"));
 
 	tb->AddTool(IDC_PLAY, wxEmptyString,
 		parent->smallImages->GetBitmap(ImageListIndex::Play),
-		wxNullBitmap, wxITEM_NORMAL, _T("Play"),
-		_T("Start playback"));
+		wxNullBitmap, wxITEM_NORMAL, _("Play"),
+		_("Start playback"));
 	tb->ToggleTool(wxID_ZOOM_100, true);
 
 	tb->AddTool(IDC_PAUSE, wxEmptyString,
 		parent->smallImages->GetBitmap(ImageListIndex::Pause),
-		wxNullBitmap, wxITEM_NORMAL, _T("Pause"),
-		_T("Pause playback"));
+		wxNullBitmap, wxITEM_NORMAL, _("Pause"),
+		_("Pause playback"));
 
 	tb->AddTool(IDC_SEEK_NEXT, wxEmptyString,
 		parent->smallImages->GetBitmap(ImageListIndex::SeekNext),
-		wxNullBitmap, wxITEM_NORMAL, _T("Seek to end"),
-		_T("Go to the end of the song"));
+		wxNullBitmap, wxITEM_NORMAL, _("Seek to end"),
+		_("Go to the end of the song"));
 
 	tb->AddSeparator();
 
 	tb->AddTool(wxID_ZOOM_IN, wxEmptyString,
 		parent->smallImages->GetBitmap(ImageListIndex::ZoomIn),
-		wxNullBitmap, wxITEM_NORMAL, _T("Zoom in"),
-		_T("Space events further apart in the event list"));
+		wxNullBitmap, wxITEM_NORMAL, _("Zoom in"),
+		_("Space events further apart in the event list"));
 
 	tb->AddTool(wxID_ZOOM_100, wxEmptyString,
 		parent->smallImages->GetBitmap(ImageListIndex::ZoomNormal),
-		wxNullBitmap, wxITEM_NORMAL, _T("Zoom normal"),
-		_T("Space events as close as possible in the event list without losing detail"));
+		wxNullBitmap, wxITEM_NORMAL, _("Zoom normal"),
+		_("Space events as close as possible in the event list without losing detail"));
 	tb->ToggleTool(wxID_ZOOM_100, true);
 
 	tb->AddTool(wxID_ZOOM_OUT, wxEmptyString,
 		parent->smallImages->GetBitmap(ImageListIndex::ZoomOut),
-		wxNullBitmap, wxITEM_NORMAL, _T("Zoom out"),
-		_T("Space events closer together in the event list"));
+		wxNullBitmap, wxITEM_NORMAL, _("Zoom out"),
+		_("Space events closer together in the event list"));
 
 	tb->AddSeparator();
 
 	tb->AddTool(IDC_IMPORT, wxEmptyString,
 		parent->smallImages->GetBitmap(ImageListIndex::Import),
-		wxNullBitmap, wxITEM_NORMAL, _T("Import"),
-		_T("Replace this song with one loaded from a file"));
+		wxNullBitmap, wxITEM_NORMAL, _("Import"),
+		_("Replace this song with one loaded from a file"));
 
 	tb->AddTool(IDC_EXPORT, wxEmptyString,
 		parent->smallImages->GetBitmap(ImageListIndex::Export),
-		wxNullBitmap, wxITEM_NORMAL, _T("Export"),
-		_T("Save this song to a file"));
+		wxNullBitmap, wxITEM_NORMAL, _("Export"),
+		_("Save this song to a file"));
 
 	// Figure out how many channels are in use and what the best value is to space
 	// events evenly and as close together as possible.
@@ -263,8 +263,8 @@ void MusicDocument::onImport(wxCommandEvent& ev)
 		this->editor->settings.lastExportType = importdlg.fileType;
 
 		if (importdlg.fileType.empty()) {
-			wxMessageDialog dlg(this, _T("You must select a file type."),
-				_T("Import error"), wxOK | wxICON_ERROR);
+			wxMessageDialog dlg(this, _("You must select a file type."),
+				_("Import error"), wxOK | wxICON_ERROR);
 			dlg.ShowModal();
 			continue;
 		}
@@ -297,12 +297,12 @@ void MusicDocument::onImport(wxCommandEvent& ev)
 			// Success
 			break;
 		} catch (const stream::open_error& e) {
-			errmsg = _T("Error reading file ");
-			errmsg += importdlg.filename;
-			errmsg += _T(": ");
-			errmsg += wxString::FromUTF8(e.what());
+			errmsg = wxString::Format(_("Error reading file \"%s\": %s"),
+				importdlg.filename.c_str(),
+				wxString(e.what(), wxConvUTF8).c_str()
+			);
 		}
-		wxMessageDialog dlg(this, errmsg, _T("Import error"), wxOK | wxICON_ERROR);
+		wxMessageDialog dlg(this, errmsg, _("Import error"), wxOK | wxICON_ERROR);
 		dlg.ShowModal();
 	}
 	return;
@@ -325,8 +325,8 @@ void MusicDocument::onExport(wxCommandEvent& ev)
 		this->editor->settings.lastExportFlags = exportdlg.flags;
 
 		if (exportdlg.fileType.empty()) {
-			wxMessageDialog dlg(this, _T("You must select a file type."),
-				_T("Import error"), wxOK | wxICON_ERROR);
+			wxMessageDialog dlg(this, _("You must select a file type."),
+				_("Export error"), wxOK | wxICON_ERROR);
 			dlg.ShowModal();
 			continue;
 		}
@@ -354,20 +354,21 @@ void MusicDocument::onExport(wxCommandEvent& ev)
 			// Success
 			break;
 		} catch (const stream::open_error& e) {
-			errmsg = _T("Error creating file ");
-			errmsg += exportdlg.filename;
-			errmsg += _T(": ");
-			errmsg += wxString::FromUTF8(e.what());
+			errmsg = wxString::Format(_("Error creating file \"%s\": %s"),
+				exportdlg.filename.c_str(),
+				wxString(e.what(), wxConvUTF8).c_str()
+			);
 		} catch (const format_limitation& e) {
-			errmsg = _T("This song cannot be exported in the selected format, due "
-				"to a limitation imposed by the format itself:\n\n");
-			errmsg += wxString::FromUTF8(e.what());
-			errmsg += _T("\n\nYou will need to adjust the song accordingly and try "
-				"again, or select a different export file format.");
+			errmsg = wxString::Format(_("This song cannot be exported in the "
+				"selected format, due to a limitation imposed by the format itself:"
+				"\n\n%s\n\nYou will need to adjust the song accordingly and try "
+				"again, or select a different export file format."),
+				wxString(e.what(), wxConvUTF8).c_str()
+			);
 		}
 		if (outfile) outfile->remove(); // delete broken file
 		outfile.reset(); // force file close/delete
-		wxMessageDialog dlg(this, errmsg, _T("Export error"), wxOK | wxICON_ERROR);
+		wxMessageDialog dlg(this, errmsg, _("Export error"), wxOK | wxICON_ERROR);
 		dlg.ShowModal();
 	}
 	return;
