@@ -458,7 +458,7 @@ class CamotoFrame: public IMainWindow
 					assert(extract); // should have thrown an exception on error
 
 					stream::output_file_sptr out(new stream::output_file());
-					out->create(path.fn_str());
+					out->create(path.mb_str());
 
 					stream::copy(out, extract);
 					out->flush();
@@ -512,7 +512,7 @@ class CamotoFrame: public IMainWindow
 					assert(dest); // should have thrown an exception on error
 
 					stream::input_file_sptr in(new stream::input_file());
-					in->open(path.fn_str());
+					in->open(path.mb_str());
 
 					stream::copy(dest, in);
 					dest->flush();
@@ -660,7 +660,7 @@ class CamotoFrame: public IMainWindow
 				}
 				stream::file_sptr pf(new stream::file());
 				try {
-					pf->open(fn.GetFullPath().fn_str());
+					pf->open(fn.GetFullPath().mb_str());
 					s = pf;
 				} catch (camoto::stream::open_error& e) {
 					throw EFailure(wxString::Format(_T("Unable to open %s\n\nReason: %s"),
@@ -724,7 +724,7 @@ class CamotoFrame: public IMainWindow
 					// This file is contained within an archive
 					ga::ArchivePtr arch = this->getArchive(o->idParent);
 					if (arch) {
-						std::string nativeFilename(o->filename.fn_str());
+						std::string nativeFilename(o->filename.mb_str());
 						ga::Archive::EntryPtr f = ga::findFile(arch, nativeFilename);
 						if (f) {
 							// Found file
@@ -1238,7 +1238,7 @@ class CamotoFrame: public IMainWindow
 			ga::ArchivePtr arch = this->getArchive(idArchive);
 
 			// Now we have the archive containing our file, so find and open it
-			std::string nativeFilename(filename.fn_str());
+			std::string nativeFilename(filename.mb_str());
 			ga::Archive::EntryPtr f = ga::findFile(arch, nativeFilename);
 			if (!f) {
 				throw EFailure(wxString::Format(_T("Cannot open this item.  The file "

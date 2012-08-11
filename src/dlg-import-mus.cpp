@@ -195,7 +195,7 @@ void DlgImportMusic::onBrowse(wxCommandEvent& ev)
 		// Test filetype and set combobox accordingly
 		this->cbFileType->SetValue(wxEmptyString); // default to blank
 		stream::input_file_sptr infile(new stream::input_file());
-		infile->open(path.fn_str());
+		infile->open(path.mb_str());
 
 		MusicTypePtr pTestType;
 		int i = 0;

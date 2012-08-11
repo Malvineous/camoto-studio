@@ -273,7 +273,7 @@ void MusicDocument::onImport(wxCommandEvent& ev)
 		wxString errmsg;
 		try {
 			stream::input_file_sptr infile(new stream::input_file());
-			infile->open(importdlg.filename.fn_str());
+			infile->open(importdlg.filename.mb_str());
 
 			MusicTypePtr pMusicInType(this->editor->pManager->getMusicTypeByCode(
 				(const char *)importdlg.fileType.mb_str()));
@@ -336,10 +336,10 @@ void MusicDocument::onExport(wxCommandEvent& ev)
 		stream::output_file_sptr outfile;
 		try {
 			outfile.reset(new stream::output_file());
-			outfile->create(exportdlg.filename.fn_str());
+			const char *outname = exportdlg.filename.mb_str();
+			outfile->create(outname);
 
-			MusicTypePtr pMusicOutType(this->editor->pManager->getMusicTypeByCode(
-				(const char *)exportdlg.fileType.mb_str()));
+			MusicTypePtr pMusicOutType(this->editor->pManager->getMusicTypeByCode(outname));
 
 			// We can't have a type chosen that we didn't supply in the first place
 			assert(pMusicOutType);
