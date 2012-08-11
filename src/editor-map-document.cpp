@@ -120,14 +120,8 @@ void MapDocument::save()
 	throw (camoto::stream::error)
 {
 	try {
-		this->mapFile->seekp(0, stream::start);
-		unsigned long len = this->mapType->write(this->map, this->mapFile, this->suppData);
-
-		// Cut anything off the end since we're overwriting an existing file
-		this->mapFile->truncate(len);
-
+		this->mapType->write(this->map, this->mapFile, this->suppData);
 		this->isModified = false;
-
 	} catch (const camoto::stream::error& e) {
 		throw e;
 	} catch (const std::exception& e) {
