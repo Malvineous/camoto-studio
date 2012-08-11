@@ -316,7 +316,7 @@ class TilesetDocument: public IDocument
 					unsigned int thisTileWidth = tileWidth, thisTileHeight = tileHeight;
 					unsigned int lastMaxHeight = tileHeight;
 
-					uint8_t *imgData, *maskData;
+					uint8_t *imgData = NULL, *maskData = NULL;
 					StdImageDataPtr stdimg, stdmask;
 
 					unsigned int curAlloc = tileWidth * tileHeight;

@@ -107,7 +107,7 @@ void EventPanel::handleEvent(const TempoEvent *ev)
 {
 	this->pdc->SetTextForeground(*wxGREEN);
 	wxString txt;
-	txt.Printf(_T("T-%09d"), ev->usPerTick);
+	txt.Printf(_T("T-%09lu"), (unsigned long)ev->usPerTick);
 	this->pdc->DrawText(txt, 0, this->paintY);
 	return;
 }
