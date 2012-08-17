@@ -67,8 +67,7 @@ class ImageCanvas: public wxPanel
 	public:
 
 		ImageCanvas(wxWindow *parent, ImagePtr image, int zoomFactor)
-			throw () :
-				wxPanel(parent, wxID_ANY),
+			:	wxPanel(parent, wxID_ANY),
 				image(image),
 				wximg(),
 				zoomFactor(zoomFactor)
@@ -117,7 +116,6 @@ class ImageCanvas: public wxPanel
 		}
 
 		~ImageCanvas()
-			throw ()
 		{
 		}
 
@@ -148,7 +146,6 @@ class ImageCanvas: public wxPanel
 		}
 
 		void setZoomFactor(int f)
-			throw ()
 		{
 			this->zoomFactor = f;
 			if (this->zoomFactor == 1) {
@@ -179,8 +176,7 @@ class ImageDocument: public IDocument
 {
 	public:
 		ImageDocument(IMainWindow *parent, ImageEditor::Settings *settings, ImagePtr image)
-			throw () :
-				IDocument(parent, _T("image")),
+			:	IDocument(parent, _T("image")),
 				image(image),
 				settings(settings)
 		{
@@ -234,7 +230,6 @@ class ImageDocument: public IDocument
 		}
 
 		virtual void save()
-			throw (camoto::stream::error)
 		{
 			// Nothing to do - can't modify anything yet that isn't immediately saved
 			this->isModified = false;
@@ -500,7 +495,6 @@ class ImageDocument: public IDocument
 		}
 
 		void setZoomFactor(int f)
-			throw ()
 		{
 			this->settings->zoomFactor = f;
 			this->canvas->setZoomFactor(f);
@@ -531,8 +525,7 @@ END_EVENT_TABLE()
 
 
 ImageEditor::ImageEditor(IMainWindow *parent)
-	throw () :
-		frame(parent),
+	:	frame(parent),
 		pManager(camoto::gamegraphics::getManager())
 {
 	// Default settings
@@ -540,33 +533,28 @@ ImageEditor::ImageEditor(IMainWindow *parent)
 }
 
 ImageEditor::~ImageEditor()
-	throw ()
 {
 }
 
 std::vector<IToolPanel *> ImageEditor::createToolPanes() const
-	throw ()
 {
 	std::vector<IToolPanel *> panels;
 	return panels;
 }
 
 void ImageEditor::loadSettings(Project *proj)
-	throw ()
 {
 	proj->config.Read(_T("editor-image/zoom"), (int *)&this->settings.zoomFactor, CFG_DEFAULT_ZOOM);
 	return;
 }
 
 void ImageEditor::saveSettings(Project *proj) const
-	throw ()
 {
 	proj->config.Write(_T("editor-image/zoom"), (int)this->settings.zoomFactor);
 	return;
 }
 
 bool ImageEditor::isFormatSupported(const wxString& type) const
-	throw ()
 {
 	std::string strType("img-");
 	strType.append(type.ToUTF8());
@@ -575,7 +563,6 @@ bool ImageEditor::isFormatSupported(const wxString& type) const
 
 IDocument *ImageEditor::openObject(const wxString& typeMinor,
 	stream::inout_sptr data, const wxString& filename, SuppMap supp, const Game *game)
-	throw (EFailure)
 {
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_("No file type was specified for this item!"));

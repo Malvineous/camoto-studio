@@ -76,8 +76,7 @@ class Project
 		 *
 		 * @return New Project instance.
 		 */
-		static Project *create(const wxString& targetPath, const wxString& gameSource)
-			throw (EProjectOpenFailure, EProjectCopyFailure);
+		static Project *create(const wxString& targetPath, const wxString& gameSource);
 
 		/// Open the project at the given path.
 		/**
@@ -87,22 +86,17 @@ class Project
 		 *
 		 * @throw EProjectOpenFailure if the project could not be created.
 		 */
-		Project(const wxString& path)
-			throw (EProjectOpenFailure);
+		Project(const wxString& path);
 
-		~Project()
-			throw ();
+		~Project();
 
-		bool save()
-			throw ();
+		bool save();
 
 		/// Retrieve the base path of the project.
-		wxString getBasePath()
-			throw ();
+		wxString getBasePath();
 
 		/// Retrieve the path to the local copy of the game files.
-		wxString getDataPath()
-			throw ();
+		wxString getDataPath();
 
 
 	protected:

@@ -30,8 +30,7 @@ BEGIN_EVENT_TABLE(TilePanel, IToolPanel)
 END_EVENT_TABLE()
 
 TilePanel::TilePanel(IMainWindow *parent)
-	throw () :
-		IToolPanel(parent)
+	:	IToolPanel(parent)
 {
 	this->canvas = new TilePanelCanvas(this, parent->getGLContext(),
 		parent->getGLAttributes(), 1);
@@ -42,7 +41,6 @@ TilePanel::TilePanel(IMainWindow *parent)
 }
 
 void TilePanel::getPanelInfo(wxString *id, wxString *label) const
-	throw ()
 {
 	*id = _T("map.tiles");
 	*label = _("Tiles");
@@ -50,7 +48,6 @@ void TilePanel::getPanelInfo(wxString *id, wxString *label) const
 }
 
 void TilePanel::switchDocument(IDocument *doc)
-	throw ()
 {
 	this->doc = static_cast<MapDocument *>(doc);
 	if (!this->doc) return; // NULL was passed in
@@ -66,13 +63,11 @@ void TilePanel::switchDocument(IDocument *doc)
 }
 
 void TilePanel::loadSettings(Project *proj)
-	throw ()
 {
 	return;
 }
 
 void TilePanel::saveSettings(Project *proj) const
-	throw ()
 {
 	return;
 }

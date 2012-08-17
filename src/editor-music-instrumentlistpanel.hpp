@@ -32,29 +32,22 @@ class InstrumentListPanel;
 class InstrumentListPanel: public IToolPanel
 {
 	public:
-		InstrumentListPanel(IMainWindow *parent, InstrumentPanel *instPanel)
-			throw ();
+		InstrumentListPanel(IMainWindow *parent, InstrumentPanel *instPanel);
 
-		virtual void getPanelInfo(wxString *id, wxString *label) const
-			throw ();
+		virtual void getPanelInfo(wxString *id, wxString *label) const;
 
-		virtual void switchDocument(IDocument *doc)
-			throw ();
+		virtual void switchDocument(IDocument *doc);
 
-		virtual void loadSettings(Project *proj)
-			throw ();
+		virtual void loadSettings(Project *proj);
 
-		virtual void saveSettings(Project *proj) const
-			throw ();
+		virtual void saveSettings(Project *proj) const;
 
 		/// Put a different instrument over the top of the given one in the PatchBank
 		void replaceInstrument(unsigned int index,
-			camoto::gamemusic::PatchPtr newInstrument)
-			throw ();
+			camoto::gamemusic::PatchPtr newInstrument);
 
 		/// Update the UI to reflect changes in the given instrument
-		void updateInstrument(unsigned int index)
-			throw ();
+		void updateInstrument(unsigned int index);
 
 		void onItemSelected(wxListEvent& ev);
 		void onItemRightClick(wxListEvent& ev);
@@ -65,8 +58,7 @@ class InstrumentListPanel: public IToolPanel
 		MusicDocument *doc;
 		unsigned int lastInstrument; ///< Last instrument edited
 
-		void updateInstrumentView(unsigned int index)
-			throw ();
+		void updateInstrumentView(unsigned int index);
 
 		DECLARE_EVENT_TABLE();
 };

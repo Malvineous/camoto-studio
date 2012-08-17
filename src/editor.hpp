@@ -53,8 +53,7 @@ class IDocument: public wxPanel
 		 * @param typeMajor
 		 *   Major type of this document (e.g. "map", "tileset", etc.)
 		 */
-		IDocument(IMainWindow *parent, const wxString& typeMajor)
-			throw ();
+		IDocument(IMainWindow *parent, const wxString& typeMajor);
 
 		/// Get the major type (editor ID) of this document.
 		/**
@@ -63,28 +62,24 @@ class IDocument: public wxPanel
 		 *
 		 * @return The document's major type (map, music, tileset, etc.)
 		 */
-		const wxString& getTypeMajor() const
-			throw ();
+		const wxString& getTypeMajor() const;
 
 		/// Save changes to the document.
-		virtual void save()
-			throw (camoto::stream::error) = 0;
+		virtual void save() = 0;
 
 		/// Set the text in the hint part of the status bar.
 		/**
 		 * @param text
 		 *   Text to display, or wxString() to display nothing.
 		 */
-		void setStatusText(const wxString& text)
-			throw ();
+		void setStatusText(const wxString& text);
 
 		/// Set the text in the keyboard help part of the status bar.
 		/**
 		 * @param text
 		 *   Text to display, or wxString() to display nothing.
 		 */
-		void setHelpText(const wxString& text)
-			throw ();
+		void setHelpText(const wxString& text);
 
 	protected:
 		IMainWindow *frame;
@@ -95,20 +90,15 @@ class IDocument: public wxPanel
 class IToolPanel: public wxPanel
 {
 	public:
-		IToolPanel(IMainWindow *parent)
-			throw ();
+		IToolPanel(IMainWindow *parent);
 
-		virtual void getPanelInfo(wxString *id, wxString *label) const
-			throw () = 0;
+		virtual void getPanelInfo(wxString *id, wxString *label) const = 0;
 
-		virtual void switchDocument(IDocument *doc)
-			throw () = 0;
+		virtual void switchDocument(IDocument *doc) = 0;
 
-		virtual void loadSettings(Project *proj)
-			throw () = 0;
+		virtual void loadSettings(Project *proj) = 0;
 
-		virtual void saveSettings(Project *proj) const
-			throw () = 0;
+		virtual void saveSettings(Project *proj) const = 0;
 };
 
 /// List of tool panels.
@@ -125,14 +115,12 @@ struct OpenedSuppItem
 typedef std::map<wxString, OpenedSuppItem> SuppMap;
 
 /// Convert a SuppMap structure into a SuppData one.
-void suppMapToData(SuppMap& supp, camoto::SuppData &suppData)
-	throw ();
+void suppMapToData(SuppMap& supp, camoto::SuppData &suppData);
 
 class IEditor
 {
 	public:
-		virtual ~IEditor()
-			throw ();
+		virtual ~IEditor();
 
 		/// Create tool windows that this editor uses.
 		/**
@@ -141,24 +129,21 @@ class IEditor
 		 *
 		 * @return Vector of tool windows.
 		 */
-		virtual IToolPanelVector createToolPanes() const
-			throw () = 0;
+		virtual IToolPanelVector createToolPanes() const = 0;
 
 		/// Load this editor's settings from the project.
 		/**
 		 * This is called when a project is loaded, to update the editor's view
 		 * settings with those in the project.
 		 */
-		virtual void loadSettings(Project *proj)
-			throw () = 0;
+		virtual void loadSettings(Project *proj) = 0;
 
 		/// Save this editor's settings to the project.
 		/**
 		 * This is called when a project is saved, to store the editor's current
 		 * view settings in the project.
 		 */
-		virtual void saveSettings(Project *proj) const
-			throw () = 0;
+		virtual void saveSettings(Project *proj) const = 0;
 
 		/// Does this editor support this file type?
 		/**
@@ -167,8 +152,7 @@ class IEditor
 		 *
 		 * @return true if supported, false if not.
 		 */
-		virtual bool isFormatSupported(const wxString& type) const
-			throw () = 0;
+		virtual bool isFormatSupported(const wxString& type) const = 0;
 
 		/// Open an object in this editor.
 		/**
@@ -192,8 +176,7 @@ class IEditor
 		 */
 		virtual IDocument *openObject(const wxString& typeMinor,
 			camoto::stream::inout_sptr data, const wxString& filename, SuppMap supp,
-			const Game *game)
-			throw (EFailure) = 0;
+			const Game *game) = 0;
 
 };
 

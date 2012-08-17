@@ -28,20 +28,17 @@ using namespace camoto;
 using namespace camoto::gamemusic;
 
 MusicEditor::MusicEditor(IMainWindow *parent, AudioPtr audio)
-	throw () :
-		frame(parent),
+	:	frame(parent),
 		audio(audio),
 		pManager(camoto::gamemusic::getManager())
 {
 }
 
 MusicEditor::~MusicEditor()
-	throw ()
 {
 }
 
 std::vector<IToolPanel *> MusicEditor::createToolPanes() const
-	throw ()
 {
 	std::vector<IToolPanel *> panels;
 	InstrumentPanel *inst = new InstrumentPanel(this->frame);
@@ -51,7 +48,6 @@ std::vector<IToolPanel *> MusicEditor::createToolPanes() const
 }
 
 void MusicEditor::loadSettings(Project *proj)
-	throw ()
 {
 	proj->config.Read(_T("editor-music/last-export-path"), &this->settings.lastExportPath);
 	proj->config.Read(_T("editor-music/last-export-type"), &this->settings.lastExportType);
@@ -60,7 +56,6 @@ void MusicEditor::loadSettings(Project *proj)
 }
 
 void MusicEditor::saveSettings(Project *proj) const
-	throw ()
 {
 	proj->config.Write(_T("editor-music/last-export-path"), this->settings.lastExportPath);
 	proj->config.Write(_T("editor-music/last-export-type"), this->settings.lastExportType);
@@ -69,7 +64,6 @@ void MusicEditor::saveSettings(Project *proj) const
 }
 
 bool MusicEditor::isFormatSupported(const wxString& type) const
-	throw ()
 {
 	std::string strType(type.ToUTF8());
 	return this->pManager->getMusicTypeByCode(strType);
@@ -78,7 +72,6 @@ bool MusicEditor::isFormatSupported(const wxString& type) const
 IDocument *MusicEditor::openObject(const wxString& typeMinor,
 	stream::inout_sptr data, const wxString& filename, SuppMap supp,
 	const Game *game)
-	throw (EFailure)
 {
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_("No file type was specified for this item!"));

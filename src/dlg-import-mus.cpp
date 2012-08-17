@@ -53,9 +53,8 @@ BEGIN_EVENT_TABLE(DlgImportMusic, wxDialog)
 END_EVENT_TABLE()
 
 DlgImportMusic::DlgImportMusic(IMainWindow *parent, ManagerPtr pManager)
-	throw ()
-	: wxDialog(parent, wxID_ANY, _T("Preferences"), wxDefaultPosition,
-		wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER),
+	:	wxDialog(parent, wxID_ANY, _T("Preferences"), wxDefaultPosition,
+			wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER),
 		pManager(pManager)
 {
 	wxBoxSizer *szMain = new wxBoxSizer(wxVERTICAL);
@@ -139,7 +138,6 @@ DlgImportMusic::DlgImportMusic(IMainWindow *parent, ManagerPtr pManager)
 }
 
 void DlgImportMusic::setControls()
-	throw ()
 {
 	this->txtPath->SetValue(this->filename);
 
@@ -158,7 +156,6 @@ void DlgImportMusic::setControls()
 }
 
 DlgImportMusic::~DlgImportMusic()
-	throw ()
 {
 }
 

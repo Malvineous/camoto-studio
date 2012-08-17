@@ -29,14 +29,12 @@ END_EVENT_TABLE()
 
 TilePanelCanvas::TilePanelCanvas(TilePanel *parent, wxGLContext *glcx,
 	int *attribList, int zoomFactor)
-	throw () :
-		TilesetCanvas(parent, glcx, attribList, zoomFactor),
+	:	TilesetCanvas(parent, glcx, attribList, zoomFactor),
 		tilePanel(parent)
 {
 }
 
 TilePanelCanvas::~TilePanelCanvas()
-	throw ()
 {
 }
 

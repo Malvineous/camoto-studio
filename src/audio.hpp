@@ -38,8 +38,7 @@ class SynthMixer: public MixerChannel {
 	public:
 		uint8_t *buf;
 
-		virtual ~SynthMixer()
-			throw ();
+		virtual ~SynthMixer();
 
 		virtual void AddSamples_m32(Bitu samples, Bit32s *buffer);
 		virtual void AddSamples_s32(Bitu samples, Bit32s *buffer);
@@ -49,8 +48,7 @@ class SynthMixer: public MixerChannel {
 class OPLDevice
 {
 	public:
-		OPLDevice()
-			throw ();
+		OPLDevice();
 
 		/// Write the specified value into the given register.
 		/**
@@ -63,8 +61,7 @@ class OPLDevice
 		 * @post Register is immediately updated and will be heard if audio is
 		 *   currently streaming.
 		 */
-		void write(int reg, int val)
-			throw ();
+		void write(int reg, int val);
 
 	protected:
 		DBOPL::Handler *chip;
@@ -78,11 +75,9 @@ class Audio
 	public:
 		typedef boost::shared_ptr<OPLDevice> OPLPtr;
 
-		Audio(wxWindow *parent, int sampleRate)
-			throw ();
+		Audio(wxWindow *parent, int sampleRate);
 
-		~Audio()
-			throw ();
+		~Audio();
 
 		/// Create a new OPL chip to be mixed into the common output.
 		/**
@@ -91,8 +86,7 @@ class Audio
 		 *  the OPL device at class instatiation without triggering a grab for the
 		 *  audio device.
 		 */
-		OPLPtr createOPL()
-			throw ();
+		OPLPtr createOPL();
 
 		/// Pause/resume playback.
 		/**
@@ -103,8 +97,7 @@ class Audio
 		 * @post A modal popup message may have appeared over the UI if the audio
 		 *   device could not be opened.
 		 */
-		void pause(OPLPtr opl, bool pause)
-			throw ();
+		void pause(OPLPtr opl, bool pause);
 
 		/// Delete the given OPL chip.
 		/**
@@ -113,8 +106,7 @@ class Audio
 		 *
 		 * @post The audio device may be closed if the last chip has been deleted.
 		 */
-		void releaseOPL(OPLPtr opl)
-			throw ();
+		void releaseOPL(OPLPtr opl);
 
 		/// SDL callback to put audio data into SDL buffer.
 		/**
@@ -146,19 +138,16 @@ class Audio
 		 *
 		 * Whether it succeeds or not, the rest of the class will function the same.
 		 */
-		void openDevice()
-			throw ();
+		void openDevice();
 
 		/// Open/close the audio device according to the number of active streams.
-		void adjustDevice()
-			throw ();
+		void adjustDevice();
 
 		/// Stop streaming sound and close the audio device.
 		/**
 		 * This is called internally when the last stream is paused or removed.
 		 */
-		void closeDevice()
-			throw ();
+		void closeDevice();
 
 };
 

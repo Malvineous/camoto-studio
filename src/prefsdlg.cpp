@@ -54,11 +54,10 @@ BEGIN_EVENT_TABLE(PrefsDialog, wxDialog)
 END_EVENT_TABLE()
 
 PrefsDialog::PrefsDialog(IMainWindow *parent, AudioPtr audio)
-	throw ()
-	: wxDialog(parent, wxID_ANY, _("Preferences"), wxDefaultPosition,
-		wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER),
-	  audio(audio),
-	  player(NULL)
+	:	wxDialog(parent, wxID_ANY, _("Preferences"), wxDefaultPosition,
+			wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER),
+		audio(audio),
+		player(NULL)
 {
 	wxNotebook *tabs = new wxNotebook(this, wxID_ANY);
 	wxPanel *tabTesting = new wxPanel(tabs);
@@ -181,7 +180,6 @@ PrefsDialog::PrefsDialog(IMainWindow *parent, AudioPtr audio)
 }
 
 void PrefsDialog::setControls()
-	throw ()
 {
 	this->txtDOSBoxPath->SetValue(*this->pathDOSBox);
 	this->chkDOSBoxPause->SetValue(*this->pauseAfterExecute);
@@ -208,7 +206,6 @@ void PrefsDialog::setControls()
 }
 
 PrefsDialog::~PrefsDialog()
-	throw ()
 {
 	if (this->player) {
 		// Tell the playback thread to gracefully terminate
@@ -411,7 +408,6 @@ void PrefsDialog::onTestAudio(wxCommandEvent& ev)
 }
 
 void PrefsDialog::notifyPosition(unsigned long absTime)
-	throw ()
 {
 	return;
 }

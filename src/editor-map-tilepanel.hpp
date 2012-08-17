@@ -29,20 +29,15 @@
 class TilePanel: public IToolPanel
 {
 	public:
-		TilePanel(IMainWindow *parent)
-			throw ();
+		TilePanel(IMainWindow *parent);
 
-		virtual void getPanelInfo(wxString *id, wxString *label) const
-			throw ();
+		virtual void getPanelInfo(wxString *id, wxString *label) const;
 
-		virtual void switchDocument(IDocument *doc)
-			throw ();
+		virtual void switchDocument(IDocument *doc);
 
-		virtual void loadSettings(Project *proj)
-			throw ();
+		virtual void loadSettings(Project *proj);
 
-		virtual void saveSettings(Project *proj) const
-			throw ();
+		virtual void saveSettings(Project *proj) const;
 
 	protected:
 		MapDocument *doc;

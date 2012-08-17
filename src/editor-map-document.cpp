@@ -37,8 +37,7 @@ END_EVENT_TABLE()
 MapDocument::MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
 	MapTypePtr mapType, SuppData suppData, stream::inout_sptr mapFile,
 	VC_TILESET tileset, const MapObjectVector *mapObjectVector)
-	throw (camoto::stream::error, EFailure) :
-		IDocument(parent, _T("map")),
+	:	IDocument(parent, _T("map")),
 		settings(settings),
 		tileset(tileset),
 		mapType(mapType),
@@ -117,7 +116,6 @@ MapDocument::MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
 }
 
 void MapDocument::save()
-	throw (camoto::stream::error)
 {
 	try {
 		this->mapType->write(this->map, this->mapFile, this->suppData);
@@ -167,7 +165,6 @@ void MapDocument::onObjMode(wxCommandEvent& ev)
 }
 
 void MapDocument::setZoomFactor(int f)
-	throw ()
 {
 	this->settings->zoomFactor = f;
 	this->canvas->setZoomFactor(f);

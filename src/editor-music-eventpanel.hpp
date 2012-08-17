@@ -32,35 +32,26 @@ class EventPanel: public wxPanel, camoto::gamemusic::EventHandler
 {
 	public:
 
-		EventPanel(MusicDocument *parent, int channel)
-			throw ();
+		EventPanel(MusicDocument *parent, int channel);
 
-		~EventPanel()
-			throw ();
+		~EventPanel();
 
 		void onPaint(wxPaintEvent& pev);
 		void onResize(wxSizeEvent& ev);
 
 		// Event handler functions (used to paint events)
 
-		virtual void handleEvent(const camoto::gamemusic::TempoEvent *ev)
-			throw (camoto::stream::error);
+		virtual void handleEvent(const camoto::gamemusic::TempoEvent *ev);
 
-		virtual void handleEvent(const camoto::gamemusic::NoteOnEvent *ev)
-			throw (camoto::stream::error, camoto::gamemusic::EChannelMismatch,
-				camoto::gamemusic::bad_patch);
+		virtual void handleEvent(const camoto::gamemusic::NoteOnEvent *ev);
 
-		virtual void handleEvent(const camoto::gamemusic::NoteOffEvent *ev)
-			throw (camoto::stream::error);
+		virtual void handleEvent(const camoto::gamemusic::NoteOffEvent *ev);
 
-		virtual void handleEvent(const camoto::gamemusic::PitchbendEvent *ev)
-			throw (camoto::stream::error);
+		virtual void handleEvent(const camoto::gamemusic::PitchbendEvent *ev);
 
-		virtual void handleEvent(const camoto::gamemusic::ConfigurationEvent *ev)
-			throw (camoto::stream::error);
+		virtual void handleEvent(const camoto::gamemusic::ConfigurationEvent *ev);
 
-		void drawNoteOn(int milliHertz, int instrument)
-			throw ();
+		void drawNoteOn(int milliHertz, int instrument);
 
 	protected:
 		MusicDocument *doc;  ///< Music data to draw

@@ -38,11 +38,9 @@ class MapDocument: public IDocument
 			camoto::gamemaps::MapTypePtr mapType,
 			camoto::SuppData suppData, camoto::stream::inout_sptr mapFile,
 			camoto::gamegraphics::VC_TILESET tileset,
-			const MapObjectVector *mapObjectVector)
-			throw (camoto::stream::error, EFailure);
+			const MapObjectVector *mapObjectVector);
 
-		virtual void save()
-			throw (camoto::stream::error);
+		virtual void save();
 
 		void onZoomSmall(wxCommandEvent& ev);
 		void onZoomNormal(wxCommandEvent& ev);
@@ -51,8 +49,7 @@ class MapDocument: public IDocument
 		void onTileMode(wxCommandEvent& ev);
 		void onObjMode(wxCommandEvent& ev);
 
-		void setZoomFactor(int f)
-			throw ();
+		void setZoomFactor(int f);
 
 	protected:
 		MapCanvas *canvas;

@@ -146,8 +146,7 @@ typedef std::map<wxString, GameInfo> GameInfoMap;
 /**
  * @return List of all supported games.
  */
-GameInfoMap getAllGames()
-	throw ();
+GameInfoMap getAllGames();
 
 /// Load a single game's data from the XML files in the given location.
 /**
@@ -157,7 +156,6 @@ GameInfoMap getAllGames()
  * @return Game instance containing information about the given game, or
  *   NULL on error.
  */
-Game *loadGameStructure(const wxString& id)
-	throw ();
+Game *loadGameStructure(const wxString& id);
 
 #endif // _GAMELIST_HPP_

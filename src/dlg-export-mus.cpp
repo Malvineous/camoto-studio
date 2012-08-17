@@ -52,9 +52,8 @@ BEGIN_EVENT_TABLE(DlgExportMusic, wxDialog)
 END_EVENT_TABLE()
 
 DlgExportMusic::DlgExportMusic(IMainWindow *parent, ManagerPtr pManager)
-	throw ()
-	: wxDialog(parent, wxID_ANY, _("Export song"), wxDefaultPosition,
-		wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER),
+	:	wxDialog(parent, wxID_ANY, _("Export song"), wxDefaultPosition,
+			wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER),
 		pManager(pManager)
 {
 	wxBoxSizer *szMain = new wxBoxSizer(wxVERTICAL);
@@ -149,7 +148,6 @@ DlgExportMusic::DlgExportMusic(IMainWindow *parent, ManagerPtr pManager)
 }
 
 void DlgExportMusic::setControls()
-	throw ()
 {
 	this->txtPath->SetValue(this->filename);
 
@@ -170,7 +168,6 @@ void DlgExportMusic::setControls()
 }
 
 DlgExportMusic::~DlgExportMusic()
-	throw ()
 {
 }
 

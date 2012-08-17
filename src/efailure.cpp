@@ -21,18 +21,15 @@
 #include "efailure.hpp"
 
 EFailure::EFailure(const wxString& msg)
-	throw () :
-	msg(msg)
+	:	msg(msg)
 {
 }
 
 EFailure::~EFailure()
-	throw ()
 {
 }
 
 const char *EFailure::what() const
-	throw ()
 {
 	// Have to store the wxCharBuffer otherwise it gets deallocated and we end up
 	// returning an invalid pointer.
@@ -41,7 +38,6 @@ const char *EFailure::what() const
 }
 
 const wxString& EFailure::getMessage() const
-	throw ()
 {
 	return this->msg;
 }

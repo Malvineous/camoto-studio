@@ -31,8 +31,7 @@ class PlayerCallback
 {
 	public:
 		/// Notify current playback time
-		virtual void notifyPosition(unsigned long absTime)
-			throw () = 0;
+		virtual void notifyPosition(unsigned long absTime) = 0;
 };
 
 class PlayerThread: virtual public camoto::gamemusic::OPLWriterCallback,
@@ -51,63 +50,49 @@ class PlayerThread: virtual public camoto::gamemusic::OPLWriterCallback,
 		 *   The notification callback.
 		 */
 		PlayerThread(AudioPtr audio, camoto::gamemusic::MusicPtr music,
-			PlayerCallback *cb)
-			throw ();
+			PlayerCallback *cb);
 
-		virtual ~PlayerThread()
-			throw ();
+		virtual ~PlayerThread();
 
 		/// Start the playback thread.
 		void operator()();
 
 		/// Resume playback after pause.
-		void resume()
-			throw ();
+		void resume();
 
 		/// Pause playback.  The audio device is left open.
-		void pause()
-			throw ();
+		void pause();
 
 		/// Tell the thread to terminate
-		void quit()
-			throw ();
+		void quit();
 
 		/// Return to the beginning of the song.
-		void rewind()
-			throw ();
+		void rewind();
 
 		// OPLWriterCallback
 
-		void writeNextPair(const camoto::gamemusic::OPLEvent *oplEvent)
-			throw (camoto::stream::error);
+		void writeNextPair(const camoto::gamemusic::OPLEvent *oplEvent);
 
-		void writeTempoChange(camoto::gamemusic::tempo_t usPerTick)
-			throw (camoto::stream::error);
+		void writeTempoChange(camoto::gamemusic::tempo_t usPerTick);
 
 		// MIDIEventCallback
 
 		virtual void midiNoteOff(uint32_t delay, uint8_t channel, uint8_t note,
-			uint8_t velocity)
-			throw (camoto::stream::error);
+			uint8_t velocity);
 
 		virtual void midiNoteOn(uint32_t delay, uint8_t channel, uint8_t note,
-			uint8_t velocity)
-			throw (camoto::stream::error);
+			uint8_t velocity);
 
 		virtual void midiPatchChange(uint32_t delay, uint8_t channel,
-			uint8_t instrument)
-			throw (camoto::stream::error);
+			uint8_t instrument);
 
 		virtual void midiController(uint32_t delay, uint8_t channel,
-			uint8_t controller, uint8_t value)
-			throw (camoto::stream::error);
+			uint8_t controller, uint8_t value);
 
-		virtual void midiPitchbend(uint32_t delay, uint8_t channel, uint16_t bend)
-			throw (camoto::stream::error);
+		virtual void midiPitchbend(uint32_t delay, uint8_t channel, uint16_t bend);
 
 		virtual void midiSetTempo(uint32_t delay,
-			camoto::gamemusic::tempo_t usPerTick)
-			throw (camoto::stream::error);
+			camoto::gamemusic::tempo_t usPerTick);
 
 	protected:
 		AudioPtr audio;               ///< Audio device and OPL

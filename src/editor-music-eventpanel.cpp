@@ -29,8 +29,7 @@ BEGIN_EVENT_TABLE(EventPanel, wxPanel)
 END_EVENT_TABLE()
 
 EventPanel::EventPanel(MusicDocument *parent, int channel)
-	throw () :
-		wxPanel(parent, wxID_ANY),
+	:	wxPanel(parent, wxID_ANY),
 		doc(parent),
 		channel(channel)
 {
@@ -38,7 +37,6 @@ EventPanel::EventPanel(MusicDocument *parent, int channel)
 }
 
 EventPanel::~EventPanel()
-	throw ()
 {
 }
 
@@ -103,7 +101,6 @@ void EventPanel::onResize(wxSizeEvent& ev)
 }
 
 void EventPanel::handleEvent(const TempoEvent *ev)
-	throw (camoto::stream::error)
 {
 	this->pdc->SetTextForeground(*wxGREEN);
 	wxString txt;
@@ -113,7 +110,6 @@ void EventPanel::handleEvent(const TempoEvent *ev)
 }
 
 void EventPanel::handleEvent(const NoteOnEvent *ev)
-	throw (camoto::stream::error, EChannelMismatch, bad_patch)
 {
 	this->pdc->SetTextForeground(*wxBLACK);
 	this->drawNoteOn(ev->milliHertz, ev->instrument);
@@ -121,7 +117,6 @@ void EventPanel::handleEvent(const NoteOnEvent *ev)
 }
 
 void EventPanel::handleEvent(const NoteOffEvent *ev)
-	throw (camoto::stream::error)
 {
 	this->pdc->SetTextForeground(*wxBLACK);
 	this->pdc->DrawText(_T("    -- ----"), 0, this->paintY);
@@ -129,7 +124,6 @@ void EventPanel::handleEvent(const NoteOffEvent *ev)
 }
 
 void EventPanel::handleEvent(const PitchbendEvent *ev)
-	throw (camoto::stream::error)
 {
 	this->pdc->SetTextForeground(*wxBLUE);
 	this->drawNoteOn(ev->milliHertz, -1);
@@ -137,7 +131,6 @@ void EventPanel::handleEvent(const PitchbendEvent *ev)
 }
 
 void EventPanel::handleEvent(const ConfigurationEvent *ev)
-	throw (camoto::stream::error)
 {
 	this->pdc->SetTextForeground(*wxCYAN);
 	wxString txt;
@@ -167,7 +160,6 @@ void EventPanel::handleEvent(const ConfigurationEvent *ev)
 }
 
 void EventPanel::drawNoteOn(int milliHertz, int instrument)
-	throw ()
 {
 	double dbHertz = milliHertz / 440000.0;
 	double midiNote, midiNoteFrac;

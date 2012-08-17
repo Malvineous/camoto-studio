@@ -24,24 +24,20 @@
 #include "exceptions.hpp"
 
 EBase::EBase(const wxString& msg)
-	throw () :
-		msg(msg)
+	:	msg(msg)
 {
 }
 
 EBase::~EBase()
-	throw ()
 {
 }
 
 const wxString& EBase::getMessage() const
-	throw ()
 {
 	return this->msg;
 }
 
 const char *EBase::what() const
-	throw ()
 {
 	this->buffer = this->msg.utf8_str();
 	return this->buffer.data();

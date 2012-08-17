@@ -24,13 +24,13 @@
 
 #include "project.hpp"
 
-EProjectOpenFailure::EProjectOpenFailure(const wxString& msg) :
-	EBase(msg)
+EProjectOpenFailure::EProjectOpenFailure(const wxString& msg)
+	:	EBase(msg)
 {
 }
 
-EProjectCopyFailure::EProjectCopyFailure() :
-	EBase(_("Unable to copy the game files into the project folder."))
+EProjectCopyFailure::EProjectCopyFailure()
+	:	EBase(_("Unable to copy the game files into the project folder."))
 {
 }
 
@@ -40,10 +40,10 @@ class CopyTo: public wxDirTraverser
 	public:
 		bool error;  ///< Set to true if the copy failed
 
-		CopyTo(const wxString& dest, const wxString& src) :
-			error(false),
-			dest(dest),
-			src(src)
+		CopyTo(const wxString& dest, const wxString& src)
+			:	error(false),
+				dest(dest),
+				src(src)
 		{
 			std::cout << "[copy] Creating " << dest.ToAscii();
 			if (!wxMkdir(dest, 0755)) {
@@ -101,7 +101,6 @@ class CopyTo: public wxDirTraverser
 };
 
 Project *Project::create(const wxString& targetPath, const wxString& gameSource)
-	throw (EProjectOpenFailure, EProjectCopyFailure)
 {
 	assert(wxDirExists(targetPath));
 
@@ -136,9 +135,8 @@ Project *Project::create(const wxString& targetPath, const wxString& gameSource)
 }
 
 Project::Project(const wxString& path)
-	throw (EProjectOpenFailure) :
-	config(wxEmptyString, wxEmptyString, path, wxEmptyString, wxCONFIG_USE_LOCAL_FILE),
-	path(path)
+	:	config(wxEmptyString, wxEmptyString, path, wxEmptyString, wxCONFIG_USE_LOCAL_FILE),
+		path(path)
 {
 	long version;
 	if (!this->config.Read(_T("camoto/version"), &version)) {
@@ -151,12 +149,10 @@ Project::Project(const wxString& path)
 }
 
 Project::~Project()
-	throw ()
 {
 }
 
 bool Project::save()
-	throw ()
 {
 	long rev;
 	this->config.Read(_T("camoto/projrevision"), &rev, 1);
@@ -166,13 +162,11 @@ bool Project::save()
 }
 
 wxString Project::getBasePath()
-	throw ()
 {
 	return this->path.GetPath();
 }
 
 wxString Project::getDataPath()
-	throw ()
 {
 	wxFileName p;
 	p.AssignDir(this->path.GetPath());

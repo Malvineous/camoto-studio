@@ -31,8 +31,7 @@ END_EVENT_TABLE()
 
 TilesetCanvas::TilesetCanvas(wxWindow *parent, wxGLContext *glcx,
 	int *attribList, int zoomFactor)
-	throw () :
-		wxGLCanvas(parent, glcx, wxID_ANY, wxDefaultPosition,
+	:	wxGLCanvas(parent, glcx, wxID_ANY, wxDefaultPosition,
 			wxDefaultSize, 0, wxEmptyString, attribList),
 		zoomFactor(zoomFactor),
 		tilesX(0), // must be updated before first redraw() call
@@ -48,12 +47,10 @@ TilesetCanvas::TilesetCanvas(wxWindow *parent, wxGLContext *glcx,
 }
 
 TilesetCanvas::~TilesetCanvas()
-	throw ()
 {
 }
 
 void TilesetCanvas::setTextures(TEXTURE_MAP& tm)
-	throw ()
 {
 	this->tm = tm;
 	return;
@@ -92,7 +89,6 @@ void TilesetCanvas::glReset()
 }
 
 void TilesetCanvas::redraw()
-	throw ()
 {
 	this->SetCurrent();
 this->glReset();
@@ -152,7 +148,6 @@ this->glReset();
 }
 
 void TilesetCanvas::setZoomFactor(int f)
-	throw ()
 {
 	this->zoomFactor = f;
 	this->glReset();
@@ -161,7 +156,6 @@ void TilesetCanvas::setZoomFactor(int f)
 }
 
 void TilesetCanvas::setTilesX(int t)
-	throw ()
 {
 	this->tilesX = t;
 	this->redraw();
@@ -169,7 +163,6 @@ void TilesetCanvas::setTilesX(int t)
 }
 
 void TilesetCanvas::setOffset(unsigned int o)
-	throw ()
 {
 	if (o < this->tm.size()) {
 		this->offset = o;

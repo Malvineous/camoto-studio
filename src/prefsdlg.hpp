@@ -47,15 +47,12 @@ class PrefsDialog: public wxDialog,
 		 * @param parent
 		 *   Display the dialog within this window.
 		 */
-		PrefsDialog(IMainWindow *parent, AudioPtr audio)
-			throw ();
+		PrefsDialog(IMainWindow *parent, AudioPtr audio);
 
-		~PrefsDialog()
-			throw ();
+		~PrefsDialog();
 
 		/// Update controls to reflect public vars.
-		void setControls()
-			throw ();
+		void setControls();
 
 		/// Event handler for OK button.
 		void onOK(wxCommandEvent& ev);
@@ -74,8 +71,7 @@ class PrefsDialog: public wxDialog,
 
 		// PlayerCallback
 
-		virtual void notifyPosition(unsigned long absTime)
-			throw ();
+		virtual void notifyPosition(unsigned long absTime);
 
 	protected:
 		AudioPtr audio;

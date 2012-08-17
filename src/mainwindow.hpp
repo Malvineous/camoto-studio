@@ -66,23 +66,20 @@ class IMainWindow: public wxFrame
 		 * @param text
 		 *   Text to display, or wxString() to display nothing.
 		 */
-		virtual void setStatusText(const wxString& text)
-			throw () = 0;
+		virtual void setStatusText(const wxString& text) = 0;
 
 		/// Set the text in the keyboard help part of the status bar.
 		/**
 		 * @param text
 		 *   Text to display, or wxString() to display nothing.
 		 */
-		virtual void setHelpText(const wxString& text)
-			throw () = 0;
+		virtual void setHelpText(const wxString& text) = 0;
 
 		/// Get a shared OpenGL context.
 		/**
 		 * @return OpenGL context to share among subsequent OpenGL canvases.
 		 */
-		virtual wxGLContext *getGLContext()
-			throw () = 0;
+		virtual wxGLContext *getGLContext() = 0;
 
 		/// Get the OpenGL attribute list to use for all shared surfaces.
 		/**
@@ -94,8 +91,7 @@ class IMainWindow: public wxFrame
 		 *
 		 * @return Integer array suitable for passing to wxGLCanvas c'tor.
 		 */
-		virtual int *getGLAttributes()
-			throw () = 0;
+		virtual int *getGLAttributes() = 0;
 };
 
 #endif // _MAINWINDOW_HPP_

@@ -27,17 +27,13 @@
 class EBase: public std::exception
 {
 	public:
-		EBase(const wxString& msg)
-			throw ();
+		EBase(const wxString& msg);
 
-		~EBase()
-			throw ();
+		~EBase();
 
-		const wxString& getMessage() const
-			throw ();
+		const wxString& getMessage() const;
 
-		virtual const char *what() const
-			throw ();
+		virtual const char *what() const;
 
 	protected:
 		wxString msg;                 ///< Original message

@@ -29,11 +29,9 @@ class TilePanelCanvas: public TilesetCanvas
 {
 	public:
 		TilePanelCanvas(TilePanel *parent, wxGLContext *glcx, int *attribList,
-			int zoomFactor)
-			throw ();
+			int zoomFactor);
 
-		~TilePanelCanvas()
-			throw ();
+		~TilePanelCanvas();
 
 		void onRightClick(wxMouseEvent& ev);
 

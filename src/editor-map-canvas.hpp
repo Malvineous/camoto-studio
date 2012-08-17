@@ -120,19 +120,16 @@ class MapCanvas: public wxGLCanvas
 
 		MapCanvas(MapDocument *parent, wxGLContext *glcx,
 			camoto::gamemaps::Map2DPtr map, camoto::gamegraphics::VC_TILESET tileset,
-			int *attribList, const MapObjectVector *mapObjects)
-			throw ();
+			int *attribList, const MapObjectVector *mapObjects);
 
-		~MapCanvas()
-			throw ();
+		~MapCanvas();
 
 		/// Set the zoom factor.
 		/**
 		 * @param f
 		 *  Zoom multiplier.  1 == pixel perfect, 2 == double size.
 		 */
-		void setZoomFactor(int f)
-			throw ();
+		void setZoomFactor(int f);
 
 		/// Show/hide the tile grid.
 		/**
@@ -142,16 +139,13 @@ class MapCanvas: public wxGLCanvas
 		 * @note Grid change is immediately visible as GL surface is redrawn before
 		 *   returning.
 		 */
-		void showGrid(bool visible)
-			throw ();
+		void showGrid(bool visible);
 
 		/// Switch to tile editing mode.
-		void setTileMode()
-			throw ();
+		void setTileMode();
 
 		/// Switch to object editing mode.
-		void setObjMode()
-			throw ();
+		void setObjMode();
 
 		void setActiveLayer(unsigned int layer);
 		void onEraseBG(wxEraseEvent& ev);
@@ -160,8 +154,7 @@ class MapCanvas: public wxGLCanvas
 		void glReset();
 
 		/// Redraw the document.  Used after toggling layers.
-		void redraw()
-			throw ();
+		void redraw();
 
 		/// Focus the object (if any) under the mouse cursor.
 		/**
@@ -183,8 +176,7 @@ class MapCanvas: public wxGLCanvas
 		 * @param y
 		 *   Y coordinate in pixels relative to top-left of canvas.
 		 */
-		void paintSelection(int x, int y)
-			throw ();
+		void paintSelection(int x, int y);
 
 		void onMouseMove(wxMouseEvent& ev);
 
@@ -211,8 +203,7 @@ class MapCanvas: public wxGLCanvas
 		void onKeyDown(wxKeyEvent& ev);
 
 		/// Make sure the keyboard help reflects the current editor state.
-		void updateHelpText()
-			throw ();
+		void updateHelpText();
 
 	protected:
 		/// Load an image into an OpenGL texture.
@@ -228,8 +219,7 @@ class MapCanvas: public wxGLCanvas
 		void loadTileImage(TEXTURE_MAP& tm,
 			camoto::gamegraphics::PaletteTablePtr& palDefault, unsigned int code,
 			camoto::gamemaps::Map2D::LayerPtr& layer,
-			camoto::gamegraphics::VC_TILESET& tileset, Texture& unknownTile)
-			throw ();
+			camoto::gamegraphics::VC_TILESET& tileset, Texture& unknownTile);
 
 		MapDocument *doc;
 		camoto::gamemaps::Map2DPtr map;

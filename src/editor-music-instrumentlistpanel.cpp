@@ -34,10 +34,9 @@ BEGIN_EVENT_TABLE(InstrumentListPanel, IToolPanel)
 END_EVENT_TABLE()
 
 InstrumentListPanel::InstrumentListPanel(IMainWindow *parent, InstrumentPanel *instPanel)
-	throw ()
-	: IToolPanel(parent),
-	  instPanel(instPanel),
-	  lastInstrument(0)
+	:	IToolPanel(parent),
+		instPanel(instPanel),
+		lastInstrument(0)
 {
 	this->list = new wxListCtrl(this, IDC_INSTLIST, wxDefaultPosition,
 		wxDefaultSize, wxLC_REPORT | wxBORDER_NONE | wxLC_NO_HEADER |
@@ -60,7 +59,6 @@ InstrumentListPanel::InstrumentListPanel(IMainWindow *parent, InstrumentPanel *i
 }
 
 void InstrumentListPanel::getPanelInfo(wxString *id, wxString *label) const
-	throw ()
 {
 	*id = _T("music.instrumentlist");
 	*label = _("Instrument list");
@@ -68,7 +66,6 @@ void InstrumentListPanel::getPanelInfo(wxString *id, wxString *label) const
 }
 
 void InstrumentListPanel::switchDocument(IDocument *doc)
-	throw ()
 {
 	this->list->DeleteAllItems();
 
@@ -110,20 +107,17 @@ void InstrumentListPanel::switchDocument(IDocument *doc)
 }
 
 void InstrumentListPanel::loadSettings(Project *proj)
-	throw ()
 {
 	return;
 }
 
 void InstrumentListPanel::saveSettings(Project *proj) const
-	throw ()
 {
 	return;
 }
 
 void InstrumentListPanel::replaceInstrument(unsigned int index,
 	PatchPtr newInstrument)
-	throw ()
 {
 	this->doc->music->patches->at(index) = newInstrument;
 	this->updateInstrumentView(index);
@@ -131,7 +125,6 @@ void InstrumentListPanel::replaceInstrument(unsigned int index,
 }
 
 void InstrumentListPanel::updateInstrument(unsigned int index)
-	throw ()
 {
 	this->updateInstrumentView(index);
 	return;
@@ -159,7 +152,6 @@ void InstrumentListPanel::onItemRightClick(wxListEvent& ev)
 }
 
 void InstrumentListPanel::updateInstrumentView(unsigned int index)
-	throw ()
 {
 	PatchPtr patch = this->doc->music->patches->at(index);
 	if (!patch) return;

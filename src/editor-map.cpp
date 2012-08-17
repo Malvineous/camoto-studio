@@ -36,15 +36,13 @@ using namespace camoto::gamemaps;
 using namespace camoto::gamegraphics;
 
 void tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& suppMap,
-	const wxString& id, VC_TILESET *tilesetVector)
-	throw (EFailure);
+	const wxString& id, VC_TILESET *tilesetVector);
 
 class LayerPanel: public IToolPanel
 {
 	public:
 		LayerPanel(IMainWindow *parent)
-			throw () :
-				IToolPanel(parent)
+			:	IToolPanel(parent)
 		{
 			this->list = new wxListCtrl(this, IDC_LAYER, wxDefaultPosition,
 				wxDefaultSize, wxLC_REPORT | wxBORDER_NONE | wxLC_NO_HEADER |
@@ -79,7 +77,6 @@ class LayerPanel: public IToolPanel
 		}
 
 		virtual void getPanelInfo(wxString *id, wxString *label) const
-			throw ()
 		{
 			*id = _T("map.layer");
 			*label = _("Layers");
@@ -87,7 +84,6 @@ class LayerPanel: public IToolPanel
 		}
 
 		virtual void switchDocument(IDocument *doc)
-			throw ()
 		{
 			this->list->DeleteAllItems();
 
@@ -144,7 +140,6 @@ class LayerPanel: public IToolPanel
 		}
 
 		virtual void loadSettings(Project *proj)
-			throw ()
 		{
 			for (int i = 0; i < MapCanvas::ElementCount; i++) {
 				proj->config.Read(wxString::Format(_T("editor-map/show-elementlayer%d"), i),
@@ -154,7 +149,6 @@ class LayerPanel: public IToolPanel
 		}
 
 		virtual void saveSettings(Project *proj) const
-			throw ()
 		{
 			for (int i = 0; i < MapCanvas::ElementCount; i++) {
 				proj->config.Write(wxString::Format(_T("editor-map/show-elementlayer%d"), i),
@@ -216,8 +210,7 @@ END_EVENT_TABLE()
 
 
 MapEditor::MapEditor(IMainWindow *parent)
-	throw () :
-		frame(parent),
+	:	frame(parent),
 		pManager(camoto::gamemaps::getManager())
 {
 	// Default settings
@@ -225,12 +218,10 @@ MapEditor::MapEditor(IMainWindow *parent)
 }
 
 MapEditor::~MapEditor()
-	throw ()
 {
 }
 
 std::vector<IToolPanel *> MapEditor::createToolPanes() const
-	throw ()
 {
 	std::vector<IToolPanel *> panels;
 	panels.push_back(new LayerPanel(this->frame));
@@ -239,21 +230,18 @@ std::vector<IToolPanel *> MapEditor::createToolPanes() const
 }
 
 void MapEditor::loadSettings(Project *proj)
-	throw ()
 {
 	proj->config.Read(_T("editor-map/zoom"), (int *)&this->settings.zoomFactor, CFG_DEFAULT_ZOOM);
 	return;
 }
 
 void MapEditor::saveSettings(Project *proj) const
-	throw ()
 {
 	proj->config.Write(_T("editor-map/zoom"), (int)this->settings.zoomFactor);
 	return;
 }
 
 bool MapEditor::isFormatSupported(const wxString& type) const
-	throw ()
 {
 	std::string strType("map-");
 	strType.append(type.ToUTF8());
@@ -263,7 +251,6 @@ bool MapEditor::isFormatSupported(const wxString& type) const
 IDocument *MapEditor::openObject(const wxString& typeMinor,
 	camoto::stream::inout_sptr data, const wxString& filename, SuppMap supp,
 	const Game *game)
-	throw (EFailure)
 {
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_("No file type was specified for this item!"));
@@ -329,7 +316,6 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 
 void tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& supp,
 	const wxString& id, VC_TILESET *tilesetVector)
-	throw (EFailure)
 {
 	SuppMap::iterator s;
 	s = supp.find(id);

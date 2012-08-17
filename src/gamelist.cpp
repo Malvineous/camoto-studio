@@ -61,7 +61,6 @@ void populateGameInfo(xmlDoc *xml, GameInfo *gi)
 }
 
 GameInfoMap getAllGames()
-	throw ()
 {
 	GameInfoMap games;
 
@@ -92,7 +91,6 @@ GameInfoMap getAllGames()
 
 /// Recursively process the <display/> chunk.
 void populateDisplay(xmlNode *n, tree<wxString>& t)
-	throw ()
 {
 	for (xmlNode *i = n->children; i; i = i->next) {
 		if (xmlStrcmp(i->name, _X("item")) == 0) {
@@ -182,7 +180,6 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 }
 
 Game *loadGameStructure(const wxString& id)
-	throw ()
 {
 	wxFileName fn;
 	fn.AssignDir(::path.gameData);

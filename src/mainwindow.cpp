@@ -23,7 +23,7 @@
 
 IMainWindow::IMainWindow(wxWindow *parent, wxWindowID winid,
 	const wxString& title, const wxPoint& pos,	const wxSize& size, long style,
-	const wxString& name) :
-	wxFrame(parent, winid, title, pos, size, style, name)
+	const wxString& name)
+	:	wxFrame(parent, winid, title, pos, size, style, name)
 {
 }

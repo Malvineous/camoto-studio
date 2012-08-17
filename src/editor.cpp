@@ -23,8 +23,7 @@
 using namespace camoto;
 
 IDocument::IDocument(IMainWindow *parent, const wxString& typeMajor)
-	throw () :
-		wxPanel(parent),
+	:	wxPanel(parent),
 		isModified(false),
 		frame(parent),
 		typeMajor(typeMajor)
@@ -32,33 +31,28 @@ IDocument::IDocument(IMainWindow *parent, const wxString& typeMajor)
 }
 
 const wxString& IDocument::getTypeMajor() const
-	throw ()
 {
 	return this->typeMajor;
 }
 
 void IDocument::setStatusText(const wxString& text)
-	throw ()
 {
 	this->frame->setStatusText(text);
 	return;
 }
 
 void IDocument::setHelpText(const wxString& text)
-	throw ()
 {
 	this->frame->setHelpText(text);
 	return;
 }
 
 IToolPanel::IToolPanel(IMainWindow *parent)
-	throw () :
-		wxPanel(parent)
+	:	wxPanel(parent)
 {
 }
 
 IEditor::~IEditor()
-	throw ()
 {
 }
 
@@ -69,7 +63,6 @@ IEditor::~IEditor()
 	}
 
 void suppMapToData(SuppMap& supp, SuppData &suppData)
-	throw ()
 {
 	SuppMap::iterator s;
 	SUPP_MAP(_T("dict"), Dictionary);

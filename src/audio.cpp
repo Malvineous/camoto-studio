@@ -36,7 +36,6 @@
 #define CLIP(v) (((v) > SAMP_MAX) ? SAMP_MAX : (((v) < SAMP_MIN) ? SAMP_MIN : (v)))
 
 SynthMixer::~SynthMixer()
-	throw ()
 {
 }
 
@@ -70,22 +69,19 @@ void fillAudioBuffer(void *udata, Uint8 *stream, int len)
 
 
 OPLDevice::OPLDevice()
-	throw () :
-		chip(new DBOPL::Handler()),
+	:	chip(new DBOPL::Handler()),
 		active(false)
 {
 }
 
 void OPLDevice::write(int reg, int val)
-	throw ()
 {
 	this->chip->WriteReg(reg, val);
 	return;
 }
 
 Audio::Audio(wxWindow *parent, int sampleRate)
-	throw () :
-		parent(parent),
+	:	parent(parent),
 		sampleRate(sampleRate),
 		audioGood(false)
 {
@@ -93,13 +89,11 @@ Audio::Audio(wxWindow *parent, int sampleRate)
 }
 
 Audio::~Audio()
-	throw ()
 {
 	delete this->mixer;
 }
 
 Audio::OPLPtr Audio::createOPL()
-	throw ()
 {
 	boost::mutex::scoped_lock chips_lock(this->chips_mutex);
 	Audio::OPLPtr n(new OPLDevice());
@@ -109,7 +103,6 @@ Audio::OPLPtr Audio::createOPL()
 }
 
 void Audio::pause(OPLPtr opl, bool pause)
-	throw ()
 {
 	opl->active = !pause;
 	this->adjustDevice();
@@ -117,7 +110,6 @@ void Audio::pause(OPLPtr opl, bool pause)
 }
 
 void Audio::releaseOPL(OPLPtr opl)
-	throw ()
 {
 	{
 		// Don't want this to disappear while being used by fillAudioBuffer
@@ -161,7 +153,6 @@ void Audio::fillAudioBuffer(uint8_t *stream, unsigned int len)
 }
 
 void Audio::openDevice()
-	throw ()
 {
 	SDL_AudioSpec wanted;
 	wanted.freq = this->sampleRate;
@@ -186,7 +177,6 @@ void Audio::openDevice()
 }
 
 void Audio::adjustDevice()
-	throw ()
 {
 	boost::mutex::scoped_lock chips_lock(this->chips_mutex);
 	int totalActive = 0;
@@ -202,7 +192,6 @@ void Audio::adjustDevice()
 }
 
 void Audio::closeDevice()
-	throw ()
 {
 	SDL_CloseAudio();
 	this->audioGood = false;

@@ -36,30 +36,22 @@ class InstrumentPanel;
 class InstrumentPanel: public IToolPanel
 {
 	public:
-		InstrumentPanel(IMainWindow *parent)
-			throw ();
+		InstrumentPanel(IMainWindow *parent);
 
 		void addNumberControl(wxWindow *parent, wxGridBagSizer *sizer, int *row, unsigned int id,
-			const wxString& title, unsigned int min, unsigned int max)
-			throw ();
+			const wxString& title, unsigned int min, unsigned int max);
 
-		virtual void getPanelInfo(wxString *id, wxString *label) const
-			throw ();
+		virtual void getPanelInfo(wxString *id, wxString *label) const;
 
-		virtual void switchDocument(IDocument *doc)
-			throw ();
+		virtual void switchDocument(IDocument *doc);
 
-		virtual void loadSettings(Project *proj)
-			throw ();
+		virtual void loadSettings(Project *proj);
 
-		virtual void saveSettings(Project *proj) const
-			throw ();
+		virtual void saveSettings(Project *proj) const;
 
-		void setInstrumentList(InstrumentListPanel *instList, camoto::gamemusic::PatchBankPtr patchBank)
-			throw ();
+		void setInstrumentList(InstrumentListPanel *instList, camoto::gamemusic::PatchBankPtr patchBank);
 
-		void setInstrument(unsigned int newIndex)
-			throw ();
+		void setInstrument(unsigned int newIndex);
 
 		void onTypeChanged(wxChoicebookEvent& ev);
 		void onValueChanged(wxSpinEvent& ev);

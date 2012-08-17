@@ -31,17 +31,13 @@ class EFailure: virtual public std::exception {
 		mutable wxCharBuffer buf;
 
 	public:
-		EFailure(const wxString& msg)
-			throw ();
+		EFailure(const wxString& msg);
 
-		~EFailure()
-			throw ();
+		~EFailure();
 
-		virtual const char *what() const
-			throw ();
+		virtual const char *what() const;
 
-		const wxString& getMessage() const
-			throw ();
+		const wxString& getMessage() const;
 };
 
 #endif // _EFAILURE_HPP_

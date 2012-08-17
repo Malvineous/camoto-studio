@@ -42,8 +42,7 @@ END_EVENT_TABLE()
 
 MusicDocument::MusicDocument(MusicEditor *editor, MusicTypePtr musicType,
 	stream::inout_sptr musFile, SuppData suppData)
-	throw (camoto::stream::error) :
-		IDocument(editor->frame, _T("music")),
+	:	IDocument(editor->frame, _T("music")),
 		editor(editor),
 		musicType(musicType),
 		musFile(musFile),
@@ -172,7 +171,6 @@ MusicDocument::~MusicDocument()
 }
 
 void MusicDocument::save()
-	throw (camoto::stream::error)
 {
 	try {
 		this->musFile->seekp(0, stream::start);
@@ -404,7 +402,6 @@ void MusicDocument::pushViewSettings()
 }
 
 void MusicDocument::notifyPosition(unsigned long absTime)
-	throw ()
 {
 	// This is called from the player thread so we can't directly use the UI
 

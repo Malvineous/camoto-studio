@@ -36,13 +36,11 @@ class MusicDocument: public IDocument, PlayerCallback
 {
 	public:
 		MusicDocument(MusicEditor *editor, camoto::gamemusic::MusicTypePtr musicType,
-			camoto::stream::inout_sptr musFile, camoto::SuppData suppData)
-			throw (camoto::stream::error);
+			camoto::stream::inout_sptr musFile, camoto::SuppData suppData);
 
 		~MusicDocument();
 
-		virtual void save()
-			throw (camoto::stream::error);
+		virtual void save();
 
 		void onSeekPrev(wxCommandEvent& ev);
 		void onPlay(wxCommandEvent& ev);
@@ -62,8 +60,7 @@ class MusicDocument: public IDocument, PlayerCallback
 		// PlayerCallback
 
 		/// Set the position of the playback time highlight row.
-		virtual void notifyPosition(unsigned long absTime)
-			throw ();
+		virtual void notifyPosition(unsigned long absTime);
 
 	protected:
 		MusicEditor *editor;

@@ -104,8 +104,7 @@ END_EVENT_TABLE()
 
 MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 	VC_TILESET tileset, int *attribList, const MapObjectVector *mapObjects)
-	throw () :
-		wxGLCanvas(parent, glcx, wxID_ANY, wxDefaultPosition,
+	:	wxGLCanvas(parent, glcx, wxID_ANY, wxDefaultPosition,
 			wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS, wxEmptyString, attribList),
 		doc(parent),
 		map(map),
@@ -303,7 +302,6 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 }
 
 MapCanvas::~MapCanvas()
-	throw ()
 {
 	for (std::vector<TEXTURE_MAP>::iterator l = this->textureMap.begin(); l != this->textureMap.end(); l++) {
 		for (TEXTURE_MAP::iterator t = l->begin(); t != l->end(); t++) {
@@ -315,7 +313,6 @@ MapCanvas::~MapCanvas()
 void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 	unsigned int code, Map2D::LayerPtr& layer, VC_TILESET& tileset,
 	Texture& unknownTile)
-	throw ()
 {
 	// This tile code doesn't have an associated image yet
 	ImagePtr image = layer->imageFromCode(code, tileset);
@@ -380,7 +377,6 @@ void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 }
 
 void MapCanvas::setZoomFactor(int f)
-	throw ()
 {
 	// Keep the viewport centred after the zoom
 	wxSize s = this->GetClientSize();
@@ -396,7 +392,6 @@ void MapCanvas::setZoomFactor(int f)
 }
 
 void MapCanvas::showGrid(bool visible)
-	throw ()
 {
 	this->gridVisible = visible;
 	this->glReset();
@@ -405,7 +400,6 @@ void MapCanvas::showGrid(bool visible)
 }
 
 void MapCanvas::setTileMode()
-	throw ()
 {
 	this->editingMode = TileMode;
 
@@ -420,7 +414,6 @@ void MapCanvas::setTileMode()
 }
 
 void MapCanvas::setObjMode()
-	throw ()
 {
 	this->editingMode = ObjectMode;
 
@@ -480,7 +473,6 @@ void MapCanvas::glReset()
 }
 
 void MapCanvas::redraw()
-	throw ()
 {
 	wxSize s = this->GetClientSize();
 	s.x /= this->zoomFactor;
@@ -1173,7 +1165,6 @@ bool MapCanvas::focusObject(ObjectVector::iterator start)
 }
 
 void MapCanvas::paintSelection(int x, int y)
-	throw ()
 {
 	assert(this->activeLayer >= ElementCount);
 
@@ -2008,7 +1999,6 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 #define __           _(" | ")
 
 void MapCanvas::updateHelpText()
-	throw ()
 {
 	if (this->activeLayer == ElPaths) { // select some points on a path
 		if (this->pathSelection.empty()) {

@@ -46,8 +46,7 @@ class TilesetDocument: public IDocument
 {
 	public:
 		TilesetDocument(IMainWindow *parent, TilesetEditor::Settings *settings, TilesetPtr tileset)
-			throw () :
-				IDocument(parent, _T("tileset")),
+			:	IDocument(parent, _T("tileset")),
 				tileset(tileset),
 				settings(settings),
 				offset(0)
@@ -142,7 +141,6 @@ class TilesetDocument: public IDocument
 		}
 
 		~TilesetDocument()
-			throw ()
 		{
 			// Unload all the textures
 			this->canvas->SetCurrent();
@@ -152,7 +150,6 @@ class TilesetDocument: public IDocument
 		}
 
 		void updateTiles()
-			throw ()
 		{
 			// Load the palette
 			PaletteTablePtr pal;
@@ -221,7 +218,6 @@ class TilesetDocument: public IDocument
 		}
 
 		virtual void save()
-			throw (camoto::stream::error)
 		{
 			// Nothing to save (imports are done directly)
 			return;
@@ -563,7 +559,6 @@ class TilesetDocument: public IDocument
 		}
 
 		void setZoomFactor(int f)
-			throw ()
 		{
 			this->settings->zoomFactor = f;
 			this->canvas->setZoomFactor(f);
@@ -605,8 +600,7 @@ END_EVENT_TABLE()
 
 
 TilesetEditor::TilesetEditor(IMainWindow *parent)
-	throw () :
-		frame(parent),
+	:	frame(parent),
 		pManager(camoto::gamegraphics::getManager())
 {
 	// Default settings
@@ -614,33 +608,28 @@ TilesetEditor::TilesetEditor(IMainWindow *parent)
 }
 
 TilesetEditor::~TilesetEditor()
-	throw ()
 {
 }
 
 std::vector<IToolPanel *> TilesetEditor::createToolPanes() const
-	throw ()
 {
 	std::vector<IToolPanel *> panels;
 	return panels;
 }
 
 void TilesetEditor::loadSettings(Project *proj)
-	throw ()
 {
 	proj->config.Read(_T("editor-tileset/zoom"), (int *)&this->settings.zoomFactor, CFG_DEFAULT_ZOOM);
 	return;
 }
 
 void TilesetEditor::saveSettings(Project *proj) const
-	throw ()
 {
 	proj->config.Write(_T("editor-tileset/zoom"), (int)this->settings.zoomFactor);
 	return;
 }
 
 bool TilesetEditor::isFormatSupported(const wxString& type) const
-	throw ()
 {
 	std::string strType("tls-");
 	strType.append(type.ToUTF8());
@@ -649,7 +638,6 @@ bool TilesetEditor::isFormatSupported(const wxString& type) const
 
 IDocument *TilesetEditor::openObject(const wxString& typeMinor,
 	stream::inout_sptr data, const wxString& filename, SuppMap supp, const Game *game)
-	throw (EFailure)
 {
 	if (typeMinor.IsEmpty()) {
 		throw EFailure(_T("No file type was specified for this item!"));

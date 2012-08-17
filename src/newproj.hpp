@@ -34,11 +34,9 @@ class NewProjectDialog: public wxDialog {
 		 * @param parent
 		 *   Display the dialog within this window.
 		 */
-		NewProjectDialog(wxWindow *parent)
-			throw ();
+		NewProjectDialog(wxWindow *parent);
 
-		~NewProjectDialog()
-			throw ();
+		~NewProjectDialog();
 
 		/// Event handler for OK button.
 		void onOK(wxCommandEvent& ev);
@@ -58,8 +56,7 @@ class NewProjectDialog: public wxDialog {
 		 *
 		 * @return Path to new project, including 'project.camoto' filename.
 		 */
-		const wxString& getProjectPath() const
-			throw ();
+		const wxString& getProjectPath() const;
 
 	protected:
 		wxTreeCtrl *treeCtrl;

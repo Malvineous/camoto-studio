@@ -67,8 +67,7 @@ class TreeItemData: public wxTreeItemData {
 		wxString id;
 
 		TreeItemData(const wxString& id)
-			throw () :
-			id(id)
+			:	id(id)
 		{
 		}
 
@@ -77,7 +76,6 @@ class TreeItemData: public wxTreeItemData {
 /// Callback function to set expanded/native file size.
 void setRealSize(camoto::gamearchive::ArchivePtr arch,
 	camoto::gamearchive::Archive::EntryPtr id, stream::len newRealSize)
-	throw (camoto::stream::error)
 {
 	arch->resize(id, id->storedSize, newRealSize);
 	return;
@@ -94,14 +92,14 @@ class CamotoFrame: public IMainWindow
 		 *   true to use Studio interface (a project with multiple documents), or
 		 *   false to use standalone document editor.
 		 */
-		CamotoFrame(bool isStudio) :
-			IMainWindow(NULL, wxID_ANY, _T("Camoto Studio"), wxDefaultPosition,
-				wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxCLIP_CHILDREN),
-			isStudio(isStudio),
-			project(NULL),
-			game(NULL),
-			audio(new Audio(this, 48000)),
-			archManager(ga::getManager())
+		CamotoFrame(bool isStudio)
+			:	IMainWindow(NULL, wxID_ANY, _T("Camoto Studio"), wxDefaultPosition,
+					wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxCLIP_CHILDREN),
+				isStudio(isStudio),
+				project(NULL),
+				game(NULL),
+				audio(new Audio(this, 48000)),
+				archManager(ga::getManager())
 		{
 			this->aui.SetManagedWindow(this);
 
@@ -217,7 +215,6 @@ class CamotoFrame: public IMainWindow
 		}
 
 		~CamotoFrame()
-			throw ()
 		{
 			if (this->project) delete this->project;
 			if (this->game) delete this->game;
@@ -596,7 +593,6 @@ class CamotoFrame: public IMainWindow
 		/// Open an object by ID, complete with supp items.
 		void openObject(const wxString& id, camoto::stream::inout_sptr *stream,
 			SuppMap *supp)
-			throw (EFailure)
 		{
 			// Make sure the ID is valid
 			GameObjectMap::iterator io = this->game->objects.find(id);
@@ -627,7 +623,6 @@ class CamotoFrame: public IMainWindow
 
 		/// Open an file by object, without suppitems.
 		stream::inout_sptr openFile(const GameObjectPtr& o, bool useFilters)
-			throw (EFailure)
 		{
 			stream::inout_sptr s;
 
@@ -762,7 +757,6 @@ class CamotoFrame: public IMainWindow
 		 *   unsaved changes, it simply discards any unsaved data.
 		 */
 		void openProject(const wxString& path)
-			throw ()
 		{
 			std::cout << "[main] Opening project " << path.ToAscii() << "\n";
 			assert(wxFileExists(path));
@@ -869,7 +863,6 @@ class CamotoFrame: public IMainWindow
 		}
 
 		void populateTreeItems(wxTreeItemId& root, tree<wxString>& items)
-			throw ()
 		{
 			for (tree<wxString>::children_t::iterator i = items.children.begin(); i != items.children.end(); i++) {
 				if (i->children.size() == 0) {
@@ -913,7 +906,6 @@ class CamotoFrame: public IMainWindow
 		 *   disk full)
 		 */
 		bool saveProjectNoisy()
-			throw ()
 		{
 			if (!this->saveProjectQuiet()) {
 				wxMessageDialog dlg(this, _("Unable to save the project!  Make sure "
@@ -932,7 +924,6 @@ class CamotoFrame: public IMainWindow
 		 *   disk full)
 		 */
 		bool saveProjectQuiet()
-			throw ()
 		{
 			assert(this->project);
 
@@ -994,7 +985,6 @@ class CamotoFrame: public IMainWindow
 		 *   saving.
 		 */
 		bool confirmSave(const wxString& title)
-			throw ()
 		{
 			if (!this->project) return true;
 
@@ -1020,7 +1010,6 @@ class CamotoFrame: public IMainWindow
 		 *   unsaved changes will be lost.
 		 */
 		void closeProject()
-			throw ()
 		{
 			assert(this->project);
 			assert(this->game);
@@ -1060,7 +1049,6 @@ class CamotoFrame: public IMainWindow
 		}
 
 		void updateToolPanes(IDocument *doc)
-			throw ()
 		{
 			// If there's an open document, show its panes
 			wxString typeMajor;
@@ -1087,7 +1075,6 @@ class CamotoFrame: public IMainWindow
 		}
 
 		virtual void setStatusText(const wxString& text)
-			throw ()
 		{
 			this->txtMessage = text;
 			this->updateStatusBar();
@@ -1095,20 +1082,17 @@ class CamotoFrame: public IMainWindow
 		}
 
 		virtual void setHelpText(const wxString& text)
-			throw ()
 		{
 			this->txtHelp = text;
 			this->updateStatusBar();
 		}
 
 		virtual wxGLContext *getGLContext()
-			throw ()
 		{
 			return this->glcx;
 		}
 
 		virtual int *getGLAttributes()
-			throw ()
 		{
 			return ::glAttribList;
 		}
@@ -1127,7 +1111,6 @@ class CamotoFrame: public IMainWindow
 
 		/// Remove any run commands from the 'Test' menu
 		void clearTestMenu()
-			throw ()
 		{
 			for (std::map<long, wxString>::iterator i = this->commandMap.begin();
 				i != this->commandMap.end(); i++
@@ -1150,7 +1133,6 @@ class CamotoFrame: public IMainWindow
 		 * @return A shared pointer to the archive instance.
 		 */
 		ga::ArchivePtr getArchive(const wxString& idArchive)
-			throw (EFailure)
 		{
 			// See if idArchive is open
 			ArchiveMap::iterator itArch = this->archives.find(idArchive);
@@ -1233,7 +1215,6 @@ class CamotoFrame: public IMainWindow
 
 		camoto::stream::inout_sptr openFileFromArchive(const wxString& idArchive,
 			const wxString& filename, bool useFilters)
-			throw (EFailure)
 		{
 			ga::ArchivePtr arch = this->getArchive(idArchive);
 

@@ -44,15 +44,12 @@ class DlgImportMusic: public wxDialog
 		 *   libgamemusic manager interface, for retrieving the list of supported
 		 *   file types.
 		 */
-		DlgImportMusic(IMainWindow *parent, camoto::gamemusic::ManagerPtr pManager)
-			throw ();
+		DlgImportMusic(IMainWindow *parent, camoto::gamemusic::ManagerPtr pManager);
 
-		~DlgImportMusic()
-			throw ();
+		~DlgImportMusic();
 
 		/// Set the controls to show the values in the public variables.
-		void setControls()
-			throw ();
+		void setControls();
 
 		/// Event handler for OK button.
 		void onOK(wxCommandEvent& ev);

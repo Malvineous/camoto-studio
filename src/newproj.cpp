@@ -58,17 +58,15 @@ class TreeItemData: public wxTreeItemData {
 		wxString id;
 
 		TreeItemData(const wxString& id)
-			throw () :
-			id(id)
+			:	id(id)
 		{
 		}
 
 };
 
 NewProjectDialog::NewProjectDialog(wxWindow *parent)
-	throw () :
-	wxDialog(parent, wxID_ANY, _("New project"), wxDefaultPosition,
-		wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER)
+	:	wxDialog(parent, wxID_ANY, _("New project"), wxDefaultPosition,
+			wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER)
 {
 	wxImageList *imgList = new wxImageList(16, 16, true, 2);
 	imgList->Add(wxArtProvider::GetBitmap(wxART_FOLDER, wxART_OTHER, wxSize(16, 16)));
@@ -199,7 +197,6 @@ NewProjectDialog::NewProjectDialog(wxWindow *parent)
 }
 
 NewProjectDialog::~NewProjectDialog()
-	throw ()
 {
 }
 
@@ -296,7 +293,6 @@ void NewProjectDialog::onTreeSelChanged(wxTreeEvent& ev)
 }
 
 const wxString& NewProjectDialog::getProjectPath() const
-	throw ()
 {
 	return this->projectPath;
 }

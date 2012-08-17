@@ -50,15 +50,12 @@ class TilesetCanvas: public wxGLCanvas
 
 	public:
 		TilesetCanvas(wxWindow *parent, wxGLContext *glcx, int *attribList,
-			int zoomFactor)
-			throw ();
+			int zoomFactor);
 
-		~TilesetCanvas()
-			throw ();
+		~TilesetCanvas();
 
 		/// Supply the OpenGL texture IDs to draw with.
-		void setTextures(TEXTURE_MAP& tm)
-			throw ();
+		void setTextures(TEXTURE_MAP& tm);
 
 		void onEraseBG(wxEraseEvent& ev);
 		void onPaint(wxPaintEvent& ev);
@@ -66,17 +63,13 @@ class TilesetCanvas: public wxGLCanvas
 		void glReset();
 
 		/// Redraw the document.
-		void redraw()
-			throw ();
+		void redraw();
 
-		void setZoomFactor(int f)
-			throw ();
+		void setZoomFactor(int f);
 
-		void setTilesX(int t)
-			throw ();
+		void setTilesX(int t);
 
-		void setOffset(unsigned int o)
-			throw ();
+		void setOffset(unsigned int o);
 
 	protected:
 		TEXTURE_MAP tm;       ///< Tiles to display

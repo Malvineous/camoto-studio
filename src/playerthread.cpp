@@ -25,15 +25,14 @@ using namespace camoto;
 using namespace camoto::gamemusic;
 
 PlayerThread::PlayerThread(AudioPtr audio, MusicPtr music, PlayerCallback *cb)
-	throw ()
-	: audio(audio),
-	  music(music),
-	  cb(cb),
-	  playpause_lock(playpause_mutex), // initial state is locked (paused)
-	  doquit(false),
-	  dorewind(false),
-	  usPerTickOPL(1000), // sensible defaults, just in case
-	  usPerTickMIDI(MIDI_DEF_uS_PER_TICK)
+	:	audio(audio),
+		music(music),
+		cb(cb),
+		playpause_lock(playpause_mutex), // initial state is locked (paused)
+		doquit(false),
+		dorewind(false),
+		usPerTickOPL(1000), // sensible defaults, just in case
+		usPerTickMIDI(MIDI_DEF_uS_PER_TICK)
 {
 	this->opl = this->audio->createOPL();
 	this->midiData.reserve(16);
@@ -63,7 +62,6 @@ PlayerThread::PlayerThread(AudioPtr audio, MusicPtr music, PlayerCallback *cb)
 }
 
 PlayerThread::~PlayerThread()
-	throw ()
 {
 	if (this->midiOut) {
 		// Turn all MIDI notes off
@@ -169,7 +167,6 @@ void PlayerThread::operator()()
 }
 
 void PlayerThread::resume()
-	throw ()
 {
 	this->audio->pause(this->opl, false); // this makes delays start blocking
 	this->playpause_lock.unlock();
@@ -177,7 +174,6 @@ void PlayerThread::resume()
 }
 
 void PlayerThread::pause()
-	throw ()
 {
 	this->playpause_lock.lock();
 	this->audio->pause(this->opl, true); // this makes delays expire immediately
@@ -185,7 +181,6 @@ void PlayerThread::pause()
 }
 
 void PlayerThread::quit()
-	throw ()
 {
 	this->doquit = true;
 	// Wake up the thread if need be
@@ -194,21 +189,18 @@ void PlayerThread::quit()
 }
 
 void PlayerThread::rewind()
-	throw ()
 {
 	this->dorewind = true;
 	return;
 }
 
 void PlayerThread::writeNextPair(const OPLEvent *oplEvent)
-	throw (stream::error)
 {
 	this->opl->write(oplEvent->reg, oplEvent->val);
 	return;
 }
 
 void PlayerThread::writeTempoChange(tempo_t usPerTick)
-	throw (stream::error)
 {
 	this->usPerTickOPL = usPerTick;
 	return;
@@ -216,7 +208,6 @@ void PlayerThread::writeTempoChange(tempo_t usPerTick)
 
 void PlayerThread::midiNoteOff(uint32_t delay, uint8_t channel, uint8_t note,
 	uint8_t velocity)
-	throw (stream::error)
 {
 	assert(this->midiOut);
 	this->midiData.resize(3);
@@ -229,7 +220,6 @@ void PlayerThread::midiNoteOff(uint32_t delay, uint8_t channel, uint8_t note,
 
 void PlayerThread::midiNoteOn(uint32_t delay, uint8_t channel, uint8_t note,
 	uint8_t velocity)
-	throw (stream::error)
 {
 	assert(this->midiOut);
 	this->midiData.resize(3);
@@ -242,7 +232,6 @@ void PlayerThread::midiNoteOn(uint32_t delay, uint8_t channel, uint8_t note,
 
 void PlayerThread::midiPatchChange(uint32_t delay, uint8_t channel,
 	uint8_t instrument)
-	throw (stream::error)
 {
 	assert(this->midiOut);
 	this->midiData.resize(2);
@@ -254,7 +243,6 @@ void PlayerThread::midiPatchChange(uint32_t delay, uint8_t channel,
 
 void PlayerThread::midiController(uint32_t delay, uint8_t channel,
 	uint8_t controller, uint8_t value)
-	throw (stream::error)
 {
 	assert(this->midiOut);
 	this->midiData.resize(3);
@@ -266,7 +254,6 @@ void PlayerThread::midiController(uint32_t delay, uint8_t channel,
 }
 
 void PlayerThread::midiPitchbend(uint32_t delay, uint8_t channel, uint16_t bend)
-	throw (stream::error)
 {
 	assert(this->midiOut);
 	// TODO
@@ -274,7 +261,6 @@ void PlayerThread::midiPitchbend(uint32_t delay, uint8_t channel, uint16_t bend)
 }
 
 void PlayerThread::midiSetTempo(uint32_t delay, tempo_t usPerTick)
-	throw (stream::error)
 {
 	assert(this->midiOut);
 	this->usPerTickMIDI = usPerTick;

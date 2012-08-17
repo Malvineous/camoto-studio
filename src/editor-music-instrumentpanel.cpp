@@ -74,10 +74,9 @@ BEGIN_EVENT_TABLE(InstrumentPanel, IToolPanel)
 END_EVENT_TABLE()
 
 InstrumentPanel::InstrumentPanel(IMainWindow *parent)
-	throw ()
-	: IToolPanel(parent),
-	  instList(NULL),
-	  instIndex(0)
+	:	IToolPanel(parent),
+		instList(NULL),
+		instIndex(0)
 {
 	this->tabs = new wxChoicebook(this, IDC_INST_TYPE);
 
@@ -139,7 +138,6 @@ InstrumentPanel::InstrumentPanel(IMainWindow *parent)
 void InstrumentPanel::addNumberControl(wxWindow *parent, wxGridBagSizer *sizer,
 	int *row, unsigned int id, const wxString& title, unsigned int min,
 	unsigned int max)
-	throw ()
 {
 	wxStaticText *label = new wxStaticText(parent, wxID_ANY, title);
 	sizer->Add(label, wxGBPosition(*row, 0), wxGBSpan(1, 1), wxEXPAND | wxALIGN_CENTRE_VERTICAL);
@@ -153,7 +151,6 @@ void InstrumentPanel::addNumberControl(wxWindow *parent, wxGridBagSizer *sizer,
 }
 
 void InstrumentPanel::getPanelInfo(wxString *id, wxString *label) const
-	throw ()
 {
 	*id = _T("music.instrument");
 	*label = _("Instrument settings");
@@ -161,7 +158,6 @@ void InstrumentPanel::getPanelInfo(wxString *id, wxString *label) const
 }
 
 void InstrumentPanel::switchDocument(IDocument *doc)
-	throw ()
 {
 	this->oplInst.reset();
 	this->midiInst.reset();
@@ -172,19 +168,16 @@ void InstrumentPanel::switchDocument(IDocument *doc)
 }
 
 void InstrumentPanel::loadSettings(Project *proj)
-	throw ()
 {
 	return;
 }
 
 void InstrumentPanel::saveSettings(Project *proj) const
-	throw ()
 {
 	return;
 }
 
 void InstrumentPanel::setInstrumentList(InstrumentListPanel *instList, PatchBankPtr patchBank)
-	throw ()
 {
 	this->instList = instList;
 	this->patchBank = patchBank;
@@ -192,7 +185,6 @@ void InstrumentPanel::setInstrumentList(InstrumentListPanel *instList, PatchBank
 }
 
 void InstrumentPanel::setInstrument(unsigned int newIndex)
-	throw ()
 {
 	this->instIndex = newIndex;
 	if (!this->patchBank) return; // just in case
