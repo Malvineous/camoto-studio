@@ -2,7 +2,7 @@
  * @file   exceptions.hpp
  * @brief  Base/common exceptions.
  *
- * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,21 +24,22 @@
 #include <exception>
 #include <wx/wx.h>
 
-class EBase: public std::exception
+class EFailure: public std::exception
 {
 	public:
-		EBase(const wxString& msg);
+		EFailure(const wxString& msg);
 
-		~EBase();
+		~EFailure()
+			throw ();
 
 		const wxString& getMessage() const;
 
-		virtual const char *what() const;
+		virtual const char *what() const
+			throw ();
 
 	protected:
 		wxString msg;                 ///< Original message
 		mutable wxCharBuffer buffer;  ///< Buffer used for what() return value
-
 };
 
 #endif // _EXCEPTIONS_HPP_

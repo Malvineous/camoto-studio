@@ -26,7 +26,7 @@
 
 class MapDocument;
 
-#include "efailure.hpp"
+#include "exceptions.hpp"
 #include "editor.hpp"
 #include "editor-map.hpp"
 #include "editor-map-canvas.hpp"

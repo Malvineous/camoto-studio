@@ -34,7 +34,7 @@
 #include "newproj.hpp"
 #include "prefsdlg.hpp"
 #include "editor.hpp"
-#include "efailure.hpp"
+#include "exceptions.hpp"
 #include "audio.hpp"
 
 #include "editor-map.hpp"
@@ -765,7 +765,7 @@ class CamotoFrame: public IMainWindow
 				Project *newProj = new Project(path);
 				if (this->project) this->closeProject();
 				this->project = newProj;
-			} catch (EBase& e) {
+			} catch (EFailure& e) {
 				wxString msg = _("Unable to open project: ");
 				msg.Append(e.getMessage());
 				wxMessageDialog dlg(this, msg, _("Open project"), wxOK | wxICON_ERROR);
@@ -1165,7 +1165,7 @@ class CamotoFrame: public IMainWindow
 							items.push_back(next);
 						}
 					}
-					arch.reset(new ga::FixedArchive(archStream, items));
+					arch = createFixedArchive(archStream, items);
 				} else {
 					// Normal archive file
 					std::string strType(typeMinor.ToUTF8());

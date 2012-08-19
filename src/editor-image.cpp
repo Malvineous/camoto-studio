@@ -392,7 +392,8 @@ class ImageDocument: public IDocument
 						PaletteTablePtr newPal(new PaletteTable());
 						newPal->reserve(pngPal.size());
 						for (png::palette::const_iterator i = pngPal.begin(); i != pngPal.end(); i++) {
-							PaletteEntry p(i->red, i->green, i->blue, 255);
+							PaletteEntry p;
+							p.red = p.green = p.blue = p.alpha = 255;
 							newPal->push_back(p);
 						}
 						this->image->setPalette(newPal);

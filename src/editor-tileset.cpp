@@ -24,7 +24,7 @@
 #include <wx/glcanvas.h>
 #include <png++/png.hpp>
 #include "editor-tileset.hpp"
-#include "efailure.hpp"
+#include "exceptions.hpp"
 #include "main.hpp"
 #include "editor-tileset-canvas.hpp"
 
@@ -182,8 +182,8 @@ class TilesetDocument: public IDocument
 			for (Tileset::VC_ENTRYPTR::const_iterator i = tiles.begin();
 				i != tiles.end(); i++, j++)
 			{
-				if ((*i)->attr & Tileset::EmptySlot) continue;
-				if ((*i)->attr & Tileset::SubTileset) continue;
+				if ((*i)->getAttr() & Tileset::EmptySlot) continue;
+				if ((*i)->getAttr() & Tileset::SubTileset) continue;
 
 				Texture& t = this->tm[j];
 
@@ -332,7 +332,7 @@ class TilesetDocument: public IDocument
 					for (Tileset::VC_ENTRYPTR::const_iterator
 						i = tiles.begin(); i != tiles.end(); i++, t++
 					) {
-						if ((*i)->attr & Tileset::SubTileset) continue; // aah! tileset! bad!
+						if ((*i)->getAttr() & Tileset::SubTileset) continue; // aah! tileset! bad!
 
 						ImagePtr img = tileset->openImage(*i);
 
@@ -517,7 +517,7 @@ class TilesetDocument: public IDocument
 
 				x = 0; y = 0; nx = 0; maxHeight = 0;
 				for (unsigned int i = 0, tileIndex = this->offset; tileIndex < numTiles; i++, tileIndex++) {
-					if (tiles[tileIndex]->attr & Tileset::SubTileset) continue; // aah! tileset! bad!
+					if (tiles[tileIndex]->getAttr() & Tileset::SubTileset) continue; // aah! tileset! bad!
 
 					ImagePtr image = tileset->openImage(tiles[tileIndex]);
 					StdImageDataPtr data = image->toStandard();

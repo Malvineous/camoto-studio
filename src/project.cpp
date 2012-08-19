@@ -25,12 +25,12 @@
 #include "project.hpp"
 
 EProjectOpenFailure::EProjectOpenFailure(const wxString& msg)
-	:	EBase(msg)
+	:	EFailure(msg)
 {
 }
 
 EProjectCopyFailure::EProjectCopyFailure()
-	:	EBase(_("Unable to copy the game files into the project folder."))
+	:	EFailure(_("Unable to copy the game files into the project folder."))
 {
 }
 
@@ -144,8 +144,8 @@ Project::Project(const wxString& path)
 			_("The project file could not be opened or is corrupted!"));
 	}
 	if (version > CONFIG_FILE_VERSION) throw EProjectOpenFailure(_(
-			"This project was created by a newer version of Camoto Studio.  You "
-			"will need to upgrade before you can open it."));
+		"This project was created by a newer version of Camoto Studio.  You "
+		"will need to upgrade before you can open it."));
 }
 
 Project::~Project()

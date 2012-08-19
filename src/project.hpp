@@ -38,14 +38,14 @@
 #define CONFIG_FILE_VERSION 1
 
 /// Used when project could not be opened.
-class EProjectOpenFailure: public EBase
+class EProjectOpenFailure: public EFailure
 {
 	public:
 		EProjectOpenFailure(const wxString& msg);
 };
 
 /// Used when game data files can't be copied to new project's folder.
-class EProjectCopyFailure: public EBase
+class EProjectCopyFailure: public EFailure
 {
 	public:
 		EProjectCopyFailure();

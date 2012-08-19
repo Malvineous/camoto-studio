@@ -23,21 +23,23 @@
 
 #include "exceptions.hpp"
 
-EBase::EBase(const wxString& msg)
+EFailure::EFailure(const wxString& msg)
 	:	msg(msg)
 {
 }
 
-EBase::~EBase()
+EFailure::~EFailure()
+	throw ()
 {
 }
 
-const wxString& EBase::getMessage() const
+const wxString& EFailure::getMessage() const
 {
 	return this->msg;
 }
 
-const char *EBase::what() const
+const char *EFailure::what() const
+	throw ()
 {
 	this->buffer = this->msg.utf8_str();
 	return this->buffer.data();

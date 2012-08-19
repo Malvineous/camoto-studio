@@ -29,7 +29,7 @@
 #include "mainwindow.hpp"
 #include "project.hpp"
 #include "gamelist.hpp"
-#include "efailure.hpp"
+#include "exceptions.hpp"
 
 /// Base class for a document editor.
 class IDocument: public wxPanel
