@@ -24,6 +24,8 @@
 #include <fstream>
 #include <map>
 
+#include <GL/glew.h>
+
 #include <camoto/gamearchive.hpp>
 #include <camoto/stream_file.hpp>
 #include <camoto/util.hpp>
@@ -1420,6 +1422,14 @@ class CamotoApp: public wxApp {
 		{
 			std::cout << CAMOTO_HEADER "\n";
 			if (!wxApp::OnInit()) return false;
+
+			GLenum err = glewInit();
+			if (err != GLEW_OK) {
+				std::cerr << "glewInit() failed: " << glewGetErrorString(err) << std::endl;
+				return false;
+			}
+			std::cerr << "Using GLEW " << glewGetString(GLEW_VERSION) << "\n";
+
 			return true;
 		}
 

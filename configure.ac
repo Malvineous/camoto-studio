@@ -29,6 +29,7 @@ PKG_CHECK_MODULES([libgamemusic], [libgamemusic])
 PKG_CHECK_MODULES([libxml2], [libxml-2.0 >= 2.7.6])
 PKG_CHECK_MODULES([sdl], [sdl])
 PKG_CHECK_MODULES([libpng], [libpng])
+PKG_CHECK_MODULES([glew], [glew])
 
 # Check for MIDI support
 REQUIRE_RTMIDI

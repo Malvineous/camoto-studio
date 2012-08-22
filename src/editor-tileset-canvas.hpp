@@ -21,13 +21,7 @@
 #ifndef _EDITOR_TILESET_CANVAS_HPP_
 #define _EDITOR_TILESET_CANVAS_HPP_
 
-#ifdef HAVE_GL_GL_H
-#include <GL/gl.h>
-#else
-#ifdef HAVE_OPENGL_GL_H
-#include <OpenGL/gl.h>
-#endif
-#endif
+#include <GL/glew.h>
 
 #include <camoto/gamegraphics.hpp>
 #include "editor-tileset.hpp"

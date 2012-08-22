@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <GL/glew.h>
 #include <camoto/gamegraphics.hpp>
 #include "editor-map-tilepanel.hpp"
 #include "editor-map-tilepanel-canvas.hpp"

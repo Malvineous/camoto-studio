@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <GL/glew.h>
 #include <boost/bind.hpp>
 #include <wx/imaglist.h>
 #include <wx/artprov.h>
@@ -27,14 +28,6 @@
 #include "exceptions.hpp"
 #include "main.hpp"
 #include "editor-tileset-canvas.hpp"
-
-#ifdef HAVE_GL_GL_H
-#include <GL/gl.h>
-#else
-#ifdef HAVE_OPENGL_GL_H
-#include <OpenGL/gl.h>
-#endif
-#endif
 
 /// Default zoom level
 #define CFG_DEFAULT_ZOOM 2
