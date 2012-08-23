@@ -18,13 +18,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef WIN32
 #include <config.h>
+#endif
 
 #include <boost/bind.hpp>
 #include <fstream>
 #include <map>
 
 #include <GL/glew.h>
+
+#include <wx/wx.h>
+#include <wx/cmdline.h>
+#include <wx/treectrl.h>
+#include <wx/imaglist.h>
+#include <wx/artprov.h>
+#include <wx/aui/aui.h>
+#include <wx/cshelp.h>
+#include <wx/stdpaths.h>
+#include <wx/filename.h>
 
 #include <camoto/gamearchive.hpp>
 #include <camoto/stream_file.hpp>
@@ -43,16 +55,6 @@
 #include "editor-music.hpp"
 #include "editor-tileset.hpp"
 #include "editor-image.hpp"
-
-#include <wx/wx.h>
-#include <wx/cmdline.h>
-#include <wx/treectrl.h>
-#include <wx/imaglist.h>
-#include <wx/artprov.h>
-#include <wx/aui/aui.h>
-#include <wx/cshelp.h>
-#include <wx/stdpaths.h>
-#include <wx/filename.h>
 
 namespace ga = camoto::gamearchive;
 namespace stream = camoto::stream;
@@ -97,6 +99,8 @@ class CamotoFrame: public IMainWindow
 		CamotoFrame(bool isStudio)
 			:	IMainWindow(NULL, wxID_ANY, _T("Camoto Studio"), wxDefaultPosition,
 					wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxCLIP_CHILDREN),
+				glcx(NULL),
+				popup(NULL),
 				isStudio(isStudio),
 				project(NULL),
 				game(NULL),
@@ -126,8 +130,9 @@ class CamotoFrame: public IMainWindow
 			this->smallImages->Add(wxImage(::path.guiIcons + _T("export.png"), wxBITMAP_TYPE_PNG));
 
 			// Create a base OpenGL context to share among all editors
-			wxGLCanvas *canvas = new wxGLCanvas(this, glcx, wxID_ANY, wxDefaultPosition,
-				wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS, wxEmptyString, ::glAttribList);
+			wxGLCanvas *canvas = new wxGLCanvas(this, this->glcx, wxID_ANY,
+				wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS,
+				wxEmptyString, ::glAttribList);
 			this->glcx = new wxGLContext(canvas, NULL);
 			delete canvas;
 
@@ -216,7 +221,7 @@ class CamotoFrame: public IMainWindow
 			this->setControlStates();
 		}
 
-		~CamotoFrame()
+		virtual ~CamotoFrame()
 		{
 			if (this->project) delete this->project;
 			if (this->game) delete this->game;
@@ -226,9 +231,8 @@ class CamotoFrame: public IMainWindow
 				delete e->second;
 			}
 
-			delete this->popup;
-
-			delete this->glcx;
+			if (this->popup) delete this->popup;
+			if (this->glcx) delete this->glcx;
 		}
 
 		/// Enable/disable menu items according to current state.
@@ -581,8 +585,10 @@ class CamotoFrame: public IMainWindow
 
 				IDocument *doc = itEditor->second->openObject(o->typeMinor, stream,
 					o->filename, supp, this->game);
-				this->notebook->AddPage(doc, this->game->objects[data->id]->friendlyName,
-					true, wxNullBitmap);
+				if (doc) {
+					this->notebook->AddPage(doc, this->game->objects[data->id]->friendlyName,
+						true, wxNullBitmap);
+				}
 			} catch (const EFailure& e) {
 				wxMessageDialog dlg(this, e.getMessage(), _("Open failure"), wxOK | wxICON_ERROR);
 				dlg.ShowModal();
@@ -742,7 +748,7 @@ class CamotoFrame: public IMainWindow
 		void onDocTabClosed(wxAuiNotebookEvent& event)
 		{
 			// Hide the tool panes if this was the last document
-			if (!this->notebook->GetPage(0) && !this->notebook->GetPage(1)) {
+			if (this->notebook->GetPageCount() == 0) {
 				this->updateToolPanes(NULL);
 			}
 			return;
@@ -1425,10 +1431,18 @@ class CamotoApp: public wxApp {
 
 			GLenum err = glewInit();
 			if (err != GLEW_OK) {
-				std::cerr << "glewInit() failed: " << glewGetErrorString(err) << std::endl;
+#ifdef WIN32
+				MessageBox(NULL, (LPCSTR)glewGetErrorString(err), "glewInit failed",
+					MB_ICONERROR | MB_OK);
+#else
+				std::cerr << "glewInit() failed: " << glewGetErrorString(err)
+					<< std::endl;
+#endif
 				return false;
 			}
+#ifndef WIN32
 			std::cerr << "Using GLEW " << glewGetString(GLEW_VERSION) << "\n";
+#endif
 
 			return true;
 		}

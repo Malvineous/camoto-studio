@@ -47,7 +47,7 @@ void EventPanel::onPaint(wxPaintEvent& pev)
 	this->pdc->SetFont(this->doc->font);
 	int height = s.GetHeight();
 	unsigned int rowTime = this->doc->absTimeStart;
-	EventVector::iterator ev = this->doc->music->events->begin();
+	gamemusic::EventVector::iterator ev = this->doc->music->events->begin();
 
 	for (this->paintY = 0; this->paintY < height; this->paintY += this->doc->fontHeight) {
 		// Get the next event for this view
@@ -165,7 +165,7 @@ void EventPanel::drawNoteOn(int milliHertz, int instrument)
 	double midiNote, midiNoteFrac;
 	int midiNoteInt;
 	if (dbHertz > 0) {
-		midiNote = 69 + 12 * log(dbHertz) / log(2);
+		midiNote = 69 + 12 * log(dbHertz) / log(2.0);
 	} else {
 		midiNote = 0;
 	}

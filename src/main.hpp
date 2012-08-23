@@ -21,11 +21,6 @@
 #ifndef _MAIN_HPP_
 #define _MAIN_HPP_
 
-#ifdef __WIN32
-#include <fstream>
-int truncate(const char *path, off_t length);
-#endif
-
 #define CAMOTO_HEADER \
 	"Camoto Game Modding Studio\n" \
 	"Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>\n" \

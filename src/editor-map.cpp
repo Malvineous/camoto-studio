@@ -20,6 +20,7 @@
 
 #include <GL/glew.h>
 #include <camoto/gamegraphics.hpp>
+#include <wx/wx.h>
 #include <wx/imaglist.h>
 #include <wx/artprov.h>
 #include <wx/listctrl.h>

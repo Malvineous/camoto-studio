@@ -77,6 +77,7 @@ void TilesetCanvas::onResize(wxSizeEvent& ev)
 
 void TilesetCanvas::glReset()
 {
+	if (!this->GetParent()->IsShown()) return;
 	this->SetCurrent();
 	wxSize s = this->GetClientSize();
 	glViewport(0, 0, s.x, s.y);

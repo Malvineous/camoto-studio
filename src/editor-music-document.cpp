@@ -121,7 +121,7 @@ MusicDocument::MusicDocument(MusicEditor *editor, MusicTypePtr musicType,
 	memset(&channels, 0, sizeof(channels));
 	this->optimalTicksPerRow = 10000;
 	int lastTick = 0;
-	for (EventVector::const_iterator i =
+	for (gamemusic::EventVector::const_iterator i =
 		this->music->events->begin(); i != this->music->events->end(); i++)
 	{
 		assert((*i)->channel < 256); // should be safe/uint8_t

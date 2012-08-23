@@ -461,6 +461,7 @@ void MapCanvas::onResize(wxSizeEvent& ev)
 
 void MapCanvas::glReset()
 {
+	if (!this->GetParent()->IsShown()) return;
 	this->SetCurrent();
 	wxSize s = this->GetClientSize();
 	glViewport(0, 0, s.x, s.y);
@@ -525,8 +526,10 @@ void MapCanvas::redraw()
 			}
 
 			// Set the selection colour to use as blending is turned on and off
-			glBlendFunc(GL_CONSTANT_COLOR, GL_ONE_MINUS_CONSTANT_COLOR);
-			glBlendColor(0.75, 0.0, 0.0, 0.65);
+			if (glBlendColor) {
+				glBlendFunc(GL_CONSTANT_COLOR, GL_ONE_MINUS_CONSTANT_COLOR);
+				glBlendColor(0.75, 0.0, 0.0, 0.65);
+			}
 
 			Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 			for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
@@ -606,9 +609,11 @@ void MapCanvas::redraw()
 			// If space was left for the selection, draw it now
 			if (drawSelection) {
 				// Enable semitransparency
-				glEnable(GL_BLEND);
-				glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_CONSTANT_ALPHA);
-				glBlendColor(0.0, 0.0, 0.0, 0.65);
+				if (glBlendColor) {
+					glEnable(GL_BLEND);
+					glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_CONSTANT_ALPHA);
+					glBlendColor(0.0, 0.0, 0.0, 0.65);
+				}
 
 				for (int y = 0; y < (signed)this->selection.height; y++) {
 					for (int x = 0; x < (signed)this->selection.width; x++) {
@@ -700,7 +705,7 @@ void MapCanvas::redraw()
 				// Draw a line at the starting pos so it can be coloured on select
 				if (!(*p)->points.empty()) {
 					int dX = (*p)->points[0].first, dY = (*p)->points[0].second;
-					float angle = atan2(dY, dX) * 180 / M_PI - 90;
+					float angle = atan2((double)dY, (double)dX) * 180 / M_PI - 90;
 					glPushMatrix();
 					glTranslatef(lastX, lastY, 0.0);
 					glScalef(1.0 / this->zoomFactor, 1.0 / this->zoomFactor, 1.0);
@@ -799,7 +804,7 @@ void MapCanvas::redraw()
 							glEnd();
 
 							int dX = nextSelX - lastSelX, dY = nextSelY - lastSelY;
-							float angle = atan2(dY, dX) * 180 / M_PI - 90;
+							float angle = atan2((double)dY, (double)dX) * 180 / M_PI - 90;
 							glPushMatrix();
 							glTranslatef(nextSelX, nextSelY, 0.0);
 							glScalef(1.0 / this->zoomFactor, 1.0 / this->zoomFactor, 1.0);
@@ -824,7 +829,7 @@ void MapCanvas::redraw()
 					}
 
 					int dX = nextX - lastX, dY = nextY - lastY;
-					float angle = atan2(dY, dX) * 180 / M_PI - 90;
+					float angle = atan2((double)dY, (double)dX) * 180 / M_PI - 90;
 					glPushMatrix();
 					glTranslatef(nextX, nextY, 0.0);
 					glScalef(1.0 / this->zoomFactor, 1.0 / this->zoomFactor, 1.0);
@@ -886,7 +891,7 @@ void MapCanvas::redraw()
 				}
 			}
 			int dX = ptB.first - ptA.first, dY = ptB.second - ptA.second;
-			float angle = atan2(dY, dX) * 180 / M_PI - 90;
+			float angle = atan2((double)dY, (double)dX) * 180 / M_PI - 90;
 			glPushMatrix();
 			glTranslatef(ptOrigin.first + ptA.first, ptOrigin.second + ptA.second, 0.0);
 			glScalef(1.0 / this->zoomFactor, 1.0 / this->zoomFactor, 1.0);
@@ -1405,7 +1410,7 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 						int nextY = st->second + pt->second;
 
 						int dX = nextX - lastX, dY = nextY - lastY;
-						float lineLength = sqrt(dX*dX + dY*dY);
+						float lineLength = sqrt((double)(dX*dX + dY*dY));
 						float angle = acos(dY / lineLength);
 						if (dX < 0) angle *= -1;
 
@@ -1817,7 +1822,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 					}
 				}
 				int dX = ptB.first - ptA.first, dY = ptB.second - ptA.second;
-				float lineLength = sqrt(dX*dX + dY*dY);
+				float lineLength = sqrt((double)(dX*dX + dY*dY));
 				float angle = acos(dY / lineLength);
 				if (dX < 0) angle *= -1;
 				Map2D::Path::point newPoint;

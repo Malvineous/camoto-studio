@@ -403,6 +403,7 @@ class TilesetDocument: public IDocument
 						srcOffX += thisTileWidth;
 
 					} // for (all tiles)
+					this->tileset->flush();
 
 					// This overwrites the image directly, it can't be undone
 					//this->isModified = true;
