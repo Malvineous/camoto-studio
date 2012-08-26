@@ -595,7 +595,7 @@ END_EVENT_TABLE()
 
 TilesetEditor::TilesetEditor(IMainWindow *parent)
 	:	frame(parent),
-		pManager(camoto::gamegraphics::getManager())
+		pManager(parent->getGraphicsMgr())
 {
 	// Default settings
 	this->settings.zoomFactor = CFG_DEFAULT_ZOOM;

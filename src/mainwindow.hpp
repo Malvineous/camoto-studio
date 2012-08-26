@@ -26,6 +26,11 @@
 #include <wx/glcanvas.h>
 #include <wx/imaglist.h>
 
+#include <camoto/gamearchive/manager.hpp>
+#include <camoto/gamegraphics/manager.hpp>
+#include <camoto/gamemaps/manager.hpp>
+#include <camoto/gamemusic/manager.hpp>
+
 /// Order of images in IMainWindow::smallImages
 struct ImageListIndex
 {
@@ -92,6 +97,18 @@ class IMainWindow: public wxFrame
 		 * @return Integer array suitable for passing to wxGLCanvas c'tor.
 		 */
 		virtual int *getGLAttributes() = 0;
+
+		/// Get the libgamearchive interface.
+		virtual camoto::gamearchive::ManagerPtr getArchiveMgr() = 0;
+
+		/// Get the libgamegraphics interface.
+		virtual camoto::gamegraphics::ManagerPtr getGraphicsMgr() = 0;
+
+		/// Get the libgamemaps interface.
+		virtual camoto::gamemaps::ManagerPtr getMapsMgr() = 0;
+
+		/// Get the libgamemusic interface.
+		virtual camoto::gamemusic::ManagerPtr getMusicMgr() = 0;
 };
 
 #endif // _MAINWINDOW_HPP_

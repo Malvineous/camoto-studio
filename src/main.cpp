@@ -105,7 +105,7 @@ class CamotoFrame: public IMainWindow
 				project(NULL),
 				game(NULL),
 				audio(new Audio(this, 48000)),
-				archManager(ga::getManager())
+				mgrArchive(ga::getManager())
 		{
 			this->aui.SetManagedWindow(this);
 
@@ -1105,6 +1105,36 @@ class CamotoFrame: public IMainWindow
 			return ::glAttribList;
 		}
 
+		virtual camoto::gamearchive::ManagerPtr getArchiveMgr()
+		{
+			// loaded in constructor
+			return this->mgrArchive;
+		}
+
+		virtual camoto::gamegraphics::ManagerPtr getGraphicsMgr()
+		{
+			if (!this->mgrGraphics) {
+				this->mgrGraphics = camoto::gamegraphics::getManager();
+			}
+			return this->mgrGraphics;
+		}
+
+		virtual camoto::gamemaps::ManagerPtr getMapsMgr()
+		{
+			if (!this->mgrMaps) {
+				this->mgrMaps = camoto::gamemaps::getManager();
+			}
+			return this->mgrMaps;
+		}
+
+		virtual camoto::gamemusic::ManagerPtr getMusicMgr()
+		{
+			if (!this->mgrMusic) {
+				this->mgrMusic = camoto::gamemusic::getManager();
+			}
+			return this->mgrMusic;
+		}
+
 		void updateStatusBar()
 		{
 			wxString text = this->txtHelp;
@@ -1177,7 +1207,7 @@ class CamotoFrame: public IMainWindow
 				} else {
 					// Normal archive file
 					std::string strType(typeMinor.ToUTF8());
-					ga::ArchiveTypePtr pArchType(this->archManager->getArchiveTypeByCode(strType));
+					ga::ArchiveTypePtr pArchType(this->mgrArchive->getArchiveTypeByCode(strType));
 					if (!pArchType) {
 						throw EFailure(wxString::Format(_("Cannot open this item.  The "
 									"archive \"%s\" is in the unsupported format \"%s\""),
@@ -1242,7 +1272,7 @@ class CamotoFrame: public IMainWindow
 			// If it has any filters, apply them
 			if (useFilters && (!f->filter.empty())) {
 				// The file needs to be filtered first
-				ga::FilterTypePtr pFilterType(this->archManager->getFilterTypeByCode(f->filter));
+				ga::FilterTypePtr pFilterType(this->mgrArchive->getFilterTypeByCode(f->filter));
 				if (!pFilterType) {
 					throw EFailure(wxString::Format(_("This file requires decoding, but "
 						"the \"%s\" filter to do this couldn't be found (is your installed "
@@ -1292,7 +1322,11 @@ class CamotoFrame: public IMainWindow
 		typedef std::map<wxString, PaneVector> PaneMap;
 		PaneMap editorPanes;
 
-		ga::ManagerPtr archManager; ///< Manager object for libgamearchive
+		camoto::gamearchive::ManagerPtr mgrArchive;   ///< Manager object for libgamearchive
+		camoto::gamegraphics::ManagerPtr mgrGraphics; ///< Manager object for libgamegraphics
+		camoto::gamemaps::ManagerPtr mgrMaps;         ///< Manager object for libgamemaps
+		camoto::gamemusic::ManagerPtr mgrMusic;       ///< Manager object for libgamemusic
+
 		typedef std::map<wxString, camoto::gamearchive::ArchivePtr> ArchiveMap;
 		ArchiveMap archives; ///< List of currently open archives
 

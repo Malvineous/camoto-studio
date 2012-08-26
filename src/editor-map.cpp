@@ -37,7 +37,7 @@ using namespace camoto;
 using namespace camoto::gamemaps;
 using namespace camoto::gamegraphics;
 
-void tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& suppMap,
+void tryLoadTileset(IMainWindow *parent, SuppData& suppData, SuppMap& supp,
 	const wxString& id, VC_TILESET *tilesetVector);
 
 class LayerPanel: public IToolPanel
@@ -213,7 +213,7 @@ END_EVENT_TABLE()
 
 MapEditor::MapEditor(IMainWindow *parent)
 	:	frame(parent),
-		pManager(camoto::gamemaps::getManager())
+		pManager(parent->getMapsMgr())
 {
 	// Default settings
 	this->settings.zoomFactor = CFG_DEFAULT_ZOOM;
@@ -316,7 +316,7 @@ IDocument *MapEditor::openObject(const wxString& typeMinor,
 		"been written yet!"));
 }
 
-void tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& supp,
+void tryLoadTileset(IMainWindow *parent, SuppData& suppData, SuppMap& supp,
 	const wxString& id, VC_TILESET *tilesetVector)
 {
 	SuppMap::iterator s;
@@ -326,7 +326,7 @@ void tryLoadTileset(wxWindow *parent, SuppData& suppData, SuppMap& supp,
 	std::string strGfxType("tls-");
 	strGfxType.append(s->second.typeMinor.ToUTF8());
 
-	camoto::gamegraphics::ManagerPtr gfxMgr = camoto::gamegraphics::getManager();
+	camoto::gamegraphics::ManagerPtr gfxMgr = parent->getGraphicsMgr();
 	TilesetTypePtr ttp = gfxMgr->getTilesetTypeByCode(strGfxType);
 	if (!ttp) {
 		wxString wxtype(strGfxType.c_str(), wxConvUTF8);

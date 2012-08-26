@@ -30,7 +30,7 @@ using namespace camoto::gamemusic;
 MusicEditor::MusicEditor(IMainWindow *parent, AudioPtr audio)
 	:	frame(parent),
 		audio(audio),
-		pManager(camoto::gamemusic::getManager())
+		pManager(parent->getMusicMgr())
 {
 }
 
