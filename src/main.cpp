@@ -129,13 +129,6 @@ class CamotoFrame: public IMainWindow
 			this->smallImages->Add(wxImage(::path.guiIcons + _T("import.png"), wxBITMAP_TYPE_PNG));
 			this->smallImages->Add(wxImage(::path.guiIcons + _T("export.png"), wxBITMAP_TYPE_PNG));
 
-			// Create a base OpenGL context to share among all editors
-			wxGLCanvas *canvas = new wxGLCanvas(this, this->glcx, wxID_ANY,
-				wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS,
-				wxEmptyString, ::glAttribList);
-			this->glcx = new wxGLContext(canvas, NULL);
-			delete canvas;
-
 			wxMenu *menuFile = new wxMenu();
 			if (isStudio) {
 				menuFile->Append(wxID_NEW,    _("&New project..."), _("Choose a new game to work with"));
@@ -219,6 +212,29 @@ class CamotoFrame: public IMainWindow
 
 			this->aui.Update();
 			this->setControlStates();
+
+			// Create a base OpenGL context to share among all editors
+			this->Show(true);
+			wxGLCanvas *canvas = new wxGLCanvas(this, this->glcx, wxID_ANY,
+				wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS,
+				wxEmptyString, ::glAttribList);
+			this->glcx = new wxGLContext(canvas, NULL);
+			canvas->SetCurrent(*this->glcx);
+			GLenum err = glewInit();
+			delete canvas;
+
+			if (err != GLEW_OK) {
+				this->Show(false);
+				wxString msg = wxString::Format(_("Unable to load OpenGL.  Make sure "
+					"you have OpenGL drivers available for your video card.\n\n"
+					"[glewInit() failed: %s]"),
+					wxString((const char *)glewGetErrorString(err), wxConvUTF8).c_str());
+				wxMessageDialog dlg(NULL, msg, _("Startup failure"),
+					wxOK | wxICON_ERROR);
+				dlg.ShowModal();
+				throw EFailure(msg);
+			}
+			std::cout << "Using GLEW " << glewGetString(GLEW_VERSION) << "\n";
 		}
 
 		virtual ~CamotoFrame()
@@ -1462,22 +1478,6 @@ class CamotoApp: public wxApp {
 		{
 			std::cout << CAMOTO_HEADER "\n";
 			if (!wxApp::OnInit()) return false;
-
-			GLenum err = glewInit();
-			if (err != GLEW_OK) {
-#ifdef WIN32
-				MessageBox(NULL, (LPCSTR)glewGetErrorString(err), "glewInit failed",
-					MB_ICONERROR | MB_OK);
-#else
-				std::cerr << "glewInit() failed: " << glewGetErrorString(err)
-					<< std::endl;
-#endif
-				return false;
-			}
-#ifndef WIN32
-			std::cerr << "Using GLEW " << glewGetString(GLEW_VERSION) << "\n";
-#endif
-
 			return true;
 		}
 
