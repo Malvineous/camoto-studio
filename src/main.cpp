@@ -287,8 +287,10 @@ class CamotoFrame: public IMainWindow
 				fn.AssignDir(dlg.GetPath());
 				fn.SetFullName(_T("project.camoto"));
 				if (!::wxFileExists(fn.GetFullPath())) {
-					wxMessageDialog dlg(this, _("This folder does not contain a camoto project."),
-						_("Open project"), wxOK | wxICON_ERROR);
+					wxString msg = wxString::Format(_("This folder does not contain a "
+						"Camoto Studio project.\n\n[File not found: %s]"),
+						fn.GetFullPath().c_str());
+					wxMessageDialog dlg(this, msg, _("Open project"), wxOK | wxICON_ERROR);
 					dlg.ShowModal();
 				} else {
 					this->openProject(fn.GetFullPath());
