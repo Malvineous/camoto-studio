@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Rockford description file for Camoto Studio
+	Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Rockford
+  -->
+<game title="Rockford" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>John Conley</developer>
+		<publisher>First Star Software, Inc.</publisher>
+		<reverser>Malvineous</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+		<group name="Images">
+			<item ref="img-title"/>
+			<item ref="img-menu"/>
+		</group>
+		<group name="Animations">
+			<item ref="ani-title"/>
+			<item ref="ani-body"/>
+			<item ref="ani-cook"/>
+			<item ref="ani-cowboy"/>
+			<item ref="ani-hunter"/>
+			<item ref="ani-space"/>
+		</group>
+		<group name="Tiles">
+			<item ref="tls-body"/>
+			<item ref="tls-cook"/>
+			<item ref="tls-cowboy"/>
+			<item ref="tls-hunter"/>
+			<item ref="tls-space"/>
+		</group>
+	</display>
+
+	<files>
+		<file id="ani-body"   name="body.car"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Body</file>
+		<file id="tls-body"   name="body.fil"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Body</file>
+		<file id="ani-cook"   name="cook.car"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Cook</file>
+		<file id="tls-cook"   name="cook.fil"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Cook</file>
+		<file id="ani-cowboy" name="cowboy.car"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Cowboy</file>
+		<file id="tls-cowboy" name="cowboy.fil"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Cowboy</file>
+		<file id="ani-hunter" name="hunter.car"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Hunter</file>
+		<file id="tls-hunter" name="hunter.fil"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Hunter</file>
+		<file id="ani-space"  name="space.car"    typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Space</file>
+		<file id="tls-space"  name="space.fil"    typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Space</file>
+
+		<file id="img-title"  name="title.fil"    typeMajor="image"  typeMinor="ega-raw-planar-bgri-fullscreen">Title</file>
+		<file id="ani-title"  name="titleani.fil" typeMajor="image"  typeMinor="ega-raw-planar-bgri-fullscreen">Title</file>
+		<file id="img-menu"   name="menu.fil"     typeMajor="image"  typeMinor="ega-raw-planar-bgri-fullscreen">Menu</file>
+	</files>
+
+	<commands>
+		<command title="Normal">rockford</command>
+	</commands>
+
+</game>
