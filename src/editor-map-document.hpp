@@ -34,9 +34,8 @@ class MapDocument;
 class MapDocument: public IDocument
 {
 	public:
-		MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
-			camoto::gamemaps::MapTypePtr mapType,
-			camoto::SuppData suppData, camoto::stream::inout_sptr mapFile,
+		MapDocument(Studio *parent, MapEditor::Settings *settings,
+			camoto::gamemaps::Map2DPtr map, fn_write fnWriteMap,
 			camoto::gamegraphics::VC_TILESET tileset,
 			const MapObjectVector *mapObjectVector);
 
@@ -55,10 +54,8 @@ class MapDocument: public IDocument
 		MapCanvas *canvas;
 		MapEditor::Settings *settings;
 		camoto::gamemaps::Map2DPtr map;
+		fn_write fnWriteMap;
 		camoto::gamegraphics::VC_TILESET tileset;
-		camoto::gamemaps::MapTypePtr mapType;
-		camoto::SuppData suppData;
-		camoto::stream::inout_sptr mapFile;
 
 		friend class LayerPanel;
 		friend class TilePanel;

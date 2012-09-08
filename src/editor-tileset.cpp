@@ -38,14 +38,14 @@ using namespace camoto::gamegraphics;
 class TilesetDocument: public IDocument
 {
 	public:
-		TilesetDocument(IMainWindow *parent, TilesetEditor::Settings *settings, TilesetPtr tileset)
-			:	IDocument(parent, _T("tileset")),
+		TilesetDocument(Studio *studio, TilesetEditor::Settings *settings, TilesetPtr tileset)
+			:	IDocument(studio, _T("tileset")),
 				tileset(tileset),
 				settings(settings),
 				offset(0)
 		{
-			this->canvas = new TilesetCanvas(this, this->frame->getGLContext(),
-				this->frame->getGLAttributes(), this->settings->zoomFactor);
+			this->canvas = new TilesetCanvas(this, this->studio->getGLContext(),
+				this->studio->getGLAttributes(), this->settings->zoomFactor);
 
 			// Allocate all the textures
 			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
@@ -593,9 +593,8 @@ BEGIN_EVENT_TABLE(TilesetDocument, IDocument)
 END_EVENT_TABLE()
 
 
-TilesetEditor::TilesetEditor(IMainWindow *parent)
-	:	frame(parent),
-		pManager(parent->getGraphicsMgr())
+TilesetEditor::TilesetEditor(Studio *studio)
+	:	studio(studio)
 {
 	// Default settings
 	this->settings.zoomFactor = CFG_DEFAULT_ZOOM;
@@ -627,54 +626,12 @@ bool TilesetEditor::isFormatSupported(const wxString& type) const
 {
 	std::string strType("tls-");
 	strType.append(type.ToUTF8());
-	return this->pManager->getTilesetTypeByCode(strType);
+	return this->studio->mgrGraphics->getTilesetTypeByCode(strType);
 }
 
-IDocument *TilesetEditor::openObject(const wxString& typeMinor,
-	stream::inout_sptr data, const wxString& filename, SuppMap supp, const Game *game)
+IDocument *TilesetEditor::openObject(const GameObjectPtr& o)
 {
-	if (typeMinor.IsEmpty()) {
-		throw EFailure(_T("No file type was specified for this item!"));
-	}
-
-	std::string strType("tls-");
-	strType.append(typeMinor.ToUTF8());
-	TilesetTypePtr pTilesetType(this->pManager->getTilesetTypeByCode(strType));
-	if (!pTilesetType) {
-		wxString wxtype(strType.c_str(), wxConvUTF8);
-		throw EFailure(wxString::Format(_T("Sorry, it is not possible to edit this "
-			"tileset as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
-			typeMinor.c_str(), wxtype.c_str()));
-	}
-	std::cout << "[editor-tileset] Using handler for "
-		<< pTilesetType->getFriendlyName() << "\n";
-
-	// Check to see if the file is actually in this format
-	if (pTilesetType->isInstance(data) < TilesetType::PossiblyYes) {
-		std::string friendlyType = pTilesetType->getFriendlyName();
-		wxString wxtype(friendlyType.c_str(), wxConvUTF8);
-		wxString msg = wxString::Format(_T("This file is supposed to be in \"%s\" "
-			"format, but it seems this may not be the case.  Would you like to try "
-			"opening it anyway?"), wxtype.c_str());
-
-		wxMessageDialog dlg(this->frame, msg, _T("Open item"),
-			wxYES_NO | wxICON_ERROR);
-		int r = dlg.ShowModal();
-		if (r != wxID_YES) return NULL;
-	}
-
-	// Collect any supplemental files supplied
-	SuppData suppData;
-	suppMapToData(supp, suppData);
-
-	try {
-		// Open the tileset file
-		TilesetPtr pTileset(pTilesetType->open(data, suppData));
-		assert(pTileset);
-
-		return new TilesetDocument(this->frame, &this->settings, pTileset);
-	} catch (const camoto::stream::error& e) {
-		throw EFailure(wxString::Format(_T("Library exception: %s"),
-				wxString(e.what(), wxConvUTF8).c_str()));
-	}
+	TilesetPtr tileset = this->studio->openTileset(o);
+	if (!tileset) return NULL; // user cancelled
+	return new TilesetDocument(this->studio, &this->settings, tileset);
 }

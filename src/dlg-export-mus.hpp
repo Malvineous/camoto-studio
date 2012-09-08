@@ -26,7 +26,7 @@
 #include <wx/combobox.h>
 #include <wx/dialog.h>
 #include <wx/textctrl.h>
-#include "mainwindow.hpp"
+#include "studio.hpp"
 
 /// Export music file dialog box.
 class DlgExportMusic: public wxDialog
@@ -45,7 +45,7 @@ class DlgExportMusic: public wxDialog
 		 *   libgamemusic manager interface, for retrieving the list of supported
 		 *   file types.
 		 */
-		DlgExportMusic(IMainWindow *parent, camoto::gamemusic::ManagerPtr pManager);
+		DlgExportMusic(Studio *parent, camoto::gamemusic::ManagerPtr pManager);
 
 		~DlgExportMusic();
 

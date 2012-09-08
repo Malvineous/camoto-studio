@@ -27,7 +27,7 @@
 #include <wx/spinctrl.h>
 #include <wx/textctrl.h>
 #include <wx/listctrl.h>
-#include "mainwindow.hpp"
+#include "studio.hpp"
 #include "audio.hpp"
 #include "playerthread.hpp"
 #include "RtMidi.h"
@@ -47,7 +47,7 @@ class PrefsDialog: public wxDialog,
 		 * @param parent
 		 *   Display the dialog within this window.
 		 */
-		PrefsDialog(IMainWindow *parent, AudioPtr audio);
+		PrefsDialog(Studio *parent, AudioPtr audio);
 
 		~PrefsDialog();
 

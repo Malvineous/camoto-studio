@@ -53,7 +53,7 @@ BEGIN_EVENT_TABLE(DlgImportMusic, wxDialog)
 	EVT_BUTTON(IDC_BROWSE, DlgImportMusic::onBrowse)
 END_EVENT_TABLE()
 
-DlgImportMusic::DlgImportMusic(IMainWindow *parent, ManagerPtr pManager)
+DlgImportMusic::DlgImportMusic(Studio *parent, ManagerPtr pManager)
 	:	wxDialog(parent, wxID_ANY, _T("Preferences"), wxDefaultPosition,
 			wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER),
 		pManager(pManager)

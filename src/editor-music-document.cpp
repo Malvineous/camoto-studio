@@ -40,21 +40,17 @@ BEGIN_EVENT_TABLE(MusicDocument, IDocument)
 	EVT_SIZE(EventPanel::onResize)
 END_EVENT_TABLE()
 
-MusicDocument::MusicDocument(MusicEditor *editor, MusicTypePtr musicType,
-	stream::inout_sptr musFile, SuppData suppData)
-	:	IDocument(editor->frame, _T("music")),
+MusicDocument::MusicDocument(MusicEditor *editor, camoto::gamemusic::MusicPtr music,
+	fn_write fnWriteMusic)
+	:	IDocument(editor->studio, _T("music")),
 		editor(editor),
-		musicType(musicType),
-		musFile(musFile),
-		suppData(suppData),
+		music(music),
+		fnWriteMusic(fnWriteMusic),
 		playing(false),
 		absTimeStart(0),
 		font(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL)
 {
-	this->music = this->musicType->read(this->musFile, this->suppData);
-	assert(music);
-
-	IMainWindow *parent = this->editor->frame;
+	Studio *parent = this->editor->studio;
 
 	wxClientDC dc(this);
 	dc.SetFont(this->font);
@@ -173,8 +169,7 @@ MusicDocument::~MusicDocument()
 void MusicDocument::save()
 {
 	try {
-		this->musFile->seekp(0, stream::start);
-		this->musicType->write(this->musFile, this->suppData, this->music, 0);
+		this->fnWriteMusic();
 		this->isModified = false;
 	} catch (const format_limitation& e) {
 		std::string msg("This song cannot be saved in its current form, due "
@@ -248,7 +243,7 @@ void MusicDocument::onZoomOut(wxCommandEvent& ev)
 
 void MusicDocument::onImport(wxCommandEvent& ev)
 {
-	DlgImportMusic importdlg(this->frame, this->editor->pManager);
+	DlgImportMusic importdlg(this->editor->studio, this->editor->studio->mgrMusic);
 	importdlg.filename = this->editor->settings.lastExportPath;
 	importdlg.fileType = this->editor->settings.lastExportType;
 	importdlg.setControls();
@@ -273,7 +268,7 @@ void MusicDocument::onImport(wxCommandEvent& ev)
 			stream::input_file_sptr infile(new stream::input_file());
 			infile->open(importdlg.filename.mb_str());
 
-			MusicTypePtr pMusicInType(this->editor->pManager->getMusicTypeByCode(
+			MusicTypePtr pMusicInType(this->editor->studio->mgrMusic->getMusicTypeByCode(
 				(const char *)importdlg.fileType.mb_str()));
 
 			// We can't have a type chosen that we didn't supply in the first place
@@ -308,7 +303,7 @@ void MusicDocument::onImport(wxCommandEvent& ev)
 
 void MusicDocument::onExport(wxCommandEvent& ev)
 {
-	DlgExportMusic exportdlg(this->frame, this->editor->pManager);
+	DlgExportMusic exportdlg(this->editor->studio, this->editor->studio->mgrMusic);
 	exportdlg.filename = this->editor->settings.lastExportPath;
 	exportdlg.fileType = this->editor->settings.lastExportType;
 	exportdlg.flags = this->editor->settings.lastExportFlags;
@@ -337,7 +332,7 @@ void MusicDocument::onExport(wxCommandEvent& ev)
 			const char *outname = exportdlg.filename.mb_str();
 			outfile->create(outname);
 
-			MusicTypePtr pMusicOutType(this->editor->pManager->getMusicTypeByCode(outname));
+			MusicTypePtr pMusicOutType(this->editor->studio->mgrMusic->getMusicTypeByCode(outname));
 
 			// We can't have a type chosen that we didn't supply in the first place
 			assert(pMusicOutType);

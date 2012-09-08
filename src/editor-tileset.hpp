@@ -32,27 +32,18 @@ class TilesetEditor: public IEditor
 			unsigned int zoomFactor; ///< Amount of zoom (1,2,4)
 		};
 
-		TilesetEditor(IMainWindow *parent);
-
+		TilesetEditor(Studio *studio);
 		virtual ~TilesetEditor();
 
 		virtual IToolPanelVector createToolPanes() const;
-
 		virtual void loadSettings(Project *proj);
-
 		virtual void saveSettings(Project *proj) const;
-
 		virtual bool isFormatSupported(const wxString& type) const;
-
-		virtual IDocument *openObject(const wxString& typeMinor,
-			camoto::stream::inout_sptr data, const wxString& filename, SuppMap supp,
-			const Game *game);
+		virtual IDocument *openObject(const GameObjectPtr& o);
 
 	protected:
-		IMainWindow *frame;
-		camoto::gamegraphics::ManagerPtr pManager;
+		Studio *studio;
 		Settings settings;
-
 };
 
 #endif // _EDITOR_TILESET_HPP_

@@ -37,13 +37,10 @@ using namespace camoto;
 using namespace camoto::gamemaps;
 using namespace camoto::gamegraphics;
 
-void tryLoadTileset(IMainWindow *parent, SuppData& suppData, SuppMap& supp,
-	const wxString& id, VC_TILESET *tilesetVector);
-
 class LayerPanel: public IToolPanel
 {
 	public:
-		LayerPanel(IMainWindow *parent)
+		LayerPanel(Studio *parent)
 			:	IToolPanel(parent)
 		{
 			this->list = new wxListCtrl(this, IDC_LAYER, wxDefaultPosition,
@@ -211,9 +208,8 @@ BEGIN_EVENT_TABLE(LayerPanel, IToolPanel)
 END_EVENT_TABLE()
 
 
-MapEditor::MapEditor(IMainWindow *parent)
-	:	frame(parent),
-		pManager(parent->getMapsMgr())
+MapEditor::MapEditor(Studio *studio)
+	:	studio(studio)
 {
 	// Default settings
 	this->settings.zoomFactor = CFG_DEFAULT_ZOOM;
@@ -226,8 +222,8 @@ MapEditor::~MapEditor()
 std::vector<IToolPanel *> MapEditor::createToolPanes() const
 {
 	std::vector<IToolPanel *> panels;
-	panels.push_back(new LayerPanel(this->frame));
-	panels.push_back(new TilePanel(this->frame));
+	panels.push_back(new LayerPanel(this->studio));
+	panels.push_back(new TilePanel(this->studio));
 	return panels;
 }
 
@@ -247,105 +243,81 @@ bool MapEditor::isFormatSupported(const wxString& type) const
 {
 	std::string strType("map-");
 	strType.append(type.ToUTF8());
-	return this->pManager->getMapTypeByCode(strType);
+	return this->studio->mgrMaps->getMapTypeByCode(strType);
 }
 
-IDocument *MapEditor::openObject(const wxString& typeMinor,
-	camoto::stream::inout_sptr data, const wxString& filename, SuppMap supp,
-	const Game *game)
+IDocument *MapEditor::openObject(const GameObjectPtr& o)
 {
-	if (typeMinor.IsEmpty()) {
-		throw EFailure(_("No file type was specified for this item!"));
+	MapPtr map;
+	fn_write fnWriteMap;
+	try {
+		map = this->studio->openMap(o, &fnWriteMap);
+		if (!map) return NULL; // user cancelled
+	} catch (const camoto::stream::error& e) {
+		throw EFailure(wxString::Format(_("Library exception: %s"),
+			wxString(e.what(), wxConvUTF8).c_str()));
 	}
-
-	std::string strType("map-");
-	strType.append(typeMinor.ToUTF8());
-	MapTypePtr pMapType(this->pManager->getMapTypeByCode(strType));
-	if (!pMapType) {
-		wxString wxtype(strType.c_str(), wxConvUTF8);
-		throw EFailure(wxString::Format(_("Sorry, it is not possible to edit this "
-			"map as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
-			typeMinor.c_str(), wxtype.c_str()));
-	}
-	std::cout << "[editor-map] Using handler for " << pMapType->getFriendlyName() << "\n";
-
-	// Check to see if the file is actually in this format
-	if (pMapType->isInstance(data) < MapType::PossiblyYes) {
-		std::string friendlyType = pMapType->getFriendlyName();
-		wxString wxtype(friendlyType.c_str(), wxConvUTF8);
-		wxString msg = wxString::Format(_("This file is supposed to be in \"%s\" "
-			"format, but it seems this may not be the case.  Would you like to try "
-			"opening it anyway?"), wxtype.c_str());
-		wxMessageDialog dlg(this->frame, msg, _("Open item"), wxYES_NO | wxICON_ERROR);
-		int r = dlg.ShowModal();
-		if (r != wxID_YES) return NULL;
-	}
-
-	// Collect any supplemental files supplied
-	SuppData suppData;
-	suppMapToData(supp, suppData);
 
 	VC_TILESET tilesetVector;
+	// First, see if any tilesets have been specified in the XML
 	try {
-		tryLoadTileset(this->frame, suppData, supp, _T("tiles"), &tilesetVector);
-		tryLoadTileset(this->frame, suppData, supp, _T("tiles2"), &tilesetVector);
-		tryLoadTileset(this->frame, suppData, supp, _T("tiles3"), &tilesetVector);
-		tryLoadTileset(this->frame, suppData, supp, _T("sprites"), &tilesetVector);
+		for (unsigned int i = 0; i < DepTypeCount; i++) {
+			Deps::const_iterator idep = o->dep.find((DepType)i);
+			if (idep == o->dep.end()) continue; // no attribute for this dep in the XML
+
+			// Find this object
+			GameObjectMap::iterator io = this->studio->game->objects.find(idep->second);
+			if (io == this->studio->game->objects.end()) {
+				throw EFailure(wxString::Format(_("Cannot open this item.  It refers "
+					"to an entry in the game description XML file which doesn't exist!"
+					"\n\n[Item \"%s\" has an invalid ID in the dep:%s attribute]"),
+					o->id.c_str(), dep2string((DepType)i).c_str()));
+			}
+			tilesetVector.push_back(this->studio->openTileset(io->second));
+		}
 	} catch (const EFailure& e) {
 		wxString msg = _("Error opening the map tileset:\n\n");
 		msg += e.getMessage();
 		throw EFailure(msg);
 	}
 
+	// Then see if the map file can supply us with any filenames.  This is
+	// second so that it's possible to override these filenames if all of them
+	// are specified in the XML.
+	Map::FilenameVectorPtr gfxFiles = map->getGraphicsFilenames();
+	for (Map::FilenameVector::const_iterator
+		i = gfxFiles->begin(); i != gfxFiles->end(); i++
+	) {
+		wxString targetFilename(i->filename.c_str(), wxConvUTF8);
+		if (i->purpose == Map::GraphicsFilename::Tileset) {
+			GameObjectPtr ot = this->studio->game->findObjectByFilename(
+				targetFilename, _T("tileset"));
+			if (!ot) {
+				throw EFailure(wxString::Format(_("Cannot open this map.  It needs "
+					"a tileset that is missing from the game description XML file."
+					"\n\n[There is no <file/> element with the filename \"%s\" and a "
+					"typeMajor of \"tileset\", as needed by \"%s\"]"),
+					targetFilename.c_str(), o->id.c_str()));
+			}
+			tilesetVector.push_back(this->studio->openTileset(ot));
+		}
+	}
+
 	if (tilesetVector.empty()) {
-		throw EFailure(_("Map files require a tileset to be "
-			"specified in the game description .xml file, however none has been "
-			"given for this file."));
+		throw EFailure(_("This map format requires at least one tileset to be "
+			"specified in the game description .xml file, however none have been "
+			"given for this item."));
 	}
 
-	// Open the map file
-	try {
-		return new MapDocument(this->frame, &this->settings, pMapType, suppData,
-			data, tilesetVector, &game->mapObjects);
-	} catch (const camoto::stream::error& e) {
-		throw EFailure(wxString::Format(_("Library exception: %s"),
-			wxString(e.what(), wxConvUTF8).c_str()));
+	Map2DPtr map2d = boost::dynamic_pointer_cast<Map2D>(map);
+	if (map2d) {
+		return new MapDocument(this->studio, &this->settings, map2d, fnWriteMap,
+			tilesetVector, &this->studio->game->mapObjects);
+		/// @todo The MapObjects might be different for each map!  Use the right
+		/// ones here, since we know the map ID and other identifying info.
+		/// Put <for map="map-abc"/> inside the XML to allow multiple maps to share
+		/// the same object list?
 	}
-
 	throw EFailure(_("Sorry, this map is in a variant for which no editor has "
 		"been written yet!"));
-}
-
-void tryLoadTileset(IMainWindow *parent, SuppData& suppData, SuppMap& supp,
-	const wxString& id, VC_TILESET *tilesetVector)
-{
-	SuppMap::iterator s;
-	s = supp.find(id);
-	if (s == supp.end()) return;
-
-	std::string strGfxType("tls-");
-	strGfxType.append(s->second.typeMinor.ToUTF8());
-
-	camoto::gamegraphics::ManagerPtr gfxMgr = parent->getGraphicsMgr();
-	TilesetTypePtr ttp = gfxMgr->getTilesetTypeByCode(strGfxType);
-	if (!ttp) {
-		wxString wxtype(strGfxType.c_str(), wxConvUTF8);
-		throw EFailure(wxString::Format(_("Sorry, it is not possible to edit this "
-			"map as the \"%s\" tileset format is unsupported.  (No handler for \"%s\")"),
-			s->second.typeMinor.c_str(), wxtype.c_str()));
-	}
-
-	try {
-		TilesetPtr tileset = ttp->open(s->second.stream, suppData);
-		if (!tileset) {
-			wxString wxtype(strGfxType.c_str(), wxConvUTF8);
-			throw EFailure(wxString::Format(_("Tileset was rejected by \"%s\" handler"
-				" (wrong format?)"), wxtype.c_str()));
-		}
-		tilesetVector->push_back(tileset);
-	} catch (const camoto::stream::error& e) {
-		throw EFailure(wxString::Format(_("Library exception: %s"),
-			wxString(e.what(), wxConvUTF8).c_str()));
-	}
-	return;
 }

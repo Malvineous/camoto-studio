@@ -30,7 +30,7 @@ using namespace camoto::gamegraphics;
 BEGIN_EVENT_TABLE(TilePanel, IToolPanel)
 END_EVENT_TABLE()
 
-TilePanel::TilePanel(IMainWindow *parent)
+TilePanel::TilePanel(Studio *parent)
 	:	IToolPanel(parent)
 {
 	this->canvas = new TilePanelCanvas(this, parent->getGLContext(),

@@ -22,10 +22,10 @@
 
 using namespace camoto;
 
-IDocument::IDocument(IMainWindow *parent, const wxString& typeMajor)
-	:	wxPanel(parent),
+IDocument::IDocument(Studio *studio, const wxString& typeMajor)
+	:	wxPanel(studio),
 		isModified(false),
-		frame(parent),
+		studio(studio),
 		typeMajor(typeMajor)
 {
 }
@@ -37,44 +37,21 @@ const wxString& IDocument::getTypeMajor() const
 
 void IDocument::setStatusText(const wxString& text)
 {
-	this->frame->setStatusText(text);
+	this->studio->setStatusText(text);
 	return;
 }
 
 void IDocument::setHelpText(const wxString& text)
 {
-	this->frame->setHelpText(text);
+	this->studio->setHelpText(text);
 	return;
 }
 
-IToolPanel::IToolPanel(IMainWindow *parent)
-	:	wxPanel(parent)
+IToolPanel::IToolPanel(Studio *studio)
+	:	wxPanel(studio)
 {
 }
 
 IEditor::~IEditor()
 {
-}
-
-#define SUPP_MAP(name, type) \
-	s = supp.find(name); \
-	if (s != supp.end()) { \
-		suppData[SuppItem::type] = s->second.stream; \
-	}
-
-void suppMapToData(SuppMap& supp, SuppData &suppData)
-{
-	SuppMap::iterator s;
-	SUPP_MAP(_T("dict"), Dictionary);
-	SUPP_MAP(_T("fat"), FAT);
-	SUPP_MAP(_T("pal"), Palette);
-	SUPP_MAP(_T("instruments"), Instruments);
-	SUPP_MAP(_T("layer1"), Layer1);
-	SUPP_MAP(_T("layer2"), Layer2);
-	SUPP_MAP(_T("extra1"), Extra1);
-	SUPP_MAP(_T("extra2"), Extra2);
-	SUPP_MAP(_T("extra3"), Extra3);
-	SUPP_MAP(_T("extra4"), Extra4);
-	SUPP_MAP(_T("extra5"), Extra5);
-	return;
 }

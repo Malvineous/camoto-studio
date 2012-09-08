@@ -26,7 +26,7 @@
 #include <wx/combobox.h>
 #include <wx/dialog.h>
 #include <wx/textctrl.h>
-#include "mainwindow.hpp"
+#include "studio.hpp"
 
 /// Import music file dialog box.
 class DlgImportMusic: public wxDialog
@@ -44,7 +44,7 @@ class DlgImportMusic: public wxDialog
 		 *   libgamemusic manager interface, for retrieving the list of supported
 		 *   file types.
 		 */
-		DlgImportMusic(IMainWindow *parent, camoto::gamemusic::ManagerPtr pManager);
+		DlgImportMusic(Studio *parent, camoto::gamemusic::ManagerPtr pManager);
 
 		~DlgImportMusic();
 

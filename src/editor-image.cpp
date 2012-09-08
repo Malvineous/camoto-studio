@@ -175,8 +175,8 @@ END_EVENT_TABLE()
 class ImageDocument: public IDocument
 {
 	public:
-		ImageDocument(IMainWindow *parent, ImageEditor::Settings *settings, ImagePtr image)
-			:	IDocument(parent, _T("image")),
+		ImageDocument(Studio *studio, ImageEditor::Settings *settings, ImagePtr image)
+			:	IDocument(studio, _T("image")),
 				image(image),
 				settings(settings)
 		{
@@ -525,9 +525,8 @@ BEGIN_EVENT_TABLE(ImageDocument, IDocument)
 END_EVENT_TABLE()
 
 
-ImageEditor::ImageEditor(IMainWindow *parent)
-	:	frame(parent),
-		pManager(parent->getGraphicsMgr())
+ImageEditor::ImageEditor(Studio *studio)
+	:	studio(studio)
 {
 	// Default settings
 	this->settings.zoomFactor = CFG_DEFAULT_ZOOM;
@@ -559,51 +558,16 @@ bool ImageEditor::isFormatSupported(const wxString& type) const
 {
 	std::string strType("img-");
 	strType.append(type.ToUTF8());
-	return this->pManager->getImageTypeByCode(strType);
+	return this->studio->mgrGraphics->getImageTypeByCode(strType);
 }
 
-IDocument *ImageEditor::openObject(const wxString& typeMinor,
-	stream::inout_sptr data, const wxString& filename, SuppMap supp, const Game *game)
+IDocument *ImageEditor::openObject(const GameObjectPtr& o)
 {
-	if (typeMinor.IsEmpty()) {
-		throw EFailure(_("No file type was specified for this item!"));
-	}
-
-	std::string strType("img-");
-	strType.append(typeMinor.ToUTF8());
-	ImageTypePtr pImageType(this->pManager->getImageTypeByCode(strType));
-	if (!pImageType) {
-		wxString wxtype(strType.c_str(), wxConvUTF8);
-		throw EFailure(wxString::Format(_("Sorry, it is not possible to edit this "
-			"image as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
-			typeMinor.c_str(), wxtype.c_str()));
-	}
-
-	assert(pImageType);
-	std::cout << "[editor-image] Using handler for " << pImageType->getFriendlyName() << "\n";
-
-	// Check to see if the file is actually in this format
-	if (pImageType->isInstance(data) < ImageType::PossiblyYes) {
-		std::string friendlyType = pImageType->getFriendlyName();
-		wxString wxtype(friendlyType.c_str(), wxConvUTF8);
-		wxString msg = wxString::Format(_("This file is supposed to be in \"%s\" "
-			"format, but it seems this may not be the case.  Would you like to try "
-			"opening it anyway?"), wxtype.c_str());
-		wxMessageDialog dlg(this->frame, msg, _("Open item"), wxYES_NO | wxICON_ERROR);
-		int r = dlg.ShowModal();
-		if (r != wxID_YES) return NULL;
-	}
-
-	// Collect any supplemental files supplied
-	SuppData suppData;
-	suppMapToData(supp, suppData);
-
-	// Open the image file
 	try {
-		ImagePtr pImage(pImageType->open(data, suppData));
-		assert(pImage);
+		ImagePtr image = this->studio->openImage(o);
+		if (!image) return NULL; // user cancelled
 
-		return new ImageDocument(this->frame, &this->settings, pImage);
+		return new ImageDocument(this->studio, &this->settings, image);
 	} catch (const camoto::stream::error& e) {
 		throw EFailure(wxString::Format(_("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));

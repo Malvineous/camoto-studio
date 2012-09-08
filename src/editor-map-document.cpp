@@ -35,24 +35,15 @@ BEGIN_EVENT_TABLE(MapDocument, IDocument)
 	EVT_TOOL(IDC_MODE_OBJ, MapDocument::onObjMode)
 END_EVENT_TABLE()
 
-MapDocument::MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
-	MapTypePtr mapType, SuppData suppData, stream::inout_sptr mapFile,
-	VC_TILESET tileset, const MapObjectVector *mapObjectVector)
+MapDocument::MapDocument(Studio *parent, MapEditor::Settings *settings,
+	Map2DPtr map, fn_write fnWriteMap, VC_TILESET tileset,
+	const MapObjectVector *mapObjectVector)
 	:	IDocument(parent, _T("map")),
 		settings(settings),
-		tileset(tileset),
-		mapType(mapType),
-		suppData(suppData),
-		mapFile(mapFile)
+		map(map),
+		fnWriteMap(fnWriteMap),
+		tileset(tileset)
 {
-	MapPtr genMap = mapType->open(mapFile, suppData);
-	assert(genMap);
-
-	this->map = boost::dynamic_pointer_cast<Map2D>(genMap);
-	if (!this->map) {
-		throw EFailure(_("Map is not a 2D grid-based map!"));
-	}
-
 	this->canvas = new MapCanvas(this, parent->getGLContext(), map, tileset,
 		parent->getGLAttributes(), mapObjectVector);
 
@@ -119,7 +110,7 @@ MapDocument::MapDocument(IMainWindow *parent, MapEditor::Settings *settings,
 void MapDocument::save()
 {
 	try {
-		this->mapType->write(this->map, this->mapFile, this->suppData);
+		this->fnWriteMap();
 		this->isModified = false;
 	} catch (const camoto::stream::error& e) {
 		throw e;

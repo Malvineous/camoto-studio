@@ -23,99 +23,19 @@
 
 #include <map>
 #include <vector>
-#include <wx/wx.h>
+#include <wx/string.h>
+#include <wx/panel.h>
 #include <camoto/stream.hpp>
 #include <camoto/suppitem.hpp>
-#include "mainwindow.hpp"
-#include "project.hpp"
-#include "gamelist.hpp"
-#include "exceptions.hpp"
 
-/// Base class for a document editor.
-class IDocument: public wxPanel
-{
-	public:
-		/// Has the document changed?
-		/**
-		 * Set to true whenever a change is made, and to false whenever the document
-		 * is saved or the change is otherwise reverted.  When the document is
-		 * closed and this is true, the user is prompted to save changes.
-		 *
-		 * @note Automatically set to false in the IDocument constructor.
-		 */
-		bool isModified;
-
-		/// Required to pass parameters to wxPanel parent class.
-		/**
-		 * @param parent
-		 *   Parent window that will display this document.
-		 *
-		 * @param typeMajor
-		 *   Major type of this document (e.g. "map", "tileset", etc.)
-		 */
-		IDocument(IMainWindow *parent, const wxString& typeMajor);
-
-		/// Get the major type (editor ID) of this document.
-		/**
-		 * This is used when switching to a new document to work out which tool
-		 * panes to show.
-		 *
-		 * @return The document's major type (map, music, tileset, etc.)
-		 */
-		const wxString& getTypeMajor() const;
-
-		/// Save changes to the document.
-		virtual void save() = 0;
-
-		/// Set the text in the hint part of the status bar.
-		/**
-		 * @param text
-		 *   Text to display, or wxString() to display nothing.
-		 */
-		void setStatusText(const wxString& text);
-
-		/// Set the text in the keyboard help part of the status bar.
-		/**
-		 * @param text
-		 *   Text to display, or wxString() to display nothing.
-		 */
-		void setHelpText(const wxString& text);
-
-	protected:
-		IMainWindow *frame;
-		wxString typeMajor;
-};
-
-/// Small window for additional information about the document being edited.
-class IToolPanel: public wxPanel
-{
-	public:
-		IToolPanel(IMainWindow *parent);
-
-		virtual void getPanelInfo(wxString *id, wxString *label) const = 0;
-
-		virtual void switchDocument(IDocument *doc) = 0;
-
-		virtual void loadSettings(Project *proj) = 0;
-
-		virtual void saveSettings(Project *proj) const = 0;
-};
+class IDocument;
+class IToolPanel;
 
 /// List of tool panels.
 typedef std::vector<IToolPanel *> IToolPanelVector;
 
-/// Details about an open supplementary item.
-struct OpenedSuppItem
-{
-	wxString typeMinor;
-	camoto::stream::inout_sptr stream;
-};
-
-/// Map between string and input stream, used for supp data.
-typedef std::map<wxString, OpenedSuppItem> SuppMap;
-
-/// Convert a SuppMap structure into a SuppData one.
-void suppMapToData(SuppMap& supp, camoto::SuppData &suppData);
+#include "project.hpp"
+#include "gamelist.hpp"
 
 class IEditor
 {
@@ -174,10 +94,79 @@ class IEditor
 		 *
 		 * @return IDocument interface to an editor instance.
 		 */
-		virtual IDocument *openObject(const wxString& typeMinor,
-			camoto::stream::inout_sptr data, const wxString& filename, SuppMap supp,
-			const Game *game) = 0;
+		virtual IDocument *openObject(const GameObjectPtr& o) = 0;
+};
 
+#include "studio.hpp"
+
+/// Base class for a document editor.
+class IDocument: public wxPanel
+{
+	public:
+		/// Has the document changed?
+		/**
+		 * Set to true whenever a change is made, and to false whenever the document
+		 * is saved or the change is otherwise reverted.  When the document is
+		 * closed and this is true, the user is prompted to save changes.
+		 *
+		 * @note Automatically set to false in the IDocument constructor.
+		 */
+		bool isModified;
+
+		/// Required to pass parameters to wxPanel parent class.
+		/**
+		 * @param studio
+		 *   Parent window that will display this document.
+		 *
+		 * @param typeMajor
+		 *   Major type of this document (e.g. "map", "tileset", etc.)
+		 */
+		IDocument(Studio *studio, const wxString& typeMajor);
+
+		/// Get the major type (editor ID) of this document.
+		/**
+		 * This is used when switching to a new document to work out which tool
+		 * panes to show.
+		 *
+		 * @return The document's major type (map, music, tileset, etc.)
+		 */
+		const wxString& getTypeMajor() const;
+
+		/// Save changes to the document.
+		virtual void save() = 0;
+
+		/// Set the text in the hint part of the status bar.
+		/**
+		 * @param text
+		 *   Text to display, or wxString() to display nothing.
+		 */
+		void setStatusText(const wxString& text);
+
+		/// Set the text in the keyboard help part of the status bar.
+		/**
+		 * @param text
+		 *   Text to display, or wxString() to display nothing.
+		 */
+		void setHelpText(const wxString& text);
+
+	protected:
+		Studio *studio;
+		wxString typeMajor;
+};
+
+/// Small window for additional information about the document being edited.
+class IToolPanel: public wxPanel
+{
+	public:
+		IToolPanel(Studio *studio);
+
+		virtual void getPanelInfo(wxString *id, wxString *label) const = 0;
+
+		virtual void switchDocument(IDocument *doc) = 0;
+
+		virtual void loadSettings(Project *proj) = 0;
+
+		virtual void saveSettings(Project *proj) const = 0;
 };
 
 #endif // _EDITOR_HPP_

@@ -39,26 +39,18 @@ class MusicEditor: public IEditor
 			unsigned int lastExportFlags; ///< Flags used for last export
 		};
 
-		MusicEditor(IMainWindow *parent, AudioPtr audio);
-
+		MusicEditor(Studio *studio, AudioPtr audio);
 		virtual ~MusicEditor();
 
 		virtual IToolPanelVector createToolPanes() const;
-
 		virtual void loadSettings(Project *proj);
-
 		virtual void saveSettings(Project *proj) const;
-
 		virtual bool isFormatSupported(const wxString& type) const;
-
-		virtual IDocument *openObject(const wxString& typeMinor,
-			camoto::stream::inout_sptr data, const wxString& filename, SuppMap supp,
-			const Game *game);
+		virtual IDocument *openObject(const GameObjectPtr& o);
 
 	protected:
-		IMainWindow *frame;
+		Studio *studio;
 		AudioPtr audio;
-		camoto::gamemusic::ManagerPtr pManager;
 		Settings settings;
 
 		friend class MusicDocument;

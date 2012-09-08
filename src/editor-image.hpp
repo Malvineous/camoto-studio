@@ -32,27 +32,18 @@ class ImageEditor: public IEditor
 			unsigned int zoomFactor; ///< Amount of zoom (1,2,4)
 		};
 
-		ImageEditor(IMainWindow *parent);
-
+		ImageEditor(Studio *parent);
 		virtual ~ImageEditor();
 
 		virtual IToolPanelVector createToolPanes() const;
-
 		virtual void loadSettings(Project *proj);
-
 		virtual void saveSettings(Project *proj) const;
-
 		virtual bool isFormatSupported(const wxString& type) const;
-
-		virtual IDocument *openObject(const wxString& typeMinor,
-			camoto::stream::inout_sptr data, const wxString& filename, SuppMap supp,
-			const Game *game);
+		virtual IDocument *openObject(const GameObjectPtr& o);
 
 	protected:
-		IMainWindow *frame;
-		camoto::gamegraphics::ManagerPtr pManager;
+		Studio *studio;
 		Settings settings;
-
 };
 
 #endif // _EDITOR_IMAGE_HPP_

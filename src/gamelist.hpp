@@ -25,9 +25,13 @@
 #include <wx/wx.h>
 #include <vector>
 #include <map>
+#include <camoto/suppitem.hpp>
 
 /// Minor type for an archive where the file offsets are listed in the XML
 #define ARCHTYPE_MINOR_FIXED "fixed"
+
+/// Minor type for a tileset where the tile positions with an image are listed in the XML
+#define TILESETTYPE_MINOR_FROMIMG "_list"
 
 /// A basic tree implementation for storing the game item structure
 template <typename T>
@@ -40,6 +44,31 @@ struct tree
 	children_t children;
 };
 
+/// SuppItem -> game object ID mapping.
+typedef std::map<camoto::SuppItem::Type, wxString> SuppIDs;
+
+/// Types of dependent objects.
+/**
+ * Dependent objects are full blown object instances (like a TilesetPtr) that
+ * are required by other objects (like a map needing a tileset.)  Unlike
+ * supplementary items, which are just streams, dependent objects are full
+ * instances of specific Camoto types.
+ */
+enum DepType
+{
+	Tileset1 = 0,
+	Tileset2,
+	Tileset3,
+	Sprites,
+	DepTypeCount // must always be last
+};
+
+/// Convert a DepType value into a string, for error messages.
+wxString dep2string(DepType t);
+
+/// Dependency type -> game object ID mapping.
+typedef std::map<DepType, wxString> Deps;
+
 /// Details about a single game object, such as a map or a song.
 struct GameObject
 {
@@ -51,7 +80,8 @@ struct GameObject
 	wxString typeMajor;    ///< Major type (editor to use)
 	wxString typeMinor;    ///< Minor type (file format)
 	wxString friendlyName; ///< Name to show user
-	std::map<wxString, wxString> supp;  ///< SuppItem -> ID mapping
+	SuppIDs supp;          ///< SuppItem -> id mapping
+	Deps dep;              ///< Which objects this one is dependent upon
 
 	int offset;            ///< [Fixed archive only] Offset of this file
 	int size;              ///< [Fixed archive only] Size of this file
@@ -137,6 +167,18 @@ struct Game: public GameInfo
 	tree<wxString> treeItems;
 	MapObjectVector mapObjects;
 	std::map<wxString, wxString> dosCommands;
+
+	/// Find an object by filename.
+	GameObjectPtr findObjectByFilename(const wxString& filename,
+		const wxString& typeMajor);
+
+	/// Find an object by its ID.
+	/**
+	 * This must be used instead of the array operator[], as this function
+	 * won't create an empty entry when checking for an invalid ID, causing
+	 * the ID to subsequently become valid.
+	 */
+	GameObjectPtr findObjectById(const wxString& id);
 };
 
 /// List of basic game info.

@@ -32,7 +32,7 @@ class InstrumentListPanel;
 class InstrumentListPanel: public IToolPanel
 {
 	public:
-		InstrumentListPanel(IMainWindow *parent, InstrumentPanel *instPanel);
+		InstrumentListPanel(Studio *parent, InstrumentPanel *instPanel);
 
 		virtual void getPanelInfo(wxString *id, wxString *label) const;
 

@@ -53,7 +53,7 @@ BEGIN_EVENT_TABLE(PrefsDialog, wxDialog)
 	EVT_TOGGLEBUTTON(IDC_TEST_AUDIO, PrefsDialog::onTestAudio)
 END_EVENT_TABLE()
 
-PrefsDialog::PrefsDialog(IMainWindow *parent, AudioPtr audio)
+PrefsDialog::PrefsDialog(Studio *parent, AudioPtr audio)
 	:	wxDialog(parent, wxID_ANY, _("Preferences"), wxDefaultPosition,
 			wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER),
 		audio(audio),

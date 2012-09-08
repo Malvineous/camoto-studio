@@ -35,8 +35,8 @@ typedef std::vector<camoto::gamemusic::EventPtr> EventVector;
 class MusicDocument: public IDocument, PlayerCallback
 {
 	public:
-		MusicDocument(MusicEditor *editor, camoto::gamemusic::MusicTypePtr musicType,
-			camoto::stream::inout_sptr musFile, camoto::SuppData suppData);
+		MusicDocument(MusicEditor *editor, camoto::gamemusic::MusicPtr music,
+			fn_write fnWriteMusic);
 
 		~MusicDocument();
 
@@ -64,11 +64,9 @@ class MusicDocument: public IDocument, PlayerCallback
 
 	protected:
 		MusicEditor *editor;
-		camoto::gamemusic::MusicTypePtr musicType;
-		camoto::stream::inout_sptr musFile;
-		camoto::SuppData suppData;
-
 		camoto::gamemusic::MusicPtr music;
+		fn_write fnWriteMusic;
+
 		bool playing;
 
 		int optimalTicksPerRow; ///< Cache best value for ticksPerRow (for zoom reset)

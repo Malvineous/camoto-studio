@@ -36,7 +36,7 @@ class InstrumentPanel;
 class InstrumentPanel: public IToolPanel
 {
 	public:
-		InstrumentPanel(IMainWindow *parent);
+		InstrumentPanel(Studio *parent);
 
 		void addNumberControl(wxWindow *parent, wxGridBagSizer *sizer, int *row, unsigned int id,
 			const wxString& title, unsigned int min, unsigned int max);

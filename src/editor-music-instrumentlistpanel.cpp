@@ -33,7 +33,7 @@ BEGIN_EVENT_TABLE(InstrumentListPanel, IToolPanel)
 	EVT_LIST_ITEM_RIGHT_CLICK(IDC_INSTLIST, InstrumentListPanel::onItemRightClick)
 END_EVENT_TABLE()
 
-InstrumentListPanel::InstrumentListPanel(IMainWindow *parent, InstrumentPanel *instPanel)
+InstrumentListPanel::InstrumentListPanel(Studio *parent, InstrumentPanel *instPanel)
 	:	IToolPanel(parent),
 		instPanel(instPanel),
 		lastInstrument(0)

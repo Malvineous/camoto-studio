@@ -51,7 +51,7 @@ BEGIN_EVENT_TABLE(DlgExportMusic, wxDialog)
 	EVT_BUTTON(IDC_BROWSE, DlgExportMusic::onBrowse)
 END_EVENT_TABLE()
 
-DlgExportMusic::DlgExportMusic(IMainWindow *parent, ManagerPtr pManager)
+DlgExportMusic::DlgExportMusic(Studio *parent, ManagerPtr pManager)
 	:	wxDialog(parent, wxID_ANY, _("Export song"), wxDefaultPosition,
 			wxDefaultSize, wxDIALOG_EX_CONTEXTHELP | wxRESIZE_BORDER),
 		pManager(pManager)

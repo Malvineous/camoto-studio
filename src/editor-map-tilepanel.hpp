@@ -29,7 +29,7 @@
 class TilePanel: public IToolPanel
 {
 	public:
-		TilePanel(IMainWindow *parent);
+		TilePanel(Studio *parent);
 
 		virtual void getPanelInfo(wxString *id, wxString *label) const;
 

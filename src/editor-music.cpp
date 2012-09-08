@@ -27,10 +27,9 @@
 using namespace camoto;
 using namespace camoto::gamemusic;
 
-MusicEditor::MusicEditor(IMainWindow *parent, AudioPtr audio)
-	:	frame(parent),
-		audio(audio),
-		pManager(parent->getMusicMgr())
+MusicEditor::MusicEditor(Studio *studio, AudioPtr audio)
+	:	studio(studio),
+		audio(audio)
 {
 }
 
@@ -41,8 +40,8 @@ MusicEditor::~MusicEditor()
 std::vector<IToolPanel *> MusicEditor::createToolPanes() const
 {
 	std::vector<IToolPanel *> panels;
-	InstrumentPanel *inst = new InstrumentPanel(this->frame);
-	panels.push_back(new InstrumentListPanel(this->frame, inst));
+	InstrumentPanel *inst = new InstrumentPanel(this->studio);
+	panels.push_back(new InstrumentListPanel(this->studio, inst));
 	panels.push_back(inst);
 	return panels;
 }
@@ -66,49 +65,20 @@ void MusicEditor::saveSettings(Project *proj) const
 bool MusicEditor::isFormatSupported(const wxString& type) const
 {
 	std::string strType(type.ToUTF8());
-	return this->pManager->getMusicTypeByCode(strType);
+	return this->studio->mgrMusic->getMusicTypeByCode(strType);
 }
 
-IDocument *MusicEditor::openObject(const wxString& typeMinor,
-	stream::inout_sptr data, const wxString& filename, SuppMap supp,
-	const Game *game)
+IDocument *MusicEditor::openObject(const GameObjectPtr& o)
 {
-	if (typeMinor.IsEmpty()) {
-		throw EFailure(_("No file type was specified for this item!"));
-	}
-
-	std::string strType;
-	strType.append(typeMinor.ToUTF8());
-	MusicTypePtr pMusicType(this->pManager->getMusicTypeByCode(strType));
-	if (!pMusicType) {
-		wxString wxtype(strType.c_str(), wxConvUTF8);
-		throw EFailure(wxString::Format(_("Sorry, it is not possible to edit this "
-			"song as the \"%s\" format is unsupported.  (No handler for \"%s\")"),
-			typeMinor.c_str(), wxtype.c_str()));
-	}
-	std::cout << "[editor-music] Using handler for " << pMusicType->getFriendlyName() << "\n";
-
-	// Check to see if the file is actually in this format
-	if (pMusicType->isInstance(data) < MusicType::PossiblyYes) {
-		std::string friendlyType = pMusicType->getFriendlyName();
-		wxString wxtype(friendlyType.c_str(), wxConvUTF8);
-		wxString msg = wxString::Format(_("This file is supposed to be in \"%s\" "
-			"format, but it seems this may not be the case.  Would you like to try "
-			"opening it anyway?"), wxtype.c_str());
-		wxMessageDialog dlg(this->frame, msg, _("Open item"), wxYES_NO | wxICON_ERROR);
-		int r = dlg.ShowModal();
-		if (r != wxID_YES) return NULL;
-	}
-
-	// Collect any supplemental files supplied
-	SuppData suppData;
-	suppMapToData(supp, suppData);
-
-	// Open the music file
+	MusicPtr music;
+	fn_write fnWriteMusic;
 	try {
-		return new MusicDocument(this, pMusicType, data, suppData);
+		music = this->studio->openMusic(o, &fnWriteMusic);
+		if (!music) return NULL; // user cancelled
 	} catch (const camoto::stream::error& e) {
 		throw EFailure(wxString::Format(_("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));
 	}
+
+	return new MusicDocument(this, music, fnWriteMusic);
 }

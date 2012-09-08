@@ -73,7 +73,7 @@ BEGIN_EVENT_TABLE(InstrumentPanel, IToolPanel)
 	EVT_SPINCTRL(IDC_PATCH, InstrumentPanel::onValueChanged)
 END_EVENT_TABLE()
 
-InstrumentPanel::InstrumentPanel(IMainWindow *parent)
+InstrumentPanel::InstrumentPanel(Studio *parent)
 	:	IToolPanel(parent),
 		instList(NULL),
 		instIndex(0)
