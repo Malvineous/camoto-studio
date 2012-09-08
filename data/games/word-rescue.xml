@@ -39,10 +39,15 @@
 		<group name="Graphics">
 			<group name="Tilesets">
 				<item ref="tls-101"/>
-				<item ref="tls-extra1"/>
 				<item ref="tls-102"/>
 				<item ref="tls-103"/>
 				<item ref="tls-104"/>
+				<item ref="tls-static"/>
+				<item ref="tls-bigfont"/>
+				<group name="Source images">
+					<item ref="img-static"/>
+					<item ref="img-bigfont"/>
+				</group>
 			</group>
 			<group name="Sprites">
 				<item ref="img-benny-101"/>
@@ -236,8 +241,78 @@
 			<file id="img-ui-113"    name="wr1.33"     typeMajor="image"   typeMinor="pcx-1b4p" title="Story 4"/>
 			<file id="img-ui-114"    name="wr1.34"     typeMajor="image"   typeMinor="pcx-1b4p" title="Story 5"/>
 
-			<file id="tls-extra1"    name="static.wr"  typeMajor="tileset" typeMinor="wordresc-extra"
-				title="Virtual tileset"/>
+			<file id="img-static"    name="static.wr"  typeMajor="image"   typeMinor="pcx-1b4p" title="Static"/>
+			<file id="img-bigfont"   name="font.wr"    typeMajor="image"   typeMinor="pcx-1b4p" title="Large font"/>
+			<tileset id="tls-static" image="img-static">
+				<image x="209" y="40" width="23" height="23"/>
+				<image x="232" y="40" width="24" height="32"/>
+				<image x="256" y="40" width="24" height="32"/>
+
+				<image x="16" y="33" width="32" height="40"/>
+				<image x="48" y="33" width="32" height="40"/>
+				<image x="80" y="33" width="32" height="40"/>
+				<image x="112" y="33" width="32" height="40"/>
+				<image x="144" y="33" width="32" height="40"/>
+				<image x="176" y="33" width="32" height="40"/>
+
+				<image x="16" y="73" width="32" height="40"/>
+				<image x="48" y="73" width="32" height="40"/>
+				<image x="80" y="73" width="32" height="40"/>
+				<image x="112" y="73" width="32" height="40"/>
+				<image x="144" y="73" width="32" height="40"/>
+				<image x="176" y="73" width="32" height="40"/>
+
+				<image x="16" y="120" width="24" height="24"/>
+				<image x="40" y="120" width="24" height="24"/>
+				<image x="64" y="120" width="24" height="24"/>
+				<image x="88" y="120" width="24" height="24"/>
+				<image x="112" y="120" width="24" height="24"/>
+				<image x="136" y="120" width="24" height="24"/>
+				<image x="160" y="120" width="24" height="24"/>
+				<image x="184" y="120" width="24" height="24"/>
+
+				<image x="16" y="144" width="24" height="24"/>
+				<image x="40" y="144" width="24" height="24"/>
+				<image x="64" y="144" width="24" height="24"/>
+				<image x="88" y="144" width="24" height="24"/>
+				<image x="112" y="144" width="24" height="24"/>
+				<image x="136" y="144" width="24" height="24"/>
+				<image x="160" y="144" width="24" height="24"/>
+				<image x="184" y="144" width="24" height="24"/>
+
+				<image x="208" y="72" width="71" height="72"/>
+			</tileset>
+			<tileset id="tls-bigfont" image="img-bigfont" layoutWidth="9">
+				<image x="0" y="0" width="16" height="16"/>
+				<image x="16" y="0" width="16" height="16"/>
+				<image x="32" y="0" width="16" height="16"/>
+				<image x="48" y="0" width="16" height="16"/>
+				<image x="64" y="0" width="16" height="16"/>
+				<image x="80" y="0" width="16" height="16"/>
+				<image x="96" y="0" width="16" height="16"/>
+				<image x="112" y="0" width="16" height="16"/>
+				<image x="128" y="0" width="16" height="16"/>
+
+				<image x="0" y="16" width="16" height="16"/>
+				<image x="16" y="16" width="16" height="16"/>
+				<image x="32" y="16" width="16" height="16"/>
+				<image x="48" y="16" width="16" height="16"/>
+				<image x="64" y="16" width="16" height="16"/>
+				<image x="80" y="16" width="16" height="16"/>
+				<image x="96" y="16" width="16" height="16"/>
+				<image x="112" y="16" width="16" height="16"/>
+				<image x="128" y="16" width="16" height="16"/>
+
+				<image x="0" y="32" width="16" height="16"/>
+				<image x="16" y="32" width="16" height="16"/>
+				<image x="32" y="32" width="16" height="16"/>
+				<image x="48" y="32" width="16" height="16"/>
+				<image x="64" y="32" width="16" height="16"/>
+				<image x="80" y="32" width="16" height="16"/>
+				<image x="96" y="32" width="16" height="16"/>
+				<image x="112" y="32" width="16" height="16"/>
+				<image x="128" y="32" width="16" height="16"/>
+			</tileset>
 		</archive>
 
 		<archive name="wr1.2" id="arch-wr1-2" typeMinor="pcxlib">
@@ -378,6 +453,22 @@
 		<file id="lev-113"   name="wr1.s12"  typeMajor="map"   typeMinor="wordresc" title="Level 13 - Construction Site"/>
 		<file id="lev-114"   name="wr1.s13"  typeMajor="map"   typeMinor="wordresc" title="Level 14 - Slime Factory: Bottling"/>
 		<file id="lev-115"   name="wr1.s14"  typeMajor="map"   typeMinor="wordresc" title="Level 15 - The Tank Room"/>
+
+		<file id="lev-101-d"   name="wr1.d0"   typeMajor="map"   typeMinor="wordresc" title="Level 1 attribute layer"/>
+		<file id="lev-102-d"   name="wr1.d1"   typeMajor="map"   typeMinor="wordresc" title="Level 2 attribute layer"/>
+		<file id="lev-103-d"   name="wr1.d2"   typeMajor="map"   typeMinor="wordresc" title="Level 3 attribute layer"/>
+		<file id="lev-104-d"   name="wr1.d3"   typeMajor="map"   typeMinor="wordresc" title="Level 4 attribute layer"/>
+		<file id="lev-105-d"   name="wr1.d4"   typeMajor="map"   typeMinor="wordresc" title="Level 5 attribute layer"/>
+		<file id="lev-106-d"   name="wr1.d5"   typeMajor="map"   typeMinor="wordresc" title="Level 6 attribute layer"/>
+		<file id="lev-107-d"   name="wr1.d6"   typeMajor="map"   typeMinor="wordresc" title="Level 7 attribute layer"/>
+		<file id="lev-108-d"   name="wr1.d7"   typeMajor="map"   typeMinor="wordresc" title="Level 8 attribute layer"/>
+		<file id="lev-109-d"   name="wr1.d8"   typeMajor="map"   typeMinor="wordresc" title="Level 9 attribute layer"/>
+		<file id="lev-110-d"   name="wr1.d9"   typeMajor="map"   typeMinor="wordresc" title="Level 10 attribute layer"/>
+		<file id="lev-111-d"   name="wr1.d10"  typeMajor="map"   typeMinor="wordresc" title="Level 11 attribute layer"/>
+		<file id="lev-112-d"   name="wr1.d11"  typeMajor="map"   typeMinor="wordresc" title="Level 12 attribute layer"/>
+		<file id="lev-113-d"   name="wr1.d12"  typeMajor="map"   typeMinor="wordresc" title="Level 13 attribute layer"/>
+		<file id="lev-114-d"   name="wr1.d13"  typeMajor="map"   typeMinor="wordresc" title="Level 14 attribute layer"/>
+		<file id="lev-115-d"   name="wr1.d14"  typeMajor="map"   typeMinor="wordresc" title="Level 15 attribute layer"/>
 
 		<file id="img-apogee-1"  name="wr1.7"  typeMajor="image" typeMinor="pcx-1b4p" title="E1 Apogee logo"/>
 		<file id="img-apogee-2"  name="wr2.7"  typeMajor="image" typeMinor="pcx-1b4p" title="E2 Apogee logo"/>
