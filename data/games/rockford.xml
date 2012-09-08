@@ -32,11 +32,60 @@
 			<item ref="ani-space"/>
 		</group>
 		<group name="Tiles">
-			<item ref="tls-body"/>
+			<item ref="tls-hunter"/>
 			<item ref="tls-cook"/>
 			<item ref="tls-cowboy"/>
-			<item ref="tls-hunter"/>
 			<item ref="tls-space"/>
+			<item ref="tls-body"/>
+			<group name="Source images">
+				<item ref="img-hunter"/>
+				<item ref="img-cook"/>
+				<item ref="img-cowboy"/>
+				<item ref="img-space"/>
+				<item ref="img-body"/>
+			</group>
+		</group>
+		<group name="Levels">
+			<item ref="map-01"/>
+			<item ref="map-02"/>
+			<item ref="map-03"/>
+			<item ref="map-04"/>
+			<item ref="map-05"/>
+			<item ref="map-06"/>
+			<item ref="map-07"/>
+			<item ref="map-08"/>
+			<item ref="map-09"/>
+			<item ref="map-10"/>
+			<item ref="map-11"/>
+			<item ref="map-12"/>
+			<item ref="map-13"/>
+			<item ref="map-14"/>
+			<item ref="map-15"/>
+			<item ref="map-16"/>
+			<item ref="map-17"/>
+			<item ref="map-18"/>
+			<item ref="map-19"/>
+			<item ref="map-20"/>
+			<item ref="map-21"/>
+			<item ref="map-22"/>
+			<item ref="map-23"/>
+			<item ref="map-24"/>
+			<item ref="map-25"/>
+			<item ref="map-26"/>
+			<item ref="map-27"/>
+			<item ref="map-28"/>
+			<item ref="map-29"/>
+			<item ref="map-30"/>
+			<item ref="map-31"/>
+			<item ref="map-32"/>
+			<item ref="map-33"/>
+			<item ref="map-34"/>
+			<item ref="map-35"/>
+			<item ref="map-36"/>
+			<item ref="map-37"/>
+			<item ref="map-38"/>
+			<item ref="map-39"/>
+			<item ref="map-40"/>
 		</group>
 	</display>
 
@@ -55,6 +104,1199 @@
 		<file id="img-title"  name="title.fil"    typeMajor="image"  typeMinor="ega-raw-planar-bgri-fullscreen" title="Title"/>
 		<file id="ani-title"  name="titleani.fil" typeMajor="image"  typeMinor="ega-raw-planar-bgri-fullscreen" title="Title"/>
 		<file id="img-menu"   name="menu.fil"     typeMajor="image"  typeMinor="ega-raw-planar-bgri-fullscreen" title="Menu"/>
+
+		<archive id="cellmaps-bin"  name="cellmaps.bin" typeMinor="fixed">
+			<file id="map-01" name="map01.bin" offset="0"     size="880" typeMajor="map" typeMinor="rockford" title="Level 1">
+				<dep reftype="tileset1" ref="tls-hunter"/>
+			</file>
+			<file id="map-02" name="map02.bin" offset="880"   size="880" typeMajor="map" typeMinor="rockford" title="Level 2">
+				<dep reftype="tileset1" ref="tls-hunter"/>
+			</file>
+			<file id="map-03" name="map03.bin" offset="1760"  size="880" typeMajor="map" typeMinor="rockford" title="Level 3">
+				<dep reftype="tileset1" ref="tls-hunter"/>
+			</file>
+			<file id="map-04" name="map04.bin" offset="2640"  size="880" typeMajor="map" typeMinor="rockford" title="Level 4">
+				<dep reftype="tileset1" ref="tls-hunter"/>
+			</file>
+			<file id="map-05" name="map05.bin" offset="3520"  size="880" typeMajor="map" typeMinor="rockford" title="Level 5">
+				<dep reftype="tileset1" ref="tls-hunter"/>
+			</file>
+			<file id="map-06" name="map06.bin" offset="4400"  size="880" typeMajor="map" typeMinor="rockford" title="Level 6">
+				<dep reftype="tileset1" ref="tls-hunter"/>
+			</file>
+			<file id="map-07" name="map07.bin" offset="5280"  size="880" typeMajor="map" typeMinor="rockford" title="Level 7">
+				<dep reftype="tileset1" ref="tls-hunter"/>
+			</file>
+			<file id="map-08" name="map08.bin" offset="6160"  size="880" typeMajor="map" typeMinor="rockford" title="Level 8">
+				<dep reftype="tileset1" ref="tls-hunter"/>
+			</file>
+			<file id="map-09" name="map09.bin" offset="7040"  size="880" typeMajor="map" typeMinor="rockford" title="Level 9">
+				<dep reftype="tileset1" ref="tls-cook"/>
+			</file>
+			<file id="map-10" name="map10.bin" offset="7920"  size="880" typeMajor="map" typeMinor="rockford" title="Level 10">
+				<dep reftype="tileset1" ref="tls-cook"/>
+			</file>
+			<file id="map-11" name="map11.bin" offset="8800"  size="880" typeMajor="map" typeMinor="rockford" title="Level 11">
+				<dep reftype="tileset1" ref="tls-cook"/>
+			</file>
+			<file id="map-12" name="map12.bin" offset="9680"  size="880" typeMajor="map" typeMinor="rockford" title="Level 12">
+				<dep reftype="tileset1" ref="tls-cook"/>
+			</file>
+			<file id="map-13" name="map13.bin" offset="10560" size="880" typeMajor="map" typeMinor="rockford" title="Level 13">
+				<dep reftype="tileset1" ref="tls-cook"/>
+			</file>
+			<file id="map-14" name="map14.bin" offset="11440" size="880" typeMajor="map" typeMinor="rockford" title="Level 14">
+				<dep reftype="tileset1" ref="tls-cook"/>
+			</file>
+			<file id="map-15" name="map15.bin" offset="12320" size="880" typeMajor="map" typeMinor="rockford" title="Level 15">
+				<dep reftype="tileset1" ref="tls-cook"/>
+			</file>
+			<file id="map-16" name="map16.bin" offset="13200" size="880" typeMajor="map" typeMinor="rockford" title="Level 16">
+				<dep reftype="tileset1" ref="tls-cook"/>
+			</file>
+			<file id="map-17" name="map17.bin" offset="14080" size="880" typeMajor="map" typeMinor="rockford" title="Level 17">
+				<dep reftype="tileset1" ref="tls-cowboy"/>
+			</file>
+			<file id="map-18" name="map18.bin" offset="14960" size="880" typeMajor="map" typeMinor="rockford" title="Level 18">
+				<dep reftype="tileset1" ref="tls-cowboy"/>
+			</file>
+			<file id="map-19" name="map19.bin" offset="15840" size="880" typeMajor="map" typeMinor="rockford" title="Level 19">
+				<dep reftype="tileset1" ref="tls-cowboy"/>
+			</file>
+			<file id="map-20" name="map20.bin" offset="16720" size="880" typeMajor="map" typeMinor="rockford" title="Level 20">
+				<dep reftype="tileset1" ref="tls-cowboy"/>
+			</file>
+			<file id="map-21" name="map21.bin" offset="17600" size="880" typeMajor="map" typeMinor="rockford" title="Level 21">
+				<dep reftype="tileset1" ref="tls-cowboy"/>
+			</file>
+			<file id="map-22" name="map22.bin" offset="18480" size="880" typeMajor="map" typeMinor="rockford" title="Level 22">
+				<dep reftype="tileset1" ref="tls-cowboy"/>
+			</file>
+			<file id="map-23" name="map23.bin" offset="19360" size="880" typeMajor="map" typeMinor="rockford" title="Level 23">
+				<dep reftype="tileset1" ref="tls-cowboy"/>
+			</file>
+			<file id="map-24" name="map24.bin" offset="20240" size="880" typeMajor="map" typeMinor="rockford" title="Level 24">
+				<dep reftype="tileset1" ref="tls-cowboy"/>
+			</file>
+			<file id="map-25" name="map25.bin" offset="21120" size="880" typeMajor="map" typeMinor="rockford" title="Level 25">
+				<dep reftype="tileset1" ref="tls-space"/>
+			</file>
+			<file id="map-26" name="map26.bin" offset="22000" size="880" typeMajor="map" typeMinor="rockford" title="Level 26">
+				<dep reftype="tileset1" ref="tls-space"/>
+			</file>
+			<file id="map-27" name="map27.bin" offset="22880" size="880" typeMajor="map" typeMinor="rockford" title="Level 27">
+				<dep reftype="tileset1" ref="tls-space"/>
+			</file>
+			<file id="map-28" name="map28.bin" offset="23760" size="880" typeMajor="map" typeMinor="rockford" title="Level 28">
+				<dep reftype="tileset1" ref="tls-space"/>
+			</file>
+			<file id="map-29" name="map29.bin" offset="24640" size="880" typeMajor="map" typeMinor="rockford" title="Level 29">
+				<dep reftype="tileset1" ref="tls-space"/>
+			</file>
+			<file id="map-30" name="map30.bin" offset="25520" size="880" typeMajor="map" typeMinor="rockford" title="Level 30">
+				<dep reftype="tileset1" ref="tls-space"/>
+			</file>
+			<file id="map-31" name="map31.bin" offset="26400" size="880" typeMajor="map" typeMinor="rockford" title="Level 31">
+				<dep reftype="tileset1" ref="tls-space"/>
+			</file>
+			<file id="map-32" name="map32.bin" offset="27280" size="880" typeMajor="map" typeMinor="rockford" title="Level 32">
+				<dep reftype="tileset1" ref="tls-space"/>
+			</file>
+			<file id="map-33" name="map33.bin" offset="28160" size="880" typeMajor="map" typeMinor="rockford" title="Level 33">
+				<dep reftype="tileset1" ref="tls-body"/>
+			</file>
+			<file id="map-34" name="map34.bin" offset="29040" size="880" typeMajor="map" typeMinor="rockford" title="Level 34">
+				<dep reftype="tileset1" ref="tls-body"/>
+			</file>
+			<file id="map-35" name="map35.bin" offset="29920" size="880" typeMajor="map" typeMinor="rockford" title="Level 35">
+				<dep reftype="tileset1" ref="tls-body"/>
+			</file>
+			<file id="map-36" name="map36.bin" offset="30800" size="880" typeMajor="map" typeMinor="rockford" title="Level 36">
+				<dep reftype="tileset1" ref="tls-body"/>
+			</file>
+			<file id="map-37" name="map37.bin" offset="31680" size="880" typeMajor="map" typeMinor="rockford" title="Level 37">
+				<dep reftype="tileset1" ref="tls-body"/>
+			</file>
+			<file id="map-38" name="map38.bin" offset="32560" size="880" typeMajor="map" typeMinor="rockford" title="Level 38">
+				<dep reftype="tileset1" ref="tls-body"/>
+			</file>
+			<file id="map-39" name="map39.bin" offset="33440" size="880" typeMajor="map" typeMinor="rockford" title="Level 39">
+				<dep reftype="tileset1" ref="tls-body"/>
+			</file>
+			<file id="map-40" name="map40.bin" offset="34320" size="880" typeMajor="map" typeMinor="rockford" title="Level 40">
+				<dep reftype="tileset1" ref="tls-body"/>
+			</file>
+		</archive>
+
+		<tileset id="tls-hunter" image="img-hunter" title="Hunter tileset" layoutWidth="20">
+			<image x="4"   y="4"   width="16" height="16"/>
+			<image x="36"  y="4"   width="16" height="16"/>
+			<image x="68"  y="4"   width="16" height="16"/>
+			<image x="100" y="4"   width="16" height="16"/>
+			<image x="132" y="4"   width="16" height="16"/>
+			<image x="164" y="4"   width="16" height="16"/>
+			<image x="196" y="4"   width="16" height="16"/>
+			<image x="228" y="4"   width="16" height="16"/>
+			<image x="260" y="4"   width="16" height="16"/>
+			<image x="292" y="4"   width="16" height="16"/>
+
+			<image x="4"   y="28"  width="16" height="16"/>
+			<image x="36"  y="28"  width="16" height="16"/>
+			<image x="68"  y="28"  width="16" height="16"/>
+			<image x="100" y="28"  width="16" height="16"/>
+			<image x="132" y="28"  width="16" height="16"/>
+			<image x="164" y="28"  width="16" height="16"/>
+
+			<image x="192" y="24"  width="16" height="16"/>
+			<image x="224" y="24"  width="16" height="16"/>
+			<image x="256" y="24"  width="16" height="16"/>
+			<image x="288" y="24"  width="16" height="16"/>
+
+			<image x="0"   y="48"  width="16" height="16"/>
+			<image x="16"  y="48"  width="16" height="16"/>
+			<image x="32"  y="48"  width="16" height="16"/>
+			<image x="48"  y="48"  width="16" height="16"/>
+			<image x="64"  y="48"  width="16" height="16"/>
+			<image x="80"  y="48"  width="16" height="16"/>
+			<image x="96"  y="48"  width="16" height="16"/>
+			<image x="112" y="48"  width="16" height="16"/>
+			<image x="128" y="48"  width="16" height="16"/>
+			<image x="144" y="48"  width="16" height="16"/>
+			<image x="160" y="48"  width="16" height="16"/>
+			<image x="176" y="48"  width="16" height="16"/>
+			<image x="192" y="48"  width="16" height="16"/>
+			<image x="208" y="48"  width="16" height="16"/>
+			<image x="224" y="48"  width="16" height="16"/>
+			<image x="240" y="48"  width="16" height="16"/>
+			<image x="256" y="48"  width="16" height="16"/>
+			<image x="272" y="48"  width="16" height="16"/>
+			<image x="288" y="48"  width="16" height="16"/>
+			<image x="304" y="48"  width="16" height="16"/>
+
+			<image x="0"   y="64"  width="16" height="16"/>
+			<image x="16"  y="64"  width="16" height="16"/>
+			<image x="32"  y="64"  width="16" height="16"/>
+			<image x="48"  y="64"  width="16" height="16"/>
+			<image x="64"  y="64"  width="16" height="16"/>
+			<image x="80"  y="64"  width="16" height="16"/>
+			<image x="96"  y="64"  width="16" height="16"/>
+			<image x="112" y="64"  width="16" height="16"/>
+			<image x="128" y="64"  width="16" height="16"/>
+			<image x="144" y="64"  width="16" height="16"/>
+			<image x="160" y="64"  width="16" height="16"/>
+			<image x="176" y="64"  width="16" height="16"/>
+			<image x="192" y="64"  width="16" height="16"/>
+			<image x="208" y="64"  width="16" height="16"/>
+			<image x="224" y="64"  width="16" height="16"/>
+			<image x="240" y="64"  width="16" height="16"/>
+			<image x="256" y="64"  width="16" height="16"/>
+			<image x="272" y="64"  width="16" height="16"/>
+			<image x="288" y="64"  width="16" height="16"/>
+			<image x="304" y="64"  width="16" height="16"/>
+
+			<image x="0"   y="80"  width="16" height="16"/>
+			<image x="16"  y="80"  width="16" height="16"/>
+			<image x="32"  y="80"  width="16" height="16"/>
+			<image x="48"  y="80"  width="16" height="16"/>
+			<image x="64"  y="80"  width="16" height="16"/>
+			<image x="80"  y="80"  width="16" height="16"/>
+			<image x="96"  y="80"  width="16" height="16"/>
+			<image x="112" y="80"  width="16" height="16"/>
+			<image x="128" y="80"  width="16" height="16"/>
+			<image x="144" y="80"  width="16" height="16"/>
+			<image x="160" y="80"  width="16" height="16"/>
+			<image x="176" y="80"  width="16" height="16"/>
+			<image x="192" y="80"  width="16" height="16"/>
+			<image x="208" y="80"  width="16" height="16"/>
+			<image x="224" y="80"  width="16" height="16"/>
+			<image x="240" y="80"  width="16" height="16"/>
+			<image x="256" y="80"  width="16" height="16"/>
+			<image x="272" y="80"  width="16" height="16"/>
+			<image x="288" y="80"  width="16" height="16"/>
+			<image x="304" y="80"  width="16" height="16"/>
+
+			<image x="0"   y="96"  width="16" height="16"/>
+			<image x="16"  y="96"  width="16" height="16"/>
+			<image x="32"  y="96"  width="16" height="16"/>
+			<image x="48"  y="96"  width="16" height="16"/>
+			<image x="64"  y="96"  width="16" height="16"/>
+			<image x="80"  y="96"  width="16" height="16"/>
+			<image x="96"  y="96"  width="16" height="16"/>
+			<image x="112" y="96"  width="16" height="16"/>
+			<image x="128" y="96"  width="16" height="16"/>
+			<image x="144" y="96"  width="16" height="16"/>
+			<image x="160" y="96"  width="16" height="16"/>
+			<image x="176" y="96"  width="16" height="16"/>
+			<image x="192" y="96"  width="16" height="16"/>
+			<image x="208" y="96"  width="16" height="16"/>
+			<image x="224" y="96"  width="16" height="16"/>
+			<image x="240" y="96"  width="16" height="16"/>
+			<image x="256" y="96"  width="16" height="16"/>
+			<image x="272" y="96"  width="16" height="16"/>
+			<image x="288" y="96"  width="16" height="16"/>
+			<image x="304" y="96"  width="16" height="16"/>
+
+			<image x="0"   y="112" width="16" height="16"/>
+			<image x="16"  y="112" width="16" height="16"/>
+			<image x="32"  y="112" width="16" height="16"/>
+			<image x="48"  y="112" width="16" height="16"/>
+			<image x="64"  y="112" width="16" height="16"/>
+			<image x="80"  y="112" width="16" height="16"/>
+			<image x="96"  y="112" width="16" height="16"/>
+			<image x="112" y="112" width="16" height="16"/>
+			<image x="128" y="112" width="16" height="16"/>
+			<image x="144" y="112" width="16" height="16"/>
+			<image x="160" y="112" width="16" height="16"/>
+			<image x="176" y="112" width="16" height="16"/>
+			<image x="192" y="112" width="16" height="16"/>
+			<image x="208" y="112" width="16" height="16"/>
+			<image x="224" y="112" width="16" height="16"/>
+			<image x="240" y="112" width="16" height="16"/>
+			<image x="256" y="112" width="16" height="16"/>
+			<image x="272" y="112" width="16" height="16"/>
+			<image x="288" y="112" width="16" height="16"/>
+			<image x="304" y="112" width="16" height="16"/>
+
+			<image x="0"   y="128" width="16" height="16"/>
+			<image x="16"  y="128" width="16" height="16"/>
+			<image x="32"  y="128" width="16" height="16"/>
+			<image x="48"  y="128" width="16" height="16"/>
+			<image x="64"  y="128" width="16" height="16"/>
+			<image x="80"  y="128" width="16" height="16"/>
+			<image x="96"  y="128" width="16" height="16"/>
+			<image x="112" y="128" width="16" height="16"/>
+			<image x="128" y="128" width="16" height="16"/>
+			<image x="144" y="128" width="16" height="16"/>
+			<image x="160" y="128" width="16" height="16"/>
+			<image x="176" y="128" width="16" height="16"/>
+			<image x="192" y="128" width="16" height="16"/>
+			<image x="208" y="128" width="16" height="16"/>
+			<image x="224" y="128" width="16" height="16"/>
+			<image x="240" y="128" width="16" height="16"/>
+			<image x="256" y="128" width="16" height="16"/>
+			<image x="272" y="128" width="16" height="16"/>
+			<image x="288" y="128" width="16" height="16"/>
+			<image x="304" y="128" width="16" height="16"/>
+
+			<image x="0"   y="144" width="16" height="16"/>
+			<image x="16"  y="144" width="16" height="16"/>
+			<image x="32"  y="144" width="16" height="16"/>
+			<image x="48"  y="144" width="16" height="16"/>
+			<image x="64"  y="144" width="16" height="16"/>
+			<image x="80"  y="144" width="16" height="16"/>
+			<image x="96"  y="144" width="16" height="16"/>
+			<image x="112" y="144" width="16" height="16"/>
+			<image x="128" y="144" width="16" height="16"/>
+			<image x="144" y="144" width="16" height="16"/>
+			<image x="160" y="144" width="16" height="16"/>
+			<image x="176" y="144" width="16" height="16"/>
+			<image x="192" y="144" width="16" height="16"/>
+			<image x="208" y="144" width="16" height="16"/>
+			<image x="224" y="144" width="16" height="16"/>
+			<image x="240" y="144" width="16" height="16"/>
+			<image x="256" y="144" width="16" height="16"/>
+			<image x="272" y="144" width="16" height="16"/>
+			<image x="288" y="144" width="16" height="16"/>
+			<image x="304" y="144" width="16" height="16"/>
+
+			<image x="0"   y="160" width="16" height="16"/>
+			<image x="16"  y="160" width="16" height="16"/>
+			<image x="32"  y="160" width="16" height="16"/>
+			<image x="48"  y="160" width="16" height="16"/>
+			<image x="64"  y="160" width="16" height="16"/>
+			<image x="80"  y="160" width="16" height="16"/>
+			<image x="96"  y="160" width="16" height="16"/>
+			<image x="112" y="160" width="16" height="16"/>
+			<image x="128" y="160" width="16" height="16"/>
+			<image x="144" y="160" width="16" height="16"/>
+			<image x="160" y="160" width="16" height="16"/>
+			<image x="176" y="160" width="16" height="16"/>
+			<image x="192" y="160" width="16" height="16"/>
+			<image x="208" y="160" width="16" height="16"/>
+			<image x="224" y="160" width="16" height="16"/>
+			<image x="240" y="160" width="16" height="16"/>
+			<image x="256" y="160" width="16" height="16"/>
+			<image x="272" y="160" width="16" height="16"/>
+			<image x="288" y="160" width="16" height="16"/>
+			<image x="304" y="160" width="16" height="16"/>
+
+			<image x="0"   y="176" width="16" height="16"/>
+			<image x="16"  y="176" width="16" height="16"/>
+			<image x="32"  y="176" width="16" height="16"/>
+			<image x="48"  y="176" width="16" height="16"/>
+			<image x="64"  y="176" width="16" height="16"/>
+			<image x="80"  y="176" width="16" height="16"/>
+			<image x="96"  y="176" width="16" height="16"/>
+			<image x="112" y="176" width="16" height="16"/>
+			<image x="128" y="176" width="16" height="16"/>
+			<image x="144" y="176" width="16" height="16"/>
+			<image x="160" y="176" width="16" height="16"/>
+			<image x="176" y="176" width="16" height="16"/>
+			<image x="192" y="176" width="16" height="16"/>
+			<image x="208" y="176" width="16" height="16"/>
+			<image x="224" y="176" width="16" height="16"/>
+			<image x="240" y="176" width="16" height="16"/>
+			<image x="256" y="176" width="16" height="16"/>
+			<image x="272" y="176" width="16" height="16"/>
+			<image x="288" y="176" width="16" height="16"/>
+			<image x="304" y="176" width="16" height="16"/>
+		</tileset>
+
+		<tileset id="tls-cook" image="img-cook" title="Cook tileset" layoutWidth="20">
+			<image x="4"   y="4"   width="16" height="16"/>
+			<image x="36"  y="4"   width="16" height="16"/>
+			<image x="68"  y="4"   width="16" height="16"/>
+			<image x="100" y="4"   width="16" height="16"/>
+			<image x="132" y="4"   width="16" height="16"/>
+			<image x="164" y="4"   width="16" height="16"/>
+			<image x="196" y="4"   width="16" height="16"/>
+			<image x="228" y="4"   width="16" height="16"/>
+			<image x="260" y="4"   width="16" height="16"/>
+			<image x="292" y="4"   width="16" height="16"/>
+
+			<image x="4"   y="28"  width="16" height="16"/>
+			<image x="36"  y="28"  width="16" height="16"/>
+			<image x="68"  y="28"  width="16" height="16"/>
+			<image x="100" y="28"  width="16" height="16"/>
+			<image x="132" y="28"  width="16" height="16"/>
+			<image x="164" y="28"  width="16" height="16"/>
+
+			<image x="192" y="24"  width="16" height="16"/>
+			<image x="224" y="24"  width="16" height="16"/>
+			<image x="256" y="24"  width="16" height="16"/>
+			<image x="288" y="24"  width="16" height="16"/>
+
+			<image x="0"   y="48"  width="16" height="16"/>
+			<image x="16"  y="48"  width="16" height="16"/>
+			<image x="32"  y="48"  width="16" height="16"/>
+			<image x="48"  y="48"  width="16" height="16"/>
+			<image x="64"  y="48"  width="16" height="16"/>
+			<image x="80"  y="48"  width="16" height="16"/>
+			<image x="96"  y="48"  width="16" height="16"/>
+			<image x="112" y="48"  width="16" height="16"/>
+			<image x="128" y="48"  width="16" height="16"/>
+			<image x="144" y="48"  width="16" height="16"/>
+			<image x="160" y="48"  width="16" height="16"/>
+			<image x="176" y="48"  width="16" height="16"/>
+			<image x="192" y="48"  width="16" height="16"/>
+			<image x="208" y="48"  width="16" height="16"/>
+			<image x="224" y="48"  width="16" height="16"/>
+			<image x="240" y="48"  width="16" height="16"/>
+			<image x="256" y="48"  width="16" height="16"/>
+			<image x="272" y="48"  width="16" height="16"/>
+			<image x="288" y="48"  width="16" height="16"/>
+			<image x="304" y="48"  width="16" height="16"/>
+
+			<image x="0"   y="64"  width="16" height="16"/>
+			<image x="16"  y="64"  width="16" height="16"/>
+			<image x="32"  y="64"  width="16" height="16"/>
+			<image x="48"  y="64"  width="16" height="16"/>
+			<image x="64"  y="64"  width="16" height="16"/>
+			<image x="80"  y="64"  width="16" height="16"/>
+			<image x="96"  y="64"  width="16" height="16"/>
+			<image x="112" y="64"  width="16" height="16"/>
+			<image x="128" y="64"  width="16" height="16"/>
+			<image x="144" y="64"  width="16" height="16"/>
+			<image x="160" y="64"  width="16" height="16"/>
+			<image x="176" y="64"  width="16" height="16"/>
+			<image x="192" y="64"  width="16" height="16"/>
+			<image x="208" y="64"  width="16" height="16"/>
+			<image x="224" y="64"  width="16" height="16"/>
+			<image x="240" y="64"  width="16" height="16"/>
+			<image x="256" y="64"  width="16" height="16"/>
+			<image x="272" y="64"  width="16" height="16"/>
+			<image x="288" y="64"  width="16" height="16"/>
+			<image x="304" y="64"  width="16" height="16"/>
+
+			<image x="0"   y="80"  width="16" height="16"/>
+			<image x="16"  y="80"  width="16" height="16"/>
+			<image x="32"  y="80"  width="16" height="16"/>
+			<image x="48"  y="80"  width="16" height="16"/>
+			<image x="64"  y="80"  width="16" height="16"/>
+			<image x="80"  y="80"  width="16" height="16"/>
+			<image x="96"  y="80"  width="16" height="16"/>
+			<image x="112" y="80"  width="16" height="16"/>
+			<image x="128" y="80"  width="16" height="16"/>
+			<image x="144" y="80"  width="16" height="16"/>
+			<image x="160" y="80"  width="16" height="16"/>
+			<image x="176" y="80"  width="16" height="16"/>
+			<image x="192" y="80"  width="16" height="16"/>
+			<image x="208" y="80"  width="16" height="16"/>
+			<image x="224" y="80"  width="16" height="16"/>
+			<image x="240" y="80"  width="16" height="16"/>
+			<image x="256" y="80"  width="16" height="16"/>
+			<image x="272" y="80"  width="16" height="16"/>
+			<image x="288" y="80"  width="16" height="16"/>
+			<image x="304" y="80"  width="16" height="16"/>
+
+			<image x="0"   y="96"  width="16" height="16"/>
+			<image x="16"  y="96"  width="16" height="16"/>
+			<image x="32"  y="96"  width="16" height="16"/>
+			<image x="48"  y="96"  width="16" height="16"/>
+			<image x="64"  y="96"  width="16" height="16"/>
+			<image x="80"  y="96"  width="16" height="16"/>
+			<image x="96"  y="96"  width="16" height="16"/>
+			<image x="112" y="96"  width="16" height="16"/>
+			<image x="128" y="96"  width="16" height="16"/>
+			<image x="144" y="96"  width="16" height="16"/>
+			<image x="160" y="96"  width="16" height="16"/>
+			<image x="176" y="96"  width="16" height="16"/>
+			<image x="192" y="96"  width="16" height="16"/>
+			<image x="208" y="96"  width="16" height="16"/>
+			<image x="224" y="96"  width="16" height="16"/>
+			<image x="240" y="96"  width="16" height="16"/>
+			<image x="256" y="96"  width="16" height="16"/>
+			<image x="272" y="96"  width="16" height="16"/>
+			<image x="288" y="96"  width="16" height="16"/>
+			<image x="304" y="96"  width="16" height="16"/>
+
+			<image x="0"   y="112" width="16" height="16"/>
+			<image x="16"  y="112" width="16" height="16"/>
+			<image x="32"  y="112" width="16" height="16"/>
+			<image x="48"  y="112" width="16" height="16"/>
+			<image x="64"  y="112" width="16" height="16"/>
+			<image x="80"  y="112" width="16" height="16"/>
+			<image x="96"  y="112" width="16" height="16"/>
+			<image x="112" y="112" width="16" height="16"/>
+			<image x="128" y="112" width="16" height="16"/>
+			<image x="144" y="112" width="16" height="16"/>
+			<image x="160" y="112" width="16" height="16"/>
+			<image x="176" y="112" width="16" height="16"/>
+			<image x="192" y="112" width="16" height="16"/>
+			<image x="208" y="112" width="16" height="16"/>
+			<image x="224" y="112" width="16" height="16"/>
+			<image x="240" y="112" width="16" height="16"/>
+			<image x="256" y="112" width="16" height="16"/>
+			<image x="272" y="112" width="16" height="16"/>
+			<image x="288" y="112" width="16" height="16"/>
+			<image x="304" y="112" width="16" height="16"/>
+
+			<image x="0"   y="128" width="16" height="16"/>
+			<image x="16"  y="128" width="16" height="16"/>
+			<image x="32"  y="128" width="16" height="16"/>
+			<image x="48"  y="128" width="16" height="16"/>
+			<image x="64"  y="128" width="16" height="16"/>
+			<image x="80"  y="128" width="16" height="16"/>
+			<image x="96"  y="128" width="16" height="16"/>
+			<image x="112" y="128" width="16" height="16"/>
+			<image x="128" y="128" width="16" height="16"/>
+			<image x="144" y="128" width="16" height="16"/>
+			<image x="160" y="128" width="16" height="16"/>
+			<image x="176" y="128" width="16" height="16"/>
+			<image x="192" y="128" width="16" height="16"/>
+			<image x="208" y="128" width="16" height="16"/>
+			<image x="224" y="128" width="16" height="16"/>
+			<image x="240" y="128" width="16" height="16"/>
+			<image x="256" y="128" width="16" height="16"/>
+			<image x="272" y="128" width="16" height="16"/>
+			<image x="288" y="128" width="16" height="16"/>
+			<image x="304" y="128" width="16" height="16"/>
+
+			<image x="0"   y="144" width="16" height="16"/>
+			<image x="16"  y="144" width="16" height="16"/>
+			<image x="32"  y="144" width="16" height="16"/>
+			<image x="48"  y="144" width="16" height="16"/>
+			<image x="64"  y="144" width="16" height="16"/>
+			<image x="80"  y="144" width="16" height="16"/>
+			<image x="96"  y="144" width="16" height="16"/>
+			<image x="112" y="144" width="16" height="16"/>
+			<image x="128" y="144" width="16" height="16"/>
+			<image x="144" y="144" width="16" height="16"/>
+			<image x="160" y="144" width="16" height="16"/>
+			<image x="176" y="144" width="16" height="16"/>
+			<image x="192" y="144" width="16" height="16"/>
+			<image x="208" y="144" width="16" height="16"/>
+			<image x="224" y="144" width="16" height="16"/>
+			<image x="240" y="144" width="16" height="16"/>
+			<image x="256" y="144" width="16" height="16"/>
+			<image x="272" y="144" width="16" height="16"/>
+			<image x="288" y="144" width="16" height="16"/>
+			<image x="304" y="144" width="16" height="16"/>
+
+			<image x="0"   y="160" width="16" height="16"/>
+			<image x="16"  y="160" width="16" height="16"/>
+			<image x="32"  y="160" width="16" height="16"/>
+			<image x="48"  y="160" width="16" height="16"/>
+			<image x="64"  y="160" width="16" height="16"/>
+			<image x="80"  y="160" width="16" height="16"/>
+			<image x="96"  y="160" width="16" height="16"/>
+			<image x="112" y="160" width="16" height="16"/>
+			<image x="128" y="160" width="16" height="16"/>
+			<image x="144" y="160" width="16" height="16"/>
+			<image x="160" y="160" width="16" height="16"/>
+			<image x="176" y="160" width="16" height="16"/>
+			<image x="192" y="160" width="16" height="16"/>
+			<image x="208" y="160" width="16" height="16"/>
+			<image x="224" y="160" width="16" height="16"/>
+			<image x="240" y="160" width="16" height="16"/>
+			<image x="256" y="160" width="16" height="16"/>
+			<image x="272" y="160" width="16" height="16"/>
+			<image x="288" y="160" width="16" height="16"/>
+			<image x="304" y="160" width="16" height="16"/>
+
+			<image x="0"   y="176" width="16" height="16"/>
+			<image x="16"  y="176" width="16" height="16"/>
+			<image x="32"  y="176" width="16" height="16"/>
+			<image x="48"  y="176" width="16" height="16"/>
+			<image x="64"  y="176" width="16" height="16"/>
+			<image x="80"  y="176" width="16" height="16"/>
+			<image x="96"  y="176" width="16" height="16"/>
+			<image x="112" y="176" width="16" height="16"/>
+			<image x="128" y="176" width="16" height="16"/>
+			<image x="144" y="176" width="16" height="16"/>
+			<image x="160" y="176" width="16" height="16"/>
+			<image x="176" y="176" width="16" height="16"/>
+			<image x="192" y="176" width="16" height="16"/>
+			<image x="208" y="176" width="16" height="16"/>
+			<image x="224" y="176" width="16" height="16"/>
+			<image x="240" y="176" width="16" height="16"/>
+			<image x="256" y="176" width="16" height="16"/>
+			<image x="272" y="176" width="16" height="16"/>
+			<image x="288" y="176" width="16" height="16"/>
+			<image x="304" y="176" width="16" height="16"/>
+		</tileset>
+
+		<tileset id="tls-cowboy" image="img-cowboy" title="Cowboy tileset" layoutWidth="20">
+			<image x="4"   y="4"   width="16" height="16"/>
+			<image x="36"  y="4"   width="16" height="16"/>
+			<image x="68"  y="4"   width="16" height="16"/>
+			<image x="100" y="4"   width="16" height="16"/>
+			<image x="132" y="4"   width="16" height="16"/>
+			<image x="164" y="4"   width="16" height="16"/>
+			<image x="196" y="4"   width="16" height="16"/>
+			<image x="228" y="4"   width="16" height="16"/>
+			<image x="260" y="4"   width="16" height="16"/>
+			<image x="292" y="4"   width="16" height="16"/>
+
+			<image x="4"   y="28"  width="16" height="16"/>
+			<image x="36"  y="28"  width="16" height="16"/>
+			<image x="68"  y="28"  width="16" height="16"/>
+			<image x="100" y="28"  width="16" height="16"/>
+			<image x="132" y="28"  width="16" height="16"/>
+			<image x="164" y="28"  width="16" height="16"/>
+
+			<image x="192" y="24"  width="16" height="16"/>
+			<image x="224" y="24"  width="16" height="16"/>
+			<image x="256" y="24"  width="16" height="16"/>
+			<image x="288" y="24"  width="16" height="16"/>
+
+			<image x="0"   y="48"  width="16" height="16"/>
+			<image x="16"  y="48"  width="16" height="16"/>
+			<image x="32"  y="48"  width="16" height="16"/>
+			<image x="48"  y="48"  width="16" height="16"/>
+			<image x="64"  y="48"  width="16" height="16"/>
+			<image x="80"  y="48"  width="16" height="16"/>
+			<image x="96"  y="48"  width="16" height="16"/>
+			<image x="112" y="48"  width="16" height="16"/>
+			<image x="128" y="48"  width="16" height="16"/>
+			<image x="144" y="48"  width="16" height="16"/>
+			<image x="160" y="48"  width="16" height="16"/>
+			<image x="176" y="48"  width="16" height="16"/>
+			<image x="192" y="48"  width="16" height="16"/>
+			<image x="208" y="48"  width="16" height="16"/>
+			<image x="224" y="48"  width="16" height="16"/>
+			<image x="240" y="48"  width="16" height="16"/>
+			<image x="256" y="48"  width="16" height="16"/>
+			<image x="272" y="48"  width="16" height="16"/>
+			<image x="288" y="48"  width="16" height="16"/>
+			<image x="304" y="48"  width="16" height="16"/>
+
+			<image x="0"   y="64"  width="16" height="16"/>
+			<image x="16"  y="64"  width="16" height="16"/>
+			<image x="32"  y="64"  width="16" height="16"/>
+			<image x="48"  y="64"  width="16" height="16"/>
+			<image x="64"  y="64"  width="16" height="16"/>
+			<image x="80"  y="64"  width="16" height="16"/>
+			<image x="96"  y="64"  width="16" height="16"/>
+			<image x="112" y="64"  width="16" height="16"/>
+			<image x="128" y="64"  width="16" height="16"/>
+			<image x="144" y="64"  width="16" height="16"/>
+			<image x="160" y="64"  width="16" height="16"/>
+			<image x="176" y="64"  width="16" height="16"/>
+			<image x="192" y="64"  width="16" height="16"/>
+			<image x="208" y="64"  width="16" height="16"/>
+			<image x="224" y="64"  width="16" height="16"/>
+			<image x="240" y="64"  width="16" height="16"/>
+			<image x="256" y="64"  width="16" height="16"/>
+			<image x="272" y="64"  width="16" height="16"/>
+			<image x="288" y="64"  width="16" height="16"/>
+			<image x="304" y="64"  width="16" height="16"/>
+
+			<image x="0"   y="80"  width="16" height="16"/>
+			<image x="16"  y="80"  width="16" height="16"/>
+			<image x="32"  y="80"  width="16" height="16"/>
+			<image x="48"  y="80"  width="16" height="16"/>
+			<image x="64"  y="80"  width="16" height="16"/>
+			<image x="80"  y="80"  width="16" height="16"/>
+			<image x="96"  y="80"  width="16" height="16"/>
+			<image x="112" y="80"  width="16" height="16"/>
+			<image x="128" y="80"  width="16" height="16"/>
+			<image x="144" y="80"  width="16" height="16"/>
+			<image x="160" y="80"  width="16" height="16"/>
+			<image x="176" y="80"  width="16" height="16"/>
+			<image x="192" y="80"  width="16" height="16"/>
+			<image x="208" y="80"  width="16" height="16"/>
+			<image x="224" y="80"  width="16" height="16"/>
+			<image x="240" y="80"  width="16" height="16"/>
+			<image x="256" y="80"  width="16" height="16"/>
+			<image x="272" y="80"  width="16" height="16"/>
+			<image x="288" y="80"  width="16" height="16"/>
+			<image x="304" y="80"  width="16" height="16"/>
+
+			<image x="0"   y="96"  width="16" height="16"/>
+			<image x="16"  y="96"  width="16" height="16"/>
+			<image x="32"  y="96"  width="16" height="16"/>
+			<image x="48"  y="96"  width="16" height="16"/>
+			<image x="64"  y="96"  width="16" height="16"/>
+			<image x="80"  y="96"  width="16" height="16"/>
+			<image x="96"  y="96"  width="16" height="16"/>
+			<image x="112" y="96"  width="16" height="16"/>
+			<image x="128" y="96"  width="16" height="16"/>
+			<image x="144" y="96"  width="16" height="16"/>
+			<image x="160" y="96"  width="16" height="16"/>
+			<image x="176" y="96"  width="16" height="16"/>
+			<image x="192" y="96"  width="16" height="16"/>
+			<image x="208" y="96"  width="16" height="16"/>
+			<image x="224" y="96"  width="16" height="16"/>
+			<image x="240" y="96"  width="16" height="16"/>
+			<image x="256" y="96"  width="16" height="16"/>
+			<image x="272" y="96"  width="16" height="16"/>
+			<image x="288" y="96"  width="16" height="16"/>
+			<image x="304" y="96"  width="16" height="16"/>
+
+			<image x="0"   y="112" width="16" height="16"/>
+			<image x="16"  y="112" width="16" height="16"/>
+			<image x="32"  y="112" width="16" height="16"/>
+			<image x="48"  y="112" width="16" height="16"/>
+			<image x="64"  y="112" width="16" height="16"/>
+			<image x="80"  y="112" width="16" height="16"/>
+			<image x="96"  y="112" width="16" height="16"/>
+			<image x="112" y="112" width="16" height="16"/>
+			<image x="128" y="112" width="16" height="16"/>
+			<image x="144" y="112" width="16" height="16"/>
+			<image x="160" y="112" width="16" height="16"/>
+			<image x="176" y="112" width="16" height="16"/>
+			<image x="192" y="112" width="16" height="16"/>
+			<image x="208" y="112" width="16" height="16"/>
+			<image x="224" y="112" width="16" height="16"/>
+			<image x="240" y="112" width="16" height="16"/>
+			<image x="256" y="112" width="16" height="16"/>
+			<image x="272" y="112" width="16" height="16"/>
+			<image x="288" y="112" width="16" height="16"/>
+			<image x="304" y="112" width="16" height="16"/>
+
+			<image x="0"   y="128" width="16" height="16"/>
+			<image x="16"  y="128" width="16" height="16"/>
+			<image x="32"  y="128" width="16" height="16"/>
+			<image x="48"  y="128" width="16" height="16"/>
+			<image x="64"  y="128" width="16" height="16"/>
+			<image x="80"  y="128" width="16" height="16"/>
+			<image x="96"  y="128" width="16" height="16"/>
+			<image x="112" y="128" width="16" height="16"/>
+			<image x="128" y="128" width="16" height="16"/>
+			<image x="144" y="128" width="16" height="16"/>
+			<image x="160" y="128" width="16" height="16"/>
+			<image x="176" y="128" width="16" height="16"/>
+			<image x="192" y="128" width="16" height="16"/>
+			<image x="208" y="128" width="16" height="16"/>
+			<image x="224" y="128" width="16" height="16"/>
+			<image x="240" y="128" width="16" height="16"/>
+			<image x="256" y="128" width="16" height="16"/>
+			<image x="272" y="128" width="16" height="16"/>
+			<image x="288" y="128" width="16" height="16"/>
+			<image x="304" y="128" width="16" height="16"/>
+
+			<image x="0"   y="144" width="16" height="16"/>
+			<image x="16"  y="144" width="16" height="16"/>
+			<image x="32"  y="144" width="16" height="16"/>
+			<image x="48"  y="144" width="16" height="16"/>
+			<image x="64"  y="144" width="16" height="16"/>
+			<image x="80"  y="144" width="16" height="16"/>
+			<image x="96"  y="144" width="16" height="16"/>
+			<image x="112" y="144" width="16" height="16"/>
+			<image x="128" y="144" width="16" height="16"/>
+			<image x="144" y="144" width="16" height="16"/>
+			<image x="160" y="144" width="16" height="16"/>
+			<image x="176" y="144" width="16" height="16"/>
+			<image x="192" y="144" width="16" height="16"/>
+			<image x="208" y="144" width="16" height="16"/>
+			<image x="224" y="144" width="16" height="16"/>
+			<image x="240" y="144" width="16" height="16"/>
+			<image x="256" y="144" width="16" height="16"/>
+			<image x="272" y="144" width="16" height="16"/>
+			<image x="288" y="144" width="16" height="16"/>
+			<image x="304" y="144" width="16" height="16"/>
+
+			<image x="0"   y="160" width="16" height="16"/>
+			<image x="16"  y="160" width="16" height="16"/>
+			<image x="32"  y="160" width="16" height="16"/>
+			<image x="48"  y="160" width="16" height="16"/>
+			<image x="64"  y="160" width="16" height="16"/>
+			<image x="80"  y="160" width="16" height="16"/>
+			<image x="96"  y="160" width="16" height="16"/>
+			<image x="112" y="160" width="16" height="16"/>
+			<image x="128" y="160" width="16" height="16"/>
+			<image x="144" y="160" width="16" height="16"/>
+			<image x="160" y="160" width="16" height="16"/>
+			<image x="176" y="160" width="16" height="16"/>
+			<image x="192" y="160" width="16" height="16"/>
+			<image x="208" y="160" width="16" height="16"/>
+			<image x="224" y="160" width="16" height="16"/>
+			<image x="240" y="160" width="16" height="16"/>
+			<image x="256" y="160" width="16" height="16"/>
+			<image x="272" y="160" width="16" height="16"/>
+			<image x="288" y="160" width="16" height="16"/>
+			<image x="304" y="160" width="16" height="16"/>
+
+			<image x="0"   y="176" width="16" height="16"/>
+			<image x="16"  y="176" width="16" height="16"/>
+			<image x="32"  y="176" width="16" height="16"/>
+			<image x="48"  y="176" width="16" height="16"/>
+			<image x="64"  y="176" width="16" height="16"/>
+			<image x="80"  y="176" width="16" height="16"/>
+			<image x="96"  y="176" width="16" height="16"/>
+			<image x="112" y="176" width="16" height="16"/>
+			<image x="128" y="176" width="16" height="16"/>
+			<image x="144" y="176" width="16" height="16"/>
+			<image x="160" y="176" width="16" height="16"/>
+			<image x="176" y="176" width="16" height="16"/>
+			<image x="192" y="176" width="16" height="16"/>
+			<image x="208" y="176" width="16" height="16"/>
+			<image x="224" y="176" width="16" height="16"/>
+			<image x="240" y="176" width="16" height="16"/>
+			<image x="256" y="176" width="16" height="16"/>
+			<image x="272" y="176" width="16" height="16"/>
+			<image x="288" y="176" width="16" height="16"/>
+			<image x="304" y="176" width="16" height="16"/>
+		</tileset>
+
+		<tileset id="tls-space" image="img-space" title="Space tileset" layoutWidth="20">
+			<image x="4"   y="4"   width="16" height="16"/>
+			<image x="36"  y="4"   width="16" height="16"/>
+			<image x="68"  y="4"   width="16" height="16"/>
+			<image x="100" y="4"   width="16" height="16"/>
+			<image x="132" y="4"   width="16" height="16"/>
+			<image x="164" y="4"   width="16" height="16"/>
+			<image x="196" y="4"   width="16" height="16"/>
+			<image x="228" y="4"   width="16" height="16"/>
+			<image x="260" y="4"   width="16" height="16"/>
+			<image x="292" y="4"   width="16" height="16"/>
+
+			<image x="4"   y="28"  width="16" height="16"/>
+			<image x="36"  y="28"  width="16" height="16"/>
+			<image x="68"  y="28"  width="16" height="16"/>
+			<image x="100" y="28"  width="16" height="16"/>
+			<image x="132" y="28"  width="16" height="16"/>
+			<image x="164" y="28"  width="16" height="16"/>
+
+			<image x="192" y="24"  width="16" height="16"/>
+			<image x="224" y="24"  width="16" height="16"/>
+			<image x="256" y="24"  width="16" height="16"/>
+			<image x="288" y="24"  width="16" height="16"/>
+
+			<image x="0"   y="48"  width="16" height="16"/>
+			<image x="16"  y="48"  width="16" height="16"/>
+			<image x="32"  y="48"  width="16" height="16"/>
+			<image x="48"  y="48"  width="16" height="16"/>
+			<image x="64"  y="48"  width="16" height="16"/>
+			<image x="80"  y="48"  width="16" height="16"/>
+			<image x="96"  y="48"  width="16" height="16"/>
+			<image x="112" y="48"  width="16" height="16"/>
+			<image x="128" y="48"  width="16" height="16"/>
+			<image x="144" y="48"  width="16" height="16"/>
+			<image x="160" y="48"  width="16" height="16"/>
+			<image x="176" y="48"  width="16" height="16"/>
+			<image x="192" y="48"  width="16" height="16"/>
+			<image x="208" y="48"  width="16" height="16"/>
+			<image x="224" y="48"  width="16" height="16"/>
+			<image x="240" y="48"  width="16" height="16"/>
+			<image x="256" y="48"  width="16" height="16"/>
+			<image x="272" y="48"  width="16" height="16"/>
+			<image x="288" y="48"  width="16" height="16"/>
+			<image x="304" y="48"  width="16" height="16"/>
+
+			<image x="0"   y="64"  width="16" height="16"/>
+			<image x="16"  y="64"  width="16" height="16"/>
+			<image x="32"  y="64"  width="16" height="16"/>
+			<image x="48"  y="64"  width="16" height="16"/>
+			<image x="64"  y="64"  width="16" height="16"/>
+			<image x="80"  y="64"  width="16" height="16"/>
+			<image x="96"  y="64"  width="16" height="16"/>
+			<image x="112" y="64"  width="16" height="16"/>
+			<image x="128" y="64"  width="16" height="16"/>
+			<image x="144" y="64"  width="16" height="16"/>
+			<image x="160" y="64"  width="16" height="16"/>
+			<image x="176" y="64"  width="16" height="16"/>
+			<image x="192" y="64"  width="16" height="16"/>
+			<image x="208" y="64"  width="16" height="16"/>
+			<image x="224" y="64"  width="16" height="16"/>
+			<image x="240" y="64"  width="16" height="16"/>
+			<image x="256" y="64"  width="16" height="16"/>
+			<image x="272" y="64"  width="16" height="16"/>
+			<image x="288" y="64"  width="16" height="16"/>
+			<image x="304" y="64"  width="16" height="16"/>
+
+			<image x="0"   y="80"  width="16" height="16"/>
+			<image x="16"  y="80"  width="16" height="16"/>
+			<image x="32"  y="80"  width="16" height="16"/>
+			<image x="48"  y="80"  width="16" height="16"/>
+			<image x="64"  y="80"  width="16" height="16"/>
+			<image x="80"  y="80"  width="16" height="16"/>
+			<image x="96"  y="80"  width="16" height="16"/>
+			<image x="112" y="80"  width="16" height="16"/>
+			<image x="128" y="80"  width="16" height="16"/>
+			<image x="144" y="80"  width="16" height="16"/>
+			<image x="160" y="80"  width="16" height="16"/>
+			<image x="176" y="80"  width="16" height="16"/>
+			<image x="192" y="80"  width="16" height="16"/>
+			<image x="208" y="80"  width="16" height="16"/>
+			<image x="224" y="80"  width="16" height="16"/>
+			<image x="240" y="80"  width="16" height="16"/>
+			<image x="256" y="80"  width="16" height="16"/>
+			<image x="272" y="80"  width="16" height="16"/>
+			<image x="288" y="80"  width="16" height="16"/>
+			<image x="304" y="80"  width="16" height="16"/>
+
+			<image x="0"   y="96"  width="16" height="16"/>
+			<image x="16"  y="96"  width="16" height="16"/>
+			<image x="32"  y="96"  width="16" height="16"/>
+			<image x="48"  y="96"  width="16" height="16"/>
+			<image x="64"  y="96"  width="16" height="16"/>
+			<image x="80"  y="96"  width="16" height="16"/>
+			<image x="96"  y="96"  width="16" height="16"/>
+			<image x="112" y="96"  width="16" height="16"/>
+			<image x="128" y="96"  width="16" height="16"/>
+			<image x="144" y="96"  width="16" height="16"/>
+			<image x="160" y="96"  width="16" height="16"/>
+			<image x="176" y="96"  width="16" height="16"/>
+			<image x="192" y="96"  width="16" height="16"/>
+			<image x="208" y="96"  width="16" height="16"/>
+			<image x="224" y="96"  width="16" height="16"/>
+			<image x="240" y="96"  width="16" height="16"/>
+			<image x="256" y="96"  width="16" height="16"/>
+			<image x="272" y="96"  width="16" height="16"/>
+			<image x="288" y="96"  width="16" height="16"/>
+			<image x="304" y="96"  width="16" height="16"/>
+
+			<image x="0"   y="112" width="16" height="16"/>
+			<image x="16"  y="112" width="16" height="16"/>
+			<image x="32"  y="112" width="16" height="16"/>
+			<image x="48"  y="112" width="16" height="16"/>
+			<image x="64"  y="112" width="16" height="16"/>
+			<image x="80"  y="112" width="16" height="16"/>
+			<image x="96"  y="112" width="16" height="16"/>
+			<image x="112" y="112" width="16" height="16"/>
+			<image x="128" y="112" width="16" height="16"/>
+			<image x="144" y="112" width="16" height="16"/>
+			<image x="160" y="112" width="16" height="16"/>
+			<image x="176" y="112" width="16" height="16"/>
+			<image x="192" y="112" width="16" height="16"/>
+			<image x="208" y="112" width="16" height="16"/>
+			<image x="224" y="112" width="16" height="16"/>
+			<image x="240" y="112" width="16" height="16"/>
+			<image x="256" y="112" width="16" height="16"/>
+			<image x="272" y="112" width="16" height="16"/>
+			<image x="288" y="112" width="16" height="16"/>
+			<image x="304" y="112" width="16" height="16"/>
+
+			<image x="0"   y="128" width="16" height="16"/>
+			<image x="16"  y="128" width="16" height="16"/>
+			<image x="32"  y="128" width="16" height="16"/>
+			<image x="48"  y="128" width="16" height="16"/>
+			<image x="64"  y="128" width="16" height="16"/>
+			<image x="80"  y="128" width="16" height="16"/>
+			<image x="96"  y="128" width="16" height="16"/>
+			<image x="112" y="128" width="16" height="16"/>
+			<image x="128" y="128" width="16" height="16"/>
+			<image x="144" y="128" width="16" height="16"/>
+			<image x="160" y="128" width="16" height="16"/>
+			<image x="176" y="128" width="16" height="16"/>
+			<image x="192" y="128" width="16" height="16"/>
+			<image x="208" y="128" width="16" height="16"/>
+			<image x="224" y="128" width="16" height="16"/>
+			<image x="240" y="128" width="16" height="16"/>
+			<image x="256" y="128" width="16" height="16"/>
+			<image x="272" y="128" width="16" height="16"/>
+			<image x="288" y="128" width="16" height="16"/>
+			<image x="304" y="128" width="16" height="16"/>
+
+			<image x="0"   y="144" width="16" height="16"/>
+			<image x="16"  y="144" width="16" height="16"/>
+			<image x="32"  y="144" width="16" height="16"/>
+			<image x="48"  y="144" width="16" height="16"/>
+			<image x="64"  y="144" width="16" height="16"/>
+			<image x="80"  y="144" width="16" height="16"/>
+			<image x="96"  y="144" width="16" height="16"/>
+			<image x="112" y="144" width="16" height="16"/>
+			<image x="128" y="144" width="16" height="16"/>
+			<image x="144" y="144" width="16" height="16"/>
+			<image x="160" y="144" width="16" height="16"/>
+			<image x="176" y="144" width="16" height="16"/>
+			<image x="192" y="144" width="16" height="16"/>
+			<image x="208" y="144" width="16" height="16"/>
+			<image x="224" y="144" width="16" height="16"/>
+			<image x="240" y="144" width="16" height="16"/>
+			<image x="256" y="144" width="16" height="16"/>
+			<image x="272" y="144" width="16" height="16"/>
+			<image x="288" y="144" width="16" height="16"/>
+			<image x="304" y="144" width="16" height="16"/>
+
+			<image x="0"   y="160" width="16" height="16"/>
+			<image x="16"  y="160" width="16" height="16"/>
+			<image x="32"  y="160" width="16" height="16"/>
+			<image x="48"  y="160" width="16" height="16"/>
+			<image x="64"  y="160" width="16" height="16"/>
+			<image x="80"  y="160" width="16" height="16"/>
+			<image x="96"  y="160" width="16" height="16"/>
+			<image x="112" y="160" width="16" height="16"/>
+			<image x="128" y="160" width="16" height="16"/>
+			<image x="144" y="160" width="16" height="16"/>
+			<image x="160" y="160" width="16" height="16"/>
+			<image x="176" y="160" width="16" height="16"/>
+			<image x="192" y="160" width="16" height="16"/>
+			<image x="208" y="160" width="16" height="16"/>
+			<image x="224" y="160" width="16" height="16"/>
+			<image x="240" y="160" width="16" height="16"/>
+			<image x="256" y="160" width="16" height="16"/>
+			<image x="272" y="160" width="16" height="16"/>
+			<image x="288" y="160" width="16" height="16"/>
+			<image x="304" y="160" width="16" height="16"/>
+
+			<image x="0"   y="176" width="16" height="16"/>
+			<image x="16"  y="176" width="16" height="16"/>
+			<image x="32"  y="176" width="16" height="16"/>
+			<image x="48"  y="176" width="16" height="16"/>
+			<image x="64"  y="176" width="16" height="16"/>
+			<image x="80"  y="176" width="16" height="16"/>
+			<image x="96"  y="176" width="16" height="16"/>
+			<image x="112" y="176" width="16" height="16"/>
+			<image x="128" y="176" width="16" height="16"/>
+			<image x="144" y="176" width="16" height="16"/>
+			<image x="160" y="176" width="16" height="16"/>
+			<image x="176" y="176" width="16" height="16"/>
+			<image x="192" y="176" width="16" height="16"/>
+			<image x="208" y="176" width="16" height="16"/>
+			<image x="224" y="176" width="16" height="16"/>
+			<image x="240" y="176" width="16" height="16"/>
+			<image x="256" y="176" width="16" height="16"/>
+			<image x="272" y="176" width="16" height="16"/>
+			<image x="288" y="176" width="16" height="16"/>
+			<image x="304" y="176" width="16" height="16"/>
+		</tileset>
+
+		<tileset id="tls-body" image="img-body" title="Body tileset" layoutWidth="20">
+			<image x="4"   y="4"   width="16" height="16"/>
+			<image x="36"  y="4"   width="16" height="16"/>
+			<image x="68"  y="4"   width="16" height="16"/>
+			<image x="100" y="4"   width="16" height="16"/>
+			<image x="132" y="4"   width="16" height="16"/>
+			<image x="164" y="4"   width="16" height="16"/>
+			<image x="196" y="4"   width="16" height="16"/>
+			<image x="228" y="4"   width="16" height="16"/>
+			<image x="260" y="4"   width="16" height="16"/>
+			<image x="292" y="4"   width="16" height="16"/>
+
+			<image x="4"   y="28"  width="16" height="16"/>
+			<image x="36"  y="28"  width="16" height="16"/>
+			<image x="68"  y="28"  width="16" height="16"/>
+			<image x="100" y="28"  width="16" height="16"/>
+			<image x="132" y="28"  width="16" height="16"/>
+			<image x="164" y="28"  width="16" height="16"/>
+
+			<image x="192" y="24"  width="16" height="16"/>
+			<image x="224" y="24"  width="16" height="16"/>
+			<image x="256" y="24"  width="16" height="16"/>
+			<image x="288" y="24"  width="16" height="16"/>
+
+			<image x="0"   y="48"  width="16" height="16"/>
+			<image x="16"  y="48"  width="16" height="16"/>
+			<image x="32"  y="48"  width="16" height="16"/>
+			<image x="48"  y="48"  width="16" height="16"/>
+			<image x="64"  y="48"  width="16" height="16"/>
+			<image x="80"  y="48"  width="16" height="16"/>
+			<image x="96"  y="48"  width="16" height="16"/>
+			<image x="112" y="48"  width="16" height="16"/>
+			<image x="128" y="48"  width="16" height="16"/>
+			<image x="144" y="48"  width="16" height="16"/>
+			<image x="160" y="48"  width="16" height="16"/>
+			<image x="176" y="48"  width="16" height="16"/>
+			<image x="192" y="48"  width="16" height="16"/>
+			<image x="208" y="48"  width="16" height="16"/>
+			<image x="224" y="48"  width="16" height="16"/>
+			<image x="240" y="48"  width="16" height="16"/>
+			<image x="256" y="48"  width="16" height="16"/>
+			<image x="272" y="48"  width="16" height="16"/>
+			<image x="288" y="48"  width="16" height="16"/>
+			<image x="304" y="48"  width="16" height="16"/>
+
+			<image x="0"   y="64"  width="16" height="16"/>
+			<image x="16"  y="64"  width="16" height="16"/>
+			<image x="32"  y="64"  width="16" height="16"/>
+			<image x="48"  y="64"  width="16" height="16"/>
+			<image x="64"  y="64"  width="16" height="16"/>
+			<image x="80"  y="64"  width="16" height="16"/>
+			<image x="96"  y="64"  width="16" height="16"/>
+			<image x="112" y="64"  width="16" height="16"/>
+			<image x="128" y="64"  width="16" height="16"/>
+			<image x="144" y="64"  width="16" height="16"/>
+			<image x="160" y="64"  width="16" height="16"/>
+			<image x="176" y="64"  width="16" height="16"/>
+			<image x="192" y="64"  width="16" height="16"/>
+			<image x="208" y="64"  width="16" height="16"/>
+			<image x="224" y="64"  width="16" height="16"/>
+			<image x="240" y="64"  width="16" height="16"/>
+			<image x="256" y="64"  width="16" height="16"/>
+			<image x="272" y="64"  width="16" height="16"/>
+			<image x="288" y="64"  width="16" height="16"/>
+			<image x="304" y="64"  width="16" height="16"/>
+
+			<image x="0"   y="80"  width="16" height="16"/>
+			<image x="16"  y="80"  width="16" height="16"/>
+			<image x="32"  y="80"  width="16" height="16"/>
+			<image x="48"  y="80"  width="16" height="16"/>
+			<image x="64"  y="80"  width="16" height="16"/>
+			<image x="80"  y="80"  width="16" height="16"/>
+			<image x="96"  y="80"  width="16" height="16"/>
+			<image x="112" y="80"  width="16" height="16"/>
+			<image x="128" y="80"  width="16" height="16"/>
+			<image x="144" y="80"  width="16" height="16"/>
+			<image x="160" y="80"  width="16" height="16"/>
+			<image x="176" y="80"  width="16" height="16"/>
+			<image x="192" y="80"  width="16" height="16"/>
+			<image x="208" y="80"  width="16" height="16"/>
+			<image x="224" y="80"  width="16" height="16"/>
+			<image x="240" y="80"  width="16" height="16"/>
+			<image x="256" y="80"  width="16" height="16"/>
+			<image x="272" y="80"  width="16" height="16"/>
+			<image x="288" y="80"  width="16" height="16"/>
+			<image x="304" y="80"  width="16" height="16"/>
+
+			<image x="0"   y="96"  width="16" height="16"/>
+			<image x="16"  y="96"  width="16" height="16"/>
+			<image x="32"  y="96"  width="16" height="16"/>
+			<image x="48"  y="96"  width="16" height="16"/>
+			<image x="64"  y="96"  width="16" height="16"/>
+			<image x="80"  y="96"  width="16" height="16"/>
+			<image x="96"  y="96"  width="16" height="16"/>
+			<image x="112" y="96"  width="16" height="16"/>
+			<image x="128" y="96"  width="16" height="16"/>
+			<image x="144" y="96"  width="16" height="16"/>
+			<image x="160" y="96"  width="16" height="16"/>
+			<image x="176" y="96"  width="16" height="16"/>
+			<image x="192" y="96"  width="16" height="16"/>
+			<image x="208" y="96"  width="16" height="16"/>
+			<image x="224" y="96"  width="16" height="16"/>
+			<image x="240" y="96"  width="16" height="16"/>
+			<image x="256" y="96"  width="16" height="16"/>
+			<image x="272" y="96"  width="16" height="16"/>
+			<image x="288" y="96"  width="16" height="16"/>
+			<image x="304" y="96"  width="16" height="16"/>
+
+			<image x="0"   y="112" width="16" height="16"/>
+			<image x="16"  y="112" width="16" height="16"/>
+			<image x="32"  y="112" width="16" height="16"/>
+			<image x="48"  y="112" width="16" height="16"/>
+			<image x="64"  y="112" width="16" height="16"/>
+			<image x="80"  y="112" width="16" height="16"/>
+			<image x="96"  y="112" width="16" height="16"/>
+			<image x="112" y="112" width="16" height="16"/>
+			<image x="128" y="112" width="16" height="16"/>
+			<image x="144" y="112" width="16" height="16"/>
+			<image x="160" y="112" width="16" height="16"/>
+			<image x="176" y="112" width="16" height="16"/>
+			<image x="192" y="112" width="16" height="16"/>
+			<image x="208" y="112" width="16" height="16"/>
+			<image x="224" y="112" width="16" height="16"/>
+			<image x="240" y="112" width="16" height="16"/>
+			<image x="256" y="112" width="16" height="16"/>
+			<image x="272" y="112" width="16" height="16"/>
+			<image x="288" y="112" width="16" height="16"/>
+			<image x="304" y="112" width="16" height="16"/>
+
+			<image x="0"   y="128" width="16" height="16"/>
+			<image x="16"  y="128" width="16" height="16"/>
+			<image x="32"  y="128" width="16" height="16"/>
+			<image x="48"  y="128" width="16" height="16"/>
+			<image x="64"  y="128" width="16" height="16"/>
+			<image x="80"  y="128" width="16" height="16"/>
+			<image x="96"  y="128" width="16" height="16"/>
+			<image x="112" y="128" width="16" height="16"/>
+			<image x="128" y="128" width="16" height="16"/>
+			<image x="144" y="128" width="16" height="16"/>
+			<image x="160" y="128" width="16" height="16"/>
+			<image x="176" y="128" width="16" height="16"/>
+			<image x="192" y="128" width="16" height="16"/>
+			<image x="208" y="128" width="16" height="16"/>
+			<image x="224" y="128" width="16" height="16"/>
+			<image x="240" y="128" width="16" height="16"/>
+			<image x="256" y="128" width="16" height="16"/>
+			<image x="272" y="128" width="16" height="16"/>
+			<image x="288" y="128" width="16" height="16"/>
+			<image x="304" y="128" width="16" height="16"/>
+
+			<image x="0"   y="144" width="16" height="16"/>
+			<image x="16"  y="144" width="16" height="16"/>
+			<image x="32"  y="144" width="16" height="16"/>
+			<image x="48"  y="144" width="16" height="16"/>
+			<image x="64"  y="144" width="16" height="16"/>
+			<image x="80"  y="144" width="16" height="16"/>
+			<image x="96"  y="144" width="16" height="16"/>
+			<image x="112" y="144" width="16" height="16"/>
+			<image x="128" y="144" width="16" height="16"/>
+			<image x="144" y="144" width="16" height="16"/>
+			<image x="160" y="144" width="16" height="16"/>
+			<image x="176" y="144" width="16" height="16"/>
+			<image x="192" y="144" width="16" height="16"/>
+			<image x="208" y="144" width="16" height="16"/>
+			<image x="224" y="144" width="16" height="16"/>
+			<image x="240" y="144" width="16" height="16"/>
+			<image x="256" y="144" width="16" height="16"/>
+			<image x="272" y="144" width="16" height="16"/>
+			<image x="288" y="144" width="16" height="16"/>
+			<image x="304" y="144" width="16" height="16"/>
+
+			<image x="0"   y="160" width="16" height="16"/>
+			<image x="16"  y="160" width="16" height="16"/>
+			<image x="32"  y="160" width="16" height="16"/>
+			<image x="48"  y="160" width="16" height="16"/>
+			<image x="64"  y="160" width="16" height="16"/>
+			<image x="80"  y="160" width="16" height="16"/>
+			<image x="96"  y="160" width="16" height="16"/>
+			<image x="112" y="160" width="16" height="16"/>
+			<image x="128" y="160" width="16" height="16"/>
+			<image x="144" y="160" width="16" height="16"/>
+			<image x="160" y="160" width="16" height="16"/>
+			<image x="176" y="160" width="16" height="16"/>
+			<image x="192" y="160" width="16" height="16"/>
+			<image x="208" y="160" width="16" height="16"/>
+			<image x="224" y="160" width="16" height="16"/>
+			<image x="240" y="160" width="16" height="16"/>
+			<image x="256" y="160" width="16" height="16"/>
+			<image x="272" y="160" width="16" height="16"/>
+			<image x="288" y="160" width="16" height="16"/>
+			<image x="304" y="160" width="16" height="16"/>
+
+			<image x="0"   y="176" width="16" height="16"/>
+			<image x="16"  y="176" width="16" height="16"/>
+			<image x="32"  y="176" width="16" height="16"/>
+			<image x="48"  y="176" width="16" height="16"/>
+			<image x="64"  y="176" width="16" height="16"/>
+			<image x="80"  y="176" width="16" height="16"/>
+			<image x="96"  y="176" width="16" height="16"/>
+			<image x="112" y="176" width="16" height="16"/>
+			<image x="128" y="176" width="16" height="16"/>
+			<image x="144" y="176" width="16" height="16"/>
+			<image x="160" y="176" width="16" height="16"/>
+			<image x="176" y="176" width="16" height="16"/>
+			<image x="192" y="176" width="16" height="16"/>
+			<image x="208" y="176" width="16" height="16"/>
+			<image x="224" y="176" width="16" height="16"/>
+			<image x="240" y="176" width="16" height="16"/>
+			<image x="256" y="176" width="16" height="16"/>
+			<image x="272" y="176" width="16" height="16"/>
+			<image x="288" y="176" width="16" height="16"/>
+			<image x="304" y="176" width="16" height="16"/>
+		</tileset>
 	</files>
 
 	<commands>
