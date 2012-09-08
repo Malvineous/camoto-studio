@@ -54,61 +54,61 @@
 	<files>
 		<archive name="cc1.exe" id="arch-cc1-exe" typeMinor="exe-ccaves">
 			<file id="lev-in" name="e1int.ccl" typeMajor="map" typeMinor="ccaves" title="Intro">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-fi" name="e1fin.ccl" typeMajor="map" typeMinor="ccaves" title="Finale">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-ma" name="e1map.ccl" typeMajor="map" typeMinor="ccaves" title="Map">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-01" name="e1l01.ccl" typeMajor="map" typeMinor="ccaves" title="Level 1">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-02" name="e1l02.ccl" typeMajor="map" typeMinor="ccaves" title="Level 2">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-03" name="e1l03.ccl" typeMajor="map" typeMinor="ccaves" title="Level 3">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-04" name="e1l04.ccl" typeMajor="map" typeMinor="ccaves" title="Level 4">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-05" name="e1l05.ccl" typeMajor="map" typeMinor="ccaves" title="Level 5">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-06" name="e1l06.ccl" typeMajor="map" typeMinor="ccaves" title="Level 6">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-07" name="e1l07.ccl" typeMajor="map" typeMinor="ccaves" title="Level 7">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-08" name="e1l08.ccl" typeMajor="map" typeMinor="ccaves" title="Level 8">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-09" name="e1l09.ccl" typeMajor="map" typeMinor="ccaves" title="Level 9">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-10" name="e1l10.ccl" typeMajor="map" typeMinor="ccaves" title="Level 10">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-11" name="e1l11.ccl" typeMajor="map" typeMinor="ccaves" title="Level 11">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-12" name="e1l12.ccl" typeMajor="map" typeMinor="ccaves" title="Level 12">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-13" name="e1l13.ccl" typeMajor="map" typeMinor="ccaves" title="Level 13">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-14" name="e1l14.ccl" typeMajor="map" typeMinor="ccaves" title="Level 14">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-15" name="e1l15.ccl" typeMajor="map" typeMinor="ccaves" title="Level 15">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-16" name="e1l16.ccl" typeMajor="map" typeMinor="ccaves" title="Level 16">
-				<supp reftype="tileset1" ref="tls-1"/>
+				<dep reftype="tileset1" ref="tls-1"/>
 			</file>
 		</archive>
 

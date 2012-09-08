@@ -90,83 +90,83 @@
 
 	<files>
 		<file id="level-base0"   name="base0.pt"   typeMajor="map" typeMinor="ccomic" title="Base 1">
-			<supp reftype="tileset1" ref="tiles-base"/>
+			<dep reftype="tileset1" ref="tiles-base"/>
 		</file>
 		<file id="level-base1"   name="base1.pt"   typeMajor="map" typeMinor="ccomic" title="Base 2">
-			<supp reftype="tileset1" ref="tiles-base"/>
+			<dep reftype="tileset1" ref="tiles-base"/>
 		</file>
 		<file id="level-base2"   name="base2.pt"   typeMajor="map" typeMinor="ccomic" title="Base 3">
-			<supp reftype="tileset1" ref="tiles-base"/>
+			<dep reftype="tileset1" ref="tiles-base"/>
 		</file>
 
 		<file id="level-castle0" name="castle0.pt" typeMajor="map" typeMinor="ccomic" title="Castle 1">
-			<supp reftype="tileset1" ref="tiles-castle"/>
+			<dep reftype="tileset1" ref="tiles-castle"/>
 		</file>
 		<file id="level-castle1" name="castle1.pt" typeMajor="map" typeMinor="ccomic" title="Castle 2">
-			<supp reftype="tileset1" ref="tiles-castle"/>
+			<dep reftype="tileset1" ref="tiles-castle"/>
 		</file>
 		<file id="level-castle2" name="castle2.pt" typeMajor="map" typeMinor="ccomic" title="Castle 3">
-			<supp reftype="tileset1" ref="tiles-castle"/>
+			<dep reftype="tileset1" ref="tiles-castle"/>
 		</file>
 
 		<file id="level-cave0"   name="cave0.pt"   typeMajor="map" typeMinor="ccomic" title="Cave 1">
-			<supp reftype="tileset1" ref="tiles-cave"/>
+			<dep reftype="tileset1" ref="tiles-cave"/>
 		</file>
 		<file id="level-cave1"   name="cave1.pt"   typeMajor="map" typeMinor="ccomic" title="Cave 2">
-			<supp reftype="tileset1" ref="tiles-cave"/>
+			<dep reftype="tileset1" ref="tiles-cave"/>
 		</file>
 		<file id="level-cave2"   name="cave2.pt"   typeMajor="map" typeMinor="ccomic" title="Cave 3">
-			<supp reftype="tileset1" ref="tiles-cave"/>
+			<dep reftype="tileset1" ref="tiles-cave"/>
 		</file>
 
 		<file id="level-comp0"   name="comp0.pt"   typeMajor="map" typeMinor="ccomic" title="Comp 1">
-			<supp reftype="tileset1" ref="tiles-comp"/>
+			<dep reftype="tileset1" ref="tiles-comp"/>
 		</file>
 		<file id="level-comp1"   name="comp1.pt"   typeMajor="map" typeMinor="ccomic" title="Comp 2">
-			<supp reftype="tileset1" ref="tiles-comp"/>
+			<dep reftype="tileset1" ref="tiles-comp"/>
 		</file>
 		<file id="level-comp2"   name="comp2.pt"   typeMajor="map" typeMinor="ccomic" title="Comp 3">
-			<supp reftype="tileset1" ref="tiles-comp"/>
+			<dep reftype="tileset1" ref="tiles-comp"/>
 		</file>
 
 		<file id="level-forest0" name="forest0.pt" typeMajor="map" typeMinor="ccomic" title="Forest 1">
-			<supp reftype="tileset1" ref="tiles-forest"/>
+			<dep reftype="tileset1" ref="tiles-forest"/>
 		</file>
 		<file id="level-forest1" name="forest1.pt" typeMajor="map" typeMinor="ccomic" title="Forest 2">
-			<supp reftype="tileset1" ref="tiles-forest"/>
+			<dep reftype="tileset1" ref="tiles-forest"/>
 		</file>
 		<file id="level-forest2" name="forest2.pt" typeMajor="map" typeMinor="ccomic" title="Forest 3">
-			<supp reftype="tileset1" ref="tiles-forest"/>
+			<dep reftype="tileset1" ref="tiles-forest"/>
 		</file>
 
 		<file id="level-lake0"   name="lake0.pt"   typeMajor="map" typeMinor="ccomic" title="Lake 1">
-			<supp reftype="tileset1" ref="tiles-lake"/>
+			<dep reftype="tileset1" ref="tiles-lake"/>
 		</file>
 		<file id="level-lake1"   name="lake1.pt"   typeMajor="map" typeMinor="ccomic" title="Lake 2">
-			<supp reftype="tileset1" ref="tiles-lake"/>
+			<dep reftype="tileset1" ref="tiles-lake"/>
 		</file>
 		<file id="level-lake2"   name="lake2.pt"   typeMajor="map" typeMinor="ccomic" title="Lake 3">
-			<supp reftype="tileset1" ref="tiles-lake"/>
+			<dep reftype="tileset1" ref="tiles-lake"/>
 		</file>
 
 		<file id="level-shed0"   name="shed0.pt"   typeMajor="map" typeMinor="ccomic" title="Shed 1">
-			<supp reftype="tileset1" ref="tiles-shed"/>
+			<dep reftype="tileset1" ref="tiles-shed"/>
 		</file>
 		<file id="level-shed1"   name="shed1.pt"   typeMajor="map" typeMinor="ccomic" title="Shed 2">
-			<supp reftype="tileset1" ref="tiles-shed"/>
+			<dep reftype="tileset1" ref="tiles-shed"/>
 		</file>
 		<file id="level-shed2"   name="shed2.pt"   typeMajor="map" typeMinor="ccomic" title="Shed 3">
-			<supp reftype="tileset1" ref="tiles-shed"/>
+			<dep reftype="tileset1" ref="tiles-shed"/>
 		</file>
 
 		<file id="level-space0"  name="space0.pt"  typeMajor="map" typeMinor="ccomic" title="Space 1">
-			<supp reftype="tileset1" ref="tiles-space"/>
+			<dep reftype="tileset1" ref="tiles-space"/>
 		</file>
 		<file id="level-space1"  name="space1.pt"  typeMajor="map" typeMinor="ccomic" title="Space 2">
-			<supp reftype="tileset1" ref="tiles-space"/>
+			<dep reftype="tileset1" ref="tiles-space"/>
 		</file>
 		<file id="level-space2"  name="space2.pt"  typeMajor="map" typeMinor="ccomic" title="Space 3">
-			<supp reftype="tileset1" ref="tiles-space"/>
+			<dep reftype="tileset1" ref="tiles-space"/>
 		</file>
 
 		<file id="tiles-base"    name="base.tt2"   typeMajor="tileset" typeMinor="ccomic" title="Base tiles"/>

@@ -140,177 +140,177 @@
 
 	<files>
 		<file id="lev-1bk"  name="back.kb1"     typeMajor="map" typeMinor="kiloblaster" title="Back">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-101"  name="board1.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 1">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-102"  name="board2.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 2">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-103"  name="board3.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 3">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-104"  name="board4.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 4">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-105"  name="board5.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 5">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-106"  name="board6.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 6">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-107"  name="board7.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 7">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-108"  name="board8.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 8">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-109"  name="board9.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 9">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-110"  name="boarda.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 10">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1i1"  name="intro1.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Intro 1">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1i2"  name="intro2.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Intro 2">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1e1"  name="end.kb1"      typeMajor="map" typeMinor="kiloblaster" title="End 1">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1e2"  name="end2.kb1"     typeMajor="map" typeMinor="kiloblaster" title="End 2">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1mn"  name="menu.kb1"     typeMajor="map" typeMinor="kiloblaster" title="Menu">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1s1"  name="story.kb1"    typeMajor="map" typeMinor="kiloblaster" title="Story 1">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1s2"  name="story2.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Story 2">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1s3"  name="story3.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Story 3">
-			<supp reftype="tileset1" ref="tls-1"/>
+			<dep reftype="tileset1" ref="tls-1"/>
 		</file>
 
 		<file id="lev-2bk"  name="back.kb2"     typeMajor="map" typeMinor="kiloblaster" title="Back">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-201"  name="board1.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 1">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-202"  name="board2.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 2">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-203"  name="board3.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 3">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-204"  name="board4.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 4">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-205"  name="board5.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 5">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-206"  name="board6.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 6">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-207"  name="board7.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 7">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-208"  name="board8.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 8">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-209"  name="board9.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 9">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-210"  name="boarda.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 10">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-2i1"  name="intro1.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Intro 1">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-2i2"  name="intro2.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Intro 2">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-2e1"  name="end.kb2"      typeMajor="map" typeMinor="kiloblaster" title="End 1">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-2e2"  name="end2.kb2"     typeMajor="map" typeMinor="kiloblaster" title="End 2">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-2mn"  name="menu.kb2"     typeMajor="map" typeMinor="kiloblaster" title="Menu">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-2s1"  name="story.kb2"    typeMajor="map" typeMinor="kiloblaster" title="Story 1">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-2s2"  name="story2.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Story 2">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-2s3"  name="story3.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Story 3">
-			<supp reftype="tileset1" ref="tls-2"/>
+			<dep reftype="tileset1" ref="tls-2"/>
 		</file>
 
 		<file id="lev-3bk"  name="back.kb3"     typeMajor="map" typeMinor="kiloblaster" title="Back">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-301"  name="board1.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 1">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-302"  name="board2.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 2">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-303"  name="board3.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 3">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-304"  name="board4.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 4">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-305"  name="board5.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 5">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-306"  name="board6.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 6">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-307"  name="board7.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 7">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-308"  name="board8.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 8">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-309"  name="board9.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 9">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-310"  name="boarda.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 10">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-3i1"  name="intro1.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Intro 1">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-3i2"  name="intro2.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Intro 2">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-3e1"  name="end.kb3"      typeMajor="map" typeMinor="kiloblaster" title="End 1">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-3e2"  name="end2.kb3"     typeMajor="map" typeMinor="kiloblaster" title="End 2">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-3mn"  name="menu.kb3"     typeMajor="map" typeMinor="kiloblaster" title="Menu">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-3s1"  name="story.kb3"    typeMajor="map" typeMinor="kiloblaster" title="Story 1">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-3s2"  name="story2.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Story 2">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-3s3"  name="story3.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Story 3">
-			<supp reftype="tileset1" ref="tls-3"/>
+			<dep reftype="tileset1" ref="tls-3"/>
 		</file>
 
 		<file id="tls-1"    name="shapes.kb1"   typeMajor="tileset" typeMinor="jill" title="Game graphics"/>
