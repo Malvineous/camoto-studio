@@ -5,7 +5,7 @@
 	http://www.shikadi.net/camoto
 	http://www.shikadi.net/moddingwiki/Jill_of_the_Jungle
   -->
-<game title="Jill of the Jungle" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+<game title="Jill of the Jungle">
 
 	<!-- Some miscellaneous information about the game this file describes -->
 	<info>
@@ -66,17 +66,38 @@
 	</display>
 
 	<files>
-		<file id="lev-100"   name="map.jn1"      typeMajor="map" typeMinor="jill" supp:tiles="tls-1" title="Map level"/>
-		<file id="lev-101"   name="1.jn1"        typeMajor="map" typeMinor="jill" supp:tiles="tls-1" title="Level 1 - The Boulders + Level 7 - The Forest"/>
-		<file id="lev-102"   name="2.jn1"        typeMajor="map" typeMinor="jill" supp:tiles="tls-1" title="Level 2 - The Forest + Level 14 - The Plateau"/>
-		<file id="lev-103"   name="3.jn1"        typeMajor="map" typeMinor="jill" supp:tiles="tls-1" title="Levels 3-5 - The Hut + Level 20 - Bonus"/>
-		<file id="lev-104"   name="4.jn1"        typeMajor="map" typeMinor="jill" supp:tiles="tls-1" title="Level 6 - The Castle + Level 13 - Yet Another Puzzle"/>
-		<file id="lev-106"   name="6.jn1"        typeMajor="map" typeMinor="jill" supp:tiles="tls-1" title="Level 8 - Arg's Dungeon + Level 9 - Phoenix Max + Level 10 - The Knight's Puzzle"/>
-		<file id="lev-109"   name="9.jn1"        typeMajor="map" typeMinor="jill" supp:tiles="tls-1" title="Level 11 - The Dark Forest + Level 12 - The Underground River"/>
-		<file id="lev-150"   name="50.jn1"       typeMajor="map" typeMinor="jill" supp:tiles="tls-1" title="Level 50 - The Ending"/>
-		<file id="lev-1in"   name="intro.jn1"    typeMajor="map" typeMinor="jill" supp:tiles="tls-1" title="Main menu background"/>
+		<file id="lev-100"   name="map.jn1"      typeMajor="map" typeMinor="jill" title="Map level">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-101"   name="1.jn1"        typeMajor="map" typeMinor="jill" title="Level 1 - The Boulders + Level 7 - The Forest">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-102"   name="2.jn1"        typeMajor="map" typeMinor="jill" title="Level 2 - The Forest + Level 14 - The Plateau">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-103"   name="3.jn1"        typeMajor="map" typeMinor="jill" title="Levels 3-5 - The Hut + Level 20 - Bonus">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-104"   name="4.jn1"        typeMajor="map" typeMinor="jill" title="Level 6 - The Castle + Level 13 - Yet Another Puzzle">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-106"   name="6.jn1"        typeMajor="map" typeMinor="jill" title="Level 8 - Arg's Dungeon + Level 9 - Phoenix Max + Level 10 - The Knight's Puzzle">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-109"   name="9.jn1"        typeMajor="map" typeMinor="jill" title="Level 11 - The Dark Forest + Level 12 - The Underground River">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-150"   name="50.jn1"       typeMajor="map" typeMinor="jill" title="Level 50 - The Ending">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-1in"   name="intro.jn1"    typeMajor="map" typeMinor="jill" title="Main menu background">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
 
-		<file id="tls-1"     name="jill1.sha"    typeMajor="tileset" typeMinor="jill" supp:extra1="dma" supp:pal="pal-1" title="Game graphics"/>
+		<file id="tls-1"     name="jill1.sha"    typeMajor="tileset" typeMinor="jill" title="Game graphics">
+			<supp reftype="palette"  ref="pal-1"/>
+			<supp reftype="extra1"   ref="dma"/>
+		</file>
 		<file id="dma"       name="jill.dma" title="Tile properties"/>
 
 		<file id="mus-01"    name="action.ddt"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Action"/>

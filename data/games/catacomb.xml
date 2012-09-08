@@ -5,7 +5,7 @@
 	http://www.shikadi.net/camoto
 	http://www.shikadi.net/moddingwiki/Catacomb
   -->
-<game title="Catacomb" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+<game title="Catacomb">
 
 	<!-- Some miscellaneous information about the game this file describes -->
 	<info>
@@ -43,16 +43,36 @@
 	</display>
 
 	<files>
-		<file id="lev-1" name="level1.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 1"/>
-		<file id="lev-2" name="level2.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 2"/>
-		<file id="lev-3" name="level3.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 3"/>
-		<file id="lev-4" name="level4.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 4"/>
-		<file id="lev-5" name="level5.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 5"/>
-		<file id="lev-6" name="level6.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 6"/>
-		<file id="lev-7" name="level7.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 7"/>
-		<file id="lev-8" name="level8.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 8"/>
-		<file id="lev-9" name="level9.cat"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 9"/>
-		<file id="lev-a" name="level10.cat" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 10"/>
+		<file id="lev-1" name="level1.cat"  typeMajor="map" typeMinor="catacomb" title="Level 1">
+			<supp reftype="tileset1" ref="gfx-tiles-ega"/>
+		</file>
+		<file id="lev-2" name="level2.cat"  typeMajor="map" typeMinor="catacomb" title="Level 2">
+			<supp reftype="tileset1" ref="gfx-tiles-ega"/>
+		</file>
+		<file id="lev-3" name="level3.cat"  typeMajor="map" typeMinor="catacomb" title="Level 3">
+			<supp reftype="tileset1" ref="gfx-tiles-ega"/>
+		</file>
+		<file id="lev-4" name="level4.cat"  typeMajor="map" typeMinor="catacomb" title="Level 4">
+			<supp reftype="tileset1" ref="gfx-tiles-ega"/>
+		</file>
+		<file id="lev-5" name="level5.cat"  typeMajor="map" typeMinor="catacomb" title="Level 5">
+			<supp reftype="tileset1" ref="gfx-tiles-ega"/>
+		</file>
+		<file id="lev-6" name="level6.cat"  typeMajor="map" typeMinor="catacomb" title="Level 6">
+			<supp reftype="tileset1" ref="gfx-tiles-ega"/>
+		</file>
+		<file id="lev-7" name="level7.cat"  typeMajor="map" typeMinor="catacomb" title="Level 7">
+			<supp reftype="tileset1" ref="gfx-tiles-ega"/>
+		</file>
+		<file id="lev-8" name="level8.cat"  typeMajor="map" typeMinor="catacomb" title="Level 8">
+			<supp reftype="tileset1" ref="gfx-tiles-ega"/>
+		</file>
+		<file id="lev-9" name="level9.cat"  typeMajor="map" typeMinor="catacomb" title="Level 9">
+			<supp reftype="tileset1" ref="gfx-tiles-ega"/>
+		</file>
+		<file id="lev-a" name="level10.cat" typeMajor="map" typeMinor="catacomb" title="Level 10">
+			<supp reftype="tileset1" ref="gfx-tiles-ega"/>
+		</file>
 
 		<file id="sfx"   name="sounds.cat"  typeMajor="sfx" typeMinor="catacomb" title="PC Speaker sounds"/>
 

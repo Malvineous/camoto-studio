@@ -5,7 +5,7 @@
 	http://www.shikadi.net/camoto
 	http://www.shikadi.net/moddingwiki/Rockford
   -->
-<game title="Rockford" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+<game title="Rockford">
 
 	<!-- Some miscellaneous information about the game this file describes -->
 	<info>

@@ -5,7 +5,7 @@
 	http://www.shikadi.net/camoto
 	http://www.shikadi.net/moddingwiki/Word_Rescue
   -->
-<game title="Word Rescue" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+<game title="Word Rescue">
 
 	<!-- Some miscellaneous information about the game this file describes -->
 	<info>
@@ -237,7 +237,7 @@
 			<file id="img-ui-114"    name="wr1.34"     typeMajor="image"   typeMinor="pcx-1b4p" title="Story 5"/>
 
 			<file id="tls-extra1"    name="static.wr"  typeMajor="tileset" typeMinor="wordresc-extra"
-				supp:extra1="img-font-1" title="Virtual tileset"/>
+				title="Virtual tileset"/>
 		</archive>
 
 		<archive name="wr1.2" id="arch-wr1-2" typeMinor="pcxlib">
@@ -359,7 +359,11 @@
 		<file id="mus-302"   name="wr3.5"    typeMajor="music" typeMinor="cmf-creativelabs" title="E3 Song 2"/>
 		<file id="mus-303"   name="wr3.6"    typeMajor="music" typeMinor="cmf-creativelabs" title="E3 Song 3"/>
 
-		<file id="lev-101"   name="wr1.s0"   typeMajor="map"   typeMinor="wordresc" supp:tiles="tls-103" supp:tiles2="tls-extra1" title="Level 1 - Main Street: Gruzzleville"/>
+		<file id="lev-101"   name="wr1.s0"   typeMajor="map"   typeMinor="wordresc" title="Level 1 - Main Street: Gruzzleville">
+			<dep reftype="tileset1" ref="tls-103"/>
+			<dep reftype="tileset2" ref="tls-static"/>
+			<dep reftype="tileset3" ref="tls-bigfont"/>
+		</file>
 		<file id="lev-102"   name="wr1.s1"   typeMajor="map"   typeMinor="wordresc" title="Level 2 - Gruzzleville Waterworks"/>
 		<file id="lev-103"   name="wr1.s2"   typeMajor="map"   typeMinor="wordresc" title="Level 3 - Rock Climbing"/>
 		<file id="lev-104"   name="wr1.s3"   typeMajor="map"   typeMinor="wordresc" title="Level 4 - Castle MacGruzzle: Entrance"/>

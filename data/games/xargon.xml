@@ -5,7 +5,7 @@
 	http://www.shikadi.net/camoto
 	http://www.shikadi.net/moddingwiki/Xargon
   -->
-<game title="Xargon" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+<game title="Xargon">
 
 	<!-- Some miscellaneous information about the game this file describes -->
 	<info>
@@ -168,78 +168,208 @@
 	</display>
 
 	<files>
-		<file id="lev-100"  name="map.xr1"      typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Overhead map"/>
-		<file id="lev-101"  name="board_01.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 1 - This Bizarre World"/>
-		<file id="lev-102"  name="board_02.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 2 - A Strange New Dimension"/>
-		<file id="lev-103"  name="board_03.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 3 - The Forest of Enchanted Trees"/>
-		<file id="lev-104"  name="board_04.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 4 - Robot Development Plant"/>
-		<file id="lev-105"  name="board_05.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 5 - Corridors of Doom"/>
-		<file id="lev-106"  name="board_06.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 6 - Cave of the Ancients"/>
-		<file id="lev-107"  name="board_07.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 7 - Corkscrew Cave"/>
-		<file id="lev-108"  name="board_08.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 8 - Coral Cave"/>
-		<file id="lev-109"  name="board_09.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 9 - Tunnels of Terror"/>
-		<file id="lev-110"  name="board_10.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 10 - Xargon's Secret Factory"/>
-		<file id="lev-132"  name="board_32.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 32 - Xargon's Reactor"/>
-		<file id="lev-133"  name="board_33.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 33 - Ending sequence"/>
-		<file id="lev-1in"  name="intro.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Demo Introduction and main menu background"/>
-		<file id="lev-1d1"  name="demo1.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Demo Level 1"/>
-		<file id="lev-1d2"  name="demo2.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Demo Level 2"/>
-		<file id="lev-1d3"  name="demo3.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Demo Level 3"/>
-		<file id="lev-1st"  name="story.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Story"/>
+		<file id="lev-100"  name="map.xr1"      typeMajor="map" typeMinor="xargon" title="Overhead map">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-101"  name="board_01.xr1" typeMajor="map" typeMinor="xargon" title="Level 1 - This Bizarre World">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-102"  name="board_02.xr1" typeMajor="map" typeMinor="xargon" title="Level 2 - A Strange New Dimension">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-103"  name="board_03.xr1" typeMajor="map" typeMinor="xargon" title="Level 3 - The Forest of Enchanted Trees">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-104"  name="board_04.xr1" typeMajor="map" typeMinor="xargon" title="Level 4 - Robot Development Plant">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-105"  name="board_05.xr1" typeMajor="map" typeMinor="xargon" title="Level 5 - Corridors of Doom">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-106"  name="board_06.xr1" typeMajor="map" typeMinor="xargon" title="Level 6 - Cave of the Ancients">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-107"  name="board_07.xr1" typeMajor="map" typeMinor="xargon" title="Level 7 - Corkscrew Cave">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-108"  name="board_08.xr1" typeMajor="map" typeMinor="xargon" title="Level 8 - Coral Cave">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-109"  name="board_09.xr1" typeMajor="map" typeMinor="xargon" title="Level 9 - Tunnels of Terror">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-110"  name="board_10.xr1" typeMajor="map" typeMinor="xargon" title="Level 10 - Xargon's Secret Factory">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-132"  name="board_32.xr1" typeMajor="map" typeMinor="xargon" title="Level 32 - Xargon's Reactor">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-133"  name="board_33.xr1" typeMajor="map" typeMinor="xargon" title="Level 33 - Ending sequence">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-1in"  name="intro.xr1"    typeMajor="map" typeMinor="xargon" title="Demo Introduction and main menu background">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-1d1"  name="demo1.xr1"    typeMajor="map" typeMinor="xargon" title="Demo Level 1">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-1d2"  name="demo2.xr1"    typeMajor="map" typeMinor="xargon" title="Demo Level 2">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-1d3"  name="demo3.xr1"    typeMajor="map" typeMinor="xargon" title="Demo Level 3">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
+		<file id="lev-1st"  name="story.xr1"    typeMajor="map" typeMinor="xargon" title="Story">
+			<supp reftype="tileset1" ref="tls-1"/>
+		</file>
 
-		<file id="lev-200"  name="map.xr2"      typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Overhead map"/>
-		<file id="lev-201"  name="board_01.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 1 - Xargon's Castle"/>
-		<file id="lev-202"  name="board_02.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 2 - Massive Volcano"/>
-		<file id="lev-203"  name="board_03.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 3 - Strange Land"/>
-		<file id="lev-204"  name="board_04.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 4 - Deadly Xbat"/>
-		<file id="lev-205"  name="board_05.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 5 - Alien Creatures"/>
-		<file id="lev-206"  name="board_06.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 6 - Swamps of Despair"/>
-		<file id="lev-207"  name="board_07.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 7 - The Lava Pits"/>
-		<file id="lev-208"  name="board_08.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 8 - Surreal Forest"/>
-		<file id="lev-209"  name="board_09.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 9 - Beneath the Earth"/>
-		<file id="lev-210"  name="board_10.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 10 - Grunt's Hideout"/>
-		<file id="lev-211"  name="board_11.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 11 - Dangerous Waters"/>
-		<file id="lev-212"  name="board_12.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 12 - Ancient Ruins"/>
-		<file id="lev-213"  name="board_13.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 13 - Mysterious Maze"/>
-		<file id="lev-214"  name="board_14.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 14 - Hidden Fortress"/>
-		<file id="lev-215"  name="board_15.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 15 - Secret Chamber"/>
-		<file id="lev-232"  name="board_32.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 33 - Ending sequence"/>
-		<file id="lev-2in"  name="intro.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Demo Introduction and main menu background"/>
-		<file id="lev-2d1"  name="demo1.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Demo Level 1"/>
-		<file id="lev-2d2"  name="demo2.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Demo Level 2"/>
-		<file id="lev-2d3"  name="demo3.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Demo Level 3"/>
-		<file id="lev-2st"  name="story.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Story"/>
+		<file id="lev-200"  name="map.xr2"      typeMajor="map" typeMinor="xargon" title="Overhead map">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-201"  name="board_01.xr2" typeMajor="map" typeMinor="xargon" title="Level 1 - Xargon's Castle">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-202"  name="board_02.xr2" typeMajor="map" typeMinor="xargon" title="Level 2 - Massive Volcano">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-203"  name="board_03.xr2" typeMajor="map" typeMinor="xargon" title="Level 3 - Strange Land">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-204"  name="board_04.xr2" typeMajor="map" typeMinor="xargon" title="Level 4 - Deadly Xbat">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-205"  name="board_05.xr2" typeMajor="map" typeMinor="xargon" title="Level 5 - Alien Creatures">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-206"  name="board_06.xr2" typeMajor="map" typeMinor="xargon" title="Level 6 - Swamps of Despair">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-207"  name="board_07.xr2" typeMajor="map" typeMinor="xargon" title="Level 7 - The Lava Pits">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-208"  name="board_08.xr2" typeMajor="map" typeMinor="xargon" title="Level 8 - Surreal Forest">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-209"  name="board_09.xr2" typeMajor="map" typeMinor="xargon" title="Level 9 - Beneath the Earth">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-210"  name="board_10.xr2" typeMajor="map" typeMinor="xargon" title="Level 10 - Grunt's Hideout">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-211"  name="board_11.xr2" typeMajor="map" typeMinor="xargon" title="Level 11 - Dangerous Waters">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-212"  name="board_12.xr2" typeMajor="map" typeMinor="xargon" title="Level 12 - Ancient Ruins">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-213"  name="board_13.xr2" typeMajor="map" typeMinor="xargon" title="Level 13 - Mysterious Maze">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-214"  name="board_14.xr2" typeMajor="map" typeMinor="xargon" title="Level 14 - Hidden Fortress">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-215"  name="board_15.xr2" typeMajor="map" typeMinor="xargon" title="Level 15 - Secret Chamber">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-232"  name="board_32.xr2" typeMajor="map" typeMinor="xargon" title="Level 33 - Ending sequence">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-2in"  name="intro.xr2"    typeMajor="map" typeMinor="xargon" title="Demo Introduction and main menu background">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-2d1"  name="demo1.xr2"    typeMajor="map" typeMinor="xargon" title="Demo Level 1">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-2d2"  name="demo2.xr2"    typeMajor="map" typeMinor="xargon" title="Demo Level 2">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-2d3"  name="demo3.xr2"    typeMajor="map" typeMinor="xargon" title="Demo Level 3">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
+		<file id="lev-2st"  name="story.xr2"    typeMajor="map" typeMinor="xargon" title="Story">
+			<supp reftype="tileset1" ref="tls-2"/>
+		</file>
 
-		<file id="lev-300"  name="map.xr3"      typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Overhead map"/>
-		<file id="lev-301"  name="board_01.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 1 - Xargon's Castle"/>
-		<file id="lev-302"  name="board_02.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 2 - Massive Volcano"/>
-		<file id="lev-303"  name="board_03.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 3 - Strange Land"/>
-		<file id="lev-304"  name="board_04.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 4 - Deadly Xbat"/>
-		<file id="lev-305"  name="board_05.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 5 - Alien Creatures"/>
-		<file id="lev-306"  name="board_06.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 6 - Swamps of Despair"/>
-		<file id="lev-307"  name="board_07.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 7 - The Lava Pits"/>
-		<file id="lev-308"  name="board_08.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 8 - Surreal Forest"/>
-		<file id="lev-309"  name="board_09.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 9 - Beneath the Earth"/>
-		<file id="lev-310"  name="board_10.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 10 - Grunt's Hideout"/>
-		<file id="lev-311"  name="board_11.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 11 - Dangerous Waters"/>
-		<file id="lev-312"  name="board_12.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 12 - Ancient Ruins"/>
-		<file id="lev-313"  name="board_13.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 13 - Mysterious Maze"/>
-		<file id="lev-314"  name="board_14.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 14 - Hidden Fortress"/>
-		<file id="lev-315"  name="board_15.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 15 - Secret Chamber"/>
-		<file id="lev-332"  name="board_32.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 33 - Ending sequence"/>
-		<file id="lev-3in"  name="intro.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Demo Introduction and main menu background"/>
-		<file id="lev-3d1"  name="demo1.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Demo Level 1"/>
-		<file id="lev-3d2"  name="demo2.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Demo Level 2"/>
-		<file id="lev-3d3"  name="demo3.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Demo Level 3"/>
-		<file id="lev-3st"  name="story.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Story"/>
+		<file id="lev-300"  name="map.xr3"      typeMajor="map" typeMinor="xargon" title="Overhead map">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-301"  name="board_01.xr3" typeMajor="map" typeMinor="xargon" title="Level 1 - Xargon's Castle">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-302"  name="board_02.xr3" typeMajor="map" typeMinor="xargon" title="Level 2 - Massive Volcano">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-303"  name="board_03.xr3" typeMajor="map" typeMinor="xargon" title="Level 3 - Strange Land">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-304"  name="board_04.xr3" typeMajor="map" typeMinor="xargon" title="Level 4 - Deadly Xbat">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-305"  name="board_05.xr3" typeMajor="map" typeMinor="xargon" title="Level 5 - Alien Creatures">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-306"  name="board_06.xr3" typeMajor="map" typeMinor="xargon" title="Level 6 - Swamps of Despair">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-307"  name="board_07.xr3" typeMajor="map" typeMinor="xargon" title="Level 7 - The Lava Pits">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-308"  name="board_08.xr3" typeMajor="map" typeMinor="xargon" title="Level 8 - Surreal Forest">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-309"  name="board_09.xr3" typeMajor="map" typeMinor="xargon" title="Level 9 - Beneath the Earth">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-310"  name="board_10.xr3" typeMajor="map" typeMinor="xargon" title="Level 10 - Grunt's Hideout">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-311"  name="board_11.xr3" typeMajor="map" typeMinor="xargon" title="Level 11 - Dangerous Waters">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-312"  name="board_12.xr3" typeMajor="map" typeMinor="xargon" title="Level 12 - Ancient Ruins">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-313"  name="board_13.xr3" typeMajor="map" typeMinor="xargon" title="Level 13 - Mysterious Maze">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-314"  name="board_14.xr3" typeMajor="map" typeMinor="xargon" title="Level 14 - Hidden Fortress">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-315"  name="board_15.xr3" typeMajor="map" typeMinor="xargon" title="Level 15 - Secret Chamber">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-332"  name="board_32.xr3" typeMajor="map" typeMinor="xargon" title="Level 33 - Ending sequence">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-3in"  name="intro.xr3"    typeMajor="map" typeMinor="xargon" title="Demo Introduction and main menu background">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-3d1"  name="demo1.xr3"    typeMajor="map" typeMinor="xargon" title="Demo Level 1">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-3d2"  name="demo2.xr3"    typeMajor="map" typeMinor="xargon" title="Demo Level 2">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-3d3"  name="demo3.xr3"    typeMajor="map" typeMinor="xargon" title="Demo Level 3">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
+		<file id="lev-3st"  name="story.xr3"    typeMajor="map" typeMinor="xargon" title="Story">
+			<supp reftype="tileset1" ref="tls-3"/>
+		</file>
 
-		<file id="tls-1"    name="graphics.xr1" typeMajor="tileset" typeMinor="jill" supp:extra1="dma-1" title="Game graphics"/>
+		<file id="tls-1"    name="graphics.xr1" typeMajor="tileset" typeMinor="jill" title="Game graphics">
+			<supp reftype="tileset1" ref="dma-1"/>
+		</file>
 		<file id="dma-1"    name="tiles.xr1" title="Tile properties"/>
 
-		<file id="tls-2"    name="graphics.xr2" typeMajor="tileset" typeMinor="jill" supp:extra1="dma-1" title="Game graphics"/>
+		<file id="tls-2"    name="graphics.xr2" typeMajor="tileset" typeMinor="jill" title="Game graphics">
+			<supp reftype="tileset1" ref="dma-1"/>
+		</file>
 		<file id="dma-2"    name="tiles.xr2" title="Tile properties"/>
 
-		<file id="tls-3"    name="graphics.xr3" typeMajor="tileset" typeMinor="jill" supp:extra1="dma-1" title="Game graphics"/>
+		<file id="tls-3"    name="graphics.xr3" typeMajor="tileset" typeMinor="jill" title="Game graphics">
+			<supp reftype="tileset1" ref="dma-1"/>
+		</file>
 		<file id="dma-3"    name="tiles.xr3" title="Tile properties"/>
 
 		<file id="mus-100"  name="song_0.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Theme song"/>

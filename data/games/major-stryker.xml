@@ -5,7 +5,7 @@
 	http://www.shikadi.net/camoto
 	http://www.shikadi.net/moddingwiki/Major_Stryker
   -->
-<game title="Major Stryker" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+<game title="Major Stryker">
 
 	<!-- Some miscellaneous information about the game this file describes -->
 	<info>
@@ -118,7 +118,11 @@
 		</archive>
 
 		<archive name="volume1b.ms1" id="arch-vol1b" typeMinor="vol-cosmo">
-			<file id="lev-101" name="worldal1.dr1" typeMajor="map" typeMinor="stryker" supp:tiles="gfx-tiles-101" supp:sprites="gfx-masked-101" supp:actors="gfx-actors-101" title="Level 1"/>
+			<file id="lev-101" name="worldal1.dr1" typeMajor="map" typeMinor="stryker" title="Level 1">
+				<supp reftype="tileset1" ref="gfx-tiles-101"/>
+				<supp reftype="sprites"  ref="gfx-masked-101"/>
+				<supp reftype="actors"   ref="gfx-actors-101"/>
+			</file>
 
 			<file id="img-mission-1" name="mission.dr1" typeMajor="image" typeMinor="ega-raw-planar-fullscreen" title="Mission"/>
 

@@ -5,7 +5,7 @@
 	http://www.shikadi.net/camoto
 	http://www.shikadi.net/moddingwiki/Hocus_Pocus
   -->
-<game title="Hocus Pocus" xmlns:supp="http://www.shikadi.net/camoto/xml/supp">
+<game title="Hocus Pocus">
 
 	<!-- Some miscellaneous information about the game this file describes -->
 	<info>
@@ -139,47 +139,192 @@
 
 	<files>
 		<file id="exe-hocus" name="hocus.exe" typeMajor="binary" typeMinor="exe" title="Main EXE file"/>
-		<archive name="hocus.dat" id="arch-hocus-dat" typeMinor="dat-hocus" supp:fat="exe-hocus">
+		<archive name="hocus.dat" id="arch-hocus-dat" typeMinor="dat-hocus">
+			<supp reftype="fat" ref="exe-hocus"/>
 
-			<file id="lev-101" name="@455" typeMajor="map" typeMinor="hocus" supp:layer1="lev-101-fg1" supp:layer2="lev-101-fg2" supp:tiles="tls-01" title="E1L1"/>
-			<file id="lev-102" name="@456" typeMajor="map" typeMinor="hocus" supp:layer1="lev-102-fg1" supp:layer2="lev-102-fg2" supp:tiles="tls-01" title="E1L2"/>
-			<file id="lev-103" name="@457" typeMajor="map" typeMinor="hocus" supp:layer1="lev-103-fg1" supp:layer2="lev-103-fg2" supp:tiles="tls-02" title="E1L3"/>
-			<file id="lev-104" name="@458" typeMajor="map" typeMinor="hocus" supp:layer1="lev-104-fg1" supp:layer2="lev-104-fg2" supp:tiles="tls-02" title="E1L4"/>
-			<file id="lev-105" name="@459" typeMajor="map" typeMinor="hocus" supp:layer1="lev-105-fg1" supp:layer2="lev-105-fg2" supp:tiles="tls-03" title="E1L5"/>
-			<file id="lev-106" name="@460" typeMajor="map" typeMinor="hocus" supp:layer1="lev-106-fg1" supp:layer2="lev-106-fg2" supp:tiles="tls-03" title="E1L6"/>
-			<file id="lev-107" name="@461" typeMajor="map" typeMinor="hocus" supp:layer1="lev-107-fg1" supp:layer2="lev-107-fg2" supp:tiles="tls-04" title="E1L7"/>
-			<file id="lev-108" name="@462" typeMajor="map" typeMinor="hocus" supp:layer1="lev-108-fg1" supp:layer2="lev-108-fg2" supp:tiles="tls-04" title="E1L8"/>
-			<file id="lev-109" name="@463" typeMajor="map" typeMinor="hocus" supp:layer1="lev-109-fg1" supp:layer2="lev-109-fg2" supp:tiles="tls-04" title="E1L9"/>
+			<file id="lev-101" name="@455" typeMajor="map" typeMinor="hocus" title="E1L1">
+				<supp reftype="layer1" ref="lev-101-fg1"/>
+				<supp reftype="layer2" ref="lev-101-fg2"/>
+				<supp reftype="tileset1" ref="tls-01"/>
+			</file>
+			<file id="lev-102" name="@456" typeMajor="map" typeMinor="hocus" title="E1L2">
+				<supp reftype="layer1" ref="lev-102-fg1"/>
+				<supp reftype="layer2" ref="lev-102-fg2"/>
+				<supp reftype="tileset1" ref="tls-01"/>
+			</file>
+			<file id="lev-103" name="@457" typeMajor="map" typeMinor="hocus" title="E1L3">
+				<supp reftype="layer1" ref="lev-103-fg1"/>
+				<supp reftype="layer2" ref="lev-103-fg2"/>
+				<supp reftype="tileset1" ref="tls-02"/>
+			</file>
+			<file id="lev-104" name="@458" typeMajor="map" typeMinor="hocus" title="E1L4">
+				<supp reftype="layer1" ref="lev-104-fg1"/>
+				<supp reftype="layer2" ref="lev-104-fg2"/>
+				<supp reftype="tileset1" ref="tls-02"/>
+			</file>
+			<file id="lev-105" name="@459" typeMajor="map" typeMinor="hocus" title="E1L5">
+				<supp reftype="layer1" ref="lev-105-fg1"/>
+				<supp reftype="layer2" ref="lev-105-fg2"/>
+				<supp reftype="tileset1" ref="tls-03"/>
+			</file>
+			<file id="lev-106" name="@460" typeMajor="map" typeMinor="hocus" title="E1L6">
+				<supp reftype="layer1" ref="lev-106-fg1"/>
+				<supp reftype="layer2" ref="lev-106-fg2"/>
+				<supp reftype="tileset1" ref="tls-03"/>
+			</file>
+			<file id="lev-107" name="@461" typeMajor="map" typeMinor="hocus" title="E1L7">
+				<supp reftype="layer1" ref="lev-107-fg1"/>
+				<supp reftype="layer2" ref="lev-107-fg2"/>
+				<supp reftype="tileset1" ref="tls-04"/>
+			</file>
+			<file id="lev-108" name="@462" typeMajor="map" typeMinor="hocus" title="E1L8">
+				<supp reftype="layer1" ref="lev-108-fg1"/>
+				<supp reftype="layer2" ref="lev-108-fg2"/>
+				<supp reftype="tileset1" ref="tls-04"/>
+			</file>
+			<file id="lev-109" name="@463" typeMajor="map" typeMinor="hocus" title="E1L9">
+				<supp reftype="layer1" ref="lev-109-fg1"/>
+				<supp reftype="layer2" ref="lev-109-fg2"/>
+				<supp reftype="tileset1" ref="tls-04"/>
+			</file>
 
-			<file id="lev-201" name="@464" typeMajor="map" typeMinor="hocus" supp:layer1="lev-201-fg1" supp:layer2="lev-201-fg2" supp:tiles="tls-05" title="E2L1"/>
-			<file id="lev-202" name="@465" typeMajor="map" typeMinor="hocus" supp:layer1="lev-202-fg1" supp:layer2="lev-202-fg2" supp:tiles="tls-05" title="E2L2"/>
-			<file id="lev-203" name="@466" typeMajor="map" typeMinor="hocus" supp:layer1="lev-203-fg1" supp:layer2="lev-203-fg2" supp:tiles="tls-06" title="E2L3"/>
-			<file id="lev-204" name="@467" typeMajor="map" typeMinor="hocus" supp:layer1="lev-204-fg1" supp:layer2="lev-204-fg2" supp:tiles="tls-06" title="E2L4"/>
-			<file id="lev-205" name="@468" typeMajor="map" typeMinor="hocus" supp:layer1="lev-205-fg1" supp:layer2="lev-205-fg2" supp:tiles="tls-07" title="E2L5"/>
-			<file id="lev-206" name="@469" typeMajor="map" typeMinor="hocus" supp:layer1="lev-206-fg1" supp:layer2="lev-206-fg2" supp:tiles="tls-07" title="E2L6"/>
-			<file id="lev-207" name="@470" typeMajor="map" typeMinor="hocus" supp:layer1="lev-207-fg1" supp:layer2="lev-207-fg2" supp:tiles="tls-08" title="E2L7"/>
-			<file id="lev-208" name="@471" typeMajor="map" typeMinor="hocus" supp:layer1="lev-208-fg1" supp:layer2="lev-208-fg2" supp:tiles="tls-08" title="E2L8"/>
-			<file id="lev-209" name="@472" typeMajor="map" typeMinor="hocus" supp:layer1="lev-209-fg1" supp:layer2="lev-209-fg2" supp:tiles="tls-08" title="E2L9"/>
+			<file id="lev-201" name="@464" typeMajor="map" typeMinor="hocus" title="E2L1">
+				<supp reftype="layer1" ref="lev-201-fg1"/>
+				<supp reftype="layer2" ref="lev-201-fg2"/>
+				<supp reftype="tileset1" ref="tls-05"/>
+			</file>
+			<file id="lev-202" name="@465" typeMajor="map" typeMinor="hocus" title="E2L2">
+				<supp reftype="layer1" ref="lev-202-fg1"/>
+				<supp reftype="layer2" ref="lev-202-fg2"/>
+				<supp reftype="tileset1" ref="tls-05"/>
+			</file>
+			<file id="lev-203" name="@466" typeMajor="map" typeMinor="hocus" title="E2L3">
+				<supp reftype="layer1" ref="lev-203-fg1"/>
+				<supp reftype="layer2" ref="lev-203-fg2"/>
+				<supp reftype="tileset1" ref="tls-06"/>
+			</file>
+			<file id="lev-204" name="@467" typeMajor="map" typeMinor="hocus" title="E2L4">
+				<supp reftype="layer1" ref="lev-204-fg1"/>
+				<supp reftype="layer2" ref="lev-204-fg2"/>
+				<supp reftype="tileset1" ref="tls-06"/>
+			</file>
+			<file id="lev-205" name="@468" typeMajor="map" typeMinor="hocus" title="E2L5">
+				<supp reftype="layer1" ref="lev-205-fg1"/>
+				<supp reftype="layer2" ref="lev-205-fg2"/>
+				<supp reftype="tileset1" ref="tls-07"/>
+			</file>
+			<file id="lev-206" name="@469" typeMajor="map" typeMinor="hocus" title="E2L6">
+				<supp reftype="layer1" ref="lev-206-fg1"/>
+				<supp reftype="layer2" ref="lev-206-fg2"/>
+				<supp reftype="tileset1" ref="tls-07"/>
+			</file>
+			<file id="lev-207" name="@470" typeMajor="map" typeMinor="hocus" title="E2L7">
+				<supp reftype="layer1" ref="lev-207-fg1"/>
+				<supp reftype="layer2" ref="lev-207-fg2"/>
+				<supp reftype="tileset1" ref="tls-08"/>
+			</file>
+			<file id="lev-208" name="@471" typeMajor="map" typeMinor="hocus" title="E2L8">
+				<supp reftype="layer1" ref="lev-208-fg1"/>
+				<supp reftype="layer2" ref="lev-208-fg2"/>
+				<supp reftype="tileset1" ref="tls-08"/>
+			</file>
+			<file id="lev-209" name="@472" typeMajor="map" typeMinor="hocus" title="E2L9">
+				<supp reftype="layer1" ref="lev-209-fg1"/>
+				<supp reftype="layer2" ref="lev-209-fg2"/>
+				<supp reftype="tileset1" ref="tls-08"/>
+			</file>
 
-			<file id="lev-301" name="@473" typeMajor="map" typeMinor="hocus" supp:layer1="lev-301-fg1" supp:layer2="lev-301-fg2" supp:tiles="tls-09" title="E3L1"/>
-			<file id="lev-302" name="@474" typeMajor="map" typeMinor="hocus" supp:layer1="lev-302-fg1" supp:layer2="lev-302-fg2" supp:tiles="tls-09" title="E3L2"/>
-			<file id="lev-303" name="@475" typeMajor="map" typeMinor="hocus" supp:layer1="lev-303-fg1" supp:layer2="lev-303-fg2" supp:tiles="tls-10" title="E3L3"/>
-			<file id="lev-304" name="@476" typeMajor="map" typeMinor="hocus" supp:layer1="lev-304-fg1" supp:layer2="lev-304-fg2" supp:tiles="tls-10" title="E3L4"/>
-			<file id="lev-305" name="@477" typeMajor="map" typeMinor="hocus" supp:layer1="lev-305-fg1" supp:layer2="lev-305-fg2" supp:tiles="tls-11" title="E3L5"/>
-			<file id="lev-306" name="@478" typeMajor="map" typeMinor="hocus" supp:layer1="lev-306-fg1" supp:layer2="lev-306-fg2" supp:tiles="tls-11" title="E3L6"/>
-			<file id="lev-307" name="@479" typeMajor="map" typeMinor="hocus" supp:layer1="lev-307-fg1" supp:layer2="lev-307-fg2" supp:tiles="tls-12" title="E3L7"/>
-			<file id="lev-308" name="@480" typeMajor="map" typeMinor="hocus" supp:layer1="lev-308-fg1" supp:layer2="lev-308-fg2" supp:tiles="tls-12" title="E3L8"/>
-			<file id="lev-309" name="@481" typeMajor="map" typeMinor="hocus" supp:layer1="lev-309-fg1" supp:layer2="lev-309-fg2" supp:tiles="tls-12" title="E3L9"/>
+			<file id="lev-301" name="@473" typeMajor="map" typeMinor="hocus" title="E3L1">
+				<supp reftype="layer1" ref="lev-301-fg1"/>
+				<supp reftype="layer2" ref="lev-301-fg2"/>
+				<supp reftype="tileset1" ref="tls-09"/>
+			</file>
+			<file id="lev-302" name="@474" typeMajor="map" typeMinor="hocus" title="E3L2">
+				<supp reftype="layer1" ref="lev-302-fg1"/>
+				<supp reftype="layer2" ref="lev-302-fg2"/>
+				<supp reftype="tileset1" ref="tls-09"/>
+			</file>
+			<file id="lev-303" name="@475" typeMajor="map" typeMinor="hocus" title="E3L3">
+				<supp reftype="layer1" ref="lev-303-fg1"/>
+				<supp reftype="layer2" ref="lev-303-fg2"/>
+				<supp reftype="tileset1" ref="tls-10"/>
+			</file>
+			<file id="lev-304" name="@476" typeMajor="map" typeMinor="hocus" title="E3L4">
+				<supp reftype="layer1" ref="lev-304-fg1"/>
+				<supp reftype="layer2" ref="lev-304-fg2"/>
+				<supp reftype="tileset1" ref="tls-10"/>
+			</file>
+			<file id="lev-305" name="@477" typeMajor="map" typeMinor="hocus" title="E3L5">
+				<supp reftype="layer1" ref="lev-305-fg1"/>
+				<supp reftype="layer2" ref="lev-305-fg2"/>
+				<supp reftype="tileset1" ref="tls-11"/>
+			</file>
+			<file id="lev-306" name="@478" typeMajor="map" typeMinor="hocus" title="E3L6">
+				<supp reftype="layer1" ref="lev-306-fg1"/>
+				<supp reftype="layer2" ref="lev-306-fg2"/>
+				<supp reftype="tileset1" ref="tls-11"/>
+			</file>
+			<file id="lev-307" name="@479" typeMajor="map" typeMinor="hocus" title="E3L7">
+				<supp reftype="layer1" ref="lev-307-fg1"/>
+				<supp reftype="layer2" ref="lev-307-fg2"/>
+				<supp reftype="tileset1" ref="tls-12"/>
+			</file>
+			<file id="lev-308" name="@480" typeMajor="map" typeMinor="hocus" title="E3L8">
+				<supp reftype="layer1" ref="lev-308-fg1"/>
+				<supp reftype="layer2" ref="lev-308-fg2"/>
+				<supp reftype="tileset1" ref="tls-12"/>
+			</file>
+			<file id="lev-309" name="@481" typeMajor="map" typeMinor="hocus" title="E3L9">
+				<supp reftype="layer1" ref="lev-309-fg1"/>
+				<supp reftype="layer2" ref="lev-309-fg2"/>
+				<supp reftype="tileset1" ref="tls-12"/>
+			</file>
 
-			<file id="lev-401" name="@482" typeMajor="map" typeMinor="hocus" supp:layer1="lev-401-fg1" supp:layer2="lev-401-fg2" supp:tiles="tls-13" title="E4L1"/>
-			<file id="lev-402" name="@483" typeMajor="map" typeMinor="hocus" supp:layer1="lev-402-fg1" supp:layer2="lev-402-fg2" supp:tiles="tls-13" title="E4L2"/>
-			<file id="lev-403" name="@484" typeMajor="map" typeMinor="hocus" supp:layer1="lev-403-fg1" supp:layer2="lev-403-fg2" supp:tiles="tls-14" title="E4L3"/>
-			<file id="lev-404" name="@485" typeMajor="map" typeMinor="hocus" supp:layer1="lev-404-fg1" supp:layer2="lev-404-fg2" supp:tiles="tls-14" title="E4L4"/>
-			<file id="lev-405" name="@486" typeMajor="map" typeMinor="hocus" supp:layer1="lev-405-fg1" supp:layer2="lev-405-fg2" supp:tiles="tls-15" title="E4L5"/>
-			<file id="lev-406" name="@487" typeMajor="map" typeMinor="hocus" supp:layer1="lev-406-fg1" supp:layer2="lev-406-fg2" supp:tiles="tls-15" title="E4L6"/>
-			<file id="lev-407" name="@488" typeMajor="map" typeMinor="hocus" supp:layer1="lev-407-fg1" supp:layer2="lev-407-fg2" supp:tiles="tls-16" title="E4L7"/>
-			<file id="lev-408" name="@489" typeMajor="map" typeMinor="hocus" supp:layer1="lev-408-fg1" supp:layer2="lev-408-fg2" supp:tiles="tls-16" title="E4L8"/>
-			<file id="lev-409" name="@490" typeMajor="map" typeMinor="hocus" supp:layer1="lev-409-fg1" supp:layer2="lev-409-fg2" supp:tiles="tls-16" title="E4L9"/>
+			<file id="lev-401" name="@482" typeMajor="map" typeMinor="hocus" title="E4L1">
+				<supp reftype="layer1" ref="lev-401-fg1"/>
+				<supp reftype="layer2" ref="lev-401-fg2"/>
+				<supp reftype="tileset1" ref="tls-13"/>
+			</file>
+			<file id="lev-402" name="@483" typeMajor="map" typeMinor="hocus" title="E4L2">
+				<supp reftype="layer1" ref="lev-402-fg1"/>
+				<supp reftype="layer2" ref="lev-402-fg2"/>
+				<supp reftype="tileset1" ref="tls-13"/>
+			</file>
+			<file id="lev-403" name="@484" typeMajor="map" typeMinor="hocus" title="E4L3">
+				<supp reftype="layer1" ref="lev-403-fg1"/>
+				<supp reftype="layer2" ref="lev-403-fg2"/>
+				<supp reftype="tileset1" ref="tls-14"/>
+			</file>
+			<file id="lev-404" name="@485" typeMajor="map" typeMinor="hocus" title="E4L4">
+				<supp reftype="layer1" ref="lev-404-fg1"/>
+				<supp reftype="layer2" ref="lev-404-fg2"/>
+				<supp reftype="tileset1" ref="tls-14"/>
+			</file>
+			<file id="lev-405" name="@486" typeMajor="map" typeMinor="hocus" title="E4L5">
+				<supp reftype="layer1" ref="lev-405-fg1"/>
+				<supp reftype="layer2" ref="lev-405-fg2"/>
+				<supp reftype="tileset1" ref="tls-15"/>
+			</file>
+			<file id="lev-406" name="@487" typeMajor="map" typeMinor="hocus" title="E4L6">
+				<supp reftype="layer1" ref="lev-406-fg1"/>
+				<supp reftype="layer2" ref="lev-406-fg2"/>
+				<supp reftype="tileset1" ref="tls-15"/>
+			</file>
+			<file id="lev-407" name="@488" typeMajor="map" typeMinor="hocus" title="E4L7">
+				<supp reftype="layer1" ref="lev-407-fg1"/>
+				<supp reftype="layer2" ref="lev-407-fg2"/>
+				<supp reftype="tileset1" ref="tls-16"/>
+			</file>
+			<file id="lev-408" name="@489" typeMajor="map" typeMinor="hocus" title="E4L8">
+				<supp reftype="layer1" ref="lev-408-fg1"/>
+				<supp reftype="layer2" ref="lev-408-fg2"/>
+				<supp reftype="tileset1" ref="tls-16"/>
+			</file>
+			<file id="lev-409" name="@490" typeMajor="map" typeMinor="hocus" title="E4L9">
+				<supp reftype="layer1" ref="lev-409-fg1"/>
+				<supp reftype="layer2" ref="lev-409-fg2"/>
+				<supp reftype="tileset1" ref="tls-16"/>
+			</file>
 
 			<file id="lev-101-fg1" name="@491" typeMajor="map" typeMinor="hocus-fg" title="E1L1 FG layer 1"/>
 			<file id="lev-102-fg1" name="@492" typeMajor="map" typeMinor="hocus-fg" title="E1L2 FG layer 1"/>
