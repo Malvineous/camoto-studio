@@ -72,7 +72,7 @@ class CamotoApp: public wxApp
 			// Use the value given to the configure script by --datadir
 			::path.dataRoot = _T(DATA_PATH);
 #endif
-			std::cout << "[init] Data root is " << ::path.dataRoot << "\n";
+			std::cout << "[init] Data root is " << ::path.dataRoot.mb_str().data() << "\n";
 
 			next.AssignDir(::path.dataRoot);
 			next.AppendDir(_T("games"));

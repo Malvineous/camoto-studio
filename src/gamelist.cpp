@@ -28,9 +28,6 @@
 #include "main.hpp"
 #include "gamelist.hpp"
 
-#define XMLNS_SUPP  "http://www.shikadi.net/camoto/xml/supp"
-#define XMLNS_DEP  "http://www.shikadi.net/camoto/xml/dep"
-
 #define _X(a)  (const xmlChar *)(a)
 
 wxString dep2string(DepType t)
@@ -149,100 +146,162 @@ void populateDisplay(xmlNode *n, tree<wxString>& t)
 	return;
 }
 
+camoto::gamegraphics::TileList processTilesetChunk(xmlNode *i)
+{
+	camoto::gamegraphics::TileList tileList;
+
+	for (xmlNode *j = i->children; j; j = j->next) {
+		if (!xmlStrEqual(j->name, _X("image"))) continue;
+
+		camoto::gamegraphics::TilePos tp;
+		for (xmlAttr *a = j->properties; a; a = a->next) {
+			if (xmlStrcmp(a->name, _X("x")) == 0) {
+				xmlChar *val = xmlNodeGetContent(a->children);
+				tp.xOffset = strtod((const char *)val, NULL);
+				xmlFree(val);
+			} else if (xmlStrcmp(a->name, _X("y")) == 0) {
+				xmlChar *val = xmlNodeGetContent(a->children);
+				tp.yOffset = strtod((const char *)val, NULL);
+				xmlFree(val);
+			} else if (xmlStrcmp(a->name, _X("width")) == 0) {
+				xmlChar *val = xmlNodeGetContent(a->children);
+				tp.width = strtod((const char *)val, NULL);
+				xmlFree(val);
+			} else if (xmlStrcmp(a->name, _X("height")) == 0) {
+				xmlChar *val = xmlNodeGetContent(a->children);
+				tp.height = strtod((const char *)val, NULL);
+				xmlFree(val);
+			}
+		}
+		tileList.push_back(tp);
+	}
+	return tileList;
+}
+
 void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 {
 	for (xmlNode *j = i->children; j; j = j->next) {
-		if (xmlStrEqual(j->name, _X("file")) || xmlStrEqual(j->name, _X("archive"))) {
+		bool isFileTag = xmlStrEqual(j->name, _X("file"));
+		bool isArchiveTag = isFileTag ? false : xmlStrEqual(j->name, _X("archive"));
+		bool isTilesetTag = (isFileTag || isArchiveTag) ? false : xmlStrEqual(j->name, _X("tileset"));
+		if (isFileTag || isArchiveTag || isTilesetTag) {
 			GameObjectPtr o(new GameObject());
 			xmlChar *val = xmlNodeGetContent(j);
 			o->idParent = idParent;
 			xmlFree(val);
+			wxString strImage;
+			unsigned int layoutWidth = 0;
 			for (xmlAttr *a = j->properties; a; a = a->next) {
-				if ((a->ns) && (xmlStrcmp(a->ns->href, _X(XMLNS_SUPP)) == 0)) {
-					// Convert attribute name into SuppItem type
-					camoto::SuppItem::Type suppType;
-					     if (xmlStrcmp(a->name, _X("dictionary" )) == 0) suppType = camoto::SuppItem::Dictionary;
-					else if (xmlStrcmp(a->name, _X("fat"        )) == 0) suppType = camoto::SuppItem::FAT;
-					else if (xmlStrcmp(a->name, _X("palette"    )) == 0) suppType = camoto::SuppItem::Palette;
-					else if (xmlStrcmp(a->name, _X("instruments")) == 0) suppType = camoto::SuppItem::Instruments;
-					else if (xmlStrcmp(a->name, _X("layer1"     )) == 0) suppType = camoto::SuppItem::Layer1;
-					else if (xmlStrcmp(a->name, _X("layer2"     )) == 0) suppType = camoto::SuppItem::Layer2;
-					else if (xmlStrcmp(a->name, _X("extra1"     )) == 0) suppType = camoto::SuppItem::Extra1;
-					else if (xmlStrcmp(a->name, _X("extra2"     )) == 0) suppType = camoto::SuppItem::Extra2;
-					else if (xmlStrcmp(a->name, _X("extra3"     )) == 0) suppType = camoto::SuppItem::Extra3;
-					else if (xmlStrcmp(a->name, _X("extra4"     )) == 0) suppType = camoto::SuppItem::Extra4;
-					else if (xmlStrcmp(a->name, _X("extra5"     )) == 0) suppType = camoto::SuppItem::Extra5;
-					else {
-						std::cout << "[gamelist] Invalid supplementary type supp:"
-							<< a->name << std::endl;
-					}
-					xmlChar *val = xmlNodeGetContent(a->children);
-					o->supp[suppType] = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-					xmlFree(val);
-				} else if ((a->ns) && (xmlStrcmp(a->ns->href, _X(XMLNS_DEP)) == 0)) {
-					// Convert attribute name into DepType
-					DepType depType;
-					     if (xmlStrcmp(a->name, _X("tileset1")) == 0) depType = Tileset1;
-					else if (xmlStrcmp(a->name, _X("tileset2")) == 0) depType = Tileset2;
-					else if (xmlStrcmp(a->name, _X("tileset3")) == 0) depType = Tileset3;
-					else if (xmlStrcmp(a->name, _X("sprites" )) == 0) depType = Sprites;
-					else {
-						std::cout << "[gamelist] Invalid dependent object type dep:"
-							<< a->name << std::endl;
-					}
-					xmlChar *val = xmlNodeGetContent(a->children);
-					o->dep[depType] = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-					xmlFree(val);
-				} else if (xmlStrcmp(a->name, _X("id")) == 0) {
-					xmlChar *val = xmlNodeGetContent(a->children);
+				xmlChar *val = xmlNodeGetContent(a->children);
+				if (xmlStrcmp(a->name, _X("id")) == 0) {
 					o->id = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-					xmlFree(val);
 				} else if (xmlStrcmp(a->name, _X("title")) == 0) {
-					xmlChar *val = xmlNodeGetContent(a->children);
 					o->friendlyName = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-					xmlFree(val);
 				} else if (xmlStrcmp(a->name, _X("typeMajor")) == 0) {
-					xmlChar *val = xmlNodeGetContent(a->children);
 					o->typeMajor = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-					xmlFree(val);
 				} else if (xmlStrcmp(a->name, _X("typeMinor")) == 0) {
-					xmlChar *val = xmlNodeGetContent(a->children);
 					o->typeMinor = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-					xmlFree(val);
 				} else if (xmlStrcmp(a->name, _X("name")) == 0) {
-					xmlChar *val = xmlNodeGetContent(a->children);
 					o->filename = wxString::FromUTF8((const char *)val, xmlStrlen(val));
-					xmlFree(val);
 				} else if (xmlStrcmp(a->name, _X("offset")) == 0) {
-					xmlChar *val = xmlNodeGetContent(a->children);
 					o->offset = strtod((const char *)val, NULL);
-					xmlFree(val);
 				} else if (xmlStrcmp(a->name, _X("size")) == 0) {
-					xmlChar *val = xmlNodeGetContent(a->children);
 					o->size = strtod((const char *)val, NULL);
-					xmlFree(val);
+				} else if (xmlStrcmp(a->name, _X("image")) == 0) {
+					strImage = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+				} else if (xmlStrcmp(a->name, _X("layoutWidth")) == 0) {
+					layoutWidth = strtod((const char *)val, NULL);
 				}
+				xmlFree(val);
 			}
 
-			if (xmlStrEqual(j->name, _X("archive"))) {
+			bool missingImage = false;
+			if (isArchiveTag) {
 				o->typeMajor = _T("archive");
 				o->friendlyName = o->filename;
 				processFilesChunk(g, j, o->id);
+			} else if (isTilesetTag) {
+				o->typeMajor = _T("tileset");
+				o->typeMinor = _T(TILESETTYPE_MINOR_FROMIMG);
+				TilesetInfo tsi;
+				tsi.idImage = strImage;
+				tsi.layoutWidth = layoutWidth;
+				tsi.tileList = processTilesetChunk(j);
+				g->tilesets[o->id] = tsi;
+				missingImage = strImage.IsEmpty();
 			}
 
-			if (!o->id.IsEmpty()) {
-				if (o->typeMajor.IsEmpty() || o->typeMinor.IsEmpty() || o->filename.IsEmpty()) {
-					std::cout << "[gamelist] <file/> with id \"" << o->id.ToAscii() <<
-						"\" is missing attribute(s): ";
-					if (o->typeMajor.IsEmpty()) std::cout << "typeMajor ";
-					if (o->typeMinor.IsEmpty()) std::cout << "typeMinor ";
-					if (o->filename.IsEmpty()) std::cout << "filename ";
+			// Look for supp or dep child nodes
+			for (xmlNode *k = j->children; k; k = k->next) {
+				bool isSuppTag = xmlStrEqual(k->name, _X("supp"));
+				bool isDepTag = isSuppTag ? false : xmlStrEqual(k->name, _X("dep"));
+				if (!isSuppTag && !isDepTag) continue;
+
+				wxString sdRef; // id of supp or dep tag
+				wxString sdType;
+				for (xmlAttr *a = k->properties; a; a = a->next) {
+					xmlChar *val = xmlNodeGetContent(a->children);
+					if (xmlStrcmp(a->name, _X("ref")) == 0) {
+						sdRef = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					} else if (xmlStrcmp(a->name, _X("reftype")) == 0) {
+						sdType = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					}
+					xmlFree(val);
+				}
+				if (isSuppTag) {
+					// Convert attribute name into SuppItem type
+					camoto::SuppItem::Type suppType;
+					     if (sdType.IsSameAs(_T("dictionary" ))) suppType = camoto::SuppItem::Dictionary;
+					else if (sdType.IsSameAs(_T("fat"        ))) suppType = camoto::SuppItem::FAT;
+					else if (sdType.IsSameAs(_T("palette"    ))) suppType = camoto::SuppItem::Palette;
+					else if (sdType.IsSameAs(_T("instruments"))) suppType = camoto::SuppItem::Instruments;
+					else if (sdType.IsSameAs(_T("layer1"     ))) suppType = camoto::SuppItem::Layer1;
+					else if (sdType.IsSameAs(_T("layer2"     ))) suppType = camoto::SuppItem::Layer2;
+					else if (sdType.IsSameAs(_T("extra1"     ))) suppType = camoto::SuppItem::Extra1;
+					else if (sdType.IsSameAs(_T("extra2"     ))) suppType = camoto::SuppItem::Extra2;
+					else if (sdType.IsSameAs(_T("extra3"     ))) suppType = camoto::SuppItem::Extra3;
+					else if (sdType.IsSameAs(_T("extra4"     ))) suppType = camoto::SuppItem::Extra4;
+					else if (sdType.IsSameAs(_T("extra5"     ))) suppType = camoto::SuppItem::Extra5;
+					else {
+						std::cout << "[gamelist] Invalid supplementary type \""
+							<< sdType.mb_str().data() << "\"" << std::endl;
+					}
+					o->supp[suppType] = sdRef;
+				} else if (isDepTag) {
+					// Convert attribute name into DepType
+					DepType depType;
+					     if (sdType.IsSameAs(_T("tileset1"))) depType = Tileset1;
+					else if (sdType.IsSameAs(_T("tileset2"))) depType = Tileset2;
+					else if (sdType.IsSameAs(_T("tileset3"))) depType = Tileset3;
+					else if (sdType.IsSameAs(_T("sprites" ))) depType = Sprites;
+					else if (sdType.IsSameAs(_T("actors"  ))) depType = Actors;
+					else {
+						std::cout << "[gamelist] Invalid dependent object type \""
+							<< sdType.mb_str().data() << "\"" << std::endl;
+					}
+					o->dep[depType] = sdRef;
+				} // else ignore unknown tag
+			}
+
+			if (o->id.IsEmpty()) {
+				std::cout << "[gamelist] Got a <" << j->name
+					<< "/> with no 'id' attribute (" << o->friendlyName.ToAscii()
+					<< ")\n";
+			} else {
+				bool missingTypeMajor = o->typeMajor.IsEmpty();
+				bool missingTypeMinor = o->typeMinor.IsEmpty();
+				bool missingFilename = o->filename.IsEmpty() && (isFileTag || isArchiveTag);
+				if (missingTypeMajor || missingTypeMinor || missingFilename || missingImage) {
+					std::cout << "[gamelist] <" << (const char *)j->name
+						<< "/> with id \"" << o->id.ToAscii()
+						<< "\" is missing attribute(s): ";
+					if (missingTypeMajor) std::cout << "typeMajor ";
+					if (missingTypeMinor) std::cout << "typeMinor ";
+					if (missingFilename) std::cout << "filename ";
+					if (missingImage) std::cout << "image ";
 					std::cout << "\n";
 				}
 				g->objects[o->id] = o;
-			} else {
-				std::cout << "[gamelist] Got a <file/> or <archive/> with no 'id' (" <<
-					o->friendlyName.ToAscii() << ")\n";
 			}
 		}
 	}
@@ -257,10 +316,10 @@ Game *loadGameStructure(const wxString& id)
 	fn.SetExt(_T("xml"));
 
 	const wxString n = fn.GetFullPath();
-	std::cout << "[gamelist] Parsing " << n << "\n";
+	std::cout << "[gamelist] Parsing " << n.mb_str().data() << "\n";
 	xmlDoc *xml = xmlParseFile(n.mb_str());
 	if (!xml) {
-		std::cerr << "[gamelist] Error parsing " << n << std::endl;
+		std::cerr << "[gamelist] Error parsing " << n.mb_str().data() << std::endl;
 		return NULL;
 	}
 

@@ -26,6 +26,7 @@
 #include <vector>
 #include <map>
 #include <camoto/suppitem.hpp>
+#include <camoto/gamegraphics/tileset.hpp>
 
 /// Minor type for an archive where the file offsets are listed in the XML
 #define ARCHTYPE_MINOR_FIXED "fixed"
@@ -60,6 +61,7 @@ enum DepType
 	Tileset2,
 	Tileset3,
 	Sprites,
+	Actors,
 	DepTypeCount // must always be last
 };
 
@@ -92,6 +94,17 @@ typedef boost::shared_ptr<GameObject> GameObjectPtr;
 
 /// Map between id and game object
 typedef std::map<wxString, GameObjectPtr> GameObjectMap;
+
+struct TilesetInfo
+{
+	wxString id;           ///< Unique ID for this object
+	wxString idImage;      ///< ID of the underlying image to split into tiles
+	unsigned int layoutWidth; ///< Ideal width of the tileset, in number of tiles
+	camoto::gamegraphics::TileList tileList; ///< List of tile coordinates in the parent image
+};
+
+/// Map of tileset IDs to tileset data
+typedef std::map<wxString, TilesetInfo> TilesetsFromLists;
 
 /// Game details for the UI
 struct GameInfo
@@ -164,6 +177,7 @@ typedef std::vector<MapObject> MapObjectVector;
 struct Game: public GameInfo
 {
 	GameObjectMap objects;
+	TilesetsFromLists tilesets;
 	tree<wxString> treeItems;
 	MapObjectVector mapObjects;
 	std::map<wxString, wxString> dosCommands;
