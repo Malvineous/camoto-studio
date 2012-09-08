@@ -119,7 +119,6 @@
 		<file id="mus-17"    name="stealth.ddt"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Stealth"/>
 		<file id="mus-18"    name="wild.ddt"     typeMajor="music"   typeMinor="cmf-creativelabs" title="Wild"/>
 		<file id="mus-19"    name="zeppelin.ddt" typeMajor="music"   typeMinor="cmf-creativelabs" title="Zeppelin"/>
-		<file id="mus-midtest"    name="test.mid" typeMajor="music"   typeMinor="mid-type0" title="test MIDI file"/>
 
 		<archive id="exe-1"  name="jjfile1.exe" typeMinor="fixed">
 			<file id="pal-1"   name="jill1.pal" offset="0x1ed84" size="768" typeMajor="image" typeMinor="pal-vga" title="VGA palette"/>
