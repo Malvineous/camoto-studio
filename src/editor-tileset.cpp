@@ -624,6 +624,8 @@ void TilesetEditor::saveSettings(Project *proj) const
 
 bool TilesetEditor::isFormatSupported(const wxString& type) const
 {
+	if (type.IsSameAs(_T(TILESETTYPE_MINOR_FROMIMG))) return true;
+
 	std::string strType("tls-");
 	strType.append(type.ToUTF8());
 	return this->studio->mgrGraphics->getTilesetTypeByCode(strType);
