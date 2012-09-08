@@ -82,6 +82,8 @@ InstrumentPanel::InstrumentPanel(Studio *parent)
 
 	wxScrolledWindow *pnlOPL = new wxScrolledWindow(this->tabs);
 	wxGridBagSizer *s = new wxGridBagSizer(2, 2);
+	s->AddGrowableCol(0, 2);
+	s->AddGrowableCol(1, 1);
 	int row = 0;
 	wxStaticText *label = new wxStaticText(pnlOPL, wxID_ANY, _("Carrier:"));
 	s->Add(label, wxGBPosition(row++, 0), wxGBSpan(1, 2), wxEXPAND | wxALIGN_CENTRE_VERTICAL);
@@ -142,7 +144,7 @@ void InstrumentPanel::addNumberControl(wxWindow *parent, wxGridBagSizer *sizer,
 	wxStaticText *label = new wxStaticText(parent, wxID_ANY, title);
 	sizer->Add(label, wxGBPosition(*row, 0), wxGBSpan(1, 1), wxEXPAND | wxALIGN_CENTRE_VERTICAL);
 
-	wxSpinCtrl *val = new wxSpinCtrl(parent, id);
+	wxSpinCtrl *val = new wxSpinCtrl(parent, id, wxEmptyString, wxDefaultPosition, wxSize(50, -1));
 	val->SetRange(min, max);
 	sizer->Add(val, wxGBPosition(*row, 1), wxGBSpan(1, 1), wxEXPAND);
 
