@@ -63,43 +63,43 @@
 	</display>
 
 	<files>
-		<file id="lev-01" name="level1.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 1</file>
-		<file id="lev-02" name="level2.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 2</file>
-		<file id="lev-03" name="level3.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 3</file>
-		<file id="lev-04" name="level4.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 4</file>
-		<file id="lev-05" name="level5.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 5</file>
-		<file id="lev-06" name="level6.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 6</file>
-		<file id="lev-07" name="level7.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 7</file>
-		<file id="lev-08" name="level8.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 8</file>
-		<file id="lev-09" name="level9.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 9</file>
-		<file id="lev-10" name="level10.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 10</file>
-		<file id="lev-11" name="level11.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 11</file>
-		<file id="lev-12" name="level12.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 12</file>
-		<file id="lev-13" name="level13.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 13</file>
-		<file id="lev-14" name="level14.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 14</file>
-		<file id="lev-15" name="level15.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 15</file>
-		<file id="lev-16" name="level16.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 16</file>
-		<file id="lev-17" name="level17.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 17</file>
-		<file id="lev-18" name="level18.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 18</file>
-		<file id="lev-19" name="level19.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 19</file>
-		<file id="lev-20" name="level20.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 20</file>
-		<file id="lev-21" name="level21.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 21</file>
-		<file id="lev-22" name="level22.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 22</file>
-		<file id="lev-23" name="level23.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 23</file>
-		<file id="lev-24" name="level24.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 24</file>
-		<file id="lev-25" name="level25.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 25</file>
-		<file id="lev-26" name="level26.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 26</file>
-		<file id="lev-27" name="level27.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 27</file>
-		<file id="lev-28" name="level28.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 28</file>
-		<file id="lev-29" name="level29.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 29</file>
-		<file id="lev-30" name="level30.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega">Level 30</file>
+		<file id="lev-01" name="level1.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 1"/>
+		<file id="lev-02" name="level2.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 2"/>
+		<file id="lev-03" name="level3.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 3"/>
+		<file id="lev-04" name="level4.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 4"/>
+		<file id="lev-05" name="level5.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 5"/>
+		<file id="lev-06" name="level6.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 6"/>
+		<file id="lev-07" name="level7.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 7"/>
+		<file id="lev-08" name="level8.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 8"/>
+		<file id="lev-09" name="level9.ca2"  typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 9"/>
+		<file id="lev-10" name="level10.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 10"/>
+		<file id="lev-11" name="level11.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 11"/>
+		<file id="lev-12" name="level12.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 12"/>
+		<file id="lev-13" name="level13.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 13"/>
+		<file id="lev-14" name="level14.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 14"/>
+		<file id="lev-15" name="level15.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 15"/>
+		<file id="lev-16" name="level16.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 16"/>
+		<file id="lev-17" name="level17.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 17"/>
+		<file id="lev-18" name="level18.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 18"/>
+		<file id="lev-19" name="level19.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 19"/>
+		<file id="lev-20" name="level20.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 20"/>
+		<file id="lev-21" name="level21.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 21"/>
+		<file id="lev-22" name="level22.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 22"/>
+		<file id="lev-23" name="level23.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 23"/>
+		<file id="lev-24" name="level24.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 24"/>
+		<file id="lev-25" name="level25.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 25"/>
+		<file id="lev-26" name="level26.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 26"/>
+		<file id="lev-27" name="level27.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 27"/>
+		<file id="lev-28" name="level28.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 28"/>
+		<file id="lev-29" name="level29.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 29"/>
+		<file id="lev-30" name="level30.ca2" typeMajor="map" typeMinor="catacomb" supp:tiles="gfx-tiles-ega" title="Level 30"/>
 
-		<file id="sfx"    name="sounds.ca2"  typeMajor="sfx" typeMinor="catacomb">PC Speaker sounds</file>
+		<file id="sfx"    name="sounds.ca2"  typeMajor="sfx" typeMinor="catacomb" title="PC Speaker sounds"/>
 
-		<file id="gfx-tiles-cga" name="cgachars.ca2" typeMajor="tileset" typeMinor="catacomb-cga">CGA tileset</file>
-		<file id="gfx-tiles-ega" name="egachars.ca2" typeMajor="tileset" typeMinor="catacomb-ega">EGA tileset</file>
-		<file id="gfx-pics-cga"  name="cgapics.ca2" typeMajor="tileset" typeMinor="catacomb-pics-cga">CGA pics</file>
-		<file id="gfx-pics-ega"  name="egapics.ca2" typeMajor="tileset" typeMinor="catacomb-pics-ega">EGA pics</file>
+		<file id="gfx-tiles-cga" name="cgachars.ca2" typeMajor="tileset" typeMinor="catacomb-cga" title="CGA tileset"/>
+		<file id="gfx-tiles-ega" name="egachars.ca2" typeMajor="tileset" typeMinor="catacomb-ega" title="EGA tileset"/>
+		<file id="gfx-pics-cga"  name="cgapics.ca2" typeMajor="tileset" typeMinor="catacomb-pics-cga" title="CGA pics"/>
+		<file id="gfx-pics-ega"  name="egapics.ca2" typeMajor="tileset" typeMinor="catacomb-pics-ega" title="EGA pics"/>
 
 	</files>
 

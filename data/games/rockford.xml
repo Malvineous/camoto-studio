@@ -41,20 +41,20 @@
 	</display>
 
 	<files>
-		<file id="ani-body"   name="body.car"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Body</file>
-		<file id="tls-body"   name="body.fil"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Body</file>
-		<file id="ani-cook"   name="cook.car"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Cook</file>
-		<file id="tls-cook"   name="cook.fil"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Cook</file>
-		<file id="ani-cowboy" name="cowboy.car"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Cowboy</file>
-		<file id="tls-cowboy" name="cowboy.fil"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Cowboy</file>
-		<file id="ani-hunter" name="hunter.car"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Hunter</file>
-		<file id="tls-hunter" name="hunter.fil"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Hunter</file>
-		<file id="ani-space"  name="space.car"    typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Space</file>
-		<file id="tls-space"  name="space.fil"    typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen">Space</file>
+		<file id="ani-body"   name="body.car"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Body"/>
+		<file id="img-body"   name="body.fil"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Body"/>
+		<file id="ani-cook"   name="cook.car"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Cook"/>
+		<file id="img-cook"   name="cook.fil"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Cook"/>
+		<file id="ani-cowboy" name="cowboy.car"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Cowboy"/>
+		<file id="img-cowboy" name="cowboy.fil"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Cowboy"/>
+		<file id="ani-hunter" name="hunter.car"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Hunter"/>
+		<file id="img-hunter" name="hunter.fil"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Hunter"/>
+		<file id="ani-space"  name="space.car"    typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Space"/>
+		<file id="img-space"  name="space.fil"    typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Space"/>
 
-		<file id="img-title"  name="title.fil"    typeMajor="image"  typeMinor="ega-raw-planar-bgri-fullscreen">Title</file>
-		<file id="ani-title"  name="titleani.fil" typeMajor="image"  typeMinor="ega-raw-planar-bgri-fullscreen">Title</file>
-		<file id="img-menu"   name="menu.fil"     typeMajor="image"  typeMinor="ega-raw-planar-bgri-fullscreen">Menu</file>
+		<file id="img-title"  name="title.fil"    typeMajor="image"  typeMinor="ega-raw-planar-bgri-fullscreen" title="Title"/>
+		<file id="ani-title"  name="titleani.fil" typeMajor="image"  typeMinor="ega-raw-planar-bgri-fullscreen" title="Title"/>
+		<file id="img-menu"   name="menu.fil"     typeMajor="image"  typeMinor="ega-raw-planar-bgri-fullscreen" title="Menu"/>
 	</files>
 
 	<commands>

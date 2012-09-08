@@ -168,140 +168,140 @@
 	</display>
 
 	<files>
-		<file id="lev-100"  name="map.xr1"      typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Overhead map</file>
-		<file id="lev-101"  name="board_01.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 1 - This Bizarre World</file>
-		<file id="lev-102"  name="board_02.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 2 - A Strange New Dimension</file>
-		<file id="lev-103"  name="board_03.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 3 - The Forest of Enchanted Trees</file>
-		<file id="lev-104"  name="board_04.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 4 - Robot Development Plant</file>
-		<file id="lev-105"  name="board_05.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 5 - Corridors of Doom</file>
-		<file id="lev-106"  name="board_06.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 6 - Cave of the Ancients</file>
-		<file id="lev-107"  name="board_07.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 7 - Corkscrew Cave</file>
-		<file id="lev-108"  name="board_08.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 8 - Coral Cave</file>
-		<file id="lev-109"  name="board_09.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 9 - Tunnels of Terror</file>
-		<file id="lev-110"  name="board_10.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 10 - Xargon's Secret Factory</file>
-		<file id="lev-132"  name="board_32.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 32 - Xargon's Reactor</file>
-		<file id="lev-133"  name="board_33.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Level 33 - Ending sequence</file>
-		<file id="lev-1in"  name="intro.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Demo Introduction and main menu background</file>
-		<file id="lev-1d1"  name="demo1.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Demo Level 1</file>
-		<file id="lev-1d2"  name="demo2.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Demo Level 2</file>
-		<file id="lev-1d3"  name="demo3.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Demo Level 3</file>
-		<file id="lev-1st"  name="story.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1">Story</file>
+		<file id="lev-100"  name="map.xr1"      typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Overhead map"/>
+		<file id="lev-101"  name="board_01.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 1 - This Bizarre World"/>
+		<file id="lev-102"  name="board_02.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 2 - A Strange New Dimension"/>
+		<file id="lev-103"  name="board_03.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 3 - The Forest of Enchanted Trees"/>
+		<file id="lev-104"  name="board_04.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 4 - Robot Development Plant"/>
+		<file id="lev-105"  name="board_05.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 5 - Corridors of Doom"/>
+		<file id="lev-106"  name="board_06.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 6 - Cave of the Ancients"/>
+		<file id="lev-107"  name="board_07.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 7 - Corkscrew Cave"/>
+		<file id="lev-108"  name="board_08.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 8 - Coral Cave"/>
+		<file id="lev-109"  name="board_09.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 9 - Tunnels of Terror"/>
+		<file id="lev-110"  name="board_10.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 10 - Xargon's Secret Factory"/>
+		<file id="lev-132"  name="board_32.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 32 - Xargon's Reactor"/>
+		<file id="lev-133"  name="board_33.xr1" typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Level 33 - Ending sequence"/>
+		<file id="lev-1in"  name="intro.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Demo Introduction and main menu background"/>
+		<file id="lev-1d1"  name="demo1.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Demo Level 1"/>
+		<file id="lev-1d2"  name="demo2.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Demo Level 2"/>
+		<file id="lev-1d3"  name="demo3.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Demo Level 3"/>
+		<file id="lev-1st"  name="story.xr1"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-1" title="Story"/>
 
-		<file id="lev-200"  name="map.xr2"      typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Overhead map</file>
-		<file id="lev-201"  name="board_01.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 1 - Xargon's Castle</file>
-		<file id="lev-202"  name="board_02.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 2 - Massive Volcano</file>
-		<file id="lev-203"  name="board_03.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 3 - Strange Land</file>
-		<file id="lev-204"  name="board_04.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 4 - Deadly Xbat</file>
-		<file id="lev-205"  name="board_05.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 5 - Alien Creatures</file>
-		<file id="lev-206"  name="board_06.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 6 - Swamps of Despair</file>
-		<file id="lev-207"  name="board_07.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 7 - The Lava Pits</file>
-		<file id="lev-208"  name="board_08.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 8 - Surreal Forest</file>
-		<file id="lev-209"  name="board_09.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 9 - Beneath the Earth</file>
-		<file id="lev-210"  name="board_10.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 10 - Grunt's Hideout</file>
-		<file id="lev-211"  name="board_11.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 11 - Dangerous Waters</file>
-		<file id="lev-212"  name="board_12.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 12 - Ancient Ruins</file>
-		<file id="lev-213"  name="board_13.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 13 - Mysterious Maze</file>
-		<file id="lev-214"  name="board_14.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 14 - Hidden Fortress</file>
-		<file id="lev-215"  name="board_15.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 15 - Secret Chamber</file>
-		<file id="lev-232"  name="board_32.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Level 33 - Ending sequence</file>
-		<file id="lev-2in"  name="intro.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Demo Introduction and main menu background</file>
-		<file id="lev-2d1"  name="demo1.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Demo Level 1</file>
-		<file id="lev-2d2"  name="demo2.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Demo Level 2</file>
-		<file id="lev-2d3"  name="demo3.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Demo Level 3</file>
-		<file id="lev-2st"  name="story.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2">Story</file>
+		<file id="lev-200"  name="map.xr2"      typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Overhead map"/>
+		<file id="lev-201"  name="board_01.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 1 - Xargon's Castle"/>
+		<file id="lev-202"  name="board_02.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 2 - Massive Volcano"/>
+		<file id="lev-203"  name="board_03.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 3 - Strange Land"/>
+		<file id="lev-204"  name="board_04.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 4 - Deadly Xbat"/>
+		<file id="lev-205"  name="board_05.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 5 - Alien Creatures"/>
+		<file id="lev-206"  name="board_06.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 6 - Swamps of Despair"/>
+		<file id="lev-207"  name="board_07.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 7 - The Lava Pits"/>
+		<file id="lev-208"  name="board_08.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 8 - Surreal Forest"/>
+		<file id="lev-209"  name="board_09.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 9 - Beneath the Earth"/>
+		<file id="lev-210"  name="board_10.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 10 - Grunt's Hideout"/>
+		<file id="lev-211"  name="board_11.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 11 - Dangerous Waters"/>
+		<file id="lev-212"  name="board_12.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 12 - Ancient Ruins"/>
+		<file id="lev-213"  name="board_13.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 13 - Mysterious Maze"/>
+		<file id="lev-214"  name="board_14.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 14 - Hidden Fortress"/>
+		<file id="lev-215"  name="board_15.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 15 - Secret Chamber"/>
+		<file id="lev-232"  name="board_32.xr2" typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Level 33 - Ending sequence"/>
+		<file id="lev-2in"  name="intro.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Demo Introduction and main menu background"/>
+		<file id="lev-2d1"  name="demo1.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Demo Level 1"/>
+		<file id="lev-2d2"  name="demo2.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Demo Level 2"/>
+		<file id="lev-2d3"  name="demo3.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Demo Level 3"/>
+		<file id="lev-2st"  name="story.xr2"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-2" title="Story"/>
 
-		<file id="lev-300"  name="map.xr3"      typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Overhead map</file>
-		<file id="lev-301"  name="board_01.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 1 - Xargon's Castle</file>
-		<file id="lev-302"  name="board_02.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 2 - Massive Volcano</file>
-		<file id="lev-303"  name="board_03.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 3 - Strange Land</file>
-		<file id="lev-304"  name="board_04.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 4 - Deadly Xbat</file>
-		<file id="lev-305"  name="board_05.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 5 - Alien Creatures</file>
-		<file id="lev-306"  name="board_06.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 6 - Swamps of Despair</file>
-		<file id="lev-307"  name="board_07.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 7 - The Lava Pits</file>
-		<file id="lev-308"  name="board_08.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 8 - Surreal Forest</file>
-		<file id="lev-309"  name="board_09.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 9 - Beneath the Earth</file>
-		<file id="lev-310"  name="board_10.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 10 - Grunt's Hideout</file>
-		<file id="lev-311"  name="board_11.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 11 - Dangerous Waters</file>
-		<file id="lev-312"  name="board_12.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 12 - Ancient Ruins</file>
-		<file id="lev-313"  name="board_13.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 13 - Mysterious Maze</file>
-		<file id="lev-314"  name="board_14.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 14 - Hidden Fortress</file>
-		<file id="lev-315"  name="board_15.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 15 - Secret Chamber</file>
-		<file id="lev-332"  name="board_32.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Level 33 - Ending sequence</file>
-		<file id="lev-3in"  name="intro.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Demo Introduction and main menu background</file>
-		<file id="lev-3d1"  name="demo1.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Demo Level 1</file>
-		<file id="lev-3d2"  name="demo2.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Demo Level 2</file>
-		<file id="lev-3d3"  name="demo3.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Demo Level 3</file>
-		<file id="lev-3st"  name="story.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3">Story</file>
+		<file id="lev-300"  name="map.xr3"      typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Overhead map"/>
+		<file id="lev-301"  name="board_01.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 1 - Xargon's Castle"/>
+		<file id="lev-302"  name="board_02.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 2 - Massive Volcano"/>
+		<file id="lev-303"  name="board_03.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 3 - Strange Land"/>
+		<file id="lev-304"  name="board_04.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 4 - Deadly Xbat"/>
+		<file id="lev-305"  name="board_05.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 5 - Alien Creatures"/>
+		<file id="lev-306"  name="board_06.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 6 - Swamps of Despair"/>
+		<file id="lev-307"  name="board_07.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 7 - The Lava Pits"/>
+		<file id="lev-308"  name="board_08.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 8 - Surreal Forest"/>
+		<file id="lev-309"  name="board_09.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 9 - Beneath the Earth"/>
+		<file id="lev-310"  name="board_10.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 10 - Grunt's Hideout"/>
+		<file id="lev-311"  name="board_11.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 11 - Dangerous Waters"/>
+		<file id="lev-312"  name="board_12.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 12 - Ancient Ruins"/>
+		<file id="lev-313"  name="board_13.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 13 - Mysterious Maze"/>
+		<file id="lev-314"  name="board_14.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 14 - Hidden Fortress"/>
+		<file id="lev-315"  name="board_15.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 15 - Secret Chamber"/>
+		<file id="lev-332"  name="board_32.xr3" typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Level 33 - Ending sequence"/>
+		<file id="lev-3in"  name="intro.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Demo Introduction and main menu background"/>
+		<file id="lev-3d1"  name="demo1.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Demo Level 1"/>
+		<file id="lev-3d2"  name="demo2.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Demo Level 2"/>
+		<file id="lev-3d3"  name="demo3.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Demo Level 3"/>
+		<file id="lev-3st"  name="story.xr3"    typeMajor="map" typeMinor="xargon" supp:tiles="tls-3" title="Story"/>
 
-		<file id="tls-1"    name="graphics.xr1" typeMajor="tileset" typeMinor="jill" supp:extra1="dma-1">Game graphics</file>
-		<file id="dma-1"    name="tiles.xr1">Tile properties</file>
+		<file id="tls-1"    name="graphics.xr1" typeMajor="tileset" typeMinor="jill" supp:extra1="dma-1" title="Game graphics"/>
+		<file id="dma-1"    name="tiles.xr1" title="Tile properties"/>
 
-		<file id="tls-2"    name="graphics.xr2" typeMajor="tileset" typeMinor="jill" supp:extra1="dma-1">Game graphics</file>
-		<file id="dma-2"    name="tiles.xr2">Tile properties</file>
+		<file id="tls-2"    name="graphics.xr2" typeMajor="tileset" typeMinor="jill" supp:extra1="dma-1" title="Game graphics"/>
+		<file id="dma-2"    name="tiles.xr2" title="Tile properties"/>
 
-		<file id="tls-3"    name="graphics.xr3" typeMajor="tileset" typeMinor="jill" supp:extra1="dma-1">Game graphics</file>
-		<file id="dma-3"    name="tiles.xr3">Tile properties</file>
+		<file id="tls-3"    name="graphics.xr3" typeMajor="tileset" typeMinor="jill" supp:extra1="dma-1" title="Game graphics"/>
+		<file id="dma-3"    name="tiles.xr3" title="Tile properties"/>
 
-		<file id="mus-100"  name="song_0.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Theme song</file>
-		<file id="mus-101"  name="song_1.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 1</file>
-		<file id="mus-102"  name="song_2.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 2</file>
-		<file id="mus-103"  name="song_3.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 3</file>
-		<file id="mus-104"  name="song_4.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 4</file>
-		<file id="mus-105"  name="song_5.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 5</file>
-		<file id="mus-106"  name="song_6.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 6</file>
-		<file id="mus-109"  name="song_9.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 9</file>
-		<file id="mus-110"  name="song_10.xr1"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 10</file>
-		<file id="mus-132"  name="song_32.xr1"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 32</file>
-		<file id="mus-133"  name="song_33.xr1"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 33</file>
+		<file id="mus-100"  name="song_0.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Theme song"/>
+		<file id="mus-101"  name="song_1.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 1"/>
+		<file id="mus-102"  name="song_2.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 2"/>
+		<file id="mus-103"  name="song_3.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 3"/>
+		<file id="mus-104"  name="song_4.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 4"/>
+		<file id="mus-105"  name="song_5.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 5"/>
+		<file id="mus-106"  name="song_6.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 6"/>
+		<file id="mus-109"  name="song_9.xr1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 9"/>
+		<file id="mus-110"  name="song_10.xr1"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 10"/>
+		<file id="mus-132"  name="song_32.xr1"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 32"/>
+		<file id="mus-133"  name="song_33.xr1"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 33"/>
 
-		<file id="mus-200"  name="song_0.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs">Theme song</file>
-		<file id="mus-201"  name="song_1.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 1</file>
-		<file id="mus-202"  name="song_2.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 2</file>
-		<file id="mus-203"  name="song_3.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 3</file>
-		<file id="mus-204"  name="song_4.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 4</file>
-		<file id="mus-205"  name="song_5.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 5</file>
-		<file id="mus-206"  name="song_6.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 6</file>
-		<file id="mus-207"  name="song_7.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 7</file>
-		<file id="mus-208"  name="song_8.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 8</file>
-		<file id="mus-209"  name="song_9.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 9</file>
-		<file id="mus-210"  name="song_10.xr2"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 10</file>
-		<file id="mus-211"  name="song_11.xr2"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 11</file>
-		<file id="mus-215"  name="song_15.xr2"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 15</file>
-		<file id="mus-232"  name="song_32.xr2"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 32</file>
+		<file id="mus-200"  name="song_0.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Theme song"/>
+		<file id="mus-201"  name="song_1.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 1"/>
+		<file id="mus-202"  name="song_2.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 2"/>
+		<file id="mus-203"  name="song_3.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 3"/>
+		<file id="mus-204"  name="song_4.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 4"/>
+		<file id="mus-205"  name="song_5.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 5"/>
+		<file id="mus-206"  name="song_6.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 6"/>
+		<file id="mus-207"  name="song_7.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 7"/>
+		<file id="mus-208"  name="song_8.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 8"/>
+		<file id="mus-209"  name="song_9.xr2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 9"/>
+		<file id="mus-210"  name="song_10.xr2"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 10"/>
+		<file id="mus-211"  name="song_11.xr2"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 11"/>
+		<file id="mus-215"  name="song_15.xr2"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 15"/>
+		<file id="mus-232"  name="song_32.xr2"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 32"/>
 
-		<file id="mus-300"  name="song_0.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs">Theme song</file>
-		<file id="mus-301"  name="song_1.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 1</file>
-		<file id="mus-302"  name="song_2.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 2</file>
-		<file id="mus-303"  name="song_3.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 3</file>
-		<file id="mus-304"  name="song_4.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 4</file>
-		<file id="mus-305"  name="song_5.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 5</file>
-		<file id="mus-306"  name="song_6.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 6</file>
-		<file id="mus-307"  name="song_7.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 7</file>
-		<file id="mus-308"  name="song_8.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 8</file>
-		<file id="mus-309"  name="song_9.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs">Level music 9</file>
-		<file id="mus-310"  name="song_10.xr3"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 10</file>
-		<file id="mus-311"  name="song_11.xr3"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 11</file>
-		<file id="mus-315"  name="song_15.xr3"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 15</file>
-		<file id="mus-332"  name="song_32.xr3"  typeMajor="music"   typeMinor="cmf-creativelabs">Level music 32</file>
+		<file id="mus-300"  name="song_0.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Theme song"/>
+		<file id="mus-301"  name="song_1.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 1"/>
+		<file id="mus-302"  name="song_2.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 2"/>
+		<file id="mus-303"  name="song_3.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 3"/>
+		<file id="mus-304"  name="song_4.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 4"/>
+		<file id="mus-305"  name="song_5.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 5"/>
+		<file id="mus-306"  name="song_6.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 6"/>
+		<file id="mus-307"  name="song_7.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 7"/>
+		<file id="mus-308"  name="song_8.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 8"/>
+		<file id="mus-309"  name="song_9.xr3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 9"/>
+		<file id="mus-310"  name="song_10.xr3"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 10"/>
+		<file id="mus-311"  name="song_11.xr3"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 11"/>
+		<file id="mus-315"  name="song_15.xr3"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 15"/>
+		<file id="mus-332"  name="song_32.xr3"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 32"/>
 
 		<archive id="exe-1" name="xrfile01.exe" typeMinor="fixed">
-			<file id="pal-1"  name="xargon1.pal" offset="0x26b32" size="768" typeMajor="image" typeMinor="pal-vga">VGA palette</file>
+			<file id="pal-1"  name="xargon1.pal" offset="0x26b32" size="768" typeMajor="image" typeMinor="pal-vga" title="VGA palette"/>
 		</archive>
 
 		<archive id="exe-2" name="xrfile02.exe" typeMinor="fixed">
-			<file id="pal-2"  name="xargon2.pal" offset="0x26b32" size="768" typeMajor="image" typeMinor="pal-vga">VGA palette</file>
+			<file id="pal-2"  name="xargon2.pal" offset="0x26b32" size="768" typeMajor="image" typeMinor="pal-vga" title="VGA palette"/>
 		</archive>
 
 		<archive id="exe-3" name="xrfile03.exe" typeMinor="fixed">
-			<file id="pal-3"  name="xargon3.pal" offset="0x26b32" size="768" typeMajor="image" typeMinor="pal-vga">VGA palette</file>
+			<file id="pal-3"  name="xargon3.pal" offset="0x26b32" size="768" typeMajor="image" typeMinor="pal-vga" title="VGA palette"/>
 		</archive>
 
 		<!-- All episodes -->
-		<file id="mus-demo" name="song_d.xr0" typeMajor="music" typeMinor="cmf-creativelabs">Demo song</file>
+		<file id="mus-demo" name="song_d.xr0" typeMajor="music" typeMinor="cmf-creativelabs" title="Demo song"/>
 
-		<file id="img-epsel" name="screen_1.xr0" typeMajor="image" typeMinor="pcx-8b1p">Episode selection screen</file>
-		<file id="img-noep"  name="screen_2.xr0" typeMajor="image" typeMinor="pcx-8b1p">Episode unavailable in shareware screen</file>
-		<file id="img-exit"  name="screen_3.xr0" typeMajor="b800"  typeMinor="80x25">Text mode ending screen</file>
+		<file id="img-epsel" name="screen_1.xr0" typeMajor="image" typeMinor="pcx-8b1p" title="Episode selection screen"/>
+		<file id="img-noep"  name="screen_2.xr0" typeMajor="image" typeMinor="pcx-8b1p" title="Episode unavailable in shareware screen"/>
+		<file id="img-exit"  name="screen_3.xr0" typeMajor="b800"  typeMinor="80x25" title="Text mode ending screen"/>
 
 	</files>
 

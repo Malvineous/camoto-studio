@@ -47,29 +47,29 @@
 
 	<files>
 		<archive name="dave.exe" id="arch-ddave-exe" typeMinor="exe-ddave">
-			<file id="lev-01" name="level01.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga">Level 1</file>
-			<file id="lev-02" name="level02.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga">Level 2</file>
-			<file id="lev-03" name="level03.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga">Level 3</file>
-			<file id="lev-04" name="level04.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga">Level 4</file>
-			<file id="lev-05" name="level05.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga">Level 5</file>
-			<file id="lev-06" name="level06.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga">Level 6</file>
-			<file id="lev-07" name="level07.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga">Level 7</file>
-			<file id="lev-08" name="level08.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga">Level 8</file>
-			<file id="lev-09" name="level09.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga">Level 9</file>
-			<file id="lev-10" name="level10.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga">Level 10</file>
+			<file id="lev-01" name="level01.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga" title="Level 1"/>
+			<file id="lev-02" name="level02.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga" title="Level 2"/>
+			<file id="lev-03" name="level03.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga" title="Level 3"/>
+			<file id="lev-04" name="level04.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga" title="Level 4"/>
+			<file id="lev-05" name="level05.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga" title="Level 5"/>
+			<file id="lev-06" name="level06.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga" title="Level 6"/>
+			<file id="lev-07" name="level07.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga" title="Level 7"/>
+			<file id="lev-08" name="level08.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga" title="Level 8"/>
+			<file id="lev-09" name="level09.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga" title="Level 9"/>
+			<file id="lev-10" name="level10.dav" typeMajor="map" typeMinor="ddave" supp:tiles="gfx-vga" title="Level 10"/>
 
-			<file id="gfx-cga" name="cgadave.dav" typeMajor="tileset" typeMinor="ddave-cga">CGA tiles</file>
-			<file id="gfx-vga" name="vgadave.dav" typeMajor="tileset" typeMinor="ddave-vga" supp:pal="pal-vga">VGA tiles</file>
+			<file id="gfx-cga" name="cgadave.dav" typeMajor="tileset" typeMinor="ddave-cga" title="CGA tiles"/>
+			<file id="gfx-vga" name="vgadave.dav" typeMajor="tileset" typeMinor="ddave-vga" supp:pal="pal-vga" title="VGA tiles"/>
 
-			<file id="pal-vga" name="vga.pal" typeMajor="palette" typeMinor="vga">VGA palette</file>
+			<file id="pal-vga" name="vga.pal" typeMajor="palette" typeMinor="vga" title="VGA palette"/>
 
-			<file id="snd-pc" name="sounds.spk" typeMajor="sound" typeMinor="spk-pc">PC speaker</file>
+			<file id="snd-pc" name="sounds.spk" typeMajor="sound" typeMinor="spk-pc" title="PC speaker"/>
 
-			<file id="gfx-cga-ui" name="menucga.gfx" typeMajor="tileset" typeMinor="ddave-cga-ui">CGA UI</file>
-			<file id="gfx-ega-ui" name="menuega.gfx" typeMajor="tileset" typeMinor="ddave-ega-ui">EGA UI</file>
-			<file id="gfx-vga-ui" name="menuvga.gfx" typeMajor="tileset" typeMinor="ddave-vga-ui">VGA UI</file>
+			<file id="gfx-cga-ui" name="menucga.gfx" typeMajor="tileset" typeMinor="ddave-cga-ui" title="CGA UI"/>
+			<file id="gfx-ega-ui" name="menuega.gfx" typeMajor="tileset" typeMinor="ddave-ega-ui" title="EGA UI"/>
+			<file id="gfx-vga-ui" name="menuvga.gfx" typeMajor="tileset" typeMinor="ddave-vga-ui" title="VGA UI"/>
 		</archive>
-		<file id="gfx-ega" name="egadave.dav" typeMajor="tileset" typeMinor="ddave-ega">EGA tiles</file>
+		<file id="gfx-ega" name="egadave.dav" typeMajor="tileset" typeMinor="ddave-ega" title="EGA tiles"/>
 	</files>
 
 	<commands>

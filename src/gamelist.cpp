@@ -155,7 +155,6 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 		if (xmlStrEqual(j->name, _X("file")) || xmlStrEqual(j->name, _X("archive"))) {
 			GameObjectPtr o(new GameObject());
 			xmlChar *val = xmlNodeGetContent(j);
-			o->friendlyName = wxString::FromUTF8((const char *)val, xmlStrlen(val));
 			o->idParent = idParent;
 			xmlFree(val);
 			for (xmlAttr *a = j->properties; a; a = a->next) {
@@ -197,6 +196,10 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 				} else if (xmlStrcmp(a->name, _X("id")) == 0) {
 					xmlChar *val = xmlNodeGetContent(a->children);
 					o->id = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					xmlFree(val);
+				} else if (xmlStrcmp(a->name, _X("title")) == 0) {
+					xmlChar *val = xmlNodeGetContent(a->children);
+					o->friendlyName = wxString::FromUTF8((const char *)val, xmlStrlen(val));
 					xmlFree(val);
 				} else if (xmlStrcmp(a->name, _X("typeMajor")) == 0) {
 					xmlChar *val = xmlNodeGetContent(a->children);
