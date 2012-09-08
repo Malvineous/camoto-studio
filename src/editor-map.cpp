@@ -261,7 +261,7 @@ IDocument *MapEditor::openObject(const GameObjectPtr& o)
 	VC_TILESET tilesetVector;
 	// First, see if any tilesets have been specified in the XML
 	try {
-		for (unsigned int i = 0; i < DepTypeCount; i++) {
+		for (unsigned int i = 0; i < DepTypeCount; i++) { // load them in order
 			Deps::const_iterator idep = o->dep.find((DepType)i);
 			if (idep == o->dep.end()) continue; // no attribute for this dep in the XML
 
@@ -285,27 +285,29 @@ IDocument *MapEditor::openObject(const GameObjectPtr& o)
 	// second so that it's possible to override these filenames if all of them
 	// are specified in the XML.
 	Map::FilenameVectorPtr gfxFiles = map->getGraphicsFilenames();
-	for (Map::FilenameVector::const_iterator
-		i = gfxFiles->begin(); i != gfxFiles->end(); i++
-	) {
-		wxString targetFilename(i->filename.c_str(), wxConvUTF8);
-		if (i->purpose == Map::GraphicsFilename::Tileset) {
-			GameObjectPtr ot = this->studio->game->findObjectByFilename(
-				targetFilename, _T("tileset"));
-			if (!ot) {
-				throw EFailure(wxString::Format(_("Cannot open this map.  It needs "
-					"a tileset that is missing from the game description XML file."
-					"\n\n[There is no <file/> element with the filename \"%s\" and a "
-					"typeMajor of \"tileset\", as needed by \"%s\"]"),
-					targetFilename.c_str(), o->id.c_str()));
+	if (gfxFiles) {
+		for (Map::FilenameVector::const_iterator
+			i = gfxFiles->begin(); i != gfxFiles->end(); i++
+		) {
+			wxString targetFilename(i->filename.c_str(), wxConvUTF8);
+			if (i->purpose == Map::GraphicsFilename::Tileset) {
+				GameObjectPtr ot = this->studio->game->findObjectByFilename(
+					targetFilename, _T("tileset"));
+				if (!ot) {
+					throw EFailure(wxString::Format(_("Cannot open this map.  It needs "
+						"a tileset that is missing from the game description XML file."
+						"\n\n[There is no <file/> element with the filename \"%s\" and a "
+						"typeMajor of \"tileset\", as needed by \"%s\"]"),
+						targetFilename.c_str(), o->id.c_str()));
+				}
+				tilesetVector.push_back(this->studio->openTileset(ot));
 			}
-			tilesetVector.push_back(this->studio->openTileset(ot));
 		}
 	}
 
 	if (tilesetVector.empty()) {
 		throw EFailure(_("This map format requires at least one tileset to be "
-			"specified in the game description .xml file, however none have been "
+			"specified in the game description XML file, however none have been "
 			"given for this item."));
 	}
 
