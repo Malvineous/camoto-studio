@@ -918,16 +918,16 @@ void MapCanvas::redraw()
 	if (this->visibleElements[ElViewport]) {
 		unsigned int vpX, vpY;
 		this->map->getViewport(&vpX, &vpY);
-		int vpOffX = (s.x - vpX) / 2;
-		int vpOffY = (s.y - vpY) / 2;
+		int vpOffX = (s.x - (signed)vpX) / 2;
+		int vpOffY = (s.y - (signed)vpY) / 2;
 
 		// Draw a line around the viewport
 		glColor4f(1.0, 1.0, 1.0, 0.3);
 		glBegin(GL_LINE_LOOP);
 		glVertex2i(vpOffX, vpOffY + 0);
-		glVertex2i(vpOffX, vpOffY + vpY);
-		glVertex2i(vpOffX + vpX, vpOffY + vpY);
-		glVertex2i(vpOffX + vpX, vpOffY + 0);
+		glVertex2i(vpOffX, vpOffY + (signed)vpY);
+		glVertex2i(vpOffX + (signed)vpX, vpOffY + (signed)vpY);
+		glVertex2i(vpOffX + (signed)vpX, vpOffY + 0);
 		glEnd();
 
 		// Darken the area outside the viewport
@@ -936,11 +936,11 @@ void MapCanvas::redraw()
 		glVertex2i(0, 0);
 		glVertex2i(vpOffX, vpOffY);
 		glVertex2i(0, s.y);
-		glVertex2i(vpOffX, vpOffY + vpY);
+		glVertex2i(vpOffX, vpOffY + (signed)vpY);
 		glVertex2i(s.x, s.y);
-		glVertex2i(vpOffX + vpX, vpOffY + vpY);
+		glVertex2i(vpOffX + (signed)vpX, vpOffY + (signed)vpY);
 		glVertex2i(s.x, 0);
-		glVertex2i(vpOffX + vpX, vpOffY);
+		glVertex2i(vpOffX + (signed)vpX, vpOffY);
 		glVertex2i(0, 0);
 		glVertex2i(vpOffX, vpOffY);
 		glEnd();
