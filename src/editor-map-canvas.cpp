@@ -39,6 +39,8 @@ using namespace camoto::gamegraphics;
 #define CLR_ARROWHEAD_NORMAL  CLR_PATH            ///< Path arrow, normal
 #define CLR_ARROWHEAD_HOT     1.0, 1.0, 0.0, 1.0  ///< Path arrow, highlighted
 #define CLR_PATH_PREVIEW      0.7, 0.7, 0.7, 0.7  ///< Changed path preview
+#define CLR_ATTR_BG           1.0, 0.0, 1.0, 1.0  ///< Attribute indicator background
+#define CLR_ATTR_FG           1.0, 1.0, 0.0, 1.0  ///< Attribute indicator foreground
 
 // Convert the given coordinate from client (window) coordinates
 // into map coordinates.
@@ -58,6 +60,9 @@ using namespace camoto::gamegraphics;
 		px + PATH_ARROWHEAD_SIZE / this->zoomFactor, \
 		py + PATH_ARROWHEAD_SIZE / this->zoomFactor \
 	)
+
+#define SIN45 0.85090352453
+#define COS45 0.52532198881
 
 int matchTileRun(unsigned int *tile, const MapObject::TileRun *run)
 {
@@ -124,6 +129,8 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 		// actionFromY doesn't matter when X is -1
 		pointerX(0),
 		pointerY(0),
+		resizeX(0),
+		resizeY(0),
 		nearestPathPointOff(-1)
 {
 	assert(tileset.size() > 0);
@@ -589,17 +596,125 @@ void MapCanvas::redraw()
 					}
 				}
 
-				glBindTexture(GL_TEXTURE_2D, this->textureMap[i][(*c)->code].glid);
-				glBegin(GL_QUADS);
-				glTexCoord2d(0.0, 0.0);
-				glVertex2i(tileX - this->offX, tileY - this->offY);
-				glTexCoord2d(0.0, 1.0);
-				glVertex2i(tileX - this->offX, tileY + tileHeight - this->offY);
-				glTexCoord2d(1.0, 1.0);
-				glVertex2i(tileX + tileWidth - this->offX, tileY + tileHeight - this->offY);
-				glTexCoord2d(1.0, 0.0);
-				glVertex2i(tileX + tileWidth - this->offX, tileY - this->offY);
-				glEnd();
+				int x1 = tileX - this->offX;
+				int x2 = tileX + tileWidth - this->offX;
+				int xt = tileWidth/4;
+				int y1 = tileY - this->offY;
+				int y2 = tileY + tileHeight - this->offY;
+				int yt = tileHeight/4;
+
+				if ((*c)->type & Map2D::Layer::Item::Blocking) {
+					// This tile has blocking attributes, so draw them
+					glDisable(GL_TEXTURE_2D);
+					glLineWidth(1.0);
+
+					glColor4f(CLR_ATTR_BG);
+					glBegin(GL_QUADS);
+					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockLeft) {
+						glVertex2i(x1, y1);
+						glVertex2i(x1, y2);
+						glVertex2i(x1 + xt, y2);
+						glVertex2i(x1 + xt, y1);
+					}
+					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockRight) {
+						glVertex2i(x2 - xt, y1);
+						glVertex2i(x2 - xt, y2);
+						glVertex2i(x2, y2);
+						glVertex2i(x2, y1);
+					}
+					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockTop) {
+						glVertex2i(x1, y1);
+						glVertex2i(x1, y1 + yt);
+						glVertex2i(x2, y1 + yt);
+						glVertex2i(x2, y1);
+					}
+					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockBottom) {
+						glVertex2i(x1, y2 - yt);
+						glVertex2i(x1, y2);
+						glVertex2i(x2, y2);
+						glVertex2i(x2, y2 - yt);
+					}
+					if ((*c)->blockingFlags & Map2D::Layer::Item::Slant45) {
+						glVertex2i(x1, y2);
+						glVertex2f(x1 + xt / SIN45, y2);
+						glVertex2f(x2, y1 + yt / SIN45);
+						glVertex2i(x2, y1);
+					}
+					if ((*c)->blockingFlags & Map2D::Layer::Item::Slant135) {
+						glVertex2i(x1, y1);
+						glVertex2i(x1, y1 + yt / SIN45);
+						glVertex2i(x2 - xt / SIN45, y2);
+						glVertex2i(x2, y2);
+					}
+					glEnd();
+
+					glColor4f(CLR_ATTR_FG);
+					glBegin(GL_LINES);
+					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockLeft) {
+						glVertex2i(x1, y1);
+						glVertex2i(x1, y2);
+						for (unsigned int i = 0; i < tileHeight; i += 2) {
+							glVertex2i(x1, y1 + i);
+							glVertex2i(x1 + xt, y1 + i);
+						}
+					}
+					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockRight) {
+						glVertex2i(x2, y1);
+						glVertex2i(x2, y2);
+						for (unsigned int i = 0; i < tileHeight; i += 2) {
+							glVertex2i(x2 - xt, y1 + i);
+							glVertex2i(x2, y1 + i);
+						}
+					}
+					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockTop) {
+						glVertex2i(x1, y1);
+						glVertex2i(x2, y1);
+						for (unsigned int i = 0; i < tileHeight; i += 2) {
+							glVertex2i(x1 + i, y1);
+							glVertex2i(x1 + i, y1 + yt);
+						}
+					}
+					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockBottom) {
+						glVertex2i(x1, y2);
+						glVertex2i(x2, y2);
+						for (unsigned int i = 0; i < tileHeight; i += 2) {
+							glVertex2i(x1 + i, y2 - yt);
+							glVertex2i(x1 + i, y2);
+						}
+					}
+					if ((*c)->blockingFlags & Map2D::Layer::Item::Slant45) {
+						glVertex2i(x1, y2);
+						glVertex2i(x2, y1);
+						for (float i = 2 * SIN45; i < tileWidth - 2 * SIN45; i += 2*SIN45) {
+							glVertex2f(x1 + i, y2 - i);
+							glVertex2f(x1 + i + xt * COS45, y2 - i + yt * COS45);
+						}
+					}
+					if ((*c)->blockingFlags & Map2D::Layer::Item::Slant135) {
+						glVertex2i(x1, y1);
+						glVertex2i(x2, y2);
+						for (float i = 2 * SIN45; i < tileWidth - 2 * SIN45; i += 2*SIN45) {
+							glVertex2f(x1 + i, y1 + i);
+							glVertex2f(x1 + i - xt * COS45, y1 + i + yt * COS45);
+						}
+					}
+					glEnd();
+
+				} else {
+					// Normal image
+					glEnable(GL_TEXTURE_2D);
+					glBindTexture(GL_TEXTURE_2D, this->textureMap[i][(*c)->code].glid);
+					glBegin(GL_QUADS);
+					glTexCoord2d(0.0, 0.0);
+					glVertex2i(x1, y1);
+					glTexCoord2d(0.0, 1.0);
+					glVertex2i(x1, y2);
+					glTexCoord2d(1.0, 1.0);
+					glVertex2i(x2, y2);
+					glTexCoord2d(1.0, 0.0);
+					glVertex2i(x2, y1);
+					glEnd();
+				}
 			}
 
 			// Turn off any remaining red selection colour
