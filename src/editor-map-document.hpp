@@ -47,6 +47,7 @@ class MapDocument: public IDocument
 		void onToggleGrid(wxCommandEvent& ev);
 		void onTileMode(wxCommandEvent& ev);
 		void onObjMode(wxCommandEvent& ev);
+		void onSetAttributes(wxCommandEvent& ev);
 
 		void setZoomFactor(int f);
 

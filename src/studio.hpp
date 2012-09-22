@@ -83,6 +83,13 @@ class Studio: public wxFrame, public CamotoLibs
 		/// Enable/disable menu items according to current state.
 		void setControlStates();
 
+		/// Get a GameObject describing the current tree view selection.
+		GameObjectPtr& getSelectedGameObject();
+		/// Get a GameObject for the tree view selection that triggered an event.
+		GameObjectPtr& getSelectedGameObject(wxTreeEvent& ev);
+		/// Get a GameObject describing the given tree view item.
+		GameObjectPtr& getSelectedGameObject(wxTreeItemId id);
+
 		/// Event handler for creating a new project.
 		void onNewProject(wxCommandEvent& ev);
 
@@ -120,6 +127,9 @@ class Studio: public wxFrame, public CamotoLibs
 
 		/// Event handler for overwriting an item without filtering.
 		void onOverwriteUnfilteredItem(wxCommandEvent& ev);
+
+		/// Event handler for the right-click|properties menu item.
+		void onItemProperties(wxCommandEvent& ev);
 
 		void extractItem(const wxString& id, bool useFilters);
 

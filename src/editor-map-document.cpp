@@ -21,6 +21,7 @@
 #include <GL/glew.h>
 #include <camoto/util.hpp>
 #include "editor-map-document.hpp"
+#include "dlg-map-attr.hpp"
 
 using namespace camoto;
 using namespace camoto::gamemaps;
@@ -33,6 +34,7 @@ BEGIN_EVENT_TABLE(MapDocument, IDocument)
 	EVT_TOOL(IDC_TOGGLEGRID, MapDocument::onToggleGrid)
 	EVT_TOOL(IDC_MODE_TILE, MapDocument::onTileMode)
 	EVT_TOOL(IDC_MODE_OBJ, MapDocument::onObjMode)
+	EVT_TOOL(wxID_PROPERTIES, MapDocument::onSetAttributes)
 END_EVENT_TABLE()
 
 MapDocument::MapDocument(Studio *parent, MapEditor::Settings *settings,
@@ -85,6 +87,13 @@ MapDocument::MapDocument(Studio *parent, MapEditor::Settings *settings,
 		wxImage(::path.guiIcons + _T("mode-obj.png"), wxBITMAP_TYPE_PNG),
 		wxNullBitmap, wxITEM_RADIO, _("Object mode"),
 		_("Edit the map as collection of objects"));
+
+	tb->AddSeparator();
+
+	tb->AddTool(wxID_PROPERTIES, wxEmptyString,
+		wxImage(::path.guiIcons + _T("properties.png"), wxBITMAP_TYPE_PNG),
+		wxNullBitmap, wxITEM_NORMAL, _("Attributes"),
+		_("View and change global map attributes"));
 
 	// Tile-mode is the default for the canvas
 	tb->ToggleTool(IDC_MODE_TILE, true);
@@ -153,6 +162,13 @@ void MapDocument::onTileMode(wxCommandEvent& ev)
 void MapDocument::onObjMode(wxCommandEvent& ev)
 {
 	this->canvas->setObjMode();
+	return;
+}
+
+void MapDocument::onSetAttributes(wxCommandEvent& ev)
+{
+	DlgMapAttr dlg(this->studio, this->map);
+	if (dlg.ShowModal() == wxID_OK) this->isModified = true;
 	return;
 }
 

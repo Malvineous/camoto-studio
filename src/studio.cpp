@@ -45,6 +45,7 @@
 #include "editor-music.hpp"
 #include "editor-tileset.hpp"
 #include "editor-image.hpp"
+#include "dlg-map-attr.hpp"
 
 using namespace camoto;
 
@@ -76,6 +77,7 @@ BEGIN_EVENT_TABLE(Studio, wxFrame)
 	EVT_MENU(IDM_EXTRACT_RAW, Studio::onExtractUnfilteredItem)
 	EVT_MENU(IDM_OVERWRITE, Studio::onOverwriteItem)
 	EVT_MENU(IDM_OVERWRITE_RAW, Studio::onOverwriteUnfilteredItem)
+	EVT_MENU(wxID_PROPERTIES, Studio::onItemProperties)
 	EVT_TREE_ITEM_ACTIVATED(IDC_TREE, Studio::onItemOpened)
 	EVT_TREE_ITEM_MENU(IDC_TREE, Studio::onItemRightClick)
 	EVT_CLOSE(Studio::onClose)
@@ -197,6 +199,7 @@ Studio::Studio(bool isStudio)
 	this->popup->Append(IDM_EXTRACT_RAW,   _("&Extract raw..."), _("Save this file in its raw format (no decompression or decryption)"));
 	this->popup->Append(IDM_OVERWRITE,     _("&Overwrite file..."), _("Replace this item with the contents of another file"));
 	this->popup->Append(IDM_OVERWRITE_RAW, _("&Overwrite raw..."), _("Replace this item with a file already encrypted or compressed in the correct format"));
+	this->popup->Append(wxID_PROPERTIES,   _("&Properties..."), _("View this item's properties directly"));
 
 	this->aui.Update();
 	this->setControlStates();
@@ -253,7 +256,36 @@ void Studio::setControlStates()
 	return;
 }
 
-/// Event handler for creating a new project.
+GameObjectPtr& Studio::getSelectedGameObject()
+{
+	return this->getSelectedGameObject(this->treeCtrl->GetSelection());
+}
+
+GameObjectPtr& Studio::getSelectedGameObject(wxTreeEvent& ev)
+{
+	return this->getSelectedGameObject(ev.GetItem());
+}
+
+GameObjectPtr& Studio::getSelectedGameObject(wxTreeItemId id)
+{
+	// Find the item that is currently selected in the tree view
+	TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(id);
+	if (!data) {
+		throw EFailure(_("This item cannot be opened in this manner.\n\n[TreeView "
+			"item had no item data set]"));
+	}
+
+	// Make sure the ID is valid
+	GameObjectMap::iterator io = this->game->objects.find(data->id);
+	if (io == this->game->objects.end()) {
+		throw EFailure(wxString::Format(_("Cannot open this item.  It refers "
+			"to an entry in the game description XML file with an ID of \"%s\", "
+			"but there is no item with this ID."),
+			data->id.c_str()));
+	}
+	return io->second;
+}
+
 void Studio::onNewProject(wxCommandEvent& ev)
 {
 	if (this->project) {
@@ -444,6 +476,28 @@ void Studio::onOverwriteUnfilteredItem(wxCommandEvent& ev)
 	return;
 }
 
+void Studio::onItemProperties(wxCommandEvent& ev)
+{
+	GameObjectPtr& o = this->getSelectedGameObject();
+	if (o->typeMajor.IsSameAs(_T("map"))) {
+		gamemaps::MapPtr map;
+		fn_write fnWriteMap;
+		try {
+			map = this->openMap(o, &fnWriteMap);
+			if (map) {
+				DlgMapAttr dlg(this, map);
+				if (dlg.ShowModal() == wxID_OK) {
+					fnWriteMap();
+				}
+			}
+		} catch (const camoto::stream::error& e) {
+			throw EFailure(wxString::Format(_("Library exception: %s"),
+					wxString(e.what(), wxConvUTF8).c_str()));
+		}
+	}
+	return;
+}
+
 void Studio::extractItem(const wxString& id, bool useFilters)
 {
 	if (!this->project) return; // just in case
@@ -565,19 +619,7 @@ void Studio::onClose(wxCloseEvent& ev)
 
 void Studio::onItemOpened(wxTreeEvent& ev)
 {
-	// Find the item that was opened
-	TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(ev.GetItem());
-	if (!data) return;
-
-	// Make sure the ID is valid
-	GameObjectMap::iterator io = this->game->objects.find(data->id);
-	if (io == this->game->objects.end()) {
-		throw EFailure(wxString::Format(_("Cannot open this item.  It refers "
-			"to an entry in the game description XML file with an ID of \"%s\", "
-			"but there is no item with this ID."),
-			data->id.c_str()));
-	}
-	GameObjectPtr &o = io->second;
+	GameObjectPtr& o = this->getSelectedGameObject(ev);
 
 	// Find an editor for the item
 	EditorMap::iterator itEditor = this->editors.find(o->typeMajor);
@@ -598,7 +640,7 @@ void Studio::onItemOpened(wxTreeEvent& ev)
 		//	o->filename, supp, this->game);
 		IDocument *doc = itEditor->second->openObject(o);
 		if (doc) {
-			this->notebook->AddPage(doc, this->game->objects[data->id]->friendlyName,
+			this->notebook->AddPage(doc, this->game->objects[o->id]->friendlyName,
 				true, wxNullBitmap);
 		}
 	} catch (const EFailure& e) {
@@ -647,19 +689,9 @@ void Studio::onDocTabClose(wxAuiNotebookEvent& event)
 
 void Studio::onItemRightClick(wxTreeEvent& ev)
 {
-	// Find the item that was opened
-	TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(ev.GetItem());
-	if (!data) return;
-
-	// Make sure the ID is valid
-	GameObjectMap::iterator io = this->game->objects.find(data->id);
-	if (io == this->game->objects.end()) {
-		return;
-	}
-	GameObjectPtr& o = io->second;
-
-	bool hasFilters = false;
+	bool hasFilters = false, hasProperties = false;
 	try {
+		GameObjectPtr& o = this->getSelectedGameObject(ev);
 		if (!o->idParent.empty()) {
 			// This file is contained within an archive
 			gamearchive::ArchivePtr arch = this->getArchive(o->idParent);
@@ -672,11 +704,15 @@ void Studio::onItemRightClick(wxTreeEvent& ev)
 				}
 			}
 		}
+		if (o->typeMajor.IsSameAs(_T("map"))) {
+			hasProperties = true;
+		}
 	} catch (...) {
 		// just ignore any errors
 	}
 	this->popup->Enable(IDM_EXTRACT_RAW, hasFilters);
 	this->popup->Enable(IDM_OVERWRITE_RAW, hasFilters);
+	this->popup->Enable(wxID_PROPERTIES, hasProperties);
 	this->PopupMenu(this->popup);
 	return;
 }
