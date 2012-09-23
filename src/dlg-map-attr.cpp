@@ -66,7 +66,7 @@ DlgMapAttr::DlgMapAttr(Studio *parent, MapPtr map)
 	}
 
 	wxListBox *attrList = new wxListBox(this, IDC_LIST, wxDefaultPosition,
-		wxSize(150, 400), items, wxLB_SINGLE);
+		wxSize(150, 200), items, wxLB_SINGLE);
 
 	// Have to create the static box *before* the controls that go inside it
 	this->szControls = new wxStaticBoxSizer(wxVERTICAL, this, _("Selected attribute"));
@@ -155,7 +155,6 @@ void DlgMapAttr::onAttrSelected(wxCommandEvent& ev)
 		// Load new selection
 		Map::AttributePtr& a = this->newAttr->at(sel);
 		this->txtDesc->SetLabel(wxString(a->desc.c_str(), wxConvUTF8));
-		this->txtDesc->Layout();
 		switch (a->type) {
 			case Map::Attribute::Text:
 				this->ctText->SetValue(wxString(a->textValue.c_str(), wxConvUTF8));
@@ -196,7 +195,8 @@ void DlgMapAttr::onAttrSelected(wxCommandEvent& ev)
 					i = this->studio->game->objects.begin(); i != this->studio->game->objects.end(); i++
 				) {
 					if (validExt.IsSameAs(wxFileName(i->second->filename).GetExt(), false)) {
-						this->ctFilename->Append(i->second->friendlyName, (void *)i->second.get());
+						this->ctFilename->Append(i->second->friendlyName + _(" [")
+							+ i->second->filename + _("]"), (void *)i->second.get());
 						if ((sel < 0) && (curName.IsSameAs(i->second->filename, false))) sel = j;
 						j++;
 					}
@@ -211,6 +211,8 @@ void DlgMapAttr::onAttrSelected(wxCommandEvent& ev)
 			}
 		}
 	}
+	this->szControls->Layout();
+	yield();
 	this->szControls->Layout();
 	this->curSel = sel;
 	return;

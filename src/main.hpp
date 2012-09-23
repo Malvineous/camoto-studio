@@ -73,4 +73,7 @@ extern config_data config;
  */
 #undef NO_WXLOG_POPUPS
 
+/// Call wxApp::Yield()
+void yield();
+
 #endif // _MAIN_HPP_

@@ -22,17 +22,10 @@
 #include <config.h>
 #endif
 
-//#include <boost/bind.hpp>
-//#include <fstream>
-//#include <map>
-
 #include <wx/app.h>
-//#include <wx/wx.h>
 #include <wx/cmdline.h>
 #include <wx/cshelp.h>
 #include <wx/image.h>
-//#include <wx/stdpaths.h>
-//#include <wx/filename.h>
 
 #include "main.hpp"
 #include "studio.hpp"
@@ -155,3 +148,9 @@ const wxCmdLineEntryDesc CamotoApp::cmdLineDesc[] = {
 };
 
 IMPLEMENT_APP(CamotoApp)
+
+void yield()
+{
+	wxGetApp().Yield();
+	return;
+}
