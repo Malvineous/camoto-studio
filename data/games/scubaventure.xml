@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Scubaventure description file for Camoto Studio
+	Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Scubaventure
+  -->
+<game title="Scubaventure">
+
+	<info>
+		<developer>Gerald Lindsly, George Broussard</developer>
+		<publisher>Apogee</publisher>
+		<reverser>Szevvy and Malvineous</reverser>
+	</info>
+
+	<display>
+		<group name="Levels">
+			<group name="Episode 1">
+				<item ref="lev-bosslevel"/>
+				<item ref="lev-crew1bosslevel"/>
+				<item ref="lev-levela"/>
+				<item ref="lev-levelb"/>
+				<item ref="lev-levelc"/>
+				<item ref="lev-leveld"/>
+				<item ref="lev-levele"/>
+				<item ref="lev-levelf"/>
+				<item ref="lev-levelg"/>
+				<item ref="lev-levelh"/>
+				<item ref="lev-pegleglevel"/>
+				<item ref="lev-title"/>
+				<item ref="lev-winlevel"/>
+			</group>
+		</group>
+
+		<group name="Graphics">
+			<item ref="pal-main"/>
+
+			<group name="Tilesets">
+				<item ref="tls-back1-bg"/>
+				<item ref="tls-blocks2-bg"/>
+				<item ref="tls-winblocks-bg"/>
+
+				<item ref="tls-fg1-fg"/>
+
+				<item ref="tls-bonus1-bon"/>
+			</group>
+
+			<group name="Sprites">
+				<item ref="spr-45left"/>
+				<item ref="spr-45right"/>
+				<item ref="spr-bigbubble"/>
+				<item ref="spr-bomb"/>
+				<item ref="spr-border"/>
+				<item ref="spr-bouncemine"/>
+				<item ref="spr-bubblepot"/>
+				<item ref="spr-bubbles"/>
+				<item ref="spr-canonball"/>
+				<item ref="spr-crab"/>
+				<item ref="spr-crableft"/>
+				<item ref="spr-crew1"/>
+				<item ref="spr-cudaleft"/>
+				<item ref="spr-cudaright"/>
+				<item ref="spr-explosion"/>
+				<item ref="spr-fish1"/>
+				<item ref="spr-fish2left"/>
+				<item ref="spr-fish2right"/>
+				<item ref="spr-float100"/>
+				<item ref="spr-ghostleft"/>
+				<item ref="spr-ghostright"/>
+				<item ref="spr-heart"/>
+				<item ref="spr-jawsleft"/>
+				<item ref="spr-jawsright"/>
+				<item ref="spr-jellyfish"/>
+				<item ref="spr-manleft"/>
+				<item ref="spr-manright"/>
+				<item ref="spr-mate1"/>
+				<item ref="spr-mine"/>
+				<item ref="spr-numbers"/>
+				<item ref="spr-onemoment"/>
+				<item ref="spr-oxygen"/>
+				<item ref="spr-pegleg"/>
+				<item ref="spr-pirhanaleft"/>
+				<item ref="spr-pirhanaright"/>
+				<item ref="spr-popups"/>
+				<item ref="spr-pufferleft"/>
+				<item ref="spr-pufferright"/>
+				<item ref="spr-seahorse"/>
+				<item ref="spr-seahorseright"/>
+				<item ref="spr-seahorseshot"/>
+				<item ref="spr-shark"/>
+				<item ref="spr-sleeper"/>
+				<item ref="spr-spear"/>
+				<item ref="spr-spear2"/>
+				<item ref="spr-spike"/>
+				<item ref="spr-squidleft"/>
+				<item ref="spr-squidright"/>
+				<item ref="spr-tentacledown"/>
+				<item ref="spr-updownleft"/>
+				<item ref="spr-updownright"/>
+				<item ref="spr-zees"/>
+			</group>
+		</group>
+
+		<group name="Sounds">
+			<item ref="snd-pc"/>
+		</group>
+
+	</display>
+
+	<files>
+		<archive name="runscuba.dat" id="arch-bash1-dat" typeMinor="dat-bash">
+			<file id="pal-main"               name="UNNAMED.pal"        typeMajor="palette" typeMinor="ega" title="Main palette"/>
+
+			<file id="tls-back1-bg"           name="back1.tbg"          typeMajor="tileset" typeMinor="bash-bg" title="Background tiles"/>
+			<file id="tls-blocks2-bg"         name="blocks2.tbg"        typeMajor="tileset" typeMinor="bash-bg" title="Title background tiles"/>
+			<file id="tls-winblocks-bg"       name="winblocks.tbg"      typeMajor="tileset" typeMinor="bash-bg" title="Win background tiles"/>
+
+			<file id="tls-fg1-fg"             name="fg1.tfg"            typeMajor="tileset" typeMinor="bash-fg" title="Foreground tiles"/>
+
+			<file id="tls-bonus1-bon"         name="bonus1.tbn"         typeMajor="tileset" typeMinor="bash-fg" title="Bonus tiles"/>
+
+			<file id="lev-bosslevel-bg"       name="bosslevel.mbg"      typeMajor="map" typeMinor="bash-bg" title="Boss Level BG layer"/>
+			<file id="lev-crew1bosslevel-bg"  name="crew1bosslevel.mbg" typeMajor="map" typeMinor="bash-bg" title="Crew 1 Boss Level BG layer"/>
+			<file id="lev-levela-bg"          name="levela.mbg"         typeMajor="map" typeMinor="bash-bg" title="Level a BG layer"/>
+			<file id="lev-levelb-bg"          name="levelb.mbg"         typeMajor="map" typeMinor="bash-bg" title="Level b BG layer"/>
+			<file id="lev-levelc-bg"          name="levelc.mbg"         typeMajor="map" typeMinor="bash-bg" title="Level c BG layer"/>
+			<file id="lev-leveld-bg"          name="leveld.mbg"         typeMajor="map" typeMinor="bash-bg" title="Level d BG layer"/>
+			<file id="lev-levele-bg"          name="levele.mbg"         typeMajor="map" typeMinor="bash-bg" title="Level e BG layer"/>
+			<file id="lev-levelf-bg"          name="levelf.mbg"         typeMajor="map" typeMinor="bash-bg" title="Level f BG layer"/>
+			<file id="lev-levelg-bg"          name="levelg.mbg"         typeMajor="map" typeMinor="bash-bg" title="Level g BG layer"/>
+			<file id="lev-levelh-bg"          name="levelh.mbg"         typeMajor="map" typeMinor="bash-bg" title="Level h BG layer"/>
+			<file id="lev-pegleglevel-bg"     name="pegleglevel.mbg"    typeMajor="map" typeMinor="bash-bg" title="Pegleg BG layer"/>
+			<file id="lev-title-bg"           name="title.mbg"          typeMajor="map" typeMinor="bash-bg" title="Title BG layer"/>
+			<file id="lev-winlevel-bg"        name="winlevel.mbg"       typeMajor="map" typeMinor="bash-bg" title="Win BG layer"/>
+
+			<file id="lev-bosslevel-fg"       name="bosslevel.mfg"      typeMajor="map" typeMinor="bash-fg" title="Boss Level FG layer"/>
+			<file id="lev-crew1bosslevel-fg"  name="crew1bosslevel.mfg" typeMajor="map" typeMinor="bash-fg" title="Crew 1 Boss Level FG layer"/>
+			<file id="lev-levela-fg"          name="levela.mfg"         typeMajor="map" typeMinor="bash-fg" title="Level a FG layer"/>
+			<file id="lev-levelb-fg"          name="levelb.mfg"         typeMajor="map" typeMinor="bash-fg" title="Level b FG layer"/>
+			<file id="lev-levelc-fg"          name="levelc.mfg"         typeMajor="map" typeMinor="bash-fg" title="Level c FG layer"/>
+			<file id="lev-leveld-fg"          name="leveld.mfg"         typeMajor="map" typeMinor="bash-fg" title="Level d FG layer"/>
+			<file id="lev-levele-fg"          name="levele.mfg"         typeMajor="map" typeMinor="bash-fg" title="Level e FG layer"/>
+			<file id="lev-levelf-fg"          name="levelf.mfg"         typeMajor="map" typeMinor="bash-fg" title="Level f FG layer"/>
+			<file id="lev-levelg-fg"          name="levelg.mfg"         typeMajor="map" typeMinor="bash-fg" title="Level g FG layer"/>
+			<file id="lev-levelh-fg"          name="levelh.mfg"         typeMajor="map" typeMinor="bash-fg" title="Level h FG layer"/>
+			<file id="lev-pegleglevel-fg"     name="pegleglevel.mfg"    typeMajor="map" typeMinor="bash-fg" title="Pegleg FG layer"/>
+			<file id="lev-title-fg"           name="title.mfg"          typeMajor="map" typeMinor="bash-fg" title="Title FG layer"/>
+			<file id="lev-winlevel-fg"        name="winlevel.mfg"       typeMajor="map" typeMinor="bash-fg" title="Win FG layer"/>
+
+			<file id="lev-bosslevel-spr"      name="bosslevel.msp"      typeMajor="map" typeMinor="bash-spr" title="Boss Level sprite layer"/>
+			<file id="lev-crew1bosslevel-spr" name="crew1bosslevel.msp" typeMajor="map" typeMinor="bash-spr" title="Crew 1 Boss Level sprite layer"/>
+			<file id="lev-levela-spr"         name="levela.msp"         typeMajor="map" typeMinor="bash-spr" title="Level a sprite layer"/>
+			<file id="lev-levelb-spr"         name="levelb.msp"         typeMajor="map" typeMinor="bash-spr" title="Level b sprite layer"/>
+			<file id="lev-levelc-spr"         name="levelc.msp"         typeMajor="map" typeMinor="bash-spr" title="Level c sprite layer"/>
+			<file id="lev-leveld-spr"         name="leveld.msp"         typeMajor="map" typeMinor="bash-spr" title="Level d sprite layer"/>
+			<file id="lev-levele-spr"         name="levele.msp"         typeMajor="map" typeMinor="bash-spr" title="Level e sprite layer"/>
+			<file id="lev-levelf-spr"         name="levelf.msp"         typeMajor="map" typeMinor="bash-spr" title="Level f sprite layer"/>
+			<file id="lev-levelg-spr"         name="levelg.msp"         typeMajor="map" typeMinor="bash-spr" title="Level g sprite layer"/>
+			<file id="lev-levelh-spr"         name="levelh.msp"         typeMajor="map" typeMinor="bash-spr" title="Level h sprite layer"/>
+			<file id="lev-pegleglevel-spr"    name="pegleglevel.msp"    typeMajor="map" typeMinor="bash-spr" title="Pegleg sprite layer"/>
+
+			<file id="lev-bosslevel"          name="bosslevel.mif"      typeMajor="map" typeMinor="bash" title="Boss"/>
+			<file id="lev-crew1bosslevel"     name="crew1bosslevel.mif" typeMajor="map" typeMinor="bash" title="Crew 1 Boss"/>
+			<file id="lev-levela"             name="levela.mif"         typeMajor="map" typeMinor="bash" title="Level a"/>
+			<file id="lev-levelb"             name="levelb.mif"         typeMajor="map" typeMinor="bash" title="Level b"/>
+			<file id="lev-levelc"             name="levelc.mif"         typeMajor="map" typeMinor="bash" title="Level c"/>
+			<file id="lev-leveld"             name="leveld.mif"         typeMajor="map" typeMinor="bash" title="Level d"/>
+			<file id="lev-levele"             name="levele.mif"         typeMajor="map" typeMinor="bash" title="Level e"/>
+			<file id="lev-levelf"             name="levelf.mif"         typeMajor="map" typeMinor="bash" title="Level f"/>
+			<file id="lev-levelg"             name="levelg.mif"         typeMajor="map" typeMinor="bash" title="Level g"/>
+			<file id="lev-levelh"             name="levelh.mif"         typeMajor="map" typeMinor="bash" title="Level h"/>
+			<file id="lev-pegleglevel"        name="pegleglevel.mif"    typeMajor="map" typeMinor="bash" title="Pegleg"/>
+			<file id="lev-title"              name="title.mif"          typeMajor="map" typeMinor="bash" title="Title"/>
+			<file id="lev-winlevel"           name="winlevel.mif"       typeMajor="map" typeMinor="bash" title="Win"/>
+
+			<file id="snd-pc"            name="aqua.snd"          typeMajor="sound" typeMinor="pc" title="PC Speaker sounds"/>
+
+			<file id="spr-45left"        name="45left.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="45left"/>
+			<file id="spr-45right"       name="45right.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="45right"/>
+			<file id="spr-bigbubble"     name="bigbubble.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="bigbubble"/>
+			<file id="spr-bomb"          name="bomb.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="bomb"/>
+			<file id="spr-border"        name="border.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="border"/>
+			<file id="spr-bouncemine"    name="bouncemine.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="bouncemine"/>
+			<file id="spr-bubblepot"     name="bubblepot.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="bubblepot"/>
+			<file id="spr-bubbles"       name="bubbles.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="bubbles"/>
+			<file id="spr-canonball"     name="canonball.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="canonball"/>
+			<file id="spr-crab"          name="crab.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="crab"/>
+			<file id="spr-crableft"      name="crableft.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="crableft"/>
+			<file id="spr-crew1"         name="crew1.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="crew1"/>
+			<file id="spr-cudaleft"      name="cudaleft.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="cudaleft"/>
+			<file id="spr-cudaright"     name="cudaright.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="cudaright"/>
+			<file id="spr-explosion"     name="explosion.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="explosion"/>
+			<file id="spr-fish1"         name="fish1.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="fish1"/>
+			<file id="spr-fish2left"     name="fish2left.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="fish2left"/>
+			<file id="spr-fish2right"    name="fish2right.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="fish2right"/>
+			<file id="spr-float100"      name="float100.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="float100"/>
+			<file id="spr-ghostleft"     name="ghostleft.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="ghostleft"/>
+			<file id="spr-ghostright"    name="ghostright.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="ghostright"/>
+			<file id="spr-heart"         name="heart.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="heart"/>
+			<file id="spr-jawsleft"      name="jawsleft.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="jawsleft"/>
+			<file id="spr-jawsright"     name="jawsright.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="jawsright"/>
+			<file id="spr-jellyfish"     name="jellyfish.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="jellyfish"/>
+			<file id="spr-manleft"       name="manleft.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="manleft"/>
+			<file id="spr-manright"      name="manright.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="manright"/>
+			<file id="spr-mate1"         name="mate1.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="mate1"/>
+			<file id="spr-mine"          name="mine.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="mine"/>
+			<file id="spr-numbers"       name="numbers.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="numbers"/>
+			<file id="spr-onemoment"     name="onemoment.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="onemoment"/>
+			<file id="spr-oxygen"        name="oxygen.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="oxygen"/>
+			<file id="spr-pegleg"        name="pegleg.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="pegleg"/>
+			<file id="spr-pirhanaleft"   name="pirhanaleft.spr"   typeMajor="tileset" typeMinor="bash-sprite" title="pirhanaleft"/>
+			<file id="spr-pirhanaright"  name="pirhanaright.spr"  typeMajor="tileset" typeMinor="bash-sprite" title="pirhanaright"/>
+			<file id="spr-popups"        name="popups.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="popups"/>
+			<file id="spr-pufferleft"    name="pufferleft.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="pufferleft"/>
+			<file id="spr-pufferright"   name="pufferright.spr"   typeMajor="tileset" typeMinor="bash-sprite" title="pufferright"/>
+			<file id="spr-seahorse"      name="seahorse.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="seahorse"/>
+			<file id="spr-seahorseright" name="seahorseright.spr" typeMajor="tileset" typeMinor="bash-sprite" title="seahorseright"/>
+			<file id="spr-seahorseshot"  name="seahorseshot.spr"  typeMajor="tileset" typeMinor="bash-sprite" title="seahorseshot"/>
+			<file id="spr-shark"         name="shark.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="shark"/>
+			<file id="spr-sleeper"       name="sleeper.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="sleeper"/>
+			<file id="spr-spear"         name="spear.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="spear"/>
+			<file id="spr-spear2"        name="spear2.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="spear2"/>
+			<file id="spr-spike"         name="spike.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="spike"/>
+			<file id="spr-squidleft"     name="squidleft.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="squidleft"/>
+			<file id="spr-squidright"    name="squidright.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="squidright"/>
+			<file id="spr-tentacledown"  name="tentacledown.spr"  typeMajor="tileset" typeMinor="bash-sprite" title="tentacledown"/>
+			<file id="spr-updownleft"    name="updownleft.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="updownleft"/>
+			<file id="spr-updownright"   name="updownright.spr"   typeMajor="tileset" typeMinor="bash-sprite" title="updownright"/>
+			<file id="spr-zees"          name="zees.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="zees"/>
+		</archive>
+	</files>
+
+	<commands>
+		<command title="Normal">runscuba</command>
+	</commands>
+
+</game>
+<!--
+Files still to add:
+back1.pbg
+blocks2.pbg
+fg1.pfg
+bonus1.pbn
+sprtlist1.sgl
+winblocks.pbg
+-->
