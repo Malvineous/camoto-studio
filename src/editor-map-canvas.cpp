@@ -515,9 +515,9 @@ void MapCanvas::redraw()
 	for (unsigned int i = 0; i < layerCount; i++) {
 		if (this->visibleLayers[i]) {
 			Map2D::LayerPtr layer = this->map->getLayer(i);
-
-			unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
-			getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
+			int layerCaps = layer->getCaps();
+			unsigned int layerWidth, layerHeight, layerTileWidth, layerTileHeight;
+			getLayerDims(this->map, layer, &layerWidth, &layerHeight, &layerTileWidth, &layerTileHeight);
 
 			int oX = 0, oY = 0;
 			bool drawSelection = false;
@@ -528,8 +528,8 @@ void MapCanvas::redraw()
 			) {
 				// Draw the current selection
 				drawSelection = true;
-				oX = mapPointerX / tileWidth - this->selection.width / 2;
-				oY = mapPointerY / tileHeight - this->selection.height / 2;
+				oX = mapPointerX / layerTileWidth - this->selection.width / 2;
+				oY = mapPointerY / layerTileHeight - this->selection.height / 2;
 			}
 
 			// Set the selection colour to use as blending is turned on and off
@@ -541,8 +541,16 @@ void MapCanvas::redraw()
 			Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 			for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
 
-				int tileX = (*c)->x * tileWidth;
-				int tileY = (*c)->y * tileHeight;
+				int tileX = (*c)->x * layerTileWidth;
+				int tileY = (*c)->y * layerTileHeight;
+				unsigned int tileWidth, tileHeight;
+				if (layerCaps & Map2D::Layer::UseImageDims) {
+					tileWidth = this->textureMap[i][(*c)->code].width;
+					tileHeight = this->textureMap[i][(*c)->code].height;
+				} else {
+					tileWidth = layerTileWidth;
+					tileHeight = layerTileHeight;
+				}
 
 				if (tileX > this->offX + s.x) continue; // tile is off viewport to the right
 				if (tileX + (signed)tileWidth < this->offX) continue; // tile is off viewport to the left
@@ -597,10 +605,10 @@ void MapCanvas::redraw()
 				}
 
 				int x1 = tileX - this->offX;
-				int x2 = tileX + tileWidth - this->offX;
+				int x2 = x1 + tileWidth;
 				int xt = tileWidth/4;
 				int y1 = tileY - this->offY;
-				int y2 = tileY + tileHeight - this->offY;
+				int y2 = y1 + tileHeight;
 				int yt = tileHeight/4;
 
 				if ((*c)->type & Map2D::Layer::Item::Blocking) {
@@ -732,15 +740,29 @@ void MapCanvas::redraw()
 
 				for (int y = 0; y < (signed)this->selection.height; y++) {
 					for (int x = 0; x < (signed)this->selection.width; x++) {
-						int tileX = (x + oX) * tileWidth;
-						int tileY = (y + oY) * tileHeight;
+						int tileX = (x + oX) * layerTileWidth;
+						int tileY = (y + oY) * layerTileHeight;
 						unsigned int code = this->selection.tiles[y * this->selection.width + x];
+						Texture& texture = this->textureMap[this->activeLayer - ElementCount][code];
 						if (code == INVALID_TILECODE) continue; // omitted tile
+						unsigned int tileWidth, tileHeight;
+						if (layerCaps & Map2D::Layer::UseImageDims) {
+							tileWidth = texture.width;
+							tileHeight = texture.height;
+						} else {
+							tileWidth = layerTileWidth;
+							tileHeight = layerTileHeight;
+						}
 
 						if (tileX > this->offX + s.x) continue; // tile is off viewport to the right
 						if (tileX + (signed)tileWidth < this->offX) continue; // tile is off viewport to the left
 						if (tileY > this->offY + s.y) continue; // tile is off viewport to the bottom
 						if (tileY + (signed)tileHeight < this->offY) continue; // tile is off viewport to the top
+
+						int x1 = tileX - this->offX;
+						int x2 = x1 + tileWidth;
+						int y1 = tileY - this->offY;
+						int y2 = y1 + tileHeight;
 
 						unsigned int maxInstances;
 						if (
@@ -754,28 +776,28 @@ void MapCanvas::redraw()
 							glDisable(GL_TEXTURE_2D);
 							glColor4f(1.0, 0.0, 0.0, 1.0);
 							glBegin(GL_LINE_LOOP);
-							glVertex2i(tileX - this->offX, tileY - this->offY);
-							glVertex2i(tileX - this->offX, tileY + tileHeight - this->offY);
-							glVertex2i(tileX + tileWidth - this->offX, tileY + tileHeight - this->offY);
-							glVertex2i(tileX - this->offX, tileY + tileHeight - this->offY);
-							glVertex2i(tileX + tileWidth - this->offX, tileY - this->offY);
-							glVertex2i(tileX + tileWidth - this->offX, tileY + tileHeight - this->offY);
-							glVertex2i(tileX - this->offX, tileY - this->offY);
-							glVertex2i(tileX + tileWidth - this->offX, tileY - this->offY);
+							glVertex2i(x1, y1);
+							glVertex2i(x1, y2);
+							glVertex2i(x2, y2);
+							glVertex2i(x1, y2);
+							glVertex2i(x2, y1);
+							glVertex2i(x2, y2);
+							glVertex2i(x1, y1);
+							glVertex2i(x2, y1);
 							glEnd();
 							glEnable(GL_TEXTURE_2D);
 						} else {
 							// This tile can be placed here, draw the tile
-							glBindTexture(GL_TEXTURE_2D, this->textureMap[this->activeLayer - ElementCount][code].glid);
+							glBindTexture(GL_TEXTURE_2D, texture.glid);
 							glBegin(GL_QUADS);
 							glTexCoord2d(0.0, 0.0);
-							glVertex2i(tileX - this->offX, tileY - this->offY);
+							glVertex2i(x1, y1);
 							glTexCoord2d(0.0, 1.0);
-							glVertex2i(tileX - this->offX, tileY + tileHeight - this->offY);
+							glVertex2i(x1, y2);
 							glTexCoord2d(1.0, 1.0);
-							glVertex2i(tileX + tileWidth - this->offX, tileY + tileHeight - this->offY);
+							glVertex2i(x2, y2);
 							glTexCoord2d(1.0, 0.0);
-							glVertex2i(tileX + tileWidth - this->offX, tileY - this->offY);
+							glVertex2i(x2, y1);
 							glEnd();
 						}
 					}
