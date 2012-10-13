@@ -248,7 +248,6 @@ wxString Studio::getGameFilesPath()
 	return this->project->getDataPath();
 }
 
-/// Enable/disable menu items according to current state.
 void Studio::setControlStates()
 {
 	this->menubar->Enable(wxID_SAVE, this->project);
@@ -299,7 +298,6 @@ void Studio::onNewProject(wxCommandEvent& ev)
 	return;
 }
 
-/// Event handler for opening a new file/project.
 void Studio::onOpen(wxCommandEvent& ev)
 {
 	if (this->project) {
@@ -325,7 +323,6 @@ void Studio::onOpen(wxCommandEvent& ev)
 	return;
 }
 
-/// Event handler for saving the open project/file.
 void Studio::onSave(wxCommandEvent& ev)
 {
 	if (!this->project) return; // just in case
@@ -333,7 +330,6 @@ void Studio::onSave(wxCommandEvent& ev)
 	return;
 }
 
-/// Event handler for closing the open project.
 void Studio::onCloseProject(wxCommandEvent& ev)
 {
 	if (!this->project) return;
@@ -342,14 +338,12 @@ void Studio::onCloseProject(wxCommandEvent& ev)
 	return;
 }
 
-/// Reset the perspective in case some panels have become inaccessible.
 void Studio::onViewReset(wxCommandEvent& ev)
 {
 	this->aui.LoadPerspective(this->defaultPerspective);
 	return;
 }
 
-/// Show the preferences window.
 void Studio::onSetPrefs(wxCommandEvent& ev)
 {
 	PrefsDialog prefs(this, this->audio);
@@ -370,7 +364,6 @@ void Studio::onSetPrefs(wxCommandEvent& ev)
 	return;
 }
 
-/// Load DOSBox and run the game
 void Studio::onRunGame(wxCommandEvent& ev)
 {
 	std::map<long, wxString>::iterator i = this->commandMap.find(ev.GetId());
@@ -417,7 +410,6 @@ void Studio::onRunGame(wxCommandEvent& ev)
 	return;
 }
 
-/// Event handler for Help | About.
 void Studio::onHelpAbout(wxCommandEvent& ev)
 {
 	wxMessageDialog dlg(this, _(
@@ -440,7 +432,6 @@ void Studio::onExit(wxCommandEvent& ev)
 	return;
 }
 
-/// Event handler for extracting an item in the tree view.
 void Studio::onExtractItem(wxCommandEvent& ev)
 {
 	TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(this->treeCtrl->GetSelection());
@@ -449,7 +440,6 @@ void Studio::onExtractItem(wxCommandEvent& ev)
 	return;
 }
 
-/// Event handler for extracting an item without filters.
 void Studio::onExtractUnfilteredItem(wxCommandEvent& ev)
 {
 	TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(this->treeCtrl->GetSelection());
@@ -458,7 +448,6 @@ void Studio::onExtractUnfilteredItem(wxCommandEvent& ev)
 	return;
 }
 
-/// Event handler for overwriting an item in the tree view.
 void Studio::onOverwriteItem(wxCommandEvent& ev)
 {
 	TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(this->treeCtrl->GetSelection());
@@ -467,7 +456,6 @@ void Studio::onOverwriteItem(wxCommandEvent& ev)
 	return;
 }
 
-/// Event handler for overwriting an item without filtering.
 void Studio::onOverwriteUnfilteredItem(wxCommandEvent& ev)
 {
 	TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(this->treeCtrl->GetSelection());

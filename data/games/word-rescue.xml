@@ -38,10 +38,14 @@
 		</group>
 		<group name="Graphics">
 			<group name="Tilesets">
-				<item ref="tls-101"/>
-				<item ref="tls-102"/>
-				<item ref="tls-103"/>
-				<item ref="tls-104"/>
+				<item ref="tls-1"/>
+				<item ref="tls-2"/>
+				<item ref="tls-3"/>
+				<item ref="tls-4"/>
+				<item ref="tls-5"/>
+				<item ref="tls-6"/>
+				<item ref="tls-7"/>
+				<item ref="tls-8"/>
 				<item ref="tls-static"/>
 				<item ref="tls-bigfont"/>
 				<group name="Source images">
@@ -211,10 +215,14 @@
 
 	<files>
 		<archive name="wr1.1" id="arch-wr1-1" typeMinor="pcxlib">
-			<file id="tls-101"       name="back1.wr"   typeMajor="tileset" typeMinor="wordresc" title="Desert"/>
-			<file id="tls-102"       name="back2.wr"   typeMajor="tileset" typeMinor="wordresc" title="Castle"/>
-			<file id="tls-103"       name="back3.wr"   typeMajor="tileset" typeMinor="wordresc" title="Suburban"/>
-			<file id="tls-104"       name="back5.wr"   typeMajor="tileset" typeMinor="wordresc" title="Industrial"/>
+			<file id="tls-1"       name="back1.wr"   typeMajor="tileset" typeMinor="wordresc" title="Desert"/>
+			<file id="tls-2"       name="back2.wr"   typeMajor="tileset" typeMinor="wordresc" title="Castle"/>
+			<file id="tls-3"       name="back3.wr"   typeMajor="tileset" typeMinor="wordresc" title="Suburban"/>
+			<file id="tls-4"       name="back4.wr"   typeMajor="tileset" typeMinor="wordresc" title="Spooky (Ep 3 only)"/>
+			<file id="tls-5"       name="back5.wr"   typeMajor="tileset" typeMinor="wordresc" title="Industrial"/>
+			<file id="tls-6"       name="back6.wr"   typeMajor="tileset" typeMinor="wordresc" title="Custom (back6.wr)"/>
+			<file id="tls-7"       name="back7.wr"   typeMajor="tileset" typeMinor="wordresc" title="Custom (back7.wr)"/>
+			<file id="tls-8"       name="back8.wr"   typeMajor="tileset" typeMinor="wordresc" title="Custom (back8.wr)"/>
 			<file id="img-benny-101" name="benny1.wr"  typeMajor="image"   typeMinor="pcx-1b4p" title="Benny Bookworm 1"/>
 			<file id="img-benny-102" name="benny2.wr"  typeMajor="image"   typeMinor="pcx-1b4p" title="Benny Bookworm 2"/>
 			<file id="img-benny-103" name="slime.wr"   typeMajor="image"   typeMinor="pcx-1b4p" title="Benny Sliming"/>
@@ -243,7 +251,7 @@
 
 			<file id="img-static"    name="static.wr"  typeMajor="image"   typeMinor="pcx-1b4p" title="Static"/>
 			<file id="img-bigfont"   name="font.wr"    typeMajor="image"   typeMinor="pcx-1b4p" title="Large font"/>
-			<tileset id="tls-static" image="img-static">
+			<tileset id="tls-static" image="img-static" title="Static">
 				<image x="209" y="40" width="23" height="23"/>
 				<image x="232" y="40" width="24" height="32"/>
 				<image x="256" y="40" width="24" height="32"/>
@@ -280,9 +288,9 @@
 				<image x="160" y="144" width="24" height="24"/>
 				<image x="184" y="144" width="24" height="24"/>
 
-				<image x="208" y="72" width="71" height="72"/>
+				<image x="208" y="72" width="71" height="71"/>
 			</tileset>
-			<tileset id="tls-bigfont" image="img-bigfont" layoutWidth="9">
+			<tileset id="tls-bigfont" image="img-bigfont" layoutWidth="9" title="Large font">
 				<image x="0" y="0" width="16" height="16"/>
 				<image x="16" y="0" width="16" height="16"/>
 				<image x="32" y="0" width="16" height="16"/>
@@ -435,9 +443,6 @@
 		<file id="mus-303"   name="wr3.6"    typeMajor="music" typeMinor="cmf-creativelabs" title="E3 Song 3"/>
 
 		<file id="lev-101"   name="wr1.s0"   typeMajor="map"   typeMinor="wordresc" title="Level 1 - Main Street: Gruzzleville">
-			<dep reftype="tileset1" ref="tls-103"/>
-			<dep reftype="tileset2" ref="tls-static"/>
-			<dep reftype="tileset3" ref="tls-bigfont"/>
 		</file>
 		<file id="lev-102"   name="wr1.s1"   typeMajor="map"   typeMinor="wordresc" title="Level 2 - Gruzzleville Waterworks"/>
 		<file id="lev-103"   name="wr1.s2"   typeMajor="map"   typeMinor="wordresc" title="Level 3 - Rock Climbing"/>
