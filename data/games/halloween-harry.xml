@@ -456,7 +456,7 @@
 			<supp reftype="fat" ref="fat-order"/>
 
 			<file id="img-intro-o"  name="intro.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="Intro"/>
-			<file id="txt-swend"    name="shwrend.scr"  typeMajor="b800"  typeMinor="80b" title="Shareware exit screen"/>
+			<file id="txt-swend"    name="shwrend.scr"  typeMajor="b800"  typeMinor="80x25" title="Shareware exit screen"/>
 			<!-- TODO: Add rest of files -->
 		</archive>
 
