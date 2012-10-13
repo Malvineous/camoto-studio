@@ -43,6 +43,9 @@
 		</group>
 
 		<group name="Graphics">
+			<item ref="pal-main"/>
+			<item ref="b800-sw"/>
+			<item ref="b800-reg"/>
 
 			<group name="Tilesets">
 				<item ref="tls-101-bg"/>
@@ -81,6 +84,157 @@
 				<item ref="tls-stat-bon"/>
 			</group>
 
+			<group name="Sprites">
+				<item ref="spr-apogee_logo"/>
+				<item ref="spr-arrows"/>
+				<item ref="spr-axe"/>
+				<item ref="spr-badguy"/>
+				<item ref="spr-blank"/>
+				<item ref="spr-block"/>
+				<item ref="spr-blocky"/>
+				<item ref="spr-bomb"/>
+				<item ref="spr-bone1"/>
+				<item ref="spr-bone2"/>
+				<item ref="spr-bone3"/>
+				<item ref="spr-border"/>
+				<item ref="spr-border2"/>
+				<item ref="spr-bounce"/>
+				<item ref="spr-box_slide"/>
+				<item ref="spr-break_screen"/>
+				<item ref="spr-bshelf"/>
+				<item ref="spr-cat"/>
+				<item ref="spr-chunk"/>
+				<item ref="spr-cloud"/>
+				<item ref="spr-crack"/>
+				<item ref="spr-cracked_block"/>
+				<item ref="spr-crawlleft"/>
+				<item ref="spr-crawlright"/>
+				<item ref="spr-cursor_arm"/>
+				<item ref="spr-cursor_xhair"/>
+				<item ref="spr-cyc_horn_l"/>
+				<item ref="spr-cyc_horn_r"/>
+				<item ref="spr-cyclops_l"/>
+				<item ref="spr-cyclops_r"/>
+				<item ref="spr-demo"/>
+				<item ref="spr-devil_l"/>
+				<item ref="spr-devil_r"/>
+				<item ref="spr-dirt_l"/>
+				<item ref="spr-dirt_r"/>
+				<item ref="spr-disolve1"/>
+				<item ref="spr-disolve2"/>
+				<item ref="spr-dog"/>
+				<item ref="spr-drag_b"/>
+				<item ref="spr-drag_eye"/>
+				<item ref="spr-drag_fire"/>
+				<item ref="spr-drag_l"/>
+				<item ref="spr-end_gargoyle"/>
+				<item ref="spr-end_gargoyle2"/>
+				<item ref="spr-end_hellfire"/>
+				<item ref="spr-end_main"/>
+				<item ref="spr-explode"/>
+				<item ref="spr-faces"/>
+				<item ref="spr-fire_bit"/>
+				<item ref="spr-flag"/>
+				<item ref="spr-float100"/>
+				<item ref="spr-glass"/>
+				<item ref="spr-grenade"/>
+				<item ref="spr-guage"/>
+				<item ref="spr-guy_jump"/>
+				<item ref="spr-hand_l"/>
+				<item ref="spr-hand_r"/>
+				<item ref="spr-hat"/>
+				<item ref="spr-heart"/>
+				<item ref="spr-horse"/>
+				<item ref="spr-i_main_shoot"/>
+				<item ref="spr-i_rock"/>
+				<item ref="spr-i_splat"/>
+				<item ref="spr-i_zombie_bot"/>
+				<item ref="spr-i_zombie_hand"/>
+				<item ref="spr-i_zombie_top"/>
+				<item ref="spr-iman_l"/>
+				<item ref="spr-iman_r"/>
+				<item ref="spr-intro1"/>
+				<item ref="spr-intro2"/>
+				<item ref="spr-intro3"/>
+				<item ref="spr-jaw_l"/>
+				<item ref="spr-jaw_r"/>
+				<item ref="spr-knife"/>
+				<item ref="spr-knifee"/>
+				<item ref="spr-knifee_ud"/>
+				<item ref="spr-leaf"/>
+				<item ref="spr-lightn"/>
+				<item ref="spr-main_broom"/>
+				<item ref="spr-main_die"/>
+				<item ref="spr-main_exit"/>
+				<item ref="spr-main_hat_l"/>
+				<item ref="spr-main_hat_r"/>
+				<item ref="spr-main_l"/>
+				<item ref="spr-main_meter"/>
+				<item ref="spr-main_r"/>
+				<item ref="spr-main_stars"/>
+				<item ref="spr-main_workout"/>
+				<item ref="spr-main_workout2"/>
+				<item ref="spr-main_workout3"/>
+				<item ref="spr-main_workout4"/>
+				<item ref="spr-mouse"/>
+				<item ref="spr-msm"/>
+				<item ref="spr-nemesis"/>
+				<item ref="spr-numbers"/>
+				<item ref="spr-pellet_h"/>
+				<item ref="spr-pfork_l"/>
+				<item ref="spr-pfork_r"/>
+				<item ref="spr-plank"/>
+				<item ref="spr-plank_r"/>
+				<item ref="spr-platfall"/>
+				<item ref="spr-platform"/>
+				<item ref="spr-platform_v"/>
+				<item ref="spr-plug"/>
+				<item ref="spr-preview"/>
+				<item ref="spr-rock"/>
+				<item ref="spr-saw"/>
+				<item ref="spr-score"/>
+				<item ref="spr-score1up"/>
+				<item ref="spr-skelet_l"/>
+				<item ref="spr-skelet_r"/>
+				<item ref="spr-skullw"/>
+				<item ref="spr-smoke1"/>
+				<item ref="spr-smoke_cloud"/>
+				<item ref="spr-snake"/>
+				<item ref="spr-spear_plat"/>
+				<item ref="spr-splat"/>
+				<item ref="spr-swamp2_l"/>
+				<item ref="spr-swamp2_r"/>
+				<item ref="spr-swamp_l"/>
+				<item ref="spr-swamp_r"/>
+				<item ref="spr-swamp_scum2_l"/>
+				<item ref="spr-swamp_scum2_r"/>
+				<item ref="spr-swamp_scum_l"/>
+				<item ref="spr-swamp_scum_r"/>
+				<item ref="spr-teeth_l"/>
+				<item ref="spr-teeth_r"/>
+				<item ref="spr-tman_bl"/>
+				<item ref="spr-tman_br"/>
+				<item ref="spr-tman_ld"/>
+				<item ref="spr-tman_lu"/>
+				<item ref="spr-tman_rd"/>
+				<item ref="spr-tman_ru"/>
+				<item ref="spr-tman_tl"/>
+				<item ref="spr-tman_tr"/>
+				<item ref="spr-vegies"/>
+				<item ref="spr-visa"/>
+				<item ref="spr-vulture"/>
+				<item ref="spr-vulture_l"/>
+				<item ref="spr-vulture_r"/>
+				<item ref="spr-white"/>
+				<item ref="spr-witch_eye"/>
+				<item ref="spr-witch_sill"/>
+				<item ref="spr-zb_l"/>
+				<item ref="spr-zb_r"/>
+				<item ref="spr-zbh_l"/>
+				<item ref="spr-zbh_r"/>
+				<item ref="spr-zhead"/>
+				<item ref="spr-zhead_r"/>
+			</group>
 		</group>
 
 		<group name="Music">
@@ -103,10 +257,16 @@
 			<item ref="m_vulture"/>
 		</group>
 
+		<group name="Sounds">
+			<item ref="snd-pc"/>
+		</group>
+
 	</display>
 
 	<files>
 		<archive name="bash1.dat" id="arch-bash1-dat" typeMinor="dat-bash">
+			<file id="pal-main"       name="main_r.pal"  typeMajor="palette" typeMinor="ega" title="Main palette"/>
+
 			<file id="tls-101-bg"     name="bk1.tbg"     typeMajor="tileset" typeMinor="bash-bg" title="Background tiles 1"/>
 			<file id="tls-102-bg"     name="bk2.tbg"     typeMajor="tileset" typeMinor="bash-bg" title="Background tiles 2"/>
 			<file id="tls-103-bg"     name="bk3.tbg"     typeMajor="tileset" typeMinor="bash-bg" title="Background tiles 3"/>
@@ -179,6 +339,23 @@
 			<file id="lev-stat-fg"    name="stat.mfg"    typeMajor="map" typeMinor="bash-fg" title="Stat FG layer"/>
 			<file id="lev-title-fg"   name="title.mfg"   typeMajor="map" typeMinor="bash-fg" title="Title FG layer"/>
 
+			<file id="lev-101-spr"     name="lev1.msp"    typeMajor="map" typeMinor="bash-spr" title="E1L1 sprite layer"/>
+			<file id="lev-102-spr"     name="lev2.msp"    typeMajor="map" typeMinor="bash-spr" title="E1L2 sprite layer"/>
+			<file id="lev-104-spr"     name="lev4.msp"    typeMajor="map" typeMinor="bash-spr" title="E1L4 sprite layer"/>
+			<file id="lev-105-spr"     name="lev5.msp"    typeMajor="map" typeMinor="bash-spr" title="E1L5 sprite layer"/>
+			<file id="lev-106-spr"     name="lev6.msp"    typeMajor="map" typeMinor="bash-spr" title="E1L6 sprite layer"/>
+			<file id="lev-107-spr"     name="lev7.msp"    typeMajor="map" typeMinor="bash-spr" title="E1L7 sprite layer"/>
+			<file id="lev-108-spr"     name="lev8.msp"    typeMajor="map" typeMinor="bash-spr" title="E1L8 sprite layer"/>
+			<file id="lev-110-spr"     name="lev10.msp"   typeMajor="map" typeMinor="bash-spr" title="E1L10 sprite layer"/>
+			<file id="lev-111-spr"     name="lev11.msp"   typeMajor="map" typeMinor="bash-spr" title="E1L11 sprite layer"/>
+			<file id="lev-choose-spr"  name="choose.msp"  typeMajor="map" typeMinor="bash-spr" title="Choose sprite layer"/>
+			<file id="lev-grave3-spr"  name="grave3.msp"  typeMajor="map" typeMinor="bash-spr" title="Grave sprite layer"/>
+			<file id="lev-intro-spr"   name="intro.msp"   typeMajor="map" typeMinor="bash-spr" title="Intro sprite layer"/>
+			<file id="lev-pogee-spr"   name="pogee.msp"   typeMajor="map" typeMinor="bash-spr" title="Apogee sprite layer"/>
+			<file id="lev-preview-spr" name="preview.msp" typeMajor="map" typeMinor="bash-spr" title="Preview sprite layer"/>
+			<file id="lev-stat-spr"    name="stat.msp"    typeMajor="map" typeMinor="bash-spr" title="Stat sprite layer"/>
+			<file id="lev-title-spr"   name="title.msp"   typeMajor="map" typeMinor="bash-spr" title="Title sprite layer"/>
+
 			<file id="lev-101-map" name="lev1.mif" typeMajor="map" typeMinor="bash" title="Level 1"/>
 			<file id="lev-102-map" name="lev2.mif" typeMajor="map" typeMinor="bash" title="Level 2"/>
 			<file id="lev-104-map" name="lev4.mif" typeMajor="map" typeMinor="bash" title="Level 4"/>
@@ -214,6 +391,161 @@
 			<file id="m_main"     name="main.imf"     typeMajor="music" typeMinor="imf-idsoftware-type0" title="Main menu"/>
 			<file id="m_theme"    name="theme.imf"    typeMajor="music" typeMinor="imf-idsoftware-type0" title="Theme"/>
 			<file id="m_vulture"  name="vulture.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0" title="vulture"/>
+
+			<file id="snd-pc"     name="bash.snd"     typeMajor="sound" typeMinor="pc" title="PC Speaker sounds"/>
+
+			<file id="b800-sw"    name="bash1.dat"    typeMajor="b800" typeMinor="80x25" title="Text-mode ending screen (shareware)"/>
+			<file id="b800-reg"   name="bash2.dat"    typeMajor="b800" typeMinor="80x25" title="Text-mode ending screen (registered)"/>
+
+			<file id="spr-apogee_logo"   name="apogee_logo.spr"   typeMajor="tileset" typeMinor="bash-sprite" title="apogee_logo"/>
+			<file id="spr-arrows"        name="arrows.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="arrows"/>
+			<file id="spr-axe"           name="axe.spr"           typeMajor="tileset" typeMinor="bash-sprite" title="axe"/>
+			<file id="spr-badguy"        name="badguy.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="badguy"/>
+			<file id="spr-blank"         name="blank.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="blank"/>
+			<file id="spr-block"         name="block.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="block"/>
+			<file id="spr-blocky"        name="blocky.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="blocky"/>
+			<file id="spr-bomb"          name="bomb.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="bomb"/>
+			<file id="spr-bone1"         name="bone1.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="bone1"/>
+			<file id="spr-bone2"         name="bone2.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="bone2"/>
+			<file id="spr-bone3"         name="bone3.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="bone3"/>
+			<file id="spr-border"        name="border.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="border"/>
+			<file id="spr-border2"       name="border2.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="border2"/>
+			<file id="spr-bounce"        name="bounce.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="bounce"/>
+			<file id="spr-box_slide"     name="box_slide.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="box_slide"/>
+			<file id="spr-break_screen"  name="break_screen.spr"  typeMajor="tileset" typeMinor="bash-sprite" title="break_screen"/>
+			<file id="spr-bshelf"        name="bshelf.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="bshelf"/>
+			<file id="spr-cat"           name="cat.spr"           typeMajor="tileset" typeMinor="bash-sprite" title="cat"/>
+			<file id="spr-chunk"         name="chunk.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="chunk"/>
+			<file id="spr-cloud"         name="cloud.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="cloud"/>
+			<file id="spr-crack"         name="crack.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="crack"/>
+			<file id="spr-cracked_block" name="cracked_block.spr" typeMajor="tileset" typeMinor="bash-sprite" title="cracked_block"/>
+			<file id="spr-crawlleft"     name="crawlleft.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="crawlleft"/>
+			<file id="spr-crawlright"    name="crawlright.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="crawlright"/>
+			<file id="spr-cursor_arm"    name="cursor_arm.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="cursor_arm"/>
+			<file id="spr-cursor_xhair"  name="cursor_xhair.spr"  typeMajor="tileset" typeMinor="bash-sprite" title="cursor_xhair"/>
+			<file id="spr-cyc_horn_l"    name="cyc_horn_l.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="cyc_horn_l"/>
+			<file id="spr-cyc_horn_r"    name="cyc_horn_r.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="cyc_horn_r"/>
+			<file id="spr-cyclops_l"     name="cyclops_l.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="cyclops_l"/>
+			<file id="spr-cyclops_r"     name="cyclops_r.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="cyclops_r"/>
+			<file id="spr-demo"          name="demo.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="demo"/>
+			<file id="spr-devil_l"       name="devil_l.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="devil_l"/>
+			<file id="spr-devil_r"       name="devil_r.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="devil_r"/>
+			<file id="spr-dirt_l"        name="dirt_l.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="dirt_l"/>
+			<file id="spr-dirt_r"        name="dirt_r.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="dirt_r"/>
+			<file id="spr-disolve1"      name="disolve1.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="disolve1"/>
+			<file id="spr-disolve2"      name="disolve2.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="disolve2"/>
+			<file id="spr-dog"           name="dog.spr"           typeMajor="tileset" typeMinor="bash-sprite" title="dog"/>
+			<file id="spr-drag_b"        name="drag_b.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="drag_b"/>
+			<file id="spr-drag_eye"      name="drag_eye.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="drag_eye"/>
+			<file id="spr-drag_fire"     name="drag_fire.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="drag_fire"/>
+			<file id="spr-drag_l"        name="drag_l.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="drag_l"/>
+			<file id="spr-end_gargoyle"  name="end_gargoyle.spr"  typeMajor="tileset" typeMinor="bash-sprite" title="end_gargoyle"/>
+			<file id="spr-end_gargoyle2" name="end_gargoyle2.spr" typeMajor="tileset" typeMinor="bash-sprite" title="end_gargoyle2"/>
+			<file id="spr-end_hellfire"  name="end_hellfire.spr"  typeMajor="tileset" typeMinor="bash-sprite" title="end_hellfire"/>
+			<file id="spr-end_main"      name="end_main.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="end_main"/>
+			<file id="spr-explode"       name="explode.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="explode"/>
+			<file id="spr-faces"         name="faces.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="faces"/>
+			<file id="spr-fire_bit"      name="fire_bit.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="fire_bit"/>
+			<file id="spr-flag"          name="flag.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="flag"/>
+			<file id="spr-float100"      name="float100.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="float100"/>
+			<file id="spr-glass"         name="glass.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="glass"/>
+			<file id="spr-grenade"       name="grenade.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="grenade"/>
+			<file id="spr-guage"         name="guage.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="guage"/>
+			<file id="spr-guy_jump"      name="guy_jump.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="guy_jump"/>
+			<file id="spr-hand_l"        name="hand_l.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="hand_l"/>
+			<file id="spr-hand_r"        name="hand_r.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="hand_r"/>
+			<file id="spr-hat"           name="hat.spr"           typeMajor="tileset" typeMinor="bash-sprite" title="hat"/>
+			<file id="spr-heart"         name="heart.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="heart"/>
+			<file id="spr-horse"         name="horse.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="horse"/>
+			<file id="spr-i_main_shoot"  name="i_main_shoot.spr"  typeMajor="tileset" typeMinor="bash-sprite" title="i_main_shoot"/>
+			<file id="spr-i_rock"        name="i_rock.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="i_rock"/>
+			<file id="spr-i_splat"       name="i_splat.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="i_splat"/>
+			<file id="spr-i_zombie_bot"  name="i_zombie_bot.spr"  typeMajor="tileset" typeMinor="bash-sprite" title="i_zombie_bot"/>
+			<file id="spr-i_zombie_hand" name="i_zombie_hand.spr" typeMajor="tileset" typeMinor="bash-sprite" title="i_zombie_hand"/>
+			<file id="spr-i_zombie_top"  name="i_zombie_top.spr"  typeMajor="tileset" typeMinor="bash-sprite" title="i_zombie_top"/>
+			<file id="spr-iman_l"        name="iman_l.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="iman_l"/>
+			<file id="spr-iman_r"        name="iman_r.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="iman_r"/>
+			<file id="spr-intro1"        name="intro1.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="intro1"/>
+			<file id="spr-intro2"        name="intro2.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="intro2"/>
+			<file id="spr-intro3"        name="intro3.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="intro3"/>
+			<file id="spr-jaw_l"         name="jaw_l.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="jaw_l"/>
+			<file id="spr-jaw_r"         name="jaw_r.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="jaw_r"/>
+			<file id="spr-knife"         name="knife.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="knife"/>
+			<file id="spr-knifee"        name="knifee.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="knifee"/>
+			<file id="spr-knifee_ud"     name="knifee_ud.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="knifee_ud"/>
+			<file id="spr-leaf"          name="leaf.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="leaf"/>
+			<file id="spr-lightn"        name="lightn.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="lightn"/>
+			<file id="spr-main_broom"    name="main_broom.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="main_broom"/>
+			<file id="spr-main_die"      name="main_die.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="main_die"/>
+			<file id="spr-main_exit"     name="main_exit.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="main_exit"/>
+			<file id="spr-main_hat_l"    name="main_hat_l.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="main_hat_l"/>
+			<file id="spr-main_hat_r"    name="main_hat_r.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="main_hat_r"/>
+			<file id="spr-main_l"        name="main_l.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="main_l"/>
+			<file id="spr-main_meter"    name="main_meter.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="main_meter"/>
+			<file id="spr-main_r"        name="main_r.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="main_r"/>
+			<file id="spr-main_stars"    name="main_stars.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="main_stars"/>
+			<file id="spr-main_workout"  name="main_workout.spr"  typeMajor="tileset" typeMinor="bash-sprite" title="main_workout"/>
+			<file id="spr-main_workout2" name="main_workout2.spr" typeMajor="tileset" typeMinor="bash-sprite" title="main_workout2"/>
+			<file id="spr-main_workout3" name="main_workout3.spr" typeMajor="tileset" typeMinor="bash-sprite" title="main_workout3"/>
+			<file id="spr-main_workout4" name="main_workout4.spr" typeMajor="tileset" typeMinor="bash-sprite" title="main_workout4"/>
+			<file id="spr-mouse"         name="mouse.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="mouse"/>
+			<file id="spr-msm"           name="msm.spr"           typeMajor="tileset" typeMinor="bash-sprite" title="msm"/>
+			<file id="spr-nemesis"       name="nemesis.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="nemesis"/>
+			<file id="spr-numbers"       name="numbers.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="numbers"/>
+			<file id="spr-pellet_h"      name="pellet_h.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="pellet_h"/>
+			<file id="spr-pfork_l"       name="pfork_l.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="pfork_l"/>
+			<file id="spr-pfork_r"       name="pfork_r.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="pfork_r"/>
+			<file id="spr-plank"         name="plank.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="plank"/>
+			<file id="spr-plank_r"       name="plank_r.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="plank_r"/>
+			<file id="spr-platfall"      name="platfall.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="platfall"/>
+			<file id="spr-platform"      name="platform.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="platform"/>
+			<file id="spr-platform_v"    name="platform_v.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="platform_v"/>
+			<file id="spr-plug"          name="plug.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="plug"/>
+			<file id="spr-preview"       name="preview.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="preview"/>
+			<file id="spr-rock"          name="rock.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="rock"/>
+			<file id="spr-saw"           name="saw.spr"           typeMajor="tileset" typeMinor="bash-sprite" title="saw"/>
+			<file id="spr-score"         name="score.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="score"/>
+			<file id="spr-score1up"      name="score1up.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="score1up"/>
+			<file id="spr-skelet_l"      name="skelet_l.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="skelet_l"/>
+			<file id="spr-skelet_r"      name="skelet_r.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="skelet_r"/>
+			<file id="spr-skullw"        name="skullw.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="skullw"/>
+			<file id="spr-smoke1"        name="smoke1.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="smoke1"/>
+			<file id="spr-smoke_cloud"   name="smoke_cloud.spr"   typeMajor="tileset" typeMinor="bash-sprite" title="smoke_cloud"/>
+			<file id="spr-snake"         name="snake.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="snake"/>
+			<file id="spr-spear_plat"    name="spear_plat.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="spear_plat"/>
+			<file id="spr-splat"         name="splat.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="splat"/>
+			<file id="spr-swamp2_l"      name="swamp2_l.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="swamp2_l"/>
+			<file id="spr-swamp2_r"      name="swamp2_r.spr"      typeMajor="tileset" typeMinor="bash-sprite" title="swamp2_r"/>
+			<file id="spr-swamp_l"       name="swamp_l.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="swamp_l"/>
+			<file id="spr-swamp_r"       name="swamp_r.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="swamp_r"/>
+			<file id="spr-swamp_scum2_l" name="swamp_scum2_l.spr" typeMajor="tileset" typeMinor="bash-sprite" title="swamp_scum2_l"/>
+			<file id="spr-swamp_scum2_r" name="swamp_scum2_r.spr" typeMajor="tileset" typeMinor="bash-sprite" title="swamp_scum2_r"/>
+			<file id="spr-swamp_scum_l"  name="swamp_scum_l.spr"  typeMajor="tileset" typeMinor="bash-sprite" title="swamp_scum_l"/>
+			<file id="spr-swamp_scum_r"  name="swamp_scum_r.spr"  typeMajor="tileset" typeMinor="bash-sprite" title="swamp_scum_r"/>
+			<file id="spr-teeth_l"       name="teeth_l.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="teeth_l"/>
+			<file id="spr-teeth_r"       name="teeth_r.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="teeth_r"/>
+			<file id="spr-tman_bl"       name="tman_bl.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="tman_bl"/>
+			<file id="spr-tman_br"       name="tman_br.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="tman_br"/>
+			<file id="spr-tman_ld"       name="tman_ld.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="tman_ld"/>
+			<file id="spr-tman_lu"       name="tman_lu.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="tman_lu"/>
+			<file id="spr-tman_rd"       name="tman_rd.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="tman_rd"/>
+			<file id="spr-tman_ru"       name="tman_ru.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="tman_ru"/>
+			<file id="spr-tman_tl"       name="tman_tl.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="tman_tl"/>
+			<file id="spr-tman_tr"       name="tman_tr.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="tman_tr"/>
+			<file id="spr-vegies"        name="vegies.spr"        typeMajor="tileset" typeMinor="bash-sprite" title="vegies"/>
+			<file id="spr-visa"          name="visa.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="visa"/>
+			<file id="spr-vulture"       name="vulture.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="vulture"/>
+			<file id="spr-vulture_l"     name="vulture_l.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="vulture_l"/>
+			<file id="spr-vulture_r"     name="vulture_r.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="vulture_r"/>
+			<file id="spr-white"         name="white.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="white"/>
+			<file id="spr-witch_eye"     name="witch_eye.spr"     typeMajor="tileset" typeMinor="bash-sprite" title="witch_eye"/>
+			<file id="spr-witch_sill"    name="witch_sill.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="witch_sill"/>
+			<file id="spr-zb_l"          name="zb_l.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="zb_l"/>
+			<file id="spr-zb_r"          name="zb_r.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="zb_r"/>
+			<file id="spr-zbh_l"         name="zbh_l.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="zbh_l"/>
+			<file id="spr-zbh_r"         name="zbh_r.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="zbh_r"/>
+			<file id="spr-zhead"         name="zhead.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="zhead"/>
+			<file id="spr-zhead_r"       name="zhead_r.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="zhead_r"/>
 		</archive>
 	</files>
 
