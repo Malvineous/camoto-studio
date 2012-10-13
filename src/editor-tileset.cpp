@@ -317,6 +317,18 @@ class TilesetDocument: public IDocument
 						stdmask.reset(maskData);
 					}
 
+					// If the tiles are all the same size, images are just imported left
+					// to right, wrapping at the edge of the incoming image.  But this
+					// won't work if the tiles are different sizes, because one really
+					// wide image will make the whole incoming image really wide.  We then
+					// can't tell, for narrow images, how many are stored horizontally.
+					// So in this case we match the width (in number of tiles) the user
+					// has selected in the GUI before doing the import.
+					unsigned int curTilesX = 0;
+
+					// Have we warned the user about the source image being too narrow?
+					bool warnWidth = false;
+
 					unsigned int srcWidth = png.get_width();
 					unsigned int srcHeight = png.get_height();
 					unsigned int srcOffX = 0, srcOffY = 0;
@@ -341,15 +353,47 @@ class TilesetDocument: public IDocument
 								stdmask.reset(maskData);
 								curAlloc = targetAlloc;
 							} // else previous buffer is big enough, reuse it
+
+							if (curTilesX >= this->tilesX) {
+								// We've now imported the same number of tiles on this row as
+								// the user is viewing, so wrap to the next row.
+								srcOffX = 0;
+								srcOffY += lastMaxHeight;
+								lastMaxHeight = thisTileHeight;
+								curTilesX = 0;
+							}
+						} else {
+							// Figure out the location of this tile in the source image
+							if (srcOffX + thisTileWidth > srcWidth) {
+								// This tile would go past the right-hand edge of the source, so
+								// wrap around to the next row.
+								srcOffX = 0;
+								srcOffY += lastMaxHeight;
+								lastMaxHeight = thisTileHeight;
+								curTilesX = 0;
+							}
 						}
 
-						// Figure out the location of this tile in the source image
-						if (srcOffX + thisTileWidth > srcWidth) {
-							// This tile would go past the right-hand edge of the source, so
-							// wrap around to the next row.
-							srcOffX = 0;
-							srcOffY += lastMaxHeight;
-							lastMaxHeight = thisTileHeight;
+						if ((srcOffX + thisTileWidth > srcWidth) && warnWidth) {
+							// This tile would go past the right edge of the source, so
+							// warn the user.
+							wxMessageDialog dlg(this, _T("The image being imported is not "
+								"wide enough to contain data for all the tiles being "
+								"imported.  The imported tileset is likely to appear "
+								"corrupted.\n\n"
+								"This can happen if the tileset contains images of varying "
+								"sizes, and it was exported with a different number of "
+								"horizontal tiles displayed.  In this case, you must use the "
+								"toolbar buttons to arrange the tileset such that it is "
+								"showing the same number of tiles horizontally as it was "
+								"when originally exported.  You should then be able to "
+								"re-import the image with no problems.\n\n"
+								"For example, if the tileset was arranged to show five tiles "
+								"across when it was exported, you must now arrange it to show "
+								"five tiles across again, before performing the import."),
+								_T("Import tileset"), wxOK | wxICON_WARNING);
+							dlg.ShowModal();
+							return;
 						}
 						if (srcOffY + thisTileHeight > srcHeight) {
 							// This tile would go past the bottom edge of the source, so we
@@ -366,7 +410,6 @@ class TilesetDocument: public IDocument
 
 						// Update the height of the largest tile in this row
 						if (thisTileHeight > lastMaxHeight) lastMaxHeight = thisTileHeight;
-
 						for (unsigned int y = 0; y < thisTileHeight; y++) {
 							for (unsigned int x = 0; x < thisTileWidth; x++) {
 								uint8_t pixel = png[srcOffY + y][srcOffX + x];
@@ -401,6 +444,7 @@ class TilesetDocument: public IDocument
 						img->fromStandard(stdimg, stdmask);
 
 						srcOffX += thisTileWidth;
+						curTilesX++;
 
 					} // for (all tiles)
 					this->tileset->flush();
