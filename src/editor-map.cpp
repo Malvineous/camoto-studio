@@ -258,8 +258,33 @@ IDocument *MapEditor::openObject(const GameObjectPtr& o)
 			wxString(e.what(), wxConvUTF8).c_str()));
 	}
 
-	VC_TILESET tilesetVector;
-	// First, see if any tilesets have been specified in the XML
+	TilesetCollectionPtr tilesets(new TilesetCollection);
+
+	// See if the map file can supply us with any filenames.
+	Map::GraphicsFilenamesPtr gfxFiles = map->getGraphicsFilenames();
+	if (gfxFiles) {
+		for (Map::GraphicsFilenames::const_iterator
+			i = gfxFiles->begin(); i != gfxFiles->end(); i++
+		) {
+			wxString targetFilename(i->second.filename.c_str(), wxConvUTF8);
+			if (IMAGEPURPOSE_IS_TILESET(i->first)) {
+				GameObjectPtr ot = this->studio->game->findObjectByFilename(
+					targetFilename, _T("tileset"));
+				if (!ot) {
+					throw EFailure(wxString::Format(_("Cannot open this map.  It needs "
+						"a tileset that is missing from the game description XML file."
+						"\n\n[There is no <file/> element with the filename \"%s\" and a "
+						"typeMajor of \"tileset\", as needed by \"%s\"]"),
+						targetFilename.c_str(), o->id.c_str()));
+				}
+				(*tilesets)[i->first] = this->studio->openTileset(ot);
+			}
+		}
+	}
+
+	// Then, see if any tilesets have been specified in the XML.  This is
+	// second so that it's possible to override some or all of the map-supplied
+	// filenames.
 	try {
 		for (unsigned int i = 0; i < DepTypeCount; i++) { // load them in order
 			Deps::const_iterator idep = o->dep.find((DepType)i);
@@ -273,7 +298,7 @@ IDocument *MapEditor::openObject(const GameObjectPtr& o)
 					"\n\n[Item \"%s\" has an invalid ID in the dep:%s attribute]"),
 					o->id.c_str(), dep2string((DepType)i).c_str()));
 			}
-			tilesetVector.push_back(this->studio->openTileset(io->second));
+			(*tilesets)[(ImagePurpose)i] = this->studio->openTileset(io->second);
 		}
 	} catch (const EFailure& e) {
 		wxString msg = _("Error opening the map tileset:\n\n");
@@ -281,31 +306,7 @@ IDocument *MapEditor::openObject(const GameObjectPtr& o)
 		throw EFailure(msg);
 	}
 
-	// Then see if the map file can supply us with any filenames.  This is
-	// second so that it's possible to override these filenames if all of them
-	// are specified in the XML.
-	Map::FilenameVectorPtr gfxFiles = map->getGraphicsFilenames();
-	if (gfxFiles) {
-		for (Map::FilenameVector::const_iterator
-			i = gfxFiles->begin(); i != gfxFiles->end(); i++
-		) {
-			wxString targetFilename(i->filename.c_str(), wxConvUTF8);
-			if (i->purpose == Map::GraphicsFilename::Tileset) {
-				GameObjectPtr ot = this->studio->game->findObjectByFilename(
-					targetFilename, _T("tileset"));
-				if (!ot) {
-					throw EFailure(wxString::Format(_("Cannot open this map.  It needs "
-						"a tileset that is missing from the game description XML file."
-						"\n\n[There is no <file/> element with the filename \"%s\" and a "
-						"typeMajor of \"tileset\", as needed by \"%s\"]"),
-						targetFilename.c_str(), o->id.c_str()));
-				}
-				tilesetVector.push_back(this->studio->openTileset(ot));
-			}
-		}
-	}
-
-	if (tilesetVector.empty()) {
+	if (tilesets->empty()) {
 		throw EFailure(_("This map format requires at least one tileset to be "
 			"specified in the game description XML file, however none have been "
 			"given for this item."));
@@ -314,7 +315,7 @@ IDocument *MapEditor::openObject(const GameObjectPtr& o)
 	Map2DPtr map2d = boost::dynamic_pointer_cast<Map2D>(map);
 	if (map2d) {
 		return new MapDocument(this->studio, &this->settings, map2d, fnWriteMap,
-			tilesetVector, &this->studio->game->mapObjects);
+			tilesets, &this->studio->game->mapObjects);
 		/// @todo The MapObjects might be different for each map!  Use the right
 		/// ones here, since we know the map ID and other identifying info.
 		/// Put <for map="map-abc"/> inside the XML to allow multiple maps to share

@@ -38,15 +38,16 @@ BEGIN_EVENT_TABLE(MapDocument, IDocument)
 END_EVENT_TABLE()
 
 MapDocument::MapDocument(Studio *parent, MapEditor::Settings *settings,
-	Map2DPtr map, fn_write fnWriteMap, VC_TILESET tileset,
+	Map2DPtr map, fn_write fnWriteMap,
+	camoto::gamemaps::TilesetCollectionPtr tilesets,
 	const MapObjectVector *mapObjectVector)
 	:	IDocument(parent, _T("map")),
 		settings(settings),
 		map(map),
 		fnWriteMap(fnWriteMap),
-		tileset(tileset)
+		tilesets(tilesets)
 {
-	this->canvas = new MapCanvas(this, parent->getGLContext(), map, tileset,
+	this->canvas = new MapCanvas(this, parent->getGLContext(), map, tilesets,
 		parent->getGLAttributes(), mapObjectVector);
 
 	wxToolBar *tb = new wxToolBar(this, wxID_ANY, wxDefaultPosition,

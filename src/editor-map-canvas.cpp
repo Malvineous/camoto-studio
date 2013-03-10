@@ -108,12 +108,12 @@ BEGIN_EVENT_TABLE(MapCanvas, wxGLCanvas)
 END_EVENT_TABLE()
 
 MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
-	VC_TILESET tileset, int *attribList, const MapObjectVector *mapObjects)
+	TilesetCollectionPtr tilesets, int *attribList, const MapObjectVector *mapObjects)
 	:	wxGLCanvas(parent, glcx, wxID_ANY, wxDefaultPosition,
 			wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS, wxEmptyString, attribList),
 		doc(parent),
 		map(map),
-		tileset(tileset),
+		tilesets(tilesets),
 		mapObjects(mapObjects),
 		zoomFactor(2),
 		gridVisible(false),
@@ -133,7 +133,7 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 		resizeY(0),
 		nearestPathPointOff(-1)
 {
-	assert(tileset.size() > 0);
+	assert(tilesets->size() > 0);
 	// Initial state is all layers visible
 	unsigned int layerCount = map->getLayerCount();
 	for (unsigned int i = 0; i < layerCount; i++) {
@@ -149,6 +149,10 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 	glDisable(GL_DEPTH_TEST);
 
 	for (unsigned int i = 0; i < layerCount; i++) {
+		// Prepopulate an empty selection vector for each layer, so there is
+		// somewhere to put the tiles when some are selected.
+		this->selection.layers.push_back(Items());
+
 		Map2D::LayerPtr layer = this->map->getLayer(i);
 
 		unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
@@ -163,11 +167,22 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 		PaletteTablePtr palDefault;
 		if (layer->getCaps() & Map2D::Layer::HasPalette) {
 			// Use the palette supplied by the map layer
-			palDefault = layer->getPalette(tileset);
-		} else if (tileset[0]->getCaps() & Tileset::HasPalette) {
-			// Use the palette supplied by the tileset
-			palDefault = tileset[0]->getPalette();
+			palDefault = layer->getPalette(this->tilesets);
+			if (!palDefault) {
+				std::cerr << "ERROR: Map said it had a palette but then didn't "
+					"supply one!" << std::endl;
+			}
 		} else {
+			for (TilesetCollection::const_iterator
+				i = tilesets->begin(); i != tilesets->end(); i++
+			) {
+				if (i->second->getCaps() & Tileset::HasPalette) {
+					palDefault = i->second->getPalette();
+					break;
+				}
+			}
+		}
+		if (!palDefault) {
 			// Load a default palette.  The VGA one is backwards compatible with
 			// 16-color EGA/CGA images.
 			palDefault = createPalette_DefaultVGA();
@@ -182,7 +197,7 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 		for (Map2D::Layer::ItemPtrVector::iterator c = valid->begin(); c != valid->end(); c++) {
 			unsigned int code = (*c)->code;
 			if (tm.find(code) == tm.end()) {
-				this->loadTileImage(tm, palDefault, code, layer, tileset, unknownTile);
+				this->loadTileImage(tm, palDefault, *c, layer, tilesets, unknownTile);
 			}
 		}
 
@@ -192,7 +207,7 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 		for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
 			unsigned int code = (*c)->code;
 			if (tm.find(code) == tm.end()) {
-				this->loadTileImage(tm, palDefault, code, layer, tileset, unknownTile);
+				this->loadTileImage(tm, palDefault, *c, layer, tilesets, unknownTile);
 			}
 		}
 
@@ -305,7 +320,6 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 
 	// Start with no object selected
 	this->focusedObject = this->objects.end();
-	this->selection.tiles = NULL;
 }
 
 MapCanvas::~MapCanvas()
@@ -318,11 +332,11 @@ MapCanvas::~MapCanvas()
 }
 
 void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
-	unsigned int code, Map2D::LayerPtr& layer, VC_TILESET& tileset,
-	Texture& unknownTile)
+	const Map2D::Layer::ItemPtr& item, Map2D::LayerPtr& layer,
+	const TilesetCollectionPtr& tilesets, Texture& unknownTile)
 {
 	// This tile code doesn't have an associated image yet
-	ImagePtr image = layer->imageFromCode(code, tileset);
+	ImagePtr image = layer->imageFromCode(item, tilesets);
 	if (image) {
 		// Got an image for this tile code
 
@@ -338,7 +352,7 @@ void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 		if ((t.width > 512) || (t.height > 512)) {
 			// Image too large
 			std::cerr << "[editor-map-canvas] Tile too large, using default image" << std::endl;
-			tm[code] = unknownTile;
+			tm[item->code] = unknownTile;
 			return;
 		}
 
@@ -372,12 +386,12 @@ void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 				"into id " << t.glid << std::endl;
 		}
 
-		tm[code] = t;
+		tm[item->code] = t;
 	} else {
 		std::cerr << "[editor-map] Could not get an image for tile "
-			"code " << code << std::endl;
+			"code " << item->code << std::endl;
 
-		tm[code] = unknownTile;
+		tm[item->code] = unknownTile;
 	}
 
 	return;
@@ -425,10 +439,7 @@ void MapCanvas::setObjMode()
 	this->editingMode = ObjectMode;
 
 	// Deselect anything that was selected
-	if (this->selection.tiles) {
-		delete[] this->selection.tiles;
-		this->selection.tiles = NULL;
-	}
+	this->clearSelection();
 
 	// Remove any selection markers
 	this->redraw();
@@ -512,9 +523,9 @@ void MapCanvas::redraw()
 	int mapPointerY = CLIENT_TO_MAP_Y(this->pointerY);
 
 	unsigned int layerCount = this->map->getLayerCount();
-	for (unsigned int i = 0; i < layerCount; i++) {
-		if (this->visibleLayers[i]) {
-			Map2D::LayerPtr layer = this->map->getLayer(i);
+	for (unsigned int layerNum = 0; layerNum < layerCount; layerNum++) {
+		if (this->visibleLayers[layerNum]) {
+			Map2D::LayerPtr layer = this->map->getLayer(layerNum);
 			int layerCaps = layer->getCaps();
 			unsigned int layerWidth, layerHeight, layerTileWidth, layerTileHeight;
 			getLayerDims(this->map, layer, &layerWidth, &layerHeight, &layerTileWidth, &layerTileHeight);
@@ -522,8 +533,8 @@ void MapCanvas::redraw()
 			int oX = 0, oY = 0;
 			bool drawSelection = false;
 			if (
-				(this->activeLayer == ElementCount + i) &&  // if this is the active layer
-				(this->selection.tiles) &&   // and there are selected tiles
+				(this->activeLayer == ElementCount + layerNum) &&  // if this is the active layer
+				(this->haveSelection()) &&   // and there are selected tiles
 				(this->selectFromX < 0)      // and we're not selecting new tiles
 			) {
 				// Draw the current selection
@@ -545,8 +556,8 @@ void MapCanvas::redraw()
 				int tileY = (*c)->y * layerTileHeight;
 				unsigned int tileWidth, tileHeight;
 				if (layerCaps & Map2D::Layer::UseImageDims) {
-					tileWidth = this->textureMap[i][(*c)->code].width;
-					tileHeight = this->textureMap[i][(*c)->code].height;
+					tileWidth = this->textureMap[layerNum][(*c)->code].width;
+					tileHeight = this->textureMap[layerNum][(*c)->code].height;
 				} else {
 					tileWidth = layerTileWidth;
 					tileHeight = layerTileHeight;
@@ -575,12 +586,7 @@ void MapCanvas::redraw()
 					// This item is contained within the selection rendering area, so
 					// don't draw the map tile - unless the selection has no tile for
 					// that bit.
-					if (this->selection.tiles[
-							((*c)->y - oY) * this->selection.width + ((*c)->x - oX)
-						] != INVALID_TILECODE
-					) {
-						continue;
-					}
+					if (this->isTileSelected(layerNum, ((*c)->x - oX), ((*c)->y - oY))) continue;
 				}
 
 				// Now draw the tile at this map location
@@ -597,7 +603,7 @@ void MapCanvas::redraw()
 					// that will be removed if the delete key is pressed, so colour it.
 					int relX = (*c)->x - this->selection.x;
 					int relY = (*c)->y - this->selection.y;
-					if (this->selection.tiles[relY * this->selection.width + relX] != INVALID_TILECODE) {
+					if (this->isTileSelected(layerNum, relY, relX)) {
 						// There is a selected tile at this point, so highlight it
 						glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
 						glColor4f(1.0, 0.2, 0.2, 1.0);
@@ -711,7 +717,7 @@ void MapCanvas::redraw()
 				} else {
 					// Normal image
 					glEnable(GL_TEXTURE_2D);
-					glBindTexture(GL_TEXTURE_2D, this->textureMap[i][(*c)->code].glid);
+					glBindTexture(GL_TEXTURE_2D, this->textureMap[layerNum][(*c)->code].glid);
 					glBegin(GL_QUADS);
 					glTexCoord2d(0.0, 0.0);
 					glVertex2i(x1, y1);
@@ -738,13 +744,18 @@ void MapCanvas::redraw()
 					glBlendColor(0.0, 0.0, 0.0, 0.65);
 				}
 
-				for (int y = 0; y < (signed)this->selection.height; y++) {
-					for (int x = 0; x < (signed)this->selection.width; x++) {
-						int tileX = (x + oX) * layerTileWidth;
-						int tileY = (y + oY) * layerTileHeight;
-						unsigned int code = this->selection.tiles[y * this->selection.width + x];
-						Texture& texture = this->textureMap[this->activeLayer - ElementCount][code];
-						if (code == INVALID_TILECODE) continue; // omitted tile
+				for (std::vector<Items>::iterator
+					itSelLayer = this->selection.layers.begin();
+					itSelLayer != this->selection.layers.end(); itSelLayer++
+				) {
+					for (Items::iterator
+						itTile = itSelLayer->begin(); itTile != itSelLayer->end(); itTile++
+					) {
+						int tileX = (*itTile)->x + oX;
+						int tileY = (*itTile)->y + oY;
+
+						Map2D::Layer::ItemPtr& item = *itTile;
+						Texture& texture = this->textureMap[this->activeLayer - ElementCount][item->code];
 						unsigned int tileWidth, tileHeight;
 						if (layerCaps & Map2D::Layer::UseImageDims) {
 							tileWidth = texture.width;
@@ -754,23 +765,26 @@ void MapCanvas::redraw()
 							tileHeight = layerTileHeight;
 						}
 
-						if (tileX > this->offX + s.x) continue; // tile is off viewport to the right
-						if (tileX + (signed)tileWidth < this->offX) continue; // tile is off viewport to the left
-						if (tileY > this->offY + s.y) continue; // tile is off viewport to the bottom
-						if (tileY + (signed)tileHeight < this->offY) continue; // tile is off viewport to the top
+						int pixelX = tileX * tileWidth;
+						int pixelY = tileY * tileHeight;
 
-						int x1 = tileX - this->offX;
+						if (pixelX > this->offX + s.x) continue; // tile is off viewport to the right
+						if (pixelX + (signed)tileWidth < this->offX) continue; // tile is off viewport to the left
+						if (pixelY > this->offY + s.y) continue; // tile is off viewport to the bottom
+						if (pixelY + (signed)tileHeight < this->offY) continue; // tile is off viewport to the top
+
+						int x1 = pixelX - this->offX;
 						int x2 = x1 + tileWidth;
-						int y1 = tileY - this->offY;
+						int y1 = pixelY - this->offY;
 						int y2 = y1 + tileHeight;
 
 						unsigned int maxInstances;
 						if (
-							!layer->tilePermittedAt(code, x + oX, y + oY, &maxInstances) ||
-							(x + oX < 0) ||
-							(y + oY < 0) ||
-							(x + oX >= (signed)layerWidth) ||
-							(y + oY >= (signed)layerHeight)
+							!layer->tilePermittedAt(item, tileX, tileY, &maxInstances) ||
+							(tileX < 0) ||
+							(tileY < 0) ||
+							(tileX >= (signed)layerWidth) ||
+							(tileY >= (signed)layerHeight)
 						) {
 							// This tile cannot be placed here, draw a box with a red X in it
 							glDisable(GL_TEXTURE_2D);
@@ -1173,6 +1187,44 @@ void MapCanvas::redraw()
 	return;
 }
 
+bool MapCanvas::clearSelection()
+{
+	bool cleared = false;
+	for (std::vector<Items>::iterator
+		itSelLayer = this->selection.layers.begin();
+		itSelLayer != this->selection.layers.end(); itSelLayer++
+	) {
+		if (!itSelLayer->empty()) {
+			cleared = true;
+			itSelLayer->clear();
+		}
+	}
+	this->selection.width = 0;
+	this->selection.height = 0;
+	return cleared;
+}
+
+bool MapCanvas::haveSelection()
+{
+	return (this->selection.width == 0) && (this->selection.height == 0);
+}
+
+bool MapCanvas::isTileSelected(unsigned int layerNum, unsigned int x,
+	unsigned int y)
+{
+	bool inSelection = false;
+	Items& items = this->selection.layers[layerNum];
+	for (Items::const_iterator itSelItem = items.begin(); itSelItem != items.end(); itSelItem++) {
+		if (
+			((*itSelItem)->x == x) && ((*itSelItem)->y == y)
+		) {
+			inSelection = true;
+			break;
+		}
+	}
+	return inSelection;
+}
+
 bool MapCanvas::focusObject(ObjectVector::iterator start)
 {
 	bool needRedraw = false;
@@ -1322,9 +1374,8 @@ void MapCanvas::paintSelection(int x, int y)
 	Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 	bool *painted = new bool[this->selection.width * this->selection.height];
 	for (unsigned int i = 0; i < this->selection.width * this->selection.height; i++) painted[i] = false;
-
+/*
 	// Overwrite any existing tiles
-
 	unsigned int maxInstances;
 	for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
 		if (
@@ -1332,7 +1383,7 @@ void MapCanvas::paintSelection(int x, int y)
 			((signed)(*c)->x < oX + (signed)this->selection.width) &&
 			((signed)(*c)->y >= oY) &&
 			((signed)(*c)->y < oY + (signed)this->selection.height) &&
-			layer->tilePermittedAt((*c)->code, (*c)->x + oX, (*c)->y + oY, &maxInstances)
+			layer->tilePermittedAt(*c, (*c)->x + oX, (*c)->y + oY, &maxInstances)
 		) {
 			unsigned int selIndex = ((*c)->y - oY) * this->selection.width + ((*c)->x - oX);
 			assert(selIndex < this->selection.width * this->selection.height);
@@ -1369,6 +1420,7 @@ void MapCanvas::paintSelection(int x, int y)
 			this->doc->isModified = true;
 		}
 	}
+*/
 	delete[] painted;
 	return;
 }
@@ -1498,7 +1550,7 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 				switch (this->editingMode) {
 					case TileMode:
 						// If there's a current selection, overlay it
-						if (this->selection.tiles) {
+						if (this->haveSelection()) {
 							needRedraw = true;
 						}
 						break;
@@ -1661,7 +1713,7 @@ void MapCanvas::onMouseDownLeft(wxMouseEvent& ev)
 				// Paint the current selection, if any
 				if (
 					(this->activeLayer >= ElementCount) &&  // if this is the active layer
-					(this->selection.tiles) &&   // and there are selected tiles
+					(this->haveSelection()) &&   // and there are selected tiles
 					(this->selectFromX < 0)      // and we're not selecting new tiles
 				) {
 					this->actionFromX = ev.m_x;
@@ -1844,16 +1896,14 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 						if (maxY < (*c)->y + 1) maxY = (*c)->y + 1;
 					}
 				}
-				if (this->selection.tiles) delete[] this->selection.tiles;
+				if (this->haveSelection()) this->clearSelection();
 				if ((maxX < minX) || (maxY < minY)) {
 					// Empty selection
-					this->selection.tiles = NULL; // already deleted above
-					this->selection.width = 0;
-					this->selection.height = 0;
+					this->clearSelection();
 				} else {
 					this->selection.width = maxX - minX;
 					this->selection.height = maxY - minY;
-
+/*
 					this->selection.tiles = new unsigned int[this->selection.width * this->selection.height];
 					for (unsigned int i = 0; i < this->selection.width * this->selection.height; i++) {
 						this->selection.tiles[i] = INVALID_TILECODE; // no tile present here
@@ -1871,7 +1921,7 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 							this->selection.tiles[offset] = (*c)->code;
 						}
 					}
-
+*/
 					// Remember the location of the original selection
 					this->selection.x = minX;
 					this->selection.y = minY;
@@ -2059,7 +2109,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 						}
 					}
 				}
-			} else if ((this->activeLayer >= ElementCount) && (this->selection.tiles)) {
+			} else if ((this->activeLayer >= ElementCount) && (this->haveSelection())) {
 				unsigned int x1 = this->selection.x;
 				unsigned int y1 = this->selection.y;
 				unsigned int x2 = x1 + this->selection.width;
@@ -2085,11 +2135,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 
 		case WXK_ESCAPE:
 			// Clear the active selection
-			if (this->selection.tiles) {
-				delete[] this->selection.tiles;
-				this->selection.tiles = NULL;
-				needRedraw = true;
-			}
+			if (this->clearSelection()) needRedraw = true;
 			if (!this->pathSelection.empty()) {
 				this->pathSelection.clear();
 				this->doc->setStatusText(wxString()); // hide any previous error message
@@ -2161,7 +2207,7 @@ void MapCanvas::updateHelpText()
 		return this->doc->setHelpText(HT_SCROLL);
 
 	} else if (this->activeLayer >= ElementCount) { // normal map layer
-		if (this->selection.tiles) {
+		if (this->haveSelection()) {
 			return this->doc->setHelpText(wxString(HT_PASTE) + __ + HT_DEL + __ + HT_COPY + __
 				+ HT_ESC);
 		} else { // no selection

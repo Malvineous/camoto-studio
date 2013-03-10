@@ -36,7 +36,7 @@ class MapDocument: public IDocument
 	public:
 		MapDocument(Studio *parent, MapEditor::Settings *settings,
 			camoto::gamemaps::Map2DPtr map, fn_write fnWriteMap,
-			camoto::gamegraphics::VC_TILESET tileset,
+			const camoto::gamemaps::TilesetCollectionPtr tilesets,
 			const MapObjectVector *mapObjectVector);
 
 		virtual void save();
@@ -56,7 +56,7 @@ class MapDocument: public IDocument
 		MapEditor::Settings *settings;
 		camoto::gamemaps::Map2DPtr map;
 		fn_write fnWriteMap;
-		camoto::gamegraphics::VC_TILESET tileset;
+		const camoto::gamemaps::TilesetCollectionPtr tilesets;
 
 		friend class LayerPanel;
 		friend class TilePanel;

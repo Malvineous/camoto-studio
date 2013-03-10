@@ -112,7 +112,8 @@ class MapCanvas: public wxGLCanvas
 		bool visibleElements[ElementCount];  ///< Virtual layers (e.g. viewport)
 
 		MapCanvas(MapDocument *parent, wxGLContext *glcx,
-			camoto::gamemaps::Map2DPtr map, camoto::gamegraphics::VC_TILESET tileset,
+			camoto::gamemaps::Map2DPtr map,
+			const camoto::gamemaps::TilesetCollectionPtr tilesets,
 			int *attribList, const MapObjectVector *mapObjects);
 
 		~MapCanvas();
@@ -148,6 +149,27 @@ class MapCanvas: public wxGLCanvas
 
 		/// Redraw the document.  Used after toggling layers.
 		void redraw();
+
+		/// Deselect everything.
+		/**
+		 * @return true if there was a selection and now there isn't, false if
+		 *   there wasn't a selection so nothing has changed.
+		 */
+		bool clearSelection();
+
+		/// Are there currently tiles selected?
+		/**
+		 * @return true if there is a selection, false if not.
+		 */
+		bool haveSelection();
+
+		/// Is the given tile selected?
+		/**
+		 * @return true if it is contained within the user's current selection,
+		 *   or false otherwise.
+		 */
+		bool isTileSelected(unsigned int layerNum, unsigned int x,
+			unsigned int y);
 
 		/// Focus the object (if any) under the mouse cursor.
 		/**
@@ -210,13 +232,15 @@ class MapCanvas: public wxGLCanvas
 		 * @post textureMap has an additional entry added.
 		 */
 		void loadTileImage(TEXTURE_MAP& tm,
-			camoto::gamegraphics::PaletteTablePtr& palDefault, unsigned int code,
+			camoto::gamegraphics::PaletteTablePtr& palDefault,
+			const camoto::gamemaps::Map2D::Layer::ItemPtr& item,
 			camoto::gamemaps::Map2D::LayerPtr& layer,
-			camoto::gamegraphics::VC_TILESET& tileset, Texture& unknownTile);
+			const camoto::gamemaps::TilesetCollectionPtr& tileset,
+			Texture& unknownTile);
 
 		MapDocument *doc;
 		camoto::gamemaps::Map2DPtr map;
-		camoto::gamegraphics::VC_TILESET tileset;
+		const camoto::gamemaps::TilesetCollectionPtr tilesets;
 		const MapObjectVector *mapObjects;
 
 		std::vector<TEXTURE_MAP> textureMap;
@@ -250,13 +274,16 @@ class MapCanvas: public wxGLCanvas
 		ObjectVector objects; ///< Currently known objects found in the map
 		ObjectVector::iterator focusedObject; ///< Object currently under mouse pointer
 
+		/// List of map items.
+		typedef std::vector<camoto::gamemaps::Map2D::Layer::ItemPtr> Items;
+
 		/// Details about the current selection in tile-mode.
 		struct {
 			unsigned int x;      ///< X-coordinate of original selection's top-right corner
 			unsigned int y;      ///< Y-coordinate of original selection's top-right corner
 			unsigned int width;  ///< Width of selection, in tiles
 			unsigned int height; ///< Height of selection, in tiles
-			unsigned int *tiles; ///< Array of tiles selected
+			std::vector<Items> layers; ///< Selected tiles across all layers
 		} selection;
 
 		/// Details about the current selection when editing paths.
