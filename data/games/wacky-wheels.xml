@@ -236,172 +236,172 @@
 	<files>
 		<archive name="wacky.dat" id="arch-wacky-dat" typeMinor="dat-wacky">
 			<file id="lev-01" name="1.m"  typeMajor="map" typeMinor="wacky" title="Regular Bronze Wheels, Track 1">
-				<dep reftype="tileset1" ref="tls-f01"/>
-				<dep reftype="tileset2" ref="tls-f02"/>
+				<dep reftype="background-tileset1" ref="tls-f01"/>
+				<dep reftype="background-tileset2" ref="tls-f02"/>
 			</file>
 			<file id="lev-02" name="2.m"  typeMajor="map" typeMinor="wacky" title="Regular Bronze Wheels, Track 2">
-				<dep reftype="tileset1" ref="tls-f03"/>
-				<dep reftype="tileset2" ref="tls-f04"/>
+				<dep reftype="background-tileset1" ref="tls-f03"/>
+				<dep reftype="background-tileset2" ref="tls-f04"/>
 			</file>
 			<file id="lev-03" name="3.m"  typeMajor="map" typeMinor="wacky" title="Regular Bronze Wheels, Track 3">
-				<dep reftype="tileset1" ref="tls-f05"/>
-				<dep reftype="tileset2" ref="tls-f06"/>
+				<dep reftype="background-tileset1" ref="tls-f05"/>
+				<dep reftype="background-tileset2" ref="tls-f06"/>
 			</file>
 			<file id="lev-04" name="4.m"  typeMajor="map" typeMinor="wacky" title="Regular Bronze Wheels, Track 4">
-				<dep reftype="tileset1" ref="tls-f07"/>
-				<dep reftype="tileset2" ref="tls-f08"/>
+				<dep reftype="background-tileset1" ref="tls-f07"/>
+				<dep reftype="background-tileset2" ref="tls-f08"/>
 			</file>
 			<file id="lev-05" name="5.m"  typeMajor="map" typeMinor="wacky" title="Regular Bronze Wheels, Final">
-				<dep reftype="tileset1" ref="tls-f01"/>
-				<dep reftype="tileset2" ref="tls-f02"/>
+				<dep reftype="background-tileset1" ref="tls-f01"/>
+				<dep reftype="background-tileset2" ref="tls-f02"/>
 			</file>
 			<file id="lev-06" name="6.m"  typeMajor="map" typeMinor="wacky" title="Regular Silver Wheels, Track 1">
-				<dep reftype="tileset1" ref="tls-f09"/>
-				<dep reftype="tileset2" ref="tls-f10"/>
+				<dep reftype="background-tileset1" ref="tls-f09"/>
+				<dep reftype="background-tileset2" ref="tls-f10"/>
 			</file>
 			<file id="lev-07" name="7.m"  typeMajor="map" typeMinor="wacky" title="Regular Silver Wheels, Track 2">
-				<dep reftype="tileset1" ref="tls-f13"/>
-				<dep reftype="tileset2" ref="tls-f14"/>
+				<dep reftype="background-tileset1" ref="tls-f13"/>
+				<dep reftype="background-tileset2" ref="tls-f14"/>
 			</file>
 			<file id="lev-08" name="8.m"  typeMajor="map" typeMinor="wacky" title="Regular Silver Wheels, Track 3">
-				<dep reftype="tileset1" ref="tls-f07"/>
-				<dep reftype="tileset2" ref="tls-f08"/>
+				<dep reftype="background-tileset1" ref="tls-f07"/>
+				<dep reftype="background-tileset2" ref="tls-f08"/>
 			</file>
 			<file id="lev-09" name="9.m"  typeMajor="map" typeMinor="wacky" title="Regular Silver Wheels, Track 4">
-				<dep reftype="tileset1" ref="tls-f05"/>
-				<dep reftype="tileset2" ref="tls-f06"/>
+				<dep reftype="background-tileset1" ref="tls-f05"/>
+				<dep reftype="background-tileset2" ref="tls-f06"/>
 			</file>
 			<file id="lev-10" name="10.m" typeMajor="map" typeMinor="wacky" title="Regular Silver Wheels, Final">
-				<dep reftype="tileset1" ref="tls-f01"/>
-				<dep reftype="tileset2" ref="tls-f15"/>
+				<dep reftype="background-tileset1" ref="tls-f01"/>
+				<dep reftype="background-tileset2" ref="tls-f15"/>
 			</file>
 			<file id="lev-11" name="11.m" typeMajor="map" typeMinor="wacky" title="Regular Gold Wheels, Track 1">
-				<dep reftype="tileset1" ref="tls-f16"/>
-				<dep reftype="tileset2" ref="tls-f17"/>
+				<dep reftype="background-tileset1" ref="tls-f16"/>
+				<dep reftype="background-tileset2" ref="tls-f17"/>
 			</file>
 			<file id="lev-12" name="12.m" typeMajor="map" typeMinor="wacky" title="Regular Gold Wheels, Track 2">
-				<dep reftype="tileset1" ref="tls-f03"/>
-				<dep reftype="tileset2" ref="tls-f04"/>
+				<dep reftype="background-tileset1" ref="tls-f03"/>
+				<dep reftype="background-tileset2" ref="tls-f04"/>
 			</file>
 			<file id="lev-13" name="13.m" typeMajor="map" typeMinor="wacky" title="Regular Gold Wheels, Track 3">
-				<dep reftype="tileset1" ref="tls-f09"/>
-				<dep reftype="tileset2" ref="tls-f10"/>
+				<dep reftype="background-tileset1" ref="tls-f09"/>
+				<dep reftype="background-tileset2" ref="tls-f10"/>
 			</file>
 			<file id="lev-14" name="14.m" typeMajor="map" typeMinor="wacky" title="Regular Gold Wheels, Track 4">
-				<dep reftype="tileset1" ref="tls-f13"/>
-				<dep reftype="tileset2" ref="tls-f14"/>
+				<dep reftype="background-tileset1" ref="tls-f13"/>
+				<dep reftype="background-tileset2" ref="tls-f14"/>
 			</file>
 			<file id="lev-15" name="15.m" typeMajor="map" typeMinor="wacky" title="Regular Gold Wheels, Final">
-				<dep reftype="tileset1" ref="tls-f01"/>
-				<dep reftype="tileset2" ref="tls-f15"/>
+				<dep reftype="background-tileset1" ref="tls-f01"/>
+				<dep reftype="background-tileset2" ref="tls-f15"/>
 			</file>
 			<file id="lev-16" name="16.m" typeMajor="map" typeMinor="wacky" title="Regular Shootout Zone 1">
-				<dep reftype="tileset1" ref="tls-f03"/>
-				<dep reftype="tileset2" ref="tls-f11"/>
+				<dep reftype="background-tileset1" ref="tls-f03"/>
+				<dep reftype="background-tileset2" ref="tls-f11"/>
 			</file>
 			<file id="lev-17" name="17.m" typeMajor="map" typeMinor="wacky" title="Regular Shootout Zone 2">
-				<dep reftype="tileset1" ref="tls-f16"/>
-				<dep reftype="tileset2" ref="tls-f17"/>
+				<dep reftype="background-tileset1" ref="tls-f16"/>
+				<dep reftype="background-tileset2" ref="tls-f17"/>
 			</file>
 			<file id="lev-18" name="18.m" typeMajor="map" typeMinor="wacky" title="Regular Shootout Zone 3">
-				<dep reftype="tileset1" ref="tls-f07"/>
-				<dep reftype="tileset2" ref="tls-f08"/>
+				<dep reftype="background-tileset1" ref="tls-f07"/>
+				<dep reftype="background-tileset2" ref="tls-f08"/>
 			</file>
 			<file id="lev-19" name="19.m" typeMajor="map" typeMinor="wacky" title="Regular Shootout Zone 4">
-				<dep reftype="tileset1" ref="tls-f01"/>
-				<dep reftype="tileset2" ref="tls-f15"/>
+				<dep reftype="background-tileset1" ref="tls-f01"/>
+				<dep reftype="background-tileset2" ref="tls-f15"/>
 			</file>
 			<file id="lev-20" name="20.m" typeMajor="map" typeMinor="wacky" title="Regular Shootout Zone 5">
-				<dep reftype="tileset1" ref="tls-f09"/>
-				<dep reftype="tileset2" ref="tls-f10"/>
+				<dep reftype="background-tileset1" ref="tls-f09"/>
+				<dep reftype="background-tileset2" ref="tls-f10"/>
 			</file>
 			<file id="lev-21" name="21.m" typeMajor="map" typeMinor="wacky" title="Regular Shootout Zone 6">
-				<dep reftype="tileset1" ref="tls-f05"/>
-				<dep reftype="tileset2" ref="tls-f06"/>
+				<dep reftype="background-tileset1" ref="tls-f05"/>
+				<dep reftype="background-tileset2" ref="tls-f06"/>
 			</file>
 			<file id="lev-22" name="22.m" typeMajor="map" typeMinor="wacky" title="Bonus Bronze Wheels, Track 1">
-				<dep reftype="tileset1" ref="tls-f05"/>
-				<dep reftype="tileset2" ref="tls-f06"/>
+				<dep reftype="background-tileset1" ref="tls-f05"/>
+				<dep reftype="background-tileset2" ref="tls-f06"/>
 			</file>
 			<file id="lev-23" name="23.m" typeMajor="map" typeMinor="wacky" title="Bonus Bronze Wheels, Track 2">
-				<dep reftype="tileset1" ref="tls-f13"/>
-				<dep reftype="tileset2" ref="tls-f14"/>
+				<dep reftype="background-tileset1" ref="tls-f13"/>
+				<dep reftype="background-tileset2" ref="tls-f14"/>
 			</file>
 			<file id="lev-24" name="24.m" typeMajor="map" typeMinor="wacky" title="Bonus Bronze Wheels, Track 3">
-				<dep reftype="tileset1" ref="tls-f07"/>
-				<dep reftype="tileset2" ref="tls-f08"/>
+				<dep reftype="background-tileset1" ref="tls-f07"/>
+				<dep reftype="background-tileset2" ref="tls-f08"/>
 			</file>
 			<file id="lev-25" name="25.m" typeMajor="map" typeMinor="wacky" title="Bonus Bronze Wheels, Track 4">
-				<dep reftype="tileset1" ref="tls-f09"/>
-				<dep reftype="tileset2" ref="tls-f10"/>
+				<dep reftype="background-tileset1" ref="tls-f09"/>
+				<dep reftype="background-tileset2" ref="tls-f10"/>
 			</file>
 			<file id="lev-26" name="26.m" typeMajor="map" typeMinor="wacky" title="Bonus Bronze Wheels, Final">
-				<dep reftype="tileset1" ref="tls-f01"/>
-				<dep reftype="tileset2" ref="tls-f02"/>
+				<dep reftype="background-tileset1" ref="tls-f01"/>
+				<dep reftype="background-tileset2" ref="tls-f02"/>
 			</file>
 			<file id="lev-27" name="27.m" typeMajor="map" typeMinor="wacky" title="Bonus Silver Wheels, Track 1">
-				<dep reftype="tileset1" ref="tls-f03"/>
-				<dep reftype="tileset2" ref="tls-f04"/>
+				<dep reftype="background-tileset1" ref="tls-f03"/>
+				<dep reftype="background-tileset2" ref="tls-f04"/>
 			</file>
 			<file id="lev-28" name="28.m" typeMajor="map" typeMinor="wacky" title="Bonus Silver Wheels, Track 2">
-				<dep reftype="tileset1" ref="tls-f16"/>
-				<dep reftype="tileset2" ref="tls-f17"/>
+				<dep reftype="background-tileset1" ref="tls-f16"/>
+				<dep reftype="background-tileset2" ref="tls-f17"/>
 			</file>
 			<file id="lev-29" name="29.m" typeMajor="map" typeMinor="wacky" title="Bonus Silver Wheels, Track 3">
-				<dep reftype="tileset1" ref="tls-f05"/>
-				<dep reftype="tileset2" ref="tls-f06"/>
+				<dep reftype="background-tileset1" ref="tls-f05"/>
+				<dep reftype="background-tileset2" ref="tls-f06"/>
 			</file>
 			<file id="lev-30" name="30.m" typeMajor="map" typeMinor="wacky" title="Bonus Silver Wheels, Track 4">
-				<dep reftype="tileset1" ref="tls-f13"/>
-				<dep reftype="tileset2" ref="tls-f14"/>
+				<dep reftype="background-tileset1" ref="tls-f13"/>
+				<dep reftype="background-tileset2" ref="tls-f14"/>
 			</file>
 			<file id="lev-31" name="31.m" typeMajor="map" typeMinor="wacky" title="Bonus Silver Wheels, Final">
-				<dep reftype="tileset1" ref="tls-f01"/>
-				<dep reftype="tileset2" ref="tls-f02"/>
+				<dep reftype="background-tileset1" ref="tls-f01"/>
+				<dep reftype="background-tileset2" ref="tls-f02"/>
 			</file>
 			<file id="lev-32" name="32.m" typeMajor="map" typeMinor="wacky" title="Bonus Gold Wheels, Track 1">
-				<dep reftype="tileset1" ref="tls-f09"/>
-				<dep reftype="tileset2" ref="tls-f10"/>
+				<dep reftype="background-tileset1" ref="tls-f09"/>
+				<dep reftype="background-tileset2" ref="tls-f10"/>
 			</file>
 			<file id="lev-33" name="33.m" typeMajor="map" typeMinor="wacky" title="Bonus Gold Wheels, Track 2">
-				<dep reftype="tileset1" ref="tls-f03"/>
-				<dep reftype="tileset2" ref="tls-f04"/>
+				<dep reftype="background-tileset1" ref="tls-f03"/>
+				<dep reftype="background-tileset2" ref="tls-f04"/>
 			</file>
 			<file id="lev-34" name="34.m" typeMajor="map" typeMinor="wacky" title="Bonus Gold Wheels, Track 3">
-				<dep reftype="tileset1" ref="tls-f16"/>
-				<dep reftype="tileset2" ref="tls-f17"/>
+				<dep reftype="background-tileset1" ref="tls-f16"/>
+				<dep reftype="background-tileset2" ref="tls-f17"/>
 			</file>
 			<file id="lev-35" name="35.m" typeMajor="map" typeMinor="wacky" title="Bonus Gold Wheels, Track 4">
-				<dep reftype="tileset1" ref="tls-f07"/>
-				<dep reftype="tileset2" ref="tls-f08"/>
+				<dep reftype="background-tileset1" ref="tls-f07"/>
+				<dep reftype="background-tileset2" ref="tls-f08"/>
 			</file>
 			<file id="lev-36" name="36.m" typeMajor="map" typeMinor="wacky" title="Bonus Gold Wheels, Final">
-				<dep reftype="tileset1" ref="tls-f01"/>
-				<dep reftype="tileset2" ref="tls-f02"/>
+				<dep reftype="background-tileset1" ref="tls-f01"/>
+				<dep reftype="background-tileset2" ref="tls-f02"/>
 			</file>
 			<file id="lev-37" name="37.m" typeMajor="map" typeMinor="wacky" title="Bonus Shootout Zone 1">
-				<dep reftype="tileset1" ref="tls-f05"/>
-				<dep reftype="tileset2" ref="tls-f06"/>
+				<dep reftype="background-tileset1" ref="tls-f05"/>
+				<dep reftype="background-tileset2" ref="tls-f06"/>
 			</file>
 			<file id="lev-38" name="38.m" typeMajor="map" typeMinor="wacky" title="Bonus Shootout Zone 2">
-				<dep reftype="tileset1" ref="tls-f01"/>
-				<dep reftype="tileset2" ref="tls-f15"/>
+				<dep reftype="background-tileset1" ref="tls-f01"/>
+				<dep reftype="background-tileset2" ref="tls-f15"/>
 			</file>
 			<file id="lev-39" name="39.m" typeMajor="map" typeMinor="wacky" title="Bonus Shootout Zone 3">
-				<dep reftype="tileset1" ref="tls-f09"/>
-				<dep reftype="tileset2" ref="tls-f10"/>
+				<dep reftype="background-tileset1" ref="tls-f09"/>
+				<dep reftype="background-tileset2" ref="tls-f10"/>
 			</file>
 			<file id="lev-40" name="40.m" typeMajor="map" typeMinor="wacky" title="Bonus Shootout Zone 4">
-				<dep reftype="tileset1" ref="tls-f07"/>
-				<dep reftype="tileset2" ref="tls-f08"/>
+				<dep reftype="background-tileset1" ref="tls-f07"/>
+				<dep reftype="background-tileset2" ref="tls-f08"/>
 			</file>
 			<file id="lev-41" name="41.m" typeMajor="map" typeMinor="wacky" title="Bonus Shootout Zone 5">
-				<dep reftype="tileset1" ref="tls-f16"/>
-				<dep reftype="tileset2" ref="tls-f17"/>
+				<dep reftype="background-tileset1" ref="tls-f16"/>
+				<dep reftype="background-tileset2" ref="tls-f17"/>
 			</file>
 			<file id="lev-42" name="42.m" typeMajor="map" typeMinor="wacky" title="Bonus Shootout Zone 6">
-				<dep reftype="tileset1" ref="tls-f03"/>
-				<dep reftype="tileset2" ref="tls-f11"/>
+				<dep reftype="background-tileset1" ref="tls-f03"/>
+				<dep reftype="background-tileset2" ref="tls-f11"/>
 			</file>
 
 			<file id="lev-01-rd" name="1.rd"  title="Regular Bronze Wheels, Track 1"/>

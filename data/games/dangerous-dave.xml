@@ -48,39 +48,39 @@
 	<files>
 		<archive name="dave.exe" id="arch-ddave-exe" typeMinor="exe-ddave">
 			<file id="lev-01" name="level01.dav" typeMajor="map" typeMinor="ddave" title="Level 1">
-				<dep reftype="tileset1" ref="gfx-vga"/>
+				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
 			<file id="lev-02" name="level02.dav" typeMajor="map" typeMinor="ddave" title="Level 2">
-				<dep reftype="tileset1" ref="gfx-vga"/>
+				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
 			<file id="lev-03" name="level03.dav" typeMajor="map" typeMinor="ddave" title="Level 3">
-				<dep reftype="tileset1" ref="gfx-vga"/>
+				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
 			<file id="lev-04" name="level04.dav" typeMajor="map" typeMinor="ddave" title="Level 4">
-				<dep reftype="tileset1" ref="gfx-vga"/>
+				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
 			<file id="lev-05" name="level05.dav" typeMajor="map" typeMinor="ddave" title="Level 5">
-				<dep reftype="tileset1" ref="gfx-vga"/>
+				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
 			<file id="lev-06" name="level06.dav" typeMajor="map" typeMinor="ddave" title="Level 6">
-				<dep reftype="tileset1" ref="gfx-vga"/>
+				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
 			<file id="lev-07" name="level07.dav" typeMajor="map" typeMinor="ddave" title="Level 7">
-				<dep reftype="tileset1" ref="gfx-vga"/>
+				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
 			<file id="lev-08" name="level08.dav" typeMajor="map" typeMinor="ddave" title="Level 8">
-				<dep reftype="tileset1" ref="gfx-vga"/>
+				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
 			<file id="lev-09" name="level09.dav" typeMajor="map" typeMinor="ddave" title="Level 9">
-				<dep reftype="tileset1" ref="gfx-vga"/>
+				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
 			<file id="lev-10" name="level10.dav" typeMajor="map" typeMinor="ddave" title="Level 10">
-				<dep reftype="tileset1" ref="gfx-vga"/>
+				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
 
 			<file id="gfx-cga" name="cgadave.dav" typeMajor="tileset" typeMinor="ddave-cga" title="CGA tiles"/>
 			<file id="gfx-vga" name="vgadave.dav" typeMajor="tileset" typeMinor="ddave-vga" title="VGA tiles">
-				<dep reftype="tileset1" ref="pal-vga"/>
+				<dep reftype="palette" ref="pal-vga"/>
 			</file>
 
 			<file id="pal-vga" name="vga.pal" typeMajor="palette" typeMinor="vga" title="VGA palette"/>

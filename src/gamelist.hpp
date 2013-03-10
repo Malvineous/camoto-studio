@@ -27,6 +27,7 @@
 #include <map>
 #include <camoto/suppitem.hpp>
 #include <camoto/gamegraphics/tileset.hpp>
+#include <camoto/gamemaps/map.hpp>
 
 /// Minor type for an archive where the file offsets are listed in the XML
 #define ARCHTYPE_MINOR_FIXED "fixed"
@@ -57,11 +58,16 @@ typedef std::map<camoto::SuppItem::Type, wxString> SuppIDs;
  */
 enum DepType
 {
-	Tileset1 = 0,
-	Tileset2,
-	Tileset3,
-	Sprites,
-	Actors,
+	GenericTileset1    = 0 + camoto::gamemaps::GenericTileset1,
+	BackgroundImage    = 0 + camoto::gamemaps::BackgroundImage,
+	BackgroundTileset1 = 0 + camoto::gamemaps::BackgroundTileset1,
+	BackgroundTileset2 = 0 + camoto::gamemaps::BackgroundTileset2,
+	ForegroundTileset1 = 0 + camoto::gamemaps::ForegroundTileset1,
+	ForegroundTileset2 = 0 + camoto::gamemaps::ForegroundTileset2,
+	SpriteTileset1     = 0 + camoto::gamemaps::SpriteTileset1,
+	FontTileset1       = 0 + camoto::gamemaps::FontTileset1,
+	FontTileset2       = 0 + camoto::gamemaps::FontTileset2,
+	Palette,
 	DepTypeCount // must always be last
 };
 

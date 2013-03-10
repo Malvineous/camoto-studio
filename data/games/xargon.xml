@@ -169,206 +169,206 @@
 
 	<files>
 		<file id="lev-100"  name="map.xr1"      typeMajor="map" typeMinor="xargon" title="Overhead map">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-101"  name="board_01.xr1" typeMajor="map" typeMinor="xargon" title="Level 1 - This Bizarre World">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-102"  name="board_02.xr1" typeMajor="map" typeMinor="xargon" title="Level 2 - A Strange New Dimension">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-103"  name="board_03.xr1" typeMajor="map" typeMinor="xargon" title="Level 3 - The Forest of Enchanted Trees">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-104"  name="board_04.xr1" typeMajor="map" typeMinor="xargon" title="Level 4 - Robot Development Plant">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-105"  name="board_05.xr1" typeMajor="map" typeMinor="xargon" title="Level 5 - Corridors of Doom">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-106"  name="board_06.xr1" typeMajor="map" typeMinor="xargon" title="Level 6 - Cave of the Ancients">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-107"  name="board_07.xr1" typeMajor="map" typeMinor="xargon" title="Level 7 - Corkscrew Cave">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-108"  name="board_08.xr1" typeMajor="map" typeMinor="xargon" title="Level 8 - Coral Cave">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-109"  name="board_09.xr1" typeMajor="map" typeMinor="xargon" title="Level 9 - Tunnels of Terror">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-110"  name="board_10.xr1" typeMajor="map" typeMinor="xargon" title="Level 10 - Xargon's Secret Factory">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-132"  name="board_32.xr1" typeMajor="map" typeMinor="xargon" title="Level 32 - Xargon's Reactor">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-133"  name="board_33.xr1" typeMajor="map" typeMinor="xargon" title="Level 33 - Ending sequence">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1in"  name="intro.xr1"    typeMajor="map" typeMinor="xargon" title="Demo Introduction and main menu background">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1d1"  name="demo1.xr1"    typeMajor="map" typeMinor="xargon" title="Demo Level 1">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1d2"  name="demo2.xr1"    typeMajor="map" typeMinor="xargon" title="Demo Level 2">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1d3"  name="demo3.xr1"    typeMajor="map" typeMinor="xargon" title="Demo Level 3">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1st"  name="story.xr1"    typeMajor="map" typeMinor="xargon" title="Story">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 
 		<file id="lev-200"  name="map.xr2"      typeMajor="map" typeMinor="xargon" title="Overhead map">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-201"  name="board_01.xr2" typeMajor="map" typeMinor="xargon" title="Level 1 - Xargon's Castle">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-202"  name="board_02.xr2" typeMajor="map" typeMinor="xargon" title="Level 2 - Massive Volcano">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-203"  name="board_03.xr2" typeMajor="map" typeMinor="xargon" title="Level 3 - Strange Land">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-204"  name="board_04.xr2" typeMajor="map" typeMinor="xargon" title="Level 4 - Deadly Xbat">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-205"  name="board_05.xr2" typeMajor="map" typeMinor="xargon" title="Level 5 - Alien Creatures">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-206"  name="board_06.xr2" typeMajor="map" typeMinor="xargon" title="Level 6 - Swamps of Despair">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-207"  name="board_07.xr2" typeMajor="map" typeMinor="xargon" title="Level 7 - The Lava Pits">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-208"  name="board_08.xr2" typeMajor="map" typeMinor="xargon" title="Level 8 - Surreal Forest">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-209"  name="board_09.xr2" typeMajor="map" typeMinor="xargon" title="Level 9 - Beneath the Earth">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-210"  name="board_10.xr2" typeMajor="map" typeMinor="xargon" title="Level 10 - Grunt's Hideout">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-211"  name="board_11.xr2" typeMajor="map" typeMinor="xargon" title="Level 11 - Dangerous Waters">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-212"  name="board_12.xr2" typeMajor="map" typeMinor="xargon" title="Level 12 - Ancient Ruins">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-213"  name="board_13.xr2" typeMajor="map" typeMinor="xargon" title="Level 13 - Mysterious Maze">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-214"  name="board_14.xr2" typeMajor="map" typeMinor="xargon" title="Level 14 - Hidden Fortress">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-215"  name="board_15.xr2" typeMajor="map" typeMinor="xargon" title="Level 15 - Secret Chamber">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-232"  name="board_32.xr2" typeMajor="map" typeMinor="xargon" title="Level 33 - Ending sequence">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-2in"  name="intro.xr2"    typeMajor="map" typeMinor="xargon" title="Demo Introduction and main menu background">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-2d1"  name="demo1.xr2"    typeMajor="map" typeMinor="xargon" title="Demo Level 1">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-2d2"  name="demo2.xr2"    typeMajor="map" typeMinor="xargon" title="Demo Level 2">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-2d3"  name="demo3.xr2"    typeMajor="map" typeMinor="xargon" title="Demo Level 3">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 		<file id="lev-2st"  name="story.xr2"    typeMajor="map" typeMinor="xargon" title="Story">
-			<dep reftype="tileset1" ref="tls-2"/>
+			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 
 		<file id="lev-300"  name="map.xr3"      typeMajor="map" typeMinor="xargon" title="Overhead map">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-301"  name="board_01.xr3" typeMajor="map" typeMinor="xargon" title="Level 1 - Xargon's Castle">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-302"  name="board_02.xr3" typeMajor="map" typeMinor="xargon" title="Level 2 - Massive Volcano">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-303"  name="board_03.xr3" typeMajor="map" typeMinor="xargon" title="Level 3 - Strange Land">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-304"  name="board_04.xr3" typeMajor="map" typeMinor="xargon" title="Level 4 - Deadly Xbat">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-305"  name="board_05.xr3" typeMajor="map" typeMinor="xargon" title="Level 5 - Alien Creatures">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-306"  name="board_06.xr3" typeMajor="map" typeMinor="xargon" title="Level 6 - Swamps of Despair">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-307"  name="board_07.xr3" typeMajor="map" typeMinor="xargon" title="Level 7 - The Lava Pits">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-308"  name="board_08.xr3" typeMajor="map" typeMinor="xargon" title="Level 8 - Surreal Forest">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-309"  name="board_09.xr3" typeMajor="map" typeMinor="xargon" title="Level 9 - Beneath the Earth">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-310"  name="board_10.xr3" typeMajor="map" typeMinor="xargon" title="Level 10 - Grunt's Hideout">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-311"  name="board_11.xr3" typeMajor="map" typeMinor="xargon" title="Level 11 - Dangerous Waters">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-312"  name="board_12.xr3" typeMajor="map" typeMinor="xargon" title="Level 12 - Ancient Ruins">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-313"  name="board_13.xr3" typeMajor="map" typeMinor="xargon" title="Level 13 - Mysterious Maze">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-314"  name="board_14.xr3" typeMajor="map" typeMinor="xargon" title="Level 14 - Hidden Fortress">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-315"  name="board_15.xr3" typeMajor="map" typeMinor="xargon" title="Level 15 - Secret Chamber">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-332"  name="board_32.xr3" typeMajor="map" typeMinor="xargon" title="Level 33 - Ending sequence">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-3in"  name="intro.xr3"    typeMajor="map" typeMinor="xargon" title="Demo Introduction and main menu background">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-3d1"  name="demo1.xr3"    typeMajor="map" typeMinor="xargon" title="Demo Level 1">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-3d2"  name="demo2.xr3"    typeMajor="map" typeMinor="xargon" title="Demo Level 2">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-3d3"  name="demo3.xr3"    typeMajor="map" typeMinor="xargon" title="Demo Level 3">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 		<file id="lev-3st"  name="story.xr3"    typeMajor="map" typeMinor="xargon" title="Story">
-			<dep reftype="tileset1" ref="tls-3"/>
+			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 
 		<file id="tls-1"    name="graphics.xr1" typeMajor="tileset" typeMinor="jill" title="Game graphics">
-			<dep reftype="tileset1" ref="dma-1"/>
+			<dep reftype="background-tileset1" ref="dma-1"/>
 		</file>
 		<file id="dma-1"    name="tiles.xr1" title="Tile properties"/>
 
 		<file id="tls-2"    name="graphics.xr2" typeMajor="tileset" typeMinor="jill" title="Game graphics">
-			<dep reftype="tileset1" ref="dma-1"/>
+			<dep reftype="background-tileset1" ref="dma-1"/>
 		</file>
 		<file id="dma-2"    name="tiles.xr2" title="Tile properties"/>
 
 		<file id="tls-3"    name="graphics.xr3" typeMajor="tileset" typeMinor="jill" title="Game graphics">
-			<dep reftype="tileset1" ref="dma-1"/>
+			<dep reftype="background-tileset1" ref="dma-1"/>
 		</file>
 		<file id="dma-3"    name="tiles.xr3" title="Tile properties"/>
 

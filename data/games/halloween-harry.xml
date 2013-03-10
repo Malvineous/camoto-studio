@@ -208,87 +208,67 @@
 			<supp reftype="fat" ref="fat-maps"/>
 
 			<file id="lev-101" name="m1z1.gmf" typeMajor="map" typeMinor="harry" title="Mission 1 zone 1">
-				<supp reftype="palette" ref="pal-101"/>
-				<dep reftype="tileset1" ref="tls-1"/>
+				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-102" name="m1z2.gmf" typeMajor="map" typeMinor="harry" title="Mission 1 zone 2">
-				<supp reftype="palette" ref="pal-102"/>
-				<dep reftype="tileset1" ref="tls-1"/>
+				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-103" name="m1z3.gmf" typeMajor="map" typeMinor="harry" title="Mission 1 zone 3">
-				<supp reftype="palette" ref="pal-103"/>
-				<dep reftype="tileset1" ref="tls-1"/>
+				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-104" name="m1z4.gmf" typeMajor="map" typeMinor="harry" title="Mission 1 zone 4">
-				<supp reftype="palette" ref="pal-104"/>
-				<dep reftype="tileset1" ref="tls-1"/>
+				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
 			<file id="lev-105" name="m1z5.gmf" typeMajor="map" typeMinor="harry" title="Mission 1 zone 5">
-				<supp reftype="palette" ref="pal-105"/>
-				<dep reftype="tileset1" ref="tls-1"/>
+				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
 
 			<file id="lev-201" name="m2z1.gmf" typeMajor="map" typeMinor="harry" title="Mission 2 zone 1">
-				<supp reftype="palette" ref="pal-201"/>
-				<dep reftype="tileset1" ref="tls-2"/>
+				<dep reftype="background-tileset1" ref="tls-2"/>
 			</file>
 			<file id="lev-202" name="m2z2.gmf" typeMajor="map" typeMinor="harry" title="Mission 2 zone 2">
-				<supp reftype="palette" ref="pal-202"/>
-				<dep reftype="tileset1" ref="tls-2"/>
+				<dep reftype="background-tileset1" ref="tls-2"/>
 			</file>
 			<file id="lev-203" name="m2z3.gmf" typeMajor="map" typeMinor="harry" title="Mission 2 zone 3">
-				<supp reftype="palette" ref="pal-203"/>
-				<dep reftype="tileset1" ref="tls-2"/>
+				<dep reftype="background-tileset1" ref="tls-2"/>
 			</file>
 			<file id="lev-204" name="m2z4.gmf" typeMajor="map" typeMinor="harry" title="Mission 2 zone 4">
-				<supp reftype="palette" ref="pal-204"/>
-				<dep reftype="tileset1" ref="tls-2"/>
+				<dep reftype="background-tileset1" ref="tls-2"/>
 			</file>
 			<file id="lev-205" name="m2z5.gmf" typeMajor="map" typeMinor="harry" title="Mission 2 zone 5">
-				<supp reftype="palette" ref="pal-205"/>
-				<dep reftype="tileset1" ref="tls-2"/>
+				<dep reftype="background-tileset1" ref="tls-2"/>
 			</file>
 
 			<file id="lev-301" name="m3z1.gmf" typeMajor="map" typeMinor="harry" title="Mission 3 zone 1">
-				<supp reftype="palette" ref="pal-301"/>
-				<dep reftype="tileset1" ref="tls-3"/>
+				<dep reftype="background-tileset1" ref="tls-3"/>
 			</file>
 			<file id="lev-302" name="m3z2.gmf" typeMajor="map" typeMinor="harry" title="Mission 3 zone 2">
-				<supp reftype="palette" ref="pal-302"/>
-				<dep reftype="tileset1" ref="tls-3"/>
+				<dep reftype="background-tileset1" ref="tls-3"/>
 			</file>
 			<file id="lev-303" name="m3z3.gmf" typeMajor="map" typeMinor="harry" title="Mission 3 zone 3">
-				<supp reftype="palette" ref="pal-303"/>
-				<dep reftype="tileset1" ref="tls-3"/>
+				<dep reftype="background-tileset1" ref="tls-3"/>
 			</file>
 			<file id="lev-304" name="m3z4.gmf" typeMajor="map" typeMinor="harry" title="Mission 3 zone 4">
-				<supp reftype="palette" ref="pal-304"/>
-				<dep reftype="tileset1" ref="tls-3"/>
+				<dep reftype="background-tileset1" ref="tls-3"/>
 			</file>
 			<file id="lev-305" name="m3z5.gmf" typeMajor="map" typeMinor="harry" title="Mission 3 zone 5">
-				<supp reftype="palette" ref="pal-305"/>
-				<dep reftype="tileset1" ref="tls-3"/>
+				<dep reftype="background-tileset1" ref="tls-3"/>
 			</file>
 
 			<file id="lev-401" name="m4z1.gmf" typeMajor="map" typeMinor="harry" title="Mission 4 zone 1">
-				<supp reftype="palette" ref="pal-401"/>
-				<dep reftype="tileset1" ref="tls-4"/>
+				<dep reftype="background-tileset1" ref="tls-4"/>
 			</file>
 			<file id="lev-402" name="m4z2.gmf" typeMajor="map" typeMinor="harry" title="Mission 4 zone 2">
-				<supp reftype="palette" ref="pal-402"/>
-				<dep reftype="tileset1" ref="tls-4"/>
+				<dep reftype="background-tileset1" ref="tls-4"/>
 			</file>
 			<file id="lev-403" name="m4z3.gmf" typeMajor="map" typeMinor="harry" title="Mission 4 zone 3">
-				<supp reftype="palette" ref="pal-403"/>
-				<dep reftype="tileset1" ref="tls-4"/>
+				<dep reftype="background-tileset1" ref="tls-4"/>
 			</file>
 			<file id="lev-404" name="m4z4.gmf" typeMajor="map" typeMinor="harry" title="Mission 4 zone 4">
-				<supp reftype="palette" ref="pal-404"/>
-				<dep reftype="tileset1" ref="tls-4"/>
+				<dep reftype="background-tileset1" ref="tls-4"/>
 			</file>
 			<file id="lev-405" name="m4z5.gmf" typeMajor="map" typeMinor="harry" title="Mission 4 zone 5">
-				<supp reftype="palette" ref="pal-405"/>
-				<dep reftype="tileset1" ref="tls-4"/>
+				<dep reftype="background-tileset1" ref="tls-4"/>
 			</file>
 
 			<file id="pal-101" name="m1z1.gmf" typeMajor="pal" typeMinor="gmf-harry" title="Mission 1 zone 1 palette"/>

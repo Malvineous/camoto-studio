@@ -33,10 +33,16 @@
 wxString dep2string(DepType t)
 {
 	switch (t) {
-		case Tileset1: return _T("tileset1");
-		case Tileset2: return _T("tileset2");
-		case Tileset3: return _T("tileset3");
-		case Sprites:  return _T("sprites");
+		case GenericTileset1:    return _T("generic-tileset1");
+		case BackgroundTileset1: return _T("background-tileset1");
+		case BackgroundTileset2: return _T("background-tileset2");
+		case ForegroundTileset1: return _T("foreground-tileset1");
+		case ForegroundTileset2: return _T("foreground-tileset2");
+		case SpriteTileset1:     return _T("sprite-tileset1");
+		case FontTileset1:       return _T("font-tileset1");
+		case FontTileset2:       return _T("font-tileset2");
+		case BackgroundImage:    return _T("background-image");
+		case Palette:            return _T("palette");
 		case DepTypeCount: // fall through
 		default:
 			return _T("<invalid value>");
@@ -250,7 +256,7 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 				}
 				if (isSuppTag) {
 					// Convert attribute name into SuppItem type
-					camoto::SuppItem::Type suppType;
+					camoto::SuppItem::Type suppType = (camoto::SuppItem::Type)-1;
 					     if (sdType.IsSameAs(_T("dictionary" ))) suppType = camoto::SuppItem::Dictionary;
 					else if (sdType.IsSameAs(_T("fat"        ))) suppType = camoto::SuppItem::FAT;
 					else if (sdType.IsSameAs(_T("palette"    ))) suppType = camoto::SuppItem::Palette;
@@ -266,20 +272,29 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 						std::cout << "[gamelist] Invalid supplementary type \""
 							<< sdType.mb_str().data() << "\"" << std::endl;
 					}
-					o->supp[suppType] = sdRef;
+					if (suppType != (camoto::SuppItem::Type)-1) {
+						o->supp[suppType] = sdRef;
+					}
 				} else if (isDepTag) {
 					// Convert attribute name into DepType
-					DepType depType;
-					     if (sdType.IsSameAs(_T("tileset1"))) depType = Tileset1;
-					else if (sdType.IsSameAs(_T("tileset2"))) depType = Tileset2;
-					else if (sdType.IsSameAs(_T("tileset3"))) depType = Tileset3;
-					else if (sdType.IsSameAs(_T("sprites" ))) depType = Sprites;
-					else if (sdType.IsSameAs(_T("actors"  ))) depType = Actors;
+					DepType depType = (DepType)-1;
+					     if (sdType.IsSameAs(_T("generic-tileset1"   ))) depType = GenericTileset1;
+					else if (sdType.IsSameAs(_T("background-tileset1"))) depType = BackgroundTileset1;
+					else if (sdType.IsSameAs(_T("background-tileset2"))) depType = BackgroundTileset2;
+					else if (sdType.IsSameAs(_T("foreground-tileset1"))) depType = ForegroundTileset1;
+					else if (sdType.IsSameAs(_T("foreground-tileset2"))) depType = ForegroundTileset2;
+					else if (sdType.IsSameAs(_T("sprite-tileset1"    ))) depType = SpriteTileset1;
+					else if (sdType.IsSameAs(_T("font-tileset1"      ))) depType = FontTileset1;
+					else if (sdType.IsSameAs(_T("font-tileset2"      ))) depType = FontTileset2;
+					else if (sdType.IsSameAs(_T("background-image"   ))) depType = BackgroundImage;
+					else if (sdType.IsSameAs(_T("palette"            ))) depType = Palette;
 					else {
 						std::cout << "[gamelist] Invalid dependent object type \""
 							<< sdType.mb_str().data() << "\"" << std::endl;
 					}
-					o->dep[depType] = sdRef;
+					if (depType != (DepType)-1) {
+						o->dep[depType] = sdRef;
+					}
 				} // else ignore unknown tag
 			}
 

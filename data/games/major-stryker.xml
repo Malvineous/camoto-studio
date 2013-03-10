@@ -119,7 +119,7 @@
 
 		<archive name="volume1b.ms1" id="arch-vol1b" typeMinor="vol-cosmo">
 			<file id="lev-101" name="worldal1.dr1" typeMajor="map" typeMinor="stryker" title="Level 1">
-				<dep reftype="tileset1" ref="gfx-tiles-101"/>
+				<dep reftype="background-tileset1" ref="gfx-tiles-101"/>
 				<dep reftype="sprites"  ref="gfx-masked-101"/>
 				<dep reftype="actors"   ref="gfx-actors-101"/>
 			</file>

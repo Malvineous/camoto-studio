@@ -67,31 +67,31 @@
 
 	<files>
 		<file id="lev-100"   name="map.jn1"      typeMajor="map" typeMinor="jill" title="Map level">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-101"   name="1.jn1"        typeMajor="map" typeMinor="jill" title="Level 1 - The Boulders + Level 7 - The Forest">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-102"   name="2.jn1"        typeMajor="map" typeMinor="jill" title="Level 2 - The Forest + Level 14 - The Plateau">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-103"   name="3.jn1"        typeMajor="map" typeMinor="jill" title="Levels 3-5 - The Hut + Level 20 - Bonus">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-104"   name="4.jn1"        typeMajor="map" typeMinor="jill" title="Level 6 - The Castle + Level 13 - Yet Another Puzzle">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-106"   name="6.jn1"        typeMajor="map" typeMinor="jill" title="Level 8 - Arg's Dungeon + Level 9 - Phoenix Max + Level 10 - The Knight's Puzzle">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-109"   name="9.jn1"        typeMajor="map" typeMinor="jill" title="Level 11 - The Dark Forest + Level 12 - The Underground River">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-150"   name="50.jn1"       typeMajor="map" typeMinor="jill" title="Level 50 - The Ending">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 		<file id="lev-1in"   name="intro.jn1"    typeMajor="map" typeMinor="jill" title="Main menu background">
-			<dep reftype="tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 
 		<file id="tls-1"     name="jill1.sha"    typeMajor="tileset" typeMinor="jill" title="Game graphics">

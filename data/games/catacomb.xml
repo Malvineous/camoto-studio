@@ -44,34 +44,34 @@
 
 	<files>
 		<file id="lev-1" name="level1.cat"  typeMajor="map" typeMinor="catacomb" title="Level 1">
-			<dep reftype="tileset1" ref="gfx-tiles-ega"/>
+			<dep reftype="background-tileset1" ref="gfx-tiles-ega"/>
 		</file>
 		<file id="lev-2" name="level2.cat"  typeMajor="map" typeMinor="catacomb" title="Level 2">
-			<dep reftype="tileset1" ref="gfx-tiles-ega"/>
+			<dep reftype="background-tileset1" ref="gfx-tiles-ega"/>
 		</file>
 		<file id="lev-3" name="level3.cat"  typeMajor="map" typeMinor="catacomb" title="Level 3">
-			<dep reftype="tileset1" ref="gfx-tiles-ega"/>
+			<dep reftype="background-tileset1" ref="gfx-tiles-ega"/>
 		</file>
 		<file id="lev-4" name="level4.cat"  typeMajor="map" typeMinor="catacomb" title="Level 4">
-			<dep reftype="tileset1" ref="gfx-tiles-ega"/>
+			<dep reftype="background-tileset1" ref="gfx-tiles-ega"/>
 		</file>
 		<file id="lev-5" name="level5.cat"  typeMajor="map" typeMinor="catacomb" title="Level 5">
-			<dep reftype="tileset1" ref="gfx-tiles-ega"/>
+			<dep reftype="background-tileset1" ref="gfx-tiles-ega"/>
 		</file>
 		<file id="lev-6" name="level6.cat"  typeMajor="map" typeMinor="catacomb" title="Level 6">
-			<dep reftype="tileset1" ref="gfx-tiles-ega"/>
+			<dep reftype="background-tileset1" ref="gfx-tiles-ega"/>
 		</file>
 		<file id="lev-7" name="level7.cat"  typeMajor="map" typeMinor="catacomb" title="Level 7">
-			<dep reftype="tileset1" ref="gfx-tiles-ega"/>
+			<dep reftype="background-tileset1" ref="gfx-tiles-ega"/>
 		</file>
 		<file id="lev-8" name="level8.cat"  typeMajor="map" typeMinor="catacomb" title="Level 8">
-			<dep reftype="tileset1" ref="gfx-tiles-ega"/>
+			<dep reftype="background-tileset1" ref="gfx-tiles-ega"/>
 		</file>
 		<file id="lev-9" name="level9.cat"  typeMajor="map" typeMinor="catacomb" title="Level 9">
-			<dep reftype="tileset1" ref="gfx-tiles-ega"/>
+			<dep reftype="background-tileset1" ref="gfx-tiles-ega"/>
 		</file>
 		<file id="lev-a" name="level10.cat" typeMajor="map" typeMinor="catacomb" title="Level 10">
-			<dep reftype="tileset1" ref="gfx-tiles-ega"/>
+			<dep reftype="background-tileset1" ref="gfx-tiles-ega"/>
 		</file>
 
 		<file id="sfx"   name="sounds.cat"  typeMajor="sfx" typeMinor="catacomb" title="PC Speaker sounds"/>

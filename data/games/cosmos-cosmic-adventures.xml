@@ -73,59 +73,59 @@
 	<files>
 		<archive name="cosmo1.vol" id="arch-vol1" typeMinor="vol-cosmo">
 			<file id="lev-101" name="a1.mni"  typeMajor="map" typeMinor="cosmo" title="Level 1">
-				<dep reftype="actors"   ref="gfx-actors1"/>
-				<dep reftype="tileset1" ref="gfx-tiles1"/>
-				<dep reftype="sprites"  ref="gfx-masked1"/>
+				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
+				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
+				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
 			<file id="lev-102" name="a2.mni"  typeMajor="map" typeMinor="cosmo" title="Level 2">
-				<dep reftype="tileset1" ref="gfx-tiles1"/>
-				<dep reftype="sprites"  ref="gfx-masked1"/>
-				<dep reftype="actors"   ref="gfx-actors1"/>
+				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
+				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
+				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
 			<file id="lev-103" name="a3.mni"  typeMajor="map" typeMinor="cosmo" title="Level 3">
-				<dep reftype="tileset1" ref="gfx-tiles1"/>
-				<dep reftype="sprites"  ref="gfx-masked1"/>
-				<dep reftype="actors"   ref="gfx-actors1"/>
+				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
+				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
+				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
 			<file id="lev-104" name="a4.mni"  typeMajor="map" typeMinor="cosmo" title="Level 4">
-				<dep reftype="tileset1" ref="gfx-tiles1"/>
-				<dep reftype="sprites"  ref="gfx-masked1"/>
-				<dep reftype="actors"   ref="gfx-actors1"/>
+				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
+				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
+				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
 			<file id="lev-105" name="a5.mni"  typeMajor="map" typeMinor="cosmo" title="Level 5">
-				<dep reftype="tileset1" ref="gfx-tiles1"/>
-				<dep reftype="sprites"  ref="gfx-masked1"/>
-				<dep reftype="actors"   ref="gfx-actors1"/>
+				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
+				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
+				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
 			<file id="lev-106" name="a6.mni"  typeMajor="map" typeMinor="cosmo" title="Level 6">
-				<dep reftype="tileset1" ref="gfx-tiles1"/>
-				<dep reftype="sprites"  ref="gfx-masked1"/>
-				<dep reftype="actors"   ref="gfx-actors1"/>
+				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
+				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
+				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
 			<file id="lev-107" name="a7.mni"  typeMajor="map" typeMinor="cosmo" title="Level 7">
-				<dep reftype="tileset1" ref="gfx-tiles1"/>
-				<dep reftype="sprites"  ref="gfx-masked1"/>
-				<dep reftype="actors"   ref="gfx-actors1"/>
+				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
+				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
+				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
 			<file id="lev-108" name="a8.mni"  typeMajor="map" typeMinor="cosmo" title="Level 8">
-				<dep reftype="tileset1" ref="gfx-tiles1"/>
-				<dep reftype="sprites"  ref="gfx-masked1"/>
-				<dep reftype="actors"   ref="gfx-actors1"/>
+				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
+				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
+				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
 			<file id="lev-109" name="a9.mni"  typeMajor="map" typeMinor="cosmo" title="Level 9">
-				<dep reftype="tileset1" ref="gfx-tiles1"/>
-				<dep reftype="sprites"  ref="gfx-masked1"/>
-				<dep reftype="actors"   ref="gfx-actors1"/>
+				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
+				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
+				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
 			<file id="lev-110" name="a10.mni" typeMajor="map" typeMinor="cosmo" title="Level 10">
-				<dep reftype="tileset1" ref="gfx-tiles1"/>
-				<dep reftype="sprites"  ref="gfx-masked1"/>
-				<dep reftype="actors"   ref="gfx-actors1"/>
+				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
+				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
+				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
 			<file id="lev-111" name="a11.mni" typeMajor="map" typeMinor="cosmo" title="Level 11">
-				<dep reftype="tileset1" ref="gfx-tiles1"/>
-				<dep reftype="sprites"  ref="gfx-masked1"/>
-				<dep reftype="actors"   ref="gfx-actors1"/>
+				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
+				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
+				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
 
 			<file id="mus-boss"    name="mboss.mni"    typeMajor="music" typeMinor="imf-idsoftware-type0" title="Boss"/>
