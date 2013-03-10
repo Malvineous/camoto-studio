@@ -30,45 +30,15 @@
 using namespace camoto;
 using namespace camoto::gamegraphics;
 
-/// Load the palette from the image if it has one, otherwise use the default
-PaletteTablePtr getImagePalette(const ImagePtr& image)
-{
-	PaletteTablePtr pal;
-	bool hasPal = image->getCaps() & Image::HasPalette;
-	if (hasPal) {
-		pal = image->getPalette();
-		if (pal->size() == 0) {
-			std::cout << "[editor-image] Palette contains no entries, using default\n";
-			hasPal = false;
-		}
-	}
-	if (!hasPal) {
-		// Need to use the default palette
-		switch (image->getCaps() & Image::ColourDepthMask) {
-			case Image::ColourDepthVGA:
-				pal = createPalette_DefaultVGA();
-				break;
-			case Image::ColourDepthEGA:
-				pal = createPalette_DefaultEGA();
-				break;
-			case Image::ColourDepthCGA:
-				pal = createPalette_CGA(CGAPal_CyanMagenta);
-				break;
-			case Image::ColourDepthMono:
-				pal = createPalette_DefaultMono();
-				break;
-		}
-	}
-	return pal;
-}
-
 class ImageCanvas: public wxPanel
 {
 	public:
 
-		ImageCanvas(wxWindow *parent, ImagePtr image, int zoomFactor)
+		ImageCanvas(wxWindow *parent, ImagePtr image, PaletteTablePtr pal,
+			int zoomFactor)
 			:	wxPanel(parent, wxID_ANY),
 				image(image),
+				pal(pal),
 				wximg(),
 				zoomFactor(zoomFactor)
 		{
@@ -77,9 +47,10 @@ class ImageCanvas: public wxPanel
 
 		void imageChanged()
 		{
-			StdImageDataPtr data;
+			StdImageDataPtr data, mask;
 			try {
 				data = image->toStandard();
+				mask = image->toStandardMask();
 			} catch (const stream::error& e) {
 				wxMessageDialog dlg(this,
 					wxString::Format(_("Error reading image from native format:\n\n%s"),
@@ -89,19 +60,29 @@ class ImageCanvas: public wxPanel
 			}
 			this->image->getDimensions(&this->width, &this->height);
 
-			PaletteTablePtr pal = getImagePalette(image);
-
 			this->wximg = wxImage(width, height, false);
 			uint8_t *pixels = this->wximg.GetData();
 			if (pixels) {
+				// Convert the image from palettised to RGB
 				int size = width * height;
 				if (data) {
+					int palSize = this->pal->size();
 					for (int i = 0, p = 0; i < size; i++) {
-						uint8_t clr = data[i];
-						if (clr >= pal->size()) clr = 0;
-						pixels[p++] = pal->at(clr).red;
-						pixels[p++] = pal->at(clr).green;
-						pixels[p++] = pal->at(clr).blue;
+						if ((mask[i] & 1) == 1) {
+							// Transparent
+							bool check = ((i >> 2) & 1) ^ (((i / width) >> 2) & 1);
+							uint8_t clr = check ? 0x90 : 0xD0;
+							pixels[p++] = clr;
+							pixels[p++] = clr;
+							pixels[p++] = clr;
+						} else {
+							// Opaque
+							uint8_t clr = data[i];
+							if (clr >= palSize) clr = 0;
+							pixels[p++] = this->pal->at(clr).red;
+							pixels[p++] = this->pal->at(clr).green;
+							pixels[p++] = this->pal->at(clr).blue;
+						}
 					}
 				} else {
 					// no data, corrupted image
@@ -159,6 +140,7 @@ class ImageCanvas: public wxPanel
 
 	protected:
 		ImagePtr image;             ///< Camoto libgamegraphics image instance
+		PaletteTablePtr pal;        ///< Camoto colour palette for this image
 		wxImage wximg;              ///< Camoto image converted to wxImage
 		wxBitmap wxbmp;             ///< wxImage converted to wxBitmap ready to be drawn
 		unsigned int width, height; ///< Dimensions of underlying image
@@ -175,12 +157,14 @@ END_EVENT_TABLE()
 class ImageDocument: public IDocument
 {
 	public:
-		ImageDocument(Studio *studio, ImageEditor::Settings *settings, ImagePtr image)
+		ImageDocument(Studio *studio, ImageEditor::Settings *settings,
+			ImagePtr image, PaletteTablePtr pal)
 			:	IDocument(studio, _T("image")),
 				image(image),
+				pal(pal),
 				settings(settings)
 		{
-			this->canvas = new ImageCanvas(this, image, this->settings->zoomFactor);
+			this->canvas = new ImageCanvas(this, image, pal, this->settings->zoomFactor);
 
 			wxToolBar *tb = new wxToolBar(this, wxID_ANY, wxDefaultPosition,
 				wxDefaultSize, wxTB_FLAT | wxTB_NODIVIDER);
@@ -397,6 +381,7 @@ class ImageDocument: public IDocument
 							newPal->push_back(p);
 						}
 						this->image->setPalette(newPal);
+						this->pal = newPal;
 					}
 					this->image->fromStandard(stdimg, stdmask);
 
@@ -446,7 +431,7 @@ class ImageDocument: public IDocument
 
 				png::image<png::index_pixel> png(width, height);
 
-				PaletteTablePtr srcPal = getImagePalette(this->image);
+				PaletteTablePtr& srcPal = this->pal;
 
 				int palSize = srcPal->size();
 				bool useMask = palSize < 255;
@@ -505,6 +490,7 @@ class ImageDocument: public IDocument
 	protected:
 		ImageCanvas *canvas;
 		ImagePtr image;
+		PaletteTablePtr pal;        ///< Camoto colour palette for this image
 		ImageEditor::Settings *settings;
 
 		friend class LayerPanel;
@@ -567,7 +553,48 @@ IDocument *ImageEditor::openObject(const GameObjectPtr& o)
 		ImagePtr image = this->studio->openImage(o);
 		if (!image) return NULL; // user cancelled
 
-		return new ImageDocument(this->studio, &this->settings, image);
+		PaletteTablePtr pal;
+
+		// See if a palette was specified in the XML
+		Deps::const_iterator idep = o->dep.find(Palette);
+		if (idep != o->dep.end()) {
+			// Find this object
+			GameObjectMap::iterator io = this->studio->game->objects.find(idep->second);
+			if (io == this->studio->game->objects.end()) {
+				throw EFailure(wxString::Format(_("Cannot open this item.  It refers "
+					"to an entry in the game description XML file which doesn't exist!"
+					"\n\n[Item \"%s\" has an invalid ID in the dep:%s attribute]"),
+					o->id.c_str(), dep2string(Palette).c_str()));
+			}
+			pal = this->studio->openPalette(io->second);
+		} else {
+			if (image->getCaps() & Image::HasPalette) {
+				pal = image->getPalette();
+				if (pal->size() == 0) {
+					std::cout << "[editor-image] Palette contains no entries, using default\n";
+					// default is loaded below
+				}
+			}
+		}
+		if ((!pal) || (pal->size() == 0)) {
+			// Need to use the default palette
+			switch (image->getCaps() & Image::ColourDepthMask) {
+				case Image::ColourDepthVGA:
+					pal = createPalette_DefaultVGA();
+					break;
+				case Image::ColourDepthEGA:
+					pal = createPalette_DefaultEGA();
+					break;
+				case Image::ColourDepthCGA:
+					pal = createPalette_CGA(CGAPal_CyanMagenta);
+					break;
+				case Image::ColourDepthMono:
+					pal = createPalette_DefaultMono();
+					break;
+			}
+		}
+
+		return new ImageDocument(this->studio, &this->settings, image, pal);
 	} catch (const camoto::stream::error& e) {
 		throw EFailure(wxString::Format(_("Library exception: %s"),
 			wxString(e.what(), wxConvUTF8).c_str()));

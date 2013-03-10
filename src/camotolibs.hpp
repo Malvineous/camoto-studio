@@ -102,6 +102,9 @@ class CamotoLibs
 		/// Open the tileset identified by the given game object.
 		camoto::gamegraphics::TilesetPtr openTileset(const GameObjectPtr& o);
 
+		/// Open the palette identified by the given game object.
+		camoto::gamegraphics::PaletteTablePtr openPalette(const GameObjectPtr& o);
+
 		/// Open the map identified by the given game object.
 		/**
 		 * @param o

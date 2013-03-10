@@ -38,9 +38,11 @@ using namespace camoto::gamegraphics;
 class TilesetDocument: public IDocument
 {
 	public:
-		TilesetDocument(Studio *studio, TilesetEditor::Settings *settings, TilesetPtr tileset)
+		TilesetDocument(Studio *studio, TilesetEditor::Settings *settings,
+			TilesetPtr tileset, PaletteTablePtr pal)
 			:	IDocument(studio, _T("tileset")),
 				tileset(tileset),
+				pal(pal),
 				settings(settings),
 				offset(0)
 		{
@@ -144,23 +146,15 @@ class TilesetDocument: public IDocument
 
 		void updateTiles()
 		{
-			// Load the palette
-			PaletteTablePtr pal;
-			if (tileset->getCaps() & Tileset::HasPalette) {
-				pal = tileset->getPalette();
-			} else {
-				pal = createPalette_DefaultVGA();
-			}
-
 			// Make the texture operations below apply to this OpenGL surface
 			this->canvas->SetCurrent();
 
 			GLushort r[256], g[256], b[256], a[256];
 			for (int i = 0; i < 256; i++) {
-				r[i] = ((*pal)[i].red << 8) | (*pal)[i].red;
-				g[i] = ((*pal)[i].green << 8) | (*pal)[i].green;
-				b[i] = ((*pal)[i].blue << 8) | (*pal)[i].blue;
-				a[i] = ((*pal)[i].alpha << 8) | (*pal)[i].alpha;
+				r[i] = ((*this->pal)[i].red << 8) | (*this->pal)[i].red;
+				g[i] = ((*this->pal)[i].green << 8) | (*this->pal)[i].green;
+				b[i] = ((*this->pal)[i].blue << 8) | (*this->pal)[i].blue;
+				a[i] = ((*this->pal)[i].alpha << 8) | (*this->pal)[i].alpha;
 			}
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 			glPixelTransferi(GL_MAP_COLOR, GL_TRUE);
@@ -515,23 +509,10 @@ class TilesetDocument: public IDocument
 
 				png::image<png::index_pixel> png(maxWidth, y + maxHeight);
 
-				int palSize;
-				bool useMask;
-				PaletteTablePtr srcPal;
-				if (this->tileset->getCaps() & Tileset::HasPalette) {
-					srcPal = this->tileset->getPalette();
-					palSize = srcPal->size();
-					useMask = palSize < 255;
-					if (useMask) palSize++;
-				} else {
-					srcPal = createPalette_DefaultVGA();
-					palSize = srcPal->size();
-					useMask = true; // drops colour 255
-				}
-				if (srcPal->size() == 0) {
-					std::cout << "[editor-image] Palette contains no entries, using default\n";
-					srcPal = createPalette_DefaultVGA();
-				}
+				PaletteTablePtr srcPal = this->pal;
+				int palSize = srcPal->size();;
+				bool useMask = true; // drops colour 255
+				assert(srcPal->size() > 0);
 
 				png::palette pngPal(palSize);
 				int j = 0;
@@ -607,6 +588,7 @@ class TilesetDocument: public IDocument
 	protected:
 		TilesetCanvas *canvas; ///< Drawing surface
 		TilesetPtr tileset;    ///< Tileset to display
+		PaletteTablePtr pal;   ///< Palette to use
 		TilesetEditor::Settings *settings;
 		TEXTURE_MAP tm;        ///< Map between tile indices and OpenGL texture info
 
@@ -677,7 +659,41 @@ bool TilesetEditor::isFormatSupported(const wxString& type) const
 
 IDocument *TilesetEditor::openObject(const GameObjectPtr& o)
 {
-	TilesetPtr tileset = this->studio->openTileset(o);
-	if (!tileset) return NULL; // user cancelled
-	return new TilesetDocument(this->studio, &this->settings, tileset);
+	try {
+		TilesetPtr tileset = this->studio->openTileset(o);
+		if (!tileset) return NULL; // user cancelled
+
+		PaletteTablePtr pal;
+
+		// See if a palette was specified in the XML
+		Deps::const_iterator idep = o->dep.find(Palette);
+		if (idep != o->dep.end()) {
+			// Find this object
+			GameObjectMap::iterator io = this->studio->game->objects.find(idep->second);
+			if (io == this->studio->game->objects.end()) {
+				throw EFailure(wxString::Format(_("Cannot open this item.  It refers "
+					"to an entry in the game description XML file which doesn't exist!"
+					"\n\n[Item \"%s\" has an invalid ID in the dep:%s attribute]"),
+					o->id.c_str(), dep2string(Palette).c_str()));
+			}
+			pal = this->studio->openPalette(io->second);
+		} else {
+			if (tileset->getCaps() & Tileset::HasPalette) {
+				pal = tileset->getPalette();
+				if (pal->size() == 0) {
+					std::cout << "[editor-tileset] Palette contains no entries, using default\n";
+					// default is loaded below
+				}
+			}
+		}
+		if ((!pal) || (pal->size() == 0)) {
+			// Need to use the default palette
+			pal = createPalette_DefaultVGA();
+		}
+
+		return new TilesetDocument(this->studio, &this->settings, tileset, pal);
+	} catch (const camoto::stream::error& e) {
+		throw EFailure(wxString::Format(_("Library exception: %s"),
+			wxString(e.what(), wxConvUTF8).c_str()));
+	}
 }

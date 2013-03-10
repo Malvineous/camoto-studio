@@ -387,6 +387,53 @@ gamegraphics::TilesetPtr CamotoLibs::openTileset(const GameObjectPtr& o)
 	}
 }
 
+gamegraphics::PaletteTablePtr CamotoLibs::openPalette(const GameObjectPtr& o)
+{
+	if (o->typeMinor.IsEmpty()) {
+		throw EFailure(_("No file type was specified for this item!"));
+	}
+
+	std::string strType("pal-");
+	strType.append(o->typeMinor.ToUTF8());
+	ImageTypePtr pImageType(this->mgrGraphics->getImageTypeByCode(strType));
+	if (!pImageType) {
+		wxString wxtype(strType.c_str(), wxConvUTF8);
+		throw EFailure(wxString::Format(_("Sorry, it is not possible to open this "
+			"file as the \"%s\" palette format is unsupported.\n\n"
+			"[No libgamegraphics handler for \"%s\"]"),
+			o->typeMinor.c_str(), wxtype.c_str()));
+	}
+
+	assert(pImageType);
+	std::cout << "[camotolibs] Using handler for " << pImageType->getFriendlyName() << "\n";
+
+	// Open the main file
+	camoto::stream::inout_sptr data;
+	SuppData supp;
+	this->openObject(o, &data, &supp);
+	assert(data);
+
+	// Check to see if the file is actually in this format
+	if (pImageType->isInstance(data) < ImageType::PossiblyYes) {
+		std::string friendlyType = pImageType->getFriendlyName();
+		wxString wxtype(friendlyType.c_str(), wxConvUTF8);
+		wxString msg = wxString::Format(_("This file (or one required by it) is "
+			"supposed to be in \"%s\" format, but it seems this may not be the "
+			"case.  Would you like to try opening it anyway?"), wxtype.c_str());
+		wxMessageDialog dlg(this->parent, msg, _("Open item"), wxYES_NO | wxICON_ERROR);
+		int r = dlg.ShowModal();
+		if (r != wxID_YES) return PaletteTablePtr();
+	}
+
+	// Collect any supplemental files required by the format
+	this->openSuppItems(pImageType->getRequiredSupps(
+		std::string(o->filename.mb_str())
+	), &supp);
+
+	gamegraphics::ImagePtr img = pImageType->open(data, supp);
+	return img->getPalette();
+}
+
 void writeMap(const MapTypePtr& mapType, const MapPtr& map,
 	stream::output_sptr mapFile, SuppData suppData)
 {
