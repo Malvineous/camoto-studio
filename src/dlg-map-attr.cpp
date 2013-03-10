@@ -55,14 +55,16 @@ DlgMapAttr::DlgMapAttr(Studio *parent, MapPtr map)
 {
 	Map::AttributePtrVectorPtr attributes = map->getAttributes();
 	wxArrayString items;
-	for (Map::AttributePtrVector::const_iterator
-		i = attributes->begin(); i != attributes->end(); i++
-	) {
-		Map::AttributePtr a = *i;
-		items.Add(wxString(a->name.c_str(), wxConvUTF8));
-		Map::AttributePtr b(new Map::Attribute);
-		*b = *a;
-		this->newAttr->push_back(b);
+	if (attributes) {
+		for (Map::AttributePtrVector::const_iterator
+			i = attributes->begin(); i != attributes->end(); i++
+		) {
+			Map::AttributePtr a = *i;
+			items.Add(wxString(a->name.c_str(), wxConvUTF8));
+			Map::AttributePtr b(new Map::Attribute);
+			*b = *a;
+			this->newAttr->push_back(b);
+		}
 	}
 
 	wxListBox *attrList = new wxListBox(this, IDC_LIST, wxDefaultPosition,
