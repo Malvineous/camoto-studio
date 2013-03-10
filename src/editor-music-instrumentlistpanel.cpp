@@ -119,7 +119,7 @@ void InstrumentListPanel::saveSettings(Project *proj) const
 void InstrumentListPanel::replaceInstrument(unsigned int index,
 	PatchPtr newInstrument)
 {
-	this->doc->music->patches->at(index) = newInstrument;
+	(*this->doc->music->patches)[index] = newInstrument;
 	this->updateInstrumentView(index);
 	return;
 }
