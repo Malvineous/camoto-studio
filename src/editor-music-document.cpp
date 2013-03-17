@@ -148,7 +148,8 @@ MusicDocument::MusicDocument(MusicEditor *editor, camoto::gamemusic::MusicPtr mu
 	this->SetSizer(s);
 
 	this->player = new PlayerThread(this->editor->audio, this->music, this);
-	this->thread = boost::thread(boost::ref(*this->player));
+	this->threadMIDI = boost::thread(boost::ref(*this->player), true);
+	this->threadPCM = boost::thread(boost::ref(*this->player), false);
 }
 
 MusicDocument::~MusicDocument()
@@ -157,10 +158,12 @@ MusicDocument::~MusicDocument()
 	this->player->quit();
 
 	// Wake the thread up if it's stuck in a delay
-	this->thread.interrupt();
+	this->threadMIDI.interrupt();
+	this->threadPCM.interrupt();
 
 	// Wait for playback thread to terminate
-	this->thread.join();
+	this->threadMIDI.join();
+	this->threadPCM.join();
 
 	// Unload everything
 	delete this->player;

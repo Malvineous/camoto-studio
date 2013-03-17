@@ -2,7 +2,7 @@
  * @file  playerthread.hpp
  * @brief Music player.
  *
- * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2013 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 #ifndef _PLAYERTHREAD_HPP_
 #define _PLAYERTHREAD_HPP_
 
+#include <boost/thread/barrier.hpp>
 #include <camoto/gamemusic/eventconverter-opl.hpp>
 #include <camoto/gamemusic/eventconverter-midi.hpp>
 #include "main.hpp"
@@ -55,7 +56,9 @@ class PlayerThread: virtual public camoto::gamemusic::OPLWriterCallback,
 		virtual ~PlayerThread();
 
 		/// Start the playback thread.
-		void operator()();
+		void operator()(bool midi);
+		void loopMIDI();
+		void loopPCM();
 
 		/// Resume playback after pause.
 		void resume();
@@ -109,6 +112,9 @@ class PlayerThread: virtual public camoto::gamemusic::OPLWriterCallback,
 		boost::shared_ptr<camoto::gamemusic::EventConverter_OPL> oplConv;
 		std::vector<unsigned char> midiData;
 		boost::shared_ptr<RtMidiOut> midiOut;
+
+		unsigned long playTime; ///< Current play position in milliseconds
+		boost::barrier rewind_barrier;
 };
 
 #endif // _PLAYERTHREAD_HPP_

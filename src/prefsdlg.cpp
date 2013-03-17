@@ -196,7 +196,7 @@ void PrefsDialog::setControls()
 	this->portList->SetColumnWidth(0, wxLIST_AUTOSIZE);
 	this->portList->SetItemState(*this->midiDevice + 1, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
 
-	this->spinDelay->SetValue(*this->pcmDelay / 1000);
+	this->spinDelay->SetValue(*this->pcmDelay);
 
 	// Remember original values of controls that cause live changes
 	this->o_pcmDelay = *this->pcmDelay;
@@ -212,10 +212,12 @@ PrefsDialog::~PrefsDialog()
 		this->player->quit();
 
 		// Wake the thread up if it's stuck in a delay
-		this->thread.interrupt();
+		this->threadMIDI.interrupt();
+		this->threadPCM.interrupt();
 
 		// Wait for playback thread to terminate
-		this->thread.join();
+		this->threadMIDI.join();
+		this->threadPCM.join();
 
 		delete this->player;
 	}
@@ -231,7 +233,7 @@ void PrefsDialog::onOK(wxCommandEvent& ev)
 	else sel--; // make first item (virtual port) become -1, and 0 first real dev
 	*this->midiDevice = sel;
 
-	*this->pcmDelay = this->spinDelay->GetValue() * 1000;
+	*this->pcmDelay = this->spinDelay->GetValue();
 
 	this->EndModal(wxID_OK);
 	return;
@@ -264,7 +266,7 @@ void PrefsDialog::onBrowseDOSBox(wxCommandEvent& ev)
 void PrefsDialog::onDelayChange(wxSpinEvent& ev)
 {
 	// Update this value live so the effect can be heard immediately
-	*this->pcmDelay = ev.GetPosition() * 1000;
+	*this->pcmDelay = ev.GetPosition();
 	return;
 }
 
@@ -383,7 +385,8 @@ void PrefsDialog::onTestAudio(wxCommandEvent& ev)
 		music->events->push_back(EventPtr(e0));
 
 		this->player = new PlayerThread(audio, music, this);
-		this->thread = boost::thread(boost::ref(*this->player));
+		this->threadMIDI = boost::thread(boost::ref(*this->player), true);
+		this->threadPCM = boost::thread(boost::ref(*this->player), false);
 		this->player->resume();
 	} else {
 		// Stop playback
@@ -393,10 +396,12 @@ void PrefsDialog::onTestAudio(wxCommandEvent& ev)
 			this->player->quit();
 
 			// Wake the thread up if it's stuck in a delay
-			this->thread.interrupt();
+			this->threadMIDI.interrupt();
+			this->threadPCM.interrupt();
 
 			// Wait for playback thread to terminate
-			this->thread.join();
+			this->threadMIDI.join();
+			this->threadPCM.join();
 
 			delete this->player;
 			this->player = NULL;

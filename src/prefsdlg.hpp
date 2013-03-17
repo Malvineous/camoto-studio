@@ -82,7 +82,8 @@ class PrefsDialog: public wxDialog,
 		wxListCtrl *portList;
 		boost::shared_ptr<RtMidiOut> midi;
 		PlayerThread *player;
-		boost::thread thread;
+		boost::thread threadMIDI;
+		boost::thread threadPCM;
 
 		int o_pcmDelay;    ///< Preserve original value
 		int o_midiDevice;  ///< Preserve original value

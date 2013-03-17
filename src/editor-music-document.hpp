@@ -75,7 +75,8 @@ class MusicDocument: public IDocument, PlayerCallback
 		unsigned int playPos;            ///< Current absTime of playback (for row highlight)
 
 		PlayerThread *player;
-		boost::thread thread;
+		boost::thread threadMIDI;
+		boost::thread threadPCM;
 		typedef std::vector<EventPanel *> EventPanelVector;
 		EventPanelVector channelPanels;
 

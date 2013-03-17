@@ -37,9 +37,12 @@
 
 #define NUM_CHANNELS 2  ///< Stereo
 
-/// This is the number of frames in our own audio buffer, as well as the amount
-/// of data PortAudio will request from us each time.
-#define FRAMES_PER_BUFFER 2048
+/// Number of frames in our own audio buffer.  The PCM data is buffered and
+/// later passed to PortAudio as the OPL needs a bit more time to render.
+#define FRAMES_TO_BUFFER 2048
+
+/// Maximum number of OPL frames to generate in one block (512 in dbopl.cpp)
+#define MAX_OPL_FRAMES 512
 
 SynthMixer::~SynthMixer()
 {
@@ -69,7 +72,7 @@ static int paCallback(const void *inputBuffer, void *outputBuffer,
 	PaStreamCallbackFlags statusFlags, void *userData)
 {
 	Audio *audio = (Audio *)userData;
-	return audio->fillAudioBuffer(outputBuffer, framesPerBuffer);
+	return audio->fillAudioBuffer(outputBuffer, timeInfo->outputBufferDacTime, framesPerBuffer);
 }
 
 
@@ -97,7 +100,8 @@ Audio::Audio(wxWindow *parent, int sampleRate)
 	:	parent(parent),
 		sampleRate(sampleRate),
 		audioGood(false),
-		sound_buffer(NULL)
+		sound_buffer(NULL),
+		lastTime(0)
 {
 	PaError err = Pa_Initialize();
 	if (err != paNoError) {
@@ -157,7 +161,42 @@ void Audio::releaseOPL(OPLPtr opl)
 	return;
 }
 
-int Audio::fillAudioBuffer(void *outputBuffer, unsigned long framesPerBuffer)
+int Audio::fillAudioBuffer(void *outputBuffer, PaTime currentTime, unsigned long framesPerBuffer)
+{
+	this->lastTime = currentTime;
+
+	// Signal waitTick() to return
+	this->finalbuf_wait_cond.notify_all();
+
+	// Copy our audio buffer into PortAudio's
+	//unsigned long numFrames = framesPerBuffer * 2 * NUM_CHANNELS;
+	unsigned long numFrames = framesPerBuffer;// * NUM_CHANNELS;
+	unsigned long samplesLeft = this->final_buffer_end - this->final_buffer_pos;
+	unsigned long framesLeft = samplesLeft / NUM_CHANNELS;
+	if (numFrames > framesLeft) {
+		// We need to read more data than is left in the buffer, so we have to
+		// loop around to the start.
+		memcpy(outputBuffer, this->final_buffer_pos, framesLeft * 2 * NUM_CHANNELS);
+		numFrames -= framesLeft;
+
+		// Really this should be in another thread...
+		this->refillBuffer();
+
+		this->final_buffer_pos = this->final_buffer;
+	}
+
+	// If this fails, Pa is trying to read more data in one hit than we have in
+	// the entire buffer!  We can't loop as there's no more data to read.  Fix
+	// this if it ever comes up.
+	assert(numFrames <= (unsigned)(this->final_buffer_end - this->final_buffer_pos));
+
+	memcpy(outputBuffer, this->final_buffer_pos, numFrames * 2 * NUM_CHANNELS);
+	this->final_buffer_pos += numFrames * NUM_CHANNELS;
+
+	return paContinue;
+}
+
+void Audio::refillBuffer()
 {
 	// See if all the OPL chips have finished rendering to their buffers
 	bool bufComplete = true;
@@ -176,20 +215,13 @@ int Audio::fillAudioBuffer(void *outputBuffer, unsigned long framesPerBuffer)
 
 	if (!bufComplete) {
 		// The next buffer isn't ready yet, play silence
-		memset(outputBuffer, 0, framesPerBuffer * 2 * NUM_CHANNELS);
-		std::cout << "[audio] buffer underrun\n";
+		memset(this->final_buffer, 0, FRAMES_TO_BUFFER * 2 * NUM_CHANNELS);
 
 	} else {
-		{
-			// Make sure we're the only ones using this->sound_buffer
-			boost::mutex::scoped_lock sound_buffer_lock(this->sound_buffer_mutex);
+		// Buffer full, wait until it has been copied into the final buffer
 
-			// Copy our audio buffer into PortAudio's
-			memcpy(outputBuffer, this->sound_buffer, framesPerBuffer * 2 * NUM_CHANNELS);
-
-			// Clear buffer ready for next lot of mixing
-			memset(this->sound_buffer, 0, framesPerBuffer * 2 * NUM_CHANNELS);
-		}
+		memcpy(this->final_buffer, this->sound_buffer, FRAMES_TO_BUFFER * 2 * NUM_CHANNELS);
+		memset(this->sound_buffer, 0, FRAMES_TO_BUFFER * 2 * NUM_CHANNELS);
 
 		// Set pointer back to start of buffer
 		boost::mutex::scoped_lock chips_lock(this->chips_mutex);
@@ -203,7 +235,19 @@ int Audio::fillAudioBuffer(void *outputBuffer, unsigned long framesPerBuffer)
 		}
 
 	}
-	return paContinue;
+	return;
+}
+
+void Audio::waitTick()
+{
+	boost::unique_lock<boost::mutex> lock(this->finalbuf_wait_mutex);
+	this->finalbuf_wait_cond.wait(lock);
+	return;
+}
+
+unsigned long Audio::getPlayTime()
+{
+	return this->lastTime * 1000000;
 }
 
 void Audio::oplDelay(OPLPtr opl, unsigned long us)
@@ -250,9 +294,8 @@ void Audio::oplDelay(OPLPtr opl, unsigned long us)
 			if (!this->sound_buffer) return; // audio device closed
 
 			unsigned long neededFrames = actualFrames;
-			//boost::mutex::scoped_lock chips_lock(this->chips_mutex);
 			do {
-				unsigned long generatedFrames = min(neededFrames, 512);
+				unsigned long generatedFrames = min(neededFrames, MAX_OPL_FRAMES);
 
 				// This will write generatedFrames * NUM_CHANNELS to the buffer!
 				opl->chip->Generate(opl->mixer, generatedFrames);
@@ -283,15 +326,21 @@ void Audio::openDevice()
 	}
 	op.channelCount = NUM_CHANNELS;
 	op.sampleFormat = paInt16; // paFloat32
-	op.suggestedLatency = Pa_GetDeviceInfo(op.device)->defaultHighOutputLatency;
+	op.suggestedLatency = Pa_GetDeviceInfo(op.device)->defaultLowOutputLatency;
 	op.hostApiSpecificStreamInfo = NULL;
 
 	err = Pa_OpenStream(&this->stream, NULL, &op, this->sampleRate,
-		FRAMES_PER_BUFFER, paClipOff, paCallback, this);
+		paFramesPerBufferUnspecified, paClipOff, paCallback, this);
 	if (err != paNoError) goto error;
 
-	this->sound_buffer = new int16_t[FRAMES_PER_BUFFER * NUM_CHANNELS];
-	this->sound_buffer_end = this->sound_buffer + FRAMES_PER_BUFFER * NUM_CHANNELS;
+	this->sound_buffer = new int16_t[FRAMES_TO_BUFFER * NUM_CHANNELS];
+	this->sound_buffer_end = this->sound_buffer + FRAMES_TO_BUFFER * NUM_CHANNELS;
+	memset(this->sound_buffer, 0, FRAMES_TO_BUFFER * 2 * NUM_CHANNELS);
+
+	this->final_buffer = new int16_t[FRAMES_TO_BUFFER * NUM_CHANNELS];
+	this->final_buffer_end = this->final_buffer + FRAMES_TO_BUFFER * NUM_CHANNELS;
+	this->final_buffer_pos = this->final_buffer;
+	memset(this->final_buffer, 0, FRAMES_TO_BUFFER * 2 * NUM_CHANNELS);
 
 	return;
 
@@ -336,6 +385,7 @@ void Audio::adjustDevice()
 			dlg.ShowModal();
 		} else {
 			this->audioGood = true;
+			this->lastTime = Pa_GetStreamTime(this->stream);
 		}
 	} else if (stop) {
 		// This function will call the callback so we need to be outside the mutex

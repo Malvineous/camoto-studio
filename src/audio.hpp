@@ -121,15 +121,35 @@ class Audio
 		 */
 		void releaseOPL(OPLPtr opl);
 
-		/// SDL callback to put audio data into SDL buffer.
+		/// PortAudio callback to put audio data into the output buffer.
 		/**
 		 * @param stream
 		 *   Pointer to raw audio data in native playback format.
 		 *
+		 * @param currentTime
+		 *   Playback time of this buffer, in seconds.
+		 *
 		 * @param len
 		 *   Length of buffer in bytes.
 		 */
-		int fillAudioBuffer(void *outputBuffer, unsigned long framesPerBuffer);
+		int fillAudioBuffer(void *outputBuffer, PaTime currentTime, unsigned long framesPerBuffer);
+
+		/// Refill the extra buffer.
+		/**
+		 * This must be called regularly so the extra buffer is full when
+		 * fillAudioBuffer() needs to pass it over to PortAudio.
+		 */
+		void refillBuffer();
+
+		/// Wait until the audio buffer finishes playing.
+		/**
+		 * This is just a convenient way of waiting for a short period of time
+		 * without consuming any CPU.
+		 */
+		void waitTick();
+
+		/// Return the current playback time in microseconds.
+		unsigned long getPlayTime();
 
 		/// Introduce a delay until the next OPL data is processed.
 		/**
@@ -163,6 +183,15 @@ class Audio
 		boost::mutex sound_buffer_mutex;  ///< Mutex protecting sound_buffer itself
 		int16_t *sound_buffer;            ///< Mixing buffer
 		int16_t *sound_buffer_end;        ///< First byte past end of buffer
+
+		boost::mutex final_buffer_mutex;  ///< Mutex protecting final_buffer itself
+		int16_t *final_buffer;            ///< Final buffer to pass to PortAudio
+		int16_t *final_buffer_pos;        ///< PortAudio's position in final_buffer
+		int16_t *final_buffer_end;        ///< First byte past end of buffer
+		boost::mutex finalbuf_wait_mutex; ///< Mutex for finalbuf_wait_cond
+		boost::condition_variable finalbuf_wait_cond;  ///< Wait for final buffer to be read completely
+
+		PaTime lastTime;       ///< Time of last buffer switch
 
 		/// Open the audio hardware and begin streaming sound.
 		/**

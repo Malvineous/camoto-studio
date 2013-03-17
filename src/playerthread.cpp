@@ -2,7 +2,7 @@
  * @file  playerthread.cpp
  * @brief Music player.
  *
- * Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2013 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,8 @@ PlayerThread::PlayerThread(AudioPtr audio, MusicPtr music, PlayerCallback *cb)
 		doquit(false),
 		dorewind(false),
 		usPerTickOPL(1000), // sensible defaults, just in case
-		usPerTickMIDI(MIDI_DEF_uS_PER_TICK)
+		usPerTickMIDI(MIDI_DEF_uS_PER_TICK),
+		rewind_barrier(2)
 {
 	this->opl = this->audio->createOPL();
 	this->midiData.reserve(16);
@@ -75,25 +76,21 @@ PlayerThread::~PlayerThread()
 	this->audio->releaseOPL(this->opl);
 }
 
-void PlayerThread::operator()()
+void PlayerThread::operator()(bool midi)
 {
-	// Prepare Event -> OPL converter
-	this->oplConv.reset(new EventConverter_OPL(this, this->music->patches,
-		OPL_FNUM_DEFAULT, Default));
+	if (midi) this->loopMIDI();
+	else this->loopPCM();
+}
 
+void PlayerThread::loopMIDI()
+{
 	// Prepare Event -> MIDI converter
 	EventConverter_MIDI midiConv(this, this->music->patches,
 		MIDIFlags::MIDIPatchesOnly, MIDI_DEF_TICKS_PER_QUARTER_NOTE);
 
-	this->opl->write(0x01, 0x20); // Enable WaveSel
-	this->opl->write(0x105, 0x01); // Enable OPL3
+	EventVector::iterator posMIDI = this->music->events->begin();
+	unsigned long playTime, startTime = this->audio->getPlayTime();
 
-	EventVector::iterator posOPL;
-	EventVector::iterator posMIDI = posOPL = this->music->events->begin();
-	unsigned long playTime = 0;
-
-	struct timespec tm;
-	tm.tv_sec = 0;
 	for (;;) {
 		// Block if we've been paused.  This has to be in a control block as we
 		// don't want to hold the mutex while we're blocking in the delay()
@@ -106,12 +103,15 @@ void PlayerThread::operator()()
 		if (this->doquit) break;
 
 		try {
+			this->audio->waitTick();
+			playTime = this->audio->getPlayTime() - startTime;
+
 			// Update the playback time so the highlight gets moved
 			this->cb->notifyPosition(playTime);
 
 			while (
 				(posMIDI != this->music->events->end())
-				&& ((*posMIDI)->absTime * this->usPerTickMIDI <= playTime)
+				&& ((*posMIDI)->absTime * this->usPerTickMIDI - ::config.pcmDelay*1000 <= playTime)
 			) {
 				if (this->midiOut) {
 					(*posMIDI)->processEvent(&midiConv);
@@ -119,48 +119,70 @@ void PlayerThread::operator()()
 				posMIDI++;
 			}
 
-			if (this->oplConv) {
-				while (
-					(posOPL != this->music->events->end())
-					&& ((*posOPL)->absTime * this->usPerTickOPL + ::config.pcmDelay <= playTime)
-				) {
-					(*posOPL)->processEvent(this->oplConv.get());
-					posOPL++;
-				}
-			}
-
-			// Wait the minimum amount of time until the next event of any type
-			unsigned long nextTimeOPL, nextTimeMIDI;
-			if (posOPL != this->music->events->end()) {
-				nextTimeOPL = (*posOPL)->absTime * usPerTickOPL + ::config.pcmDelay;
-			} else {
-				// No next event, wait 100ms after current pos
-				nextTimeOPL = playTime + 100 * usPerTickOPL;
-			}
-			if (posMIDI != this->music->events->end()) {
-				nextTimeMIDI = (*posMIDI)->absTime * usPerTickMIDI;
-			} else {
-				// No next event, wait 100ms after current pos
-				nextTimeMIDI = playTime + 100 * usPerTickMIDI;
-			}
-			unsigned long nextTime = std::min(nextTimeMIDI, nextTimeOPL);
-			tm.tv_nsec = (nextTime - playTime) * 1000; // microseconds -> nanoseconds
-			nanosleep(&tm, NULL);
-			playTime = nextTime;
-
 			// Loop once we reach the end of the song.  We don't check to see if the
 			// MIDI data has finished because it will always finish earlier or the
 			// same time as the OPL data, and it will cope sitting at the end for
 			// a while.
-			if ((this->dorewind) || (posOPL == this->music->events->end())) {
-				posOPL = posMIDI = this->music->events->begin();
-				if (this->oplConv) this->oplConv->rewind();
+			if ((this->dorewind) || (posMIDI == this->music->events->end())) {
+				// Wait for PCM thread to get to the same point
+				this->rewind_barrier.wait();
+
+				posMIDI = this->music->events->begin();
 				midiConv.rewind();
+				this->rewind_barrier.wait();
+
 				playTime = 0;
-				this->dorewind = false;
+				startTime = this->audio->getPlayTime();
 			}
 		} catch (...) {
-			std::cerr << "Error converting event into OPL data!  Ignoring.\n";
+			std::cerr << "Error converting event into MIDI data!  Ignoring.\n";
+		}
+	}
+	return;
+}
+
+void PlayerThread::loopPCM()
+{
+	// Prepare Event -> OPL converter
+	this->oplConv.reset(new EventConverter_OPL(this, this->music->patches,
+		OPL_FNUM_DEFAULT, Default));
+
+	this->opl->write(0x01, 0x20); // Enable WaveSel
+	this->opl->write(0x105, 0x01); // Enable OPL3
+
+	EventVector::iterator posOPL = this->music->events->begin();
+
+	for (;;) {
+		// Block if we've been paused.  This has to be in a control block as we
+		// don't want to hold the mutex while we're blocking in the delay()
+		// call, which is in processEvent().
+		{
+			boost::mutex::scoped_lock loop_lock(this->playpause_mutex);
+		}
+
+		// If we've just been resumed, check to see if it's because we're exiting
+		if (this->doquit) break;
+
+		// Loop once we reach the end of the song.  We don't check to see if the
+		// MIDI data has finished because it will always finish earlier or the
+		// same time as the OPL data, and it will cope sitting at the end for
+		// a while.
+		if ((this->dorewind) || (posOPL == this->music->events->end())) {
+			// Wait for MIDI thread to get to the same point
+			this->rewind_barrier.wait();
+
+			posOPL = this->music->events->begin();
+			if (this->oplConv) this->oplConv->rewind();
+			this->dorewind = false;
+
+			this->rewind_barrier.wait();
+		} else {
+			try {
+				(*posOPL)->processEvent(this->oplConv.get());
+				posOPL++;
+			} catch (...) {
+				std::cerr << "Error converting event into OPL data!  Ignoring.\n";
+			}
 		}
 	}
 	return;
