@@ -2,7 +2,7 @@
  * @file   audio.cpp
  * @brief  Shared audio functionality.
  *
- * Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2013 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,8 +21,8 @@
 #include <algorithm>
 #include <boost/thread/thread.hpp>
 #include <wx/msgdlg.h>
-#include <SDL.h>
 #include "audio.hpp"
+#include "exceptions.hpp"
 
 #include <iostream>
 
@@ -35,43 +35,55 @@
 #define SAMP_MIN -((1 << (SAMP_BITS-1)))
 #define CLIP(v) (((v) > SAMP_MAX) ? SAMP_MAX : (((v) < SAMP_MIN) ? SAMP_MIN : (v)))
 
+#define NUM_CHANNELS 2  ///< Stereo
+
+/// This is the number of frames in our own audio buffer, as well as the amount
+/// of data PortAudio will request from us each time.
+#define FRAMES_PER_BUFFER 2048
+
 SynthMixer::~SynthMixer()
 {
 }
 
 void SynthMixer::AddSamples_m32(Bitu samples, Bit32s *buffer)
 {
-	// Convert samples from mono s32 to s16
-	int16_t *out = (int16_t *)this->buf;
-	for (unsigned int i = 0; i < samples; i++) {
-		buffer[i] = CLIP(buffer[i] << 2);
-		int32_t a = 32768 + *out;
-		int32_t b = 32768 + buffer[i];
-		*out++ = -32768 + 2 * (a + b) - (a * b) / 32768 - 65536;
+	while (samples) {
+		int32_t a = 32768 + *this->buf;
+		int32_t b = 32768 + (*buffer << 1);
+		*this->buf++ = CLIP(-32768 + 2 * (a + b) - (a * b) / 32768 - 65536);
+		buffer++;
+		samples--;
 	}
 	return;
 }
 
-void SynthMixer::AddSamples_s32(Bitu samples, Bit32s *buffer)
+void SynthMixer::AddSamples_s32(Bitu frames, Bit32s *buffer)
 {
-	// Convert samples from stereo s32 to s16
-	std::cerr << "TODO: Stereo samples are not yet implemented!\n";
+	this->AddSamples_m32(frames * 2, buffer);
 	return;
 }
 
 
-void fillAudioBuffer(void *udata, Uint8 *stream, int len)
+static int paCallback(const void *inputBuffer, void *outputBuffer,
+	unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo *timeInfo,
+	PaStreamCallbackFlags statusFlags, void *userData)
 {
-	Audio *audio = (Audio *)udata;
-	audio->fillAudioBuffer(stream, len);
-	return;
+	Audio *audio = (Audio *)userData;
+	return audio->fillAudioBuffer(outputBuffer, framesPerBuffer);
 }
 
 
 OPLDevice::OPLDevice()
 	:	chip(new DBOPL::Handler()),
+		mixer(new SynthMixer()),
 		active(false)
 {
+}
+
+OPLDevice::~OPLDevice()
+{
+	delete this->chip;
+	delete this->mixer;
 }
 
 void OPLDevice::write(int reg, int val)
@@ -80,23 +92,35 @@ void OPLDevice::write(int reg, int val)
 	return;
 }
 
+
 Audio::Audio(wxWindow *parent, int sampleRate)
 	:	parent(parent),
 		sampleRate(sampleRate),
-		audioGood(false)
+		audioGood(false),
+		sound_buffer(NULL)
 {
-	this->mixer = new SynthMixer();
+	PaError err = Pa_Initialize();
+	if (err != paNoError) {
+		wxString msg = wxString::Format(_("Unable to initialise PortAudio.\n\n"
+			"[Pa_Initialize() failed: %s]"),
+			wxString((const char *)Pa_GetErrorText(err), wxConvUTF8).c_str());
+		throw EFailure(msg);
+	}
+
+	this->openDevice();
 }
 
 Audio::~Audio()
 {
-	delete this->mixer;
+	this->closeDevice();
+	Pa_Terminate();
 }
 
 Audio::OPLPtr Audio::createOPL()
 {
 	boost::mutex::scoped_lock chips_lock(this->chips_mutex);
 	Audio::OPLPtr n(new OPLDevice());
+	n->audiobuf_pos = this->sound_buffer;
 	n->chip->Init(this->sampleRate);
 	this->chips.push_back(n);
 	return n;
@@ -105,6 +129,14 @@ Audio::OPLPtr Audio::createOPL()
 void Audio::pause(OPLPtr opl, bool pause)
 {
 	opl->active = !pause;
+
+	if (!pause) {
+		// We're resuming, continue at the start of the buffer
+		opl->audiobuf_pos = this->sound_buffer;
+	}
+	// Wake up the thread so it can flush its buffer
+	opl->audiobuf_full_mutex.unlock();
+
 	this->adjustDevice();
 	return;
 }
@@ -125,75 +157,207 @@ void Audio::releaseOPL(OPLPtr opl)
 	return;
 }
 
-void Audio::fillAudioBuffer(uint8_t *stream, unsigned int len)
+int Audio::fillAudioBuffer(void *outputBuffer, unsigned long framesPerBuffer)
 {
-	boost::mutex::scoped_lock chips_lock(this->chips_mutex);
-	unsigned int bufvalid_bytes = min(len, sizeof(this->sound_buffer));
-	unsigned int bufvalid_samples = bufvalid_bytes / sizeof(int16_t);
-
-	memset(this->sound_buffer, 0, bufvalid_bytes);
-
-	for (OPLVector::iterator i = this->chips.begin(); i != this->chips.end(); i++) {
-		OPLPtr& opl = *i; // This is thread-safe as we're protected by chips_mutex
-		if (!opl->active) continue;
-
-		this->mixer->buf = (uint8_t *)this->sound_buffer;
-		int remaining_samples = bufvalid_samples;
-		do {
-			int generated_samples = min(remaining_samples, 48*10);
-			opl->chip->Generate(this->mixer, generated_samples);
-			remaining_samples -= generated_samples;
-			this->mixer->buf += generated_samples * sizeof(int16_t);
-		} while (remaining_samples > 0);
+	// See if all the OPL chips have finished rendering to their buffers
+	bool bufComplete = true;
+	{
+		boost::mutex::scoped_lock chips_lock(this->chips_mutex);
+		for (OPLVector::iterator i = this->chips.begin(); i != this->chips.end(); i++) {
+			OPLPtr& opl = *i; // This is thread-safe as we're protected by chips_mutex
+			if (!opl->active) continue;
+			boost::mutex::scoped_lock audiobuf_pos_lock(opl->audiobuf_pos_mutex);
+			if (opl->audiobuf_pos < this->sound_buffer_end) {
+				bufComplete = false;
+				break;
+			}
+		}
 	}
 
-	SDL_MixAudio(stream, (Uint8 *)this->sound_buffer, bufvalid_bytes, SDL_MIX_MAXVOLUME);
+	if (!bufComplete) {
+		// The next buffer isn't ready yet, play silence
+		memset(outputBuffer, 0, framesPerBuffer * 2 * NUM_CHANNELS);
+		std::cout << "[audio] buffer underrun\n";
 
+	} else {
+		{
+			// Make sure we're the only ones using this->sound_buffer
+			boost::mutex::scoped_lock sound_buffer_lock(this->sound_buffer_mutex);
+
+			// Copy our audio buffer into PortAudio's
+			memcpy(outputBuffer, this->sound_buffer, framesPerBuffer * 2 * NUM_CHANNELS);
+
+			// Clear buffer ready for next lot of mixing
+			memset(this->sound_buffer, 0, framesPerBuffer * 2 * NUM_CHANNELS);
+		}
+
+		// Set pointer back to start of buffer
+		boost::mutex::scoped_lock chips_lock(this->chips_mutex);
+		for (OPLVector::iterator i = this->chips.begin(); i != this->chips.end(); i++) {
+			OPLPtr& opl = *i;
+			boost::mutex::scoped_lock audiobuf_pos_lock(opl->audiobuf_pos_mutex);
+			opl->audiobuf_pos = this->sound_buffer;
+
+			// Unlock the 'buffer full' mutex now the buffer is empty again
+			opl->audiobuf_full_mutex.unlock();
+		}
+
+	}
+	return paContinue;
+}
+
+void Audio::oplDelay(OPLPtr opl, unsigned long us)
+{
+	// A frame represents one sample in mono, and two samples in stereo
+	unsigned long frames = (us / 1000) * this->sampleRate / 1000;
+
+	while (frames > 0) {
+
+		// Make sure there is still space left in the buffer, otherwise block until
+		// more space becomes available.
+		{
+			boost::mutex::scoped_lock audiobuf_pos_lock(opl->audiobuf_pos_mutex);
+			if (opl->audiobuf_pos >= this->sound_buffer_end) {
+				opl->audiobuf_full_mutex.lock();
+			}
+		}
+		// Block when the next audio buffer is full
+		opl->audiobuf_full_mutex.lock();
+		opl->audiobuf_full_mutex.unlock();
+		if (!opl->active) break; // playback has been paused
+
+		unsigned long maxFrames;
+		{
+			boost::mutex::scoped_lock audiobuf_pos_lock(opl->audiobuf_pos_mutex);
+			if (opl->audiobuf_pos >= this->sound_buffer_end) {
+				// Something else has filled up the buffer, or playback has been stopped
+				break;
+			}
+
+			// This shouldn't happen unless it's possible for the buffer to be played
+			// by the other thread while we're here.
+			assert(opl->audiobuf_pos < this->sound_buffer_end);
+
+			opl->mixer->buf = opl->audiobuf_pos;
+
+			unsigned long maxSamples = this->sound_buffer_end - opl->audiobuf_pos;
+			maxFrames = maxSamples / NUM_CHANNELS;
+		}
+
+		unsigned long actualFrames = min(frames, maxFrames);
+		{
+			boost::mutex::scoped_lock sound_buffer_lock(this->sound_buffer_mutex);
+			if (!this->sound_buffer) return; // audio device closed
+
+			unsigned long neededFrames = actualFrames;
+			//boost::mutex::scoped_lock chips_lock(this->chips_mutex);
+			do {
+				unsigned long generatedFrames = min(neededFrames, 512);
+
+				// This will write generatedFrames * NUM_CHANNELS to the buffer!
+				opl->chip->Generate(opl->mixer, generatedFrames);
+
+				assert(opl->mixer->buf <= this->sound_buffer_end);
+				neededFrames -= generatedFrames;
+			} while (neededFrames > 0);
+		}
+
+		opl->audiobuf_pos_mutex.lock();
+		opl->audiobuf_pos += actualFrames * NUM_CHANNELS;
+		opl->audiobuf_pos_mutex.unlock();
+
+		frames -= actualFrames;
+	}
 	return;
 }
 
 void Audio::openDevice()
 {
-	SDL_AudioSpec wanted;
-	wanted.freq = this->sampleRate;
-	wanted.format = AUDIO_S16;
-	wanted.channels = 1;
-	wanted.samples = 2048;
-	wanted.callback = ::fillAudioBuffer;
-	wanted.userdata = this;
-	if (SDL_OpenAudio(&wanted, NULL) < 0) {
-		this->audioGood = false;
-		wxMessageDialog dlg(this->parent, _("Unable to open audio device!  "
-			"Another program may be using it."),
-			_("Audio error"), wxOK | wxICON_ERROR);
-		dlg.ShowModal();
-		return;
-	}
-	this->audioGood = true;
+	int err;
 
-	SDL_PauseAudio(0);
+	PaStreamParameters op;
+	op.device = Pa_GetDefaultOutputDevice();
+	if (op.device == paNoDevice) {
+		err = paDeviceUnavailable;
+		goto error;
+	}
+	op.channelCount = NUM_CHANNELS;
+	op.sampleFormat = paInt16; // paFloat32
+	op.suggestedLatency = Pa_GetDeviceInfo(op.device)->defaultHighOutputLatency;
+	op.hostApiSpecificStreamInfo = NULL;
+
+	err = Pa_OpenStream(&this->stream, NULL, &op, this->sampleRate,
+		FRAMES_PER_BUFFER, paClipOff, paCallback, this);
+	if (err != paNoError) goto error;
+
+	this->sound_buffer = new int16_t[FRAMES_PER_BUFFER * NUM_CHANNELS];
+	this->sound_buffer_end = this->sound_buffer + FRAMES_PER_BUFFER * NUM_CHANNELS;
 
 	return;
+
+error:
+	this->audioGood = false;
+	wxString msg = wxString::Format(_("Unable to initialise audio.\n\n[%s]"),
+		wxString((const char *)Pa_GetErrorText(err), wxConvUTF8).c_str());
+	Pa_Terminate();
+	wxMessageDialog dlg(NULL, msg, _("Audio failure"),
+		wxOK | wxICON_ERROR);
+	dlg.ShowModal();
+	return;
+
 }
 
 void Audio::adjustDevice()
 {
-	boost::mutex::scoped_lock chips_lock(this->chips_mutex);
-	int totalActive = 0;
-	for (OPLVector::iterator i = this->chips.begin(); i != this->chips.end(); i++) {
-		if ((*i)->active) totalActive++;
+	bool start = false, stop = false;
+	{
+		boost::mutex::scoped_lock chips_lock(this->chips_mutex);
+		int totalActive = 0;
+		for (OPLVector::iterator i = this->chips.begin(); i != this->chips.end(); i++) {
+			if ((*i)->active) totalActive++;
+		}
+		if ((totalActive == 0) && (this->audioGood)) {
+			this->audioGood = false;
+			stop = true;
+		} else if ((totalActive > 0) && (!this->audioGood)) {
+			start = true;
+		}
 	}
-	if ((totalActive == 0) && (this->audioGood)) {
-		this->closeDevice();
-	} else if ((totalActive > 0) && (!this->audioGood)) {
-		this->openDevice();
+
+	if (start) {
+		PaError err = Pa_StartStream(this->stream);
+		if (err != paNoError) {
+			this->audioGood = false;
+			wxString msg = wxString::Format(_("Unable to resume audio.\n\n[%s]"),
+				wxString((const char *)Pa_GetErrorText(err), wxConvUTF8).c_str());
+			Pa_Terminate();
+			wxMessageDialog dlg(NULL, msg, _("Audio failure"),
+				wxOK | wxICON_ERROR);
+			dlg.ShowModal();
+		} else {
+			this->audioGood = true;
+		}
+	} else if (stop) {
+		// This function will call the callback so we need to be outside the mutex
+		Pa_StopStream(this->stream);
 	}
 	return;
 }
 
 void Audio::closeDevice()
 {
-	SDL_CloseAudio();
+	// Sanity check: Make sure all OPL devices have been released already
+	assert(this->chips.size() == 0);
+
 	this->audioGood = false;
+
+	{
+		boost::mutex::scoped_lock sound_buffer_lock(this->sound_buffer_mutex);
+		if (this->sound_buffer) delete[] this->sound_buffer;
+		this->sound_buffer = NULL;
+		this->sound_buffer_end = NULL;
+	}
+
+	Pa_CloseStream(this->stream);
 	return;
 }

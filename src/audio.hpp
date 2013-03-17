@@ -26,22 +26,20 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/condition.hpp>
 #include <wx/window.h>
-#include <SDL_mutex.h>
+#include <portaudio.h>
 #include "dbopl.hpp"
 
 class Audio;
 
-void fillAudioBuffer(void *udata, Uint8 *stream, int len);
-
 /// Mixer for processing DOSBox OPL data.
 class SynthMixer: public MixerChannel {
 	public:
-		uint8_t *buf;
+		int16_t *buf;
 
 		virtual ~SynthMixer();
 
 		virtual void AddSamples_m32(Bitu samples, Bit32s *buffer);
-		virtual void AddSamples_s32(Bitu samples, Bit32s *buffer);
+		virtual void AddSamples_s32(Bitu frames, Bit32s *buffer);
 };
 
 /// Wrapper around DOSBox OPL device.
@@ -49,6 +47,7 @@ class OPLDevice
 {
 	public:
 		OPLDevice();
+		~OPLDevice();
 
 		/// Write the specified value into the given register.
 		/**
@@ -64,19 +63,33 @@ class OPLDevice
 		void write(int reg, int val);
 
 	protected:
-		DBOPL::Handler *chip;
-		bool active;
+		DBOPL::Handler *chip;             ///< OPL emulator
+		SynthMixer *mixer;                ///< Callback for mixing samples into buffer
+		bool active;                      ///< Is this OPL chip playing sound?
+		boost::mutex audiobuf_full_mutex; ///< Mutex to block when audio buffer is full
+		boost::mutex audiobuf_pos_mutex;  ///< Mutex protecting audiobuf_pos
+		int16_t *audiobuf_pos;            ///< Current position into shared audio buffer
 
 		friend class Audio;
 };
 
+/// Shared audio handler.
 class Audio
 {
 	public:
 		typedef boost::shared_ptr<OPLDevice> OPLPtr;
 
+		/// Set up shared audio handling.
+		/**
+		 * @param parent
+		 *   Window to use as parent for popup error messages.
+		 *
+		 * @param sampleRate
+		 *   Sample rate to use globally.
+		 */
 		Audio(wxWindow *parent, int sampleRate);
 
+		/// Clean up at exit.
 		~Audio();
 
 		/// Create a new OPL chip to be mixed into the common output.
@@ -116,18 +129,40 @@ class Audio
 		 * @param len
 		 *   Length of buffer in bytes.
 		 */
-		void fillAudioBuffer(uint8_t *stream, unsigned int len);
+		int fillAudioBuffer(void *outputBuffer, unsigned long framesPerBuffer);
+
+		/// Introduce a delay until the next OPL data is processed.
+		/**
+		 * This will cause currently playing notes on the given OPL chip to continue
+		 * playing for the given number of microseconds.  If the audio buffer is
+		 * full, this function will block until there is enough room to generate
+		 * sufficient samples to provide the delay.  If there is enough room in the
+		 * audio buffer to generate the samples, then the function returns
+		 * immediately.
+		 *
+		 * @param opl
+		 *   OPL instance to delay.
+		 *
+		 * @param us
+		 *   Number of microseconds to delay for.
+		 */
+		void oplDelay(OPLPtr opl, unsigned long us);
 
 	protected:
 		typedef std::vector<OPLPtr> OPLVector;
 
 		wxWindow *parent;           ///< Parent window to use for error message popups
-		int sampleRate;             ///< Sampling rate to use
+
+		PaStream *stream;
+		unsigned int sampleRate;    ///< Sampling rate to use
 		bool audioGood;             ///< Is the audio device open and streaming?
+
 		OPLVector chips;            ///< All active OPL chips
 		boost::mutex chips_mutex;   ///< Mutex protecting items in chips
-		SynthMixer *mixer;          ///< Mixer for OPL chips
-		int16_t sound_buffer[2048]; ///< Mixing buffer
+
+		boost::mutex sound_buffer_mutex;  ///< Mutex protecting sound_buffer itself
+		int16_t *sound_buffer;            ///< Mixing buffer
+		int16_t *sound_buffer_end;        ///< First byte past end of buffer
 
 		/// Open the audio hardware and begin streaming sound.
 		/**

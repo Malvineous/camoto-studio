@@ -86,7 +86,7 @@ void PlayerThread::operator()()
 		MIDIFlags::MIDIPatchesOnly, MIDI_DEF_TICKS_PER_QUARTER_NOTE);
 
 	this->opl->write(0x01, 0x20); // Enable WaveSel
-	this->opl->write(0x05, 0x01); // Enable OPL3
+	this->opl->write(0x105, 0x01); // Enable OPL3
 
 	EventVector::iterator posOPL;
 	EventVector::iterator posMIDI = posOPL = this->music->events->begin();
@@ -196,7 +196,8 @@ void PlayerThread::rewind()
 
 void PlayerThread::writeNextPair(const OPLEvent *oplEvent)
 {
-	this->opl->write(oplEvent->reg, oplEvent->val);
+	this->audio->oplDelay(this->opl, oplEvent->delay * this->usPerTickOPL);
+	this->opl->write(0x100 * oplEvent->chipIndex + oplEvent->reg, oplEvent->val);
 	return;
 }
 

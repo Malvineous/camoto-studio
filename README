@@ -52,7 +52,7 @@ In order to compile this program, you will need the following dependencies:
  - libgamegraphics
  - libgamemaps
  - libgamemusic
- - SDL
+ - PortAudio
  - wxWidgets
 
 If you are using the git version, you will also need to download png++ from
