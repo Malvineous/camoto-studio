@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Hugo's House of Horrors description file for Camoto Studio
+	Copyright (C) 2010-2013 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Hugo%27s_House_of_Horrors
+  -->
+<game title="Hugo 1: Hugo's House of Horrors">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>David P. Gray</developer>
+		<reverser>TheAlmightyGuru</reverser>
+	</info>
+
+	<display>
+		<group name="Screens">
+			<item ref="bg-basement" />
+			<item ref="b-basement" />
+			<item ref="o-basement" />
+			<item ref="ob-basement" />
+
+			<item ref="bg-batcave"/>
+			<item ref="b-batcave"/>
+			<item ref="o-batcave"/>
+			<item ref="ob-batcave"/>
+
+			<item ref="bg-bathroom"/>
+			<item ref="b-bathroom"/>
+			<item ref="o-bathroom"/>
+			<item ref="ob-bathroom"/>
+
+			<item ref="bg-bed1"/>
+			<item ref="b-bed1"/>
+			<item ref="o-bed1"/>
+			<item ref="ob-bed1"/>
+
+			<item ref="bg-deadend"/>
+			<item ref="b-deadend"/>
+			<item ref="o-deadend"/>
+			<item ref="ob-deadend"/>
+
+			<item ref="bg-diningrm"/>
+			<item ref="b-diningrm"/>
+			<item ref="o-diningrm"/>
+			<item ref="ob-diningrm"/>
+
+			<item ref="bg-garden"/>
+			<item ref="b-garden"/>
+			<item ref="o-garden"/>
+			<item ref="ob-garden"/>
+
+			<item ref="bg-hall"/>
+			<item ref="b-hall"/>
+			<item ref="o-hall"/>
+			<item ref="ob-hall"/>
+
+			<item ref="bg-house"/>
+			<item ref="b-house"/>
+			<item ref="o-house"/>
+			<item ref="ob-house"/>
+
+			<item ref="bg-jail"/>
+			<item ref="b-jail"/>
+			<item ref="o-jail"/>
+			<item ref="ob-jail"/>
+
+			<item ref="bg-kitchen"/>
+			<item ref="b-kitchen"/>
+			<item ref="o-kitchen"/>
+			<item ref="ob-kitchen"/>
+
+			<item ref="bg-lab"/>
+			<item ref="b-lab"/>
+			<item ref="o-lab"/>
+			<item ref="ob-lab"/>
+
+			<item ref="bg-lakeroom"/>
+			<item ref="b-lakeroom"/>
+			<item ref="o-lakeroom"/>
+			<item ref="ob-lakeroom"/>
+
+			<item ref="bg-mummyrm"/>
+			<item ref="b-mummyrm"/>
+			<item ref="o-mummyrm"/>
+			<item ref="ob-mummyrm"/>
+
+			<item ref="bg-storerm"/>
+			<item ref="b-storerm"/>
+			<item ref="o-storerm"/>
+			<item ref="ob-storerm"/>
+
+			<item ref="bg-the_end"/>
+			<item ref="b-the_end"/>
+			<item ref="o-the_end"/>
+			<item ref="ob-the_end"/>
+		</group>
+
+	</display>
+
+	<files>
+		<file id="bg-basement" name="basement.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Basement image"/>
+		<file id="b-basement"  name="basement.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Basement blocking mask"/>
+		<file id="o-basement"  name="basement.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Basement foreground mask"/>
+		<file id="ob-basement" name="basement.ob"  typeMajor="unknown" typeMinor="unknown"             title="Basement objects"/>
+
+		<file id="bg-batcave" name="batcave.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Bat Cave image"/>
+		<file id="b-batcave"  name="batcave.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Bat Cave blocking mask"/>
+		<file id="o-batcave"  name="batcave.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Bat Cave foreground mask"/>
+		<file id="ob-batcave" name="batcave.ob"  typeMajor="unknown" typeMinor="unknown"             title="Bat Cave objects"/>
+
+		<file id="bg-bathroom" name="bathroom.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Bathroom image"/>
+		<file id="b-bathroom"  name="bathroom.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Bathroom blocking mask"/>
+		<file id="o-bathroom"  name="bathroom.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Bathroom foreground mask"/>
+		<file id="ob-bathroom" name="bathroom.ob"  typeMajor="unknown" typeMinor="unknown"             title="Bathroom objects"/>
+
+		<file id="bg-bed1" name="bed1.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Bedroom image"/>
+		<file id="b-bed1"  name="bed1.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Bedroom blocking mask"/>
+		<file id="o-bed1"  name="bed1.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Bedroom foreground mask"/>
+		<file id="ob-bed1" name="bed1.ob"  typeMajor="unknown" typeMinor="unknown"             title="Bedroom objects"/>
+
+		<file id="bg-deadend" name="deadend.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Dead End image"/>
+		<file id="b-deadend"  name="deadend.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Dead End blocking mask"/>
+		<file id="o-deadend"  name="deadend.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Dead End foreground mask"/>
+		<file id="ob-deadend" name="deadend.ob"  typeMajor="unknown" typeMinor="unknown"             title="Dead End objects"/>
+
+		<file id="bg-diningrm" name="diningrm.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Dining Room image"/>
+		<file id="b-diningrm"  name="diningrm.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Dining Room blocking mask"/>
+		<file id="o-diningrm"  name="diningrm.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Dining Room foreground mask"/>
+		<file id="ob-diningrm" name="diningrm.ob"  typeMajor="unknown" typeMinor="unknown"             title="Dining Room objects"/>
+
+		<file id="bg-garden" name="garden.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Garden image"/>
+		<file id="b-garden"  name="garden.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Garden blocking mask"/>
+		<file id="o-garden"  name="garden.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Garden foreground mask"/>
+		<file id="ob-garden" name="garden.ob"  typeMajor="unknown" typeMinor="unknown"             title="Garden objects"/>
+
+		<file id="bg-hall" name="hall.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Hall image"/>
+		<file id="b-hall"  name="hall.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Hall blocking mask"/>
+		<file id="o-hall"  name="hall.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Hall foreground mask"/>
+		<file id="ob-hall" name="hall.ob"  typeMajor="unknown" typeMinor="unknown"             title="Hall objects"/>
+
+		<file id="bg-house" name="house.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="House image"/>
+		<file id="b-house"  name="house.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="House blocking mask"/>
+		<file id="o-house"  name="house.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="House foreground mask"/>
+		<file id="ob-house" name="house.ob"  typeMajor="unknown" typeMinor="unknown"             title="House objects"/>
+
+		<file id="bg-jail" name="jail.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Jail image"/>
+		<file id="b-jail"  name="jail.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Jail blocking mask"/>
+		<file id="o-jail"  name="jail.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Jail foreground mask"/>
+		<file id="ob-jail" name="jail.ob"  typeMajor="unknown" typeMinor="unknown"             title="Jail objects"/>
+
+		<file id="bg-kitchen" name="kitchen.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Kitchen image"/>
+		<file id="b-kitchen"  name="kitchen.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Kitchen blocking mask"/>
+		<file id="o-kitchen"  name="kitchen.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Kitchen foreground mask"/>
+		<file id="ob-kitchen" name="kitchen.ob"  typeMajor="unknown" typeMinor="unknown"             title="Kitchen objects"/>
+
+		<file id="bg-lab" name="lab.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Lab image"/>
+		<file id="b-lab"  name="lab.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Lab blocking mask"/>
+		<file id="o-lab"  name="lab.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Lab foreground mask"/>
+		<file id="ob-lab" name="lab.ob"  typeMajor="unknown" typeMinor="unknown"             title="Lab objects"/>
+
+		<file id="bg-lakeroom" name="lakeroom.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Lake Room image"/>
+		<file id="b-lakeroom"  name="lakeroom.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Lake Room blocking mask"/>
+		<file id="o-lakeroom"  name="lakeroom.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Lake Room foreground mask"/>
+		<file id="ob-lakeroom" name="lakeroom.ob"  typeMajor="unknown" typeMinor="unknown"             title="Lake Room objects"/>
+
+		<file id="bg-mummyrm" name="mummyrm.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Mummy Room image"/>
+		<file id="b-mummyrm"  name="mummyrm.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Mummy Room blocking mask"/>
+		<file id="o-mummyrm"  name="mummyrm.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Mummy Room foreground mask"/>
+		<file id="ob-mummyrm" name="mummyrm.ob"  typeMajor="unknown" typeMinor="unknown"             title="Mummy Room objects"/>
+
+		<file id="bg-storerm" name="storerm.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="Storeroom image"/>
+		<file id="b-storerm"  name="storerm.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Storeroom blocking mask"/>
+		<file id="o-storerm"  name="storerm.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="Storeroom foreground mask"/>
+		<file id="ob-storerm" name="storerm.ob"  typeMajor="unknown" typeMinor="unknown"             title="Storeroom objects"/>
+
+		<file id="bg-the_end" name="the_end.art" typeMajor="image"   typeMinor="pcx-1b4p"            title="The End image"/>
+		<file id="b-the_end"  name="the_end.b"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="The End blocking mask"/>
+		<file id="o-the_end"  name="the_end.o"   typeMajor="image"   typeMinor="mono-raw-fullscreen" title="The End foreground mask"/>
+		<file id="ob-the_end" name="the_end.ob"  typeMajor="unknown" typeMinor="unknown"             title="The End objects"/>
+
+	</files>
+
+	<commands>
+		<command title="Normal">hhh</command>
+	</commands>
+
+</game>

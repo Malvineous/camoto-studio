@@ -1,5 +1,5 @@
 Camoto: Classic-game Modding Tools
-Copyright 2010-2012 Adam Nielsen <malvineous@shikadi.net>
+Copyright 2010-2013 Adam Nielsen <malvineous@shikadi.net>
 http://www.shikadi.net/camoto/
 
 Camoto is a collection of utilities for editing (modding) "classic games",
@@ -19,6 +19,7 @@ The GUI currently supports at least partial editing of these games:
  - Dangerous Dave
  - Halloween Harry
  - Hocus Pocus
+ - Hugo 1: Hugo's House of Horrors
  - Jill of the Jungle
  - Kiloblaster
  - Major Stryker
