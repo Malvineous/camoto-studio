@@ -54,6 +54,7 @@ void SynthMixer::AddSamples_m32(Bitu samples, Bit32s *buffer)
 		int32_t a = 32768 + *this->buf;
 		int32_t b = 32768 + (*buffer << 1);
 		*this->buf++ = CLIP(-32768 + 2 * (a + b) - (a * b) / 32768 - 65536);
+		*this->buf++ = CLIP(-32768 + 2 * (a + b) - (a * b) / 32768 - 65536);
 		buffer++;
 		samples--;
 	}
@@ -62,7 +63,14 @@ void SynthMixer::AddSamples_m32(Bitu samples, Bit32s *buffer)
 
 void SynthMixer::AddSamples_s32(Bitu frames, Bit32s *buffer)
 {
-	this->AddSamples_m32(frames * 2, buffer);
+	unsigned long samples = frames * 2;
+	while (samples) {
+		int32_t a = 32768 + *this->buf;
+		int32_t b = 32768 + (*buffer << 1);
+		*this->buf++ = CLIP(-32768 + 2 * (a + b) - (a * b) / 32768 - 65536);
+		buffer++;
+		samples--;
+	}
 	return;
 }
 
