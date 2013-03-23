@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Zone 66 description file for Camoto Studio
+	Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Zone_66
+  -->
+<game title="Zone 66">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Tomasz "Tran" Pytel</developer>
+		<publisher>Epic Megagames</publisher>
+		<reverser>john_doe</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+
+		<group name="Levels">
+			<group name="Episode 1">
+			</group>
+		</group>
+
+		<group name="Graphics">
+			<item ref="pal-menu"/>
+			<item ref="img-title"/>
+
+			<group name="Exit screens">
+				<item ref="b800-reg"/>
+				<item ref="b800-sw"/>
+			</group>
+
+			<group name="Unused logos">
+				<item ref="pal-logo1"/>
+				<item ref="img-logo1"/>
+				<item ref="pal-logo2"/>
+				<item ref="img-logo2"/>
+			</group>
+
+			<group name="Tilesets">
+				<item ref="tls-font"/>
+				<item ref="tls-font2"/>
+
+				<item ref="tls-cna0"/>
+				<item ref="tls-cna1"/>
+				<item ref="tls-cna2"/>
+				<item ref="tls-cna3"/>
+				<item ref="tls-cna4"/>
+				<item ref="tls-cna5"/>
+				<item ref="tls-cnb0"/>
+				<item ref="tls-cnb1"/>
+				<item ref="tls-cnb2"/>
+				<item ref="tls-cnb3"/>
+				<item ref="tls-cnb4"/>
+				<item ref="tls-cnb5"/>
+				<item ref="tls-cnc0"/>
+				<item ref="tls-cnc1"/>
+				<item ref="tls-cnc2"/>
+				<item ref="tls-cnc3"/>
+				<item ref="tls-cnc4"/>
+				<item ref="tls-cnc5"/>
+				<item ref="tls-cnd0"/>
+				<item ref="tls-cnd1"/>
+				<item ref="tls-cnd2"/>
+				<item ref="tls-cnd3"/>
+				<item ref="tls-cnd4"/>
+				<item ref="tls-cnd5"/>
+				<item ref="tls-cne0"/>
+				<item ref="tls-cne1"/>
+				<item ref="tls-cne2"/>
+				<item ref="tls-cnf0"/>
+				<item ref="tls-cnf1"/>
+				<item ref="tls-cnf2"/>
+				<item ref="tls-cng0"/>
+				<item ref="tls-cng1"/>
+				<item ref="tls-cng2"/>
+				<item ref="tls-cnh0"/>
+				<item ref="tls-cnh1"/>
+				<item ref="tls-cnh2"/>
+				<item ref="tls-main"/>
+				<item ref="tls-misc"/>
+
+				<item ref="tls-sha0"/>
+				<item ref="tls-sha1"/>
+				<item ref="tls-sha2"/>
+				<item ref="tls-sha3"/>
+				<item ref="tls-shaa"/>
+				<item ref="tls-shab"/>
+				<item ref="tls-shb0"/>
+				<item ref="tls-shb1"/>
+				<item ref="tls-shb2"/>
+				<item ref="tls-shba"/>
+				<item ref="tls-shc0"/>
+				<item ref="tls-shc1"/>
+				<item ref="tls-shc2"/>
+				<item ref="tls-shca"/>
+				<item ref="tls-shd0"/>
+				<item ref="tls-shd1"/>
+				<item ref="tls-shd2"/>
+				<item ref="tls-shda"/>
+				<item ref="tls-she0"/>
+				<item ref="tls-she1"/>
+				<item ref="tls-shea"/>
+				<item ref="tls-shf0"/>
+				<item ref="tls-shf1"/>
+				<item ref="tls-shfa"/>
+				<item ref="tls-shg0"/>
+				<item ref="tls-shg1"/>
+				<item ref="tls-shga"/>
+				<item ref="tls-shh0"/>
+				<item ref="tls-shh1"/>
+				<item ref="tls-shha"/>
+
+				<item ref="tls-zil0"/>
+				<item ref="tls-zil1"/>
+				<item ref="tls-zil2"/>
+			</group>
+
+		</group>
+
+		<group name="Music">
+			<item ref="mus-00g"/>
+			<item ref="mus-01g"/>
+			<item ref="mus-03g"/>
+			<item ref="mus-a2g"/>
+			<item ref="mus-a3g"/>
+			<item ref="mus-b0g"/>
+			<item ref="mus-b2g"/>
+			<item ref="mus-b3g"/>
+			<item ref="mus-c0g"/>
+			<item ref="mus-c1g"/>
+			<item ref="mus-c3g"/>
+			<item ref="mus-d1g"/>
+			<item ref="mus-d3g"/>
+			<item ref="mus-e0g"/>
+			<item ref="mus-e2g"/>
+			<item ref="mus-e3g"/>
+			<item ref="mus-f0g"/>
+			<item ref="mus-f2g"/>
+			<item ref="mus-f3g"/>
+			<item ref="mus-g0g"/>
+			<item ref="mus-g2g"/>
+			<item ref="mus-g3g"/>
+			<item ref="mus-h0g"/>
+			<item ref="mus-h2g"/>
+			<item ref="mus-h3g"/>
+			<item ref="mus-z00"/>
+			<item ref="mus-z01"/>
+			<item ref="mus-z02"/>
+		</group>
+
+		<group name="Sounds">
+		</group>
+
+	</display>
+
+	<files>
+		<file id="tls-cna0"   name="cna0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cna0"/>
+		<file id="tls-cna0"   name="cna0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cna0"/>
+		<file id="tls-cna1"   name="cna1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cna1"/>
+		<file id="tls-cna2"   name="cna2grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cna2"/>
+		<file id="tls-cna3"   name="cna3grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cna3"/>
+		<file id="tls-cna4"   name="cna4grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cna4"/>
+		<file id="tls-cna5"   name="cna5grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cna5"/>
+		<file id="tls-cnb0"   name="cnb0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnb0"/>
+		<file id="tls-cnb1"   name="cnb1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnb1"/>
+		<file id="tls-cnb2"   name="cnb2grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnb2"/>
+		<file id="tls-cnb3"   name="cnb3grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnb3"/>
+		<file id="tls-cnb4"   name="cnb4grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnb4"/>
+		<file id="tls-cnb5"   name="cnb5grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnb5"/>
+		<file id="tls-cnc0"   name="cnc0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnc0"/>
+		<file id="tls-cnc1"   name="cnc1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnc1"/>
+		<file id="tls-cnc2"   name="cnc2grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnc2"/>
+		<file id="tls-cnc3"   name="cnc3grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnc3"/>
+		<file id="tls-cnc4"   name="cnc4grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnc4"/>
+		<file id="tls-cnc5"   name="cnc5grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnc5"/>
+		<file id="tls-cnd0"   name="cnd0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnd0"/>
+		<file id="tls-cnd1"   name="cnd1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnd1"/>
+		<file id="tls-cnd2"   name="cnd2grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnd2"/>
+		<file id="tls-cnd3"   name="cnd3grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnd3"/>
+		<file id="tls-cnd4"   name="cnd4grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnd4"/>
+		<file id="tls-cnd5"   name="cnd5grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnd5"/>
+		<file id="tls-cne0"   name="cne0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cne0"/>
+		<file id="tls-cne1"   name="cne1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cne1"/>
+		<file id="tls-cne2"   name="cne2grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cne2"/>
+		<file id="tls-cnf0"   name="cnf0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnf0"/>
+		<file id="tls-cnf1"   name="cnf1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnf1"/>
+		<file id="tls-cnf2"   name="cnf2grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnf2"/>
+		<file id="tls-cng0"   name="cng0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cng0"/>
+		<file id="tls-cng1"   name="cng1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cng1"/>
+		<file id="tls-cng2"   name="cng2grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cng2"/>
+		<file id="tls-cnh0"   name="cnh0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnh0"/>
+		<file id="tls-cnh1"   name="cnh1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnh1"/>
+		<file id="tls-cnh2"   name="cnh2grfx.z66" typeMajor="tileset" typeMinor="zone66" title="cnh2"/>
+		<file id="tls-main"   name="maingrfx.z66" typeMajor="tileset" typeMinor="zone66" title="main"/>
+		<file id="tls-misc"   name="miscgrfx.z66" typeMajor="tileset" typeMinor="zone66" title="misc"/>
+
+		<file id="tls-sha0"   name="sha0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship a0"/>
+		<file id="tls-sha1"   name="sha1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship a1"/>
+		<file id="tls-sha2"   name="sha2grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship a2"/>
+		<file id="tls-sha3"   name="sha3grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship a3"/>
+		<file id="tls-shaa"   name="shaagrfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship aa"/>
+		<file id="tls-shab"   name="shabgrfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship ab"/>
+		<file id="tls-shb0"   name="shb0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship b0"/>
+		<file id="tls-shb1"   name="shb1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship b1"/>
+		<file id="tls-shb2"   name="shb2grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship b2"/>
+		<file id="tls-shba"   name="shbagrfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship ba"/>
+		<file id="tls-shc0"   name="shc0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship c0"/>
+		<file id="tls-shc1"   name="shc1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship c1"/>
+		<file id="tls-shc2"   name="shc2grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship c2"/>
+		<file id="tls-shca"   name="shcagrfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship ca"/>
+		<file id="tls-shd0"   name="shd0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship d0"/>
+		<file id="tls-shd1"   name="shd1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship d1"/>
+		<file id="tls-shd2"   name="shd2grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship d2"/>
+		<file id="tls-shda"   name="shdagrfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship da"/>
+		<file id="tls-she0"   name="she0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship e0"/>
+		<file id="tls-she1"   name="she1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship e1"/>
+		<file id="tls-shea"   name="sheagrfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship ea"/>
+		<file id="tls-shf0"   name="shf0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship f0"/>
+		<file id="tls-shf1"   name="shf1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship f1"/>
+		<file id="tls-shfa"   name="shfagrfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship fa"/>
+		<file id="tls-shg0"   name="shg0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship g0"/>
+		<file id="tls-shg1"   name="shg1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship g1"/>
+		<file id="tls-shga"   name="shgagrfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship ga"/>
+		<file id="tls-shh0"   name="shh0grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship h0"/>
+		<file id="tls-shh1"   name="shh1grfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship h1"/>
+		<file id="tls-shha"   name="shhagrfx.z66" typeMajor="tileset" typeMinor="zone66" title="Ship ha"/>
+
+		<file id="tls-zil0"   name="zil0.z66"     typeMajor="tileset" typeMinor="zone66" title="Story 0"/>
+		<file id="tls-zil1"   name="zil1.z66"     typeMajor="tileset" typeMinor="zone66" title="Story 1"/>
+		<file id="tls-zil2"   name="zil2.z66"     typeMajor="tileset" typeMinor="zone66" title="Story 2"/>
+
+		<file id="tls-font"   name="font.z66"     typeMajor="tileset" typeMinor="zone66" title="Font 1"/>
+		<file id="tls-font2"  name="font2.z66"    typeMajor="tileset" typeMinor="zone66" title="Font 2"/>
+
+		<file id="pal-menu"   name="tpal.z66"     typeMajor="palette" typeMinor="vga" title="Menu palette"/>
+
+		<file id="mus-00g"    name="m00gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Title (Adlib)"/>
+		<file id="mus-01g"    name="m01gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Title (SB)"/>
+		<file id="mus-03g"    name="m03gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Title (GUS)"/>
+		<file id="mus-a2g"    name="ma2gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Foreign Shores (Adlib/SB)"/>
+		<file id="mus-a3g"    name="ma3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Foreign Shores (GUS)"/>
+		<file id="mus-b0g"    name="mb0gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Ice Wind (Adlib)"/>
+		<file id="mus-b2g"    name="mb2gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Ice Wind (Adlib/SB)"/>
+		<file id="mus-b3g"    name="mb3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Ice Wind (GUS)"/>
+		<file id="mus-c0g"    name="mc0gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Desert Heat (Adlib)"/>
+		<file id="mus-c1g"    name="mc1gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Desert Heat (SB)"/>
+		<file id="mus-c3g"    name="mc3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Desert Heat (GUS)"/>
+		<file id="mus-d1g"    name="md1gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="War Plains (SB)"/>
+		<file id="mus-d3g"    name="md3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="War Plains (GUS)"/>
+		<file id="mus-e0g"    name="me0gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Highway Fury (Adlib)"/>
+		<file id="mus-e2g"    name="me2gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Highway Fury (Adlib/SB)"/>
+		<file id="mus-e3g"    name="me3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Highway Fury (GUS)"/>
+		<file id="mus-f0g"    name="mf0gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Plantation Crash (Adlib)"/>
+		<file id="mus-f2g"    name="mf2gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Plantation Crash (Adlib/SB)"/>
+		<file id="mus-f3g"    name="mf3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Plantation Crash (GUS)"/>
+		<file id="mus-g0g"    name="mg0gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Hell (Adlib)"/>
+		<file id="mus-g2g"    name="mg2gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Hell (Adlib/SB)"/>
+		<file id="mus-g3g"    name="mg3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Hell (GUS)"/>
+		<file id="mus-h0g"    name="mh0gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Final Frontier (Adlib)"/>
+		<file id="mus-h2g"    name="mh2gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Final Frontier (Adlib/SB)"/>
+		<file id="mus-h3g"    name="mh3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Final Frontier (GUS)"/>
+		<file id="mus-z00"    name="zim00.z66"    typeMajor="music" typeMinor="cdfm-zone66" title="Zim (Adlib)"/>
+		<file id="mus-z01"    name="zim01.z66"    typeMajor="music" typeMinor="cdfm-zone66" title="Zim (SB)"/>
+		<file id="mus-z02"    name="zim02.z66"    typeMajor="music" typeMinor="cdfm-zone66" title="Zim (GUS)"/>
+
+		<file id="txt-instr"  name="instr.z66"    typeMajor="text"  typeMinor="plain" title="Instructions"/>
+
+		<file id="img-title"  name="title.z66"    typeMajor="image" typeMinor="vga-raw-fullscreen" title="Title">
+			<supp reftype="palette" ref="pal-menu"/>
+		</file>
+		<archive id="zone66t-z66" name="zone66t.z66" typeMinor="fixed">
+			<file id="pal-logo1"  name="logo1.pal" offset="0"     size="768"   typeMajor="palette" typeMinor="vga" title="Logo 1 palette"/>
+			<file id="img-logo1"  name="logo1.raw" offset="768"   size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Logo 1">
+				<supp reftype="palette" ref="pal-logo1"/>
+			</file>
+			<file id="pal-logo2"  name="logo2.pal" offset="64768" size="768"   typeMajor="palette" typeMinor="vga" title="Logo 2 palette"/>
+			<file id="img-logo2"  name="logo2.raw" offset="65536" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Logo 2">
+				<supp reftype="palette" ref="pal-logo2"/>
+			</file>
+		</archive>
+
+		<archive id="et-z66" name="et.z66" typeMinor="fixed">
+			<file id="b800-reg" name="reg.bin" offset="0"     size="4000" typeMajor="b800" typeMinor="80x25" title="Registered exit screen"/>
+			<file id="b800-sw"  name="sw.bin"  offset="4000"  size="4000" typeMajor="b800" typeMinor="80x25" title="Shareware exit screen"/>
+		</archive>
+
+	</files>
+
+	<commands>
+		<command title="Normal">zone66</command>
+		<command title="Foce GUS">zone66 /g</command>
+		<command title="Force Sound Blaster">zone66 /s</command>
+	</commands>
+
+</game>
