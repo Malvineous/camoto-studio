@@ -90,8 +90,8 @@ void InstrumentListPanel::switchDocument(IDocument *doc)
 			int image;
 			if (dynamic_cast<OPLPatch *>(patch.get())) image = ImageListIndex::InstOPL;
 			else if (dynamic_cast<MIDIPatch *>(patch.get())) image = ImageListIndex::InstMIDI;
-			//else if (dynamic_cast<PCMPatch *>(patch.get())) image = ImageListIndex::InstPCM;
-			else image = 0;
+			else if (dynamic_cast<PCMPatch *>(patch.get())) image = ImageListIndex::InstPCM;
+			else image = ImageListIndex::InstMute;
 			long id = this->list->InsertItem(i, title, image);
 			this->list->SetItemData(id, i);
 		}
@@ -163,8 +163,8 @@ void InstrumentListPanel::updateInstrumentView(unsigned int index)
 	} else {
 		if (dynamic_cast<OPLPatch *>(patch.get())) image = ImageListIndex::InstOPL;
 		else if (dynamic_cast<MIDIPatch *>(patch.get())) image = ImageListIndex::InstMIDI;
-		//else if (dynamic_cast<PCMPatch *>(patch.get())) image = ImageListIndex::InstPCM;
-		else image = ImageListIndex::File; // "unknown"
+		else if (dynamic_cast<PCMPatch *>(patch.get())) image = ImageListIndex::InstPCM;
+		else image = ImageListIndex::InstMute; // "unknown"
 	}
 	this->list->SetItemImage(index, image);
 

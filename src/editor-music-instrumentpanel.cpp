@@ -46,6 +46,10 @@ enum {
 	IDC_M_WAVESEL,
 
 	IDC_PATCH,
+
+	IDC_SAMPLERATE,
+	IDC_LOOPSTART,
+	IDC_LOOPEND,
 };
 
 BEGIN_EVENT_TABLE(InstrumentPanel, IToolPanel)
@@ -79,6 +83,9 @@ InstrumentPanel::InstrumentPanel(Studio *parent)
 		instIndex(0)
 {
 	this->tabs = new wxChoicebook(this, IDC_INST_TYPE);
+
+	wxScrolledWindow *pnlNone = new wxScrolledWindow(this->tabs);
+	this->tabs->AddPage(pnlNone, _("None"));
 
 	wxScrolledWindow *pnlOPL = new wxScrolledWindow(this->tabs);
 	wxGridBagSizer *s = new wxGridBagSizer(2, 2);
@@ -125,6 +132,18 @@ InstrumentPanel::InstrumentPanel(Studio *parent)
 	pnlMIDI->FitInside();
 	pnlMIDI->SetScrollRate(0, 16);
 
+	wxScrolledWindow *pnlPCM = new wxScrolledWindow(this->tabs);
+	s = new wxGridBagSizer(2, 2);
+	row = 0;
+	this->addNumberControl(pnlPCM, s, &row, IDC_SAMPLERATE, _("Sample rate"), 1, 128000);
+	this->addNumberControl(pnlPCM, s, &row, IDC_LOOPSTART, _("Loop start"), 0, 0);
+	this->addNumberControl(pnlPCM, s, &row, IDC_LOOPEND, _("Loop end"), 0, 0);
+
+	this->tabs->AddPage(pnlPCM, _("PCM"));
+	pnlPCM->SetSizer(s);
+	pnlPCM->FitInside();
+	pnlPCM->SetScrollRate(0, 16);
+
 	this->txtInstNum = new wxStaticText(this, wxID_ANY, _T("??: "));
 	this->txtInstName = new wxTextCtrl(this, IDC_INST_NAME, _("[no selection]"));
 	wxBoxSizer *titleSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -161,9 +180,10 @@ void InstrumentPanel::getPanelInfo(wxString *id, wxString *label) const
 
 void InstrumentPanel::switchDocument(IDocument *doc)
 {
+	this->inst.reset();
 	this->oplInst.reset();
 	this->midiInst.reset();
-	//this->pcmInst.reset();
+	this->pcmInst.reset();
 	// We don't have to do anything here, because the InstrumentListPanel will
 	// call setInstrumentList() and setInstrument() in its switchDocument().
 	return;
@@ -207,7 +227,7 @@ void InstrumentPanel::setInstrument(unsigned int newIndex)
 
 	this->oplInst = boost::dynamic_pointer_cast<OPLPatch>(this->inst);
 	this->midiInst = boost::dynamic_pointer_cast<MIDIPatch>(this->inst);
-	//this->pcmInst = boost::dynamic_pointer_cast<PCMPatch>(this->inst);
+	this->pcmInst = boost::dynamic_pointer_cast<PCMPatch>(this->inst);
 	if (this->oplInst) {
 		// Show and update the OPL controls
 		((wxSpinCtrl *)this->FindWindow(IDC_C_FREQMULT))->SetValue(this->oplInst->c.freqMult);
@@ -227,11 +247,20 @@ void InstrumentPanel::setInstrument(unsigned int newIndex)
 		((wxSpinCtrl *)this->FindWindow(IDC_M_SUSTAIN))->SetValue(this->oplInst->m.sustainRate);
 		((wxSpinCtrl *)this->FindWindow(IDC_M_RELEASE))->SetValue(this->oplInst->m.releaseRate);
 		((wxSpinCtrl *)this->FindWindow(IDC_M_WAVESEL))->SetValue(this->oplInst->m.waveSelect);
-		this->instType = 0; // Choicebook page index
+		this->instType = 1; // Choicebook page index
 	} else if (this->midiInst) {
 		// Show and update the MIDI controls
-		this->instType = 1; // Choicebook page index
+		this->instType = 2; // Choicebook page index
 		((wxSpinCtrl *)this->FindWindow(IDC_PATCH))->SetValue(this->midiInst->midiPatch + 1);
+	} else if (this->pcmInst) {
+		// Show and update the PCM controls
+		this->instType = 3; // Choicebook page index
+		((wxSpinCtrl *)this->FindWindow(IDC_SAMPLERATE))->SetValue(this->pcmInst->sampleRate);
+		((wxSpinCtrl *)this->FindWindow(IDC_LOOPSTART))->SetValue(this->pcmInst->loopStart);
+		((wxSpinCtrl *)this->FindWindow(IDC_LOOPEND))->SetValue(this->pcmInst->loopEnd);
+	} else {
+		// Empty instrument
+		this->instType = 0;
 	}
 	this->tabs->SetSelection(this->instType);
 
@@ -253,6 +282,13 @@ void InstrumentPanel::onTypeChanged(wxChoicebookEvent& ev)
 		PatchPtr newInst;
 		switch (this->instType) {
 			case 0:
+				this->inst.reset(new Patch());
+				newInst = this->inst;
+				this->oplInst.reset();
+				this->midiInst.reset();
+				this->pcmInst.reset();
+				break;
+			case 1:
 				if (!this->oplInst) {
 					this->oplInst.reset(new OPLPatch());
 					this->oplInst->name = this->inst->name;
@@ -260,9 +296,10 @@ void InstrumentPanel::onTypeChanged(wxChoicebookEvent& ev)
 				}
 				newInst = this->oplInst;
 				this->midiInst.reset();
+				this->pcmInst.reset();
 				this->inst = newInst;
 				break;
-			case 1:
+			case 2:
 				if (!this->midiInst) {
 					this->midiInst.reset(new MIDIPatch());
 					this->midiInst->name = this->inst->name;
@@ -270,6 +307,18 @@ void InstrumentPanel::onTypeChanged(wxChoicebookEvent& ev)
 				}
 				newInst = this->midiInst;
 				this->oplInst.reset();
+				this->pcmInst.reset();
+				this->inst = newInst;
+				break;
+			case 3:
+				if (!this->pcmInst) {
+					this->pcmInst.reset(new PCMPatch());
+					this->pcmInst->name = this->inst->name;
+					this->pcmInst->sampleRate = 44100;
+				}
+				newInst = this->pcmInst;
+				this->oplInst.reset();
+				this->midiInst.reset();
 				this->inst = newInst;
 				break;
 			default:
@@ -309,6 +358,13 @@ void InstrumentPanel::onValueChanged(wxSpinEvent& ev)
 	if (this->midiInst) {
 		switch (ev.GetId()) {
 			case IDC_PATCH: this->midiInst->midiPatch = val - 1; break;
+		}
+	}
+	if (this->pcmInst) {
+		switch (ev.GetId()) {
+			case IDC_SAMPLERATE: this->pcmInst->sampleRate = val; break;
+			case IDC_LOOPSTART: this->pcmInst->loopStart = val; break;
+			case IDC_LOOPEND: this->pcmInst->loopEnd = val; break;
 		}
 	}
 	return;

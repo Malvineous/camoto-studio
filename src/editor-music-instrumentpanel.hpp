@@ -30,6 +30,7 @@ class InstrumentPanel;
 #include <camoto/gamemusic/patchbank.hpp>
 #include <camoto/gamemusic/patch-opl.hpp>
 #include <camoto/gamemusic/patch-midi.hpp>
+#include <camoto/gamemusic/patch-pcm.hpp>
 #include "editor.hpp"
 #include "editor-music-instrumentlistpanel.hpp"
 
@@ -69,7 +70,7 @@ class InstrumentPanel: public IToolPanel
 		camoto::gamemusic::PatchPtr inst; ///< Instrument being edited
 		camoto::gamemusic::OPLPatchPtr oplInst; ///< inst cast to OPLPatch, or NULL
 		camoto::gamemusic::MIDIPatchPtr midiInst; ///< inst cast to MIDIPatch, or NULL
-		//camoto::gamemusic::PCMPatchPtr pcmInst; ///< inst cast to PCMPatch, or NULL
+		camoto::gamemusic::PCMPatchPtr pcmInst; ///< inst cast to PCMPatch, or NULL
 
 		DECLARE_EVENT_TABLE();
 };
