@@ -332,10 +332,11 @@ void MusicDocument::onExport(wxCommandEvent& ev)
 		stream::output_file_sptr outfile;
 		try {
 			outfile.reset(new stream::output_file());
-			const char *outname = exportdlg.filename.mb_str();
+			std::string outname(exportdlg.filename.mb_str());
 			outfile->create(outname);
 
-			MusicTypePtr pMusicOutType(this->editor->studio->mgrMusic->getMusicTypeByCode(outname));
+			MusicTypePtr pMusicOutType(this->editor->studio->mgrMusic->getMusicTypeByCode(
+				(const char *)exportdlg.fileType.mb_str()));
 
 			// We can't have a type chosen that we didn't supply in the first place
 			assert(pMusicOutType);
@@ -359,6 +360,10 @@ void MusicDocument::onExport(wxCommandEvent& ev)
 				"selected format, due to a limitation imposed by the format itself:"
 				"\n\n%s\n\nYou will need to adjust the song accordingly and try "
 				"again, or select a different export file format."),
+				wxString(e.what(), wxConvUTF8).c_str()
+			);
+		} catch (const std::exception& e) {
+			errmsg = wxString::Format(_("Unexpected error during export:\n\n%s"),
 				wxString(e.what(), wxConvUTF8).c_str()
 			);
 		}
