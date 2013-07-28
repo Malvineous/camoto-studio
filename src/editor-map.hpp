@@ -24,6 +24,20 @@
 #include <camoto/gamemaps.hpp>
 #include "editor.hpp"
 
+#define HT_DEFAULT   _("Ready")
+#define HT_PASTE     _("L-click=paste")
+#define HT_APPLY     _("L-click=apply")
+#define HT_COPY      _("R-drag=copy")
+#define HT_SELECT    _("R-drag=select")
+#define HT_SCROLL    _("M-drag=scroll")
+#define HT_CLOSEPATH _("Space=close path")
+#define HT_INS       _("Ins=insert point")
+#define HT_DEL       _("Del=delete")
+#define HT_ESC       _("Esc=cancel")
+#define HT_LAYER_ACT _("L-dclick=(de)activate layer")
+#define HT_LAYER_VIS _("R-click=show/hide layer")
+#define __           _(" | ")
+
 class MapEditor: public IEditor
 {
 	public:

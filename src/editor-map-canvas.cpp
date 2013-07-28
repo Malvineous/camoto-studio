@@ -2257,18 +2257,6 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 	return;
 }
 
-#define HT_DEFAULT   _("Ready")
-#define HT_PASTE     _("L-click=paste")
-#define HT_APPLY     _("L-click=apply")
-#define HT_COPY      _("R-drag=copy")
-#define HT_SELECT    _("R-drag=select")
-#define HT_SCROLL    _("M-drag=scroll")
-#define HT_CLOSEPATH _("Space=close path")
-#define HT_INS       _("Ins=insert point")
-#define HT_DEL       _("Del=delete")
-#define HT_ESC       _("Esc=cancel")
-#define __           _(" | ")
-
 void MapCanvas::updateHelpText()
 {
 	if (this->activeElement == 1 + ElPaths) { // select some points on a path

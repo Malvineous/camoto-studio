@@ -238,6 +238,12 @@ class LayerPanel: public IToolPanel
 			return;
 		}
 
+		void onMouseOver(wxMouseEvent& ev)
+		{
+			this->doc->setHelpText(wxString(HT_LAYER_ACT) + __ + HT_LAYER_VIS);
+			return;
+		}
+
 	protected:
 		wxListCtrl *list;
 		MapDocument *doc;
@@ -255,6 +261,7 @@ BEGIN_EVENT_TABLE(LayerPanel, IToolPanel)
 	EVT_LIST_ITEM_SELECTED(IDC_LAYER, LayerPanel::onItemSelected)
 	EVT_LIST_ITEM_ACTIVATED(IDC_LAYER, LayerPanel::onItemActivated)
 	EVT_LIST_ITEM_RIGHT_CLICK(IDC_LAYER, LayerPanel::onItemRightClick)
+	EVT_ENTER_WINDOW(LayerPanel::onMouseOver)
 END_EVENT_TABLE()
 
 
