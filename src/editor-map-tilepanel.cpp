@@ -21,7 +21,6 @@
 #include <GL/glew.h>
 #include <camoto/gamegraphics.hpp>
 #include "editor-map-tilepanel.hpp"
-#include "editor-map-tilepanel-canvas.hpp"
 
 using namespace camoto;
 using namespace camoto::gamemaps;
@@ -31,10 +30,11 @@ BEGIN_EVENT_TABLE(TilePanel, IToolPanel)
 END_EVENT_TABLE()
 
 TilePanel::TilePanel(Studio *parent)
-	:	IToolPanel(parent)
+	:	IToolPanel(parent),
+		doc(NULL)
 {
 	this->canvas = new TilePanelCanvas(this, parent->getGLContext(),
-		parent->getGLAttributes(), 1);
+		parent->getGLAttributes());
 
 	wxBoxSizer *s = new wxBoxSizer(wxVERTICAL);
 	s->Add(this->canvas, 1, wxEXPAND);
@@ -54,11 +54,7 @@ void TilePanel::switchDocument(IDocument *doc)
 	if (!this->doc) return; // NULL was passed in
 
 	// Switch to the new document's textures
-	TEXTURE_MAP *tm = &this->doc->canvas->textureMap[0]; // TEMP: layer 0 only
-	this->canvas->setTextures(*tm);
-
-	// Reflect the map's zoom level
-	this->canvas->setZoomFactor(this->doc->settings->zoomFactor);
+	this->canvas->notifyNewDoc();
 
 	return;
 }

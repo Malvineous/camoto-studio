@@ -175,6 +175,37 @@ Studio::Studio(bool isStudio)
 	this->editors[_T("tileset")] = new TilesetEditor(this);
 	this->editors[_T("image")] = new ImageEditor(this);
 
+	this->popup = new wxMenu();
+	this->popup->Append(IDM_EXTRACT,       _("&Extract file..."), _("Save this file in its native format"));
+	this->popup->Append(IDM_EXTRACT_RAW,   _("&Extract raw..."), _("Save this file in its raw format (no decompression or decryption)"));
+	this->popup->Append(IDM_OVERWRITE,     _("&Overwrite file..."), _("Replace this item with the contents of another file"));
+	this->popup->Append(IDM_OVERWRITE_RAW, _("&Overwrite raw..."), _("Replace this item with a file already encrypted or compressed in the correct format"));
+	this->popup->Append(wxID_PROPERTIES,   _("&Properties..."), _("View this item's properties directly"));
+
+	// Create a base OpenGL context to share among all editors
+	this->Show(true);
+	wxGLCanvas *canvas = new wxGLCanvas(this, wxID_ANY,
+		wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS,
+		wxEmptyString, ::glAttribList);
+	this->glcx = new wxGLContext(canvas, NULL);
+	canvas->SetCurrent(*this->glcx);
+	GLenum err = glewInit();
+	delete canvas;
+	assert(this->glcx);
+
+	if (err != GLEW_OK) {
+		this->Show(false);
+		wxString msg = wxString::Format(_("Unable to load OpenGL.  Make sure "
+			"you have OpenGL drivers available for your video card.\n\n"
+			"[glewInit() failed: %s]"),
+			wxString((const char *)glewGetErrorString(err), wxConvUTF8).c_str());
+		wxMessageDialog dlg(NULL, msg, _("Startup failure"),
+			wxOK | wxICON_ERROR);
+		dlg.ShowModal();
+		throw EFailure(msg);
+	}
+	std::cout << "Using GLEW " << glewGetString(GLEW_VERSION) << "\n";
+
 	// Prepare each editor
 	for (EditorMap::iterator e = this->editors.begin(); e != this->editors.end(); e++) {
 		IToolPanelVector toolPanels = e->second->createToolPanes();
@@ -194,38 +225,8 @@ Studio::Studio(bool isStudio)
 		std::cout << "\n";
 	}
 
-	this->popup = new wxMenu();
-	this->popup->Append(IDM_EXTRACT,       _("&Extract file..."), _("Save this file in its native format"));
-	this->popup->Append(IDM_EXTRACT_RAW,   _("&Extract raw..."), _("Save this file in its raw format (no decompression or decryption)"));
-	this->popup->Append(IDM_OVERWRITE,     _("&Overwrite file..."), _("Replace this item with the contents of another file"));
-	this->popup->Append(IDM_OVERWRITE_RAW, _("&Overwrite raw..."), _("Replace this item with a file already encrypted or compressed in the correct format"));
-	this->popup->Append(wxID_PROPERTIES,   _("&Properties..."), _("View this item's properties directly"));
-
 	this->aui.Update();
 	this->setControlStates();
-
-	// Create a base OpenGL context to share among all editors
-	this->Show(true);
-	wxGLCanvas *canvas = new wxGLCanvas(this, this->glcx, wxID_ANY,
-		wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS,
-		wxEmptyString, ::glAttribList);
-	this->glcx = new wxGLContext(canvas, NULL);
-	canvas->SetCurrent(*this->glcx);
-	GLenum err = glewInit();
-	delete canvas;
-
-	if (err != GLEW_OK) {
-		this->Show(false);
-		wxString msg = wxString::Format(_("Unable to load OpenGL.  Make sure "
-			"you have OpenGL drivers available for your video card.\n\n"
-			"[glewInit() failed: %s]"),
-			wxString((const char *)glewGetErrorString(err), wxConvUTF8).c_str());
-		wxMessageDialog dlg(NULL, msg, _("Startup failure"),
-			wxOK | wxICON_ERROR);
-		dlg.ShowModal();
-		throw EFailure(msg);
-	}
-	std::cout << "Using GLEW " << glewGetString(GLEW_VERSION) << "\n";
 }
 
 Studio::~Studio()
@@ -640,7 +641,6 @@ void Studio::onItemOpened(wxTreeEvent& ev)
 	return;
 }
 
-/// Event handler for moving between open documents.
 void Studio::onDocTabChanged(wxAuiNotebookEvent& event)
 {
 	IDocument *doc = (IDocument *)this->notebook->GetPage(event.GetSelection());
@@ -648,7 +648,6 @@ void Studio::onDocTabChanged(wxAuiNotebookEvent& event)
 	return;
 }
 
-/// Event handler for tab closing
 void Studio::onDocTabClose(wxAuiNotebookEvent& event)
 {
 	IDocument *doc = (IDocument *)this->notebook->GetPage(event.GetSelection());

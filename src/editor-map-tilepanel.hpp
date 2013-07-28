@@ -21,9 +21,11 @@
 #ifndef _EDITOR_MAP_TILEPANEL_HPP_
 #define _EDITOR_MAP_TILEPANEL_HPP_
 
+class TilePanel;
+
 #include "editor.hpp"
 #include "editor-map-document.hpp"
-#include "editor-tileset-canvas.hpp"
+#include "editor-map-tilepanel-canvas.hpp"
 
 /// Panel window allowing a tile to be selected from a tileset.
 class TilePanel: public IToolPanel
@@ -32,16 +34,15 @@ class TilePanel: public IToolPanel
 		TilePanel(Studio *parent);
 
 		virtual void getPanelInfo(wxString *id, wxString *label) const;
-
 		virtual void switchDocument(IDocument *doc);
-
 		virtual void loadSettings(Project *proj);
-
 		virtual void saveSettings(Project *proj) const;
 
 	protected:
 		MapDocument *doc;
-		TilesetCanvas *canvas;
+		TilePanelCanvas *canvas;
+
+		friend TilePanelCanvas;
 
 		enum {
 			IDC_LAYER = wxID_HIGHEST + 1,

@@ -21,22 +21,42 @@
 #ifndef _EDITOR_MAP_TILEPANEL_CANVAS_HPP_
 #define _EDITOR_MAP_TILEPANEL_CANVAS_HPP_
 
-#include "editor-tileset-canvas.hpp"
+class TilePanelCanvas;
+
+#include <GL/glew.h>
 #include "editor-map-tilepanel.hpp"
+#include <wx/glcanvas.h>
 
 /// Specialisation of tileset viewer for map tile selector panel.
-class TilePanelCanvas: public TilesetCanvas
+class TilePanelCanvas: public wxGLCanvas
 {
 	public:
-		TilePanelCanvas(TilePanel *parent, wxGLContext *glcx, int *attribList,
-			int zoomFactor);
+		TilePanelCanvas(TilePanel *parent, wxGLContext *glcx, int *attribList);
 
 		~TilePanelCanvas();
+
+		/// Alert that the document has changed, and trigger a redraw of the tiles.
+		void notifyNewDoc();
+
+		void onEraseBG(wxEraseEvent& ev);
+		void onPaint(wxPaintEvent& ev);
+		void onResize(wxSizeEvent& ev);
+		void glReset();
+
+		/// Redraw the document.
+		void redraw();
+
+		void setTilesX(int t);
+		void setOffset(unsigned int o);
 
 		void onRightClick(wxMouseEvent& ev);
 
 	protected:
+		wxGLContext *glcx;
 		TilePanel *tilePanel;
+
+		unsigned int tilesX;  ///< Number of tiles to draw before wrapping to the next row
+		unsigned int offset;  ///< Number of tiles to skip drawing from the start of the tileset
 
 		DECLARE_EVENT_TABLE();
 };

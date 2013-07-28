@@ -109,29 +109,30 @@ END_EVENT_TABLE()
 
 MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 	TilesetCollectionPtr tilesets, int *attribList, const MapObjectVector *mapObjects)
-	:	wxGLCanvas(parent, glcx, wxID_ANY, wxDefaultPosition,
-			wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS, wxEmptyString, attribList),
-		doc(parent),
-		map(map),
-		tilesets(tilesets),
-		mapObjects(mapObjects),
-		zoomFactor(2),
-		gridVisible(false),
-		editingMode(TileMode),
-		primaryLayer(0),
-		offX(0),
-		offY(0),
-		scrollFromX(-1),
-		// scrollFromY doesn't matter when X is -1
-		selectFromX(-1),
-		// selectFromY doesn't matter when X is -1
-		actionFromX(-1),
-		// actionFromY doesn't matter when X is -1
-		pointerX(0),
-		pointerY(0),
-		resizeX(0),
-		resizeY(0),
-		nearestPathPointOff(-1)
+	:	wxGLCanvas(parent, wxID_ANY, attribList, wxDefaultPosition,
+	  	wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS),
+	  doc(parent),
+	  map(map),
+	  glcx(glcx),
+	  tilesets(tilesets),
+	  mapObjects(mapObjects),
+	  zoomFactor(2),
+	  gridVisible(false),
+	  editingMode(TileMode),
+	  primaryLayer(0),
+	  offX(0),
+	  offY(0),
+	  scrollFromX(-1),
+	  // scrollFromY doesn't matter when X is -1
+	  selectFromX(-1),
+	  // selectFromY doesn't matter when X is -1
+	  actionFromX(-1),
+	  // actionFromY doesn't matter when X is -1
+	  pointerX(0),
+	  pointerY(0),
+	  resizeX(0),
+	  resizeY(0),
+	  nearestPathPointOff(-1)
 {
 	assert(tilesets->size() > 0);
 	// Initial state is all layers visible and active
@@ -144,11 +145,7 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 	this->visibleElements[ElPaths] = this->map->getCaps() & Map2D::HasPaths;
 	this->activeElement = 0; // no element layers are active
 
-	this->SetCurrent();
-	glClearColor(0.5, 0.5, 0.5, 1);
-	glShadeModel(GL_FLAT);
-	glEnable(GL_TEXTURE_2D);
-	glDisable(GL_DEPTH_TEST);
+	this->SetCurrent(*this->glcx);
 
 	for (unsigned int i = 0; i < layerCount; i++) {
 		// Prepopulate an empty selection vector for each layer, so there is
@@ -417,7 +414,6 @@ void MapCanvas::setZoomFactor(int f)
 void MapCanvas::showGrid(bool visible)
 {
 	this->gridVisible = visible;
-	this->glReset();
 	this->redraw();
 	return;
 }
@@ -481,7 +477,6 @@ void MapCanvas::setPrimaryLayer(unsigned int layerIndex)
 	assert(layerIndex < MapCanvas::ElementCount + this->activeLayers.size());
 
 	this->primaryLayer = layerIndex;
-	this->glReset();
 	this->redraw();
 
 	this->updateHelpText();
@@ -510,7 +505,7 @@ void MapCanvas::onResize(wxSizeEvent& ev)
 void MapCanvas::glReset()
 {
 	if (!this->GetParent()->IsShown()) return;
-	this->SetCurrent();
+	this->SetCurrent(*this->glcx);
 	wxSize s = this->GetClientSize();
 	glViewport(0, 0, s.x, s.y);
 	glMatrixMode(GL_PROJECTION);
@@ -518,6 +513,10 @@ void MapCanvas::glReset()
 	glOrtho(0, s.x / this->zoomFactor, s.y / this->zoomFactor, 0, -1, 1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	glClearColor(0.5, 0.5, 0.5, 1);
+	glShadeModel(GL_FLAT);
+	glDisable(GL_DEPTH_TEST);
 	return;
 }
 
@@ -536,8 +535,11 @@ void MapCanvas::redraw()
 	if (this->offY < -winSize.y) this->offY = -winSize.y;
 	// TODO: Prevent scrolling past the end of the map too
 
-	this->SetCurrent();
-	glClearColor(0.5, 0.5, 0.5, 1);
+	// Have to call glReset() every time, since the context is shared with the
+	// tile selector canvas and it will change the projection since its window
+	// will be a different size to us.
+	this->glReset();
+
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glDisable(GL_LINE_STIPPLE);

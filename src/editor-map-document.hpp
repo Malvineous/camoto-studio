@@ -60,6 +60,7 @@ class MapDocument: public IDocument
 
 		friend class LayerPanel;
 		friend class TilePanel;
+		friend class TilePanelCanvas;
 
 		enum {
 			IDC_TOGGLEGRID = wxID_HIGHEST + 1,

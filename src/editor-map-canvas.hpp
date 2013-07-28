@@ -257,6 +257,7 @@ class MapCanvas: public wxGLCanvas
 
 		MapDocument *doc;
 		camoto::gamemaps::Map2DPtr map;
+		wxGLContext *glcx;
 		const camoto::gamemaps::TilesetCollectionPtr tilesets;
 		const MapObjectVector *mapObjects;
 
@@ -313,7 +314,7 @@ class MapCanvas: public wxGLCanvas
 		path_point nearestPathPoint; ///< Nearest point to the cursor
 		int nearestPathPointOff;     ///< How far along the line after the nearest point
 
-		friend class TilePanel;
+		friend class TilePanelCanvas;
 
 		DECLARE_EVENT_TABLE();
 
