@@ -103,13 +103,15 @@ class MapCanvas: public wxGLCanvas
 		typedef std::vector<Object> ObjectVector;
 
 	public:
-		std::vector<bool> visibleLayers;     ///< Map layers
+		std::vector<bool> activeLayers;      ///< Map layers edited
+		std::vector<bool> visibleLayers;     ///< Map layers drawn
 		enum Elements {
 			ElViewport,
 			ElPaths,
 			ElementCount
 		};
 		bool visibleElements[ElementCount];  ///< Virtual layers (e.g. viewport)
+		unsigned int activeElement;          ///< Only one can be active at once, 0 == none/layers are active
 
 		MapCanvas(MapDocument *parent, wxGLContext *glcx,
 			camoto::gamemaps::Map2DPtr map,
@@ -141,7 +143,22 @@ class MapCanvas: public wxGLCanvas
 		/// Switch to object editing mode.
 		void setObjMode();
 
-		void setActiveLayer(unsigned int layer);
+		/// Activate or deactivate a layer.  Inactive layers are not edited.
+		/**
+		 * @param layer
+		 *   Zero-based layer index, with 0..ElementCount referring to element
+		 *   layers, and the first real layer following at index ElementCount.
+		 */
+		void toggleActiveLayer(unsigned int layerIndex);
+
+		/// Set the main layer, e.g. for the grid dimensions.
+		/**
+		 * @param layer
+		 *   Zero-based layer index, with 0..ElementCount referring to element
+		 *   layers, and the first real layer following at index ElementCount.
+		 */
+		void setPrimaryLayer(unsigned int layerIndex);
+
 		void onEraseBG(wxEraseEvent& ev);
 		void onPaint(wxPaintEvent& ev);
 		void onResize(wxSizeEvent& ev);
@@ -168,8 +185,8 @@ class MapCanvas: public wxGLCanvas
 		 * @return true if it is contained within the user's current selection,
 		 *   or false otherwise.
 		 */
-		bool isTileSelected(unsigned int layerNum, unsigned int x,
-			unsigned int y);
+		bool isTileSelected(unsigned int layerNum,
+			const camoto::gamemaps::Map2D::Layer::ItemPtr& c);
 
 		/// Focus the object (if any) under the mouse cursor.
 		/**
@@ -191,7 +208,7 @@ class MapCanvas: public wxGLCanvas
 		 * @param y
 		 *   Y coordinate in pixels relative to top-left of canvas.
 		 */
-		void paintSelection(int x, int y);
+		void putSelection(int x, int y);
 
 		void onMouseMove(wxMouseEvent& ev);
 
@@ -248,7 +265,7 @@ class MapCanvas: public wxGLCanvas
 		int zoomFactor;   ///< Zoom level (1 == 1:1, 2 == 2:1/doublesize, etc.)
 		bool gridVisible; ///< Draw a grid over the active layer?
 		enum {TileMode, ObjectMode} editingMode; ///< Current editing mode
-		unsigned int activeLayer;  ///< Index of layer currently selected in layer palette
+		unsigned int primaryLayer; ///< Main layer used for things like gridline dimensions
 
 		int offX;         ///< Current X position (in pixels) to draw at (0,0)
 		int offY;         ///< Current Y position (in pixels) to draw at (0,0)
@@ -274,16 +291,15 @@ class MapCanvas: public wxGLCanvas
 		ObjectVector objects; ///< Currently known objects found in the map
 		ObjectVector::iterator focusedObject; ///< Object currently under mouse pointer
 
-		/// List of map items.
-		typedef std::vector<camoto::gamemaps::Map2D::Layer::ItemPtr> Items;
+		typedef std::vector<camoto::gamemaps::Map2D::Layer::ItemPtrVector> ItemsInLayers;
 
 		/// Details about the current selection in tile-mode.
 		struct {
-			unsigned int x;      ///< X-coordinate of original selection's top-right corner
-			unsigned int y;      ///< Y-coordinate of original selection's top-right corner
-			unsigned int width;  ///< Width of selection, in tiles
-			unsigned int height; ///< Height of selection, in tiles
-			std::vector<Items> layers; ///< Selected tiles across all layers
+			int x;       ///< X-coordinate of original selection's top-right corner, in map pixels
+			int y;       ///< Y-coordinate of original selection's top-right corner, in map pixels
+			int width;   ///< Width of selection, in tiles
+			int height;  ///< Height of selection, in tiles
+			ItemsInLayers layers; ///< Selected tiles across all layers
 		} selection;
 
 		/// Details about the current selection when editing paths.

@@ -118,7 +118,7 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 		zoomFactor(2),
 		gridVisible(false),
 		editingMode(TileMode),
-		activeLayer(0),
+		primaryLayer(0),
 		offX(0),
 		offY(0),
 		scrollFromX(-1),
@@ -134,13 +134,15 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 		nearestPathPointOff(-1)
 {
 	assert(tilesets->size() > 0);
-	// Initial state is all layers visible
+	// Initial state is all layers visible and active
 	unsigned int layerCount = map->getLayerCount();
 	for (unsigned int i = 0; i < layerCount; i++) {
 		this->visibleLayers.push_back(true);
+		this->activeLayers.push_back(true);
 	}
 	this->visibleElements[ElViewport] = this->map->getCaps() & Map2D::HasViewport;
 	this->visibleElements[ElPaths] = this->map->getCaps() & Map2D::HasPaths;
+	this->activeElement = 0; // no element layers are active
 
 	this->SetCurrent();
 	glClearColor(0.5, 0.5, 0.5, 1);
@@ -151,7 +153,7 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 	for (unsigned int i = 0; i < layerCount; i++) {
 		// Prepopulate an empty selection vector for each layer, so there is
 		// somewhere to put the tiles when some are selected.
-		this->selection.layers.push_back(Items());
+		this->selection.layers.push_back(Map2D::Layer::ItemPtrVector());
 
 		Map2D::LayerPtr layer = this->map->getLayer(i);
 
@@ -448,9 +450,37 @@ void MapCanvas::setObjMode()
 	return;
 }
 
-void MapCanvas::setActiveLayer(unsigned int layer)
+void MapCanvas::toggleActiveLayer(unsigned int layerIndex)
 {
-	this->activeLayer = layer;
+	assert(layerIndex < MapCanvas::ElementCount + this->activeLayers.size());
+
+	if (layerIndex == MapCanvas::ElViewport) return;
+
+	if (layerIndex < MapCanvas::ElementCount) {
+		this->activeElement = layerIndex + 1;
+		// Deactivate all normal layers as an element layer is active
+		unsigned int layerCount = this->map->getLayerCount();
+		for (unsigned int i = 0; i < layerCount; i++) {
+			this->activeLayers[i] = false;
+		}
+	} else {
+		layerIndex -= MapCanvas::ElementCount;
+		bool newState = !this->activeLayers[layerIndex]; // ^=1 doesn't work :-(
+		this->activeLayers[layerIndex] = newState;
+		// Deactivate any element layer
+		this->activeElement = 0;
+	}
+
+	this->redraw();
+	this->updateHelpText();
+	return;
+}
+
+void MapCanvas::setPrimaryLayer(unsigned int layerIndex)
+{
+	assert(layerIndex < MapCanvas::ElementCount + this->activeLayers.size());
+
+	this->primaryLayer = layerIndex;
 	this->glReset();
 	this->redraw();
 
@@ -493,17 +523,17 @@ void MapCanvas::glReset()
 
 void MapCanvas::redraw()
 {
-	wxSize s = this->GetClientSize();
-	s.x /= this->zoomFactor;
-	s.y /= this->zoomFactor;
+	wxSize winSize = this->GetClientSize();
+	winSize.x /= this->zoomFactor;
+	winSize.y /= this->zoomFactor;
 
 	// Limit scroll range (this is here for efficiency as we already have the
 	// window size, but it means you can scroll past the bounds of the map
 	// during the scroll operation and the limits don't kick in until the
 	// the scroll is complete.)  It does mean you won't get limited while
 	// scrolling though, so I'm calling it a feature.
-	if (this->offX < -s.x) this->offX = -s.x;
-	if (this->offY < -s.y) this->offY = -s.y;
+	if (this->offX < -winSize.x) this->offX = -winSize.x;
+	if (this->offY < -winSize.y) this->offY = -winSize.y;
 	// TODO: Prevent scrolling past the end of the map too
 
 	this->SetCurrent();
@@ -524,200 +554,336 @@ void MapCanvas::redraw()
 
 	unsigned int layerCount = this->map->getLayerCount();
 	for (unsigned int layerNum = 0; layerNum < layerCount; layerNum++) {
-		if (this->visibleLayers[layerNum]) {
-			Map2D::LayerPtr layer = this->map->getLayer(layerNum);
-			int layerCaps = layer->getCaps();
-			unsigned int layerWidth, layerHeight, layerTileWidth, layerTileHeight;
-			getLayerDims(this->map, layer, &layerWidth, &layerHeight, &layerTileWidth, &layerTileHeight);
+		if (!this->visibleLayers[layerNum]) continue;
 
-			int oX = 0, oY = 0;
-			bool drawSelection = false;
+		Map2D::LayerPtr layer = this->map->getLayer(layerNum);
+		int layerCaps = layer->getCaps();
+		unsigned int layerWidth, layerHeight, layerTileWidth, layerTileHeight;
+		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &layerTileWidth, &layerTileHeight);
+
+		// Origin of potential paste area
+		int oX = (mapPointerX - this->selection.width / 2) / (signed)layerTileWidth;
+		int oY = (mapPointerY - this->selection.height / 2) / (signed)layerTileHeight;
+
+		// Selected tiles in this layer
+		const Map2D::Layer::ItemPtrVector& selItems = this->selection.layers[layerNum];
+
+		// Figure out whether there is a current selection to draw (i.e. highlight
+		// the tiles that have been selected)
+		bool drawSelection = false;
+		int selX1, selY1, selX2, selY2;
+		int pasteX1, pasteY1, pasteX2, pasteY2;
+		if (
+			(this->activeLayers[layerNum]) &&  // if this is the active layer
+			(this->haveSelection()) &&   // and there are selected tiles
+			(this->selectFromX < 0)      // and we're not selecting new tiles
+		) {
+			// Draw the current selection
+			drawSelection = true;
+
+			selX1 = this->selection.x / layerTileWidth;
+			selY1 = this->selection.y / layerTileHeight;
+			selX2 = /*selX1 + */this->selection.width / layerTileWidth;
+			selY2 = /*selY1 + */this->selection.height / layerTileHeight;
+
+			pasteX1 = oX;
+			pasteY1 = oY;
+			pasteX2 = pasteX1 + selX2;
+			pasteY2 = pasteY1 + selY2;
+
+			selX2 += selX1;
+			selY2 += selY1;
+		}
+		// Draw the layer
+		Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
+		for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
+
+			int pixelX = (*c)->x * layerTileWidth;
+			int pixelY = (*c)->y * layerTileHeight;
+			unsigned int tileWidth, tileHeight;
+			if (layerCaps & Map2D::Layer::UseImageDims) {
+				tileWidth = this->textureMap[layerNum][(*c)->code].width;
+				tileHeight = this->textureMap[layerNum][(*c)->code].height;
+			} else {
+				tileWidth = layerTileWidth;
+				tileHeight = layerTileHeight;
+			}
+
+			if (pixelX > this->offX + winSize.x) continue; // tile is off viewport to the right
+			if (pixelX + (signed)tileWidth < this->offX) continue; // tile is off viewport to the left
+			if (pixelY > this->offY + winSize.y) continue; // tile is off viewport to the bottom
+			if (pixelY + (signed)tileHeight < this->offY) continue; // tile is off viewport to the top
+
+			// Is this tile within the selection rectangle?
+			bool withinSelection = drawSelection &&
+				POINT_IN_RECT((signed)(*c)->x, (signed)(*c)->y, selX1, selY1, selX2, selY2);
+
+			// Is this tile within the potential paste area?
+			bool withinPaste = drawSelection &&
+				POINT_IN_RECT((signed)(*c)->x, (signed)(*c)->y, pasteX1, pasteY1, pasteX2, pasteY2);
+
+			// If there's a selection, see whether the current tile is where one of
+			// the selected tiles should be drawn.  If so we skip it, so there's an
+			// empty space ready to draw the selection later.  This way any
+			// selection will temporarily replace the actual map tiles as the mouse
+			// moves around.  This is best because it will make it obvious what
+			// will happen when the mouse is clicked.  Otherwise with a nice alpha
+			// blend over the top of the map tiles, the user may get a surprise when
+			// the pasted selection overwrites tiles which were previously blended.
+			if (withinPaste) {
+				// This item is contained within the selection rendering area, so
+				// don't draw the map tile - unless the selection has no tile for
+				// that bit.
+
+				// Would this cell be overwritten if a paste operation happened now?
+				bool wouldOverwrite = false;
+
+				// See if there's a tile in the selection area at the same offset
+				for (Map2D::Layer::ItemPtrVector::const_iterator
+					s = selItems.begin(); s != selItems.end(); s++
+				) {
+					if (
+						(((*s)->x - selX1) == (*c)->x - pasteX1) &&
+						(((*s)->y - selY1) == (*c)->y - pasteY1)
+					) {
+						// The current tile would be overwritten by a paste operation,
+						// so don't draw it now.  The spot will be filled later by a
+						// semitransparent version of the selected tile to show what
+						// would happen if a paste operation occurred right now.
+						unsigned int maxInstances;
+						if (layer->tilePermittedAt(*s, (*c)->x, (*c)->y, &maxInstances)) {
+							// Only prevent the original tile from being drawn if we can
+							// actually paste it.
+							wouldOverwrite = true;
+						}
+						break;
+					}
+				}
+				// Don't draw these tiles
+				if (wouldOverwrite) continue;
+			}
+
+			// Now draw the tile at this map location
 			if (
-				(this->activeLayer == ElementCount + layerNum) &&  // if this is the active layer
-				(this->haveSelection()) &&   // and there are selected tiles
-				(this->selectFromX < 0)      // and we're not selecting new tiles
+				withinSelection
+				&& (std::find(selItems.begin(), selItems.end(), *c) != selItems.end())
 			) {
-				// Draw the current selection
-				drawSelection = true;
-				oX = mapPointerX / layerTileWidth - this->selection.width / 2;
-				oY = mapPointerY / layerTileHeight - this->selection.height / 2;
+				// This tile is contained within the original selection, i.e. the area
+				// that will be removed if the delete key is pressed, so colour it.
+				glDisable(GL_BLEND);
+				glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
+				glColor4f(1.0, 0.2, 0.2, 1.0);
+			} else {
+				glDisable(GL_BLEND);
+				glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 			}
 
-			// Set the selection colour to use as blending is turned on and off
+			int x1 = pixelX - this->offX;
+			int x2 = x1 + tileWidth;
+			int xt = tileWidth/4;
+			int y1 = pixelY - this->offY;
+			int y2 = y1 + tileHeight;
+			int yt = tileHeight/4;
+
+			if ((*c)->type & Map2D::Layer::Item::Blocking) {
+				// This tile has blocking attributes, so draw them
+				glDisable(GL_TEXTURE_2D);
+				glLineWidth(1.0);
+
+				glColor4f(CLR_ATTR_BG);
+				glBegin(GL_QUADS);
+				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockLeft) {
+					glVertex2i(x1, y1);
+					glVertex2i(x1, y2);
+					glVertex2i(x1 + xt, y2);
+					glVertex2i(x1 + xt, y1);
+				}
+				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockRight) {
+					glVertex2i(x2 - xt, y1);
+					glVertex2i(x2 - xt, y2);
+					glVertex2i(x2, y2);
+					glVertex2i(x2, y1);
+				}
+				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockTop) {
+					glVertex2i(x1, y1);
+					glVertex2i(x1, y1 + yt);
+					glVertex2i(x2, y1 + yt);
+					glVertex2i(x2, y1);
+				}
+				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockBottom) {
+					glVertex2i(x1, y2 - yt);
+					glVertex2i(x1, y2);
+					glVertex2i(x2, y2);
+					glVertex2i(x2, y2 - yt);
+				}
+				if ((*c)->blockingFlags & Map2D::Layer::Item::Slant45) {
+					glVertex2i(x1, y2);
+					glVertex2f(x1 + xt / SIN45, y2);
+					glVertex2f(x2, y1 + yt / SIN45);
+					glVertex2i(x2, y1);
+				}
+				if ((*c)->blockingFlags & Map2D::Layer::Item::Slant135) {
+					glVertex2i(x1, y1);
+					glVertex2i(x1, y1 + yt / SIN45);
+					glVertex2i(x2 - xt / SIN45, y2);
+					glVertex2i(x2, y2);
+				}
+				glEnd();
+
+				glColor4f(CLR_ATTR_FG);
+				glBegin(GL_LINES);
+				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockLeft) {
+					glVertex2i(x1, y1);
+					glVertex2i(x1, y2);
+					for (unsigned int i = 0; i < tileHeight; i += 2) {
+						glVertex2i(x1, y1 + i);
+						glVertex2i(x1 + xt, y1 + i);
+					}
+				}
+				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockRight) {
+					glVertex2i(x2, y1);
+					glVertex2i(x2, y2);
+					for (unsigned int i = 0; i < tileHeight; i += 2) {
+						glVertex2i(x2 - xt, y1 + i);
+						glVertex2i(x2, y1 + i);
+					}
+				}
+				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockTop) {
+					glVertex2i(x1, y1);
+					glVertex2i(x2, y1);
+					for (unsigned int i = 0; i < tileHeight; i += 2) {
+						glVertex2i(x1 + i, y1);
+						glVertex2i(x1 + i, y1 + yt);
+					}
+				}
+				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockBottom) {
+					glVertex2i(x1, y2);
+					glVertex2i(x2, y2);
+					for (unsigned int i = 0; i < tileHeight; i += 2) {
+						glVertex2i(x1 + i, y2 - yt);
+						glVertex2i(x1 + i, y2);
+					}
+				}
+				if ((*c)->blockingFlags & Map2D::Layer::Item::Slant45) {
+					glVertex2i(x1, y2);
+					glVertex2i(x2, y1);
+					for (float i = 2 * SIN45; i < tileWidth - 2 * SIN45; i += 2*SIN45) {
+						glVertex2f(x1 + i, y2 - i);
+						glVertex2f(x1 + i + xt * COS45, y2 - i + yt * COS45);
+					}
+				}
+				if ((*c)->blockingFlags & Map2D::Layer::Item::Slant135) {
+					glVertex2i(x1, y1);
+					glVertex2i(x2, y2);
+					for (float i = 2 * SIN45; i < tileWidth - 2 * SIN45; i += 2*SIN45) {
+						glVertex2f(x1 + i, y1 + i);
+						glVertex2f(x1 + i - xt * COS45, y1 + i + yt * COS45);
+					}
+				}
+				glEnd();
+
+			} else {
+				// Normal image
+				glEnable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D, this->textureMap[layerNum][(*c)->code].glid);
+				glBegin(GL_QUADS);
+				glTexCoord2d(0.0, 0.0);
+				glVertex2i(x1, y1);
+				glTexCoord2d(0.0, 1.0);
+				glVertex2i(x1, y2);
+				glTexCoord2d(1.0, 1.0);
+				glVertex2i(x2, y2);
+				glTexCoord2d(1.0, 0.0);
+				glVertex2i(x2, y1);
+				glEnd();
+			}
+		}
+
+		// Turn off any remaining red selection colour
+		glDisable(GL_BLEND);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
+		// If there's a selection, draw it now to show where it would be pasted.
+		// We have to do this after the other tiles are drawn (not at the same time)
+		// because the loop above only runs through actual tiles in the level.
+		// Since we might be pasting tiles that *don't* overwrite existing ones
+		// (i.e. pasting on an empty background cell), we still want to draw those,
+		// even though those cells won't be checked in the above loop.
+		if (drawSelection) {
+			// Enable semitransparency
 			if (glBlendColor) {
-				glBlendFunc(GL_CONSTANT_COLOR, GL_ONE_MINUS_CONSTANT_COLOR);
-				glBlendColor(0.75, 0.0, 0.0, 0.65);
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_CONSTANT_ALPHA);
+				glBlendColor(0.0, 0.0, 0.0, 0.65);
 			}
 
-			Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
-			for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
+			for (Map2D::Layer::ItemPtrVector::const_iterator
+				s = selItems.begin(); s != selItems.end(); s++
+			) {
+				int tileX = pasteX1 + (*s)->x - selX1;
+				int tileY = pasteY1 + (*s)->y - selY1;
 
-				int tileX = (*c)->x * layerTileWidth;
-				int tileY = (*c)->y * layerTileHeight;
+				int pixelX = tileX * layerTileWidth;
+				int pixelY = tileY * layerTileHeight;
 				unsigned int tileWidth, tileHeight;
+				Texture& texture = this->textureMap[layerNum][(*s)->code];
 				if (layerCaps & Map2D::Layer::UseImageDims) {
-					tileWidth = this->textureMap[layerNum][(*c)->code].width;
-					tileHeight = this->textureMap[layerNum][(*c)->code].height;
+					tileWidth = texture.width;
+					tileHeight = texture.height;
 				} else {
 					tileWidth = layerTileWidth;
 					tileHeight = layerTileHeight;
 				}
 
-				if (tileX > this->offX + s.x) continue; // tile is off viewport to the right
-				if (tileX + (signed)tileWidth < this->offX) continue; // tile is off viewport to the left
-				if (tileY > this->offY + s.y) continue; // tile is off viewport to the bottom
-				if (tileY + (signed)tileHeight < this->offY) continue; // tile is off viewport to the top
+				if (pixelX > this->offX + winSize.x) continue; // tile is off viewport to the right
+				if (pixelX + (signed)tileWidth < this->offX) continue; // tile is off viewport to the left
+				if (pixelY > this->offY + winSize.y) continue; // tile is off viewport to the bottom
+				if (pixelY + (signed)tileHeight < this->offY) continue; // tile is off viewport to the top
 
-				// If there's a selection, see whether the current tile is where one of
-				// the selected tiles should be drawn.  If so we skip it, so there's an
-				// empty space ready to draw the selection later.  This way any
-				// selection will temporarily replace the actual map tiles as the mouse
-				// moves around.  This is best because it will make it obvious what
-				// will happen when the mouse is clicked.  Otherwise with a nice alpha
-				// blend over the top of the map tiles, the user may get a surprise when
-				// the pasted selection overwrites tiles which were previously blended.
-				if (
-					(drawSelection) &&
-					((signed)(*c)->x >= oX) &&
-					((signed)(*c)->x < oX + (signed)this->selection.width) &&
-					((signed)(*c)->y >= oY) &&
-					((signed)(*c)->y < oY + (signed)this->selection.height)
-				) {
-					// This item is contained within the selection rendering area, so
-					// don't draw the map tile - unless the selection has no tile for
-					// that bit.
-					if (this->isTileSelected(layerNum, ((*c)->x - oX), ((*c)->y - oY))) continue;
-				}
-
-				// Now draw the tile at this map location
-				glDisable(GL_BLEND);
-				glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-				if (
-					(drawSelection) &&
-					((*c)->x >= this->selection.x) &&
-					((*c)->x < this->selection.x + this->selection.width) &&
-					((*c)->y >= this->selection.y) &&
-					((*c)->y < this->selection.y + this->selection.height)
-				) {
-					// This tile is contained within the original selection, i.e. the area
-					// that will be removed if the delete key is pressed, so colour it.
-					int relX = (*c)->x - this->selection.x;
-					int relY = (*c)->y - this->selection.y;
-					if (this->isTileSelected(layerNum, relY, relX)) {
-						// There is a selected tile at this point, so highlight it
-						glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
-						glColor4f(1.0, 0.2, 0.2, 1.0);
-					}
-				}
-
-				int x1 = tileX - this->offX;
+				int x1 = pixelX - this->offX;
 				int x2 = x1 + tileWidth;
-				int xt = tileWidth/4;
-				int y1 = tileY - this->offY;
+				int y1 = pixelY - this->offY;
 				int y2 = y1 + tileHeight;
-				int yt = tileHeight/4;
 
-				if ((*c)->type & Map2D::Layer::Item::Blocking) {
-					// This tile has blocking attributes, so draw them
+				unsigned int maxInstances;
+				bool allowed = layer->tilePermittedAt(*s, tileX, tileY, &maxInstances);
+				if (maxInstances) {
+					// There is a count limit on this code
+					unsigned int curInstances = 0;
+					for (Map2D::Layer::ItemPtrVector::iterator
+						c = content->begin(); c != content->end(); c++
+					) {
+						if ((*s)->code == (*c)->code) curInstances++;
+						if (curInstances >= maxInstances) break;
+					}
+					// Don't place this tile if we have already reached the maximum allowed
+					if (curInstances >= maxInstances) allowed = false;
+				}
+
+				if (
+					!allowed ||
+					(tileX < 0) ||
+					(tileY < 0) ||
+					(tileX >= (signed)layerWidth) ||
+					(tileY >= (signed)layerHeight)
+				) {
+					// This tile cannot be placed here, draw a box with a red X in it
 					glDisable(GL_TEXTURE_2D);
-					glLineWidth(1.0);
-
-					glColor4f(CLR_ATTR_BG);
-					glBegin(GL_QUADS);
-					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockLeft) {
-						glVertex2i(x1, y1);
-						glVertex2i(x1, y2);
-						glVertex2i(x1 + xt, y2);
-						glVertex2i(x1 + xt, y1);
-					}
-					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockRight) {
-						glVertex2i(x2 - xt, y1);
-						glVertex2i(x2 - xt, y2);
-						glVertex2i(x2, y2);
-						glVertex2i(x2, y1);
-					}
-					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockTop) {
-						glVertex2i(x1, y1);
-						glVertex2i(x1, y1 + yt);
-						glVertex2i(x2, y1 + yt);
-						glVertex2i(x2, y1);
-					}
-					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockBottom) {
-						glVertex2i(x1, y2 - yt);
-						glVertex2i(x1, y2);
-						glVertex2i(x2, y2);
-						glVertex2i(x2, y2 - yt);
-					}
-					if ((*c)->blockingFlags & Map2D::Layer::Item::Slant45) {
-						glVertex2i(x1, y2);
-						glVertex2f(x1 + xt / SIN45, y2);
-						glVertex2f(x2, y1 + yt / SIN45);
-						glVertex2i(x2, y1);
-					}
-					if ((*c)->blockingFlags & Map2D::Layer::Item::Slant135) {
-						glVertex2i(x1, y1);
-						glVertex2i(x1, y1 + yt / SIN45);
-						glVertex2i(x2 - xt / SIN45, y2);
-						glVertex2i(x2, y2);
-					}
+					glColor4f(1.0, 0.0, 0.0, 1.0);
+					glBegin(GL_LINE_LOOP);
+					glVertex2i(x1, y1);
+					glVertex2i(x1, y2);
+					glVertex2i(x2, y2);
+					glVertex2i(x1, y2);
+					glVertex2i(x2, y1);
+					glVertex2i(x2, y2);
+					glVertex2i(x1, y1);
+					glVertex2i(x2, y1);
 					glEnd();
-
-					glColor4f(CLR_ATTR_FG);
-					glBegin(GL_LINES);
-					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockLeft) {
-						glVertex2i(x1, y1);
-						glVertex2i(x1, y2);
-						for (unsigned int i = 0; i < tileHeight; i += 2) {
-							glVertex2i(x1, y1 + i);
-							glVertex2i(x1 + xt, y1 + i);
-						}
-					}
-					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockRight) {
-						glVertex2i(x2, y1);
-						glVertex2i(x2, y2);
-						for (unsigned int i = 0; i < tileHeight; i += 2) {
-							glVertex2i(x2 - xt, y1 + i);
-							glVertex2i(x2, y1 + i);
-						}
-					}
-					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockTop) {
-						glVertex2i(x1, y1);
-						glVertex2i(x2, y1);
-						for (unsigned int i = 0; i < tileHeight; i += 2) {
-							glVertex2i(x1 + i, y1);
-							glVertex2i(x1 + i, y1 + yt);
-						}
-					}
-					if ((*c)->blockingFlags & Map2D::Layer::Item::BlockBottom) {
-						glVertex2i(x1, y2);
-						glVertex2i(x2, y2);
-						for (unsigned int i = 0; i < tileHeight; i += 2) {
-							glVertex2i(x1 + i, y2 - yt);
-							glVertex2i(x1 + i, y2);
-						}
-					}
-					if ((*c)->blockingFlags & Map2D::Layer::Item::Slant45) {
-						glVertex2i(x1, y2);
-						glVertex2i(x2, y1);
-						for (float i = 2 * SIN45; i < tileWidth - 2 * SIN45; i += 2*SIN45) {
-							glVertex2f(x1 + i, y2 - i);
-							glVertex2f(x1 + i + xt * COS45, y2 - i + yt * COS45);
-						}
-					}
-					if ((*c)->blockingFlags & Map2D::Layer::Item::Slant135) {
-						glVertex2i(x1, y1);
-						glVertex2i(x2, y2);
-						for (float i = 2 * SIN45; i < tileWidth - 2 * SIN45; i += 2*SIN45) {
-							glVertex2f(x1 + i, y1 + i);
-							glVertex2f(x1 + i - xt * COS45, y1 + i + yt * COS45);
-						}
-					}
-					glEnd();
-
-				} else {
-					// Normal image
 					glEnable(GL_TEXTURE_2D);
-					glBindTexture(GL_TEXTURE_2D, this->textureMap[layerNum][(*c)->code].glid);
+				} else {
+					// This tile can be placed here, draw the tile
+					glBindTexture(GL_TEXTURE_2D, texture.glid);
 					glBegin(GL_QUADS);
 					glTexCoord2d(0.0, 0.0);
 					glVertex2i(x1, y1);
@@ -730,95 +896,7 @@ void MapCanvas::redraw()
 					glEnd();
 				}
 			}
-
-			// Turn off any remaining red selection colour
-			glDisable(GL_BLEND);
-			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-
-			// If space was left for the selection, draw it now
-			if (drawSelection) {
-				// Enable semitransparency
-				if (glBlendColor) {
-					glEnable(GL_BLEND);
-					glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_CONSTANT_ALPHA);
-					glBlendColor(0.0, 0.0, 0.0, 0.65);
-				}
-
-				for (std::vector<Items>::iterator
-					itSelLayer = this->selection.layers.begin();
-					itSelLayer != this->selection.layers.end(); itSelLayer++
-				) {
-					for (Items::iterator
-						itTile = itSelLayer->begin(); itTile != itSelLayer->end(); itTile++
-					) {
-						int tileX = (*itTile)->x + oX;
-						int tileY = (*itTile)->y + oY;
-
-						Map2D::Layer::ItemPtr& item = *itTile;
-						Texture& texture = this->textureMap[this->activeLayer - ElementCount][item->code];
-						unsigned int tileWidth, tileHeight;
-						if (layerCaps & Map2D::Layer::UseImageDims) {
-							tileWidth = texture.width;
-							tileHeight = texture.height;
-						} else {
-							tileWidth = layerTileWidth;
-							tileHeight = layerTileHeight;
-						}
-
-						int pixelX = tileX * tileWidth;
-						int pixelY = tileY * tileHeight;
-
-						if (pixelX > this->offX + s.x) continue; // tile is off viewport to the right
-						if (pixelX + (signed)tileWidth < this->offX) continue; // tile is off viewport to the left
-						if (pixelY > this->offY + s.y) continue; // tile is off viewport to the bottom
-						if (pixelY + (signed)tileHeight < this->offY) continue; // tile is off viewport to the top
-
-						int x1 = pixelX - this->offX;
-						int x2 = x1 + tileWidth;
-						int y1 = pixelY - this->offY;
-						int y2 = y1 + tileHeight;
-
-						unsigned int maxInstances;
-						if (
-							!layer->tilePermittedAt(item, tileX, tileY, &maxInstances) ||
-							(tileX < 0) ||
-							(tileY < 0) ||
-							(tileX >= (signed)layerWidth) ||
-							(tileY >= (signed)layerHeight)
-						) {
-							// This tile cannot be placed here, draw a box with a red X in it
-							glDisable(GL_TEXTURE_2D);
-							glColor4f(1.0, 0.0, 0.0, 1.0);
-							glBegin(GL_LINE_LOOP);
-							glVertex2i(x1, y1);
-							glVertex2i(x1, y2);
-							glVertex2i(x2, y2);
-							glVertex2i(x1, y2);
-							glVertex2i(x2, y1);
-							glVertex2i(x2, y2);
-							glVertex2i(x1, y1);
-							glVertex2i(x2, y1);
-							glEnd();
-							glEnable(GL_TEXTURE_2D);
-						} else {
-							// This tile can be placed here, draw the tile
-							glBindTexture(GL_TEXTURE_2D, texture.glid);
-							glBegin(GL_QUADS);
-							glTexCoord2d(0.0, 0.0);
-							glVertex2i(x1, y1);
-							glTexCoord2d(0.0, 1.0);
-							glVertex2i(x1, y2);
-							glTexCoord2d(1.0, 1.0);
-							glVertex2i(x2, y2);
-							glTexCoord2d(1.0, 0.0);
-							glVertex2i(x2, y1);
-							glEnd();
-						}
-					}
-				}
-			}
-
-		}
+		} // if (selection exists)
 	}
 
 	glDisable(GL_TEXTURE_2D);
@@ -902,7 +980,7 @@ void MapCanvas::redraw()
 					glEnd();
 
 					// While we're here, see if the mouse cursor is over the point
-					if (this->activeLayer == ElPaths) {
+					if (this->activeElement == 1 + ElPaths) {
 
 						// Don't draw a preview (false) unless the last point was selected,
 						// in which case we'll need to draw a preview line from it to us,
@@ -1069,8 +1147,8 @@ void MapCanvas::redraw()
 	if (this->visibleElements[ElViewport]) {
 		unsigned int vpX, vpY;
 		this->map->getViewport(&vpX, &vpY);
-		int vpOffX = (s.x - (signed)vpX) / 2;
-		int vpOffY = (s.y - (signed)vpY) / 2;
+		int vpOffX = (winSize.x - (signed)vpX) / 2;
+		int vpOffY = (winSize.y - (signed)vpY) / 2;
 
 		// Draw a line around the viewport
 		glColor4f(1.0, 1.0, 1.0, 0.3);
@@ -1086,78 +1164,67 @@ void MapCanvas::redraw()
 		glBegin(GL_QUAD_STRIP);
 		glVertex2i(0, 0);
 		glVertex2i(vpOffX, vpOffY);
-		glVertex2i(0, s.y);
+		glVertex2i(0, winSize.y);
 		glVertex2i(vpOffX, vpOffY + (signed)vpY);
-		glVertex2i(s.x, s.y);
+		glVertex2i(winSize.x, winSize.y);
 		glVertex2i(vpOffX + (signed)vpX, vpOffY + (signed)vpY);
-		glVertex2i(s.x, 0);
+		glVertex2i(winSize.x, 0);
 		glVertex2i(vpOffX + (signed)vpX, vpOffY);
 		glVertex2i(0, 0);
 		glVertex2i(vpOffX, vpOffY);
 		glEnd();
 	}
 
-	// Do some operations which require a real map layer to be selected (as
-	// opposed to the viewport or other virtual layers.)
-	if (this->activeLayer >= ElementCount) {
-		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
+	// If the grid is visible, draw it using the tile size of the primary layer
+	if ((this->gridVisible) && (this->primaryLayer >= ElementCount)) {
+		Map2D::LayerPtr layer = this->map->getLayer(this->primaryLayer - ElementCount);
 		unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
-		// If the grid is visible, draw it using the tile size of the active layer
-		if (this->gridVisible) {
-			wxSize s = this->GetClientSize();
-
-			glEnable(GL_COLOR_LOGIC_OP);
-			glLogicOp(GL_AND_REVERSE);
-			glColor4f(0.3, 0.3, 0.3, 0.5);
-			glBegin(GL_LINES);
-			for (int x = -offX % tileWidth; x < s.x; x += tileWidth) {
-				glVertex2i(x, 0);
-				glVertex2i(x, s.y);
-			}
-			for (int y = -offY % tileHeight; y < s.y; y += tileHeight) {
-				glVertex2i(0,   y);
-				glVertex2i(s.x, y);
-			}
+		glEnable(GL_COLOR_LOGIC_OP);
+		glLogicOp(GL_AND_REVERSE);
+		glColor4f(0.3, 0.3, 0.3, 0.5);
+		glBegin(GL_LINES);
+		for (int x = -offX % tileWidth; x < winSize.x; x += tileWidth) {
+			glVertex2i(x, 0);
+			glVertex2i(x, winSize.y);
+		}
+		for (int y = -offY % tileHeight; y < winSize.y; y += tileHeight) {
+			glVertex2i(0,   y);
+			glVertex2i(winSize.x, y);
+		}
+		glEnd();
+		glDisable(GL_COLOR_LOGIC_OP);
+	}
+/*
+	if (this->editingMode == ObjectMode) {
+		// If an object is currently focused, draw a box around it
+		if (this->focusedObject != this->objects.end()) {
+			glColor4f(1.0, 1.0, 1.0, 0.75);
+			glEnable(GL_LINE_STIPPLE);
+			glLineStipple(3, 0xAAAA);
+			glBegin(GL_LINE_LOOP);
+			int x1 = this->focusedObject->x * tileWidth - this->offX;
+			int y1 = this->focusedObject->y * tileHeight - this->offY;
+			int x2 = x1 + this->focusedObject->width * tileWidth;
+			int y2 = y1 + this->focusedObject->height * tileHeight;
+			glVertex2i(x1, y1);
+			glVertex2i(x1, y2);
+			glVertex2i(x2, y2);
+			glVertex2i(x2, y1);
 			glEnd();
-			glDisable(GL_COLOR_LOGIC_OP);
+
+			glColor4f(0.0, 0.0, 0.0, 0.75);
+			glLineStipple(3, 0x5555);
+			glBegin(GL_LINE_LOOP);
+			glVertex2i(x1, y1);
+			glVertex2i(x1, y2);
+			glVertex2i(x2, y2);
+			glVertex2i(x2, y1);
+			glEnd();
 		}
-
-		switch (this->editingMode) {
-			case TileMode:
-				break;
-			case ObjectMode:
-				// If an object is currently focused, draw a box around it
-				if (this->focusedObject != this->objects.end()) {
-					glColor4f(1.0, 1.0, 1.0, 0.75);
-					glEnable(GL_LINE_STIPPLE);
-					glLineStipple(3, 0xAAAA);
-					glBegin(GL_LINE_LOOP);
-					int x1 = this->focusedObject->x * tileWidth - this->offX;
-					int y1 = this->focusedObject->y * tileHeight - this->offY;
-					int x2 = x1 + this->focusedObject->width * tileWidth;
-					int y2 = y1 + this->focusedObject->height * tileHeight;
-					glVertex2i(x1, y1);
-					glVertex2i(x1, y2);
-					glVertex2i(x2, y2);
-					glVertex2i(x2, y1);
-					glEnd();
-
-					glColor4f(0.0, 0.0, 0.0, 0.75);
-					glLineStipple(3, 0x5555);
-					glBegin(GL_LINE_LOOP);
-					glVertex2i(x1, y1);
-					glVertex2i(x1, y2);
-					glVertex2i(x2, y2);
-					glVertex2i(x2, y1);
-					glEnd();
-				}
-				break;
-		}
-
-	} // if (there is an active layer)
-
+	}
+*/
 	// Draw the selection rectangle
 	if (this->selectFromX >= 0) {
 		glEnable(GL_COLOR_LOGIC_OP);
@@ -1190,7 +1257,7 @@ void MapCanvas::redraw()
 bool MapCanvas::clearSelection()
 {
 	bool cleared = false;
-	for (std::vector<Items>::iterator
+	for (ItemsInLayers::iterator
 		itSelLayer = this->selection.layers.begin();
 		itSelLayer != this->selection.layers.end(); itSelLayer++
 	) {
@@ -1206,23 +1273,14 @@ bool MapCanvas::clearSelection()
 
 bool MapCanvas::haveSelection()
 {
-	return (this->selection.width == 0) && (this->selection.height == 0);
+	return (this->selection.width != 0) && (this->selection.height != 0);
 }
 
-bool MapCanvas::isTileSelected(unsigned int layerNum, unsigned int x,
-	unsigned int y)
+bool MapCanvas::isTileSelected(unsigned int layerNum,
+	const Map2D::Layer::ItemPtr& c)
 {
-	bool inSelection = false;
-	Items& items = this->selection.layers[layerNum];
-	for (Items::const_iterator itSelItem = items.begin(); itSelItem != items.end(); itSelItem++) {
-		if (
-			((*itSelItem)->x == x) && ((*itSelItem)->y == y)
-		) {
-			inSelection = true;
-			break;
-		}
-	}
-	return inSelection;
+	const Map2D::Layer::ItemPtrVector& items = this->selection.layers[layerNum];
+	return std::find(items.begin(), items.end(), c) != items.end();
 }
 
 bool MapCanvas::focusObject(ObjectVector::iterator start)
@@ -1358,70 +1416,133 @@ bool MapCanvas::focusObject(ObjectVector::iterator start)
 	return needRedraw;
 }
 
-void MapCanvas::paintSelection(int x, int y)
+void MapCanvas::putSelection(int x, int y)
 {
-	assert(this->activeLayer >= ElementCount);
+	unsigned int layerCount = map->getLayerCount();
+	for (unsigned int l = 0; l < layerCount; l++) {
+		// Skip layers with no selected tiles
+		if (this->selection.layers[l].size() == 0) continue;
 
-	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
+		// Skip inactive layers
+		if (!this->activeLayers[l]) continue;
 
-	unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
-	getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
+		const Map2D::Layer::ItemPtrVector& selItems = this->selection.layers[l];
 
-	// Origin of paste area
-	int oX = (CLIENT_TO_MAP_X(x)) / tileWidth - this->selection.width / 2;
-	int oY = (CLIENT_TO_MAP_Y(y)) / tileHeight - this->selection.height / 2;
+		Map2D::LayerPtr layer = this->map->getLayer(l);
+		unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
+		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
-	Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
-	bool *painted = new bool[this->selection.width * this->selection.height];
-	for (unsigned int i = 0; i < this->selection.width * this->selection.height; i++) painted[i] = false;
-/*
-	// Overwrite any existing tiles
-	unsigned int maxInstances;
-	for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
-		if (
-			((signed)(*c)->x >= oX) &&
-			((signed)(*c)->x < oX + (signed)this->selection.width) &&
-			((signed)(*c)->y >= oY) &&
-			((signed)(*c)->y < oY + (signed)this->selection.height) &&
-			layer->tilePermittedAt(*c, (*c)->x + oX, (*c)->y + oY, &maxInstances)
+		// Origin of paste area
+		int oX = (CLIENT_TO_MAP_X(x) - this->selection.width / 2) / (signed)tileWidth;
+		int oY = (CLIENT_TO_MAP_Y(y) - this->selection.height / 2) / (signed)tileHeight;
+
+		Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
+
+		// Make a copy of the selection, so we can remove tiles as we paste them,
+		// without affecting the original selection.
+		Map2D::Layer::ItemPtrVector selCopy = selItems;
+
+		// Paste area rectangle (same size as selection area, transposed to paste origin)
+		int pasteX1 = oX;
+		int pasteY1 = oY;
+		int pasteX2 = oX + this->selection.width / (signed)tileWidth;
+		int pasteY2 = oY + this->selection.height / (signed)tileHeight;
+
+		// Coordinates of upper-left corner of selection rectangle.
+		int selOriginX = this->selection.x / tileWidth;
+		int selOriginY = this->selection.y / tileHeight;
+
+		// Overwrite any existing tiles
+		for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
+			if (POINT_IN_RECT((signed)(*c)->x, (signed)(*c)->y, pasteX1, pasteY1, pasteX2, pasteY2)) {
+				// This tile is within the paste area, so see if we can paste it.
+
+				// Calculate the offset into the selection where this tile resides.  For
+				// example, if the click is at (10,10) and this tile is at (11,12) then
+				// the offset will be (1,2).
+				int selOffX = (*c)->x - pasteX1;
+				int selOffY = (*c)->y - pasteY1;
+
+				// Now find if we have a tile to place here.
+				int dstX = (*c)->x;
+				int dstY = (*c)->y;
+				for (Map2D::Layer::ItemPtrVector::iterator p = selCopy.begin(); p != selCopy.end(); p++) {
+					if (
+						((signed)(*p)->x - selOriginX == selOffX) &&
+						((signed)(*p)->y - selOriginY == selOffY)
+					) {
+						// This tile should replace the current one
+
+						unsigned int maxInstances;
+						if (!layer->tilePermittedAt(*p, dstX, dstY, &maxInstances)) continue;
+						if (maxInstances) {
+							// There is a count limit on this code
+							unsigned int curInstances = 0;
+							for (Map2D::Layer::ItemPtrVector::iterator
+								c2 = content->begin(); c2 != content->end(); c2++
+							) {
+								if ((*p)->code == (*c2)->code) curInstances++;
+								if (curInstances >= maxInstances) break;
+							}
+							// Don't place this tile if we have already reached the maximum allowed
+							if (curInstances >= maxInstances) continue;
+						}
+
+						// Overwrite the cell
+						c->reset(new Map2D::Layer::Item);
+						**c = **p;
+						(*c)->x = dstX;
+						(*c)->y = dstY;
+						this->doc->isModified = true;
+
+						// Remove the tile from the copy of the selection, since we have
+						// now placed it (and won't need to check/place it again.)
+						selCopy.erase(p);
+						break;
+					}
+				}
+			}
+		}
+
+		// Now the tiles left in selCopy are those that did not overwrite any
+		// existing tiles, so we have to add them.
+		for (Map2D::Layer::ItemPtrVector::iterator
+			p = selCopy.begin(); p != selCopy.end(); p++
 		) {
-			unsigned int selIndex = ((*c)->y - oY) * this->selection.width + ((*c)->x - oX);
-			assert(selIndex < this->selection.width * this->selection.height);
-			if (this->selection.tiles[selIndex] == INVALID_TILECODE) continue; // don't paint empty tiles
-			(*c)->code = this->selection.tiles[selIndex];
-			painted[selIndex] = true;
-			this->doc->isModified = true;
+			int tileX = pasteX1 + (*p)->x - selOriginX;
+			int tileY = pasteY1 + (*p)->y - selOriginY;
+
+			unsigned int maxInstances;
+			if (!(
+				!layer->tilePermittedAt(*p, tileX, tileY, &maxInstances) ||
+				(tileX < 0) ||
+				(tileY < 0) ||
+				(tileX >= (signed)layerWidth) ||
+				(tileY >= (signed)layerHeight)
+			)) {
+				if (maxInstances) {
+					// There is a count limit on this code
+					unsigned int curInstances = 0;
+					for (Map2D::Layer::ItemPtrVector::iterator
+						c = content->begin(); c != content->end(); c++
+					) {
+						if ((*p)->code == (*c)->code) curInstances++;
+						if (curInstances >= maxInstances) break;
+					}
+					// Don't place this tile if we have already reached the maximum allowed
+					if (curInstances >= maxInstances) continue;
+				}
+
+				Map2D::Layer::ItemPtr newItem(new Map2D::Layer::Item);
+				*newItem = **p;
+				newItem->x = tileX;
+				newItem->y = tileY;
+				content->push_back(newItem);
+				this->doc->isModified = true;
+			}
 		}
-	}
 
-	// Add any new tiles that didn't already exist
-	for (unsigned int i = 0; i < this->selection.width * this->selection.height; i++) {
-		if (!painted[i]) {
-			if (this->selection.tiles[i] == INVALID_TILECODE) continue; // don't paint empty tiles
-			unsigned int x = oX + (i % this->selection.width);
-			unsigned int y = oY + (i / this->selection.width);
-			unsigned int code = this->selection.tiles[i];
-
-			// Because x and y are unsigned, these conditions also match when
-			// the coords are < 0, effectively ignoring tiles attempted to be placed
-			// outside the bounds of the layer.
-			if (x >= layerWidth) continue;
-			if (y >= layerHeight) continue;
-
-			// Make sure the tile is allowed to go here
-			if (!layer->tilePermittedAt(code, x, y, &maxInstances)) continue;
-			// TODO: Respect maxInstances
-
-			Map2D::Layer::ItemPtr c(new Map2D::Layer::Item());
-			c->x = x;
-			c->y = y;
-			c->code = code;
-			content->push_back(c);
-			this->doc->isModified = true;
-		}
-	}
-*/
-	delete[] painted;
+	} // for (each layer)
 	return;
 }
 
@@ -1435,9 +1556,9 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 	int mapPointerX = CLIENT_TO_MAP_X(this->pointerX);
 	int mapPointerY = CLIENT_TO_MAP_Y(this->pointerY);
 
-	// Perform actions that require an active layer
-	if (this->activeLayer >= ElementCount) {
-		Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
+	// Perform actions that require a real primary layer
+	if (this->primaryLayer >= ElementCount) {
+		Map2D::LayerPtr layer = this->map->getLayer(this->primaryLayer - ElementCount);
 		unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
@@ -1471,72 +1592,18 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 		} else { // shift key not pressed
 			this->doc->setStatusText(wxString::Format(_T("%d,%d"), pointerTileX, pointerTileY));
 		}
+	} else { // primary layer is an element layer
+		this->doc->setStatusText(wxString());
+	}
 
 		// Perform the primary action (left mouse drag) if it is active
 		if (this->actionFromX >= 0) {
 			switch (this->editingMode) {
 				case TileMode: {
-					this->paintSelection(ev.m_x, ev.m_y);
+					this->putSelection(ev.m_x, ev.m_y);
 					needRedraw = true;
 					break;
 				}
-				case ObjectMode:
-					if (this->resizeX || this->resizeY) {
-						int deltaX = (ev.m_x - this->actionFromX) * this->resizeX / this->zoomFactor;
-						int deltaY = (ev.m_y - this->actionFromY) * this->resizeY / this->zoomFactor;
-
-						// Make sure the delta values are even multiple of the tile size
-						if (deltaX) deltaX -= deltaX % tileWidth;
-						if (deltaY) deltaY -= deltaY % tileHeight;
-
-						// Make sure the delta values are within range so we can apply them
-						// with no further checks.
-						unsigned int finalX = this->focusedObject->width * tileWidth + deltaX;
-						if ((this->focusedObject->obj->maxWidth > 0) && (finalX > this->focusedObject->obj->maxWidth)) {
-							int overflowX = finalX - this->focusedObject->obj->maxWidth;
-							if (overflowX < deltaX) deltaX -= overflowX;
-							else deltaX = 0;
-						} else if ((this->focusedObject->obj->minWidth > 0) && (finalX < this->focusedObject->obj->minWidth)) {
-							int overflowX = finalX - this->focusedObject->obj->minWidth;
-							if (overflowX > deltaX) deltaX -= overflowX;
-							else deltaX = 0;
-						}
-						unsigned int finalY = this->focusedObject->height * tileHeight + deltaY;
-						if ((this->focusedObject->obj->maxHeight > 0) && (finalY > this->focusedObject->obj->maxHeight)) {
-							int overflowY = finalY - this->focusedObject->obj->maxHeight;
-							if (overflowY < deltaY) deltaY -= overflowY;
-							else deltaY = 0;
-						} else if ((this->focusedObject->obj->minHeight > 0) && (finalY < this->focusedObject->obj->minHeight)) {
-							int overflowY = finalY - this->focusedObject->obj->minHeight;
-							if (overflowY > deltaY) deltaY -= overflowY;
-							else deltaY = 0;
-						}
-						switch (this->resizeX) {
-							case -1:
-								this->focusedObject->x -= deltaX / tileWidth;
-								// fall through
-							case 1:
-								this->focusedObject->width += deltaX / tileWidth;
-								break;
-							case 0:
-								break;
-						}
-						switch (this->resizeY) {
-							case -1:
-								this->focusedObject->y -= deltaY / tileHeight;
-								// fall through
-							case 1:
-								this->focusedObject->height += deltaY / tileHeight;
-								break;
-							case 0:
-								break;
-						}
-						this->actionFromX += deltaX * this->resizeX * this->zoomFactor;
-						this->actionFromY += deltaY * this->resizeY * this->zoomFactor;
-
-						needRedraw = true;
-					}
-					break;
 			}
 		} else {
 			// Not performing the primary action
@@ -1568,7 +1635,8 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 			}
 
 		} // if (not performing primary action)
-	} else if (this->activeLayer == ElPaths) {
+
+	if (this->activeElement == 1 + ElPaths) {
 
 		if (this->pathSelection.size() > 0) {
 			// There's a selection, so redraw on every mouse movement because the
@@ -1648,8 +1716,6 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 				this->updateHelpText();
 			}
 		}
-	} else { // no active layer
-		this->doc->setStatusText(wxString());
 	}
 
 	// Scroll the map if the user is middle-dragging
@@ -1666,7 +1732,7 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 void MapCanvas::onMouseDownLeft(wxMouseEvent& ev)
 {
 	bool needRedraw = false;
-	if (this->activeLayer == ElPaths) {
+	if (this->activeElement == 1 + ElPaths) {
 		// Should never be able to set this layer as active if there are no paths
 		// in the map
 
@@ -1712,14 +1778,14 @@ void MapCanvas::onMouseDownLeft(wxMouseEvent& ev)
 			case TileMode: {
 				// Paint the current selection, if any
 				if (
-					(this->activeLayer >= ElementCount) &&  // if this is the active layer
-					(this->haveSelection()) &&   // and there are selected tiles
-					(this->selectFromX < 0)      // and we're not selecting new tiles
+					(this->activeElement == 0) && // if a real layer is active
+					(this->haveSelection()) &&    // and there are selected tiles
+					(this->selectFromX < 0)       // and we're not selecting new tiles
 				) {
 					this->actionFromX = ev.m_x;
 					this->actionFromY = ev.m_y;
 					this->CaptureMouse();
-					this->paintSelection(ev.m_x, ev.m_y);
+					this->putSelection(ev.m_x, ev.m_y);
 					needRedraw = true;
 				}
 				break;
@@ -1800,7 +1866,7 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 	this->selHotX = CLIENT_TO_MAP_X(ev.m_x);
 	this->selHotY = CLIENT_TO_MAP_Y(ev.m_y);
 
-	if (this->activeLayer == ElPaths) { // select some points on a path
+	if (this->activeElement == 1 + ElPaths) { // select some points on a path
 		// Should never be able to set this layer as active if there are no paths
 		// in the map
 		Map2D::PathPtrVectorPtr paths = this->map->getPaths();
@@ -1850,81 +1916,88 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 			stnum++;
 		}
 
-	} else if (this->activeLayer >= ElementCount) { // normal map layer
+	} else if (this->activeElement == 0) { // normal map layer(s)
 
 		switch (this->editingMode) {
 			case TileMode: {
 				// Select the tiles contained within the rectangle
 
-				Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
-				unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
-				getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
-
-				// Convert the selection rectangle from pixel coords to tile coords,
-				// enlarging or shrinking it as necessary to accommodate selectPartial.
-				if (selectPartial) {
-					x2 += tileWidth - 1;
-					y2 += tileHeight - 1;
-				} else {
-					x1 += tileWidth - 1;
-					y1 += tileHeight - 1;
-				}
-				x1 /= tileWidth;
-				y1 /= tileHeight;
-				x2 /= tileWidth;
-				y2 /= tileHeight;
-
-				if (x1 < 0) x1 = 0;
-				if (y1 < 0) y1 = 0;
-				if (x2 < 0) x2 = 0;
-				if (y2 < 0) y2 = 0;
-
-				unsigned int minX = x2;
-				unsigned int minY = y2;
-				unsigned int maxX = x1;
-				unsigned int maxY = y1;
-				Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
-				for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
-					if (POINT_IN_RECT(
-						(signed)(*c)->x, (signed)(*c)->y,
-						x1, y1, x2, y2
-					)) {
-						// This tile is contained within the selection rectangle
-						if (minX > (*c)->x) minX = (*c)->x;
-						if (minY > (*c)->y) minY = (*c)->y;
-						if (maxX < (*c)->x + 1) maxX = (*c)->x + 1;
-						if (maxY < (*c)->y + 1) maxY = (*c)->y + 1;
-					}
-				}
 				if (this->haveSelection()) this->clearSelection();
-				if ((maxX < minX) || (maxY < minY)) {
-					// Empty selection
-					this->clearSelection();
-				} else {
-					this->selection.width = maxX - minX;
-					this->selection.height = maxY - minY;
-/*
-					this->selection.tiles = new unsigned int[this->selection.width * this->selection.height];
-					for (unsigned int i = 0; i < this->selection.width * this->selection.height; i++) {
-						this->selection.tiles[i] = INVALID_TILECODE; // no tile present here
+
+				// Remember the location of the original selection
+				this->selection.x = x1;
+				this->selection.y = y1;
+				this->selection.width = 0; // updated below
+				this->selection.height = 0;
+
+				unsigned int layerCount = this->map->getLayerCount();
+				for (unsigned int l = 0; l < layerCount; l++) {
+					// Skip inactive layers
+					if (!this->activeLayers[l]) continue;
+
+					Map2D::LayerPtr layer = this->map->getLayer(l);
+					unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
+					getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
+
+					Map2D::Layer::ItemPtrVector& selItems = this->selection.layers[l];
+
+					// Convert the selection rectangle from pixel coords to tile coords,
+					// enlarging or shrinking it as necessary to accommodate selectPartial.
+					int x1t = x1;
+					int y1t = y1;
+					int x2t = x2;
+					int y2t = y2;
+					if (selectPartial) {
+						x2t += tileWidth - 1;
+						y2t += tileHeight - 1;
+					} else {
+						x1t += tileWidth - 1;
+						y1t += tileHeight - 1;
 					}
 
-					// Run through the tiles again, but this time copy them into the selection
+					if (x1t < 0) x1t = 0;
+					if (y1t < 0) y1t = 0;
+					if (x2t < 0) x2t = 0;
+					if (y2t < 0) y2t = 0;
+
+					x1t /= tileWidth;
+					y1t /= tileHeight;
+					x2t /= tileWidth;
+					y2t /= tileHeight;
+
+					unsigned int minX = x2t;
+					unsigned int minY = y2t;
+					unsigned int maxX = x1t;
+					unsigned int maxY = y1t;
+					Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
 					for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
-						if (
-							((*c)->x >= minX) && ((*c)->x < maxX) &&
-							((*c)->y >= minY) && ((*c)->y < maxY)
-						) {
+						if (POINT_IN_RECT(
+								(signed)(*c)->x, (signed)(*c)->y,
+								x1t, y1t, x2t, y2t
+							)) {
 							// This tile is contained within the selection rectangle
-							unsigned int offset = ((*c)->y - minY) * this->selection.width + (*c)->x - minX;
-							assert(offset < this->selection.width * this->selection.height);
-							this->selection.tiles[offset] = (*c)->code;
+							if (minX > (*c)->x) minX = (*c)->x;
+							if (minY > (*c)->y) minY = (*c)->y;
+							if (maxX < (*c)->x + 1) maxX = (*c)->x + 1;
+							if (maxY < (*c)->y + 1) maxY = (*c)->y + 1;
 						}
 					}
-*/
-					// Remember the location of the original selection
-					this->selection.x = minX;
-					this->selection.y = minY;
+					if ((maxX < minX) || (maxY < minY)) {
+						// Empty selection
+						selItems.clear();
+						//this->clearSelection();
+					} else {
+						this->selection.width = std::max(this->selection.width, (signed)((maxX - minX) * tileWidth));
+						this->selection.height = std::max(this->selection.height, (signed)((maxY - minY) * tileHeight));
+
+						// Run through the tiles again, but this time copy them into the selection
+						for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); c++) {
+							if (POINT_IN_RECT((*c)->x, (*c)->y, minX, minY, maxX, maxY)) {
+								// This tile is contained within the selection rectangle
+								selItems.push_back(*c);
+							}
+						}
+					}
 				}
 				break;
 			}
@@ -1977,7 +2050,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 
 		case WXK_NUMPAD_INSERT:
 		case WXK_INSERT:
-			if ((this->activeLayer == ElPaths) && (this->nearestPathPointOff >= 0)) {
+			if ((this->activeElement == 1 + ElPaths) && (this->nearestPathPointOff >= 0)) {
 				Map2D::PathPtr path = this->nearestPathPoint.path;
 				assert(path);
 				assert(path->points.size() > 1);
@@ -2025,7 +2098,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 		case WXK_NUMPAD_DELETE:
 		case WXK_DELETE:
 			// Delete the currently selected tiles or path points
-			if (this->activeLayer == ElPaths) {
+			if (this->activeElement == 1 + ElPaths) {
 				if (!this->pathSelection.empty()) {
 					for (std::vector<path_point>::iterator spt = this->pathSelection.begin();
 						spt != this->pathSelection.end(); spt++
@@ -2109,23 +2182,33 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 						}
 					}
 				}
-			} else if ((this->activeLayer >= ElementCount) && (this->haveSelection())) {
-				unsigned int x1 = this->selection.x;
-				unsigned int y1 = this->selection.y;
-				unsigned int x2 = x1 + this->selection.width;
-				unsigned int y2 = y1 + this->selection.height;
-				Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
-				Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
-				for (Map2D::Layer::ItemPtrVector::iterator c = content->begin(); c != content->end(); ) {
-					if (
-						((*c)->x >= x1) && ((*c)->x < x2) &&
-						((*c)->y >= y1) && ((*c)->y < y2)
+			} else if ((this->activeElement == 0) && (this->haveSelection())) {
+				unsigned int layerCount = map->getLayerCount();
+				for (unsigned int l = 0; l < layerCount; l++) {
+					// Skip layers with no selection
+					if (this->selection.layers[l].size() == 0) continue;
+
+					Map2D::LayerPtr layer = this->map->getLayer(l);
+					Map2D::Layer::ItemPtrVectorPtr content = layer->getAllItems();
+					for (Map2D::Layer::ItemPtrVector::iterator
+						c = content->begin(); c != content->end();
 					) {
-						// Remove this tile
-						c = content->erase(c);
-						this->doc->isModified = true;
-						needRedraw = true;
-					} else c++;
+						bool erased = false;
+						for (Map2D::Layer::ItemPtrVector::iterator
+							s = this->selection.layers[l].begin();
+							s != this->selection.layers[l].end();
+							s++
+						) {
+							if (*c == *s) {
+								c = content->erase(c);
+								erased = true;
+								this->doc->isModified = true;
+								needRedraw = true;
+								break;
+							}
+						}
+						if (!erased) c++;
+					}
 				}
 			}
 			// Hide any nearest point so it will be recalculated on the next mouse move
@@ -2144,7 +2227,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 			break;
 
 		case WXK_SPACE:
-			if (this->activeLayer == ElPaths) {
+			if (this->activeElement == 1 + ElPaths) {
 				// Close all currently selected paths, by moving the last point in each
 				// selected path to (0,0).
 				if (!this->pathSelection.empty()) {
@@ -2188,7 +2271,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 
 void MapCanvas::updateHelpText()
 {
-	if (this->activeLayer == ElPaths) { // select some points on a path
+	if (this->activeElement == 1 + ElPaths) { // select some points on a path
 		if (this->pathSelection.empty()) {
 			if (this->nearestPathPointOff >= 0) {
 				Map2D::PathPtr path = this->nearestPathPoint.path;
@@ -2203,10 +2286,10 @@ void MapCanvas::updateHelpText()
 				+ __ + HT_SELECT + __ + HT_ESC);
 		}
 
-	} else if (this->activeLayer == ElViewport) {
+	} else if (this->activeElement == 1 + ElViewport) {
 		return this->doc->setHelpText(HT_SCROLL);
 
-	} else if (this->activeLayer >= ElementCount) { // normal map layer
+	} else if (this->activeElement == 0) { // normal map layer
 		if (this->haveSelection()) {
 			return this->doc->setHelpText(wxString(HT_PASTE) + __ + HT_DEL + __ + HT_COPY + __
 				+ HT_ESC);

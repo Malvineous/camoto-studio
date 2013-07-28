@@ -44,7 +44,7 @@ class LayerPanel: public IToolPanel
 			:	IToolPanel(parent)
 		{
 			this->list = new wxListCtrl(this, IDC_LAYER, wxDefaultPosition,
-				wxDefaultSize, wxLC_REPORT | wxBORDER_NONE | wxLC_NO_HEADER |
+				wxDefaultSize, wxLC_REPORT | wxBORDER_NONE |
 				wxLC_SINGLE_SEL);
 			this->list->Connect(wxID_ANY, wxEVT_SET_FOCUS,
 				wxFocusEventHandler(LayerPanel::onFocus), NULL, this);
@@ -55,15 +55,25 @@ class LayerPanel: public IToolPanel
 			this->list->AssignImageList(il, wxIMAGE_LIST_SMALL);
 
 			wxListItem info;
-			info.m_mask = wxLIST_MASK_TEXT | wxLIST_MASK_IMAGE | wxLIST_MASK_FORMAT;
-			info.m_image = 0;
+			info.m_mask = wxLIST_MASK_TEXT | wxLIST_MASK_FORMAT;
 			info.m_format = 0;
-			info.m_text = _("Layer");
+			info.m_text = _("A");
 			this->list->InsertColumn(0, info);
 
+			// inherit: info.m_mask = wxLIST_MASK_TEXT | wxLIST_MASK_FORMAT;
+			// inherit: info.m_format = 0;
+			info.m_text = _("V");
+			this->list->InsertColumn(1, info);
+
+			// inherit: info.m_mask = wxLIST_MASK_TEXT | wxLIST_MASK_FORMAT;
+			// inherit: info.m_format = 0;
+			info.m_text = _("Layer");
+			this->list->InsertColumn(2, info);
+
+			// inherit: info.m_mask = wxLIST_MASK_TEXT | wxLIST_MASK_FORMAT;
 			info.m_format = wxLIST_FORMAT_CENTRE;
 			info.m_text = _("Size");
-			this->list->InsertColumn(1, info);
+			this->list->InsertColumn(3, info);
 
 			wxSizer *s = new wxBoxSizer(wxVERTICAL);
 			s->Add(this->list, 1, wxEXPAND);
@@ -91,17 +101,20 @@ class LayerPanel: public IToolPanel
 
 			// Populate the list
 			unsigned int layerCount = this->doc->map->getLayerCount();
+			wxListItem item;
 			for (unsigned int i = 0; i < layerCount; i++) {
 				Map2D::LayerPtr layer = this->doc->map->getLayer(i);
+
+				long id = this->list->InsertItem(i,
+					this->doc->canvas->activeLayers[i] ? 0 : 1);
+				this->list->SetItemColumnImage(id, 1, this->doc->canvas->visibleLayers[i] ? 0 : 1);
+				this->list->SetItem(id, 2, wxString(layer->getTitle().c_str(), wxConvUTF8));
 
 				// Calculate layer size
 				unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 				getLayerDims(this->doc->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
+				this->list->SetItem(id, 3, wxString::Format(_T("%d x %d"), layerWidth, layerHeight));
 
-				long id = this->list->InsertItem(i,
-					wxString(layer->getTitle().c_str(), wxConvUTF8),
-					this->doc->canvas->visibleLayers[i] ? 0 : 1);
-				this->list->SetItem(id, 1, wxString::Format(_T("%d x %d"), layerWidth, layerHeight));
 				this->list->SetItemData(id, MapCanvas::ElementCount + i);
 			}
 
@@ -112,9 +125,14 @@ class LayerPanel: public IToolPanel
 				this->doc->canvas->visibleElements[MapCanvas::ElPaths] =
 					this->visibleElements[MapCanvas::ElPaths];
 
-				long id = this->list->InsertItem(layerCount, _("Paths"),
+				long id = this->list->InsertItem(layerCount,
+					(this->doc->canvas->activeElement == MapCanvas::ElPaths) ? 0 : 1);
+
+				this->list->SetItemColumnImage(id, 1,
 					this->doc->canvas->visibleElements[MapCanvas::ElPaths] ? 0 : 1);
-				this->list->SetItem(id, 1, _T("-"));
+
+				this->list->SetItem(id, 2, _("Paths"));
+				this->list->SetItem(id, 3, _T("-"));
 				this->list->SetItemData(id, MapCanvas::ElPaths);
 			}
 
@@ -124,16 +142,21 @@ class LayerPanel: public IToolPanel
 				this->doc->canvas->visibleElements[MapCanvas::ElViewport] =
 					this->visibleElements[MapCanvas::ElViewport];
 
-				long id = this->list->InsertItem(layerCount, _("Viewport"),
+				long id = this->list->InsertItem(layerCount, _T("-"));
+				this->list->SetItemColumnImage(id, 1,
 					this->doc->canvas->visibleElements[MapCanvas::ElViewport] ? 0 : 1);
+				this->list->SetItem(id, 2, _("Viewport"));
 				unsigned int vpWidth, vpHeight;
 				this->doc->map->getViewport(&vpWidth, &vpHeight);
-				this->list->SetItem(id, 1, wxString::Format(_T("%d x %d (px)"), vpWidth, vpHeight));
+				this->list->SetItem(id, 3, wxString::Format(_T("%d x %d (px)"), vpWidth, vpHeight));
 				this->list->SetItemData(id, MapCanvas::ElViewport);
 			}
 
+			// Resize to fit new content
 			this->list->SetColumnWidth(0, wxLIST_AUTOSIZE);
 			this->list->SetColumnWidth(1, wxLIST_AUTOSIZE);
+			this->list->SetColumnWidth(2, wxLIST_AUTOSIZE);
+			this->list->SetColumnWidth(3, wxLIST_AUTOSIZE);
 
 			return;
 		}
@@ -156,10 +179,35 @@ class LayerPanel: public IToolPanel
 			return;
 		}
 
-		void onItemClick(wxListEvent& ev)
+		void onItemSelected(wxListEvent& ev)
 		{
 			if (!this->doc) return;
-			this->doc->canvas->setActiveLayer(ev.GetData());
+
+			int layerIndex = ev.GetData();
+			this->doc->canvas->setPrimaryLayer(layerIndex);
+			return;
+		}
+
+		void onItemActivated(wxListEvent& ev)
+		{
+			if (!this->doc) return;
+
+			int layerIndex = ev.GetData();
+			this->doc->canvas->toggleActiveLayer(layerIndex);
+
+			// Update all the icons
+			unsigned int layerCount = this->doc->map->getLayerCount();
+			for (unsigned int i = 0; i < layerCount; i++) {
+				long id = this->list->FindItem(-1, MapCanvas::ElementCount + i);
+				this->list->SetItemColumnImage(id, 0,
+					this->doc->canvas->activeLayers[i] ? 0 : 1);
+			}
+			for (unsigned int i = 0; i < MapCanvas::ElementCount; i++) {
+				if (i == MapCanvas::ElViewport) continue;
+				long id = this->list->FindItem(-1, i);
+				this->list->SetItemColumnImage(id, 0, (this->doc->canvas->activeElement == i + 1) ? 0 : 1);
+			}
+
 			return;
 		}
 
@@ -167,6 +215,7 @@ class LayerPanel: public IToolPanel
 		{
 			if (!this->doc) return;
 
+			long id = ev.GetIndex();
 			int layerIndex = ev.GetData();
 			bool newState;
 			if (layerIndex < MapCanvas::ElementCount) {
@@ -177,7 +226,7 @@ class LayerPanel: public IToolPanel
 				newState = !this->doc->canvas->visibleLayers[layerIndex]; // ^=1 doesn't work :-(
 				this->doc->canvas->visibleLayers[layerIndex] = newState;
 			}
-			this->list->SetItemImage(ev.GetIndex(), newState ? 0 : 1);
+			this->list->SetItemColumnImage(id, 1, newState ? 0 : 1);
 			this->doc->canvas->redraw();
 			return;
 		}
@@ -203,7 +252,8 @@ class LayerPanel: public IToolPanel
 };
 
 BEGIN_EVENT_TABLE(LayerPanel, IToolPanel)
-	EVT_LIST_ITEM_SELECTED(IDC_LAYER, LayerPanel::onItemClick)
+	EVT_LIST_ITEM_SELECTED(IDC_LAYER, LayerPanel::onItemSelected)
+	EVT_LIST_ITEM_ACTIVATED(IDC_LAYER, LayerPanel::onItemActivated)
 	EVT_LIST_ITEM_RIGHT_CLICK(IDC_LAYER, LayerPanel::onItemRightClick)
 END_EVENT_TABLE()
 
