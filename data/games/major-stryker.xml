@@ -107,11 +107,11 @@
 			<file id="gfx-masked-101" name="mskzone1.dr1" typeMajor="tileset" typeMinor="cosmo-masked" title="Masked tileset"/>
 			<file id="gfx-actors-101" name="actors.dr1"   typeMajor="tileset" typeMinor="cosmo-masked" title="Raw actor tiles"/>
 
-			<file id="img-title-1"    name="titledr.dr1"  typeMajor="image" typeMinor="ega-raw-planar-fullscreen" title="Title"/>
-			<file id="img-choose-1"   name="choose.dr1"   typeMajor="image" typeMinor="ega-raw-planar-fullscreen" title="Choose"/>
-			<file id="img-credit-1"   name="credits.dr1"  typeMajor="image" typeMinor="ega-raw-planar-fullscreen" title="Credits"/>
-			<file id="img-goodluck-1" name="goodluck.dr1" typeMajor="image" typeMinor="ega-raw-planar-fullscreen" title="Good luck"/>
-			<file id="img-endlevel-1" name="endlevel.dr1" typeMajor="image" typeMinor="ega-raw-planar-fullscreen" title="End level"/>
+			<file id="img-title-1"    name="titledr.dr1"  typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Title"/>
+			<file id="img-choose-1"   name="choose.dr1"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Choose"/>
+			<file id="img-credit-1"   name="credits.dr1"  typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Credits"/>
+			<file id="img-goodluck-1" name="goodluck.dr1" typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Good luck"/>
+			<file id="img-endlevel-1" name="endlevel.dr1" typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="End level"/>
 
 			<file id="back-lava"      name="lavabkdp.dr1" typeMajor="tileset" typeMinor="cosmo" title="Lava"/>
 			<file id="back-space"     name="spacbdp3.dr1" typeMajor="tileset" typeMinor="cosmo" title="Space"/>
@@ -124,7 +124,7 @@
 				<dep reftype="actors"   ref="gfx-actors-101"/>
 			</file>
 
-			<file id="img-mission-1" name="mission.dr1" typeMajor="image" typeMinor="ega-raw-planar-fullscreen" title="Mission"/>
+			<file id="img-mission-1" name="mission.dr1" typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Mission"/>
 
 			<file id="mus-apogfnf1" name="apogfnf1.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Apogee Fanfare"/>
 			<file id="mus-rockit"   name="rockit.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="Rock It"/>
