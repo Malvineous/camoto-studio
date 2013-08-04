@@ -799,7 +799,79 @@ void MapCanvas::redraw()
 				glVertex2i(x2, y1);
 				glEnd();
 			}
-		}
+
+			// If there are movement flags, draw little arrows in the
+			// direction of movement.
+			if ((*c)->type & Map2D::Layer::Item::Movement) {
+				// This tile has movement attributes, so draw them
+				glDisable(GL_TEXTURE_2D);
+				glLineWidth(2.0);
+
+				glColor4f(CLR_ATTR_BG);
+				if ((*c)->movementFlags & Map2D::Layer::Item::DistanceLimit) {
+					int x1 = pixelX - this->offX;
+					int x2 = x1 + tileWidth;
+					int xm = tileWidth/2;
+					int y1 = pixelY - this->offY;
+					int y2 = y1 + tileHeight;
+					int ym = tileHeight/2;
+
+					if ((*c)->movementDistLeft == Map2D::Layer::Item::DistIndeterminate) {
+						glPushMatrix();
+						glTranslatef(x1, y1 + ym, 0.0);
+						glRotatef(90.0, 0.0, 0.0, 1.0);
+						glBegin(GL_LINE_STRIP);
+						glVertex2i(-PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
+						glVertex2i(0, 0);
+						glVertex2i(0, -ym);
+						glVertex2i(0, 0);
+						glVertex2i(PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
+						glEnd();
+						glPopMatrix();
+					}
+					if ((*c)->movementDistRight == Map2D::Layer::Item::DistIndeterminate) {
+						glPushMatrix();
+						glTranslatef(x2, y1 + ym, 0.0);
+						glRotatef(270.0, 0.0, 0.0, 1.0);
+						glBegin(GL_LINE_STRIP);
+						glVertex2i(-PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
+						glVertex2i(0, 0);
+						glVertex2i(0, -ym);
+						glVertex2i(0, 0);
+						glVertex2i(PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
+						glEnd();
+						glPopMatrix();
+					}
+					if ((*c)->movementDistUp == Map2D::Layer::Item::DistIndeterminate) {
+						glPushMatrix();
+						glTranslatef(x1 + xm, y1, 0.0);
+						glRotatef(180.0, 0.0, 0.0, 1.0);
+						glBegin(GL_LINE_STRIP);
+						glVertex2i(-PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
+						glVertex2i(0, 0);
+						glVertex2i(0, -ym);
+						glVertex2i(0, 0);
+						glVertex2i(PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
+						glEnd();
+						glPopMatrix();
+					}
+					if ((*c)->movementDistDown == Map2D::Layer::Item::DistIndeterminate) {
+						glPushMatrix();
+						glTranslatef(x1 + xm, y2, 0.0);
+						glRotatef(0.0, 0.0, 0.0, 1.0);
+						glBegin(GL_LINE_STRIP);
+						glVertex2i(-PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
+						glVertex2i(0, 0);
+						glVertex2i(0, -ym);
+						glVertex2i(0, 0);
+						glVertex2i(PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
+						glEnd();
+						glPopMatrix();
+					}
+				}
+				glLineWidth(1.0);
+			}
+		} // for (each item in layer)
 
 		// Turn off any remaining red selection colour
 		glDisable(GL_BLEND);
