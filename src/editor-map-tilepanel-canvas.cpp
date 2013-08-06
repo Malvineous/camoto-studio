@@ -23,7 +23,7 @@
 using namespace camoto;
 using namespace camoto::gamemaps;
 
-BEGIN_EVENT_TABLE(TilePanelCanvas, wxGLCanvas)
+BEGIN_EVENT_TABLE(TilePanelCanvas, MapBaseCanvas)
 	EVT_PAINT(TilePanelCanvas::onPaint)
 	EVT_ERASE_BACKGROUND(TilePanelCanvas::onEraseBG)
 	EVT_SIZE(TilePanelCanvas::onResize)
@@ -32,7 +32,7 @@ END_EVENT_TABLE()
 
 TilePanelCanvas::TilePanelCanvas(TilePanel *parent, wxGLContext *glcx,
 	int *attribList)
-	: wxGLCanvas(parent, wxID_ANY, attribList),
+	: MapBaseCanvas(parent, attribList),
 	  glcx(glcx),
 	  tilePanel(parent),
 	  tilesX(0), // must be updated before first redraw() call
@@ -131,41 +131,37 @@ void TilePanelCanvas::redraw()
 	Map2D::LayerPtr layer = map->getLayer(layerIndex);
 	const Map2D::Layer::ItemPtrVectorPtr items = layer->getValidItemList();
 
-	unsigned int x = 0, y = 0, nx = 0, maxHeight = 0;
+	unsigned int pixelX = 0, pixelY = 0, nx = 0, maxHeight = 0;
 	for (Map2D::Layer::ItemPtrVector::const_iterator
 		i = items->begin(); i != items->end(); i++
 	) {
 		const Texture& t = tm.at((*i)->code);
-		glBindTexture(GL_TEXTURE_2D, t.glid);
 
 		if (this->tilesX == 0) { // fit width
-			if ((x + t.width) * mapCanvas->zoomFactor > (unsigned)s.x) {
+			if ((pixelX + t.width) * mapCanvas->zoomFactor > (unsigned)s.x) {
 				// This tile would go past the edge, start it on a new row
-				x = 0;
+				pixelX = 0;
 				nx = 0;
-				y += maxHeight;
+				pixelY += maxHeight;
 				maxHeight = 0;
 			}
 		} else if (nx >= this->tilesX) { // fit to specific number of tiles wide
-			x = 0;
+			pixelX = 0;
 			nx = 0;
-			y += maxHeight;
+			pixelY += maxHeight;
 			maxHeight = 0;
 		}
 
-		if (y > (unsigned)s.y) break; // gone past bottom of window
+		if (pixelY > (unsigned)s.y) break; // gone past bottom of window
 
-		glBegin(GL_QUADS);
-		glTexCoord2d(0.0, 0.0);  glVertex2i(x,  y);
-		glTexCoord2d(0.0, 1.0);  glVertex2i(x,  y + t.height);
-		glTexCoord2d(1.0, 1.0);  glVertex2i(x + t.width, y + t.height);
-		glTexCoord2d(1.0, 0.0);  glVertex2i(x + t.width, y);
-		glEnd();
+		this->drawMapItem(pixelX, pixelY, t.width, t.height, *i,
+				t.glid);
 
 		if (t.height > maxHeight) maxHeight = t.height;
-		x += t.width;
+		pixelX += t.width;
 		nx++;
 	}
+
 	glDisable(GL_TEXTURE_2D);
 
 	this->SwapBuffers();
@@ -186,5 +182,70 @@ void TilePanelCanvas::setOffset(unsigned int o)
 
 void TilePanelCanvas::onRightClick(wxMouseEvent& ev)
 {
+	// Some things for code readability
+	MapDocument *& doc = this->tilePanel->doc;
+	if (!doc) return;
+	Map2DPtr& map = this->tilePanel->doc->map;
+	if (!map) return;
+	MapCanvas *& mapCanvas = this->tilePanel->doc->canvas;
+
+	wxSize s = this->GetClientSize();
+
+	// Can't select tiles for an element layer
+	if (mapCanvas->primaryLayer < MapCanvas::ElementCount) return;
+	unsigned int layerIndex = mapCanvas->primaryLayer - MapCanvas::ElementCount;
+
+	// Get the OpenGL texture map from the editor canvas
+	if (mapCanvas->textureMap.size() < layerIndex) return;
+	const TEXTURE_MAP& tm = mapCanvas->textureMap[layerIndex];
+
+	Map2D::LayerPtr layer = map->getLayer(layerIndex);
+	const Map2D::Layer::ItemPtrVectorPtr items = layer->getValidItemList();
+
+	unsigned int pointerX = CLIENT_TO_MAP_X(ev.m_x);
+	unsigned int pointerY = CLIENT_TO_MAP_Y(ev.m_y);
+	Map2D::Layer::ItemPtrVector& selItems = mapCanvas->selection.layers[layerIndex];
+	selItems.clear();
+	mapCanvas->selection.x = 0;
+	mapCanvas->selection.y = 0;
+	mapCanvas->selection.width = 0;
+	mapCanvas->selection.height = 0;
+
+	unsigned int pixelX = 0, pixelY = 0, nx = 0, maxHeight = 0;
+	for (Map2D::Layer::ItemPtrVector::const_iterator
+		i = items->begin(); i != items->end(); i++
+	) {
+		const Texture& t = tm.at((*i)->code);
+
+		if (this->tilesX == 0) { // fit width
+			if ((pixelX + t.width) * mapCanvas->zoomFactor > (unsigned)s.x) {
+				// This tile would go past the edge, start it on a new row
+				pixelX = 0;
+				nx = 0;
+				pixelY += maxHeight;
+				maxHeight = 0;
+			}
+		} else if (nx >= this->tilesX) { // fit to specific number of tiles wide
+			pixelX = 0;
+			nx = 0;
+			pixelY += maxHeight;
+			maxHeight = 0;
+		}
+
+		if (pixelY > (unsigned)s.y) break; // gone past bottom of window
+
+		if (POINT_IN_RECT(pointerX, pointerY, pixelX, pixelY, pixelX + t.width, pixelY + t.height)) {
+			// Mouse clicked on this tile
+			mapCanvas->selection.width = t.width;
+			mapCanvas->selection.height = t.height;
+			selItems.push_back(*i);
+			break;
+		}
+
+		if (t.height > maxHeight) maxHeight = t.height;
+		pixelX += t.width;
+		nx++;
+	}
+
 	return;
 }

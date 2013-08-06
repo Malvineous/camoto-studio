@@ -26,13 +26,13 @@ class TilePanelCanvas;
 #include <GL/glew.h>
 #include "editor-map-tilepanel.hpp"
 #include <wx/glcanvas.h>
+#include "editor-map-basecanvas.hpp"
 
 /// Specialisation of tileset viewer for map tile selector panel.
-class TilePanelCanvas: public wxGLCanvas
+class TilePanelCanvas: public MapBaseCanvas
 {
 	public:
 		TilePanelCanvas(TilePanel *parent, wxGLContext *glcx, int *attribList);
-
 		~TilePanelCanvas();
 
 		/// Alert that the document has changed, and trigger a redraw of the tiles.
@@ -44,7 +44,7 @@ class TilePanelCanvas: public wxGLCanvas
 		void glReset();
 
 		/// Redraw the document.
-		void redraw();
+		virtual void redraw();
 
 		void setTilesX(int t);
 		void setOffset(unsigned int o);

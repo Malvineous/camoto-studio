@@ -33,13 +33,14 @@ class MapCanvas;
 #include "editor-map-document.hpp"
 #include "gamelist.hpp" // MapObject
 #include "editor-tileset-canvas.hpp" // TEXTURE_MAP
+#include "editor-map-basecanvas.hpp"
 
 // How many *pixels* (i.e. irrespective of zoom) the mouse pointer can be moved
 // out of the focus box without losing focus.  This is also the number of pixels
 // either side of the border that the mouse will perform a resize action.
 #define FOCUS_BOX_PADDING 2
 
-class MapCanvas: public wxGLCanvas
+class MapCanvas: public MapBaseCanvas
 {
 	protected:
 		/// Instance of a MapObject in this map
@@ -120,13 +121,6 @@ class MapCanvas: public wxGLCanvas
 
 		~MapCanvas();
 
-		/// Set the zoom factor.
-		/**
-		 * @param f
-		 *  Zoom multiplier.  1 == pixel perfect, 2 == double size.
-		 */
-		void setZoomFactor(int f);
-
 		/// Show/hide the tile grid.
 		/**
 		 * @param visible
@@ -165,7 +159,7 @@ class MapCanvas: public wxGLCanvas
 		void glReset();
 
 		/// Redraw the document.  Used after toggling layers.
-		void redraw();
+		virtual void redraw();
 
 		/// Deselect everything.
 		/**
@@ -263,13 +257,9 @@ class MapCanvas: public wxGLCanvas
 
 		std::vector<TEXTURE_MAP> textureMap;
 
-		int zoomFactor;   ///< Zoom level (1 == 1:1, 2 == 2:1/doublesize, etc.)
 		bool gridVisible; ///< Draw a grid over the active layer?
 		enum {TileMode, ObjectMode} editingMode; ///< Current editing mode
 		unsigned int primaryLayer; ///< Main layer used for things like gridline dimensions
-
-		int offX;         ///< Current X position (in pixels) to draw at (0,0)
-		int offY;         ///< Current Y position (in pixels) to draw at (0,0)
 
 		int scrollFromX;  ///< Mouse X pos when scroll/drag started, or -1 if not dragging
 		int scrollFromY;  ///< Mouse Y pos of scrolling origin

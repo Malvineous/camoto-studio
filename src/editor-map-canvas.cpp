@@ -39,18 +39,6 @@ using namespace camoto::gamegraphics;
 #define CLR_ARROWHEAD_NORMAL  CLR_PATH            ///< Path arrow, normal
 #define CLR_ARROWHEAD_HOT     1.0, 1.0, 0.0, 1.0  ///< Path arrow, highlighted
 #define CLR_PATH_PREVIEW      0.7, 0.7, 0.7, 0.7  ///< Changed path preview
-#define CLR_ATTR_BG           1.0, 0.0, 1.0, 1.0  ///< Attribute indicator background
-#define CLR_ATTR_FG           1.0, 1.0, 0.0, 1.0  ///< Attribute indicator foreground
-
-// Convert the given coordinate from client (window) coordinates
-// into map coordinates.
-#define CLIENT_TO_MAP_X(x) ((x) / this->zoomFactor + this->offX)
-#define CLIENT_TO_MAP_Y(y) ((y) / this->zoomFactor + this->offY)
-
-// Is the given point contained within the rectangle?
-#define POINT_IN_RECT(px, py, x1, y1, x2, y2) \
-	((px >= x1) && (px < x2) && \
-	 (py >= y1) && (py < y2))
 
 // Is the given point within a few pixels of the other point?
 #define CURSOR_OVER_POINT(mx, my, px, py) \
@@ -92,7 +80,7 @@ int matchAnyTileRun(unsigned int *tile, const MapObject::TileRun *run)
 	return matched;
 }
 
-BEGIN_EVENT_TABLE(MapCanvas, wxGLCanvas)
+BEGIN_EVENT_TABLE(MapCanvas, MapBaseCanvas)
 	EVT_PAINT(MapCanvas::onPaint)
 	EVT_ERASE_BACKGROUND(MapCanvas::onEraseBG)
 	EVT_SIZE(MapCanvas::onResize)
@@ -109,19 +97,15 @@ END_EVENT_TABLE()
 
 MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 	TilesetCollectionPtr tilesets, int *attribList, const MapObjectVector *mapObjects)
-	:	wxGLCanvas(parent, wxID_ANY, attribList, wxDefaultPosition,
-	  	wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS),
+	:	MapBaseCanvas(parent, attribList),
 	  doc(parent),
 	  map(map),
 	  glcx(glcx),
 	  tilesets(tilesets),
 	  mapObjects(mapObjects),
-	  zoomFactor(2),
 	  gridVisible(false),
 	  editingMode(TileMode),
 	  primaryLayer(0),
-	  offX(0),
-	  offY(0),
 	  scrollFromX(-1),
 	  // scrollFromY doesn't matter when X is -1
 	  selectFromX(-1),
@@ -396,21 +380,6 @@ void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 	return;
 }
 
-void MapCanvas::setZoomFactor(int f)
-{
-	// Keep the viewport centred after the zoom
-	wxSize s = this->GetClientSize();
-	int centreX = s.x / 2, centreY = s.y / 2;
-	int absX = this->offX + centreX / this->zoomFactor;
-	int absY = this->offY + centreY / this->zoomFactor;
-	this->zoomFactor = f;
-	this->offX = absX - centreX / this->zoomFactor;
-	this->offY = absY - centreY / this->zoomFactor;
-	this->glReset();
-	this->redraw();
-	return;
-}
-
 void MapCanvas::showGrid(bool visible)
 {
 	this->gridVisible = visible;
@@ -680,197 +649,8 @@ void MapCanvas::redraw()
 				glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 			}
 
-			int x1 = pixelX - this->offX;
-			int x2 = x1 + tileWidth;
-			int xt = tileWidth/4;
-			int y1 = pixelY - this->offY;
-			int y2 = y1 + tileHeight;
-			int yt = tileHeight/4;
-
-			if ((*c)->type & Map2D::Layer::Item::Blocking) {
-				// This tile has blocking attributes, so draw them
-				glDisable(GL_TEXTURE_2D);
-				glLineWidth(1.0);
-
-				glColor4f(CLR_ATTR_BG);
-				glBegin(GL_QUADS);
-				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockLeft) {
-					glVertex2i(x1, y1);
-					glVertex2i(x1, y2);
-					glVertex2i(x1 + xt, y2);
-					glVertex2i(x1 + xt, y1);
-				}
-				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockRight) {
-					glVertex2i(x2 - xt, y1);
-					glVertex2i(x2 - xt, y2);
-					glVertex2i(x2, y2);
-					glVertex2i(x2, y1);
-				}
-				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockTop) {
-					glVertex2i(x1, y1);
-					glVertex2i(x1, y1 + yt);
-					glVertex2i(x2, y1 + yt);
-					glVertex2i(x2, y1);
-				}
-				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockBottom) {
-					glVertex2i(x1, y2 - yt);
-					glVertex2i(x1, y2);
-					glVertex2i(x2, y2);
-					glVertex2i(x2, y2 - yt);
-				}
-				if ((*c)->blockingFlags & Map2D::Layer::Item::Slant45) {
-					glVertex2i(x1, y2);
-					glVertex2f(x1 + xt / SIN45, y2);
-					glVertex2f(x2, y1 + yt / SIN45);
-					glVertex2i(x2, y1);
-				}
-				if ((*c)->blockingFlags & Map2D::Layer::Item::Slant135) {
-					glVertex2i(x1, y1);
-					glVertex2i(x1, y1 + yt / SIN45);
-					glVertex2i(x2 - xt / SIN45, y2);
-					glVertex2i(x2, y2);
-				}
-				glEnd();
-
-				glColor4f(CLR_ATTR_FG);
-				glBegin(GL_LINES);
-				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockLeft) {
-					glVertex2i(x1, y1);
-					glVertex2i(x1, y2);
-					for (unsigned int i = 0; i < tileHeight; i += 2) {
-						glVertex2i(x1, y1 + i);
-						glVertex2i(x1 + xt, y1 + i);
-					}
-				}
-				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockRight) {
-					glVertex2i(x2, y1);
-					glVertex2i(x2, y2);
-					for (unsigned int i = 0; i < tileHeight; i += 2) {
-						glVertex2i(x2 - xt, y1 + i);
-						glVertex2i(x2, y1 + i);
-					}
-				}
-				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockTop) {
-					glVertex2i(x1, y1);
-					glVertex2i(x2, y1);
-					for (unsigned int i = 0; i < tileHeight; i += 2) {
-						glVertex2i(x1 + i, y1);
-						glVertex2i(x1 + i, y1 + yt);
-					}
-				}
-				if ((*c)->blockingFlags & Map2D::Layer::Item::BlockBottom) {
-					glVertex2i(x1, y2);
-					glVertex2i(x2, y2);
-					for (unsigned int i = 0; i < tileHeight; i += 2) {
-						glVertex2i(x1 + i, y2 - yt);
-						glVertex2i(x1 + i, y2);
-					}
-				}
-				if ((*c)->blockingFlags & Map2D::Layer::Item::Slant45) {
-					glVertex2i(x1, y2);
-					glVertex2i(x2, y1);
-					for (float i = 2 * SIN45; i < tileWidth - 2 * SIN45; i += 2*SIN45) {
-						glVertex2f(x1 + i, y2 - i);
-						glVertex2f(x1 + i + xt * COS45, y2 - i + yt * COS45);
-					}
-				}
-				if ((*c)->blockingFlags & Map2D::Layer::Item::Slant135) {
-					glVertex2i(x1, y1);
-					glVertex2i(x2, y2);
-					for (float i = 2 * SIN45; i < tileWidth - 2 * SIN45; i += 2*SIN45) {
-						glVertex2f(x1 + i, y1 + i);
-						glVertex2f(x1 + i - xt * COS45, y1 + i + yt * COS45);
-					}
-				}
-				glEnd();
-
-			} else {
-				// Normal image
-				glEnable(GL_TEXTURE_2D);
-				glBindTexture(GL_TEXTURE_2D, this->textureMap[layerNum][(*c)->code].glid);
-				glBegin(GL_QUADS);
-				glTexCoord2d(0.0, 0.0);
-				glVertex2i(x1, y1);
-				glTexCoord2d(0.0, 1.0);
-				glVertex2i(x1, y2);
-				glTexCoord2d(1.0, 1.0);
-				glVertex2i(x2, y2);
-				glTexCoord2d(1.0, 0.0);
-				glVertex2i(x2, y1);
-				glEnd();
-			}
-
-			// If there are movement flags, draw little arrows in the
-			// direction of movement.
-			if ((*c)->type & Map2D::Layer::Item::Movement) {
-				// This tile has movement attributes, so draw them
-				glDisable(GL_TEXTURE_2D);
-				glLineWidth(2.0);
-
-				glColor4f(CLR_ATTR_BG);
-				if ((*c)->movementFlags & Map2D::Layer::Item::DistanceLimit) {
-					int x1 = pixelX - this->offX;
-					int x2 = x1 + tileWidth;
-					int xm = tileWidth/2;
-					int y1 = pixelY - this->offY;
-					int y2 = y1 + tileHeight;
-					int ym = tileHeight/2;
-
-					if ((*c)->movementDistLeft == Map2D::Layer::Item::DistIndeterminate) {
-						glPushMatrix();
-						glTranslatef(x1, y1 + ym, 0.0);
-						glRotatef(90.0, 0.0, 0.0, 1.0);
-						glBegin(GL_LINE_STRIP);
-						glVertex2i(-PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
-						glVertex2i(0, 0);
-						glVertex2i(0, -ym);
-						glVertex2i(0, 0);
-						glVertex2i(PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
-						glEnd();
-						glPopMatrix();
-					}
-					if ((*c)->movementDistRight == Map2D::Layer::Item::DistIndeterminate) {
-						glPushMatrix();
-						glTranslatef(x2, y1 + ym, 0.0);
-						glRotatef(270.0, 0.0, 0.0, 1.0);
-						glBegin(GL_LINE_STRIP);
-						glVertex2i(-PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
-						glVertex2i(0, 0);
-						glVertex2i(0, -ym);
-						glVertex2i(0, 0);
-						glVertex2i(PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
-						glEnd();
-						glPopMatrix();
-					}
-					if ((*c)->movementDistUp == Map2D::Layer::Item::DistIndeterminate) {
-						glPushMatrix();
-						glTranslatef(x1 + xm, y1, 0.0);
-						glRotatef(180.0, 0.0, 0.0, 1.0);
-						glBegin(GL_LINE_STRIP);
-						glVertex2i(-PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
-						glVertex2i(0, 0);
-						glVertex2i(0, -ym);
-						glVertex2i(0, 0);
-						glVertex2i(PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
-						glEnd();
-						glPopMatrix();
-					}
-					if ((*c)->movementDistDown == Map2D::Layer::Item::DistIndeterminate) {
-						glPushMatrix();
-						glTranslatef(x1 + xm, y2, 0.0);
-						glRotatef(0.0, 0.0, 0.0, 1.0);
-						glBegin(GL_LINE_STRIP);
-						glVertex2i(-PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
-						glVertex2i(0, 0);
-						glVertex2i(0, -ym);
-						glVertex2i(0, 0);
-						glVertex2i(PATH_ARROWHEAD_SIZE, -PATH_ARROWHEAD_SIZE);
-						glEnd();
-						glPopMatrix();
-					}
-				}
-				glLineWidth(1.0);
-			}
+			this->drawMapItem(pixelX, pixelY, tileWidth, tileHeight, *c,
+				this->textureMap[layerNum][(*c)->code].glid);
 		} // for (each item in layer)
 
 		// Turn off any remaining red selection colour
