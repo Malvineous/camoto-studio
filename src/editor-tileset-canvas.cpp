@@ -91,8 +91,7 @@ void TilesetCanvas::glReset()
 
 void TilesetCanvas::redraw()
 {
-	this->SetCurrent();
-this->glReset();
+	this->glReset();
 	glClearColor(0.5, 0.5, 0.5, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 

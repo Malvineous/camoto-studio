@@ -41,7 +41,7 @@ class TilesetDocument: public IDocument
 		TilesetDocument(Studio *studio, TilesetEditor::Settings *settings,
 			TilesetPtr tileset, PaletteTablePtr pal)
 			:	IDocument(studio, _T("tileset")),
-				tileset(tileset),
+				rootTileset(tileset),
 				pal(pal),
 				settings(settings),
 				offset(0)
@@ -49,17 +49,8 @@ class TilesetDocument: public IDocument
 			this->canvas = new TilesetCanvas(this, this->studio->getGLContext(),
 				this->studio->getGLAttributes(), this->settings->zoomFactor);
 
-			// Allocate all the textures
-			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
-			int j = 0;
-			for (Tileset::VC_ENTRYPTR::const_iterator i = tiles.begin();
-				i != tiles.end(); i++, j++)
-			{
-				Texture t;
-				glGenTextures(1, &t.glid);
-				this->tm[j] = t;
-			}
-			this->updateTiles();
+			this->allocateTextures(this->rootTileset);
+			this->updateTiles(this->rootTileset);
 			this->canvas->setTextures(this->tm);
 
 			wxToolBar *tb = new wxToolBar(this, wxID_ANY, wxDefaultPosition,
@@ -130,7 +121,7 @@ class TilesetDocument: public IDocument
 			s->Add(this->canvas, 1, wxEXPAND);
 			this->SetSizer(s);
 
-			this->tilesX = this->tileset->getLayoutWidth();
+			this->tilesX = this->rootTileset->getLayoutWidth();
 			if (this->tilesX == 0) this->tilesX = 8;
 			this->canvas->setTilesX(this->tilesX); // set initial value
 		}
@@ -144,7 +135,7 @@ class TilesetDocument: public IDocument
 			}
 		}
 
-		void updateTiles()
+		unsigned int updateTiles(const TilesetPtr& tileset, unsigned int j = 0)
 		{
 			// Make the texture operations below apply to this OpenGL surface
 			this->canvas->SetCurrent();
@@ -165,12 +156,15 @@ class TilesetDocument: public IDocument
 
 			// Load all the tiles into OpenGL textures
 			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
-			int j = 0;
-			for (Tileset::VC_ENTRYPTR::const_iterator i = tiles.begin();
-				i != tiles.end(); i++, j++)
+			for (Tileset::VC_ENTRYPTR::const_iterator
+				i = tiles.begin(); i != tiles.end(); i++)
 			{
 				if ((*i)->getAttr() & Tileset::EmptySlot) continue;
-				if ((*i)->getAttr() & Tileset::SubTileset) continue;
+				if ((*i)->getAttr() & Tileset::SubTileset) {
+					TilesetPtr subTileset = tileset->openTileset(*i);
+					j = this->updateTiles(subTileset, j);
+					continue;
+				}
 
 				Texture& t = this->tm[j];
 
@@ -200,8 +194,10 @@ class TilesetDocument: public IDocument
 					t.width = 0;
 					t.height = 0;
 				}
+				j++;
 			}
 			glPixelTransferi(GL_MAP_COLOR, GL_FALSE);
+			return j;
 		}
 
 		virtual void save()
@@ -291,161 +287,57 @@ class TilesetDocument: public IDocument
 						return;
 					}
 
+					IMPORT_DATA params;
+					params.curAlloc = 0;
+					params.imgData = NULL;
+					params.maskData = NULL;
+
+					// Create a palette map in case the .png colours aren't in the same
+					// order as the original palette.  This is needed because some image
+					// editors (e.g. GIMP) omit colours from the palette if they are
+					// unused, messing up the index values.
+					memset(params.paletteMap, 0, sizeof(params.paletteMap));
+					const png::palette& pngPal = png.get_palette();
+					int i_index = 0;
+					for (png::palette::const_iterator
+						i = pngPal.begin(); i != pngPal.end(); i++, i_index++
+					) {
+						int j_index = 0;
+						for (PaletteTable::iterator
+							j = this->pal->begin(); j != this->pal->end(); j++, j_index++
+						) {
+							if (
+								(i->red == j->red) &&
+								(i->green == j->green) &&
+								(i->blue == j->blue)
+							) {
+								params.paletteMap[i_index] = j_index;
+							}
+						}
+					}
 					png::tRNS transparency = png.get_tRNS();
-					bool hasTransparency = transparency.size() > 0;
-
-					unsigned int tileWidth, tileHeight;
-					this->tileset->getTilesetDimensions(&tileWidth, &tileHeight);
-					unsigned int thisTileWidth = tileWidth, thisTileHeight = tileHeight;
-					unsigned int lastMaxHeight = tileHeight;
-
-					uint8_t *imgData = NULL, *maskData = NULL;
-					StdImageDataPtr stdimg, stdmask;
-
-					unsigned int curAlloc = tileWidth * tileHeight;
-					if (curAlloc > 0) {
-						// Allocate once for all tiles, since they're all the same size
-						imgData = new uint8_t[curAlloc];
-						maskData = new uint8_t[curAlloc];
-						stdimg.reset(imgData);
-						stdmask.reset(maskData);
+					for (png::tRNS::const_iterator
+						tx = transparency.begin(); tx != transparency.end(); tx++
+					) {
+						// This colour index is transparent
+						params.paletteMap[*tx] = -1;
 					}
 
-					// If the tiles are all the same size, images are just imported left
-					// to right, wrapping at the edge of the incoming image.  But this
-					// won't work if the tiles are different sizes, because one really
-					// wide image will make the whole incoming image really wide.  We then
-					// can't tell, for narrow images, how many are stored horizontally.
-					// So in this case we match the width (in number of tiles) the user
-					// has selected in the GUI before doing the import.
-					unsigned int curTilesX = 0;
+					params.curTilesX = 0;
+					params.srcWidth = png.get_width();
+					params.srcHeight = png.get_height();
+					params.srcOffX = 0;
+					params.srcOffY = 0;
+					params.lastMaxHeight = 0;
+					params.abort = false;
+					params.ppng = &png;
+					this->importTileset(this->rootTileset, &params);
 
-					// Have we warned the user about the source image being too narrow?
-					bool warnWidth = false;
-
-					unsigned int srcWidth = png.get_width();
-					unsigned int srcHeight = png.get_height();
-					unsigned int srcOffX = 0, srcOffY = 0;
-					const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
-					int t = 0;
-					for (Tileset::VC_ENTRYPTR::const_iterator
-						i = tiles.begin(); i != tiles.end(); i++, t++
-					) {
-						if ((*i)->getAttr() & Tileset::SubTileset) continue; // aah! tileset! bad!
-
-						ImagePtr img = tileset->openImage(*i);
-
-						if ((tileWidth == 0) || (tileHeight == 0)) {
-							// All tiles are different sizes
-							img->getDimensions(&thisTileWidth, &thisTileHeight);
-							unsigned int targetAlloc = thisTileWidth * thisTileHeight;
-							if (targetAlloc > curAlloc) {
-								// Buffer needs to be enlarged
-								imgData = new uint8_t[targetAlloc];
-								maskData = new uint8_t[targetAlloc];
-								stdimg.reset(imgData);
-								stdmask.reset(maskData);
-								curAlloc = targetAlloc;
-							} // else previous buffer is big enough, reuse it
-
-							if (curTilesX >= this->tilesX) {
-								// We've now imported the same number of tiles on this row as
-								// the user is viewing, so wrap to the next row.
-								srcOffX = 0;
-								srcOffY += lastMaxHeight;
-								lastMaxHeight = thisTileHeight;
-								curTilesX = 0;
-							}
-						} else {
-							// Figure out the location of this tile in the source image
-							if (srcOffX + thisTileWidth > srcWidth) {
-								// This tile would go past the right-hand edge of the source, so
-								// wrap around to the next row.
-								srcOffX = 0;
-								srcOffY += lastMaxHeight;
-								lastMaxHeight = thisTileHeight;
-								curTilesX = 0;
-							}
-						}
-
-						if ((srcOffX + thisTileWidth > srcWidth) && warnWidth) {
-							// This tile would go past the right edge of the source, so
-							// warn the user.
-							wxMessageDialog dlg(this, _T("The image being imported is not "
-								"wide enough to contain data for all the tiles being "
-								"imported.  The imported tileset is likely to appear "
-								"corrupted.\n\n"
-								"This can happen if the tileset contains images of varying "
-								"sizes, and it was exported with a different number of "
-								"horizontal tiles displayed.  In this case, you must use the "
-								"toolbar buttons to arrange the tileset such that it is "
-								"showing the same number of tiles horizontally as it was "
-								"when originally exported.  You should then be able to "
-								"re-import the image with no problems.\n\n"
-								"For example, if the tileset was arranged to show five tiles "
-								"across when it was exported, you must now arrange it to show "
-								"five tiles across again, before performing the import."),
-								_T("Import tileset"), wxOK | wxICON_WARNING);
-							dlg.ShowModal();
-							return;
-						}
-						if (srcOffY + thisTileHeight > srcHeight) {
-							// This tile would go past the bottom edge of the source, so we
-							// have to stop.
-							wxMessageDialog dlg(this, _T("Not all tiles could be imported, "
-								"as the .png image was smaller than the full tileset.  Only "
-								"complete tiles have been imported.\n\n"
-								"You should not have this problem if you start work on an "
-								"exported image, and do not resize the image in your editor."),
-								_T("Import tileset"), wxOK | wxICON_WARNING);
-							dlg.ShowModal();
-							return;
-						}
-
-						// Update the height of the largest tile in this row
-						if (thisTileHeight > lastMaxHeight) lastMaxHeight = thisTileHeight;
-						for (unsigned int y = 0; y < thisTileHeight; y++) {
-							for (unsigned int x = 0; x < thisTileWidth; x++) {
-								uint8_t pixel = png[srcOffY + y][srcOffX + x];
-								if (hasTransparency) {
-									uint8_t origPixel = pixel;
-									bool done = false;
-									for (png::tRNS::const_iterator
-										tx = transparency.begin(); tx != transparency.end(); tx++
-									) {
-										if (origPixel == *tx) {
-											maskData[y * thisTileWidth + x] = 0x01; // transparent
-											imgData[y * thisTileWidth + x] = 0x00; // just in case
-											done = true;
-											break;
-										} else {
-											// If this transparent entry fell before the current
-											// palette index, subtract one.  After processing all the
-											// palette entries, this will result in an index into the
-											// original game palette.
-											if (origPixel > *tx) pixel--;
-										}
-									}
-									if (done) continue; // pixel was transparent
-									// Keep going if pixel was opaque
-								} // else no transparency in image
-
-								maskData[y * thisTileWidth + x] = 0x00; // opaque
-								imgData[y * thisTileWidth + x] = pixel;
-							}
-						}
-
-						img->fromStandard(stdimg, stdmask);
-
-						srcOffX += thisTileWidth;
-						curTilesX++;
-
-					} // for (all tiles)
-					this->tileset->flush();
+					this->rootTileset->flush();
 
 					// This overwrites the image directly, it can't be undone
 					//this->isModified = true;
-					this->updateTiles();
+					this->updateTiles(this->rootTileset);
 					this->canvas->redraw();
 
 				} catch (const png::error& e) {
@@ -484,35 +376,32 @@ class TilesetDocument: public IDocument
 				wxFileName fn(path, wxPATH_NATIVE);
 				::path.lastUsed = fn.GetPath();
 
-				const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
-				unsigned int numTiles = tiles.size();
-				if (this->tilesX > numTiles) this->tilesX = numTiles;
+				// Figure out how large the final image will be
+				EXPORT_DATA params;
+				params.ppng = NULL;
+				params.x = 0;
+				params.y = 0;
+				params.nx = 0;
+				params.maxHeight = 0;
+				params.totalWidth = 0;
+				params.skip = this->offset;
+				params.useMask = false; // not important here
+				params.dimsOnly = true; // only find the image extents
+				this->exportTileset(this->rootTileset, &params);
 
-				// Find the width and height of the output image
-				unsigned int x = 0, y = 0, nx = 0, maxHeight = 0, maxWidth = 0;
-				for (unsigned int i = 0, tileIndex = this->offset; tileIndex < numTiles; i++, tileIndex++) {
-					ImagePtr image = this->tileset->openImage(tiles[tileIndex]);
-					unsigned int width, height;
-					image->getDimensions(&width, &height);
+				// Create an image of the correct dimensions to hold all the tiles
+				png::image<png::index_pixel> png(params.totalWidth,
+					params.y + params.maxHeight);
 
-					if (height > maxHeight) maxHeight = height;
-					x += width;
-					nx++;
-					if (nx >= this->tilesX) {
-						if (x > maxWidth) maxWidth = x;
-						x = 0;
-						nx = 0;
-						y += maxHeight;
-						maxHeight = 0;
-					}
-				}
-
-				png::image<png::index_pixel> png(maxWidth, y + maxHeight);
-
+				// Populate the palette, leaving room for transparency if needed
 				PaletteTablePtr srcPal = this->pal;
 				int palSize = srcPal->size();;
 				bool useMask = true; // drops colour 255
 				assert(srcPal->size() > 0);
+
+				// Add an extra entry for transparency if there's room (otherwise
+				// everything gets shifted up one and colour 255 is lost)
+				if (useMask && (palSize < 256)) palSize++;
 
 				png::palette pngPal(palSize);
 				int j = 0;
@@ -531,46 +420,19 @@ class TilesetDocument: public IDocument
 				) {
 					pngPal[j] = png::color(i->red, i->green, i->blue);
 				}
-
 				png.set_palette(pngPal);
 
-				x = 0; y = 0; nx = 0; maxHeight = 0;
-				for (unsigned int i = 0, tileIndex = this->offset; tileIndex < numTiles; i++, tileIndex++) {
-					if (tiles[tileIndex]->getAttr() & Tileset::SubTileset) continue; // aah! tileset! bad!
-
-					ImagePtr image = tileset->openImage(tiles[tileIndex]);
-					StdImageDataPtr data = image->toStandard();
-					StdImageDataPtr mask = image->toStandardMask();
-
-					unsigned int width, height;
-					image->getDimensions(&width, &height);
-
-					for (unsigned int py = 0; py < height; py++) {
-						for (unsigned int px = 0; px < width; px++) {
-							if (useMask) {
-								if (mask[py*width+px] & 0x01) {
-									png[y+py][x+px] = png::index_pixel(0);
-								} else {
-									png[y+py][x+px] =
-										// +1 to the colour to skip over transparent (#0)
-										png::index_pixel(data[py*width+px] + 1);
-								}
-							} else {
-								png[y+py][x+px] = png::index_pixel(data[py*width+px]);
-							}
-						}
-					}
-
-					if (height > maxHeight) maxHeight = height;
-					x += width;
-					nx++;
-					if (nx >= this->tilesX) {
-						x = 0;
-						nx = 0;
-						y += maxHeight;
-						maxHeight = 0;
-					}
-				}
+				// Write the image data to the PNG canvas
+				params.ppng = &png;
+				params.x = 0;
+				params.y = 0;
+				params.nx = 0;
+				params.maxHeight = 0;
+				params.totalWidth = 0;
+				params.skip = this->offset;
+				params.useMask = useMask;
+				params.dimsOnly = false; // do the actual export now
+				this->exportTileset(this->rootTileset, &params);
 
 				png.write(path.mb_str());
 			}
@@ -586,14 +448,270 @@ class TilesetDocument: public IDocument
 		}
 
 	protected:
-		TilesetCanvas *canvas; ///< Drawing surface
-		TilesetPtr tileset;    ///< Tileset to display
-		PaletteTablePtr pal;   ///< Palette to use
-		TilesetEditor::Settings *settings;
-		TEXTURE_MAP tm;        ///< Map between tile indices and OpenGL texture info
+		typedef struct {
+			png::image<png::index_pixel> *ppng;
+			unsigned int x;
+			unsigned int y;
+			unsigned int nx;
+			unsigned int maxHeight;
+			unsigned int totalWidth; ///< Total width of the final image, in pixels
+			unsigned int skip;  ///< Number of tiles to skip from the start of the export
+			bool useMask;
+			bool dimsOnly; ///< True to only find total image dimensions, false to write to png
+		} EXPORT_DATA;
 
-		unsigned int tilesX;   ///< Number of tiles to draw before wrapping to the next row
-		unsigned int offset;   ///< Number of tiles to skip drawing from the start of the tileset
+		typedef struct {
+			png::image<png::index_pixel> *ppng;
+			signed int paletteMap[256]; ///< -1 means that colour is transparent, 0 == EGA/VGA black, etc.
+
+			// If the tiles are all the same size, images are just imported left
+			// to right, wrapping at the edge of the incoming image.  But this
+			// won't work if the tiles are different sizes, because one really
+			// wide image will make the whole incoming image really wide.  We then
+			// can't tell, for narrow images, how many are stored horizontally.
+			// So in this case we match the width (in number of tiles) the user
+			// has selected in the GUI before doing the import.
+			unsigned int curTilesX;
+
+			unsigned int srcWidth;
+			unsigned int srcHeight;
+			unsigned int srcOffX;
+			unsigned int srcOffY;
+
+			unsigned int lastMaxHeight;
+
+			// Cancel the import if this gets set to true
+			bool abort;
+
+			unsigned int curAlloc; ///< Amount of memory allocated, in pixels/bytes
+			uint8_t *imgData;
+			uint8_t *maskData;
+			StdImageDataPtr stdimg;
+			StdImageDataPtr stdmask;
+		} IMPORT_DATA;
+
+		unsigned int allocateTextures(const TilesetPtr& tileset, unsigned int j = 0)
+		{
+			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
+			for (Tileset::VC_ENTRYPTR::const_iterator
+				i = tiles.begin(); i != tiles.end(); i++)
+			{
+				if ((*i)->getAttr() & Tileset::EmptySlot) continue;
+				if ((*i)->getAttr() & Tileset::SubTileset) {
+					TilesetPtr subTileset = tileset->openTileset(*i);
+					j = this->allocateTextures(subTileset, j);
+					continue;
+				}
+
+				Texture t;
+				glGenTextures(1, &t.glid);
+				this->tm[j] = t;
+				j++;
+			}
+			return j;
+		}
+
+		void exportTileset(const TilesetPtr& tileset, EXPORT_DATA *params)
+		{
+			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
+			for (Tileset::VC_ENTRYPTR::const_iterator
+				i = tiles.begin(); i != tiles.end(); i++)
+			{
+				if ((*i)->getAttr() & Tileset::EmptySlot) continue;
+				if ((*i)->getAttr() & Tileset::SubTileset) {
+					TilesetPtr subTileset = tileset->openTileset(*i);
+					this->exportTileset(subTileset, params);
+					continue;
+				}
+				if (params->skip) {
+					// Skip the first few tiles if requested
+					params->skip--;
+					continue;
+				}
+
+				ImagePtr image = tileset->openImage(*i);
+				StdImageDataPtr data = image->toStandard();
+				StdImageDataPtr mask = image->toStandardMask();
+
+				unsigned int width, height;
+				image->getDimensions(&width, &height);
+
+				if (!params->dimsOnly) {
+					// Write the image data
+					png::image<png::index_pixel>& png = *params->ppng;
+					for (unsigned int py = 0; py < height; py++) {
+						for (unsigned int px = 0; px < width; px++) {
+							if (params->useMask) {
+								if (mask[py*width+px] & 0x01) {
+									png[params->y+py][params->x+px] = png::index_pixel(0);
+								} else {
+									png[params->y+py][params->x+px] =
+										// +1 to the colour to skip over transparent (#0)
+										png::index_pixel(data[py*width+px] + 1);
+								}
+							} else {
+								png[params->y+py][params->x+px] = png::index_pixel(data[py*width+px]);
+							}
+						}
+					}
+				}
+
+				if (height > params->maxHeight) params->maxHeight = height;
+				params->x += width;
+				params->nx++;
+				if (params->nx >= this->tilesX) {
+					if (params->x > params->totalWidth) params->totalWidth = params->x;
+					params->x = 0;
+					params->nx = 0;
+					params->y += params->maxHeight;
+					params->maxHeight = 0;
+				}
+			}
+			return;
+		}
+
+		void importTileset(const TilesetPtr& tileset, IMPORT_DATA *params)
+		{
+			png::image<png::index_pixel>& png = *params->ppng;
+			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
+
+			unsigned int defaultTileWidth, defaultTileHeight;
+			tileset->getTilesetDimensions(&defaultTileWidth,
+				&defaultTileHeight);
+			unsigned int thisTileWidth = defaultTileWidth;
+			unsigned int thisTileHeight = defaultTileHeight;
+
+			unsigned int targetAlloc = defaultTileWidth * defaultTileHeight;
+			if (targetAlloc > params->curAlloc) {
+				// Buffer needs to be enlarged
+				params->imgData = new uint8_t[targetAlloc];
+				params->maskData = new uint8_t[targetAlloc];
+				params->stdimg.reset(params->imgData);
+				params->stdmask.reset(params->maskData);
+				params->curAlloc = targetAlloc;
+			} // else previous buffer is big enough, reuse it
+
+			for (Tileset::VC_ENTRYPTR::const_iterator
+				i = tiles.begin(); i != tiles.end(); i++
+			) {
+				// We should really overwrite these with the next tile, but since it's
+				// empty we don't know how large it will be, and it wouldn't have been
+				// exported anyway.  So for now leave it, and it will have to be overwritten
+				// specifically some other way.
+				if ((*i)->getAttr() & Tileset::EmptySlot) continue;
+				if ((*i)->getAttr() & Tileset::SubTileset) {
+					TilesetPtr subTileset = tileset->openTileset(*i);
+					this->importTileset(subTileset, params);
+					if (params->abort) return;
+					continue;
+				}
+
+				ImagePtr img = tileset->openImage(*i);
+
+				if ((defaultTileWidth == 0) || (defaultTileHeight == 0)) {
+					// All tiles are different sizes
+					img->getDimensions(&thisTileWidth, &thisTileHeight);
+					unsigned int targetAlloc = thisTileWidth * thisTileHeight;
+					if (targetAlloc > params->curAlloc) {
+						// Buffer needs to be enlarged
+						params->imgData = new uint8_t[targetAlloc];
+						params->maskData = new uint8_t[targetAlloc];
+						params->stdimg.reset(params->imgData);
+						params->stdmask.reset(params->maskData);
+						params->curAlloc = targetAlloc;
+					} // else previous buffer is big enough, reuse it
+
+					if (params->curTilesX >= this->tilesX) {
+						// We've now imported the same number of tiles on this row as
+						// the user is viewing, so wrap to the next row.
+						params->srcOffX = 0;
+						params->srcOffY += params->lastMaxHeight;
+						params->lastMaxHeight = thisTileHeight;
+						params->curTilesX = 0;
+					}
+				} else {
+					// Figure out the location of this tile in the source image
+					if (params->srcOffX + thisTileWidth > params->srcWidth) {
+						// This tile would go past the right-hand edge of the source, so
+						// wrap around to the next row.
+						params->srcOffX = 0;
+						params->srcOffY += params->lastMaxHeight;
+						params->lastMaxHeight = thisTileHeight;
+						params->curTilesX = 0;
+					}
+				}
+
+				if (params->srcOffX + thisTileWidth > params->srcWidth) {
+					// This tile would go past the right edge of the source, so
+					// warn the user.
+					wxMessageDialog dlg(this, _T("The image being imported is not "
+						"wide enough to contain data for all the tiles being "
+						"imported.  The imported tileset is likely to appear "
+						"corrupted.\n\n"
+						"This can happen if the tileset contains images of varying "
+						"sizes, and it was exported with a different number of "
+						"horizontal tiles displayed.  In this case, you must use the "
+						"toolbar buttons to arrange the tileset such that it is "
+						"showing the same number of tiles horizontally as it was "
+						"when originally exported.  You should then be able to "
+						"re-import the image with no problems.\n\n"
+						"For example, if the tileset was arranged to show five tiles "
+						"across when it was exported, you must now arrange it to show "
+						"five tiles across again, before performing the import."),
+						_T("Import tileset"), wxOK | wxICON_WARNING);
+					dlg.ShowModal();
+					params->abort = true;
+					return;
+				}
+				if (params->srcOffY + thisTileHeight > params->srcHeight) {
+					// This tile would go past the bottom edge of the source, so we
+					// have to stop.
+					wxMessageDialog dlg(this, _T("Not all tiles could be imported, "
+						"as the .png image was smaller than the full tileset.  Only "
+						"complete tiles have been imported.\n\n"
+						"You should not have this problem if you start work on an "
+						"exported image, and do not resize the image in your editor."),
+						_T("Import tileset"), wxOK | wxICON_WARNING);
+					dlg.ShowModal();
+					params->abort = true;
+					return;
+				}
+
+				// Update the height of the largest tile in this row
+				if (thisTileHeight > params->lastMaxHeight) params->lastMaxHeight = thisTileHeight;
+
+				for (unsigned int y = 0; y < thisTileHeight; y++) {
+					for (unsigned int x = 0; x < thisTileWidth; x++) {
+						uint8_t pixel = png[params->srcOffY + y][params->srcOffX + x];
+						int destPixel = params->paletteMap[pixel];
+						if (destPixel == -1) {
+							params->maskData[y * thisTileWidth + x] = 0x01; // transparent
+							params->imgData[y * thisTileWidth + x] = 0x00; // just in case
+						} else {
+							params->maskData[y * thisTileWidth + x] = 0x00; // opaque
+							params->imgData[y * thisTileWidth + x] = destPixel;
+						}
+					}
+				}
+
+				img->fromStandard(params->stdimg, params->stdmask);
+
+				params->srcOffX += thisTileWidth;
+				params->curTilesX++;
+
+			} // for (all tiles)
+			return;
+		}
+
+	protected:
+		TilesetCanvas *canvas;  ///< Drawing surface
+		TilesetPtr rootTileset; ///< Tileset to display
+		PaletteTablePtr pal;    ///< Palette to use
+		TilesetEditor::Settings *settings;
+		TEXTURE_MAP tm;         ///< Map between tile indices and OpenGL texture info
+
+		unsigned int tilesX;    ///< Number of tiles to draw before wrapping to the next row
+		unsigned int offset;    ///< Number of tiles to skip drawing from the start of the tileset
 
 		enum {
 			IDC_INC_WIDTH = wxID_HIGHEST + 1,
@@ -688,7 +806,20 @@ IDocument *TilesetEditor::openObject(const GameObjectPtr& o)
 		}
 		if ((!pal) || (pal->size() == 0)) {
 			// Need to use the default palette
-			pal = createPalette_DefaultVGA();
+			switch (tileset->getCaps() & Tileset::ColourDepthMask) {
+				case Tileset::ColourDepthVGA:
+					pal = createPalette_DefaultVGA();
+					break;
+				case Tileset::ColourDepthEGA:
+					pal = createPalette_DefaultEGA();
+					break;
+				case Tileset::ColourDepthCGA:
+					pal = createPalette_CGA(CGAPal_CyanMagenta);
+					break;
+				case Tileset::ColourDepthMono:
+					pal = createPalette_DefaultMono();
+					break;
+			}
 		}
 
 		return new TilesetDocument(this->studio, &this->settings, tileset, pal);
