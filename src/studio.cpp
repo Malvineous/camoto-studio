@@ -143,11 +143,11 @@ Studio::Studio(bool isStudio)
 	menuHelp->Append(wxID_ABOUT, _("&About..."));
 
 	this->menubar = new wxMenuBar();
-	menubar->Append(menuFile, _("&File"));
-	menubar->Append(menuView, _("&View"));
-	menubar->Append(menuTest, _("&Test"));
-	menubar->Append(menuHelp, _("&Help"));
-	this->SetMenuBar(menubar);
+	this->menubar->Append(menuFile, _("&File"));
+	this->menubar->Append(menuView, _("&View"));
+	this->menubar->Append(menuTest, _("&Test"));
+	this->menubar->Append(menuHelp, _("&Help"));
+	this->SetMenuBar(this->menubar);
 
 	this->status = this->CreateStatusBar(1, wxST_SIZEGRIP);
 	this->status->SetStatusText(_("Ready"));
@@ -227,6 +227,24 @@ Studio::Studio(bool isStudio)
 
 	this->aui.Update();
 	this->setControlStates();
+
+	wxMessageDialog dlg(NULL, _(
+		"Hi, Malvineous here.  Thanks for trying out Camoto Studio!  Please "
+		"remember that this a very early preview release - it's not even anywhere "
+		"near what you might call a beta version.  There are still heaps of things "
+		"that are unfinished or broken.  This is very definitely a 'work in "
+		"progress.'  If you are brave (foolish?) enough to actually try to make a "
+		"mod with this version of Camoto, make sure you back up your project "
+		"folder regularly in case your whole mod gets corrupted for some reason.\n\n"
+		"There is still a huge amount of work to do before it becomes really "
+		"user-friendly, so please bear with me and try not to get too frustrated "
+		"that your favourite game/feature doesn't work yet.  If you run into "
+		"problems (which aren't on the to-do list) by all means stop by the forum "
+		"to discuss:\n\nhttp://www.classicdosgames.com/forum/viewforum.php?f=25\n\n"
+		"With your expectations suitably lowered, enjoy! :-)"),
+		_("Welcome"),
+		wxOK | wxICON_WARNING);
+	dlg.ShowModal();
 }
 
 Studio::~Studio()
