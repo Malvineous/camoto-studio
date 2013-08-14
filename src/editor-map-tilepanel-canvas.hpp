@@ -50,13 +50,38 @@ class TilePanelCanvas: public MapBaseCanvas
 		void setOffset(unsigned int o);
 
 		void onRightClick(wxMouseEvent& ev);
+		virtual void onMouseMove(wxMouseEvent& ev);
+		void clampScroll();
+		virtual void calcCurrentExtents();
 
 	protected:
+		typedef boost::function<bool (int pixelX, int pixelY, const
+			camoto::gamemaps::Map2D::Layer::ItemPtr item, const Texture *texture)>
+			fn_foralltiles;
+
+		void drawCanvas();
+		void forAllTiles(fn_foralltiles fnCallback, bool inclHidden);
+
+		bool updateExtent(int pixelX, int pixelY,
+			const camoto::gamemaps::Map2D::Layer::ItemPtr item,
+			const Texture *texture);
+
+		bool testSelectMapItem(MapCanvas *mapCanvas,
+			camoto::gamemaps::Map2D::Layer::ItemPtrVector *selItems, int pointerX,
+			int pointerY, int pixelX, int pixelY,
+			const camoto::gamemaps::Map2D::Layer::ItemPtr item,
+			const Texture *texture);
+
 		wxGLContext *glcx;
 		TilePanel *tilePanel;
 
 		unsigned int tilesX;  ///< Number of tiles to draw before wrapping to the next row
 		unsigned int offset;  ///< Number of tiles to skip drawing from the start of the tileset
+
+		unsigned int fullWidth;  ///< Width of all tiles in current arrangement, in pixels
+		unsigned int fullHeight; ///< Height of all tiles in current arrangement, in pixels
+		unsigned int maxScrollX; ///< Maximum distance permitted to scroll horizontally
+		unsigned int maxScrollY; ///< Maximum distance permitted to scroll vertically
 
 		DECLARE_EVENT_TABLE();
 };

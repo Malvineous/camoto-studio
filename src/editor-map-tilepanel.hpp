@@ -38,16 +38,43 @@ class TilePanel: public IToolPanel
 		virtual void loadSettings(Project *proj);
 		virtual void saveSettings(Project *proj) const;
 
+		void onZoomSmall(wxCommandEvent& ev);
+		void onZoomNormal(wxCommandEvent& ev);
+		void onZoomLarge(wxCommandEvent& ev);
+		void onToggleGrid(wxCommandEvent& ev);
+		void onIncWidth(wxCommandEvent& ev);
+		void onDecWidth(wxCommandEvent& ev);
+		void onIncOffset(wxCommandEvent& ev);
+		void onDecOffset(wxCommandEvent& ev);
+
+		/// Called from the layer panel when the primary layer has been changed.
+		void notifyLayerChanged();
+
 	protected:
+		void setZoomFactor(int f);
+
+		/// View settings for this editor which are saved with the project.
+		struct Settings {
+			int zoomFactor; ///< Amount of zoom (1,2,4)
+		};
+		Settings settings;
+
 		MapDocument *doc;
 		TilePanelCanvas *canvas;
+		wxToolBar *tb;
+
+		unsigned int tilesX;    ///< Number of tiles to draw before wrapping to the next row
+		unsigned int offset;    ///< Number of tiles to skip drawing from the start of the tileset
 
 		friend TilePanelCanvas;
 
 		enum {
-			IDC_LAYER = wxID_HIGHEST + 1,
+			IDC_TOGGLEGRID = wxID_HIGHEST + 1,
+			IDC_INC_WIDTH,
+			IDC_DEC_WIDTH,
+			IDC_INC_OFFSET,
+			IDC_DEC_OFFSET,
 		};
-
 		DECLARE_EVENT_TABLE();
 };
 

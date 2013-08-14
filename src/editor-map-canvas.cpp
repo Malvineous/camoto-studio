@@ -84,39 +84,32 @@ BEGIN_EVENT_TABLE(MapCanvas, MapBaseCanvas)
 	EVT_PAINT(MapCanvas::onPaint)
 	EVT_ERASE_BACKGROUND(MapCanvas::onEraseBG)
 	EVT_SIZE(MapCanvas::onResize)
-	EVT_MOTION(MapCanvas::onMouseMove)
 	EVT_LEFT_DOWN(MapCanvas::onMouseDownLeft)
 	EVT_LEFT_UP(MapCanvas::onMouseUpLeft)
 	EVT_RIGHT_DOWN(MapCanvas::onMouseDownRight)
 	EVT_RIGHT_UP(MapCanvas::onMouseUpRight)
-	EVT_MIDDLE_DOWN(MapCanvas::onMouseDownMiddle)
-	EVT_MIDDLE_UP(MapCanvas::onMouseUpMiddle)
-	EVT_MOUSE_CAPTURE_LOST(MapCanvas::onMouseCaptureLost)
 	EVT_KEY_DOWN(MapCanvas::onKeyDown)
 END_EVENT_TABLE()
 
 MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 	TilesetCollectionPtr tilesets, int *attribList, const MapObjectVector *mapObjects)
 	:	MapBaseCanvas(parent, attribList),
-	  doc(parent),
-	  map(map),
-	  glcx(glcx),
-	  tilesets(tilesets),
-	  mapObjects(mapObjects),
-	  gridVisible(false),
-	  editingMode(TileMode),
-	  primaryLayer(0),
-	  scrollFromX(-1),
-	  // scrollFromY doesn't matter when X is -1
-	  selectFromX(-1),
-	  // selectFromY doesn't matter when X is -1
-	  actionFromX(-1),
-	  // actionFromY doesn't matter when X is -1
-	  pointerX(0),
-	  pointerY(0),
-	  resizeX(0),
-	  resizeY(0),
-	  nearestPathPointOff(-1)
+		doc(parent),
+		map(map),
+		glcx(glcx),
+		tilesets(tilesets),
+		mapObjects(mapObjects),
+		editingMode(TileMode),
+		primaryLayer(0),
+		selectFromX(-1),
+		// selectFromY doesn't matter when X is -1
+		actionFromX(-1),
+		// actionFromY doesn't matter when X is -1
+		pointerX(0),
+		pointerY(0),
+		resizeX(0),
+		resizeY(0),
+		nearestPathPointOff(-1)
 {
 	assert(tilesets->size() > 0);
 	// Initial state is all layers visible and active
@@ -380,13 +373,6 @@ void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 	return;
 }
 
-void MapCanvas::showGrid(bool visible)
-{
-	this->gridVisible = visible;
-	this->redraw();
-	return;
-}
-
 void MapCanvas::setTileMode()
 {
 	this->editingMode = TileMode;
@@ -494,6 +480,8 @@ void MapCanvas::redraw()
 	wxSize winSize = this->GetClientSize();
 	winSize.x /= this->zoomFactor;
 	winSize.y /= this->zoomFactor;
+
+	this->needRedraw = false;
 
 	// Limit scroll range (this is here for efficiency as we already have the
 	// window size, but it means you can scroll past the bounds of the map
@@ -649,8 +637,8 @@ void MapCanvas::redraw()
 				glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 			}
 
-			this->drawMapItem(pixelX, pixelY, tileWidth, tileHeight, *c,
-				this->textureMap[layerNum][(*c)->code].glid);
+			this->drawMapItem(pixelX, pixelY, *c,
+				&this->textureMap[layerNum][(*c)->code]);
 		} // for (each item in layer)
 
 		// Turn off any remaining red selection colour
@@ -1035,20 +1023,7 @@ void MapCanvas::redraw()
 		unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
-		glEnable(GL_COLOR_LOGIC_OP);
-		glLogicOp(GL_AND_REVERSE);
-		glColor4f(0.3, 0.3, 0.3, 0.5);
-		glBegin(GL_LINES);
-		for (int x = -offX % tileWidth; x < winSize.x; x += tileWidth) {
-			glVertex2i(x, 0);
-			glVertex2i(x, winSize.y);
-		}
-		for (int y = -offY % tileHeight; y < winSize.y; y += tileHeight) {
-			glVertex2i(0,   y);
-			glVertex2i(winSize.x, y);
-		}
-		glEnd();
-		glDisable(GL_COLOR_LOGIC_OP);
+		this->drawGrid(tileWidth, tileHeight);
 	}
 /*
 	if (this->editingMode == ObjectMode) {
@@ -1405,8 +1380,6 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 	this->pointerX = ev.m_x;
 	this->pointerY = ev.m_y;
 
-	bool needRedraw = false;
-
 	int mapPointerX = CLIENT_TO_MAP_X(this->pointerX);
 	int mapPointerY = CLIENT_TO_MAP_Y(this->pointerY);
 
@@ -1416,8 +1389,8 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 		unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
-		int pointerTileX = mapPointerX / tileWidth;
-		int pointerTileY = mapPointerY / tileHeight;
+		int pointerTileX = mapPointerX / (signed)tileWidth;
+		int pointerTileY = mapPointerY / (signed)tileHeight;
 
 		// If the shift key is held down while the mouse is being moved, also
 		// display the tile code under the cursor.  This isn't done all the time
@@ -1455,7 +1428,7 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 			switch (this->editingMode) {
 				case TileMode: {
 					this->putSelection(ev.m_x, ev.m_y);
-					needRedraw = true;
+					this->needRedraw = true;
 					break;
 				}
 			}
@@ -1464,7 +1437,7 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 
 			// Redraw the selection area if the user is right-dragging
 			if (this->selectFromX >= 0) {
-				needRedraw = true;
+				this->needRedraw = true;
 
 			} else {
 				// Not selecting
@@ -1472,7 +1445,7 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 					case TileMode:
 						// If there's a current selection, overlay it
 						if (this->haveSelection()) {
-							needRedraw = true;
+							this->needRedraw = true;
 						}
 						break;
 					case ObjectMode:
@@ -1483,7 +1456,7 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 						} else {
 							start = this->objects.begin();
 						}
-						if (this->focusObject(start)) needRedraw = true;
+						if (this->focusObject(start)) this->needRedraw = true;
 						break;
 				}
 			}
@@ -1496,11 +1469,11 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 			// There's a selection, so redraw on every mouse movement because the
 			// preview will need to be updated to show where the path will go on
 			// a left-click.
-			needRedraw = true;
+			this->needRedraw = true;
 
 		} else if (this->selectFromX >= 0) {
 			// The user is right-dragging, redraw the selection box
-			needRedraw = true;
+			this->needRedraw = true;
 
 		} else {
 			// No selection or right dragging, see how close the mouse is
@@ -1544,7 +1517,7 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 							this->nearestPathPoint.start = stnum;
 							this->nearestPathPoint.point = ptnum;
 							this->nearestPathPointOff = rPointerY - y1;
-							needRedraw = true;
+							this->needRedraw = true;
 							break;
 						}
 
@@ -1561,7 +1534,7 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 				// There is currently a path point highlight on the screen but the mouse
 				// has now moved too far away, so we need to do a final redraw to hide
 				// the highlight.
-				needRedraw = true;
+				this->needRedraw = true;
 				this->updateHelpText(); // hide mention of the key to add a point
 			} else if ((!bWasVisible) && (this->nearestPathPointOff >= 0)) {
 				// The mouse has just gotten close enough to for the highlight to
@@ -1572,14 +1545,9 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 		}
 	}
 
-	// Scroll the map if the user is middle-dragging
-	if (this->scrollFromX >= 0) {
-		this->offX = this->scrollFromX - ev.m_x;
-		this->offY = this->scrollFromY - ev.m_y;
-		needRedraw = true;
-	}
+	this->MapBaseCanvas::onMouseMove(ev);
 
-	if (needRedraw) this->redraw();
+	if (this->needRedraw) this->redraw();
 	return;
 }
 
@@ -1867,24 +1835,9 @@ void MapCanvas::onMouseUpRight(wxMouseEvent& ev)
 	return;
 }
 
-void MapCanvas::onMouseDownMiddle(wxMouseEvent& ev)
-{
-	this->scrollFromX = this->offX + ev.m_x;
-	this->scrollFromY = this->offY + ev.m_y;
-	this->CaptureMouse();
-	return;
-}
-
-void MapCanvas::onMouseUpMiddle(wxMouseEvent& ev)
-{
-	this->scrollFromX = -1;
-	this->ReleaseMouse();
-	return;
-}
-
 void MapCanvas::onMouseCaptureLost(wxMouseCaptureLostEvent& ev)
 {
-	this->scrollFromX = -1;
+	this->MapBaseCanvas::onMouseCaptureLost(ev);
 	this->selectFromX = -1;
 	this->updateHelpText();
 	return;

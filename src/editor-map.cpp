@@ -40,8 +40,9 @@ using namespace camoto::gamegraphics;
 class LayerPanel: public IToolPanel
 {
 	public:
-		LayerPanel(Studio *parent)
-			:	IToolPanel(parent)
+		LayerPanel(Studio *parent, TilePanel *tilePanel)
+			:	IToolPanel(parent),
+				tilePanel(tilePanel)
 		{
 			this->list = new wxListCtrl(this, IDC_LAYER, wxDefaultPosition,
 				wxDefaultSize, wxLC_REPORT | wxBORDER_NONE |
@@ -185,6 +186,7 @@ class LayerPanel: public IToolPanel
 
 			int layerIndex = ev.GetData();
 			this->doc->canvas->setPrimaryLayer(layerIndex);
+			this->tilePanel->notifyLayerChanged();
 			return;
 		}
 
@@ -245,6 +247,7 @@ class LayerPanel: public IToolPanel
 		}
 
 	protected:
+		TilePanel *tilePanel;
 		wxListCtrl *list;
 		MapDocument *doc;
 
@@ -279,8 +282,9 @@ MapEditor::~MapEditor()
 std::vector<IToolPanel *> MapEditor::createToolPanes() const
 {
 	std::vector<IToolPanel *> panels;
-	panels.push_back(new LayerPanel(this->studio));
-	panels.push_back(new TilePanel(this->studio));
+	TilePanel *tilePanel = new TilePanel(this->studio);
+	panels.push_back(new LayerPanel(this->studio, tilePanel));
+	panels.push_back(tilePanel);
 	return panels;
 }
 

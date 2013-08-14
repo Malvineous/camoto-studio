@@ -121,16 +121,6 @@ class MapCanvas: public MapBaseCanvas
 
 		~MapCanvas();
 
-		/// Show/hide the tile grid.
-		/**
-		 * @param visible
-		 *   true to show the grid, false to hide it.
-		 *
-		 * @note Grid change is immediately visible as GL surface is redrawn before
-		 *   returning.
-		 */
-		void showGrid(bool visible);
-
 		/// Switch to tile editing mode.
 		void setTileMode();
 
@@ -204,7 +194,7 @@ class MapCanvas: public MapBaseCanvas
 		 */
 		void putSelection(int x, int y);
 
-		void onMouseMove(wxMouseEvent& ev);
+		virtual void onMouseMove(wxMouseEvent& ev);
 
 		/// Perform primary action
 		void onMouseDownLeft(wxMouseEvent& ev);
@@ -217,12 +207,6 @@ class MapCanvas: public MapBaseCanvas
 
 		/// End selection
 		void onMouseUpRight(wxMouseEvent& ev);
-
-		/// Begin drag scroll
-		void onMouseDownMiddle(wxMouseEvent& ev);
-
-		/// End drag scroll
-		void onMouseUpMiddle(wxMouseEvent& ev);
 
 		void onMouseCaptureLost(wxMouseCaptureLostEvent& ev);
 
@@ -257,12 +241,8 @@ class MapCanvas: public MapBaseCanvas
 
 		std::vector<TEXTURE_MAP> textureMap;
 
-		bool gridVisible; ///< Draw a grid over the active layer?
 		enum {TileMode, ObjectMode} editingMode; ///< Current editing mode
 		unsigned int primaryLayer; ///< Main layer used for things like gridline dimensions
-
-		int scrollFromX;  ///< Mouse X pos when scroll/drag started, or -1 if not dragging
-		int scrollFromY;  ///< Mouse Y pos of scrolling origin
 
 		int selectFromX;  ///< Mouse X pos when selecting started, or -1 if not selecting
 		int selectFromY;  ///< Mouse Y pos of selection origin
@@ -307,7 +287,6 @@ class MapCanvas: public MapBaseCanvas
 		friend class TilePanelCanvas;
 
 		DECLARE_EVENT_TABLE();
-
 };
 
 #endif // _EDITOR_MAP_CANVAS_HPP_

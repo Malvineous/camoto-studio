@@ -31,12 +31,23 @@ using namespace camoto;
 using namespace camoto::gamemaps;
 using namespace camoto::gamegraphics;
 
+BEGIN_EVENT_TABLE(MapBaseCanvas, wxGLCanvas)
+	EVT_MOTION(MapBaseCanvas::onMouseMove)
+	EVT_MIDDLE_DOWN(MapBaseCanvas::onMouseDownMiddle)
+	EVT_MIDDLE_UP(MapBaseCanvas::onMouseUpMiddle)
+	EVT_MOUSE_CAPTURE_LOST(MapBaseCanvas::onMouseCaptureLost)
+END_EVENT_TABLE()
+
 MapBaseCanvas::MapBaseCanvas(wxWindow *parent, int *attribList)
-	: wxGLCanvas(parent, wxID_ANY, attribList, wxDefaultPosition,
-	  	wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS),
-	  zoomFactor(2),
-	  offX(0),
-	  offY(0)
+	:	wxGLCanvas(parent, wxID_ANY, attribList, wxDefaultPosition,
+			wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS),
+		zoomFactor(2),
+		offX(0),
+		offY(0),
+		gridVisible(false),
+		scrolling(false),
+		scrollFromX(0),
+		scrollFromY(0)
 {
 }
 
@@ -46,6 +57,9 @@ MapBaseCanvas::~MapBaseCanvas()
 
 void MapBaseCanvas::setZoomFactor(int f)
 {
+	// Don't want any divisions by zero!
+	assert(f != 0);
+
 	// Keep the viewport centred after the zoom
 	wxSize s = this->GetClientSize();
 	int centreX = s.x / 2, centreY = s.y / 2;
@@ -54,13 +68,49 @@ void MapBaseCanvas::setZoomFactor(int f)
 	this->zoomFactor = f;
 	this->offX = absX - centreX / this->zoomFactor;
 	this->offY = absY - centreY / this->zoomFactor;
+
+	this->calcCurrentExtents();
 	this->redraw();
 	return;
 }
 
-void MapBaseCanvas::drawMapItem(int pixelX, int pixelY, unsigned int tileWidth,
-	unsigned int tileHeight, const Map2D::Layer::ItemPtr& item, GLuint textureId)
+void MapBaseCanvas::setGridVisible(bool visible)
 {
+	this->gridVisible = visible;
+	this->redraw();
+	return;
+}
+
+void MapBaseCanvas::drawGrid(unsigned int divWidth, unsigned int divHeight)
+{
+	wxSize winSize = this->GetClientSize();
+	winSize.x /= this->zoomFactor;
+	winSize.y /= this->zoomFactor;
+
+	glEnable(GL_COLOR_LOGIC_OP);
+	glLogicOp(GL_AND_REVERSE);
+	glColor4f(0.3, 0.3, 0.3, 0.5);
+	glBegin(GL_LINES);
+	for (int x = -this->offX % divWidth; x < winSize.x; x += divWidth) {
+		glVertex2i(x, 0);
+		glVertex2i(x, winSize.y);
+	}
+	for (int y = -this->offY % divHeight; y < winSize.y; y += divHeight) {
+		glVertex2i(0,   y);
+		glVertex2i(winSize.x, y);
+	}
+	glEnd();
+	glDisable(GL_COLOR_LOGIC_OP);
+	return;
+}
+
+bool MapBaseCanvas::drawMapItem(int pixelX, int pixelY,
+	const Map2D::Layer::ItemPtr item, const Texture *texture)
+{
+	const unsigned int& tileWidth = texture->width;
+	const unsigned int& tileHeight = texture->height;
+	const GLuint& textureId = texture->glid;
+
 	int x1 = pixelX - this->offX;
 	int x2 = x1 + tileWidth;
 	int xt = tileWidth/4;
@@ -254,5 +304,47 @@ void MapBaseCanvas::drawMapItem(int pixelX, int pixelY, unsigned int tileWidth,
 		glLineWidth(1.0);
 	}
 
+	return false;
+}
+
+void MapBaseCanvas::onMouseMove(wxMouseEvent& ev)
+{
+	// Scroll the map if the user is middle-dragging
+	if (this->scrolling) {
+		this->offX = (this->scrollFromX - ev.m_x) / this->zoomFactor;
+		this->offY = (this->scrollFromY - ev.m_y) / this->zoomFactor;
+		this->needRedraw = true;
+	}
+	return;
+}
+
+void MapBaseCanvas::onMouseDownMiddle(wxMouseEvent& ev)
+{
+	this->scrolling = true;
+	this->scrollFromX = this->offX * this->zoomFactor + ev.m_x;
+	this->scrollFromY = this->offY * this->zoomFactor + ev.m_y;
+	this->CaptureMouse();
+	return;
+}
+
+void MapBaseCanvas::onMouseUpMiddle(wxMouseEvent& ev)
+{
+	this->scrollFromX = 0;
+	this->scrollFromY = 0;
+	this->scrolling = false;
+	this->ReleaseMouse();
+	return;
+}
+
+void MapBaseCanvas::onMouseCaptureLost(wxMouseCaptureLostEvent& ev)
+{
+	this->scrollFromX = 0;
+	this->scrollFromY = 0;
+	this->scrolling = false;
+	return;
+}
+
+void MapBaseCanvas::calcCurrentExtents()
+{
 	return;
 }

@@ -107,7 +107,7 @@ MapDocument::MapDocument(Studio *parent, MapEditor::Settings *settings,
 		case 4: tb->ToggleTool(wxID_ZOOM_IN, true); break;
 			// default: don't select anything, just in case!
 	}
-	this->canvas->setZoomFactor(this->settings->zoomFactor);
+	this->setZoomFactor(this->settings->zoomFactor);
 
 	tb->Realize();
 
@@ -150,7 +150,7 @@ void MapDocument::onZoomLarge(wxCommandEvent& ev)
 
 void MapDocument::onToggleGrid(wxCommandEvent& ev)
 {
-	this->canvas->showGrid(ev.IsChecked());
+	this->canvas->setGridVisible(ev.IsChecked());
 	return;
 }
 

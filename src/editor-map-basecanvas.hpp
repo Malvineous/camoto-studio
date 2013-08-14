@@ -23,6 +23,7 @@
 
 #include <wx/glcanvas.h>
 #include <camoto/gamemaps.hpp>
+#include "editor-tileset-canvas.hpp" // for Texture
 
 // Some colours (R, G, B, A)
 #define CLR_ATTR_BG           1.0, 0.0, 1.0, 1.0  ///< Attribute indicator background
@@ -49,19 +50,63 @@ class MapBaseCanvas: public wxGLCanvas
 		 * @param f
 		 *  Zoom multiplier.  1 == pixel perfect, 2 == double size.
 		 */
-		void setZoomFactor(int f);
+		virtual void setZoomFactor(int f);
+
+		/// Show/hide the tile grid.
+		/**
+		 * @param visible
+		 *   true to show the grid, false to hide it.
+		 *
+		 * @note Grid change is immediately visible as GL surface is redrawn before
+		 *   returning.
+		 */
+		void setGridVisible(bool visible);
+
+		/// Draw the tile grid onto the OpenGL canvas.
+		/**
+		 * @param divWidth
+		 *   Horizontal distance between vertical gridlines, in pixels, ignoring zoom level.
+		 *
+		 * @param divHeight
+		 *   Vertical distance between horizontal gridlines, in pixels, ignoring zoom level.
+		 */
+		void drawGrid(unsigned int divWidth, unsigned int divHeight);
+
+		/// Handle drag scroll
+		virtual void onMouseMove(wxMouseEvent& ev);
+
+		/// Begin drag scroll
+		void onMouseDownMiddle(wxMouseEvent& ev);
+
+		/// End drag scroll
+		void onMouseUpMiddle(wxMouseEvent& ev);
+
+		/// Abort drag scroll
+		void onMouseCaptureLost(wxMouseCaptureLostEvent& ev);
+
+		/// Recalculate the current scrolling extents.  Default is a no-op.
+		virtual void calcCurrentExtents();
 
 		/// Redraw the document.  Used after toggling layers.
 		virtual void redraw() = 0;
 
 	protected:
-		void drawMapItem(int pixelX, int pixelY, unsigned int tileWidth,
-			unsigned int tileHeight, const camoto::gamemaps::Map2D::Layer::ItemPtr& item,
-			GLuint textureId);
+		bool drawMapItem(int pixelX, int pixelY,
+			const camoto::gamemaps::Map2D::Layer::ItemPtr item,
+			const Texture *texture);
 
 		int zoomFactor;   ///< Zoom level (1 == 1:1, 2 == 2:1/doublesize, etc.)
 		int offX;         ///< Current X position (in pixels) to draw at (0,0)
 		int offY;         ///< Current Y position (in pixels) to draw at (0,0)
+		bool gridVisible; ///< Draw a grid when requested?
+		bool needRedraw;  ///< Do we need to redraw at the end of processing?
+
+	private:
+		bool scrolling;   ///< True if currently scrolling with middle-drag
+		int scrollFromX;  ///< Mouse X pos when scroll/drag started, or -1 if not dragging
+		int scrollFromY;  ///< Mouse Y pos of scrolling origin
+
+		DECLARE_EVENT_TABLE();
 };
 
 #endif // _EDITOR_MAP_BASECANVAS_HPP_
