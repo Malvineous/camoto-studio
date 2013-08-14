@@ -123,6 +123,10 @@ void TilePanel::loadSettings(Project *proj)
 {
 	proj->config.Read(_T("editor-map-tilepanel/zoom"),
 		&this->settings.zoomFactor, 1);
+	proj->config.Read(_T("editor-map-tilepanel/tilesX"),
+		(int *)&this->canvas->tilesX, 0);
+	proj->config.Read(_T("editor-map-tilepanel/offset"),
+		(int *)&this->canvas->offset, 0);
 
 	// Update the UI
 	switch (this->settings.zoomFactor) {
@@ -139,6 +143,10 @@ void TilePanel::saveSettings(Project *proj) const
 {
 	proj->config.Write(_T("editor-map-tilepanel/zoom"),
 		this->settings.zoomFactor);
+	proj->config.Write(_T("editor-map-tilepanel/tilesX"),
+		(signed)this->canvas->tilesX);
+	proj->config.Write(_T("editor-map-tilepanel/offset"),
+		(signed)this->canvas->offset);
 	return;
 }
 
