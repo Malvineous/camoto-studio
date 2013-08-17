@@ -111,6 +111,8 @@ MusicDocument::MusicDocument(MusicEditor *editor, camoto::gamemusic::MusicPtr mu
 		wxNullBitmap, wxITEM_NORMAL, _("Export"),
 		_("Save this song to a file"));
 
+	tb->Realize();
+
 	// Figure out how many channels are in use and what the best value is to space
 	// events evenly and as close together as possible.
 	bool channels[256];
