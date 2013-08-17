@@ -128,11 +128,19 @@ class TilesetDocument: public IDocument
 
 		~TilesetDocument()
 		{
+			// We can't do any OpenGL stuff here (like deleting textures) because the
+			// window is no longer visible, so we can't call SetCurrent().
+		}
+
+		void onClose(wxCloseEvent& ev)
+		{
 			// Unload all the textures
 			this->canvas->SetCurrent();
 			for (TEXTURE_MAP::iterator t = this->tm.begin(); t != this->tm.end(); t++) {
 				glDeleteTextures(1, &t->second.glid);
 			}
+			this->tm.clear(); // hopefully prevent any further attempted redraws
+			return;
 		}
 
 		unsigned int updateTiles(const TilesetPtr& tileset, unsigned int j = 0)
