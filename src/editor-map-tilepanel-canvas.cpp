@@ -86,8 +86,6 @@ void TilePanelCanvas::onResize(wxSizeEvent& ev)
 
 void TilePanelCanvas::glReset()
 {
-	if (!this->GetParent()->IsShown()) return;
-
 	this->SetCurrent(*this->glcx);
 	wxSize s = this->GetClientSize();
 	glViewport(0, 0, s.x, s.y);
@@ -105,6 +103,8 @@ void TilePanelCanvas::glReset()
 
 void TilePanelCanvas::redraw()
 {
+	if (!this->GetParent()->IsShown()) return;
+
 	// Have to call glReset() every time, since the context is shared with the
 	// main map canvas and it will change the projection since its window will
 	// be a different size to us.
