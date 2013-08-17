@@ -201,12 +201,14 @@ class LayerPanel: public IToolPanel
 			unsigned int layerCount = this->doc->map->getLayerCount();
 			for (unsigned int i = 0; i < layerCount; i++) {
 				long id = this->list->FindItem(-1, MapCanvas::ElementCount + i);
+				if (id < 0) continue;
 				this->list->SetItemColumnImage(id, 0,
 					this->doc->canvas->activeLayers[i] ? 0 : 1);
 			}
 			for (unsigned int i = 0; i < MapCanvas::ElementCount; i++) {
 				if (i == MapCanvas::ElViewport) continue;
 				long id = this->list->FindItem(-1, i);
+				if (id < 0) continue;
 				this->list->SetItemColumnImage(id, 0, (this->doc->canvas->activeElement == i + 1) ? 0 : 1);
 			}
 
