@@ -141,11 +141,18 @@ class TilesetDocument: public IDocument
 			this->canvas->SetCurrent();
 
 			GLushort r[256], g[256], b[256], a[256];
-			for (int i = 0; i < 256; i++) {
+			unsigned int palSize = this->pal->size();
+			for (unsigned int i = 0; i < palSize; i++) {
 				r[i] = ((*this->pal)[i].red << 8) | (*this->pal)[i].red;
 				g[i] = ((*this->pal)[i].green << 8) | (*this->pal)[i].green;
 				b[i] = ((*this->pal)[i].blue << 8) | (*this->pal)[i].blue;
 				a[i] = ((*this->pal)[i].alpha << 8) | (*this->pal)[i].alpha;
+			}
+			for (unsigned int i = palSize; i < 256; i++) {
+				r[i] = 0;
+				g[i] = 0;
+				b[i] = 0;
+				a[i] = 0xFFFF;
 			}
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 			glPixelTransferi(GL_MAP_COLOR, GL_TRUE);

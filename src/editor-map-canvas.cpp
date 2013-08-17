@@ -347,11 +347,19 @@ void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 		boost::shared_array<uint32_t> combined(new uint32_t[t.width * t.height]);
 		uint8_t *d = data.get(), *m = mask.get();
 		uint8_t *c = (uint8_t *)combined.get();
+		unsigned int palSize = pal->size();
 		for (unsigned int p = 0; p < t.width * t.height; p++) {
-			*c++ = *m & 0x01 ? 255 : (*pal)[*d].blue;
-			*c++ = *m & 0x01 ?   0 : (*pal)[*d].green;
-			*c++ = *m & 0x01 ? 255 : (*pal)[*d].red;
-			*c++ = *m & 0x01 ?   0 : (*pal)[*d].alpha;
+			if (*d > palSize) {
+				*c++ = 0;
+				*c++ = 0;
+				*c++ = 0;
+				*c++ = 0;
+			} else {
+				*c++ = *m & 0x01 ? 255 : (*pal)[*d].blue;
+				*c++ = *m & 0x01 ?   0 : (*pal)[*d].green;
+				*c++ = *m & 0x01 ? 255 : (*pal)[*d].red;
+				*c++ = *m & 0x01 ?   0 : (*pal)[*d].alpha;
+			}
 			m++; d++;
 		}
 
