@@ -661,7 +661,12 @@ void Studio::onItemOpened(wxTreeEvent& ev)
 
 void Studio::onDocTabChanged(wxAuiNotebookEvent& event)
 {
-	IDocument *doc = (IDocument *)this->notebook->GetPage(event.GetSelection());
+	IDocument *doc;
+	if (this->project) {
+		doc = (IDocument *)this->notebook->GetPage(event.GetSelection());
+	} else {
+		doc = NULL;
+	}
 	this->updateToolPanes(doc);
 	return;
 }
@@ -964,6 +969,10 @@ void Studio::closeProject()
 
 	this->updateToolPanes(NULL); // hide tool windows
 
+	// Mark the project as closed, but let the data hang around until last
+	Project *projDeleteLater = this->project;
+	this->project = NULL;
+
 	// Close all open documents
 	for (int i = this->notebook->GetPageCount() - 1; i >= 0; i--) {
 		this->notebook->DeletePage(i);
@@ -984,8 +993,7 @@ void Studio::closeProject()
 	this->clearTestMenu();
 
 	// Release the project
-	delete this->project;
-	this->project = NULL;
+	delete projDeleteLater;
 
 	// Release the game structure
 	delete this->game;
