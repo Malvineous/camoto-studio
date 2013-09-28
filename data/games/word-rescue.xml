@@ -74,7 +74,6 @@
 				<item ref="img-preview2"/>
 			</group>
 			<group name="User interface">
-				<item ref="img-font-1"/>
 				<item ref="img-ui-101"/>
 				<item ref="img-ui-102"/>
 				<item ref="img-ui-103"/>
@@ -443,21 +442,65 @@
 		<file id="mus-303"   name="wr3.6"    typeMajor="music" typeMinor="cmf-creativelabs" title="E3 Song 3"/>
 
 		<file id="lev-101"   name="wr1.s0"   typeMajor="map"   typeMinor="wordresc" title="Level 1 - Main Street: Gruzzleville">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-102"   name="wr1.s1"   typeMajor="map"   typeMinor="wordresc" title="Level 2 - Gruzzleville Waterworks"/>
-		<file id="lev-103"   name="wr1.s2"   typeMajor="map"   typeMinor="wordresc" title="Level 3 - Rock Climbing"/>
-		<file id="lev-104"   name="wr1.s3"   typeMajor="map"   typeMinor="wordresc" title="Level 4 - Castle MacGruzzle: Entrance"/>
-		<file id="lev-105"   name="wr1.s4"   typeMajor="map"   typeMinor="wordresc" title="Level 5 - The Island Castle"/>
-		<file id="lev-106"   name="wr1.s5"   typeMajor="map"   typeMinor="wordresc" title="Level 6 - Castle Complex"/>
-		<file id="lev-107"   name="wr1.s6"   typeMajor="map"   typeMinor="wordresc" title="Level 7 - Dungeon Entrance"/>
-		<file id="lev-108"   name="wr1.s7"   typeMajor="map"   typeMinor="wordresc" title="Level 8 - Dungeon"/>
-		<file id="lev-109"   name="wr1.s8"   typeMajor="map"   typeMinor="wordresc" title="Level 9 - The Waterfall"/>
-		<file id="lev-110"   name="wr1.s9"   typeMajor="map"   typeMinor="wordresc" title="Level 10 - The Outskirts of Gruzzleville"/>
-		<file id="lev-111"   name="wr1.s10"  typeMajor="map"   typeMinor="wordresc" title="Level 11 - The Pueblo 1"/>
-		<file id="lev-112"   name="wr1.s11"  typeMajor="map"   typeMinor="wordresc" title="Level 12 - The Pueblo 2"/>
-		<file id="lev-113"   name="wr1.s12"  typeMajor="map"   typeMinor="wordresc" title="Level 13 - Construction Site"/>
-		<file id="lev-114"   name="wr1.s13"  typeMajor="map"   typeMinor="wordresc" title="Level 14 - Slime Factory: Bottling"/>
-		<file id="lev-115"   name="wr1.s14"  typeMajor="map"   typeMinor="wordresc" title="Level 15 - The Tank Room"/>
+		<file id="lev-102"   name="wr1.s1"   typeMajor="map"   typeMinor="wordresc" title="Level 2 - Gruzzleville Waterworks">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
+		<file id="lev-103"   name="wr1.s2"   typeMajor="map"   typeMinor="wordresc" title="Level 3 - Rock Climbing">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
+		<file id="lev-104"   name="wr1.s3"   typeMajor="map"   typeMinor="wordresc" title="Level 4 - Castle MacGruzzle: Entrance">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
+		<file id="lev-105"   name="wr1.s4"   typeMajor="map"   typeMinor="wordresc" title="Level 5 - The Island Castle">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
+		<file id="lev-106"   name="wr1.s5"   typeMajor="map"   typeMinor="wordresc" title="Level 6 - Castle Complex">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
+		<file id="lev-107"   name="wr1.s6"   typeMajor="map"   typeMinor="wordresc" title="Level 7 - Dungeon Entrance">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
+		<file id="lev-108"   name="wr1.s7"   typeMajor="map"   typeMinor="wordresc" title="Level 8 - Dungeon">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
+		<file id="lev-109"   name="wr1.s8"   typeMajor="map"   typeMinor="wordresc" title="Level 9 - The Waterfall">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
+		<file id="lev-110"   name="wr1.s9"   typeMajor="map"   typeMinor="wordresc" title="Level 10 - The Outskirts of Gruzzleville">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
+		<file id="lev-111"   name="wr1.s10"  typeMajor="map"   typeMinor="wordresc" title="Level 11 - The Pueblo 1">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
+		<file id="lev-112"   name="wr1.s11"  typeMajor="map"   typeMinor="wordresc" title="Level 12 - The Pueblo 2">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
+		<file id="lev-113"   name="wr1.s12"  typeMajor="map"   typeMinor="wordresc" title="Level 13 - Construction Site">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
+		<file id="lev-114"   name="wr1.s13"  typeMajor="map"   typeMinor="wordresc" title="Level 14 - Slime Factory: Bottling">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
+		<file id="lev-115"   name="wr1.s14"  typeMajor="map"   typeMinor="wordresc" title="Level 15 - The Tank Room">
+			<dep reftype="sprite-tileset1" ref="tls-static"/>
+			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
+		</file>
 
 		<file id="lev-101-d"   name="wr1.d0"   typeMajor="map"   typeMinor="wordresc" title="Level 1 attribute layer"/>
 		<file id="lev-102-d"   name="wr1.d1"   typeMajor="map"   typeMinor="wordresc" title="Level 2 attribute layer"/>
