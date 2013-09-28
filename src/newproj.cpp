@@ -72,7 +72,7 @@ NewProjectDialog::NewProjectDialog(wxWindow *parent)
 	imgList->Add(wxArtProvider::GetBitmap(wxART_FOLDER, wxART_OTHER, wxSize(16, 16)));
 	imgList->Add(wxArtProvider::GetBitmap(wxART_NORMAL_FILE, wxART_OTHER, wxSize(16, 16)));
 	this->treeCtrl = new wxTreeCtrl(this, IDC_TREE, wxDefaultPosition,
-		wxDefaultSize, wxGROW | wxTR_DEFAULT_STYLE);
+		wxDefaultSize, wxGROW | wxTR_DEFAULT_STYLE | wxTR_HIDE_ROOT);
 	this->treeCtrl->AssignImageList(imgList);
 
 	wxTreeItemId root = this->treeCtrl->AddRoot(_("Games"), 0);
