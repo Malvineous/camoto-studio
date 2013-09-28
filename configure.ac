@@ -36,8 +36,8 @@ REQUIRE_RTMIDI
 
 # Check for wxWidgets
 AM_OPTIONS_WXCONFIG
-reqwx=2.8.12
-AM_PATH_WXCONFIG([$reqwx], [wxWin=1], [wxWin=0], [std,gl])
+reqwx=2.9.4
+AM_PATH_WXCONFIG([$reqwx], [wxWin=1], [wxWin=0], [core,base,gl,aui])
 if test "$wxWin" != 1; then
 	AC_MSG_ERROR([
 wxWidgets must be installed on your system.

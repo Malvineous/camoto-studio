@@ -89,8 +89,7 @@ InstrumentPanel::InstrumentPanel(Studio *parent)
 
 	wxScrolledWindow *pnlOPL = new wxScrolledWindow(this->tabs);
 	wxGridBagSizer *s = new wxGridBagSizer(2, 2);
-	s->AddGrowableCol(0, 2);
-	s->AddGrowableCol(1, 1);
+
 	int row = 0;
 	wxStaticText *label = new wxStaticText(pnlOPL, wxID_ANY, _("Carrier:"));
 	s->Add(label, wxGBPosition(row++, 0), wxGBSpan(1, 2), wxEXPAND | wxALIGN_CENTRE_VERTICAL);
@@ -115,6 +114,10 @@ InstrumentPanel::InstrumentPanel(Studio *parent)
 	this->addNumberControl(pnlOPL, s, &row, IDC_M_SUSTAIN,  _("Sustain rate"),     0, 15);
 	this->addNumberControl(pnlOPL, s, &row, IDC_M_RELEASE,  _("Release rate"),     0, 15);
 	this->addNumberControl(pnlOPL, s, &row, IDC_M_WAVESEL,  _("Waveform"),         0,  7);
+
+	// Have to set the columns as growable *after* adding the items
+	s->AddGrowableCol(0, 2);
+	s->AddGrowableCol(1, 1);
 
 	this->tabs->AddPage(pnlOPL, _("FM/OPL"));
 

@@ -467,7 +467,7 @@ void MapCanvas::onResize(wxSizeEvent& ev)
 
 void MapCanvas::glReset()
 {
-	if (!this->GetParent()->IsShown()) return;
+	if (!this->IsShownOnScreen()) return;
 	this->SetCurrent(*this->glcx);
 	wxSize s = this->GetClientSize();
 	glViewport(0, 0, s.x, s.y);

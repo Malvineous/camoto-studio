@@ -99,7 +99,7 @@ NewProjectDialog::NewProjectDialog(wxWindow *parent)
 		wxDefaultPosition, wxSize(320, 200));
 	infoBox->Add(this->screenshot, 0, wxALIGN_CENTER | wxALL, 10);
 
-	wxFlexGridSizer *details = new wxFlexGridSizer(2, 3);
+	wxFlexGridSizer *details = new wxFlexGridSizer(4, 2, 3, 2);
 	details->AddGrowableCol(1, 1);
 	details->AddGrowableRow(2, 1);
 	this->txtGame = new wxStaticText(this, IDC_GAME, wxEmptyString);

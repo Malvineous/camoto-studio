@@ -103,7 +103,7 @@ void TilePanelCanvas::glReset()
 
 void TilePanelCanvas::redraw()
 {
-	if (!this->GetParent()->IsShown()) return;
+	if (!this->IsShownOnScreen()) return;
 
 	// Have to call glReset() every time, since the context is shared with the
 	// main map canvas and it will change the projection since its window will
