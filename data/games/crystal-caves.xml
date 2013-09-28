@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	Crystal Caves description file for Camoto Studio
-	Copyright (C) 2010-2011 Adam Nielsen <malvineous@shikadi.net>
+	Copyright (C) 2010-2013 Adam Nielsen <malvineous@shikadi.net>
 	http://www.shikadi.net/camoto
 	http://www.shikadi.net/moddingwiki/Crystal_Caves
   -->
@@ -11,7 +11,7 @@
 	<info>
 		<developer>Frank Maddin</developer>
 		<publisher>Apogee</publisher>
-		<reverser>Levellass and Malvineous</reverser>
+		<reverser>Frenkel, Levellass and Malvineous</reverser>
 	</info>
 
 	<!-- This section indicates which folders and groups the game elements should

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	Zone 66 description file for Camoto Studio
-	Copyright (C) 2010-2012 Adam Nielsen <malvineous@shikadi.net>
+	Copyright (C) 2010-2013 Adam Nielsen <malvineous@shikadi.net>
 	http://www.shikadi.net/camoto
 	http://www.shikadi.net/moddingwiki/Zone_66
   -->
@@ -11,7 +11,7 @@
 	<info>
 		<developer>Tomasz "Tran" Pytel</developer>
 		<publisher>Epic Megagames</publisher>
-		<reverser>john_doe</reverser>
+		<reverser>john_doe, Malvineous</reverser>
 	</info>
 
 	<!-- This section indicates which folders and groups the game elements should
