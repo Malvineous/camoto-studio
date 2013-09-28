@@ -287,9 +287,11 @@ void MusicDocument::onImport(wxCommandEvent& ev)
 			MusicPtr newMusic = pMusicInType->read(infile, inSuppData);
 			assert(newMusic);
 
-			//this->music->events = newMusic->events;
+			this->music->patches = newMusic->patches;
+			this->music->events = newMusic->events;
+			this->music->metadata = newMusic->metadata;
+			this->music->ticksPerQuarterNote = newMusic->ticksPerQuarterNote;
 
-			this->music = newMusic; // TODO: Does this update the player thread?
 			this->isModified = true;
 
 			// Success
