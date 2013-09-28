@@ -4,3 +4,13 @@ Outstanding tasks
    prefiltered (decompressed) file size.  This should either be obtained
    from the user or the new data run through the filter to obtain the
    correct size.
+
+ ! Importing a .mid into an .imf and saving segfaults in libgamemusic
+   somewhere (patch out of range maybe?)  Might only do it when updating
+   events and not patches.
+
+ - Need to notify playback thread to reapply instruments as they change,
+   otherwise the changed patch won't be used until the song next changes
+   to it itself.
+
+ - Figure out where the Rockford palette is stored
