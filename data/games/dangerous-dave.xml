@@ -83,7 +83,7 @@
 				<dep reftype="palette" ref="pal-vga"/>
 			</file>
 
-			<file id="pal-vga" name="vga.pal" typeMajor="palette" typeMinor="vga" title="VGA palette"/>
+			<file id="pal-vga" name="vga.pal" typeMajor="pal" typeMinor="vga-raw" title="VGA palette"/>
 
 			<file id="snd-pc" name="sounds.spk" typeMajor="sound" typeMinor="spk-pc" title="PC speaker"/>
 
