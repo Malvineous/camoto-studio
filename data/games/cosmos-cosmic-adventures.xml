@@ -36,6 +36,8 @@
 			<item ref="gfx-tiles1" />
 			<item ref="gfx-masked1" />
 			<item ref="gfx-actors1" />
+			<item ref="gfx-cartoon1" />
+			<item ref="gfx-player1" />
 			<group name="Fullscreen images">
 				<item ref="img-pretitle" />
 				<item ref="img-bonus" />
@@ -151,9 +153,17 @@
 		</archive>
 
 		<archive name="cosmo1.stn" id="arch-stn1" typeMinor="vol-cosmo">
-			<file id="gfx-tiles1"  name="tiles.mni"    typeMajor="tileset" typeMinor="cosmo" title="Solid tileset"/>
-			<file id="gfx-masked1" name="masktile.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Masked tileset"/>
-			<file id="gfx-actors1" name="actors.mni"   typeMajor="tileset" typeMinor="cosmo-masked" title="Raw actor tiles"/>
+			<file id="gfx-tiles1"   name="tiles.mni"    typeMajor="tileset" typeMinor="cosmo" title="Solid tileset"/>
+			<file id="gfx-masked1"  name="masktile.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Masked tileset"/>
+
+			<file id="fat-actrinf1" name="actrinfo.mni" typeMajor="tileset" typeMinor="actrinfo-fat" title="Actor tile arrangement data"/>
+			<file id="gfx-actors1"  name="actors.mni"   typeMajor="tileset" typeMinor="actrinfo"     title="Actors"/>
+
+			<file id="fat-cartinf1" name="cartinfo.mni" typeMajor="tileset" typeMinor="actrinfo-fat" title="Cartoon tile arrangement data"/>
+			<file id="gfx-cartoon1" name="cartoon.mni"  typeMajor="tileset" typeMinor="actrinfo"     title="Cartoon"/>
+
+			<file id="fat-plyrinf1" name="plyrinfo.mni" typeMajor="tileset" typeMinor="actrinfo-fat" title="Player tile arrangement data"/>
+			<file id="gfx-player1"  name="players.mni"  typeMajor="tileset" typeMinor="actrinfo"     title="Player"/>
 
 			<file id="img-pretitle" name="pretitle.mni" typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Pre-title"/>
 			<file id="img-bonus"    name="bonus.mni"    typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Bonus"/>
