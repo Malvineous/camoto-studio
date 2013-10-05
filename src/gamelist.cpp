@@ -152,7 +152,7 @@ void populateDisplay(xmlNode *n, tree<wxString>& t)
 	return;
 }
 
-camoto::gamegraphics::TileList processTilesetChunk(xmlNode *i)
+camoto::gamegraphics::TileList processTilesetFromSplitChunk(xmlNode *i)
 {
 	camoto::gamegraphics::TileList tileList;
 
@@ -182,6 +182,29 @@ camoto::gamegraphics::TileList processTilesetChunk(xmlNode *i)
 		tileList.push_back(tp);
 	}
 	return tileList;
+}
+
+void processTilesetFromImagesChunk(xmlNode *i, TilesetFromImagesInfo *tii)
+{
+	for (xmlNode *j = i->children; j; j = j->next) {
+		if (!xmlStrEqual(j->name, _X("item"))) continue;
+
+		std::string id, name;
+		for (xmlAttr *a = j->properties; a; a = a->next) {
+			if (xmlStrcmp(a->name, _X("ref")) == 0) {
+				xmlChar *val = xmlNodeGetContent(a->children);
+				id = std::string((const char *)val, xmlStrlen(val));
+				xmlFree(val);
+			} else if (xmlStrcmp(a->name, _X("title")) == 0) {
+				xmlChar *val = xmlNodeGetContent(a->children);
+				name = std::string((const char *)val, xmlStrlen(val));
+				xmlFree(val);
+			}
+		}
+		tii->ids.push_back(id);
+		tii->names.push_back(name);
+	}
+	return;
 }
 
 void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
@@ -221,20 +244,28 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 				xmlFree(val);
 			}
 
-			bool missingImage = false;
 			if (isArchiveTag) {
 				o->typeMajor = _T("archive");
 				o->friendlyName = o->filename;
 				processFilesChunk(g, j, o->id);
 			} else if (isTilesetTag) {
 				o->typeMajor = _T("tileset");
-				o->typeMinor = _T(TILESETTYPE_MINOR_FROMIMG);
-				TilesetInfo tsi;
-				tsi.idImage = strImage;
-				tsi.layoutWidth = layoutWidth;
-				tsi.tileList = processTilesetChunk(j);
-				g->tilesets[o->id] = tsi;
-				missingImage = strImage.IsEmpty();
+				if (strImage.IsEmpty()) {
+					// This is a tileset composed of multiple images
+					o->typeMinor = _T(TILESETTYPE_MINOR_FROMIMG);
+					TilesetFromImagesInfo tii;
+					tii.layoutWidth = layoutWidth;
+					processTilesetFromImagesChunk(j, &tii);
+					g->tilesetsFromImages[o->id] = tii;
+				} else {
+					// This is a tileset made by splitting an image into parts
+					o->typeMinor = _T(TILESETTYPE_MINOR_FROMSPLIT);
+					TilesetFromSplitInfo tsi;
+					tsi.idImage = strImage;
+					tsi.layoutWidth = layoutWidth;
+					tsi.tileList = processTilesetFromSplitChunk(j);
+					g->tilesetsFromSplit[o->id] = tsi;
+				}
 			}
 
 			// Look for supp or dep child nodes
@@ -306,14 +337,13 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 				bool missingTypeMajor = o->typeMajor.IsEmpty();
 				bool missingTypeMinor = o->typeMinor.IsEmpty();
 				bool missingFilename = o->filename.IsEmpty() && (isFileTag || isArchiveTag);
-				if (missingTypeMajor || missingTypeMinor || missingFilename || missingImage) {
+				if (missingTypeMajor || missingTypeMinor || missingFilename) {
 					std::cout << "[gamelist] <" << (const char *)j->name
 						<< "/> with id \"" << o->id.ToAscii()
 						<< "\" is missing attribute(s): ";
 					if (missingTypeMajor) std::cout << "typeMajor ";
 					if (missingTypeMinor) std::cout << "typeMinor ";
 					if (missingFilename) std::cout << "filename ";
-					if (missingImage) std::cout << "image ";
 					std::cout << "\n";
 				}
 				g->objects[o->id] = o;
@@ -331,10 +361,10 @@ Game *loadGameStructure(const wxString& id)
 	fn.SetExt(_T("xml"));
 
 	const wxString n = fn.GetFullPath();
-	std::cout << "[gamelist] Parsing " << n.mb_str().data() << "\n";
+	std::cout << "[gamelist] Parsing " << n.ToAscii() << "\n";
 	xmlDoc *xml = xmlParseFile(n.mb_str());
 	if (!xml) {
-		std::cerr << "[gamelist] Error parsing " << n.mb_str().data() << std::endl;
+		std::cerr << "[gamelist] Error parsing " << n.ToAscii() << std::endl;
 		return NULL;
 	}
 

@@ -324,19 +324,56 @@ gamegraphics::TilesetPtr CamotoLibs::openTileset(const GameObjectPtr& o)
 		throw EFailure(_("No file type was specified for this item!"));
 	}
 
-	if (o->typeMinor.IsSameAs(_T(TILESETTYPE_MINOR_FROMIMG))) {
+	if (o->typeMinor.IsSameAs(_T(TILESETTYPE_MINOR_FROMSPLIT))) {
 		// Create a tileset from an existing image
-		TilesetsFromLists::iterator ti = this->game->tilesets.find(o->id);
-		if (ti == this->game->tilesets.end()) {
+		TilesetsFromSplit::iterator ti = this->game->tilesetsFromSplit.find(o->id);
+		if (ti == this->game->tilesetsFromSplit.end()) {
 			// This should never happen
 			throw EFailure(wxString::Format(_("Tileset \"%s\" is supposed to be "
-				"created from a list, but the list doesn't seem to exist!"),
+				"created from a list of sections within an image, but the list "
+				"doesn't seem to exist!"),
 				o->id.c_str()));
 		}
-		TilesetInfo& tsi = ti->second;
+		TilesetFromSplitInfo& tsi = ti->second;
 		GameObjectPtr oImage = this->game->findObjectById(tsi.idImage);
 		ImagePtr img = this->openImage(oImage);
 		return gamegraphics::createTilesetFromList(tsi.tileList, img, tsi.layoutWidth);
+
+	} else if (o->typeMinor.IsSameAs(_T(TILESETTYPE_MINOR_FROMIMG))) {
+		// Create a tileset from an existing set of images
+		TilesetsFromImages::iterator ti = this->game->tilesetsFromImages.find(o->id);
+		if (ti == this->game->tilesetsFromImages.end()) {
+			// This should never happen
+			throw EFailure(wxString::Format(_("Tileset \"%s\" is supposed to be "
+				"created from a list of images, but the list doesn't seem to exist!"),
+				o->id.c_str()));
+		}
+		TilesetFromImages_List content;
+
+		TilesetFromImagesInfo& tii = ti->second;
+		std::vector<std::string>::iterator name = tii.names.begin();
+		for (std::vector<std::string>::const_iterator
+			i = tii.ids.begin(); i != tii.ids.end(); i++
+		) {
+			TilesetFromImages_Item item;
+			item.name = *name++;
+			GameObjectPtr oItem = this->game->findObjectById(*i);
+			if (oItem->typeMajor.IsSameAs("image")) {
+				item.isImage = true;
+				item.image = this->openImage(oItem);
+			} else if (oItem->typeMajor.IsSameAs("tileset")) {
+				item.isImage = false;
+				item.tileset = this->openTileset(oItem);
+			} else {
+				throw EFailure(wxString::Format(_("Tileset \"%s\" is constructed from "
+					"other images and tilesets, but includes the item \"%s\" which is "
+					"neither of these!"),
+					o->id.c_str(), oItem->id.c_str()));
+			}
+			content.push_back(item);
+		}
+		return gamegraphics::createTilesetFromImages(content, tii.layoutWidth);
+
 	} else {
 		std::string strType("tls-");
 		strType.append(o->typeMinor.ToUTF8());

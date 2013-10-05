@@ -32,8 +32,12 @@
 /// Minor type for an archive where the file offsets are listed in the XML
 #define ARCHTYPE_MINOR_FIXED "fixed"
 
-/// Minor type for a tileset where the tile positions with an image are listed in the XML
-#define TILESETTYPE_MINOR_FROMIMG "_list"
+/// Minor type for a tileset where the tile positions within an image are
+/// listed in the XML
+#define TILESETTYPE_MINOR_FROMSPLIT "_split"
+
+/// Minor type for a tileset where the tiles are images listed in the XML
+#define TILESETTYPE_MINOR_FROMIMG "_img"
 
 /// A basic tree implementation for storing the game item structure
 template <typename T>
@@ -101,7 +105,9 @@ typedef boost::shared_ptr<GameObject> GameObjectPtr;
 /// Map between id and game object
 typedef std::map<wxString, GameObjectPtr> GameObjectMap;
 
-struct TilesetInfo
+/// Structure of a tileset defined directly in the XML, where the content is
+/// from an image split into parts
+struct TilesetFromSplitInfo
 {
 	wxString id;           ///< Unique ID for this object
 	wxString idImage;      ///< ID of the underlying image to split into tiles
@@ -110,7 +116,20 @@ struct TilesetInfo
 };
 
 /// Map of tileset IDs to tileset data
-typedef std::map<wxString, TilesetInfo> TilesetsFromLists;
+typedef std::map<wxString, TilesetFromSplitInfo> TilesetsFromSplit;
+
+/// Structure of a tileset defined directly in the XML, where the content is
+/// from multiple images
+struct TilesetFromImagesInfo
+{
+	wxString id;                       ///< Unique ID for this object
+	unsigned int layoutWidth;          ///< Ideal width of the tileset, in number of tiles
+	std::vector<std::string> ids;      ///< List of IDs for each tile
+	std::vector<std::string> names;    ///< List of names for each tile
+};
+
+/// Map of tileset IDs to tileset data
+typedef std::map<wxString, TilesetFromImagesInfo> TilesetsFromImages;
 
 /// Game details for the UI
 struct GameInfo
@@ -183,7 +202,8 @@ typedef std::vector<MapObject> MapObjectVector;
 struct Game: public GameInfo
 {
 	GameObjectMap objects;
-	TilesetsFromLists tilesets;
+	TilesetsFromSplit tilesetsFromSplit;
+	TilesetsFromImages tilesetsFromImages;
 	tree<wxString> treeItems;
 	MapObjectVector mapObjects;
 	std::map<wxString, wxString> dosCommands;
