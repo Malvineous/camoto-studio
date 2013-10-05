@@ -295,7 +295,7 @@ class TilesetDocument: public IDocument
 					} catch (const png::error& e) {
 						wxMessageDialog dlg(this,
 							wxString::Format(_T("Unsupported file.  Only indexed .png images "
-								"are supported.\n\n[%s]"),
+								L"are supported.\n\n[%s]"),
 								wxString(e.what(), wxConvUTF8).c_str()),
 							_T("Import tileset"), wxOK | wxICON_ERROR);
 						dlg.ShowModal();
@@ -660,19 +660,19 @@ class TilesetDocument: public IDocument
 					// This tile would go past the right edge of the source, so
 					// warn the user.
 					wxMessageDialog dlg(this, _T("The image being imported is not "
-						"wide enough to contain data for all the tiles being "
-						"imported.  The imported tileset is likely to appear "
-						"corrupted.\n\n"
-						"This can happen if the tileset contains images of varying "
-						"sizes, and it was exported with a different number of "
-						"horizontal tiles displayed.  In this case, you must use the "
-						"toolbar buttons to arrange the tileset such that it is "
-						"showing the same number of tiles horizontally as it was "
-						"when originally exported.  You should then be able to "
-						"re-import the image with no problems.\n\n"
-						"For example, if the tileset was arranged to show five tiles "
-						"across when it was exported, you must now arrange it to show "
-						"five tiles across again, before performing the import."),
+						L"wide enough to contain data for all the tiles being "
+						L"imported.  The imported tileset is likely to appear "
+						L"corrupted.\n\n"
+						L"This can happen if the tileset contains images of varying "
+						L"sizes, and it was exported with a different number of "
+						L"horizontal tiles displayed.  In this case, you must use the "
+						L"toolbar buttons to arrange the tileset such that it is "
+						L"showing the same number of tiles horizontally as it was "
+						L"when originally exported.  You should then be able to "
+						L"re-import the image with no problems.\n\n"
+						L"For example, if the tileset was arranged to show five tiles "
+						L"across when it was exported, you must now arrange it to show "
+						L"five tiles across again, before performing the import."),
 						_T("Import tileset"), wxOK | wxICON_WARNING);
 					dlg.ShowModal();
 					params->abort = true;
@@ -682,10 +682,10 @@ class TilesetDocument: public IDocument
 					// This tile would go past the bottom edge of the source, so we
 					// have to stop.
 					wxMessageDialog dlg(this, _T("Not all tiles could be imported, "
-						"as the .png image was smaller than the full tileset.  Only "
-						"complete tiles have been imported.\n\n"
-						"You should not have this problem if you start work on an "
-						"exported image, and do not resize the image in your editor."),
+						L"as the .png image was smaller than the full tileset.  Only "
+						L"complete tiles have been imported.\n\n"
+						L"You should not have this problem if you start work on an "
+						L"exported image, and do not resize the image in your editor."),
 						_T("Import tileset"), wxOK | wxICON_WARNING);
 					dlg.ShowModal();
 					params->abort = true;

@@ -301,7 +301,7 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 					else if (sdType.IsSameAs(_T("extra5"     ))) suppType = camoto::SuppItem::Extra5;
 					else {
 						std::cout << "[gamelist] Invalid supplementary type \""
-							<< sdType.mb_str().data() << "\"" << std::endl;
+							<< sdType.ToAscii() << "\"" << std::endl;
 					}
 					if (suppType != (camoto::SuppItem::Type)-1) {
 						o->supp[suppType] = sdRef;
@@ -321,7 +321,7 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 					else if (sdType.IsSameAs(_T("palette"            ))) depType = Palette;
 					else {
 						std::cout << "[gamelist] Invalid dependent object type \""
-							<< sdType.mb_str().data() << "\"" << std::endl;
+							<< sdType.ToAscii() << "\"" << std::endl;
 					}
 					if (depType != (DepType)-1) {
 						o->dep[depType] = sdRef;

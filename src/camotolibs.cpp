@@ -517,7 +517,7 @@ gamemaps::MapPtr CamotoLibs::openMap(const GameObjectPtr& o,
 
 	// Collect any supplemental files required by the format
 	this->openSuppItems(pMapType->getRequiredSupps(
-		data, o->filename.mb_str().data()
+		data, o->filename.ToStdString()
 	), &supp);
 
 	// Open the map file
@@ -583,7 +583,7 @@ gamemusic::MusicPtr CamotoLibs::openMusic(const GameObjectPtr& o,
 
 	// Collect any supplemental files required by the format
 	this->openSuppItems(pMusicType->getRequiredSupps(
-		data, o->filename.mb_str().data()
+		data, o->filename.ToStdString()
 	), &supp);
 
 	// Open the music file

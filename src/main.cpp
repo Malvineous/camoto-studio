@@ -18,6 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef WIN32
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#endif
+
 #ifndef WIN32
 #include <config.h>
 #endif
@@ -26,21 +32,72 @@
 #include <wx/cmdline.h>
 #include <wx/cshelp.h>
 #include <wx/image.h>
+#include <wx/stdpaths.h>
 
+#include <png.h>
 #include "main.hpp"
 #include "studio.hpp"
 
 paths path;
 config_data config;
 
+#ifdef WIN32
+// Redirect stdout and stderr to the VS output window
+#include <windows.h>
+#include <boost/iostreams/stream.hpp>
+#include <boost/iostreams/tee.hpp>
+
+using namespace std;
+namespace io = boost::iostreams;
+
+struct DebugSink
+{
+    typedef char char_type;
+    typedef io::sink_tag category;
+
+    std::vector<char> _vec;
+
+    std::streamsize write(const char *s, std::streamsize n)
+    {
+        _vec.assign(s, s+n);
+        _vec.push_back(0); // we must null-terminate for WINAPI
+        OutputDebugStringA(&_vec[0]);
+        return n;
+    }
+};
+#endif // WIN32
+
 class CamotoApp: public wxApp
 {
 	public:
 		static const wxCmdLineEntryDesc cmdLineDesc[];
 
+#ifdef WIN32
+		// Redirect stdout and stderr to the VS output window
+		typedef io::tee_device<DebugSink, std::streambuf> TeeDevice;
+		TeeDevice device;
+		io::stream_buffer<TeeDevice> buf;
+
+		CamotoApp()
+			:	device(DebugSink(), *std::cout.rdbuf()),
+				buf(device)
+		{
+			_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+			std::cout.rdbuf(&this->buf);
+			std::cerr.rdbuf(&buf);
+		}
+#if PNG_LIBPNG_VER != 10512
+#define STRING2(x) #x
+#define STRING(x) STRING2(x)
+#pragma message ("libpng headers are version " STRING(PNG_LIBPNG_VER) )
+#error Wrong version of libpng headers are being picked up, should be 1
+#endif
+
+#else
 		CamotoApp()
 		{
 		}
+#endif // WIN32
 
 		void OnInitCmdLine(wxCmdLineParser& parser)
 		{
@@ -65,7 +122,7 @@ class CamotoApp: public wxApp
 			// Use the value given to the configure script by --datadir
 			::path.dataRoot = _T(DATA_PATH);
 #endif
-			std::cout << "[init] Data root is " << ::path.dataRoot.mb_str().data() << "\n";
+			std::cout << "[init] Data root is " << ::path.dataRoot.mb_str() << "\n";
 
 			next.AssignDir(::path.dataRoot);
 			next.AppendDir(_T("games"));
