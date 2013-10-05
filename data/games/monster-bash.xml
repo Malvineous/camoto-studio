@@ -356,6 +356,23 @@
 			<file id="lev-stat-spr"    name="stat.msp"    typeMajor="map" typeMinor="bash-spr" title="Stat sprite layer"/>
 			<file id="lev-title-spr"   name="title.msp"   typeMajor="map" typeMinor="bash-spr" title="Title sprite layer"/>
 
+			<file id="lev-101-sgl"     name="sgl1.sgl"    typeMajor="map" typeMinor="bash-sgl" title="E1L1 sprite list"/>
+			<file id="lev-102-sgl"     name="sgl2.sgl"    typeMajor="map" typeMinor="bash-sgl" title="E1L2 sprite list"/>
+			<file id="lev-104-sgl"     name="sgl4.sgl"    typeMajor="map" typeMinor="bash-sgl" title="E1L4 sprite list"/>
+			<file id="lev-105-sgl"     name="sgl5.sgl"    typeMajor="map" typeMinor="bash-sgl" title="E1L5 sprite list"/>
+			<file id="lev-106-sgl"     name="sgl6.sgl"    typeMajor="map" typeMinor="bash-sgl" title="E1L6 sprite list"/>
+			<file id="lev-107-sgl"     name="sgl7.sgl"    typeMajor="map" typeMinor="bash-sgl" title="E1L7 sprite list"/>
+			<file id="lev-108-sgl"     name="sgl8.sgl"    typeMajor="map" typeMinor="bash-sgl" title="E1L8 sprite list"/>
+			<file id="lev-110-sgl"     name="sgl3.sgl"    typeMajor="map" typeMinor="bash-sgl" title="E1L10 sprite list"/>
+			<file id="lev-111-sgl"     name="sgl11.sgl"   typeMajor="map" typeMinor="bash-sgl" title="E1L11 sprite list"/>
+			<file id="lev-choose-sgl"  name="choose.sgl"  typeMajor="map" typeMinor="bash-sgl" title="Choose sprite list"/>
+			<file id="lev-grave3-sgl"  name="grave3.sgl"  typeMajor="map" typeMinor="bash-sgl" title="Grave sprite list"/>
+			<file id="lev-intro-sgl"   name="intro.sgl"   typeMajor="map" typeMinor="bash-sgl" title="Intro sprite list"/>
+			<file id="lev-pogee-sgl"   name="pogee.sgl"   typeMajor="map" typeMinor="bash-sgl" title="Apogee sprite list"/>
+			<file id="lev-preview-sgl" name="preview.sgl" typeMajor="map" typeMinor="bash-sgl" title="Preview sprite list"/>
+			<file id="lev-stat-sgl"    name="stat.sgl"    typeMajor="map" typeMinor="bash-sgl" title="Stat sprite list"/>
+			<file id="lev-title-sgl"   name="sgl_title.sgl" typeMajor="map" typeMinor="bash-sgl" title="Title sprite list"/>
+
 			<file id="lev-101-map" name="lev1.mif" typeMajor="map" typeMinor="bash" title="Level 1">
 				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
 			</file>
