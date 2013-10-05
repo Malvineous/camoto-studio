@@ -356,23 +356,57 @@
 			<file id="lev-stat-spr"    name="stat.msp"    typeMajor="map" typeMinor="bash-spr" title="Stat sprite layer"/>
 			<file id="lev-title-spr"   name="title.msp"   typeMajor="map" typeMinor="bash-spr" title="Title sprite layer"/>
 
-			<file id="lev-101-map" name="lev1.mif" typeMajor="map" typeMinor="bash" title="Level 1"/>
-			<file id="lev-102-map" name="lev2.mif" typeMajor="map" typeMinor="bash" title="Level 2"/>
-			<file id="lev-104-map" name="lev4.mif" typeMajor="map" typeMinor="bash" title="Level 4"/>
-			<file id="lev-105-map" name="lev5.mif" typeMajor="map" typeMinor="bash" title="Level 5"/>
-			<file id="lev-106-map" name="lev6.mif" typeMajor="map" typeMinor="bash" title="Level 6"/>
-			<file id="lev-107-map" name="lev7.mif" typeMajor="map" typeMinor="bash" title="Level 7"/>
-			<file id="lev-108-map" name="lev8.mif" typeMajor="map" typeMinor="bash" title="Level 8"/>
-			<file id="lev-110-map" name="lev10.mif" typeMajor="map" typeMinor="bash" title="Level 10"/>
-			<file id="lev-111-map" name="lev11.mif" typeMajor="map" typeMinor="bash" title="Level 11"/>
-			<file id="lev-choose-map" name="choose.mif" typeMajor="map" typeMinor="bash" title="Choose level"/>
-			<file id="lev-grave3-map" name="grave3.mif" typeMajor="map" typeMinor="bash" title="Grave level"/>
-			<file id="lev-intro-map" name="intro.mif" typeMajor="map" typeMinor="bash" title="Intro level"/>
-			<file id="lev-pogee-map" name="pogee.mif" typeMajor="map" typeMinor="bash" title="Apogee level"/>
-			<file id="lev-preview-map" name="preview.mif" typeMajor="map" typeMinor="bash" title="Preview level"/>
-			<file id="lev-share-map" name="share.mif" typeMajor="map" typeMinor="bash" title="Share level"/>
-			<file id="lev-stat-map" name="stat.mif" typeMajor="map" typeMinor="bash" title="Stat level"/>
-			<file id="lev-title-map" name="title.mif" typeMajor="map" typeMinor="bash" title="Title level"/>
+			<file id="lev-101-map" name="lev1.mif" typeMajor="map" typeMinor="bash" title="Level 1">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-102-map" name="lev2.mif" typeMajor="map" typeMinor="bash" title="Level 2">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-104-map" name="lev4.mif" typeMajor="map" typeMinor="bash" title="Level 4">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-105-map" name="lev5.mif" typeMajor="map" typeMinor="bash" title="Level 5">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-106-map" name="lev6.mif" typeMajor="map" typeMinor="bash" title="Level 6">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-107-map" name="lev7.mif" typeMajor="map" typeMinor="bash" title="Level 7">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-108-map" name="lev8.mif" typeMajor="map" typeMinor="bash" title="Level 8">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-110-map" name="lev10.mif" typeMajor="map" typeMinor="bash" title="Level 10">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-111-map" name="lev11.mif" typeMajor="map" typeMinor="bash" title="Level 11">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-choose-map" name="choose.mif" typeMajor="map" typeMinor="bash" title="Choose level">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-grave3-map" name="grave3.mif" typeMajor="map" typeMinor="bash" title="Grave level">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-intro-map" name="intro.mif" typeMajor="map" typeMinor="bash" title="Intro level">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-pogee-map" name="pogee.mif" typeMajor="map" typeMinor="bash" title="Apogee level">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-preview-map" name="preview.mif" typeMajor="map" typeMinor="bash" title="Preview level">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-share-map" name="share.mif" typeMajor="map" typeMinor="bash" title="Share level">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-stat-map" name="stat.mif" typeMajor="map" typeMinor="bash" title="Stat level">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-title-map" name="title.mif" typeMajor="map" typeMinor="bash" title="Title level">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
 
 			<file id="m_apogfnfr" name="apogfnfr.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="apogfnfr"/>
 			<file id="m_bachbash" name="bachbash.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="bachbash"/>
@@ -546,6 +580,160 @@
 			<file id="spr-zbh_r"         name="zbh_r.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="zbh_r"/>
 			<file id="spr-zhead"         name="zhead.spr"         typeMajor="tileset" typeMinor="bash-sprite" title="zhead"/>
 			<file id="spr-zhead_r"       name="zhead_r.spr"       typeMajor="tileset" typeMinor="bash-sprite" title="zhead_r"/>
+
+			<!-- Make all the sprites available as a single tileset that can be passed
+			     to the map editor -->
+			<tileset id="tls-sprites" title="Sprites">
+				<item ref="spr-apogee_logo"   title="apogee_logo"/>
+				<item ref="spr-arrows"        title="arrows"/>
+				<item ref="spr-axe"           title="axe"/>
+				<item ref="spr-badguy"        title="badguy"/>
+				<item ref="spr-blank"         title="blank"/>
+				<item ref="spr-block"         title="block"/>
+				<item ref="spr-blocky"        title="blocky"/>
+				<item ref="spr-bomb"          title="bomb"/>
+				<item ref="spr-bone1"         title="bone1"/>
+				<item ref="spr-bone2"         title="bone2"/>
+				<item ref="spr-bone3"         title="bone3"/>
+				<item ref="spr-border"        title="border"/>
+				<item ref="spr-border2"       title="border2"/>
+				<item ref="spr-bounce"        title="bounce"/>
+				<item ref="spr-box_slide"     title="box_slide"/>
+				<item ref="spr-break_screen"  title="break_screen"/>
+				<item ref="spr-bshelf"        title="bshelf"/>
+				<item ref="spr-cat"           title="cat"/>
+				<item ref="spr-chunk"         title="chunk"/>
+				<item ref="spr-cloud"         title="cloud"/>
+				<item ref="spr-crack"         title="crack"/>
+				<item ref="spr-cracked_block" title="cracked_block"/>
+				<item ref="spr-crawlleft"     title="crawlleft"/>
+				<item ref="spr-crawlright"    title="crawlright"/>
+				<item ref="spr-cursor_arm"    title="cursor_arm"/>
+				<item ref="spr-cursor_xhair"  title="cursor_xhair"/>
+				<item ref="spr-cyc_horn_l"    title="cyc_horn_l"/>
+				<item ref="spr-cyc_horn_r"    title="cyc_horn_r"/>
+				<item ref="spr-cyclops_l"     title="cyclops_l"/>
+				<item ref="spr-cyclops_r"     title="cyclops_r"/>
+				<item ref="spr-demo"          title="demo"/>
+				<item ref="spr-devil_l"       title="devil_l"/>
+				<item ref="spr-devil_r"       title="devil_r"/>
+				<item ref="spr-dirt_l"        title="dirt_l"/>
+				<item ref="spr-dirt_r"        title="dirt_r"/>
+				<item ref="spr-disolve1"      title="disolve1"/>
+				<item ref="spr-disolve2"      title="disolve2"/>
+				<item ref="spr-dog"           title="dog"/>
+				<item ref="spr-drag_b"        title="drag_b"/>
+				<item ref="spr-drag_eye"      title="drag_eye"/>
+				<item ref="spr-drag_fire"     title="drag_fire"/>
+				<item ref="spr-drag_l"        title="drag_l"/>
+				<item ref="spr-end_gargoyle"  title="end_gargoyle"/>
+				<item ref="spr-end_gargoyle2" title="end_gargoyle2"/>
+				<item ref="spr-end_hellfire"  title="end_hellfire"/>
+				<item ref="spr-end_main"      title="end_main"/>
+				<item ref="spr-explode"       title="explode"/>
+				<item ref="spr-faces"         title="faces"/>
+				<item ref="spr-fire_bit"      title="fire_bit"/>
+				<item ref="spr-flag"          title="flag"/>
+				<item ref="spr-float100"      title="float100"/>
+				<item ref="spr-glass"         title="glass"/>
+				<item ref="spr-grenade"       title="grenade"/>
+				<item ref="spr-guage"         title="guage"/>
+				<item ref="spr-guy_jump"      title="guy_jump"/>
+				<item ref="spr-hand_l"        title="hand_l"/>
+				<item ref="spr-hand_r"        title="hand_r"/>
+				<item ref="spr-hat"           title="hat"/>
+				<item ref="spr-heart"         title="heart"/>
+				<item ref="spr-horse"         title="horse"/>
+				<item ref="spr-i_main_shoot"  title="i_main_shoot"/>
+				<item ref="spr-i_rock"        title="i_rock"/>
+				<item ref="spr-i_splat"       title="i_splat"/>
+				<item ref="spr-i_zombie_bot"  title="i_zombie_bot"/>
+				<item ref="spr-i_zombie_hand" title="i_zombie_hand"/>
+				<item ref="spr-i_zombie_top"  title="i_zombie_top"/>
+				<item ref="spr-iman_l"        title="iman_l"/>
+				<item ref="spr-iman_r"        title="iman_r"/>
+				<item ref="spr-intro1"        title="intro1"/>
+				<item ref="spr-intro2"        title="intro2"/>
+				<item ref="spr-intro3"        title="intro3"/>
+				<item ref="spr-jaw_l"         title="jaw_l"/>
+				<item ref="spr-jaw_r"         title="jaw_r"/>
+				<item ref="spr-knife"         title="knife"/>
+				<item ref="spr-knifee"        title="knifee"/>
+				<item ref="spr-knifee_ud"     title="knifee_ud"/>
+				<item ref="spr-leaf"          title="leaf"/>
+				<item ref="spr-lightn"        title="lightn"/>
+				<item ref="spr-main_broom"    title="main_broom"/>
+				<item ref="spr-main_die"      title="main_die"/>
+				<item ref="spr-main_exit"     title="main_exit"/>
+				<item ref="spr-main_hat_l"    title="main_hat_l"/>
+				<item ref="spr-main_hat_r"    title="main_hat_r"/>
+				<item ref="spr-main_l"        title="main_l"/>
+				<item ref="spr-main_meter"    title="main_meter"/>
+				<item ref="spr-main_r"        title="main_r"/>
+				<item ref="spr-main_stars"    title="main_stars"/>
+				<item ref="spr-main_workout"  title="main_workout"/>
+				<item ref="spr-main_workout2" title="main_workout2"/>
+				<item ref="spr-main_workout3" title="main_workout3"/>
+				<item ref="spr-main_workout4" title="main_workout4"/>
+				<item ref="spr-mouse"         title="mouse"/>
+				<item ref="spr-msm"           title="msm"/>
+				<item ref="spr-nemesis"       title="nemesis"/>
+				<item ref="spr-numbers"       title="numbers"/>
+				<item ref="spr-pellet_h"      title="pellet_h"/>
+				<item ref="spr-pfork_l"       title="pfork_l"/>
+				<item ref="spr-pfork_r"       title="pfork_r"/>
+				<item ref="spr-plank"         title="plank"/>
+				<item ref="spr-plank_r"       title="plank_r"/>
+				<item ref="spr-platfall"      title="platfall"/>
+				<item ref="spr-platform"      title="platform"/>
+				<item ref="spr-platform_v"    title="platform_v"/>
+				<item ref="spr-plug"          title="plug"/>
+				<item ref="spr-preview"       title="preview"/>
+				<item ref="spr-rock"          title="rock"/>
+				<item ref="spr-saw"           title="saw"/>
+				<item ref="spr-score"         title="score"/>
+				<item ref="spr-score1up"      title="score1up"/>
+				<item ref="spr-skelet_l"      title="skelet_l"/>
+				<item ref="spr-skelet_r"      title="skelet_r"/>
+				<item ref="spr-skullw"        title="skullw"/>
+				<item ref="spr-smoke1"        title="smoke1"/>
+				<item ref="spr-smoke_cloud"   title="smoke_cloud"/>
+				<item ref="spr-snake"         title="snake"/>
+				<item ref="spr-spear_plat"    title="spear_plat"/>
+				<item ref="spr-splat"         title="splat"/>
+				<item ref="spr-swamp2_l"      title="swamp2_l"/>
+				<item ref="spr-swamp2_r"      title="swamp2_r"/>
+				<item ref="spr-swamp_l"       title="swamp_l"/>
+				<item ref="spr-swamp_r"       title="swamp_r"/>
+				<item ref="spr-swamp_scum2_l" title="swamp_scum2_l"/>
+				<item ref="spr-swamp_scum2_r" title="swamp_scum2_r"/>
+				<item ref="spr-swamp_scum_l"  title="swamp_scum_l"/>
+				<item ref="spr-swamp_scum_r"  title="swamp_scum_r"/>
+				<item ref="spr-teeth_l"       title="teeth_l"/>
+				<item ref="spr-teeth_r"       title="teeth_r"/>
+				<item ref="spr-tman_bl"       title="tman_bl"/>
+				<item ref="spr-tman_br"       title="tman_br"/>
+				<item ref="spr-tman_ld"       title="tman_ld"/>
+				<item ref="spr-tman_lu"       title="tman_lu"/>
+				<item ref="spr-tman_rd"       title="tman_rd"/>
+				<item ref="spr-tman_ru"       title="tman_ru"/>
+				<item ref="spr-tman_tl"       title="tman_tl"/>
+				<item ref="spr-tman_tr"       title="tman_tr"/>
+				<item ref="spr-vegies"        title="vegies"/>
+				<item ref="spr-visa"          title="visa"/>
+				<item ref="spr-vulture"       title="vulture"/>
+				<item ref="spr-vulture_l"     title="vulture_l"/>
+				<item ref="spr-vulture_r"     title="vulture_r"/>
+				<item ref="spr-white"         title="white"/>
+				<item ref="spr-witch_eye"     title="witch_eye"/>
+				<item ref="spr-witch_sill"    title="witch_sill"/>
+				<item ref="spr-zb_l"          title="zb_l"/>
+				<item ref="spr-zb_r"          title="zb_r"/>
+				<item ref="spr-zbh_l"         title="zbh_l"/>
+				<item ref="spr-zbh_r"         title="zbh_r"/>
+				<item ref="spr-zhead"         title="zhead"/>
+				<item ref="spr-zhead_r"       title="zhead_r"/>
+			</tileset>
 		</archive>
 	</files>
 
