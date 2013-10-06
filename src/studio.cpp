@@ -628,6 +628,17 @@ void Studio::onItemOpened(wxTreeEvent& ev)
 {
 	GameObjectPtr& o = this->getSelectedGameObject(ev);
 
+	if (o->typeMajor.IsSameAs(_("unknown"))) {
+		wxMessageDialog dlg(this, _("Sorry, this item is in an unknown "
+			"format so it cannot be edited yet.  If you can help work out the file "
+			"format, please document it on the ModdingWiki "
+			"<http://www.shikadi.net/moddingwiki/> so we can add support for it to "
+			"Camoto."),
+			_("Unable to open item"), wxOK | wxICON_ERROR);
+		dlg.ShowModal();
+		return;
+	}
+
 	// Find an editor for the item
 	EditorMap::iterator itEditor = this->editors.find(o->typeMajor);
 	if (itEditor == this->editors.end()) {
