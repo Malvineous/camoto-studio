@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Raptor description file for Camoto Studio
+	Copyright (C) 2010-2013 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Raptor
+  -->
+<game title="Raptor">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Scott Host</developer>
+		<publisher>Apogee</publisher>
+		<reverser>Malvineous</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+
+		<group name="Graphics">
+			<group name="Full-screen">
+				<item ref="img-apogee"/>
+				<item ref="img-backgrnd"/>
+				<item ref="img-cygnus"/>
+				<item ref="img-hanger"/>
+				<item ref="img-shipcomp"/>
+				<item ref="img-store"/>
+				<item ref="img-register"/>
+			</group>
+			<group name="Palettes">
+				<item ref="pal-main"/>
+				<item ref="pal-pogpal"/>
+				<item ref="pal-cygpal"/>
+			</group>
+		</group>
+
+		<group name="Music">
+			<item ref="mus-boss1"/>
+			<item ref="mus-boss2"/>
+			<item ref="mus-boss3"/>
+			<item ref="mus-boss4"/>
+			<item ref="mus-rintro"/>
+			<item ref="mus-mainmenu"/>
+			<item ref="mus-hangar"/>
+			<item ref="mus-rap1"/>
+			<item ref="mus-rap2"/>
+			<item ref="mus-rap3"/>
+			<item ref="mus-rap4"/>
+			<item ref="mus-rap5"/>
+			<item ref="mus-rap6"/>
+			<item ref="mus-rap7"/>
+			<item ref="mus-rap8"/>
+			<item ref="mus-apogee"/>
+		</group>
+	</display>
+
+	<files>
+		<archive name="file0000.glb" id="arch-file0000-glb" typeMinor="glb-raptor">
+			<file id="mus-boss1"    name="boss1_mus"    typeMajor="music" typeMinor="mus-dmx-raptor" title="Boss 1"/>
+			<file id="mus-boss2"    name="boss2_mus"    typeMajor="music" typeMinor="mus-dmx-raptor" title="Boss 2"/>
+			<file id="mus-boss3"    name="boss3_mus"    typeMajor="music" typeMinor="mus-dmx-raptor" title="Boss 3"/>
+			<file id="mus-boss4"    name="boss4_mus"    typeMajor="music" typeMinor="mus-dmx-raptor" title="Boss 4"/>
+			<file id="mus-rintro"   name="rintro_mus"   typeMajor="music" typeMinor="mus-dmx-raptor" title="Intro"/>
+			<file id="mus-mainmenu" name="mainmenu_mus" typeMajor="music" typeMinor="mus-dmx-raptor" title="Main menu"/>
+			<file id="mus-hangar"   name="hangar_mus"   typeMajor="music" typeMinor="mus-dmx-raptor" title="Hangar"/>
+			<file id="mus-rap1"     name="rap1_mus"     typeMajor="music" typeMinor="mus-dmx-raptor" title="Gameplay 1"/>
+			<file id="mus-rap2"     name="rap2_mus"     typeMajor="music" typeMinor="mus-dmx-raptor" title="Gameplay 2"/>
+			<file id="mus-rap3"     name="rap3_mus"     typeMajor="music" typeMinor="mus-dmx-raptor" title="Gameplay 3"/>
+			<file id="mus-rap4"     name="rap4_mus"     typeMajor="music" typeMinor="mus-dmx-raptor" title="Gameplay 4"/>
+			<file id="mus-rap5"     name="rap5_mus"     typeMajor="music" typeMinor="mus-dmx-raptor" title="Gameplay 5"/>
+			<file id="mus-rap6"     name="rap6_mus"     typeMajor="music" typeMinor="mus-dmx-raptor" title="Gameplay 6"/>
+			<file id="mus-rap7"     name="rap7_mus"     typeMajor="music" typeMinor="mus-dmx-raptor" title="Gameplay 7"/>
+			<file id="mus-rap8"     name="rap8_mus"     typeMajor="music" typeMinor="mus-dmx-raptor" title="Gameplay 8"/>
+			<file id="mus-apogee"   name="apogee_mus"   typeMajor="music" typeMinor="mus-dmx-raptor" title="Apogee theme"/>
+		</archive>
+		<archive name="file0001.glb" id="arch-file0001-glb" typeMinor="glb-raptor">
+			<file id="pal-main"     name="palette_dat"  typeMajor="pal"   typeMinor="vga-raw" title="Main palette"/>
+			<file id="pal-pogpal"   name="pogpal_dat"   typeMajor="pal"   typeMinor="vga-raw" title="Apogee logo palette"/>
+			<file id="pal-cygpal"   name="cygpal_dat"   typeMajor="pal"   typeMinor="vga-raw" title="Cygnus logo palette"/>
+			<file id="img-backgrnd" name="backgrnd_pic" typeMajor="image" typeMinor="pic-raptor" title="Background"/>
+			<file id="img-apogee" name="apogee_pic" typeMajor="image" typeMinor="pic-raptor" title="Apogee logo">
+				<supp reftype="palette" ref="pal-pogpal"/>
+			</file>
+			<file id="img-cygnus" name="cygnus_pic" typeMajor="image" typeMinor="pic-raptor" title="Cygnus logo">
+				<supp reftype="palette" ref="pal-cygpal"/>
+			</file>
+			<file id="img-hanger" name="hanger_pic" typeMajor="image" typeMinor="pic-raptor" title="Hanger background"/>
+			<file id="img-shipcomp" name="shipcomp_pic" typeMajor="image" typeMinor="pic-raptor" title="Ship computer background"/>
+			<file id="img-store" name="store_pic" typeMajor="image" typeMinor="pic-raptor" title="Store background"/>
+			<file id="img-register" name="register_pic" typeMajor="image" typeMinor="pic-raptor" title="Register background"/>
+		</archive>
+	</files>
+
+	<commands>
+		<command title="Normal">rap</command>
+	</commands>
+
+</game>
