@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Vinyl Goddess From Mars description file for Camoto Studio
+	Copyright (C) 2010-2013 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Vinyl_Goddess_From_Mars
+  -->
+<game title="Vinyl Goddess From Mars">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Mark Lewis</developer>
+		<publisher>Union Logic</publisher>
+		<reverser>Malvineous</reverser>
+	</info>
+
+	<display>
+		<group name="Levels">
+			<item ref="lev-101"/>
+			<item ref="lev-102"/>
+			<item ref="lev-103"/>
+			<item ref="lev-104"/>
+			<item ref="lev-105"/>
+			<item ref="lev-106"/>
+			<item ref="lev-107"/>
+			<item ref="lev-108"/>
+			<item ref="lev-109"/>
+			<item ref="lev-201"/>
+			<item ref="lev-202"/>
+			<item ref="lev-203"/>
+			<item ref="lev-204"/>
+			<item ref="lev-205"/>
+			<item ref="lev-206"/>
+			<item ref="lev-207"/>
+			<item ref="lev-208"/>
+			<item ref="lev-209"/>
+			<item ref="lev-301"/>
+			<item ref="lev-302"/>
+			<item ref="lev-303"/>
+			<item ref="lev-304"/>
+			<item ref="lev-305"/>
+			<item ref="lev-306"/>
+			<item ref="lev-307"/>
+			<item ref="lev-308"/>
+			<item ref="lev-309"/>
+		</group>
+		<group name="Graphics">
+			<item ref="tls-blue"/>
+			<item ref="pal-blue"/>
+			<item ref="tls-castle"/>
+			<item ref="pal-castle"/>
+			<item ref="tls-dungeon"/>
+			<item ref="pal-dungeon"/>
+			<item ref="tls-egypt"/>
+			<item ref="pal-egypt"/>
+			<item ref="tls-grave"/>
+			<item ref="pal-grave"/>
+			<item ref="tls-huts"/>
+			<item ref="pal-huts"/>
+			<item ref="tls-mount"/>
+			<item ref="pal-mount"/>
+			<item ref="tls-overhead"/>
+			<item ref="pal-overhead"/>
+			<item ref="tls-purple"/>
+			<item ref="pal-purple"/>
+			<item ref="tls-square"/>
+			<item ref="pal-square"/>
+			<item ref="tls-trees"/>
+			<item ref="pal-trees"/>
+			<item ref="tls-yellow"/>
+			<item ref="pal-yellow"/>
+			<item ref="img-unlogic1"/>
+		</group>
+		<group name="Music">
+			<item ref="mus-coverup"/>
+			<item ref="mus-crush"/>
+			<item ref="mus-evileye"/>
+			<item ref="mus-fever"/>
+			<item ref="mus-horus"/>
+			<item ref="mus-insured"/>
+			<item ref="mus-intro"/>
+			<item ref="mus-mystic"/>
+			<item ref="mus-osiris"/>
+			<item ref="mus-prowler"/>
+			<item ref="mus-puzz6"/>
+			<item ref="mus-retrojil"/>
+			<item ref="mus-rolpc"/>
+			<item ref="mus-stardust"/>
+			<item ref="mus-strike"/>
+			<item ref="mus-tafa"/>
+			<item ref="mus-trample"/>
+			<item ref="mus-twilight"/>
+
+			<group name="Instruments">
+				<item ref="ins-coverup"/>
+				<item ref="ins-crush"/>
+				<item ref="ins-evileye"/>
+				<item ref="ins-fever"/>
+				<item ref="ins-horus"/>
+				<item ref="ins-insured"/>
+				<item ref="ins-intro"/>
+				<item ref="ins-mystic"/>
+				<item ref="ins-osiris"/>
+				<item ref="ins-prowler"/>
+				<item ref="ins-puzz6"/>
+				<item ref="ins-retrojil"/>
+				<item ref="ins-rolpc"/>
+				<item ref="ins-stardust"/>
+				<item ref="ins-strike"/>
+				<item ref="ins-tafa"/>
+				<item ref="ins-trample"/>
+				<item ref="ins-twilight"/>
+			</group>
+		</group>
+	</display>
+
+	<files>
+		<archive name="goddess.lbr" id="arch-lbr" typeMinor="lbr-vinyl">
+			<file id="lev-101"      name="level1-1.m"      typeMajor="map" typeMinor="vinyl" title="E1L1">
+				<!-- This is temporary until the map format is reverse engineered
+				     enough to obtain the tileset filename automatically -->
+				<dep reftype="background-tileset1" ref="tls-trees"/>
+			</file>
+			<file id="lev-102"      name="level1-2.m"      typeMajor="map" typeMinor="vinyl" title="E1L2"/>
+			<file id="lev-103"      name="level1-3.m"      typeMajor="map" typeMinor="vinyl" title="E1L3"/>
+			<file id="lev-104"      name="level1-4.m"      typeMajor="map" typeMinor="vinyl" title="E1L4"/>
+			<file id="lev-105"      name="level1-5.m"      typeMajor="map" typeMinor="vinyl" title="E1L5"/>
+			<file id="lev-106"      name="level1-6.m"      typeMajor="map" typeMinor="vinyl" title="E1L6"/>
+			<file id="lev-107"      name="level1-7.m"      typeMajor="map" typeMinor="vinyl" title="E1L7"/>
+			<file id="lev-108"      name="level1-8.m"      typeMajor="map" typeMinor="vinyl" title="E1L8"/>
+			<file id="lev-109"      name="level1-9.m"      typeMajor="map" typeMinor="vinyl" title="E1L9"/>
+
+			<file id="lev-201"      name="level2-1.m"      typeMajor="map" typeMinor="vinyl" title="E2L1"/>
+			<file id="lev-202"      name="level2-2.m"      typeMajor="map" typeMinor="vinyl" title="E2L2"/>
+			<file id="lev-203"      name="level2-3.m"      typeMajor="map" typeMinor="vinyl" title="E2L3"/>
+			<file id="lev-204"      name="level2-4.m"      typeMajor="map" typeMinor="vinyl" title="E2L4"/>
+			<file id="lev-205"      name="level2-5.m"      typeMajor="map" typeMinor="vinyl" title="E2L5"/>
+			<file id="lev-206"      name="level2-6.m"      typeMajor="map" typeMinor="vinyl" title="E2L6"/>
+			<file id="lev-207"      name="level2-7.m"      typeMajor="map" typeMinor="vinyl" title="E2L7"/>
+			<file id="lev-208"      name="level2-8.m"      typeMajor="map" typeMinor="vinyl" title="E2L8"/>
+			<file id="lev-209"      name="level2-9.m"      typeMajor="map" typeMinor="vinyl" title="E2L9"/>
+
+			<file id="lev-301"      name="level3-1.m"      typeMajor="map" typeMinor="vinyl" title="E3L1"/>
+			<file id="lev-302"      name="level3-2.m"      typeMajor="map" typeMinor="vinyl" title="E3L2"/>
+			<file id="lev-303"      name="level3-3.m"      typeMajor="map" typeMinor="vinyl" title="E3L3"/>
+			<file id="lev-304"      name="level3-4.m"      typeMajor="map" typeMinor="vinyl" title="E3L4"/>
+			<file id="lev-305"      name="level3-5.m"      typeMajor="map" typeMinor="vinyl" title="E3L5"/>
+			<file id="lev-306"      name="level3-6.m"      typeMajor="map" typeMinor="vinyl" title="E3L6"/>
+			<file id="lev-307"      name="level3-7.m"      typeMajor="map" typeMinor="vinyl" title="E3L7"/>
+			<file id="lev-308"      name="level3-8.m"      typeMajor="map" typeMinor="vinyl" title="E3L8"/>
+			<file id="lev-309"      name="level3-9.m"      typeMajor="map" typeMinor="vinyl" title="E3L9"/>
+
+			<file id="tls-blue"     name="blue.tls"     typeMajor="tileset" typeMinor="vinyl" title="Blue"/>
+			<file id="pal-blue"     name="blue.pal"     typeMajor="palette" typeMinor="vga-raw8" title="Blue palette"/>
+			<file id="tls-castle"   name="castle.tls"   typeMajor="tileset" typeMinor="vinyl" title="Castle"/>
+			<file id="pal-castle"   name="castle.pal"   typeMajor="palette" typeMinor="vga-raw8" title="Castle palette"/>
+			<file id="tls-dungeon"  name="dungeon.tls"  typeMajor="tileset" typeMinor="vinyl" title="Dungeon"/>
+			<file id="pal-dungeon"  name="dungeon.pal"  typeMajor="palette" typeMinor="vga-raw8" title="Dungeon palette"/>
+			<file id="tls-egypt"    name="egypt.tls"    typeMajor="tileset" typeMinor="vinyl" title="Egypt"/>
+			<file id="pal-egypt"    name="egypt.pal"    typeMajor="palette" typeMinor="vga-raw8" title="Egypt palette"/>
+			<file id="tls-grave"    name="grave.tls"    typeMajor="tileset" typeMinor="vinyl" title="Grave"/>
+			<file id="pal-grave"    name="grave.pal"    typeMajor="palette" typeMinor="vga-raw8" title="Grave palette"/>
+			<file id="tls-huts"     name="huts.tls"     typeMajor="tileset" typeMinor="vinyl" title="Huts"/>
+			<file id="pal-huts"     name="huts.pal"     typeMajor="palette" typeMinor="vga-raw8" title="Huts palette"/>
+			<file id="tls-mount"    name="mount.tls"    typeMajor="tileset" typeMinor="vinyl" title="Mount"/>
+			<file id="pal-mount"    name="mount.pal"    typeMajor="palette" typeMinor="vga-raw8" title="Mount+Square palette"/>
+			<file id="tls-overhead" name="overhead.tls" typeMajor="tileset" typeMinor="vinyl" title="Overhead"/>
+			<file id="pal-overhead" name="overhead.pal" typeMajor="palette" typeMinor="vga-raw8" title="Overhead palette"/>
+			<file id="tls-purple"   name="purple.tls"   typeMajor="tileset" typeMinor="vinyl" title="Purple"/>
+			<file id="pal-purple"   name="purple.pal"   typeMajor="palette" typeMinor="vga-raw8" title="Purple palette"/>
+			<file id="tls-square"   name="square.tls"   typeMajor="tileset" typeMinor="vinyl" title="Square">
+				<!-- There doesn't appear to be a SQUARE.PAL, but MOUNT.PAL works -->
+				<supp reftype="palette"  ref="pal-mount"/>
+			</file>
+			<file id="tls-trees"    name="trees.tls"    typeMajor="tileset" typeMinor="vinyl" title="Trees"/>
+			<file id="pal-trees"    name="trees.pal"    typeMajor="palette" typeMinor="vga-raw8" title="Trees palette"/>
+			<file id="tls-yellow"   name="yellow.tls"   typeMajor="tileset" typeMinor="vinyl" title="Yellow"/>
+			<file id="pal-yellow"   name="yellow.pal"   typeMajor="palette" typeMinor="vga-raw8" title="Yellow palette"/>
+
+			<file id="img-unlogic1" name="unlogic1.gra" typeMajor="image"   typeMinor="vga-raw8-fullscreen" title="Union Logic logo"/>
+			<file id="pal-unlogic1" name="unlogic1.pal" typeMajor="palette" typeMinor="vga-raw8" title="Union Logic logo palette"/>
+
+			<file id="mus-coverup"  name="coverup.mus"  typeMajor="music" typeMinor="mus-vinyl" title="Coverup"/>
+			<file id="mus-crush"    name="crush.mus"    typeMajor="music" typeMinor="mus-vinyl" title="Crush"/>
+			<file id="mus-evileye"  name="evileye.mus"  typeMajor="music" typeMinor="mus-vinyl" title="Evil Eye"/>
+			<file id="mus-fever"    name="fever.mus"    typeMajor="music" typeMinor="mus-vinyl" title="Fever"/>
+			<file id="mus-horus"    name="horus.mus"    typeMajor="music" typeMinor="mus-vinyl" title="Horus"/>
+			<file id="mus-insured"  name="insured.mus"  typeMajor="music" typeMinor="mus-vinyl" title="Insured"/>
+			<file id="mus-intro"    name="intro.mus"    typeMajor="music" typeMinor="mus-vinyl" title="Intro"/>
+			<file id="mus-mystic"   name="mystic.mus"   typeMajor="music" typeMinor="mus-vinyl" title="Mystic"/>
+			<file id="mus-osiris"   name="osiris.mus"   typeMajor="music" typeMinor="mus-vinyl" title="Osiris"/>
+			<file id="mus-prowler"  name="prowler.mus"  typeMajor="music" typeMinor="mus-vinyl" title="Prowler"/>
+			<file id="mus-puzz6"    name="puzz6.mus"    typeMajor="music" typeMinor="mus-vinyl" title="Puzzle 6"/>
+			<file id="mus-retrojil" name="retrojil.mus" typeMajor="music" typeMinor="mus-vinyl" title="Retro Jill"/>
+			<file id="mus-rolpc"    name="rolpc.mus"    typeMajor="music" typeMinor="mus-vinyl" title="Roland/PC"/>
+			<file id="mus-stardust" name="stardust.mus" typeMajor="music" typeMinor="mus-vinyl" title="Stardust"/>
+			<file id="mus-strike"   name="strike.mus"   typeMajor="music" typeMinor="mus-vinyl" title="Strike"/>
+			<file id="mus-tafa"     name="tafa.mus"     typeMajor="music" typeMinor="mus-vinyl" title="Tafa"/>
+			<file id="mus-trample"  name="trample.mus"  typeMajor="music" typeMinor="mus-vinyl" title="Trample"/>
+			<file id="mus-twilight" name="twilight.mus" typeMajor="music" typeMinor="mus-vinyl" title="Twilight"/>
+
+			<file id="ins-coverup"  name="coverup.tim"  typeMajor="music" typeMinor="tim-vinyl" title="Coverup"/>
+			<file id="ins-crush"    name="crush.tim"    typeMajor="music" typeMinor="tim-vinyl" title="Crush"/>
+			<file id="ins-evileye"  name="evileye.tim"  typeMajor="music" typeMinor="tim-vinyl" title="Evil Eye"/>
+			<file id="ins-fever"    name="fever.tim"    typeMajor="music" typeMinor="tim-vinyl" title="Fever"/>
+			<file id="ins-horus"    name="horus.tim"    typeMajor="music" typeMinor="tim-vinyl" title="Horus"/>
+			<file id="ins-insured"  name="insured.tim"  typeMajor="music" typeMinor="tim-vinyl" title="Insured"/>
+			<file id="ins-intro"    name="intro.tim"    typeMajor="music" typeMinor="tim-vinyl" title="Intro"/>
+			<file id="ins-mystic"   name="mystic.tim"   typeMajor="music" typeMinor="tim-vinyl" title="Mystic"/>
+			<file id="ins-osiris"   name="osiris.tim"   typeMajor="music" typeMinor="tim-vinyl" title="Osiris"/>
+			<file id="ins-prowler"  name="prowler.tim"  typeMajor="music" typeMinor="tim-vinyl" title="Prowler"/>
+			<file id="ins-puzz6"    name="puzz6.tim"    typeMajor="music" typeMinor="tim-vinyl" title="Puzzle 6"/>
+			<file id="ins-retrojil" name="retrojil.tim" typeMajor="music" typeMinor="tim-vinyl" title="Retro Jill"/>
+			<file id="ins-rolpc"    name="roldpc.tim"   typeMajor="music" typeMinor="tim-vinyl" title="Roland/PC"/>
+			<file id="ins-stardust" name="stardust.tim" typeMajor="music" typeMinor="tim-vinyl" title="Stardust"/>
+			<file id="ins-strike"   name="strike.tim"   typeMajor="music" typeMinor="tim-vinyl" title="Strike"/>
+			<file id="ins-tafa"     name="tafa.tim"     typeMajor="music" typeMinor="tim-vinyl" title="Tafa"/>
+			<file id="ins-trample"  name="trample.tim"  typeMajor="music" typeMinor="tim-vinyl" title="Trample"/>
+			<file id="ins-twilight" name="twilight.tim" typeMajor="music" typeMinor="tim-vinyl" title="Twilight"/>
+		</archive>
+	</files>
+
+	<commands>
+		<command title="Normal">goddess</command>
+	</commands>
+
+</game>
