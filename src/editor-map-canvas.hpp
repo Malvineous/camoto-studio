@@ -233,6 +233,9 @@ class MapCanvas: public MapBaseCanvas
 			const camoto::gamemaps::TilesetCollectionPtr& tileset,
 			Texture& unknownTile);
 
+		/// Load a .png image from the data/maps/ directory into an OpenGL texture.
+		Texture loadTileFromFile(const char *name);
+
 		MapDocument *doc;
 		camoto::gamemaps::Map2DPtr map;
 		wxGLContext *glcx;

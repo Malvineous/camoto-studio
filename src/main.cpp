@@ -140,6 +140,10 @@ class CamotoApp: public wxApp
 			next.AppendDir(_T("icons"));
 			::path.guiIcons = next.GetFullPath();
 
+			next.AssignDir(::path.dataRoot);
+			next.AppendDir(_T("maps"));
+			::path.mapIndicators = next.GetFullPath();
+
 			// Load the user's preferences
 			wxConfigBase *configFile = wxConfigBase::Get(true);
 			configFile->Read(_T("camoto/dosbox"), &::config.dosboxPath,

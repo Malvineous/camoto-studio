@@ -41,6 +41,7 @@ struct paths
 	wxString gameScreenshots;   ///< Game screenshots used in 'new project' dialog
 	wxString gameIcons;         ///< Icons used to represent each game
 	wxString guiIcons;          ///< Icons used for GUI elements
+	wxString mapIndicators;     ///< Icons used for map editor indicators
 	wxString lastUsed;          ///< Path last used in open/save dialogs
 };
 

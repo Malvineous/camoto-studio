@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <png++/png.hpp>
 #include <camoto/gamemaps/util.hpp>
 #include "editor-map-canvas.hpp"
 
@@ -134,11 +135,7 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 		unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
-		Texture unknownTile;
-		// TODO: Load unknown/default tile the same size (if possible) as the grid
-		unknownTile.glid = 0;
-		unknownTile.width = tileWidth;
-		unknownTile.height = tileHeight;
+		Texture unknownTile = this->loadTileFromFile(::path.mapIndicators + _T("unknown-tile.png"));
 
 		PaletteTablePtr palDefault;
 		if (layer->getCaps() & Map2D::Layer::HasPalette) {
@@ -379,6 +376,44 @@ void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 	}
 
 	return;
+}
+
+Texture MapCanvas::loadTileFromFile(const char *name)
+{
+	png::image<png::rgba_pixel> png;
+	png.read(name);
+
+	Texture t;
+	t.width = png.get_width();
+	t.height = png.get_height();
+	glGenTextures(1, &t.glid);
+	glBindTexture(GL_TEXTURE_2D, t.glid);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	boost::shared_array<uint32_t> combined(new uint32_t[t.width * t.height]);
+	uint8_t *c = (uint8_t *)combined.get();
+	for (unsigned int y = 0; y < t.height; y++) {
+		png::image<png::rgba_pixel>::row_type row = png[y];
+		for (unsigned int x = 0; x < t.width; x++) {
+			const png::rgba_pixel& px = row[x];
+			*c++ = px.blue;
+			*c++ = px.green;
+			*c++ = px.red;
+			*c++ = px.alpha;
+		}
+	}
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, t.width, t.height, 0, GL_BGRA,
+		GL_UNSIGNED_BYTE, combined.get());
+	if (glGetError()) {
+		std::cerr << "[editor-tileset] GL error loading file " << name <<
+			"into texture id " << t.glid << std::endl;
+	}
+
+	return t;
 }
 
 void MapCanvas::setTileMode()
