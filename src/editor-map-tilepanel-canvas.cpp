@@ -140,7 +140,7 @@ void TilePanelCanvas::drawCanvas()
 	glAlphaFunc(GL_GREATER, 0.0);
 
 	// Draw all the visible tiles
-	this->forAllTiles(boost::bind(&TilePanelCanvas::drawMapItem, this, _1, _2, _3, _4), false);
+	this->forAllTiles(boost::bind(&TilePanelCanvas::drawMapItem, this, _1, _2, _3, _4, _5, _6), false);
 
 	glDisable(GL_TEXTURE_2D);
 
@@ -199,9 +199,14 @@ void TilePanelCanvas::onRightClick(wxMouseEvent& ev)
 	mapCanvas->selection.width = 0;
 	mapCanvas->selection.height = 0;
 
+	TSMIDATA tsmi;
+	tsmi.mapCanvas = mapCanvas;
+	tsmi.selItems = &selItems;
+	tsmi.pointerX = pointerX;
+	tsmi.pointerY = pointerY;
 	// Check all the visible tiles to see which one was clicked
 	this->forAllTiles(boost::bind(&TilePanelCanvas::testSelectMapItem, this,
-		mapCanvas, &selItems, pointerX, pointerY, _1, _2, _3, _4), false);
+		tsmi, _1, _2, _3, _4, _5, _6), false);
 
 	return;
 }
@@ -227,7 +232,9 @@ void TilePanelCanvas::calcCurrentExtents()
 	this->fullHeight = 0;
 
 	// Recalculate fullWidth and fullHeight
-	this->forAllTiles(boost::bind(&TilePanelCanvas::updateExtent, this, _1, _2, _3, _4), true);
+	this->forAllTiles(boost::bind(
+		&TilePanelCanvas::updateExtent, this, _1, _2, _3, _4, _5, _6
+	), true);
 
 	wxSize s = this->GetClientSize();
 	s.x /= this->zoomFactor;
@@ -258,6 +265,9 @@ void TilePanelCanvas::forAllTiles(fn_foralltiles fnCallback, bool inclHidden)
 	const TEXTURE_MAP& tm = mapCanvas->textureMap[layerIndex];
 
 	Map2D::LayerPtr layer = map->getLayer(layerIndex);
+	int layerCaps = layer->getCaps();
+	unsigned int layerWidth, layerHeight, layerTileWidth, layerTileHeight;
+	getLayerDims(map, layer, &layerWidth, &layerHeight, &layerTileWidth, &layerTileHeight);
 	const Map2D::Layer::ItemPtrVectorPtr items = layer->getValidItemList();
 
 	wxSize s = this->GetClientSize();
@@ -275,8 +285,22 @@ void TilePanelCanvas::forAllTiles(fn_foralltiles fnCallback, bool inclHidden)
 		}
 		const Texture& t = tm.at((*i)->code);
 
+		unsigned int tileWidth, tileHeight;
+		if (layerCaps & Map2D::Layer::UseImageDims) {
+			tileWidth = t.width;
+			tileHeight = t.height;
+			if ((tileWidth == 0) || (tileHeight == 0)) {
+				// Fall back to the layer tile size e.g. for blank images
+				tileWidth = layerTileWidth;
+				tileHeight = layerTileHeight;
+			}
+		} else {
+			tileWidth = layerTileWidth;
+			tileHeight = layerTileHeight;
+		}
+
 		if (this->tilesX == 0) { // fit width
-			if ((pixelX + t.width) > (unsigned)s.x) {
+			if ((pixelX + tileWidth) > (unsigned)s.x) {
 				// This tile would go past the edge, start it on a new row
 				if (pixelX > maxWidth) maxWidth = pixelX;
 				pixelX = 0;
@@ -298,45 +322,45 @@ void TilePanelCanvas::forAllTiles(fn_foralltiles fnCallback, bool inclHidden)
 
 		if (inclHidden
 			|| (POINT_IN_RECT((signed)pixelX, (signed)pixelY,
-				this->offX - (signed)t.width, this->offY - (signed)t.height,
+				this->offX - (signed)tileWidth, this->offY - (signed)tileHeight,
 				this->offX + s.x, this->offY + s.y
 			))
 		) {
-			if (fnCallback(pixelX, pixelY, *i, &t)) break;
+			if (fnCallback(pixelX, pixelY, tileWidth, tileHeight, *i, &t)) break;
 		}
 
-		if (t.height > maxHeight) maxHeight = t.height;
-		pixelX += t.width;
+		if (tileHeight > maxHeight) maxHeight = tileHeight;
+		pixelX += tileWidth;
 		nx++;
 	}
 	return;
 }
 
 bool TilePanelCanvas::updateExtent(int pixelX, int pixelY,
+	unsigned int tileWidth, unsigned int tileHeight,
 	const camoto::gamemaps::Map2D::Layer::ItemPtr item,
 	const Texture *texture)
 {
-	if (pixelY + texture->height > this->fullHeight) {
-		this->fullHeight = pixelY + texture->height;
+	if (pixelY + tileHeight > this->fullHeight) {
+		this->fullHeight = pixelY + tileHeight;
 	}
-	if (pixelX + texture->width > this->fullWidth) {
-		this->fullWidth = pixelX + texture->width;
+	if (pixelX + tileWidth > this->fullWidth) {
+		this->fullWidth = pixelX + tileWidth;
 	}
 	return false;
 }
 
-bool TilePanelCanvas::testSelectMapItem(MapCanvas *mapCanvas,
-	Map2D::Layer::ItemPtrVector *selItems, int pointerX, int pointerY, int pixelX,
-	int pixelY, const camoto::gamemaps::Map2D::Layer::ItemPtr item,
-	const Texture *texture)
+bool TilePanelCanvas::testSelectMapItem(TSMIDATA tsmi, int pixelX,
+	int pixelY, unsigned int tileWidth, unsigned int tileHeight,
+	const camoto::gamemaps::Map2D::Layer::ItemPtr item, const Texture *texture)
 {
-	if (POINT_IN_RECT(pointerX, pointerY, pixelX, pixelY,
-		pixelX + (signed)texture->width, pixelY + (signed)texture->height)
+	if (POINT_IN_RECT(tsmi.pointerX, tsmi.pointerY, pixelX, pixelY,
+		pixelX + (signed)tileWidth, pixelY + (signed)tileHeight)
 	) {
 		// Mouse clicked on this tile
-		mapCanvas->selection.width = texture->width;
-		mapCanvas->selection.height = texture->height;
-		selItems->push_back(item);
+		tsmi.mapCanvas->selection.width = tileWidth;
+		tsmi.mapCanvas->selection.height = tileHeight;
+		tsmi.selItems->push_back(item);
 		return true;
 	}
 	return false;

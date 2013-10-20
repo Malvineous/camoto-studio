@@ -55,20 +55,28 @@ class TilePanelCanvas: public MapBaseCanvas
 		virtual void calcCurrentExtents();
 
 	protected:
-		typedef boost::function<bool (int pixelX, int pixelY, const
-			camoto::gamemaps::Map2D::Layer::ItemPtr item, const Texture *texture)>
-			fn_foralltiles;
+		typedef boost::function<bool (int pixelX, int pixelY,
+			unsigned int tileWidth, unsigned int tileHeight,
+			const camoto::gamemaps::Map2D::Layer::ItemPtr item,
+			const Texture *texture)> fn_foralltiles;
 
 		void drawCanvas();
 		void forAllTiles(fn_foralltiles fnCallback, bool inclHidden);
 
-		bool updateExtent(int pixelX, int pixelY,
+		bool updateExtent(int pixelX, int pixelY, unsigned int tileWidth,
+			unsigned int tileHeight,
 			const camoto::gamemaps::Map2D::Layer::ItemPtr item,
 			const Texture *texture);
 
-		bool testSelectMapItem(MapCanvas *mapCanvas,
-			camoto::gamemaps::Map2D::Layer::ItemPtrVector *selItems, int pointerX,
-			int pointerY, int pixelX, int pixelY,
+		// Put all this in a struct so boost::bind gets < 9 args for testSelectMapItem()
+		typedef struct {
+			MapCanvas *mapCanvas;
+			camoto::gamemaps::Map2D::Layer::ItemPtrVector *selItems;
+			int pointerX;
+			int pointerY;
+		} TSMIDATA;
+		bool testSelectMapItem(TSMIDATA tsmi, int pixelX, int pixelY, unsigned int tileWidth,
+			unsigned int tileHeight,
 			const camoto::gamemaps::Map2D::Layer::ItemPtr item,
 			const Texture *texture);
 

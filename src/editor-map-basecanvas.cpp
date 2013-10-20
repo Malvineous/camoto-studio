@@ -104,11 +104,10 @@ void MapBaseCanvas::drawGrid(unsigned int divWidth, unsigned int divHeight)
 	return;
 }
 
-bool MapBaseCanvas::drawMapItem(int pixelX, int pixelY,
-	const Map2D::Layer::ItemPtr item, const Texture *texture)
+bool MapBaseCanvas::drawMapItem(int pixelX, int pixelY, unsigned int tileWidth,
+	unsigned int tileHeight, const Map2D::Layer::ItemPtr item,
+	const Texture *texture)
 {
-	const unsigned int& tileWidth = texture->width;
-	const unsigned int& tileHeight = texture->height;
 	const GLuint& textureId = texture->glid;
 
 	int x1 = pixelX - this->offX;

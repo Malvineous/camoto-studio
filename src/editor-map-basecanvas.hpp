@@ -91,7 +91,8 @@ class MapBaseCanvas: public wxGLCanvas
 		virtual void redraw() = 0;
 
 	protected:
-		bool drawMapItem(int pixelX, int pixelY,
+		bool drawMapItem(int pixelX, int pixelY, unsigned int tileWidth,
+			unsigned int tileHeight,
 			const camoto::gamemaps::Map2D::Layer::ItemPtr item,
 			const Texture *texture);
 
