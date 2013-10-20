@@ -136,12 +136,29 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
 		// Load preset tiles and indicators
-		this->unknownTile = this->loadTileFromFile(::path.mapIndicators + _T("unknown-tile.png"));
-
-		// Create a blank tile image
-		this->blankTile.width = 0;
-		this->blankTile.height = 0;
-		this->blankTile.glid = 0;
+		this->indicators[Map2D::Layer::Supplied].width = 0;
+		this->indicators[Map2D::Layer::Supplied].height = 0;
+		this->indicators[Map2D::Layer::Supplied].glid = 0;
+		this->indicators[Map2D::Layer::Blank].width = 0;
+		this->indicators[Map2D::Layer::Blank].height = 0;
+		this->indicators[Map2D::Layer::Blank].glid = 0;
+		this->indicators[Map2D::Layer::Unknown] = this->loadTileFromFile(::path.mapIndicators + _T("unknown-tile.png"));
+		this->indicators[Map2D::Layer::Digit0] = this->loadTileFromFile(::path.mapIndicators + _T("number-0.png"));
+		this->indicators[Map2D::Layer::Digit1] = this->loadTileFromFile(::path.mapIndicators + _T("number-1.png"));
+		this->indicators[Map2D::Layer::Digit2] = this->loadTileFromFile(::path.mapIndicators + _T("number-2.png"));
+		this->indicators[Map2D::Layer::Digit3] = this->loadTileFromFile(::path.mapIndicators + _T("number-3.png"));
+		this->indicators[Map2D::Layer::Digit4] = this->loadTileFromFile(::path.mapIndicators + _T("number-4.png"));
+		this->indicators[Map2D::Layer::Digit5] = this->loadTileFromFile(::path.mapIndicators + _T("number-5.png"));
+		this->indicators[Map2D::Layer::Digit6] = this->loadTileFromFile(::path.mapIndicators + _T("number-6.png"));
+		this->indicators[Map2D::Layer::Digit7] = this->loadTileFromFile(::path.mapIndicators + _T("number-7.png"));
+		this->indicators[Map2D::Layer::Digit8] = this->loadTileFromFile(::path.mapIndicators + _T("number-8.png"));
+		this->indicators[Map2D::Layer::Digit9] = this->loadTileFromFile(::path.mapIndicators + _T("number-9.png"));
+		this->indicators[Map2D::Layer::DigitA] = this->loadTileFromFile(::path.mapIndicators + _T("number-a.png"));
+		this->indicators[Map2D::Layer::DigitB] = this->loadTileFromFile(::path.mapIndicators + _T("number-b.png"));
+		this->indicators[Map2D::Layer::DigitC] = this->loadTileFromFile(::path.mapIndicators + _T("number-c.png"));
+		this->indicators[Map2D::Layer::DigitD] = this->loadTileFromFile(::path.mapIndicators + _T("number-d.png"));
+		this->indicators[Map2D::Layer::DigitE] = this->loadTileFromFile(::path.mapIndicators + _T("number-e.png"));
+		this->indicators[Map2D::Layer::DigitF] = this->loadTileFromFile(::path.mapIndicators + _T("number-f.png"));
 
 		// Load the palette
 		PaletteTablePtr palDefault;
@@ -335,7 +352,7 @@ void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 			if ((t.width > 512) || (t.height > 512)) {
 				// Image too large
 				std::cerr << "[editor-map-canvas] Tile too large, using default image" << std::endl;
-				tm[item->code] = unknownTile;
+				tm[item->code] = this->indicators[Map2D::Layer::Unknown];
 				return;
 			}
 
@@ -380,13 +397,12 @@ void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 			tm[item->code] = t;
 			break;
 		}
-		case Map2D::Layer::Blank:
-			tm[item->code] = this->blankTile;
-			break;
 		case Map2D::Layer::Unknown:
 			std::cerr << "[editor-map] Got 'unknown image' for tile code "
 				<< item->code << std::endl;
-			tm[item->code] = this->unknownTile;
+			// fall through
+		default:
+			tm[item->code] = this->indicators[imgType];
 			break;
 	}
 

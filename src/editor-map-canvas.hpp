@@ -242,8 +242,7 @@ class MapCanvas: public MapBaseCanvas
 		const MapObjectVector *mapObjects;
 
 		std::vector<TEXTURE_MAP> textureMap;
-		Texture unknownTile; ///< Image to use for tiles that have unknown images
-		Texture blankTile;   ///< Image to use for tiles that do not have images
+		Texture indicators[camoto::gamemaps::Map2D::Layer::NumImageTypes]; ///< Images for each ImageType
 
 		enum {TileMode, ObjectMode} editingMode; ///< Current editing mode
 		unsigned int primaryLayer; ///< Main layer used for things like gridline dimensions
