@@ -1031,7 +1031,10 @@ void MapCanvas::redraw()
 		unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
-		this->drawGrid(tileWidth, tileHeight);
+		// Only draw the grid if there will be space between the grid lines!
+		if ((tileWidth > 1) && (tileHeight > 1)) {
+			this->drawGrid(tileWidth, tileHeight);
+		}
 	}
 
 	// Draw the selection rectangle
