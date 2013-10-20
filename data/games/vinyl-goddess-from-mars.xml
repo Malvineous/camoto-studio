@@ -92,6 +92,22 @@
 				<item ref="scr-title"/>
 				<item ref="pal-title"/>
 			</group>
+			<group name="UI">
+				<item ref="gra-gameopt"/>
+				<item ref="gra-present"/>
+				<item ref="gra-mmrest"/>
+				<item ref="gra-saveboxo"/>
+				<item ref="gra-saveboxg"/>
+				<item ref="gra-sixps"/>
+				<item ref="gra-textbox"/>
+				<item ref="gra-textbox2"/>
+				<item ref="gra-vinyl"/>
+				<item ref="pal-game1"/>
+				<item ref="pal-present"/>
+				<item ref="pal-palet1"/>
+				<item ref="pal-sixps"/>
+				<item ref="pal-vinyl"/>
+			</group>
 		</group>
 		<group name="Music">
 			<item ref="mus-coverup"/>
@@ -225,6 +241,36 @@
 			<file id="pal-story"    name="story.pal"   typeMajor="palette" typeMinor="vga-raw8"  title="Story palette"/>
 			<file id="scr-title"    name="title.scr"   typeMajor="image"   typeMinor="scr-vinyl" title="Title screen"/>
 			<file id="pal-title"    name="title.pal"   typeMajor="palette" typeMinor="vga-raw8"  title="Title palette"/>
+
+			<file id="gra-gameopt"  name="gameopt.gra" typeMajor="image"   typeMinor="gra-vinyl" title="Game options"/>
+			<file id="gra-present"  name="present.gra" typeMajor="image"   typeMinor="gra-vinyl" title="Present">
+				<supp reftype="palette"  ref="pal-present"/>
+			</file>
+			<file id="gra-mmrest"   name="mmrest.gra"   typeMajor="image"   typeMinor="gra-vinyl" title="Restore game"/>
+			<file id="gra-saveboxo" name="saveboxo.gra" typeMajor="image"   typeMinor="gra-vinyl" title="Save Box O">
+				<supp reftype="palette"  ref="pal-overhead"/>
+			</file>
+			<file id="gra-saveboxg" name="saveboxg.gra" typeMajor="image"   typeMinor="gra-vinyl" title="Save Box G">
+				<!-- P.PAL also works -->
+				<supp reftype="palette"  ref="pal-palet1"/>
+			</file>
+			<file id="gra-sixps"    name="sixps.gra"    typeMajor="image"   typeMinor="gra-vinyl" title="Six Pound Sledge logo">
+				<supp reftype="palette"  ref="pal-sixps"/>
+			</file>
+			<file id="gra-textbox"  name="textbox.gra"  typeMajor="image"   typeMinor="gra-vinyl" title="Text box">
+				<supp reftype="palette"  ref="pal-game1"/>
+			</file>
+			<file id="gra-textbox2" name="textbox2.gra" typeMajor="image"   typeMinor="gra-vinyl" title="Text box 2">
+				<supp reftype="palette"  ref="pal-overhead"/>
+			</file>
+			<file id="gra-vinyl"    name="vinyl.gra"    typeMajor="image"   typeMinor="gra-vinyl" title="Vinyl logo">
+				<supp reftype="palette"  ref="pal-vinyl"/>
+			</file>
+			<file id="pal-game1"    name="game1.pal"    typeMajor="palette" typeMinor="vga-raw8"  title="Game palette"/>
+			<file id="pal-present"  name="present.pal"  typeMajor="palette" typeMinor="vga-raw8"  title="Present palette"/>
+			<file id="pal-palet1"   name="palet1.pal"   typeMajor="palette" typeMinor="vga-raw8"  title="Save Box G palette"/>
+			<file id="pal-sixps"    name="sixps.pal"    typeMajor="palette" typeMinor="vga-raw8"  title="Six Pound Sledge palette"/>
+			<file id="pal-vinyl"    name="vinyl.pal"    typeMajor="palette" typeMinor="vga-raw8"  title="Vinyl logo palette"/>
 
 			<file id="mus-coverup"  name="coverup.mus"  typeMajor="music" typeMinor="mus-vinyl" title="Coverup"/>
 			<file id="mus-crush"    name="crush.mus"    typeMajor="music" typeMinor="mus-vinyl" title="Crush"/>
