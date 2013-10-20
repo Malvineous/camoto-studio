@@ -45,31 +45,53 @@
 			<item ref="lev-309"/>
 		</group>
 		<group name="Graphics">
-			<item ref="tls-blue"/>
-			<item ref="pal-blue"/>
-			<item ref="tls-castle"/>
-			<item ref="pal-castle"/>
-			<item ref="tls-dungeon"/>
-			<item ref="pal-dungeon"/>
-			<item ref="tls-egypt"/>
-			<item ref="pal-egypt"/>
-			<item ref="tls-grave"/>
-			<item ref="pal-grave"/>
-			<item ref="tls-huts"/>
-			<item ref="pal-huts"/>
-			<item ref="tls-mount"/>
-			<item ref="pal-mount"/>
-			<item ref="tls-overhead"/>
-			<item ref="pal-overhead"/>
-			<item ref="tls-purple"/>
-			<item ref="pal-purple"/>
-			<item ref="tls-square"/>
-			<item ref="pal-square"/>
-			<item ref="tls-trees"/>
-			<item ref="pal-trees"/>
-			<item ref="tls-yellow"/>
-			<item ref="pal-yellow"/>
-			<item ref="img-unlogic1"/>
+			<group name="Tilesets">
+				<item ref="tls-blue"/>
+				<item ref="pal-blue"/>
+				<item ref="tls-castle"/>
+				<item ref="pal-castle"/>
+				<item ref="tls-dungeon"/>
+				<item ref="pal-dungeon"/>
+				<item ref="tls-egypt"/>
+				<item ref="pal-egypt"/>
+				<item ref="tls-grave"/>
+				<item ref="pal-grave"/>
+				<item ref="tls-huts"/>
+				<item ref="pal-huts"/>
+				<item ref="tls-mount"/>
+				<item ref="pal-mount"/>
+				<item ref="tls-overhead"/>
+				<item ref="pal-overhead"/>
+				<item ref="tls-purple"/>
+				<item ref="pal-purple"/>
+				<item ref="tls-square"/>
+				<item ref="pal-square"/>
+				<item ref="tls-trees"/>
+				<item ref="pal-trees"/>
+				<item ref="tls-yellow"/>
+				<item ref="pal-yellow"/>
+			</group>
+			<group name="Full-screen">
+				<item ref="img-unlogic1"/>
+				<item ref="pal-unlogic1"/>
+				<item ref="scr-credits"/>
+				<item ref="pal-credits"/>
+				<item ref="scr-endg1"/>
+				<item ref="pal-endg1"/>
+				<item ref="scr-endg2"/>
+				<item ref="pal-endg2"/>
+				<item ref="scr-endg3"/>
+				<item ref="pal-endg3"/>
+				<item ref="scr-episode"/>
+				<item ref="pal-episode"/>
+				<item ref="scr-inbetw"/>
+				<item ref="pal-inbetw"/>
+				<item ref="scr-spare"/>
+				<item ref="scr-story"/>
+				<item ref="pal-story"/>
+				<item ref="scr-title"/>
+				<item ref="pal-title"/>
+			</group>
 		</group>
 		<group name="Music">
 			<item ref="mus-coverup"/>
@@ -179,6 +201,30 @@
 
 			<file id="img-unlogic1" name="unlogic1.gra" typeMajor="image"   typeMinor="vga-raw8-fullscreen" title="Union Logic logo"/>
 			<file id="pal-unlogic1" name="unlogic1.pal" typeMajor="palette" typeMinor="vga-raw8" title="Union Logic logo palette"/>
+
+			<file id="scr-credits"  name="credits.scr" typeMajor="image"   typeMinor="scr-vinyl" title="Credits screen"/>
+			<file id="pal-credits"  name="credits.pal" typeMajor="palette" typeMinor="vga-raw8"  title="Credits palette"/>
+			<file id="scr-endg1"    name="endg1.scr"   typeMajor="image"   typeMinor="scr-vinyl" title="E1 ending screen"/>
+			<file id="pal-endg1"    name="endg1.pal"   typeMajor="palette" typeMinor="vga-raw8"  title="E1 ending palette"/>
+			<file id="scr-endg2"    name="endg2.scr"   typeMajor="image"   typeMinor="scr-vinyl" title="E2 ending screen"/>
+			<file id="pal-endg2"    name="endg2.pal"   typeMajor="palette" typeMinor="vga-raw8"  title="E2 ending palette"/>
+			<file id="scr-endg3"    name="endg3.scr"   typeMajor="image"   typeMinor="scr-vinyl" title="E3 ending screen"/>
+			<file id="pal-endg3"    name="endg3.pal"   typeMajor="palette" typeMinor="vga-raw8"  title="E3 ending palette"/>
+			<file id="scr-episode"  name="episode.scr" typeMajor="image"   typeMinor="scr-vinyl" title="Episode selection screen"/>
+			<file id="pal-episode"  name="episode.pal" typeMajor="palette" typeMinor="vga-raw8"  title="Episode selection palette"/>
+			<file id="scr-inbetw"   name="inbetw.scr"  typeMajor="image"   typeMinor="scr-vinyl" title="In-between screen">
+				<!-- This palette file is named differently, so it can't be picked up automatically -->
+				<supp reftype="palette"  ref="pal-inbetw"/>
+			</file>
+			<file id="pal-inbetw"   name="inbet.pal"   typeMajor="palette" typeMinor="vga-raw8"  title="In-between palette"/>
+			<file id="scr-spare"    name="spare.scr"   typeMajor="image"   typeMinor="scr-vinyl" title="Spare screen">
+				<!-- There is no palette for this image, but it is used on the title screen -->
+				<supp reftype="palette"  ref="pal-title"/>
+			</file>
+			<file id="scr-story"    name="story.scr"   typeMajor="image"   typeMinor="scr-vinyl" title="Story screen"/>
+			<file id="pal-story"    name="story.pal"   typeMajor="palette" typeMinor="vga-raw8"  title="Story palette"/>
+			<file id="scr-title"    name="title.scr"   typeMajor="image"   typeMinor="scr-vinyl" title="Title screen"/>
+			<file id="pal-title"    name="title.pal"   typeMajor="palette" typeMinor="vga-raw8"  title="Title palette"/>
 
 			<file id="mus-coverup"  name="coverup.mus"  typeMajor="music" typeMinor="mus-vinyl" title="Coverup"/>
 			<file id="mus-crush"    name="crush.mus"    typeMajor="music" typeMinor="mus-vinyl" title="Crush"/>
