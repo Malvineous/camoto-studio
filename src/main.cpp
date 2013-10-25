@@ -158,31 +158,38 @@ class CamotoApp: public wxApp
 			configFile->Read(_T("camoto/mididev"), &::config.midiDevice, 0);
 			configFile->Read(_T("camoto/pcmdelay"), &::config.pcmDelay, 0);
 
-			Studio *f;
-			wxString filename;
-			if (parser.Found(_T("project"), &filename)) {
-				f = new Studio(true);
-				if (!::wxFileExists(filename)) {
-					wxMessageDialog dlg(f, _("The supplied project file does not exist!"
-						"  The --project option must be given the full path (and "
-						"filename) of the 'project.camoto' file inside the project "
-						"directory."),
-						_("Open project"), wxOK | wxICON_ERROR);
+			try {
+				Studio *f;
+				wxString filename;
+				if (parser.Found(_T("project"), &filename)) {
+					f = new Studio(true);
+					if (!::wxFileExists(filename)) {
+						wxMessageDialog dlg(f, _("The supplied project file does not exist!"
+								"  The --project option must be given the full path (and "
+								"filename) of the 'project.camoto' file inside the project "
+								"directory."),
+							_("Open project"), wxOK | wxICON_ERROR);
+						dlg.ShowModal();
+					} else {
+						f->openProject(filename);
+					}
+				} else if (parser.Found(_T("music"), &filename)) {
+					f = new Studio(false);
+					//f->loadMusic(filename);
+					wxMessageDialog dlg(f, _("Sorry, standalone music editor not yet "
+							"implemented!"),
+						_("Open song"), wxOK | wxICON_ERROR);
 					dlg.ShowModal();
 				} else {
-					f->openProject(filename);
+					f = new Studio(true);
 				}
-			} else if (parser.Found(_T("music"), &filename)) {
-				f = new Studio(false);
-				//f->loadMusic(filename);
-				wxMessageDialog dlg(f, _("Sorry, standalone music editor not yet "
-					"implemented!"),
-					_("Open song"), wxOK | wxICON_ERROR);
+				f->Show(true);
+			} catch (const EFailure& e) {
+				wxMessageDialog dlg(NULL, wxString::Format(
+					"Error loading Camoto Studio: %s", e.what()),
+					_("Unexpected error"), wxOK | wxICON_ERROR);
 				dlg.ShowModal();
-			} else {
-				f = new Studio(true);
 			}
-			f->Show(true);
 			return true;
 		}
 
