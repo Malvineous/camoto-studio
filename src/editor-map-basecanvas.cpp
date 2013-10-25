@@ -18,7 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <png++/png.hpp>
 #include <GL/glew.h>
+#include "main.hpp"
 #include "editor-map-basecanvas.hpp"
 
 // Size of the grips when positioning path points
@@ -38,9 +40,10 @@ BEGIN_EVENT_TABLE(MapBaseCanvas, wxGLCanvas)
 	EVT_MOUSE_CAPTURE_LOST(MapBaseCanvas::onMouseCaptureLost)
 END_EVENT_TABLE()
 
-MapBaseCanvas::MapBaseCanvas(wxWindow *parent, int *attribList)
+MapBaseCanvas::MapBaseCanvas(wxWindow *parent, wxGLContext *glcx, int *attribList)
 	:	wxGLCanvas(parent, wxID_ANY, attribList, wxDefaultPosition,
 			wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS),
+		glcx(glcx),
 		zoomFactor(2),
 		offX(0),
 		offY(0),
@@ -49,6 +52,33 @@ MapBaseCanvas::MapBaseCanvas(wxWindow *parent, int *attribList)
 		scrollFromX(0),
 		scrollFromY(0)
 {
+	this->SetCurrent(*this->glcx);
+
+	// Load preset tiles and indicators
+	this->indicators[Map2D::Layer::Supplied].width = 0;
+	this->indicators[Map2D::Layer::Supplied].height = 0;
+	this->indicators[Map2D::Layer::Supplied].glid = 0;
+	this->indicators[Map2D::Layer::Blank].width = 0;
+	this->indicators[Map2D::Layer::Blank].height = 0;
+	this->indicators[Map2D::Layer::Blank].glid = 0;
+	this->indicators[Map2D::Layer::Unknown] = this->loadTileFromFile("unknown-tile");
+	this->indicators[Map2D::Layer::Digit0] = this->loadTileFromFile("number-0");
+	this->indicators[Map2D::Layer::Digit1] = this->loadTileFromFile("number-1");
+	this->indicators[Map2D::Layer::Digit2] = this->loadTileFromFile("number-2");
+	this->indicators[Map2D::Layer::Digit3] = this->loadTileFromFile("number-3");
+	this->indicators[Map2D::Layer::Digit4] = this->loadTileFromFile("number-4");
+	this->indicators[Map2D::Layer::Digit5] = this->loadTileFromFile("number-5");
+	this->indicators[Map2D::Layer::Digit6] = this->loadTileFromFile("number-6");
+	this->indicators[Map2D::Layer::Digit7] = this->loadTileFromFile("number-7");
+	this->indicators[Map2D::Layer::Digit8] = this->loadTileFromFile("number-8");
+	this->indicators[Map2D::Layer::Digit9] = this->loadTileFromFile("number-9");
+	this->indicators[Map2D::Layer::DigitA] = this->loadTileFromFile("number-a");
+	this->indicators[Map2D::Layer::DigitB] = this->loadTileFromFile("number-b");
+	this->indicators[Map2D::Layer::DigitC] = this->loadTileFromFile("number-c");
+	this->indicators[Map2D::Layer::DigitD] = this->loadTileFromFile("number-d");
+	this->indicators[Map2D::Layer::DigitE] = this->loadTileFromFile("number-e");
+	this->indicators[Map2D::Layer::DigitF] = this->loadTileFromFile("number-f");
+	this->indicators[Map2D::Layer::Interactive] = this->loadTileFromFile("interactive");
 }
 
 MapBaseCanvas::~MapBaseCanvas()
@@ -303,7 +333,75 @@ bool MapBaseCanvas::drawMapItem(int pixelX, int pixelY, unsigned int tileWidth,
 		glLineWidth(1.0);
 	}
 
+	// If there are any general flags, draw those
+	if (item->type & Map2D::Layer::Item::Flags) {
+		if (item->generalFlags & Map2D::Layer::Item::Interactive) {
+			const GLuint& textureId = this->indicators[Map2D::Layer::Interactive].glid;
+
+			if (textureId) {
+				// Normal image
+				glEnable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D, textureId);
+				glBegin(GL_QUADS);
+				glTexCoord2d(0.0, 0.0);
+				glVertex2i(x1, y1);
+				glTexCoord2d(0.0, 1.0);
+				glVertex2i(x1, y2);
+				glTexCoord2d(1.0, 1.0);
+				glVertex2i(x2, y2);
+				glTexCoord2d(1.0, 0.0);
+				glVertex2i(x2, y1);
+				glEnd();
+			}
+		}
+	}
+
 	return false;
+}
+
+Texture MapBaseCanvas::loadTileFromFile(const char *name)
+{
+	png::image<png::rgba_pixel> png;
+	wxString filename = ::path.mapIndicators + name + ".png";
+	try {
+		png.read(filename.mb_str());
+	} catch (const std::exception& e) {
+		std::cerr << "[editor-map-basecanvas] Error loading .png: " << e.what()
+			<< std::endl;
+		throw EFailure(e.what());
+	}
+
+	Texture t;
+	t.width = png.get_width();
+	t.height = png.get_height();
+	glGenTextures(1, &t.glid);
+	glBindTexture(GL_TEXTURE_2D, t.glid);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	boost::shared_array<uint32_t> combined(new uint32_t[t.width * t.height]);
+	uint8_t *c = (uint8_t *)combined.get();
+	for (unsigned int y = 0; y < t.height; y++) {
+		png::image<png::rgba_pixel>::row_type row = png[y];
+		for (unsigned int x = 0; x < t.width; x++) {
+			const png::rgba_pixel& px = row[x];
+			*c++ = px.blue;
+			*c++ = px.green;
+			*c++ = px.red;
+			*c++ = px.alpha;
+		}
+	}
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, t.width, t.height, 0, GL_BGRA,
+		GL_UNSIGNED_BYTE, combined.get());
+	if (glGetError()) {
+		std::cerr << "[editor-map-basecanvas] GL error loading file " << name <<
+			"into texture id " << t.glid << std::endl;
+	}
+
+	return t;
 }
 
 void MapBaseCanvas::onMouseMove(wxMouseEvent& ev)

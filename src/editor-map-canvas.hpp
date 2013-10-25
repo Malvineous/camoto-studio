@@ -232,17 +232,12 @@ class MapCanvas: public MapBaseCanvas
 			camoto::gamemaps::Map2D::LayerPtr& layer,
 			const camoto::gamemaps::TilesetCollectionPtr& tileset);
 
-		/// Load a .png image from the data/maps/ directory into an OpenGL texture.
-		Texture loadTileFromFile(const char *name);
-
 		MapDocument *doc;
 		camoto::gamemaps::Map2DPtr map;
-		wxGLContext *glcx;
 		const camoto::gamemaps::TilesetCollectionPtr tilesets;
 		const MapObjectVector *mapObjects;
 
 		std::vector<TEXTURE_MAP> textureMap;
-		Texture indicators[camoto::gamemaps::Map2D::Layer::NumImageTypes]; ///< Images for each ImageType
 
 		enum {TileMode, ObjectMode} editingMode; ///< Current editing mode
 		unsigned int primaryLayer; ///< Main layer used for things like gridline dimensions

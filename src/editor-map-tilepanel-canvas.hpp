@@ -80,7 +80,6 @@ class TilePanelCanvas: public MapBaseCanvas
 			const camoto::gamemaps::Map2D::Layer::ItemPtr item,
 			const Texture *texture);
 
-		wxGLContext *glcx;
 		TilePanel *tilePanel;
 
 		unsigned int tilesX;  ///< Number of tiles to draw before wrapping to the next row

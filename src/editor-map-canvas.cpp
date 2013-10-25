@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <png++/png.hpp>
 #include <camoto/gamemaps/util.hpp>
 #include "editor-map-canvas.hpp"
 
@@ -94,10 +93,9 @@ END_EVENT_TABLE()
 
 MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 	TilesetCollectionPtr tilesets, int *attribList, const MapObjectVector *mapObjects)
-	:	MapBaseCanvas(parent, attribList),
+	:	MapBaseCanvas(parent, glcx, attribList),
 		doc(parent),
 		map(map),
-		glcx(glcx),
 		tilesets(tilesets),
 		mapObjects(mapObjects),
 		editingMode(TileMode),
@@ -134,31 +132,6 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 
 		unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
-
-		// Load preset tiles and indicators
-		this->indicators[Map2D::Layer::Supplied].width = 0;
-		this->indicators[Map2D::Layer::Supplied].height = 0;
-		this->indicators[Map2D::Layer::Supplied].glid = 0;
-		this->indicators[Map2D::Layer::Blank].width = 0;
-		this->indicators[Map2D::Layer::Blank].height = 0;
-		this->indicators[Map2D::Layer::Blank].glid = 0;
-		this->indicators[Map2D::Layer::Unknown] = this->loadTileFromFile(::path.mapIndicators + _T("unknown-tile.png"));
-		this->indicators[Map2D::Layer::Digit0] = this->loadTileFromFile(::path.mapIndicators + _T("number-0.png"));
-		this->indicators[Map2D::Layer::Digit1] = this->loadTileFromFile(::path.mapIndicators + _T("number-1.png"));
-		this->indicators[Map2D::Layer::Digit2] = this->loadTileFromFile(::path.mapIndicators + _T("number-2.png"));
-		this->indicators[Map2D::Layer::Digit3] = this->loadTileFromFile(::path.mapIndicators + _T("number-3.png"));
-		this->indicators[Map2D::Layer::Digit4] = this->loadTileFromFile(::path.mapIndicators + _T("number-4.png"));
-		this->indicators[Map2D::Layer::Digit5] = this->loadTileFromFile(::path.mapIndicators + _T("number-5.png"));
-		this->indicators[Map2D::Layer::Digit6] = this->loadTileFromFile(::path.mapIndicators + _T("number-6.png"));
-		this->indicators[Map2D::Layer::Digit7] = this->loadTileFromFile(::path.mapIndicators + _T("number-7.png"));
-		this->indicators[Map2D::Layer::Digit8] = this->loadTileFromFile(::path.mapIndicators + _T("number-8.png"));
-		this->indicators[Map2D::Layer::Digit9] = this->loadTileFromFile(::path.mapIndicators + _T("number-9.png"));
-		this->indicators[Map2D::Layer::DigitA] = this->loadTileFromFile(::path.mapIndicators + _T("number-a.png"));
-		this->indicators[Map2D::Layer::DigitB] = this->loadTileFromFile(::path.mapIndicators + _T("number-b.png"));
-		this->indicators[Map2D::Layer::DigitC] = this->loadTileFromFile(::path.mapIndicators + _T("number-c.png"));
-		this->indicators[Map2D::Layer::DigitD] = this->loadTileFromFile(::path.mapIndicators + _T("number-d.png"));
-		this->indicators[Map2D::Layer::DigitE] = this->loadTileFromFile(::path.mapIndicators + _T("number-e.png"));
-		this->indicators[Map2D::Layer::DigitF] = this->loadTileFromFile(::path.mapIndicators + _T("number-f.png"));
 
 		// Load the palette
 		PaletteTablePtr palDefault;
@@ -407,44 +380,6 @@ void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 	}
 
 	return;
-}
-
-Texture MapCanvas::loadTileFromFile(const char *name)
-{
-	png::image<png::rgba_pixel> png;
-	png.read(name);
-
-	Texture t;
-	t.width = png.get_width();
-	t.height = png.get_height();
-	glGenTextures(1, &t.glid);
-	glBindTexture(GL_TEXTURE_2D, t.glid);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-	boost::shared_array<uint32_t> combined(new uint32_t[t.width * t.height]);
-	uint8_t *c = (uint8_t *)combined.get();
-	for (unsigned int y = 0; y < t.height; y++) {
-		png::image<png::rgba_pixel>::row_type row = png[y];
-		for (unsigned int x = 0; x < t.width; x++) {
-			const png::rgba_pixel& px = row[x];
-			*c++ = px.blue;
-			*c++ = px.green;
-			*c++ = px.red;
-			*c++ = px.alpha;
-		}
-	}
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, t.width, t.height, 0, GL_BGRA,
-		GL_UNSIGNED_BYTE, combined.get());
-	if (glGetError()) {
-		std::cerr << "[editor-tileset] GL error loading file " << name <<
-			"into texture id " << t.glid << std::endl;
-	}
-
-	return t;
 }
 
 void MapCanvas::setTileMode()

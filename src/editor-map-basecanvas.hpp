@@ -42,7 +42,7 @@
 class MapBaseCanvas: public wxGLCanvas
 {
 	public:
-		MapBaseCanvas(wxWindow *parent, int *attribList);
+		MapBaseCanvas(wxWindow *parent, wxGLContext *glcx, int *attribList);
 		~MapBaseCanvas();
 
 		/// Set the zoom factor.
@@ -96,11 +96,22 @@ class MapBaseCanvas: public wxGLCanvas
 			const camoto::gamemaps::Map2D::Layer::ItemPtr item,
 			const Texture *texture);
 
+		/// Load a texture from a .png image.
+		/**
+		 * @param name
+		 *   Base filename of .png, not including path or extension.  Images are
+		 *   loaded from path given by paths::mapIndicators.
+		 */
+		Texture loadTileFromFile(const char *name);
+
+		wxGLContext *glcx;
 		int zoomFactor;   ///< Zoom level (1 == 1:1, 2 == 2:1/doublesize, etc.)
 		int offX;         ///< Current X position (in pixels) to draw at (0,0)
 		int offY;         ///< Current Y position (in pixels) to draw at (0,0)
 		bool gridVisible; ///< Draw a grid when requested?
 		bool needRedraw;  ///< Do we need to redraw at the end of processing?
+
+		Texture indicators[camoto::gamemaps::Map2D::Layer::NumImageTypes]; ///< Images for each ImageType
 
 	private:
 		bool scrolling;   ///< True if currently scrolling with middle-drag

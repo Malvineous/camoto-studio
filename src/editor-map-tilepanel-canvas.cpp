@@ -45,8 +45,7 @@ END_EVENT_TABLE()
 
 TilePanelCanvas::TilePanelCanvas(TilePanel *parent, wxGLContext *glcx,
 	int *attribList)
-	:	MapBaseCanvas(parent, attribList),
-		glcx(glcx),
+	:	MapBaseCanvas(parent, glcx, attribList),
 		tilePanel(parent),
 		tilesX(0),
 		offset(0)
