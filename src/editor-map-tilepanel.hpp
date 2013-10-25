@@ -66,7 +66,7 @@ class TilePanel: public IToolPanel
 		unsigned int tilesX;    ///< Number of tiles to draw before wrapping to the next row
 		unsigned int offset;    ///< Number of tiles to skip drawing from the start of the tileset
 
-		friend TilePanelCanvas;
+		friend class TilePanelCanvas;
 
 		enum {
 			IDC_TOGGLEGRID = wxID_HIGHEST + 1,

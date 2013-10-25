@@ -90,7 +90,7 @@ class TilePanelCanvas: public MapBaseCanvas
 		unsigned int maxScrollX; ///< Maximum distance permitted to scroll horizontally
 		unsigned int maxScrollY; ///< Maximum distance permitted to scroll vertically
 
-		friend TilePanel; // access for loading/saving settings
+		friend class TilePanel; // access for loading/saving settings
 
 		DECLARE_EVENT_TABLE();
 };
