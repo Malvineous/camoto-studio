@@ -186,6 +186,7 @@ class TilesetDocument: public IDocument
 				ImagePtr image = tileset->openImage(*i);
 
 				image->getDimensions(&t.width, &t.height);
+				if ((t.width == 0) || (t.height == 0)) continue; // image too small
 				if ((t.width > 512) || (t.height > 512)) continue; // image too large
 
 				StdImageDataPtr data = image->toStandard();
@@ -402,54 +403,70 @@ class TilesetDocument: public IDocument
 				params.skip = this->offset;
 				params.useMask = false; // not important here
 				params.dimsOnly = true; // only find the image extents
-				this->exportTileset(this->rootTileset, &params);
+				try {
+					this->exportTileset(this->rootTileset, &params);
 
-				// Create an image of the correct dimensions to hold all the tiles
-				png::image<png::index_pixel> png(params.totalWidth,
-					params.y + params.maxHeight);
+					// Create an image of the correct dimensions to hold all the tiles
+					png::image<png::index_pixel> png(params.totalWidth,
+						params.y + params.maxHeight);
 
-				// Populate the palette, leaving room for transparency if needed
-				PaletteTablePtr srcPal = this->pal;
-				int palSize = srcPal->size();;
-				bool useMask = true; // drops colour 255
-				assert(srcPal->size() > 0);
+					// Populate the palette, leaving room for transparency if needed
+					PaletteTablePtr srcPal = this->pal;
+					int palSize = srcPal->size();;
+					bool useMask = true; // drops colour 255
+					assert(srcPal->size() > 0);
 
-				// Add an extra entry for transparency if there's room (otherwise
-				// everything gets shifted up one and colour 255 is lost)
-				if (useMask && (palSize < 256)) palSize++;
+					// Add an extra entry for transparency if there's room (otherwise
+					// everything gets shifted up one and colour 255 is lost)
+					if (useMask && (palSize < 256)) palSize++;
 
-				png::palette pngPal(palSize);
-				int j = 0;
-				if (useMask) {
-					// Assign first colour as transparent
-					png::tRNS transparency;
-					transparency.push_back(j);
-					png.set_tRNS(transparency);
+					png::palette pngPal(palSize);
+					int j = 0;
+					if (useMask) {
+						// Assign first colour as transparent
+						png::tRNS transparency;
+						transparency.push_back(j);
+						png.set_tRNS(transparency);
 
-					pngPal[j] = png::color(0xFF, 0x00, 0xFF);
-					j++;
+						pngPal[j] = png::color(0xFF, 0x00, 0xFF);
+						j++;
+					}
+
+					for (PaletteTable::iterator
+						i = srcPal->begin(); (i != srcPal->end()) && (j < 256); i++, j++
+					) {
+						pngPal[j] = png::color(i->red, i->green, i->blue);
+					}
+					png.set_palette(pngPal);
+
+					// Write the image data to the PNG canvas
+					params.ppng = &png;
+					params.x = 0;
+					params.y = 0;
+					params.nx = 0;
+					params.maxHeight = 0;
+					params.totalWidth = 0;
+					params.skip = this->offset;
+					params.useMask = useMask;
+					params.dimsOnly = false; // do the actual export now
+					this->exportTileset(this->rootTileset, &params);
+
+					png.write(path.mb_str());
+				} catch (const png::error& e) {
+					wxMessageDialog dlg(this,
+						wxString::Format(_T("Unexpected PNG error exporting image!\n\n[%s]"),
+						wxString(e.what(), wxConvUTF8).c_str()),
+						_T("Export image"), wxOK | wxICON_ERROR);
+					dlg.ShowModal();
+					return;
+				} catch (const std::exception& e) {
+					wxMessageDialog dlg(this,
+						wxString::Format(_T("Unexpected error exporting image!\n\n[%s]"),
+						wxString(e.what(), wxConvUTF8).c_str()),
+						_T("Export image"), wxOK | wxICON_ERROR);
+					dlg.ShowModal();
+					return;
 				}
-
-				for (PaletteTable::iterator
-					i = srcPal->begin(); (i != srcPal->end()) && (j < 256); i++, j++
-				) {
-					pngPal[j] = png::color(i->red, i->green, i->blue);
-				}
-				png.set_palette(pngPal);
-
-				// Write the image data to the PNG canvas
-				params.ppng = &png;
-				params.x = 0;
-				params.y = 0;
-				params.nx = 0;
-				params.maxHeight = 0;
-				params.totalWidth = 0;
-				params.skip = this->offset;
-				params.useMask = useMask;
-				params.dimsOnly = false; // do the actual export now
-				this->exportTileset(this->rootTileset, &params);
-
-				png.write(path.mb_str());
 			}
 			return;
 		}
