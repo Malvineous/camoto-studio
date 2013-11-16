@@ -33,6 +33,8 @@ struct Texture
 	GLuint glid;         ///< OpenGL texture ID
 	unsigned int width;  ///< Image width
 	unsigned int height; ///< Image height
+	signed int hotspotX; ///< Hotspot X location
+	signed int hotspotY; ///< Hotspot Y location
 };
 
 /// Map some internal image code to an OpenGL texture ID

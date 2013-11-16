@@ -329,6 +329,13 @@ void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 				return;
 			}
 
+			if (image->getCaps() & Image::HasHotspot) {
+				image->getHotspot(&t.hotspotX, &t.hotspotY);
+			} else {
+				t.hotspotX = 0;
+				t.hotspotY = 0;
+			}
+
 			PaletteTablePtr pal;
 			if (image->getCaps() & Image::HasPalette) {
 				pal = image->getPalette();

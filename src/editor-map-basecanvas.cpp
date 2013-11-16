@@ -153,13 +153,13 @@ bool MapBaseCanvas::drawMapItem(int pixelX, int pixelY, unsigned int tileWidth,
 		glBindTexture(GL_TEXTURE_2D, textureId);
 		glBegin(GL_QUADS);
 		glTexCoord2d(0.0, 0.0);
-		glVertex2i(x1, y1);
+		glVertex2i(x1 - texture->hotspotX, y1 - texture->hotspotY);
 		glTexCoord2d(0.0, 1.0);
-		glVertex2i(x1, y2);
+		glVertex2i(x1 - texture->hotspotX, y2 - texture->hotspotY);
 		glTexCoord2d(1.0, 1.0);
-		glVertex2i(x2, y2);
+		glVertex2i(x2 - texture->hotspotX, y2 - texture->hotspotY);
 		glTexCoord2d(1.0, 0.0);
-		glVertex2i(x2, y1);
+		glVertex2i(x2 - texture->hotspotX, y1 - texture->hotspotY);
 		glEnd();
 	}
 
@@ -374,6 +374,8 @@ Texture MapBaseCanvas::loadTileFromFile(const char *name)
 	Texture t;
 	t.width = png.get_width();
 	t.height = png.get_height();
+	t.hotspotX = 0;
+	t.hotspotY = 0;
 	glGenTextures(1, &t.glid);
 	glBindTexture(GL_TEXTURE_2D, t.glid);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
