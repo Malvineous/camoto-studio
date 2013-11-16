@@ -21,12 +21,19 @@
 	<display>
 
 		<group name="Levels">
-			<group name="Episode 1">
-			</group>
+			<item ref="map-a"/>
+			<item ref="map-b"/>
+			<item ref="map-c"/>
+			<item ref="map-d"/>
+			<item ref="map-e"/>
+			<item ref="map-f"/>
+			<item ref="map-g"/>
+			<item ref="map-h"/>
 		</group>
 
 		<group name="Graphics">
 			<item ref="pal-menu"/>
+			<item ref="pal-map"/>
 			<item ref="img-title"/>
 
 			<group name="Exit screens">
@@ -41,83 +48,135 @@
 				<item ref="img-logo2"/>
 			</group>
 
-			<group name="Tilesets">
-				<item ref="tls-font"/>
-				<item ref="tls-font2"/>
+			<group name="Ordering info">
+				<item ref="pal-os1"/>
+				<item ref="img-os1"/>
+				<item ref="pal-os2"/>
+				<item ref="img-os2"/>
+				<item ref="pal-os3"/>
+				<item ref="img-os3"/>
+				<item ref="pal-os4"/>
+				<item ref="img-os4"/>
+				<item ref="pal-os5"/>
+				<item ref="img-os5"/>
+				<item ref="pal-os6"/>
+				<item ref="img-os6"/>
+				<item ref="pal-os7"/>
+				<item ref="img-os7"/>
+				<item ref="pal-os8"/>
+				<item ref="img-os8"/>
+				<item ref="pal-os9"/>
+				<item ref="img-os9"/>
+				<item ref="pal-os10"/>
+				<item ref="img-os10"/>
+				<item ref="pal-os11"/>
+				<item ref="img-os11"/>
+			</group>
 
-				<item ref="tls-cna0"/>
-				<item ref="tls-cna1"/>
-				<item ref="tls-cna2"/>
-				<item ref="tls-cna3"/>
-				<item ref="tls-cna4"/>
-				<item ref="tls-cna5"/>
-				<item ref="tls-cnb0"/>
-				<item ref="tls-cnb1"/>
-				<item ref="tls-cnb2"/>
-				<item ref="tls-cnb3"/>
-				<item ref="tls-cnb4"/>
-				<item ref="tls-cnb5"/>
-				<item ref="tls-cnc0"/>
-				<item ref="tls-cnc1"/>
-				<item ref="tls-cnc2"/>
-				<item ref="tls-cnc3"/>
-				<item ref="tls-cnc4"/>
-				<item ref="tls-cnc5"/>
-				<item ref="tls-cnd0"/>
-				<item ref="tls-cnd1"/>
-				<item ref="tls-cnd2"/>
-				<item ref="tls-cnd3"/>
-				<item ref="tls-cnd4"/>
-				<item ref="tls-cnd5"/>
-				<item ref="tls-cne0"/>
-				<item ref="tls-cne1"/>
-				<item ref="tls-cne2"/>
-				<item ref="tls-cnf0"/>
-				<item ref="tls-cnf1"/>
-				<item ref="tls-cnf2"/>
-				<item ref="tls-cng0"/>
-				<item ref="tls-cng1"/>
-				<item ref="tls-cng2"/>
-				<item ref="tls-cnh0"/>
-				<item ref="tls-cnh1"/>
-				<item ref="tls-cnh2"/>
+			<group name="Tilesets">
 				<item ref="tls-main"/>
 				<item ref="tls-misc"/>
 
-				<item ref="tls-sha0"/>
-				<item ref="tls-sha1"/>
-				<item ref="tls-sha2"/>
-				<item ref="tls-sha3"/>
-				<item ref="tls-shaa"/>
-				<item ref="tls-shab"/>
-				<item ref="tls-shb0"/>
-				<item ref="tls-shb1"/>
-				<item ref="tls-shb2"/>
-				<item ref="tls-shba"/>
-				<item ref="tls-shc0"/>
-				<item ref="tls-shc1"/>
-				<item ref="tls-shc2"/>
-				<item ref="tls-shca"/>
-				<item ref="tls-shd0"/>
-				<item ref="tls-shd1"/>
-				<item ref="tls-shd2"/>
-				<item ref="tls-shda"/>
-				<item ref="tls-she0"/>
-				<item ref="tls-she1"/>
-				<item ref="tls-shea"/>
-				<item ref="tls-shf0"/>
-				<item ref="tls-shf1"/>
-				<item ref="tls-shfa"/>
-				<item ref="tls-shg0"/>
-				<item ref="tls-shg1"/>
-				<item ref="tls-shga"/>
-				<item ref="tls-shh0"/>
-				<item ref="tls-shh1"/>
-				<item ref="tls-shha"/>
+				<group name="Fonts">
+					<item ref="tls-font"/>
+					<item ref="tls-font2"/>
+				</group>
 
-				<item ref="tls-zil0"/>
-				<item ref="tls-zil1"/>
-				<item ref="tls-zil2"/>
+				<group name="Hazards">
+					<item ref="tls-haza"/>
+					<item ref="tls-hazb"/>
+					<item ref="tls-hazc"/>
+					<item ref="tls-hazd"/>
+				</group>
+
+				<group name="CN">
+					<item ref="tls-cna0"/>
+					<item ref="tls-cna1"/>
+					<item ref="tls-cna2"/>
+					<item ref="tls-cna3"/>
+					<item ref="tls-cna4"/>
+					<item ref="tls-cna5"/>
+					<item ref="tls-cnb0"/>
+					<item ref="tls-cnb1"/>
+					<item ref="tls-cnb2"/>
+					<item ref="tls-cnb3"/>
+					<item ref="tls-cnb4"/>
+					<item ref="tls-cnb5"/>
+					<item ref="tls-cnc0"/>
+					<item ref="tls-cnc1"/>
+					<item ref="tls-cnc2"/>
+					<item ref="tls-cnc3"/>
+					<item ref="tls-cnc4"/>
+					<item ref="tls-cnc5"/>
+					<item ref="tls-cnd0"/>
+					<item ref="tls-cnd1"/>
+					<item ref="tls-cnd2"/>
+					<item ref="tls-cnd3"/>
+					<item ref="tls-cnd4"/>
+					<item ref="tls-cnd5"/>
+					<item ref="tls-cne0"/>
+					<item ref="tls-cne1"/>
+					<item ref="tls-cne2"/>
+					<item ref="tls-cnf0"/>
+					<item ref="tls-cnf1"/>
+					<item ref="tls-cnf2"/>
+					<item ref="tls-cng0"/>
+					<item ref="tls-cng1"/>
+					<item ref="tls-cng2"/>
+					<item ref="tls-cnh0"/>
+					<item ref="tls-cnh1"/>
+					<item ref="tls-cnh2"/>
+				</group>
+
+				<group name="Ships">
+					<item ref="tls-sha0"/>
+					<item ref="tls-sha1"/>
+					<item ref="tls-sha2"/>
+					<item ref="tls-sha3"/>
+					<item ref="tls-shaa"/>
+					<item ref="tls-shab"/>
+					<item ref="tls-shb0"/>
+					<item ref="tls-shb1"/>
+					<item ref="tls-shb2"/>
+					<item ref="tls-shba"/>
+					<item ref="tls-shc0"/>
+					<item ref="tls-shc1"/>
+					<item ref="tls-shc2"/>
+					<item ref="tls-shca"/>
+					<item ref="tls-shd0"/>
+					<item ref="tls-shd1"/>
+					<item ref="tls-shd2"/>
+					<item ref="tls-shda"/>
+					<item ref="tls-she0"/>
+					<item ref="tls-she1"/>
+					<item ref="tls-shea"/>
+					<item ref="tls-shf0"/>
+					<item ref="tls-shf1"/>
+					<item ref="tls-shfa"/>
+					<item ref="tls-shg0"/>
+					<item ref="tls-shg1"/>
+					<item ref="tls-shga"/>
+					<item ref="tls-shh0"/>
+					<item ref="tls-shh1"/>
+					<item ref="tls-shha"/>
+				</group>
+
+				<group name="Intro animation">
+					<item ref="tls-zil0"/>
+					<item ref="tls-zil1"/>
+					<item ref="tls-zil2"/>
+				</group>
+
+				<group name="Maps">
+					<item ref="tls-mapa"/>
+					<item ref="tls-mapb"/>
+					<item ref="tls-mapc"/>
+					<item ref="tls-mapd"/>
+					<item ref="tls-mape"/>
+					<item ref="tls-mapf"/>
+					<item ref="tls-mapg"/>
+					<item ref="tls-maph"/>
+				</group>
 			</group>
 
 		</group>
@@ -237,7 +296,22 @@
 		<file id="tls-font"   name="font.z66"     typeMajor="tileset" typeMinor="zone66" title="Font 1"/>
 		<file id="tls-font2"  name="font2.z66"    typeMajor="tileset" typeMinor="zone66" title="Font 2"/>
 
+		<file id="tls-haza"   name="mapam0.z66"   typeMajor="tileset" typeMinor="zone66" title="Episode 1 hazard"/>
+		<file id="tls-hazb"   name="mapbm0.z66"   typeMajor="tileset" typeMinor="zone66" title="Episode 2 hazard"/>
+		<file id="tls-hazc"   name="mapcm0.z66"   typeMajor="tileset" typeMinor="zone66" title="Episode 3 hazard"/>
+		<file id="tls-hazd"   name="mapdm0.z66"   typeMajor="tileset" typeMinor="zone66" title="Episode 4 hazard"/>
+
+		<file id="tls-mapa"   name="mapagrfx.z66" typeMajor="tileset" typeMinor="zone66-map" title="Episode 1"/>
+		<file id="tls-mapb"   name="mapbgrfx.z66" typeMajor="tileset" typeMinor="zone66-map" title="Episode 2"/>
+		<file id="tls-mapc"   name="mapcgrfx.z66" typeMajor="tileset" typeMinor="zone66-map" title="Episode 3"/>
+		<file id="tls-mapd"   name="mapdgrfx.z66" typeMajor="tileset" typeMinor="zone66-map" title="Episode 4"/>
+		<file id="tls-mape"   name="mapegrfx.z66" typeMajor="tileset" typeMinor="zone66-map" title="Episode 5"/>
+		<file id="tls-mapf"   name="mapfgrfx.z66" typeMajor="tileset" typeMinor="zone66-map" title="Episode 6"/>
+		<file id="tls-mapg"   name="mapggrfx.z66" typeMajor="tileset" typeMinor="zone66-map" title="Episode 7"/>
+		<file id="tls-maph"   name="maphgrfx.z66" typeMajor="tileset" typeMinor="zone66-map" title="Episode 8"/>
+
 		<file id="pal-menu"   name="tpal.z66"     typeMajor="palette" typeMinor="vga" title="Menu palette"/>
+		<file id="pal-map"    name="mpal.z66"     typeMajor="palette" typeMinor="vga" title="Map palette"/>
 
 		<file id="mus-00g"    name="m00gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Title (Adlib)"/>
 		<file id="mus-01g"    name="m01gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" title="Title (SB)"/>
@@ -288,6 +362,97 @@
 			<file id="b800-reg" name="reg.bin" offset="0"     size="4000" typeMajor="b800" typeMinor="80x25" title="Registered exit screen"/>
 			<file id="b800-sw"  name="sw.bin"  offset="4000"  size="4000" typeMajor="b800" typeMinor="80x25" title="Shareware exit screen"/>
 		</archive>
+
+		<!-- Ordering info screens -->
+		<archive id="os-z66" name="os.z66" typeMinor="fixed">
+			<file id="img-os1"  name="os1.raw"  offset="1"      size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 1">
+				<supp reftype="palette" ref="pal-os1"/>
+			</file>
+			<file id="pal-os1"  name="os1.pal"  offset="64001"  size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 1 palette"/>
+
+			<file id="img-os2"  name="os2.raw"  offset="64769"  size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+				<supp reftype="palette" ref="pal-os2"/>
+			</file>
+			<file id="pal-os2"  name="os2.pal"  offset="128769" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+
+			<file id="img-os3"  name="os3.raw"  offset="129537" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+				<supp reftype="palette" ref="pal-os3"/>
+			</file>
+			<file id="pal-os3"  name="os3.pal"  offset="193537" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+
+			<file id="img-os4"  name="os4.raw"  offset="194305" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+				<supp reftype="palette" ref="pal-os4"/>
+			</file>
+			<file id="pal-os4"  name="os4.pal"  offset="258305" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+
+			<file id="img-os5"  name="os5.raw"  offset="259073" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+				<supp reftype="palette" ref="pal-os5"/>
+			</file>
+			<file id="pal-os5"  name="os5.pal"  offset="323073" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+
+			<file id="img-os6"  name="os6.raw"  offset="323841" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+				<supp reftype="palette" ref="pal-os6"/>
+			</file>
+			<file id="pal-os6"  name="os6.pal"  offset="387841" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+
+			<file id="img-os7"  name="os7.raw"  offset="388609" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+				<supp reftype="palette" ref="pal-os7"/>
+			</file>
+			<file id="pal-os7"  name="os7.pal"  offset="452609" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+
+			<file id="img-os8"  name="os8.raw"  offset="453377" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+				<supp reftype="palette" ref="pal-os8"/>
+			</file>
+			<file id="pal-os8"  name="os8.pal"  offset="517377" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+
+			<file id="img-os9"  name="os9.raw"  offset="518145" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+				<supp reftype="palette" ref="pal-os9"/>
+			</file>
+			<file id="pal-os9"  name="os9.pal"  offset="582145" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+
+			<file id="img-os10" name="os10.raw" offset="582913" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+				<supp reftype="palette" ref="pal-os10"/>
+			</file>
+			<file id="pal-os10" name="os10.pal" offset="646913" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+
+			<file id="img-os11" name="os11.raw" offset="647681" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+				<supp reftype="palette" ref="pal-os11"/>
+			</file>
+			<file id="pal-os11" name="os11.pal" offset="711681" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+		</archive>
+
+		<file id="map-tma"    name="mapadat.z66" typeMajor="map" typeMinor="zone66-tilemap" title="Episode 1 tile map"/>
+		<file id="map-tmb"    name="mapbdat.z66" typeMajor="map" typeMinor="zone66-tilemap" title="Episode 2 tile map"/>
+		<file id="map-tmc"    name="mapcdat.z66" typeMajor="map" typeMinor="zone66-tilemap" title="Episode 3 tile map"/>
+		<file id="map-tmd"    name="mapddat.z66" typeMajor="map" typeMinor="zone66-tilemap" title="Episode 4 tile map"/>
+		<file id="map-tme"    name="mapedat.z66" typeMajor="map" typeMinor="zone66-tilemap" title="Episode 5 tile map"/>
+		<file id="map-tmf"    name="mapfdat.z66" typeMajor="map" typeMinor="zone66-tilemap" title="Episode 6 tile map"/>
+		<file id="map-tmg"    name="mapgdat.z66" typeMajor="map" typeMinor="zone66-tilemap" title="Episode 7 tile map"/>
+		<file id="map-tmh"    name="maphdat.z66" typeMajor="map" typeMinor="zone66-tilemap" title="Episode 8 tile map"/>
+		<file id="map-a"      name="mapa.z66"    typeMajor="map" typeMinor="zone66" title="Episode 1 map">
+			<dep reftype="background-tileset1" ref="tls-mapa"/>
+		</file>
+		<file id="map-b"      name="mapb.z66"    typeMajor="map" typeMinor="zone66" title="Episode 2 map">
+			<dep reftype="background-tileset1" ref="tls-mapb"/>
+		</file>
+		<file id="map-c"      name="mapc.z66"    typeMajor="map" typeMinor="zone66" title="Episode 3 map">
+			<dep reftype="background-tileset1" ref="tls-mapc"/>
+		</file>
+		<file id="map-d"      name="mapd.z66"    typeMajor="map" typeMinor="zone66" title="Episode 4 map">
+			<dep reftype="background-tileset1" ref="tls-mapd"/>
+		</file>
+		<file id="map-e"      name="mape.z66"    typeMajor="map" typeMinor="zone66" title="Episode 5 map">
+			<dep reftype="background-tileset1" ref="tls-mape"/>
+		</file>
+		<file id="map-f"      name="mapf.z66"    typeMajor="map" typeMinor="zone66" title="Episode 6 map">
+			<dep reftype="background-tileset1" ref="tls-mapf"/>
+		</file>
+		<file id="map-g"      name="mapg.z66"    typeMajor="map" typeMinor="zone66" title="Episode 7 map">
+			<dep reftype="background-tileset1" ref="tls-mapg"/>
+		</file>
+		<file id="map-h"      name="maph.z66"    typeMajor="map" typeMinor="zone66" title="Episode 8 map">
+			<dep reftype="background-tileset1" ref="tls-maph"/>
+		</file>
 
 	</files>
 
