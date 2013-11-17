@@ -33,6 +33,17 @@ using namespace camoto::gamegraphics;
 using namespace camoto::gamemaps;
 using namespace camoto::gamemusic;
 
+/// No-op function used for truncating
+/**
+ * This is only used for setting the real size of a filtered stream.  Since
+ * we don't have to record this anywhere for standalone files, this function
+ * just discards the value.
+ */
+void noopTruncate()
+{
+	return;
+}
+
 /// Callback function to set expanded/native file size.
 void setRealSize(gamearchive::ArchivePtr arch,
 	gamearchive::Archive::EntryPtr id, stream::len newRealSize)
@@ -79,19 +90,41 @@ stream::inout_sptr CamotoLibs::openFile(const GameObjectPtr& o, bool useFilters)
 				"description XML file is missing the filename for this item!"));
 		}
 
-		std::cout << "[main] Opening " << fn.GetFullPath().ToAscii() << "\n";
+		std::cout << "[camotolibs] Opening " << fn.GetFullPath().ToAscii() << "\n";
 		if (!::wxFileExists(fn.GetFullPath())) {
 			throw EFailure(wxString::Format(_("Cannot open this item.  There is a "
 				"file missing from the project's copy of the game data files:\n\n%s"),
 				fn.GetFullPath().c_str()));
 		}
-		stream::file_sptr pf(new stream::file());
 		try {
+			stream::file_sptr pf(new stream::file());
 			pf->open(fn.GetFullPath().mb_str());
 			s = pf;
 		} catch (stream::open_error& e) {
 			throw EFailure(wxString::Format(_("Unable to open %s\n\nReason: %s"),
 				fn.GetFullPath().c_str(), wxString(e.what(), wxConvUTF8).c_str()));
+		}
+
+		// If it has any filters, apply them
+		if (useFilters && (!o->filter.empty())) {
+			// The file needs to be filtered first
+			std::string filterName(o->filter.ToUTF8());
+			FilterTypePtr pFilterType(this->mgrArchive->getFilterTypeByCode(filterName));
+			if (!pFilterType) {
+				throw EFailure(wxString::Format(_("This file requires decoding, but "
+							"the \"%s\" filter to do this couldn't be found (is your installed "
+							"version of libgamearchive too old?)"),
+						o->filter.c_str()));
+			}
+			try {
+				s = pFilterType->apply(s,
+					boost::bind<void>(&noopTruncate)
+				);
+				std::cout << "[camotolibs] Applying filter " << filterName << "\n";
+			} catch (const camoto::filter_error& e) {
+				throw EFailure(wxString::Format(_("Error decoding this file: %s"),
+						wxString(e.what(), wxConvUTF8).c_str()));
+			}
 		}
 	}
 	return s;

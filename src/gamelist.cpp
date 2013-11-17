@@ -230,6 +230,8 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 					o->typeMajor = wxString::FromUTF8((const char *)val, xmlStrlen(val));
 				} else if (xmlStrcmp(a->name, _X("typeMinor")) == 0) {
 					o->typeMinor = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+				} else if (xmlStrcmp(a->name, _X("filter")) == 0) {
+					o->filter = wxString::FromUTF8((const char *)val, xmlStrlen(val));
 				} else if (xmlStrcmp(a->name, _X("name")) == 0) {
 					o->filename = wxString::FromUTF8((const char *)val, xmlStrlen(val));
 				} else if (xmlStrcmp(a->name, _X("offset")) == 0) {

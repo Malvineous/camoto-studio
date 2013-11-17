@@ -91,6 +91,7 @@ struct GameObject
 	wxString idParent;     ///< ID of containing object, or empty for local file
 	wxString typeMajor;    ///< Major type (editor to use)
 	wxString typeMinor;    ///< Minor type (file format)
+	wxString filter;       ///< Decompression/decryption filter ID, blank for none
 	wxString friendlyName; ///< Name to show user
 	SuppIDs supp;          ///< SuppItem -> id mapping
 	Deps dep;              ///< Which objects this one is dependent upon
