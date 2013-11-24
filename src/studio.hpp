@@ -111,6 +111,9 @@ class Studio: public wxFrame, public CamotoLibs
 		/// Load DOSBox and run the game
 		void onRunGame(wxCommandEvent& ev);
 
+		/// Event handler for Help | Modding help.
+		void onHelpWiki(wxCommandEvent& ev);
+
 		/// Event handler for Help | About.
 		void onHelpAbout(wxCommandEvent& ev);
 
@@ -250,6 +253,7 @@ class Studio: public wxFrame, public CamotoLibs
 			IDC_RESET = wxID_HIGHEST + 1,
 			IDC_NOTEBOOK,
 			IDC_TREE,
+			IDC_OPENWIKI,
 			IDM_EXTRACT,
 			IDM_EXTRACT_RAW,
 			IDM_OVERWRITE,

@@ -25,9 +25,9 @@
 #include <wx/cmdline.h>
 #include <wx/imaglist.h>
 #include <wx/artprov.h>
-//#include <wx/cshelp.h>
 #include <wx/stdpaths.h>
 #include <wx/filename.h>
+#include <wx/uri.h>
 
 #include <camoto/gamearchive.hpp>
 #include <camoto/stream_file.hpp>
@@ -71,6 +71,7 @@ BEGIN_EVENT_TABLE(Studio, wxFrame)
 	EVT_MENU(wxID_CLOSE, Studio::onCloseProject)
 	EVT_MENU(IDC_RESET, Studio::onViewReset)
 	EVT_MENU(wxID_SETUP, Studio::onSetPrefs)
+	EVT_MENU(IDC_OPENWIKI, Studio::onHelpWiki)
 	EVT_MENU(wxID_ABOUT, Studio::onHelpAbout)
 	EVT_MENU(wxID_EXIT, Studio::onExit)
 	EVT_MENU(IDM_EXTRACT, Studio::onExtractItem)
@@ -140,6 +141,7 @@ Studio::Studio(bool isStudio)
 	this->menuTest = new wxMenu();
 
 	wxMenu *menuHelp = new wxMenu();
+	menuHelp->Append(IDC_OPENWIKI, _("Help for this &game..."));
 	menuHelp->Append(wxID_ABOUT, _("&About..."));
 
 	this->menubar = new wxMenuBar();
@@ -426,6 +428,41 @@ void Studio::onRunGame(wxCommandEvent& ev)
 		dlg.ShowModal();
 	}
 	delete argv;
+	return;
+}
+
+void Studio::onHelpWiki(wxCommandEvent& ev)
+{
+	if (!this->game) {
+		wxMessageDialog dlg(this, _(
+			"This option will open a web page with help specific to game being "
+			"edited.  You will need to open a game for editing before you can use "
+			"this menu item."
+		), _("Modding Help"), wxOK | wxICON_INFORMATION);
+		dlg.ShowModal();
+		return;
+	}
+
+	wxURI u(_T("http://www.shikadi.net/camoto/help.php?game=" + this->game->title));
+	wxString url = u.BuildURI();
+	wxMessageDialog dlg(this, _(
+		"Tips and helpful guides are available for many games on the ModdingWiki "
+		"web site.\n"
+		"\n"
+		"Would you like to visit the page for this game now?\n"
+		"\n") +
+		_T("<") + url + _T(">")
+		,
+		_("Modding Help"), wxYES_NO | wxICON_QUESTION);
+	if (dlg.ShowModal() == wxID_YES) {
+		if (!::wxLaunchDefaultBrowser(url)) {
+			wxMessageDialog dlg(this, _(
+				"Unable to open the default browser!"
+			), _("Modding Help"), wxOK | wxICON_ERROR);
+			dlg.ShowModal();
+			return;
+		}
+	}
 	return;
 }
 
