@@ -43,10 +43,11 @@ wxString dep2string(DepType t)
 		case FontTileset2:       return _T("font-tileset2");
 		case BackgroundImage:    return _T("background-image");
 		case Palette:            return _T("palette");
-		case DepTypeCount: // fall through
-		default:
-			return _T("<invalid value>");
+		case DepTypeCount:
+			break;
+		//default: // no default so GCC complains if we miss one
 	}
+	return _T("<invalid value>");
 }
 
 GameObjectPtr Game::findObjectByFilename(const wxString& filename,
