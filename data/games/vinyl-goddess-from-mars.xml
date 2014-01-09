@@ -128,27 +128,6 @@
 			<item ref="mus-tafa"/>
 			<item ref="mus-trample"/>
 			<item ref="mus-twilight"/>
-
-			<group name="Instruments">
-				<item ref="ins-coverup"/>
-				<item ref="ins-crush"/>
-				<item ref="ins-evileye"/>
-				<item ref="ins-fever"/>
-				<item ref="ins-horus"/>
-				<item ref="ins-insured"/>
-				<item ref="ins-intro"/>
-				<item ref="ins-mystic"/>
-				<item ref="ins-osiris"/>
-				<item ref="ins-prowler"/>
-				<item ref="ins-puzz6"/>
-				<item ref="ins-retrojil"/>
-				<item ref="ins-rolpc"/>
-				<item ref="ins-stardust"/>
-				<item ref="ins-strike"/>
-				<item ref="ins-tafa"/>
-				<item ref="ins-trample"/>
-				<item ref="ins-twilight"/>
-			</group>
 		</group>
 	</display>
 
@@ -303,7 +282,7 @@
 			<file id="ins-prowler"  name="prowler.tim"  typeMajor="music" typeMinor="tim-vinyl" title="Prowler"/>
 			<file id="ins-puzz6"    name="puzz6.tim"    typeMajor="music" typeMinor="tim-vinyl" title="Puzzle 6"/>
 			<file id="ins-retrojil" name="retrojil.tim" typeMajor="music" typeMinor="tim-vinyl" title="Retro Jill"/>
-			<file id="ins-rolpc"    name="roldpc.tim"   typeMajor="music" typeMinor="tim-vinyl" title="Roland/PC"/>
+			<file id="ins-rolpc"    name="rolpc.tim"    typeMajor="music" typeMinor="tim-vinyl" title="Roland/PC"/>
 			<file id="ins-stardust" name="stardust.tim" typeMajor="music" typeMinor="tim-vinyl" title="Stardust"/>
 			<file id="ins-strike"   name="strike.tim"   typeMajor="music" typeMinor="tim-vinyl" title="Strike"/>
 			<file id="ins-tafa"     name="tafa.tim"     typeMajor="music" typeMinor="tim-vinyl" title="Tafa"/>
