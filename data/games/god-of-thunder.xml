@@ -20,134 +20,19 @@
 	  -->
 	<display>
 		<group name="Levels">
-			<item ref="lev-1-000"/>
-			<item ref="lev-1-001"/>
-			<item ref="lev-1-002"/>
-			<item ref="lev-1-003"/>
-			<item ref="lev-1-004"/>
-			<item ref="lev-1-005"/>
-			<item ref="lev-1-006"/>
-			<item ref="lev-1-007"/>
-			<item ref="lev-1-008"/>
-			<item ref="lev-1-009"/>
-			<item ref="lev-1-010"/>
-			<item ref="lev-1-011"/>
-			<item ref="lev-1-012"/>
-			<item ref="lev-1-013"/>
-			<item ref="lev-1-014"/>
-			<item ref="lev-1-015"/>
-			<item ref="lev-1-016"/>
-			<item ref="lev-1-017"/>
-			<item ref="lev-1-018"/>
-			<item ref="lev-1-019"/>
-			<item ref="lev-1-020"/>
-			<item ref="lev-1-021"/>
-			<item ref="lev-1-022"/>
-			<item ref="lev-1-023"/>
-			<item ref="lev-1-024"/>
-			<item ref="lev-1-025"/>
-			<item ref="lev-1-026"/>
-			<item ref="lev-1-027"/>
-			<item ref="lev-1-028"/>
-			<item ref="lev-1-029"/>
-			<item ref="lev-1-030"/>
-			<item ref="lev-1-031"/>
-			<item ref="lev-1-032"/>
-			<item ref="lev-1-033"/>
-			<item ref="lev-1-034"/>
-			<item ref="lev-1-035"/>
-			<item ref="lev-1-036"/>
-			<item ref="lev-1-037"/>
-			<item ref="lev-1-038"/>
-			<item ref="lev-1-039"/>
-			<item ref="lev-1-040"/>
-			<item ref="lev-1-041"/>
-			<item ref="lev-1-042"/>
-			<item ref="lev-1-043"/>
-			<item ref="lev-1-044"/>
-			<item ref="lev-1-045"/>
-			<item ref="lev-1-046"/>
-			<item ref="lev-1-047"/>
-			<item ref="lev-1-048"/>
-			<item ref="lev-1-049"/>
-			<item ref="lev-1-050"/>
-			<item ref="lev-1-051"/>
-			<item ref="lev-1-052"/>
-			<item ref="lev-1-053"/>
-			<item ref="lev-1-054"/>
-			<item ref="lev-1-055"/>
-			<item ref="lev-1-056"/>
-			<item ref="lev-1-057"/>
-			<item ref="lev-1-058"/>
-			<item ref="lev-1-059"/>
-			<item ref="lev-1-060"/>
-			<item ref="lev-1-061"/>
-			<item ref="lev-1-062"/>
-			<item ref="lev-1-063"/>
-			<item ref="lev-1-064"/>
-			<item ref="lev-1-065"/>
-			<item ref="lev-1-066"/>
-			<item ref="lev-1-067"/>
-			<item ref="lev-1-068"/>
-			<item ref="lev-1-069"/>
-			<item ref="lev-1-070"/>
-			<item ref="lev-1-071"/>
-			<item ref="lev-1-072"/>
-			<item ref="lev-1-073"/>
-			<item ref="lev-1-074"/>
-			<item ref="lev-1-075"/>
-			<item ref="lev-1-076"/>
-			<item ref="lev-1-077"/>
-			<item ref="lev-1-078"/>
-			<item ref="lev-1-079"/>
-			<item ref="lev-1-080"/>
-			<item ref="lev-1-081"/>
-			<item ref="lev-1-082"/>
-			<item ref="lev-1-083"/>
-			<item ref="lev-1-084"/>
-			<item ref="lev-1-085"/>
-			<item ref="lev-1-086"/>
-			<item ref="lev-1-087"/>
-			<item ref="lev-1-088"/>
-			<item ref="lev-1-089"/>
-			<item ref="lev-1-090"/>
-			<item ref="lev-1-091"/>
-			<item ref="lev-1-092"/>
-			<item ref="lev-1-093"/>
-			<item ref="lev-1-094"/>
-			<item ref="lev-1-095"/>
-			<item ref="lev-1-096"/>
-			<item ref="lev-1-097"/>
-			<item ref="lev-1-098"/>
-			<item ref="lev-1-099"/>
-			<item ref="lev-1-100"/>
-			<item ref="lev-1-101"/>
-			<item ref="lev-1-102"/>
-			<item ref="lev-1-103"/>
-			<item ref="lev-1-104"/>
-			<item ref="lev-1-105"/>
-			<item ref="lev-1-106"/>
-			<item ref="lev-1-107"/>
-			<item ref="lev-1-108"/>
-			<item ref="lev-1-109"/>
-			<item ref="lev-1-110"/>
-			<item ref="lev-1-111"/>
-			<item ref="lev-1-112"/>
-			<item ref="lev-1-113"/>
-			<item ref="lev-1-114"/>
-			<item ref="lev-1-115"/>
-			<item ref="lev-1-116"/>
-			<item ref="lev-1-117"/>
-			<item ref="lev-1-118"/>
-			<item ref="lev-1-119"/>
+			<item ref="lev-1"/>
+			<item ref="lev-2"/>
+			<item ref="lev-3"/>
 		</group>
 		<group name="Tiles">
 			<item ref="tls-bpics1"/>
 			<item ref="tls-bpics2"/>
 			<item ref="tls-bpics3"/>
+			<item ref="tls-objects"/>
 
 			<item ref="tls-openback"/>
 			<item ref="tls-hampic"/>
+			<item ref="tls-odinpic"/>
 			<item ref="tls-status"/>
 
 			<item ref="tls-face1"/>
@@ -229,379 +114,27 @@
 	<files>
 		<archive name="gotres.dat" id="arch-got" typeMinor="dat-got">
 
-			<archive id="lev-sdat1" name="sdat1" typeMinor="fixed">
-				<file id="lev-1-000" name="lev1-000.got" offset="0"   size="512" typeMajor="map" typeMinor="got" title="Level 1-000">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-001" name="lev1-001.got" offset="512"   size="512" typeMajor="map" typeMinor="got" title="Level 1-001">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-002" name="lev1-002.got" offset="1024"   size="512" typeMajor="map" typeMinor="got" title="Level 1-002">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-003" name="lev1-003.got" offset="1536"   size="512" typeMajor="map" typeMinor="got" title="Level 1-003">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-004" name="lev1-004.got" offset="2048"   size="512" typeMajor="map" typeMinor="got" title="Level 1-004">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-005" name="lev1-005.got" offset="2560"   size="512" typeMajor="map" typeMinor="got" title="Level 1-005">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-006" name="lev1-006.got" offset="3072"   size="512" typeMajor="map" typeMinor="got" title="Level 1-006">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-007" name="lev1-007.got" offset="3584"   size="512" typeMajor="map" typeMinor="got" title="Level 1-007">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-008" name="lev1-008.got" offset="4096"   size="512" typeMajor="map" typeMinor="got" title="Level 1-008">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-009" name="lev1-009.got" offset="4608"   size="512" typeMajor="map" typeMinor="got" title="Level 1-009">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-010" name="lev1-010.got" offset="5120"   size="512" typeMajor="map" typeMinor="got" title="Level 1-010">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-011" name="lev1-011.got" offset="5632"   size="512" typeMajor="map" typeMinor="got" title="Level 1-011">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-012" name="lev1-012.got" offset="6144"   size="512" typeMajor="map" typeMinor="got" title="Level 1-012">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-013" name="lev1-013.got" offset="6656"   size="512" typeMajor="map" typeMinor="got" title="Level 1-013">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-014" name="lev1-014.got" offset="7168"   size="512" typeMajor="map" typeMinor="got" title="Level 1-014">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-015" name="lev1-015.got" offset="7680"   size="512" typeMajor="map" typeMinor="got" title="Level 1-015">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-016" name="lev1-016.got" offset="8192"   size="512" typeMajor="map" typeMinor="got" title="Level 1-016">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-017" name="lev1-017.got" offset="8704"   size="512" typeMajor="map" typeMinor="got" title="Level 1-017">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-018" name="lev1-018.got" offset="9216"   size="512" typeMajor="map" typeMinor="got" title="Level 1-018">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-019" name="lev1-019.got" offset="9728"   size="512" typeMajor="map" typeMinor="got" title="Level 1-019">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-020" name="lev1-020.got" offset="10240"   size="512" typeMajor="map" typeMinor="got" title="Level 1-020">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-021" name="lev1-021.got" offset="10752"   size="512" typeMajor="map" typeMinor="got" title="Level 1-021">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-022" name="lev1-022.got" offset="11264"   size="512" typeMajor="map" typeMinor="got" title="Level 1-022">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-023" name="lev1-023.got" offset="11776"   size="512" typeMajor="map" typeMinor="got" title="Level 1-023">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-024" name="lev1-024.got" offset="12288"   size="512" typeMajor="map" typeMinor="got" title="Level 1-024">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-025" name="lev1-025.got" offset="12800"   size="512" typeMajor="map" typeMinor="got" title="Level 1-025">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-026" name="lev1-026.got" offset="13312"   size="512" typeMajor="map" typeMinor="got" title="Level 1-026">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-027" name="lev1-027.got" offset="13824"   size="512" typeMajor="map" typeMinor="got" title="Level 1-027">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-028" name="lev1-028.got" offset="14336"   size="512" typeMajor="map" typeMinor="got" title="Level 1-028">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-029" name="lev1-029.got" offset="14848"   size="512" typeMajor="map" typeMinor="got" title="Level 1-029">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-030" name="lev1-030.got" offset="15360"   size="512" typeMajor="map" typeMinor="got" title="Level 1-030">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-031" name="lev1-031.got" offset="15872"   size="512" typeMajor="map" typeMinor="got" title="Level 1-031">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-032" name="lev1-032.got" offset="16384"   size="512" typeMajor="map" typeMinor="got" title="Level 1-032">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-033" name="lev1-033.got" offset="16896"   size="512" typeMajor="map" typeMinor="got" title="Level 1-033">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-034" name="lev1-034.got" offset="17408"   size="512" typeMajor="map" typeMinor="got" title="Level 1-034">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-035" name="lev1-035.got" offset="17920"   size="512" typeMajor="map" typeMinor="got" title="Level 1-035">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-036" name="lev1-036.got" offset="18432"   size="512" typeMajor="map" typeMinor="got" title="Level 1-036">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-037" name="lev1-037.got" offset="18944"   size="512" typeMajor="map" typeMinor="got" title="Level 1-037">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-038" name="lev1-038.got" offset="19456"   size="512" typeMajor="map" typeMinor="got" title="Level 1-038">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-039" name="lev1-039.got" offset="19968"   size="512" typeMajor="map" typeMinor="got" title="Level 1-039">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-040" name="lev1-040.got" offset="20480"   size="512" typeMajor="map" typeMinor="got" title="Level 1-040">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-041" name="lev1-041.got" offset="20992"   size="512" typeMajor="map" typeMinor="got" title="Level 1-041">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-042" name="lev1-042.got" offset="21504"   size="512" typeMajor="map" typeMinor="got" title="Level 1-042">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-043" name="lev1-043.got" offset="22016"   size="512" typeMajor="map" typeMinor="got" title="Level 1-043">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-044" name="lev1-044.got" offset="22528"   size="512" typeMajor="map" typeMinor="got" title="Level 1-044">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-045" name="lev1-045.got" offset="23040"   size="512" typeMajor="map" typeMinor="got" title="Level 1-045">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-046" name="lev1-046.got" offset="23552"   size="512" typeMajor="map" typeMinor="got" title="Level 1-046">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-047" name="lev1-047.got" offset="24064"   size="512" typeMajor="map" typeMinor="got" title="Level 1-047">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-048" name="lev1-048.got" offset="24576"   size="512" typeMajor="map" typeMinor="got" title="Level 1-048">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-049" name="lev1-049.got" offset="25088"   size="512" typeMajor="map" typeMinor="got" title="Level 1-049">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-050" name="lev1-050.got" offset="25600"   size="512" typeMajor="map" typeMinor="got" title="Level 1-050">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-051" name="lev1-051.got" offset="26112"   size="512" typeMajor="map" typeMinor="got" title="Level 1-051">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-052" name="lev1-052.got" offset="26624"   size="512" typeMajor="map" typeMinor="got" title="Level 1-052">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-053" name="lev1-053.got" offset="27136"   size="512" typeMajor="map" typeMinor="got" title="Level 1-053">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-054" name="lev1-054.got" offset="27648"   size="512" typeMajor="map" typeMinor="got" title="Level 1-054">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-055" name="lev1-055.got" offset="28160"   size="512" typeMajor="map" typeMinor="got" title="Level 1-055">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-056" name="lev1-056.got" offset="28672"   size="512" typeMajor="map" typeMinor="got" title="Level 1-056">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-057" name="lev1-057.got" offset="29184"   size="512" typeMajor="map" typeMinor="got" title="Level 1-057">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-058" name="lev1-058.got" offset="29696"   size="512" typeMajor="map" typeMinor="got" title="Level 1-058">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-059" name="lev1-059.got" offset="30208"   size="512" typeMajor="map" typeMinor="got" title="Level 1-059">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-060" name="lev1-060.got" offset="30720"   size="512" typeMajor="map" typeMinor="got" title="Level 1-060">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-061" name="lev1-061.got" offset="31232"   size="512" typeMajor="map" typeMinor="got" title="Level 1-061">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-062" name="lev1-062.got" offset="31744"   size="512" typeMajor="map" typeMinor="got" title="Level 1-062">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-063" name="lev1-063.got" offset="32256"   size="512" typeMajor="map" typeMinor="got" title="Level 1-063">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-064" name="lev1-064.got" offset="32768"   size="512" typeMajor="map" typeMinor="got" title="Level 1-064">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-065" name="lev1-065.got" offset="33280"   size="512" typeMajor="map" typeMinor="got" title="Level 1-065">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-066" name="lev1-066.got" offset="33792"   size="512" typeMajor="map" typeMinor="got" title="Level 1-066">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-067" name="lev1-067.got" offset="34304"   size="512" typeMajor="map" typeMinor="got" title="Level 1-067">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-068" name="lev1-068.got" offset="34816"   size="512" typeMajor="map" typeMinor="got" title="Level 1-068">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-069" name="lev1-069.got" offset="35328"   size="512" typeMajor="map" typeMinor="got" title="Level 1-069">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-070" name="lev1-070.got" offset="35840"   size="512" typeMajor="map" typeMinor="got" title="Level 1-070">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-071" name="lev1-071.got" offset="36352"   size="512" typeMajor="map" typeMinor="got" title="Level 1-071">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-072" name="lev1-072.got" offset="36864"   size="512" typeMajor="map" typeMinor="got" title="Level 1-072">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-073" name="lev1-073.got" offset="37376"   size="512" typeMajor="map" typeMinor="got" title="Level 1-073">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-074" name="lev1-074.got" offset="37888"   size="512" typeMajor="map" typeMinor="got" title="Level 1-074">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-075" name="lev1-075.got" offset="38400"   size="512" typeMajor="map" typeMinor="got" title="Level 1-075">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-076" name="lev1-076.got" offset="38912"   size="512" typeMajor="map" typeMinor="got" title="Level 1-076">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-077" name="lev1-077.got" offset="39424"   size="512" typeMajor="map" typeMinor="got" title="Level 1-077">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-078" name="lev1-078.got" offset="39936"   size="512" typeMajor="map" typeMinor="got" title="Level 1-078">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-079" name="lev1-079.got" offset="40448"   size="512" typeMajor="map" typeMinor="got" title="Level 1-079">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-080" name="lev1-080.got" offset="40960"   size="512" typeMajor="map" typeMinor="got" title="Level 1-080">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-081" name="lev1-081.got" offset="41472"   size="512" typeMajor="map" typeMinor="got" title="Level 1-081">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-082" name="lev1-082.got" offset="41984"   size="512" typeMajor="map" typeMinor="got" title="Level 1-082">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-083" name="lev1-083.got" offset="42496"   size="512" typeMajor="map" typeMinor="got" title="Level 1-083">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-084" name="lev1-084.got" offset="43008"   size="512" typeMajor="map" typeMinor="got" title="Level 1-084">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-085" name="lev1-085.got" offset="43520"   size="512" typeMajor="map" typeMinor="got" title="Level 1-085">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-086" name="lev1-086.got" offset="44032"   size="512" typeMajor="map" typeMinor="got" title="Level 1-086">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-087" name="lev1-087.got" offset="44544"   size="512" typeMajor="map" typeMinor="got" title="Level 1-087">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-088" name="lev1-088.got" offset="45056"   size="512" typeMajor="map" typeMinor="got" title="Level 1-088">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-089" name="lev1-089.got" offset="45568"   size="512" typeMajor="map" typeMinor="got" title="Level 1-089">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-090" name="lev1-090.got" offset="46080"   size="512" typeMajor="map" typeMinor="got" title="Level 1-090">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-091" name="lev1-091.got" offset="46592"   size="512" typeMajor="map" typeMinor="got" title="Level 1-091">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-092" name="lev1-092.got" offset="47104"   size="512" typeMajor="map" typeMinor="got" title="Level 1-092">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-093" name="lev1-093.got" offset="47616"   size="512" typeMajor="map" typeMinor="got" title="Level 1-093">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-094" name="lev1-094.got" offset="48128"   size="512" typeMajor="map" typeMinor="got" title="Level 1-094">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-095" name="lev1-095.got" offset="48640"   size="512" typeMajor="map" typeMinor="got" title="Level 1-095">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-096" name="lev1-096.got" offset="49152"   size="512" typeMajor="map" typeMinor="got" title="Level 1-096">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-097" name="lev1-097.got" offset="49664"   size="512" typeMajor="map" typeMinor="got" title="Level 1-097">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-098" name="lev1-098.got" offset="50176"   size="512" typeMajor="map" typeMinor="got" title="Level 1-098">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-099" name="lev1-099.got" offset="50688"   size="512" typeMajor="map" typeMinor="got" title="Level 1-099">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-100" name="lev1-100.got" offset="51200"   size="512" typeMajor="map" typeMinor="got" title="Level 1-100">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-101" name="lev1-101.got" offset="51712"   size="512" typeMajor="map" typeMinor="got" title="Level 1-101">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-102" name="lev1-102.got" offset="52224"   size="512" typeMajor="map" typeMinor="got" title="Level 1-102">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-103" name="lev1-103.got" offset="52736"   size="512" typeMajor="map" typeMinor="got" title="Level 1-103">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-104" name="lev1-104.got" offset="53248"   size="512" typeMajor="map" typeMinor="got" title="Level 1-104">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-105" name="lev1-105.got" offset="53760"   size="512" typeMajor="map" typeMinor="got" title="Level 1-105">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-106" name="lev1-106.got" offset="54272"   size="512" typeMajor="map" typeMinor="got" title="Level 1-106">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-107" name="lev1-107.got" offset="54784"   size="512" typeMajor="map" typeMinor="got" title="Level 1-107">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-108" name="lev1-108.got" offset="55296"   size="512" typeMajor="map" typeMinor="got" title="Level 1-108">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-109" name="lev1-109.got" offset="55808"   size="512" typeMajor="map" typeMinor="got" title="Level 1-109">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-110" name="lev1-110.got" offset="56320"   size="512" typeMajor="map" typeMinor="got" title="Level 1-110">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-111" name="lev1-111.got" offset="56832"   size="512" typeMajor="map" typeMinor="got" title="Level 1-111">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-112" name="lev1-112.got" offset="57344"   size="512" typeMajor="map" typeMinor="got" title="Level 1-112">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-113" name="lev1-113.got" offset="57856"   size="512" typeMajor="map" typeMinor="got" title="Level 1-113">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-114" name="lev1-114.got" offset="58368"   size="512" typeMajor="map" typeMinor="got" title="Level 1-114">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-115" name="lev1-115.got" offset="58880"   size="512" typeMajor="map" typeMinor="got" title="Level 1-115">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-116" name="lev1-116.got" offset="59392"   size="512" typeMajor="map" typeMinor="got" title="Level 1-116">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-117" name="lev1-117.got" offset="59904"   size="512" typeMajor="map" typeMinor="got" title="Level 1-117">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-118" name="lev1-118.got" offset="60416"   size="512" typeMajor="map" typeMinor="got" title="Level 1-118">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-				<file id="lev-1-119" name="lev1-119.got" offset="60928"   size="512" typeMajor="map" typeMinor="got" title="Level 1-119">
-					<dep reftype="background-tileset1" ref="tls-bpics1"/>
-				</file>
-			</archive>
-
-			<file id="lev-0"   name="base0.pt"   typeMajor="map" typeMinor="got" title="Base 1">
-				<dep reftype="background-tileset1" ref="tiles-bpics1"/>
+			<file id="lev-1" name="sdat1" typeMajor="map" typeMinor="got" title="Episode 1">
+				<dep reftype="background-tileset1" ref="tls-bpics1"/>
+				<dep reftype="foreground-tileset2" ref="tls-objects"/>
+			</file>
+			<file id="lev-2" name="sdat2" typeMajor="map" typeMinor="got" title="Episode 2">
+				<dep reftype="background-tileset1" ref="tls-bpics2"/>
+				<dep reftype="foreground-tileset2" ref="tls-objects"/>
+			</file>
+			<file id="lev-3" name="sdat3" typeMajor="map" typeMinor="got" title="Episode 3">
+				<dep reftype="background-tileset1" ref="tls-bpics3"/>
+				<dep reftype="foreground-tileset2" ref="tls-objects"/>
 			</file>
 
 			<file id="tls-bpics1"    name="bpics1"     typeMajor="tileset" typeMinor="got" title="Background tiles 1"/>
 			<file id="tls-bpics2"    name="bpics2"     typeMajor="tileset" typeMinor="got" title="Background tiles 2"/>
 			<file id="tls-bpics3"    name="bpics3"     typeMajor="tileset" typeMinor="got" title="Background tiles 3"/>
+			<file id="tls-objects"   name="objects"    typeMajor="tileset" typeMinor="got" title="Object tiles"/>
 
 			<file id="tls-openback"  name="openback"   typeMajor="tileset" typeMinor="got" title="Opening background tiles"/>
 			<file id="tls-hampic"    name="hampic"     typeMajor="tileset" typeMinor="got" title="Hammer"/>
+			<file id="tls-odinpic"   name="odinpic"    typeMajor="tileset" typeMinor="got" title="Odin"/>
 			<file id="tls-status"    name="status"     typeMajor="tileset" typeMinor="got" title="Status bar"/>
 
 			<file id="tls-face1"     name="face1"      typeMajor="tileset" typeMinor="got" title="Face 1"/>
@@ -704,6 +237,7 @@
 
 	<commands>
 		<command title="Normal">got</command>
+		<command title="Debug + skip intro">got /volstagg /keyreturn</command>
 	</commands>
 
 </game>
