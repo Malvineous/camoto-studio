@@ -276,24 +276,21 @@ void Studio::setControlStates()
 	return;
 }
 
-GameObjectPtr& Studio::getSelectedGameObject()
+GameObjectPtr Studio::getSelectedGameObject()
 {
 	return this->getSelectedGameObject(this->treeCtrl->GetSelection());
 }
 
-GameObjectPtr& Studio::getSelectedGameObject(wxTreeEvent& ev)
+GameObjectPtr Studio::getSelectedGameObject(wxTreeEvent& ev)
 {
 	return this->getSelectedGameObject(ev.GetItem());
 }
 
-GameObjectPtr& Studio::getSelectedGameObject(wxTreeItemId id)
+GameObjectPtr Studio::getSelectedGameObject(wxTreeItemId id)
 {
 	// Find the item that is currently selected in the tree view
 	TreeItemData *data = (TreeItemData *)this->treeCtrl->GetItemData(id);
-	if (!data) {
-		throw EFailure(_("This item cannot be opened in this manner.\n\n[TreeView "
-			"item had no item data set]"));
-	}
+	if (!data) return GameObjectPtr();
 
 	// Make sure the ID is valid
 	GameObjectMap::iterator io = this->game->objects.find(data->id);
@@ -522,8 +519,16 @@ void Studio::onOverwriteUnfilteredItem(wxCommandEvent& ev)
 
 void Studio::onItemProperties(wxCommandEvent& ev)
 {
-	GameObjectPtr& o = this->getSelectedGameObject();
-	if (o->typeMajor.IsSameAs(_T("map"))) {
+	GameObjectPtr o;
+	try {
+		o = this->getSelectedGameObject();
+	} catch (const EFailure& e) {
+		wxMessageDialog dlg(this, e.getMessage(), _("Error retrieving properties"),
+			wxOK | wxICON_ERROR);
+		dlg.ShowModal();
+		return;
+	}
+	if (o && o->typeMajor.IsSameAs(_T("map"))) {
 		gamemaps::MapPtr map;
 		fn_write fnWriteMap;
 		try {
@@ -538,6 +543,11 @@ void Studio::onItemProperties(wxCommandEvent& ev)
 			throw EFailure(wxString::Format(_("Library exception: %s"),
 					wxString(e.what(), wxConvUTF8).c_str()));
 		}
+	} else {
+		wxMessageDialog dlg(this, _("This item has no properties."),
+			_("Properties"), wxOK | wxICON_WARNING);
+		dlg.ShowModal();
+		return;
 	}
 	return;
 }
@@ -663,7 +673,19 @@ void Studio::onClose(wxCloseEvent& ev)
 
 void Studio::onItemOpened(wxTreeEvent& ev)
 {
-	GameObjectPtr& o = this->getSelectedGameObject(ev);
+	GameObjectPtr o;
+	try {
+		o = this->getSelectedGameObject(ev);
+	} catch (const EFailure& e) {
+		wxMessageDialog dlg(this, e.getMessage(), _("Open failure"), wxOK | wxICON_ERROR);
+		dlg.ShowModal();
+		return;
+	}
+	if (!o) {
+		// not an item (probably a folder double-clicked)
+		ev.Skip();
+		return;
+	}
 
 	if (o->typeMajor.IsSameAs(_("unknown"))) {
 		wxMessageDialog dlg(this, _("Sorry, this item is in an unknown "
@@ -749,21 +771,23 @@ void Studio::onItemRightClick(wxTreeEvent& ev)
 {
 	bool hasFilters = false, hasProperties = false;
 	try {
-		GameObjectPtr& o = this->getSelectedGameObject(ev);
-		if (!o->idParent.empty()) {
-			// This file is contained within an archive
-			gamearchive::ArchivePtr arch = this->getArchive(o->idParent);
-			if (arch) {
-				std::string nativeFilename(o->filename.mb_str());
-				gamearchive::Archive::EntryPtr f = gamearchive::findFile(arch, nativeFilename);
-				if (f) {
-					// Found file
-					hasFilters = !f->filter.empty();
+		GameObjectPtr o = this->getSelectedGameObject(ev);
+		if (o) {
+			if (!o->idParent.empty()) {
+				// This file is contained within an archive
+				gamearchive::ArchivePtr arch = this->getArchive(o->idParent);
+				if (arch) {
+					std::string nativeFilename(o->filename.mb_str());
+					gamearchive::Archive::EntryPtr f = gamearchive::findFile(arch, nativeFilename);
+					if (f) {
+						// Found file
+						hasFilters = !f->filter.empty();
+					}
 				}
 			}
-		}
-		if (o->typeMajor.IsSameAs(_T("map"))) {
-			hasProperties = true;
+			if (o->typeMajor.IsSameAs(_T("map"))) {
+				hasProperties = true;
+			}
 		}
 	} catch (...) {
 		// just ignore any errors
