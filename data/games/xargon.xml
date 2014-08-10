@@ -357,18 +357,30 @@
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 
+		<archive id="tls-1-arch" name="graphics.xr1" typeMinor="fixed">
+			<file id="tls-1-pal"  name="graphic1.pal" offset="0x549d" size="768" typeMajor="palette" typeMinor="vga-raw" title="Tileset palette"/>
+		</archive>
 		<file id="tls-1"    name="graphics.xr1" typeMajor="tileset" typeMinor="jill" title="Game graphics">
 			<dep reftype="background-tileset1" ref="dma-1"/>
+			<dep reftype="palette" ref="tls-1-pal"/>
 		</file>
 		<file id="dma-1"    name="tiles.xr1" title="Tile properties"/>
 
+		<archive id="tls-2-arch" name="graphics.xr2" typeMinor="fixed">
+			<file id="tls-2-pal"  name="graphic1.pal" offset="0x569d" size="768" typeMajor="palette" typeMinor="vga-raw" title="Tileset palette"/>
+		</archive>
 		<file id="tls-2"    name="graphics.xr2" typeMajor="tileset" typeMinor="jill" title="Game graphics">
 			<dep reftype="background-tileset1" ref="dma-1"/>
+			<dep reftype="palette" ref="tls-2-pal"/>
 		</file>
 		<file id="dma-2"    name="tiles.xr2" title="Tile properties"/>
 
+		<archive id="tls-3-arch" name="graphics.xr3" typeMinor="fixed">
+			<file id="tls-3-pal"  name="graphic3.pal" offset="0x569d" size="768" typeMajor="palette" typeMinor="vga-raw" title="Tileset palette"/>
+		</archive>
 		<file id="tls-3"    name="graphics.xr3" typeMajor="tileset" typeMinor="jill" title="Game graphics">
 			<dep reftype="background-tileset1" ref="dma-1"/>
+			<dep reftype="palette" ref="tls-3-pal"/>
 		</file>
 		<file id="dma-3"    name="tiles.xr3" title="Tile properties"/>
 
@@ -415,15 +427,15 @@
 		<file id="mus-332"  name="song_32.xr3"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Level music 32"/>
 
 		<archive id="exe-1" name="xrfile01.exe" typeMinor="fixed">
-			<file id="pal-1"  name="xargon1.pal" offset="0x26b32" size="768" typeMajor="image" typeMinor="pal-vga" title="VGA palette"/>
+			<file id="pal-1"  name="xargon1.pal" offset="0x26b32" size="768" typeMajor="palette" typeMinor="vga-raw" title="Unused VGA palette"/>
 		</archive>
 
 		<archive id="exe-2" name="xrfile02.exe" typeMinor="fixed">
-			<file id="pal-2"  name="xargon2.pal" offset="0x26b32" size="768" typeMajor="image" typeMinor="pal-vga" title="VGA palette"/>
+			<file id="pal-2"  name="xargon2.pal" offset="0x26b32" size="768" typeMajor="palette" typeMinor="vga-raw" title="Unused VGA palette"/>
 		</archive>
 
 		<archive id="exe-3" name="xrfile03.exe" typeMinor="fixed">
-			<file id="pal-3"  name="xargon3.pal" offset="0x26b32" size="768" typeMajor="image" typeMinor="pal-vga" title="VGA palette"/>
+			<file id="pal-3"  name="xargon3.pal" offset="0x26b32" size="768" typeMajor="palette" typeMinor="vga-raw" title="Unused VGA palette"/>
 		</archive>
 
 		<!-- All episodes -->
