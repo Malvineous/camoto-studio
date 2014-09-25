@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Doofus description file for Camoto Studio
+	Copyright (C) 2010-2014 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Doofus
+  -->
+<game title="Doofus">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Ivo Herzeg</developer>
+		<publisher>Prestige Softwareentwicklung GmbH</publisher>
+		<reverser>Malvineous</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+		<group name="Music">
+			<item ref="mus-01" />
+			<item ref="mus-02" />
+			<item ref="mus-03" />
+			<item ref="mus-04" />
+			<item ref="mus-05" />
+			<item ref="mus-06" />
+			<item ref="mus-07" />
+		</group>
+	</display>
+
+	<files>
+		<file id="exe-doofus" name="doofus.exe" typeMajor="binary" typeMinor="exe" title="Main EXE file"/>
+		<archive name="gamedata.g-d" id="arch-gamedata" typeMinor="gd-doofus">
+			<supp reftype="fat" ref="exe-doofus"/>
+			<file id="mus-01" name="@55" typeMajor="music" typeMinor="tbsa-doofus" title="Title song"/>
+			<file id="mus-02" name="@56" typeMajor="music" typeMinor="tbsa-doofus" title="Menu song"/>
+			<file id="mus-03" name="@57" typeMajor="music" typeMinor="tbsa-doofus" title="E1 song"/>
+			<file id="mus-04" name="@58" typeMajor="music" typeMinor="tbsa-doofus" title="E2 song"/>
+			<file id="mus-05" name="@59" typeMajor="music" typeMinor="tbsa-doofus" title="E3 song"/>
+			<file id="mus-06" name="@60" typeMajor="music" typeMinor="tbsa-doofus" title="Bonus song"/>
+			<file id="mus-07" name="@61" typeMajor="music" typeMinor="tbsa-doofus" title="Finale song"/>
+		</archive>
+	</files>
+
+	<commands>
+		<command title="Normal">doofus</command>
+	</commands>
+
+</game>
