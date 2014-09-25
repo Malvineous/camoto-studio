@@ -315,32 +315,32 @@
 
 		<file id="mus-00g"    name="m00gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Title (Adlib)"/>
 		<file id="mus-01g"    name="m01gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Title (SB)"/>
-		<file id="mus-03g"    name="m03gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Title (GUS)"/>
+		<file id="mus-03g"    name="m03gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66-gus" filter="lzw-zone66" title="Title (GUS)"/>
 		<file id="mus-a2g"    name="ma2gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Foreign Shores (Adlib/SB)"/>
-		<file id="mus-a3g"    name="ma3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Foreign Shores (GUS)"/>
+		<file id="mus-a3g"    name="ma3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66-gus" filter="lzw-zone66" title="Foreign Shores (GUS)"/>
 		<file id="mus-b0g"    name="mb0gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Ice Wind (Adlib)"/>
 		<file id="mus-b2g"    name="mb2gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Ice Wind (Adlib/SB)"/>
-		<file id="mus-b3g"    name="mb3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Ice Wind (GUS)"/>
+		<file id="mus-b3g"    name="mb3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66-gus" filter="lzw-zone66" title="Ice Wind (GUS)"/>
 		<file id="mus-c0g"    name="mc0gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Desert Heat (Adlib)"/>
 		<file id="mus-c1g"    name="mc1gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Desert Heat (SB)"/>
-		<file id="mus-c3g"    name="mc3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Desert Heat (GUS)"/>
+		<file id="mus-c3g"    name="mc3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66-gus" filter="lzw-zone66" title="Desert Heat (GUS)"/>
 		<file id="mus-d1g"    name="md1gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="War Plains (SB)"/>
-		<file id="mus-d3g"    name="md3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="War Plains (GUS)"/>
+		<file id="mus-d3g"    name="md3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66-gus" filter="lzw-zone66" title="War Plains (GUS)"/>
 		<file id="mus-e0g"    name="me0gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Highway Fury (Adlib)"/>
 		<file id="mus-e2g"    name="me2gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Highway Fury (Adlib/SB)"/>
-		<file id="mus-e3g"    name="me3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Highway Fury (GUS)"/>
+		<file id="mus-e3g"    name="me3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66-gus" filter="lzw-zone66" title="Highway Fury (GUS)"/>
 		<file id="mus-f0g"    name="mf0gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Plantation Crash (Adlib)"/>
 		<file id="mus-f2g"    name="mf2gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Plantation Crash (Adlib/SB)"/>
-		<file id="mus-f3g"    name="mf3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Plantation Crash (GUS)"/>
+		<file id="mus-f3g"    name="mf3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66-gus" filter="lzw-zone66" title="Plantation Crash (GUS)"/>
 		<file id="mus-g0g"    name="mg0gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Hell (Adlib)"/>
 		<file id="mus-g2g"    name="mg2gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Hell (Adlib/SB)"/>
-		<file id="mus-g3g"    name="mg3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Hell (GUS)"/>
+		<file id="mus-g3g"    name="mg3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66-gus" filter="lzw-zone66" title="Hell (GUS)"/>
 		<file id="mus-h0g"    name="mh0gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Final Frontier (Adlib)"/>
 		<file id="mus-h2g"    name="mh2gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Final Frontier (Adlib/SB)"/>
-		<file id="mus-h3g"    name="mh3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Final Frontier (GUS)"/>
+		<file id="mus-h3g"    name="mh3gmuz.z66"  typeMajor="music" typeMinor="cdfm-zone66-gus" filter="lzw-zone66" title="Final Frontier (GUS)"/>
 		<file id="mus-z00"    name="zim00.z66"    typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Zim (Adlib)"/>
 		<file id="mus-z01"    name="zim01.z66"    typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Zim (SB)"/>
-		<file id="mus-z02"    name="zim02.z66"    typeMajor="music" typeMinor="cdfm-zone66" filter="lzw-zone66" title="Zim (GUS)"/>
+		<file id="mus-z02"    name="zim02.z66"    typeMajor="music" typeMinor="cdfm-zone66-gus" filter="lzw-zone66" title="Zim (GUS)"/>
 
 		<file id="txt-instr"  name="instr.z66"    typeMajor="text"  typeMinor="plain" filter="lzw-zone66" title="Instructions"/>
 
