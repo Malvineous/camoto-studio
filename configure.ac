@@ -53,7 +53,6 @@ fi
 # This has to go before the WX tests because they break CXXFLAGS
 BOOST_REQUIRE([1.46])
 BOOST_FILESYSTEM
-BOOST_TEST
 BOOST_THREADS
 
 # Save the global CFLAGS etc. while we run some more tests
