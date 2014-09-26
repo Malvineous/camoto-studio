@@ -3,7 +3,6 @@ bin_PROGRAMS = camoto-studio
 camoto_studio_SOURCES = main.cpp
 camoto_studio_SOURCES += audio.cpp
 camoto_studio_SOURCES += camotolibs.cpp
-camoto_studio_SOURCES += dbopl.cpp
 camoto_studio_SOURCES += exceptions.cpp
 camoto_studio_SOURCES += project.cpp
 camoto_studio_SOURCES += gamelist.cpp
@@ -28,12 +27,10 @@ camoto_studio_SOURCES += editor-tileset-canvas.cpp
 camoto_studio_SOURCES += dlg-export-mus.cpp
 camoto_studio_SOURCES += dlg-import-mus.cpp
 camoto_studio_SOURCES += dlg-map-attr.cpp
-camoto_studio_SOURCES += playerthread.cpp
 
 EXTRA_camoto_studio_SOURCES = main.hpp
 EXTRA_camoto_studio_SOURCES += audio.hpp
 EXTRA_camoto_studio_SOURCES += camotolibs.hpp
-EXTRA_camoto_studio_SOURCES += dbopl.hpp
 EXTRA_camoto_studio_SOURCES += dosbox.hpp
 EXTRA_camoto_studio_SOURCES += exceptions.hpp
 EXTRA_camoto_studio_SOURCES += project.hpp
@@ -59,7 +56,6 @@ EXTRA_camoto_studio_SOURCES += editor-tileset-canvas.hpp
 EXTRA_camoto_studio_SOURCES += dlg-export-mus.hpp
 EXTRA_camoto_studio_SOURCES += dlg-import-mus.hpp
 EXTRA_camoto_studio_SOURCES += dlg-map-attr.hpp
-EXTRA_camoto_studio_SOURCES += playerthread.hpp
 
 # RtMidi code
 camoto_studio_SOURCES += RtMidi.cpp

@@ -367,16 +367,12 @@ void Studio::onSetPrefs(wxCommandEvent& ev)
 	PrefsDialog prefs(this, this->audio);
 	prefs.pathDOSBox = &::config.dosboxPath;
 	prefs.pauseAfterExecute = &::config.dosboxExitPause;
-	prefs.midiDevice = &::config.midiDevice;
-	prefs.pcmDelay = &::config.pcmDelay;
 	prefs.setControls();
 	if (prefs.ShowModal() == wxID_OK) {
 		// Save the user's preferences
 		wxConfigBase *configFile = wxConfigBase::Get(true);
 		configFile->Write(_T("camoto/dosbox"), ::config.dosboxPath);
 		configFile->Write(_T("camoto/pause"), ::config.dosboxExitPause);
-		configFile->Write(_T("camoto/mididev"), ::config.midiDevice);
-		configFile->Write(_T("camoto/pcmdelay"), ::config.pcmDelay);
 		configFile->Flush();
 	}
 	return;

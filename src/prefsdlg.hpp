@@ -2,7 +2,7 @@
  * @file   prefsdlg.hpp
  * @brief  Dialog box for the preferences window.
  *
- * Copyright (C) 2010-2013 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2014 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,18 +29,13 @@
 #include <wx/listctrl.h>
 #include "studio.hpp"
 #include "audio.hpp"
-#include "playerthread.hpp"
-#include "RtMidi.h"
 
 /// User preferences dialog box.
-class PrefsDialog: public wxDialog,
-                   virtual public PlayerCallback
+class PrefsDialog: public wxDialog
 {
 	public:
 		wxString *pathDOSBox;     ///< Path of DOSBox .exe
 		bool *pauseAfterExecute;  ///< Pause in DOSBox after running game?
-		int *midiDevice;          ///< Index of selected MIDI device
-		int *pcmDelay;            ///< Digital output delay, in milliseconds
 
 		/// Initialise main window.
 		/**
@@ -63,30 +58,12 @@ class PrefsDialog: public wxDialog,
 		/// Event handler for DOSBox .exe browse button.
 		void onBrowseDOSBox(wxCommandEvent& ev);
 
-		/// Event handler for PCM delay adjustment.
-		void onDelayChange(wxSpinEvent& ev);
-
-		/// Event handler for audio test button.
-		void onTestAudio(wxCommandEvent& ev);
-
-		// PlayerCallback
-
-		virtual void notifyPosition(unsigned long absTime);
-
 	protected:
 		AudioPtr audio;
 
 		wxTextCtrl *txtDOSBoxPath;
 		wxCheckBox *chkDOSBoxPause;
-		wxSpinCtrl *spinDelay;
 		wxListCtrl *portList;
-		boost::shared_ptr<RtMidiOut> midi;
-		PlayerThread *player;
-		boost::thread threadMIDI;
-		boost::thread threadPCM;
-
-		int o_pcmDelay;    ///< Preserve original value
-		int o_midiDevice;  ///< Preserve original value
 
 		DECLARE_EVENT_TABLE();
 };

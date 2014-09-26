@@ -2,7 +2,7 @@
  * @file   editor-music-eventpanel.cpp
  * @brief  Single channel list of events UI control for the music editor.
  *
- * Copyright (C) 2010-2013 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2014 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,10 +28,10 @@ BEGIN_EVENT_TABLE(EventPanel, wxPanel)
 	EVT_SIZE(EventPanel::onResize)
 END_EVENT_TABLE()
 
-EventPanel::EventPanel(MusicDocument *parent, int channel)
+EventPanel::EventPanel(MusicDocument *parent, unsigned int trackIndex)
 	:	wxPanel(parent, wxID_ANY),
 		doc(parent),
-		channel(channel)
+		trackIndex(trackIndex)
 {
 	this->SetBackgroundColour(*wxWHITE);
 }
@@ -46,29 +46,38 @@ void EventPanel::onPaint(wxPaintEvent& pev)
 	wxSize s = this->GetClientSize();
 	this->pdc->SetFont(this->doc->font);
 	int height = s.GetHeight();
-	unsigned int rowTime = this->doc->absTimeStart;
-	gamemusic::EventVector::iterator ev = this->doc->music->events->begin();
 
-	for (this->paintY = 0; this->paintY < height; this->paintY += this->doc->fontHeight) {
+	unsigned int patternIndex =
+		this->doc->music->patternOrder[this->doc->lastAudiblePos.order];
+	gamemusic::TrackPtr& track =
+		this->doc->music->patterns.at(patternIndex)->at(this->trackIndex);
+	Track::const_iterator ev = track->begin();
+
+	int midY = height / 2;
+	int rowOffset = midY / this->doc->fontHeight;
+	unsigned int rowHighlight = this->doc->lastAudiblePos.row;
+	int firstRow = -rowOffset + rowHighlight;
+	unsigned int lastRow = this->doc->music->ticksPerTrack;
+
+	this->paintY = 0;
+	if (firstRow < 0) {
+		this->paintY = -firstRow * this->doc->fontHeight;
+		// draw rectangle from 0,0 to width,this->paintY
+		firstRow = 0;
+	}
+	unsigned int rowDraw = firstRow;
+	unsigned int curRow = 0;
+	for (; this->paintY < height; this->paintY += this->doc->fontHeight) {
 		// Get the next event for this view
 		while (
-			(ev != this->doc->music->events->end()) &&
-			(
-				((*ev)->absTime < rowTime) ||
-				(
-					((*ev)->channel != 0) &&
-					((*ev)->channel != this->channel)
-				)
-			)
+			(ev != track->end()) &&
+			(curRow < rowDraw)
 		) {
 			ev++;
+			curRow += ev->delay;
 		}
-		if (ev == this->doc->music->events->end()) break; // no more events
 
-		// At this point we have an event at or after the current row time
-		assert((*ev)->absTime >= rowTime);
-
-		if ((this->doc->playPos >= rowTime) && (this->doc->playPos < rowTime + this->doc->ticksPerRow)) {
+		if ((rowHighlight >= rowDraw) && (rowHighlight < rowDraw + this->doc->ticksPerRow)) {
 			// This row is currently being played, so highlight it
 			this->pdc->SetTextBackground(*wxLIGHT_GREY);
 			this->pdc->SetBackgroundMode(wxSOLID);
@@ -78,15 +87,19 @@ void EventPanel::onPaint(wxPaintEvent& pev)
 			this->pdc->SetBackgroundMode(wxTRANSPARENT);
 		}
 
-		if ((*ev)->absTime < rowTime + this->doc->ticksPerRow) {
+		if (
+			(ev != track->end())
+			&& (curRow < rowDraw + this->doc->ticksPerRow)
+		) {
 			// This event occurs on the current row, use the processEvent()
 			// wrapper to call this->handleEvent() with the appropriate type.
-			(*ev)->processEvent(this);
+			ev->event->processEvent(ev->delay, this->trackIndex, patternIndex, this);
 		} else {
 			this->pdc->SetTextForeground(*wxLIGHT_GREY);
-			this->pdc->DrawText(_T("--- -- ----"), 0, this->paintY);
+			this->pdc->DrawText(_T("--- -- -"), 0, this->paintY);
 		}
-		rowTime += this->doc->ticksPerRow;
+		rowDraw += this->doc->ticksPerRow;
+		if (rowDraw >= lastRow) break;
 	}
 
 	delete this->pdc;
@@ -100,49 +113,65 @@ void EventPanel::onResize(wxSizeEvent& ev)
 	return;
 }
 
-void EventPanel::handleEvent(const TempoEvent *ev)
+void EventPanel::handleEvent(unsigned long delay, unsigned int trackIndex,
+	unsigned int patternIndex, const TempoEvent *ev)
 {
 	this->pdc->SetTextForeground(*wxGREEN);
 	wxString txt;
-	txt.Printf(_T("T-%09lu"), (unsigned long)ev->usPerTick);
+	txt.Printf(_T("T-%09lu"), (unsigned long)ev->tempo.usPerTick);
 	this->pdc->DrawText(txt, 0, this->paintY);
 	return;
 }
 
-void EventPanel::handleEvent(const NoteOnEvent *ev)
+void EventPanel::handleEvent(unsigned long delay, unsigned int trackIndex,
+	unsigned int patternIndex, const NoteOnEvent *ev)
 {
 	this->pdc->SetTextForeground(*wxBLACK);
-	this->drawNoteOn(ev->milliHertz, ev->instrument);
+	this->drawNoteOn(ev->milliHertz, ev->instrument, ev->velocity);
 	return;
 }
 
-void EventPanel::handleEvent(const NoteOffEvent *ev)
+void EventPanel::handleEvent(unsigned long delay, unsigned int trackIndex,
+	unsigned int patternIndex, const NoteOffEvent *ev)
 {
 	this->pdc->SetTextForeground(*wxBLACK);
-	this->pdc->DrawText(_T("    -- ----"), 0, this->paintY);
+	this->pdc->DrawText(_T("^^  -- -"), 0, this->paintY);
 	return;
 }
 
-void EventPanel::handleEvent(const PitchbendEvent *ev)
+void EventPanel::handleEvent(unsigned long delay, unsigned int trackIndex,
+	unsigned int patternIndex, const EffectEvent *ev)
 {
-	this->pdc->SetTextForeground(*wxBLUE);
-	this->drawNoteOn(ev->milliHertz, -1);
+	switch (ev->type) {
+		case EffectEvent::PitchbendNote:
+			this->pdc->SetTextForeground(*wxBLUE);
+			this->drawNoteOn(ev->data, -1, -1);
+			break;
+		case EffectEvent::Volume:
+			this->pdc->SetTextForeground(*wxBLACK);
+			this->drawNoteOn(-1, -1, ev->data);
+			break;
+	}
 	return;
 }
 
-void EventPanel::handleEvent(const ConfigurationEvent *ev)
+void EventPanel::handleEvent(unsigned long delay, unsigned int trackIndex,
+	unsigned int patternIndex, const ConfigurationEvent *ev)
 {
 	this->pdc->SetTextForeground(*wxCYAN);
 	wxString txt;
 	switch (ev->configType) {
+		case ConfigurationEvent::EmptyEvent:
+			this->pdc->DrawText("... -- -", 0, this->paintY);
+			break;
 		case ConfigurationEvent::EnableOPL3:
 			txt.Append(_T("OPL3"));
 			break;
 		case ConfigurationEvent::EnableDeepTremolo:
-			txt.Append(_T("DeepTrem"));
+			txt.Append(_T("Tremolo"));
 			break;
 		case ConfigurationEvent::EnableDeepVibrato:
-			txt.Append(_T("DeepVibr"));
+			txt.Append(_T("Vibrato"));
 			break;
 		case ConfigurationEvent::EnableRhythm:
 			txt.Append(_T("Rhythm"));
@@ -159,7 +188,17 @@ void EventPanel::handleEvent(const ConfigurationEvent *ev)
 	return;
 }
 
-void EventPanel::drawNoteOn(int milliHertz, int instrument)
+void EventPanel::endOfTrack(unsigned long delay)
+{
+	return;
+}
+
+void EventPanel::endOfPattern(unsigned long delay)
+{
+	return;
+}
+
+void EventPanel::drawNoteOn(int milliHertz, int instrument, int velocity)
 {
 	double dbHertz = milliHertz / 440000.0;
 	double midiNote, midiNoteFrac;
@@ -176,7 +215,11 @@ void EventPanel::drawNoteOn(int milliHertz, int instrument)
 		_T("F-"), _T("F#"), _T("G-"), _T("G#"), _T("A-"), _T("A#"), _T("B-")};
 
 	wxString txt;
-	txt.Printf(_T("%s%1d "), names[midiNoteInt % 12], midiNoteInt / 12);
+	if (milliHertz >= 0) {
+		txt.Printf(_T("%s%1d "), names[midiNoteInt % 12], midiNoteInt / 12);
+	} else {
+		txt.Append(_T("--- "));
+	}
 
 	if (instrument >= 0) {
 		txt.Append(wxString::Format(_T("%02X "), instrument));
@@ -184,11 +227,18 @@ void EventPanel::drawNoteOn(int milliHertz, int instrument)
 		txt.Append(_T("-- "));
 	}
 
+	if (velocity >= 0) {
+		txt.Append(wxString::Format(_T("%01X"), velocity >> 4));
+	} else {
+		txt.Append(_T("-"));
+	}
+/*
 	if (midiNoteFrac == 0) {
 		txt.Append(_T("----"));
 	} else {
 		txt.Append(wxString::Format(_T("%0+4d"), (int)(255.0 * midiNoteFrac)));
 	}
+*/
 	this->pdc->DrawText(txt, 0, this->paintY);
 	return;
 }

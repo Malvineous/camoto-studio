@@ -23,16 +23,17 @@
 
 #include <boost/thread/thread.hpp>
 #include <camoto/gamemusic.hpp>
+#include "audio.hpp"
 
 class MusicDocument;
 
-#include "playerthread.hpp"
+#include "audio.hpp"
 #include "editor-music.hpp"
 #include "editor-music-eventpanel.hpp"
 
 typedef std::vector<camoto::gamemusic::EventPtr> EventVector;
 
-class MusicDocument: public IDocument, PlayerCallback
+class MusicDocument: public IDocument
 {
 	public:
 		MusicDocument(MusicEditor *editor, camoto::gamemusic::MusicPtr music,
@@ -51,32 +52,21 @@ class MusicDocument: public IDocument, PlayerCallback
 		void onZoomOut(wxCommandEvent& ev);
 		void onImport(wxCommandEvent& ev);
 		void onExport(wxCommandEvent& ev);
-		void onMouseWheel(wxMouseEvent& ev);
 		void onResize(wxSizeEvent& ev);
+		void updatePlaybackStatus(wxCommandEvent& ev);
 
 		/// Push the current scroll and zoom settings to each channel and redraw
 		void pushViewSettings();
-
-		// PlayerCallback
-
-		/// Set the position of the playback time highlight row.
-		virtual void notifyPosition(unsigned long absTime);
 
 	protected:
 		MusicEditor *editor;
 		camoto::gamemusic::MusicPtr music;
 		fn_write fnWriteMusic;
-
-		bool playing;
+		MusicStreamPtr musicStream;
 
 		int optimalTicksPerRow; ///< Cache best value for ticksPerRow (for zoom reset)
 		unsigned int ticksPerRow;        ///< Current zoom level for all channels
-		unsigned int absTimeStart;       ///< Current scroll pos for all channels
-		unsigned int playPos;            ///< Current absTime of playback (for row highlight)
 
-		PlayerThread *player;
-		boost::thread threadMIDI;
-		boost::thread threadPCM;
 		typedef std::vector<EventPanel *> EventPanelVector;
 		EventPanelVector channelPanels;
 
@@ -84,6 +74,11 @@ class MusicDocument: public IDocument, PlayerCallback
 		int fontWidth;       ///< Width of each char in pixels
 		int fontHeight;      ///< Height of each char/line in pixels
 		int halfHeight;      ///< Number of char rows in half a screen (for positioning highlight row)
+
+		wxStaticText *labelPlayback;  ///< Playback position
+
+		/// Song position most recently played through the speakers.
+		camoto::gamemusic::Playback::Position lastAudiblePos;
 
 		friend class PlayerThread;
 		friend class InstrumentListPanel;

@@ -2,7 +2,7 @@
  * @file   editor-music-document.cpp
  * @brief  Music IDocument interface.
  *
- * Copyright (C) 2010-2013 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2014 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,18 +36,16 @@ BEGIN_EVENT_TABLE(MusicDocument, IDocument)
 	EVT_TOOL(wxID_ZOOM_OUT, MusicDocument::onZoomOut)
 	EVT_TOOL(IDC_IMPORT, MusicDocument::onImport)
 	EVT_TOOL(IDC_EXPORT, MusicDocument::onExport)
-	EVT_MOUSEWHEEL(MusicDocument::onMouseWheel)
-	EVT_SIZE(EventPanel::onResize)
+	EVT_SIZE(MusicDocument::onResize)
+	EVT_COMMAND(wxID_ANY, MUSICSTREAM_UPDATE, MusicDocument::updatePlaybackStatus)
 END_EVENT_TABLE()
 
-MusicDocument::MusicDocument(MusicEditor *editor, camoto::gamemusic::MusicPtr music,
+MusicDocument::MusicDocument(MusicEditor *editor, MusicPtr music,
 	fn_write fnWriteMusic)
 	:	IDocument(editor->studio, _T("music")),
 		editor(editor),
 		music(music),
 		fnWriteMusic(fnWriteMusic),
-		playing(false),
-		absTimeStart(0),
 		font(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL)
 {
 	Studio *parent = this->editor->studio;
@@ -111,64 +109,42 @@ MusicDocument::MusicDocument(MusicEditor *editor, camoto::gamemusic::MusicPtr mu
 		wxNullBitmap, wxITEM_NORMAL, _("Export"),
 		_("Save this song to a file"));
 
+	tb->AddSeparator();
+
+	this->labelPlayback = new wxStaticText(tb, wxID_ANY, _("Paused"));
+	tb->AddControl(this->labelPlayback);
+
 	tb->Realize();
 
 	// Figure out how many channels are in use and what the best value is to space
 	// events evenly and as close together as possible.
-	bool channels[256];
-	memset(&channels, 0, sizeof(channels));
-	this->optimalTicksPerRow = 10000;
-	int lastTick = 0;
-	for (gamemusic::EventVector::const_iterator i =
-		this->music->events->begin(); i != this->music->events->end(); i++)
-	{
-		assert((*i)->channel < 256); // should be safe/uint8_t
-		channels[(*i)->channel] = true;
-
-		// See if this delta time is the smallest so far
-		int deltaTick = (*i)->absTime - lastTick;
-		if ((deltaTick > 0) && (deltaTick < this->optimalTicksPerRow)) {
-			this->optimalTicksPerRow = deltaTick;
-		}
-		lastTick = (*i)->absTime;
-	}
+	this->optimalTicksPerRow = 1;
 	this->ticksPerRow = this->optimalTicksPerRow;
 
 	// Create and add a channel control for each channel, except for channel
 	// zero (which is global for all channels)
 	wxBoxSizer *szChannels = new wxBoxSizer(wxHORIZONTAL);
-	for (int i = 1; i < 256; i++) {
-		if (channels[i]) {
-			EventPanel *p = new EventPanel(this, i);
+	unsigned int trackIndex = 0;
+	for (gamemusic::TrackInfoVector::iterator
+		ti = music->trackInfo.begin(); ti != music->trackInfo.end(); ti++, trackIndex++
+	) {
+			EventPanel *p = new EventPanel(this, trackIndex);
 			this->channelPanels.push_back(p);
 			szChannels->Add(p, 1, wxEXPAND);
-		}
 	}
 	wxBoxSizer *s = new wxBoxSizer(wxVERTICAL);
 	s->Add(tb, 0, wxEXPAND);
 	s->Add(szChannels, 1, wxEXPAND);
 	this->SetSizer(s);
 
-	this->player = new PlayerThread(this->editor->audio, this->music, this);
-	this->threadMIDI = boost::thread(boost::ref(*this->player), true);
-	this->threadPCM = boost::thread(boost::ref(*this->player), false);
+	this->musicStream = this->editor->audio->addMusicStream(this->music);
+	this->musicStream->notifyWindow(this);
 }
 
 MusicDocument::~MusicDocument()
 {
 	// Tell the playback thread to gracefully terminate
-	this->player->quit();
-
-	// Wake the thread up if it's stuck in a delay
-	this->threadMIDI.interrupt();
-	this->threadPCM.interrupt();
-
-	// Wait for playback thread to terminate
-	this->threadMIDI.join();
-	this->threadPCM.join();
-
-	// Unload everything
-	delete this->player;
+	this->editor->audio->removeStream(this->musicStream);
 }
 
 void MusicDocument::save()
@@ -189,32 +165,23 @@ void MusicDocument::save()
 
 void MusicDocument::onSeekPrev(wxCommandEvent& ev)
 {
-	this->player->rewind();
-	this->absTimeStart = 0;
+	this->musicStream->rewind();
 	this->pushViewSettings();
 	return;
 }
 
 void MusicDocument::onPlay(wxCommandEvent& ev)
 {
-	if (this->playing) return;
-
-	// Resume playback thread
-	this->player->resume();
-
-	this->playing = true;
-
+	if (!this->musicStream->isPaused()) return;
+	this->musicStream->pause(false);
 	return;
 }
 
 void MusicDocument::onPause(wxCommandEvent& ev)
 {
-	if (!this->playing) return;
-
-	// Pause playback thread
-	this->player->pause();
-
-	this->playing = false;
+	if (this->musicStream->isPaused()) return;
+	this->musicStream->pause(true);
+	this->labelPlayback->SetLabel(_("Paused"));
 	return;
 }
 
@@ -287,11 +254,7 @@ void MusicDocument::onImport(wxCommandEvent& ev)
 			MusicPtr newMusic = pMusicInType->read(infile, inSuppData);
 			assert(newMusic);
 
-			this->music->patches = newMusic->patches;
-			this->music->events = newMusic->events;
-			this->music->metadata = newMusic->metadata;
-			this->music->ticksPerQuarterNote = newMusic->ticksPerQuarterNote;
-
+			*this->music = *newMusic;
 			this->isModified = true;
 
 			// Success
@@ -379,16 +342,6 @@ void MusicDocument::onExport(wxCommandEvent& ev)
 	return;
 }
 
-void MusicDocument::onMouseWheel(wxMouseEvent& ev)
-{
-	unsigned int amount = ev.m_wheelRotation / ev.m_wheelDelta *
-		ev.m_linesPerAction * this->ticksPerRow;
-	if (amount > this->absTimeStart) this->absTimeStart = 0;
-	else this->absTimeStart -= amount;
-	this->pushViewSettings();
-	return;
-}
-
 void MusicDocument::onResize(wxSizeEvent& ev)
 {
 	this->Layout();
@@ -399,24 +352,64 @@ void MusicDocument::onResize(wxSizeEvent& ev)
 
 void MusicDocument::pushViewSettings()
 {
-	for (EventPanelVector::iterator i = this->channelPanels.begin();
-		i != this->channelPanels.end();
-		i++
+	for (EventPanelVector::iterator
+		i = this->channelPanels.begin(); i != this->channelPanels.end(); i++
 	) {
 		(*i)->Refresh();
 	}
 	return;
 }
 
-void MusicDocument::notifyPosition(unsigned long absTime)
+void MusicDocument::updatePlaybackStatus(wxCommandEvent& ev)
 {
-	// This is called from the player thread so we can't directly use the UI
+	gamemusic::Playback::Position audiblePos;
+	bool audiblePosValid = false;
 
-	this->playPos = absTime;
-	if (this->absTimeStart + this->halfHeight < this->playPos) {
-		// Scroll to keep highlight in the middle
-		this->absTimeStart = this->playPos - this->halfHeight;
+	{
+		// This mutex protects both queuePos and waitUntil
+		boost::lock_guard<boost::mutex> lock(this->musicStream->mutex_queuePos);
+
+		PaTime streamTime = this->editor->audio->getTime();
+
+		// Check to see whether the oldest pos has played yet
+		while (!this->musicStream->queuePos.empty()) {
+			MusicStream::PositionTime& nextH = this->musicStream->queuePos.front();
+			if (nextH.time <= streamTime) {
+				// This pos has been played now
+				audiblePos = nextH.pos;
+				audiblePosValid = true;
+				this->musicStream->queuePos.pop();
+				this->musicStream->waitUntil = 0; // wait until next event
+			} else {
+				// The next event hasn't happened yet, leave it for later
+				//this->musicStream->waitUntil = this->queuePos.front().time;
+				this->musicStream->waitUntil = nextH.time;
+				break;
+			}
+		}
 	}
-	//this->pushViewSettings();
+
+	if (audiblePosValid && (audiblePos != this->lastAudiblePos)) {
+		// The position being played out of the speakers has just changed
+		long pattern = -1;
+		if (audiblePos.order < this->music->patternOrder.size()) {
+			pattern = this->music->patternOrder[audiblePos.order];
+		}
+		unsigned int beat = (audiblePos.row / audiblePos.tempo.ticksPerBeat)
+			% audiblePos.tempo.beatsPerBar;
+
+		wxString str = wxString::Format(
+			"Order: %02X\tPattern: %02lX\tRow: %02lX\tBeat: %02X",
+			audiblePos.order,
+			pattern,
+			audiblePos.row,
+			beat);
+		this->labelPlayback->SetLabel(str);
+		this->lastAudiblePos = audiblePos;
+
+		// Scroll the event list
+		this->pushViewSettings();
+	}
+
 	return;
 }

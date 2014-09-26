@@ -2,7 +2,7 @@
  * @file   audio.hpp
  * @brief  Shared audio functionality.
  *
- * Copyright (C) 2010-2013 Adam Nielsen <malvineous@shikadi.net>
+ * Copyright (C) 2010-2014 Adam Nielsen <malvineous@shikadi.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,64 +21,84 @@
 #ifndef _AUDIO_HPP_
 #define _AUDIO_HPP_
 
+#include <queue>
 #include <vector>
 #include <boost/shared_ptr.hpp>
 #include <boost/thread/mutex.hpp>
-#include <boost/thread/condition.hpp>
 #include <wx/window.h>
 #include <portaudio.h>
-#include "dbopl.hpp"
+#include <camoto/gamemusic/playback.hpp>
+
+wxDECLARE_EVENT(MUSICSTREAM_UPDATE, wxCommandEvent);
 
 class Audio;
 
-/// Mixer for processing DOSBox OPL data.
-class SynthMixer: public MixerChannel {
-	public:
-		int16_t *buf;
-
-		virtual ~SynthMixer();
-
-		virtual void AddSamples_m32(Bitu samples, Bit32s *buffer);
-		virtual void AddSamples_s32(Bitu frames, Bit32s *buffer);
-};
-
-/// Wrapper around DOSBox OPL device.
-class OPLDevice
+class AudioStream
 {
 	public:
-		OPLDevice();
-		~OPLDevice();
+		AudioStream();
 
-		/// Write the specified value into the given register.
-		/**
-		 * @param reg
-		 *   OPL register.  0x00 to 0xFF.
-		 *
-		 * @param val
-		 *   Value to write.  0x00 to 0xFF.
-		 *
-		 * @post Register is immediately updated and will be heard if audio is
-		 *   currently streaming.
-		 */
-		void write(int reg, int val);
+		virtual void pause(bool paused);
+		virtual bool isPaused();
+		virtual void mix(void *outputBuffer, unsigned long lenBytes,
+			const PaStreamCallbackTimeInfo *timeInfo) = 0;
 
 	protected:
-		DBOPL::Handler *chip;             ///< OPL emulator
-		SynthMixer *mixer;                ///< Callback for mixing samples into buffer
-		bool active;                      ///< Is this OPL chip playing sound?
-		boost::mutex audiobuf_full_mutex; ///< Mutex to block when audio buffer is full
-		boost::mutex audiobuf_pos_mutex;  ///< Mutex protecting audiobuf_pos
-		int16_t *audiobuf_pos;            ///< Current position into shared audio buffer
-
-		friend class Audio;
+		bool paused;
 };
+typedef boost::shared_ptr<AudioStream> AudioStreamPtr;
+
+class MusicStream: virtual public AudioStream
+{
+	public:
+		MusicStream(Audio *audio, camoto::gamemusic::ConstMusicPtr music);
+
+		virtual void mix(void *outputBuffer, unsigned long lenBytes,
+			const PaStreamCallbackTimeInfo *timeInfo);
+
+		void rewind();
+		void notifyWindow(wxWindow *win);
+
+		struct PositionTime {
+			PaTime time;
+			camoto::gamemusic::Playback::Position pos;
+		};
+
+		/// Stream time the main thread is waiting for
+		PaTime waitUntil;
+
+		/// List of song positions synthesized and placed in the audio buffer but
+		/// not yet played through the speakers.
+		std::queue<PositionTime> queuePos;
+		boost::mutex mutex_queuePos;
+
+	protected:
+		Audio *audio;
+		camoto::gamemusic::Playback playback;
+		wxWindow *eventTarget;
+
+		PositionTime current;
+		camoto::gamemusic::Playback::Position lastPos;
+
+		friend Audio;
+};
+typedef boost::shared_ptr<MusicStream> MusicStreamPtr;
+
+class Sound: virtual public AudioStream
+{
+	public:
+		Sound();
+
+		virtual void mix(void *outputBuffer, unsigned long lenBytes,
+			const PaStreamCallbackTimeInfo *timeInfo);
+};
+typedef boost::shared_ptr<Sound> SoundPtr;
+
 
 /// Shared audio handler.
 class Audio
 {
 	public:
-		typedef boost::shared_ptr<OPLDevice> OPLPtr;
-
 		/// Set up shared audio handling.
 		/**
 		 * @param parent
@@ -92,106 +112,37 @@ class Audio
 		/// Clean up at exit.
 		~Audio();
 
-		/// Create a new OPL chip to be mixed into the common output.
-		/**
-		 * @return An inactive OPL device is returned.  It must be unpaused by
-		 *  calling pause() before playback will commence.  This allows allocating
-		 *  the OPL device at class instatiation without triggering a grab for the
-		 *  audio device.
-		 */
-		OPLPtr createOPL();
-
-		/// Pause/resume playback.
-		/**
-		 * It is a good idea to pause playback when the OPL is not in use, as this
-		 * reduces the number of streams being mixed and, in the case of the last
-		 * stream, halts audio output and releases the audio device.
-		 *
-		 * @post A modal popup message may have appeared over the UI if the audio
-		 *   device could not be opened.
-		 */
-		void pause(OPLPtr opl, bool pause);
-
-		/// Delete the given OPL chip.
-		/**
-		 * @param opl
-		 *   OPL chip.  Must have been returned by createOPL().
-		 *
-		 * @post The audio device may be closed if the last chip has been deleted.
-		 */
-		void releaseOPL(OPLPtr opl);
+		PaTime getTime();
+		MusicStreamPtr addMusicStream(camoto::gamemusic::ConstMusicPtr music);
+		SoundPtr playSound();
+		void removeStream(AudioStreamPtr audioStream);
 
 		/// PortAudio callback to put audio data into the output buffer.
 		/**
-		 * @param stream
+		 * @param outputBuffer
 		 *   Pointer to raw audio data in native playback format.
 		 *
-		 * @param currentTime
-		 *   Playback time of this buffer, in seconds.
+		 * @param samplesPerBuffer
+		 *   Length of buffer in samples.
 		 *
-		 * @param len
-		 *   Length of buffer in bytes.
+		 * @param timeInfo
+		 *   Current playback time.
 		 */
-		int fillAudioBuffer(void *outputBuffer, PaTime currentTime, unsigned long framesPerBuffer);
+		int fillAudioBuffer(void *outputBuffer, unsigned long samplesPerBuffer,
+			const PaStreamCallbackTimeInfo *timeInfo);
 
-		/// Refill the extra buffer.
-		/**
-		 * This must be called regularly so the extra buffer is full when
-		 * fillAudioBuffer() needs to pass it over to PortAudio.
-		 */
-		void refillBuffer();
-
-		/// Wait until the audio buffer finishes playing.
-		/**
-		 * This is just a convenient way of waiting for a short period of time
-		 * without consuming any CPU.
-		 */
-		void waitTick();
-
-		/// Return the current playback time in microseconds.
-		unsigned long getPlayTime();
-
-		/// Introduce a delay until the next OPL data is processed.
-		/**
-		 * This will cause currently playing notes on the given OPL chip to continue
-		 * playing for the given number of microseconds.  If the audio buffer is
-		 * full, this function will block until there is enough room to generate
-		 * sufficient samples to provide the delay.  If there is enough room in the
-		 * audio buffer to generate the samples, then the function returns
-		 * immediately.
-		 *
-		 * @param opl
-		 *   OPL instance to delay.
-		 *
-		 * @param us
-		 *   Number of microseconds to delay for.
-		 */
-		void oplDelay(OPLPtr opl, unsigned long us);
+		unsigned int sampleRate;    ///< Sampling rate to use
+		PaTime outputLatency;       ///< Cached output latency, in seconds
 
 	protected:
-		typedef std::vector<OPLPtr> OPLVector;
-
 		wxWindow *parent;           ///< Parent window to use for error message popups
 
 		PaStream *stream;
-		unsigned int sampleRate;    ///< Sampling rate to use
 		bool audioGood;             ///< Is the audio device open and streaming?
+		bool playing;               ///< Is the stream currently playing audio
 
-		OPLVector chips;            ///< All active OPL chips
-		boost::mutex chips_mutex;   ///< Mutex protecting items in chips
-
-		boost::mutex sound_buffer_mutex;  ///< Mutex protecting sound_buffer itself
-		int16_t *sound_buffer;            ///< Mixing buffer
-		int16_t *sound_buffer_end;        ///< First byte past end of buffer
-
-		boost::mutex final_buffer_mutex;  ///< Mutex protecting final_buffer itself
-		int16_t *final_buffer;            ///< Final buffer to pass to PortAudio
-		int16_t *final_buffer_pos;        ///< PortAudio's position in final_buffer
-		int16_t *final_buffer_end;        ///< First byte past end of buffer
-		boost::mutex finalbuf_wait_mutex; ///< Mutex for finalbuf_wait_cond
-		boost::condition_variable finalbuf_wait_cond;  ///< Wait for final buffer to be read completely
-
-		PaTime lastTime;       ///< Time of last buffer switch
+		std::vector<AudioStreamPtr> audioStreams;
+		boost::mutex mutex_audioStreams;
 
 		/// Open the audio hardware and begin streaming sound.
 		/**
@@ -212,7 +163,6 @@ class Audio
 		 * This is called internally when the last stream is paused or removed.
 		 */
 		void closeDevice();
-
 };
 
 /// Shared pointer to the common audio interface.
