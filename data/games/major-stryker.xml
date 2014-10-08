@@ -158,7 +158,7 @@
 			<file id="mus-e2-lightyrs" name="lightyrs.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Light Years Per Hour"/>
 		</archive>
 
-		<archive name="volume3b.ms3" id="arch-vol2b" typeMinor="vol-cosmo">
+		<archive name="volume3b.ms3" id="arch-vol3b" typeMinor="vol-cosmo">
 			<file id="mus-e3-apogfnf1" name="apogfnf1.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Apogee Fanfare"/>
 			<file id="mus-e3-rockit"   name="rockit.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="Rock It"/>
 			<file id="mus-e3-so_sad"   name="so_sad.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="So Sad. You're Dead!"/>
