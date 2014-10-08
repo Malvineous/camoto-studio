@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Trugg description file for Camoto Studio
+	Copyright (C) 2010-2014 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Trugg
+  -->
+<game title="Trugg">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Jamie Robb</developer>
+		<publisher>Digital Workshop</publisher>
+		<reverser>Malvineous</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+		<group name="Music">
+			<item ref="mus-a" />
+			<item ref="mus-b" />
+			<item ref="mus-c" />
+			<item ref="mus-d" />
+			<item ref="mus-e" />
+		</group>
+		<group name="Images">
+			<item ref="lvl-a"/>
+			<item ref="lvl-b"/>
+			<item ref="lvl-c"/>
+			<item ref="lvl-d"/>
+			<item ref="lvl-e"/>
+			<item ref="img-fin"/>
+			<item ref="img-menu"/>
+		</group>
+	</display>
+
+	<files>
+		<file id="level-space2"  name="space2.pt"  typeMajor="map" typeMinor="ccomic" title="Space 3">
+			<dep reftype="background-tileset1" ref="tiles-space"/>
+		</file>
+
+		<file id="mus-a"    name="trugg_a.dsm" typeMajor="music" typeMinor="dsm-dsik" title="Song A"/>
+		<file id="mus-b"    name="trugg_b.dsm" typeMajor="music" typeMinor="dsm-dsik" title="Song B"/>
+		<file id="mus-c"    name="trugg_c.dsm" typeMajor="music" typeMinor="dsm-dsik" title="Song C"/>
+		<file id="mus-d"    name="trugg_d.dsm" typeMajor="music" typeMinor="dsm-dsik" title="Song D"/>
+		<file id="mus-e"    name="trugg_e.dsm" typeMajor="music" typeMinor="dsm-dsik" title="Song E"/>
+
+		<file id="lvl-a"    name="zone_a.lvl" typeMajor="image" typeMinor="pcx-8b1p" title="Zone A title"/>
+		<file id="lvl-b"    name="zone_b.lvl" typeMajor="image" typeMinor="pcx-8b1p" title="Zone B title"/>
+		<file id="lvl-c"    name="zone_c.lvl" typeMajor="image" typeMinor="pcx-8b1p" title="Zone C title"/>
+		<file id="lvl-d"    name="zone_d.lvl" typeMajor="image" typeMinor="pcx-8b1p" title="Zone D title"/>
+		<file id="lvl-e"    name="zone_e.lvl" typeMajor="image" typeMinor="pcx-8b1p" title="Zone E title"/>
+		<file id="img-fin"  name="trugg.fin"   typeMajor="image" typeMinor="pcx-8b1p" title="Zone complete"/>
+		<file id="img-menu" name="trugg.lvl"   typeMajor="image" typeMinor="pcx-8b1p" title="Menu background"/>
+	</files>
+
+	<commands>
+		<command title="Normal">trugg</command>
+	</commands>
+
+</game>
