@@ -256,6 +256,9 @@ void MusicDocument::onImport(wxCommandEvent& ev)
 
 			*this->music = *newMusic;
 			this->isModified = true;
+			this->editor->audio->removeStream(this->musicStream);
+			this->musicStream = this->editor->audio->addMusicStream(this->music);
+			this->musicStream->notifyWindow(this);
 
 			// Success
 			break;
