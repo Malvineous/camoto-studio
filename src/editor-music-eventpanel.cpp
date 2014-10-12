@@ -47,6 +47,10 @@ void EventPanel::onPaint(wxPaintEvent& pev)
 	this->pdc->SetFont(this->doc->font);
 	int height = s.GetHeight();
 
+	if (this->doc->lastAudiblePos.order >= this->doc->music->patternOrder.size()) {
+		// past EOF or at EOF if loop is off
+		return;
+	}
 	unsigned int patternIndex =
 		this->doc->music->patternOrder[this->doc->lastAudiblePos.order];
 	gamemusic::TrackPtr& track =
