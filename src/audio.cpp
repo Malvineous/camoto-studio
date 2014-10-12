@@ -68,7 +68,9 @@ MusicStream::MusicStream(Audio *audio, ConstMusicPtr music)
 void MusicStream::mix(void *outputBuffer, unsigned long lenBytes,
 	const PaStreamCallbackTimeInfo *timeInfo)
 {
-	this->playback.mix((int16_t *)outputBuffer, lenBytes, &this->current.pos);
+	if (!this->isPaused()) {
+		this->playback.mix((int16_t *)outputBuffer, lenBytes, &this->current.pos);
+	}
 
 	bool posChanged = this->current.pos != this->lastPos;
 	bool sendUpdate;
@@ -207,9 +209,7 @@ int Audio::fillAudioBuffer(void *outputBuffer, unsigned long samplesPerBuffer,
 			i = this->audioStreams.begin(); i != this->audioStreams.end(); i++
 		) {
 			AudioStreamPtr& aud = *i;
-			if (!aud->isPaused()) {
-				aud->mix(outputBuffer, samplesPerBuffer * NUM_CHANNELS, timeInfo);
-			}
+			aud->mix(outputBuffer, samplesPerBuffer * NUM_CHANNELS, timeInfo);
 		}
 	}
 	return paContinue;
