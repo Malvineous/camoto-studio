@@ -159,19 +159,47 @@
 			<file id="lev-levelh-spr"         name="levelh.msp"         typeMajor="map" typeMinor="bash-spr" title="Level h sprite layer"/>
 			<file id="lev-pegleglevel-spr"    name="pegleglevel.msp"    typeMajor="map" typeMinor="bash-spr" title="Pegleg sprite layer"/>
 
-			<file id="lev-bosslevel"          name="bosslevel.mif"      typeMajor="map" typeMinor="bash" title="Boss"/>
-			<file id="lev-crew1bosslevel"     name="crew1bosslevel.mif" typeMajor="map" typeMinor="bash" title="Crew 1 Boss"/>
-			<file id="lev-levela"             name="levela.mif"         typeMajor="map" typeMinor="bash" title="Level a"/>
-			<file id="lev-levelb"             name="levelb.mif"         typeMajor="map" typeMinor="bash" title="Level b"/>
-			<file id="lev-levelc"             name="levelc.mif"         typeMajor="map" typeMinor="bash" title="Level c"/>
-			<file id="lev-leveld"             name="leveld.mif"         typeMajor="map" typeMinor="bash" title="Level d"/>
-			<file id="lev-levele"             name="levele.mif"         typeMajor="map" typeMinor="bash" title="Level e"/>
-			<file id="lev-levelf"             name="levelf.mif"         typeMajor="map" typeMinor="bash" title="Level f"/>
-			<file id="lev-levelg"             name="levelg.mif"         typeMajor="map" typeMinor="bash" title="Level g"/>
-			<file id="lev-levelh"             name="levelh.mif"         typeMajor="map" typeMinor="bash" title="Level h"/>
-			<file id="lev-pegleglevel"        name="pegleglevel.mif"    typeMajor="map" typeMinor="bash" title="Pegleg"/>
-			<file id="lev-title"              name="title.mif"          typeMajor="map" typeMinor="bash" title="Title"/>
-			<file id="lev-winlevel"           name="winlevel.mif"       typeMajor="map" typeMinor="bash" title="Win"/>
+			<file id="lev-bosslevel"          name="bosslevel.mif"      typeMajor="map" typeMinor="bash" title="Boss">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-crew1bosslevel"     name="crew1bosslevel.mif" typeMajor="map" typeMinor="bash" title="Crew 1 Boss">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-levela"             name="levela.mif"         typeMajor="map" typeMinor="bash" title="Level a">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-levelb"             name="levelb.mif"         typeMajor="map" typeMinor="bash" title="Level b">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-levelc"             name="levelc.mif"         typeMajor="map" typeMinor="bash" title="Level c">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-leveld"             name="leveld.mif"         typeMajor="map" typeMinor="bash" title="Level d">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-levele"             name="levele.mif"         typeMajor="map" typeMinor="bash" title="Level e">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-levelf"             name="levelf.mif"         typeMajor="map" typeMinor="bash" title="Level f">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-levelg"             name="levelg.mif"         typeMajor="map" typeMinor="bash" title="Level g">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-levelh"             name="levelh.mif"         typeMajor="map" typeMinor="bash" title="Level h">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-pegleglevel"        name="pegleglevel.mif"    typeMajor="map" typeMinor="bash" title="Pegleg">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-title"              name="title.mif"          typeMajor="map" typeMinor="bash" title="Title">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+			<file id="lev-winlevel"           name="winlevel.mif"       typeMajor="map" typeMinor="bash" title="Win">
+				<dep reftype="sprite-tileset1" ref="tls-sprites"/>
+			</file>
+
+			<file id="lev-sgl"           name="sprtlist1.sgl"     typeMajor="map" typeMinor="bash-sgl" title="Sprite list"/>
 
 			<file id="snd-pc"            name="aqua.snd"          typeMajor="sound" typeMinor="pc" title="PC Speaker sounds"/>
 
@@ -227,6 +255,63 @@
 			<file id="spr-updownleft"    name="updownleft.spr"    typeMajor="tileset" typeMinor="bash-sprite" title="updownleft"/>
 			<file id="spr-updownright"   name="updownright.spr"   typeMajor="tileset" typeMinor="bash-sprite" title="updownright"/>
 			<file id="spr-zees"          name="zees.spr"          typeMajor="tileset" typeMinor="bash-sprite" title="zees"/>
+
+			<!-- Make all the sprites available as a single tileset that can be passed
+			     to the map editor -->
+			<tileset id="tls-sprites" title="Sprites">
+				<item ref="spr-45left" title="45left"/>
+				<item ref="spr-45right" title="45right"/>
+				<item ref="spr-bigbubble" title="bigbubble"/>
+				<item ref="spr-bomb" title="bomb"/>
+				<item ref="spr-border" title="border"/>
+				<item ref="spr-bouncemine" title="bouncemine"/>
+				<item ref="spr-bubblepot" title="bubblepot"/>
+				<item ref="spr-bubbles" title="bubbles"/>
+				<item ref="spr-canonball" title="canonball"/>
+				<item ref="spr-crab" title="crab"/>
+				<item ref="spr-crableft" title="crableft"/>
+				<item ref="spr-crew1" title="crew1"/>
+				<item ref="spr-cudaleft" title="cudaleft"/>
+				<item ref="spr-cudaright" title="cudaright"/>
+				<item ref="spr-explosion" title="explosion"/>
+				<item ref="spr-fish1" title="fish1"/>
+				<item ref="spr-fish2left" title="fish2left"/>
+				<item ref="spr-fish2right" title="fish2right"/>
+				<item ref="spr-float100" title="float100"/>
+				<item ref="spr-ghostleft" title="ghostleft"/>
+				<item ref="spr-ghostright" title="ghostright"/>
+				<item ref="spr-heart" title="heart"/>
+				<item ref="spr-jawsleft" title="jawsleft"/>
+				<item ref="spr-jawsright" title="jawsright"/>
+				<item ref="spr-jellyfish" title="jellyfish"/>
+				<item ref="spr-manleft" title="manleft"/>
+				<item ref="spr-manright" title="manright"/>
+				<item ref="spr-mate1" title="mate1"/>
+				<item ref="spr-mine" title="mine"/>
+				<item ref="spr-numbers" title="numbers"/>
+				<item ref="spr-onemoment" title="onemoment"/>
+				<item ref="spr-oxygen" title="oxygen"/>
+				<item ref="spr-pegleg" title="pegleg"/>
+				<item ref="spr-pirhanaleft" title="pirhanaleft"/>
+				<item ref="spr-pirhanaright" title="pirhanaright"/>
+				<item ref="spr-popups" title="popups"/>
+				<item ref="spr-pufferleft" title="pufferleft"/>
+				<item ref="spr-pufferright" title="pufferright"/>
+				<item ref="spr-seahorse" title="seahorse"/>
+				<item ref="spr-seahorseright" title="seahorseright"/>
+				<item ref="spr-seahorseshot" title="seahorseshot"/>
+				<item ref="spr-shark" title="shark"/>
+				<item ref="spr-sleeper" title="sleeper"/>
+				<item ref="spr-spear" title="spear"/>
+				<item ref="spr-spear2" title="spear2"/>
+				<item ref="spr-spike" title="spike"/>
+				<item ref="spr-squidleft" title="squidleft"/>
+				<item ref="spr-squidright" title="squidright"/>
+				<item ref="spr-tentacledown" title="tentacledown"/>
+				<item ref="spr-updownleft" title="updownleft"/>
+				<item ref="spr-updownright" title="updownright"/>
+				<item ref="spr-zees" title="zees"/>
+			</tileset>
 		</archive>
 	</files>
 
