@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Highway Hunter description file for Camoto Studio
+	Copyright (C) 2010-2014 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Highway_Hunter
+  -->
+<game title="Highway Hunter">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Alexander Safonov</developer>
+		<publisher>Epic MegaGames</publisher>
+		<reverser>Malvineous</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+		<group name="Music">
+			<item ref="mus-road1" />
+			<item ref="mus-road2" />
+			<item ref="mus-road3" />
+			<item ref="mus-road4" />
+			<item ref="mus-road5" />
+			<item ref="mus-road6" />
+			<item ref="mus-road7" />
+			<item ref="mus-road8" />
+			<item ref="mus-road9" />
+			<item ref="mus-road10" />
+			<item ref="mus-road11" />
+			<item ref="mus-road12" />
+			<item ref="mus-intro" />
+			<item ref="mus-gameover" />
+			<item ref="mus-end" />
+			<item ref="mus-russia" />
+		</group>
+		<group name="Sounds">
+			<item ref="voc-car" />
+			<item ref="voc-car_run" />
+			<item ref="voc-door" />
+			<item ref="voc-effect" />
+			<item ref="voc-sample0" />
+			<item ref="voc-sample1" />
+			<item ref="voc-sample2" />
+			<item ref="voc-sample3" />
+			<item ref="voc-sample4" />
+			<item ref="voc-sample5" />
+			<item ref="voc-sample8" />
+			<item ref="voc-sample12" />
+		</group>
+		<group name="Text screens">
+			<item ref="b800-exit" />
+		</group>
+	</display>
+
+	<files>
+		<archive name="123.dat" id="arch-123" typeMinor="dat-highway">
+			<file id="mus-road1"    name="road1.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 1"/>
+			<file id="mus-road2"    name="road2.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 2" />
+			<file id="mus-road3"    name="road3.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 3" />
+			<file id="mus-road4"    name="road4.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 4" />
+			<file id="mus-road5"    name="road5.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 5" />
+			<file id="mus-road6"    name="road6.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 6" />
+			<file id="mus-road7"    name="road7.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 7" />
+			<file id="mus-road8"    name="road8.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 8" />
+			<file id="mus-road9"    name="road9.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 9" />
+			<file id="mus-road10"   name="road10.cmf"   typeMajor="music" typeMinor="cmf-creativelabs" title="Road 10" />
+			<file id="mus-road11"   name="road11.cmf"   typeMajor="music" typeMinor="cmf-creativelabs" title="Road 11" />
+			<file id="mus-road12"   name="road12.cmf"   typeMajor="music" typeMinor="cmf-creativelabs" title="Road 12" />
+			<file id="mus-intro"    name="intro.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Intro" />
+			<file id="mus-gameover" name="gameover.cmf" typeMajor="music" typeMinor="cmf-creativelabs" title="Game over" />
+			<file id="mus-end"      name="end.cmf"      typeMajor="music" typeMinor="cmf-creativelabs" title="End" />
+			<file id="mus-russia"   name="russia.cmf"   typeMajor="music" typeMinor="cmf-creativelabs" title="Russia" />
+
+			<file id="voc-car"      name="car.voc"      typeMajor="sound" typeMinor="voc-creativelabs" title="Car" />
+			<file id="voc-car_run"  name="car_run.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Car run" />
+			<file id="voc-door"     name="door.voc"     typeMajor="sound" typeMinor="voc-creativelabs" title="Door" />
+			<file id="voc-effect"   name="effect.voc"   typeMajor="sound" typeMinor="voc-creativelabs" title="Effect" />
+			<file id="voc-sample0"  name="sample0.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 0" />
+			<file id="voc-sample1"  name="sample1.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 1" />
+			<file id="voc-sample2"  name="sample2.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 2" />
+			<file id="voc-sample3"  name="sample3.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 3" />
+			<file id="voc-sample4"  name="sample4.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 4" />
+			<file id="voc-sample5"  name="sample5.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 5" />
+			<file id="voc-sample8"  name="sample8.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 8" />
+			<file id="voc-sample12" name="sample12.voc" typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 12" />
+
+		</archive>
+		<file id="b800-exit"    name="hwfull.bin"   typeMajor="b800"  typeMinor="80x25" title="Exit text screen" />
+	</files>
+
+	<commands>
+		<command title="Normal">start</command>
+	</commands>
+
+</game>
