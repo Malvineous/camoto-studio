@@ -135,7 +135,7 @@ class TilesetDocument: public IDocument
 		void onClose(wxCloseEvent& ev)
 		{
 			// Unload all the textures
-			this->canvas->SetCurrent();
+			this->canvas->SetCurrent(*this->studio->getGLContext());
 			for (TEXTURE_MAP::iterator t = this->tm.begin(); t != this->tm.end(); t++) {
 				glDeleteTextures(1, &t->second.glid);
 			}
@@ -146,7 +146,7 @@ class TilesetDocument: public IDocument
 		unsigned int updateTiles(const TilesetPtr& tileset, unsigned int j = 0)
 		{
 			// Make the texture operations below apply to this OpenGL surface
-			this->canvas->SetCurrent();
+			this->canvas->SetCurrent(*this->studio->getGLContext());
 
 			GLushort r[256], g[256], b[256], a[256];
 			unsigned int palSize = this->pal->size();

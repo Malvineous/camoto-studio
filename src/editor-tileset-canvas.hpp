@@ -68,6 +68,7 @@ class TilesetCanvas: public wxGLCanvas
 		void setOffset(unsigned int o);
 
 	protected:
+		wxGLContext *glcx;    ///< OpenGL context
 		TEXTURE_MAP tm;       ///< Tiles to display
 		int zoomFactor;       ///< Zoom level, 1 == 1:1, 2 == doublesize, etc.
 		unsigned int tilesX;  ///< Number of tiles to draw before wrapping to the next row

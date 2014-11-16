@@ -31,13 +31,13 @@ END_EVENT_TABLE()
 
 TilesetCanvas::TilesetCanvas(wxWindow *parent, wxGLContext *glcx,
 	int *attribList, int zoomFactor)
-	:	wxGLCanvas(parent, glcx, wxID_ANY, wxDefaultPosition,
-			wxDefaultSize, 0, wxEmptyString, attribList),
+	:	wxGLCanvas(parent, wxID_ANY, attribList),
+		glcx(glcx),
 		zoomFactor(zoomFactor),
 		tilesX(0), // must be updated before first redraw() call
 		offset(0)
 {
-	this->SetCurrent();
+	this->SetCurrent(*this->glcx);
 	glClearColor(0.5, 0.5, 0.5, 1);
 	glShadeModel(GL_FLAT);
 	glEnable(GL_TEXTURE_2D);
@@ -78,7 +78,7 @@ void TilesetCanvas::onResize(wxSizeEvent& ev)
 void TilesetCanvas::glReset()
 {
 	if (!this->IsShownOnScreen()) return;
-	this->SetCurrent();
+	this->SetCurrent(*this->glcx);
 	wxSize s = this->GetClientSize();
 	glViewport(0, 0, s.x, s.y);
 	glMatrixMode(GL_PROJECTION);

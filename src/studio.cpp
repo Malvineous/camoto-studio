@@ -186,9 +186,8 @@ Studio::Studio(bool isStudio)
 
 	// Create a base OpenGL context to share among all editors
 	this->Show(true);
-	wxGLCanvas *canvas = new wxGLCanvas(this, wxID_ANY,
-		wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS,
-		wxEmptyString, ::glAttribList);
+	wxGLCanvas *canvas = new wxGLCanvas(this, wxID_ANY, ::glAttribList,
+		wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxWANTS_CHARS);
 	this->glcx = new wxGLContext(canvas, NULL);
 	canvas->SetCurrent(*this->glcx);
 	GLenum err = glewInit();
