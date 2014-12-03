@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Solar Winds description file for Camoto Studio
+	Copyright (C) 2010-2014 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Solar_Winds
+  -->
+<game title="Solar Winds">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>James Schmalz</developer>
+		<publisher>Epic Megagames</publisher>
+		<reverser>Malvineous</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+
+		<group name="Music">
+			<item ref="mus-01"/>
+			<item ref="mus-02"/>
+			<item ref="mus-03"/>
+			<item ref="mus-04"/>
+			<item ref="mus-05"/>
+			<item ref="mus-06"/>
+			<item ref="mus-07"/>
+			<item ref="mus-08"/>
+			<item ref="mus-09"/>
+			<item ref="mus-10"/>
+			<item ref="mus-11"/>
+			<item ref="mus-12"/>
+			<item ref="mus-13"/>
+		</group>
+
+	</display>
+
+	<files>
+		<file id="mus-01"   name="bh_mu1.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 1"/>
+		<file id="mus-02"   name="bh_mu2.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 2"/>
+		<file id="mus-03"   name="bh_mu3.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 3"/>
+		<file id="mus-04"   name="bh_mu4.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 4"/>
+		<file id="mus-05"   name="bh_mu5.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 5"/>
+		<file id="mus-06"   name="bh_mu6.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 6"/>
+		<file id="mus-07"   name="bh_mu7.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 7"/>
+		<file id="mus-08"   name="bh_mu8.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 8"/>
+		<file id="mus-09"   name="bh_mu9.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 9"/>
+		<file id="mus-10"   name="bh_mu10.dat"    typeMajor="music" typeMinor="cmf-creativelabs" title="Song 10"/>
+		<file id="mus-11"   name="bh_mu11.dat"    typeMajor="music" typeMinor="cmf-creativelabs" title="Song 11"/>
+		<file id="mus-12"   name="bh_mu12.dat"    typeMajor="music" typeMinor="cmf-creativelabs" title="Song 12"/>
+		<file id="mus-13"   name="bh_mu13.dat"    typeMajor="music" typeMinor="cmf-creativelabs" title="Song 13"/>
+	</files>
+
+	<commands>
+		<command title="Episode 1">solarw1</command>
+		<command title="Episode 2">solarw2</command>
+	</commands>
+
+</game>
