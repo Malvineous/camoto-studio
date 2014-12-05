@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry id="camoto-studio">
+	<refentryinfo>
+		<application>Camoto</application>
+		<productname>camoto-studio</productname>
+		<author>
+			<firstname>Adam</firstname>
+			<surname>Nielsen</surname>
+			<email>malvineous@shikadi.net</email>
+			<contrib>Original document author</contrib>
+		</author>
+	</refentryinfo>
+	<refmeta>
+		<refentrytitle>camoto-studio</refentrytitle>
+		<manvolnum>1</manvolnum>
+		<refmiscinfo class="date">2014-12-05</refmiscinfo>
+		<refmiscinfo class="manual">Camoto</refmiscinfo>
+	</refmeta>
+	<refnamediv id="name">
+		<refname>camoto-studio</refname>
+		<refpurpose>graphical environment for editing game content</refpurpose>
+	</refnamediv>
+	<refsynopsisdiv>
+		<cmdsynopsis>
+			<command>camoto-studio</command>
+			<arg choice="plain">--project=<replaceable>project.camoto</replaceable></arg>
+			<arg choice="plain">--music=<replaceable>songfile</replaceable></arg>
+		</cmdsynopsis>
+	</refsynopsisdiv>
+
+	<refsect1 id="description">
+		<title>Description</title>
+		<para>
+			Open the graphical environment, optionally loading an existing project
+			file <replaceable>project.camoto</replaceable> or appearing as a
+			standalone music editor, loading the music file
+			<replaceable>songfile</replaceable>.
+		</para>
+	</refsect1>
+
+	<refsect1 id="options">
+		<title id="options-title">Options</title>
+		<variablelist>
+
+			<varlistentry>
+				<term><option>--project</option>=<replaceable>project.camoto</replaceable></term>
+				<listitem>
+					<para>
+						open the project specified by <option>project.camoto</option>.
+						This is the full path to the <literal>project.camoto</literal> file
+						inside the project directory.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>--music</option>=<replaceable>songfile</replaceable></term>
+				<listitem>
+					<para>
+						display the standalone music editor (no need to load a project or
+						select a game), with <option>songfile</option> opened for editing.
+					</para>
+				</listitem>
+			</varlistentry>
+
+		</variablelist>
+	</refsect1>
+
+	<refsect1 id="notes">
+		<para>
+			Exit status is <returnvalue>0</returnvalue> on success,
+			<returnvalue>non-zero</returnvalue> on failure.
+		</para>
+		<para>
+			All the file formats supported by this utility are fully documented on the
+			<ulink url="http://www.shikadi.net/moddingwiki">Game Modding Wiki</ulink>.
+		</para>
+	</refsect1>
+
+	<refsect1 id="bugs">
+		<title id="bugs-title">Bugs and Questions</title>
+		<para>
+			Report bugs at
+			<ulink url="http://www.shikadi.net/camoto/bugs/">http://www.shikadi.net/camoto/bugs/</ulink>
+		</para>
+		<para>
+			Ask questions about Camoto or modding in general at the <ulink
+			url="http://www.classicdosgames.com/forum/viewforum.php?f=25">RGB
+			Classic Games modding forum</ulink>
+		</para>
+	</refsect1>
+
+	<refsect1 id="copyright">
+		<title id="copyright-title">Copyright</title>
+		<para>
+			Copyright (c) 2010-2014 Adam Nielsen.
+		</para>
+		<para>
+			License GPLv3+: <ulink url="http://gnu.org/licenses/gpl.html">GNU GPL
+			version 3 or later</ulink>
+		</para>
+		<para>
+			This is free software: you are free to change and redistribute it.
+			There is NO WARRANTY, to the extent permitted by law.
+		</para>
+	</refsect1>
+
+	<refsect1 id="seealso">
+		<title id="seealso-title">See Also</title>
+		<simplelist type="inline">
+			<member><citerefentry><refentrytitle>gamearch</refentrytitle><manvolnum>1</manvolnum></citerefentry></member>
+			<member><citerefentry><refentrytitle>gamecomp</refentrytitle><manvolnum>1</manvolnum></citerefentry></member>
+			<member><citerefentry><refentrytitle>gametls</refentrytitle><manvolnum>1</manvolnum></citerefentry></member>
+			<member><citerefentry><refentrytitle>gameimg</refentrytitle><manvolnum>1</manvolnum></citerefentry></member>
+			<member><citerefentry><refentrytitle>gamemap</refentrytitle><manvolnum>1</manvolnum></citerefentry></member>
+			<member><citerefentry><refentrytitle>gamemus</refentrytitle><manvolnum>1</manvolnum></citerefentry></member>
+		</simplelist>
+	</refsect1>
+
+</refentry>

@@ -28,8 +28,10 @@ libtool
 *.lo
 *.la
 
-# libpng++ files
-src/png++
+# Generated docs
+doc/doxygen/
+doc/*.1
+doc/*.html
 
 # Compiled binaries
 src/camoto-studio
