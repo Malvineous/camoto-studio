@@ -375,50 +375,50 @@
 			</file>
 			<file id="pal-os2"  name="os2.pal"  offset="128769" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
 
-			<file id="img-os3"  name="os3.raw"  offset="129537" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+			<file id="img-os3"  name="os3.raw"  offset="129537" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 3">
 				<supp reftype="palette" ref="pal-os3"/>
 			</file>
-			<file id="pal-os3"  name="os3.pal"  offset="193537" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+			<file id="pal-os3"  name="os3.pal"  offset="193537" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 3 palette"/>
 
-			<file id="img-os4"  name="os4.raw"  offset="194305" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+			<file id="img-os4"  name="os4.raw"  offset="194305" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 4">
 				<supp reftype="palette" ref="pal-os4"/>
 			</file>
-			<file id="pal-os4"  name="os4.pal"  offset="258305" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+			<file id="pal-os4"  name="os4.pal"  offset="258305" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 4 palette"/>
 
-			<file id="img-os5"  name="os5.raw"  offset="259073" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+			<file id="img-os5"  name="os5.raw"  offset="259073" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 5">
 				<supp reftype="palette" ref="pal-os5"/>
 			</file>
-			<file id="pal-os5"  name="os5.pal"  offset="323073" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+			<file id="pal-os5"  name="os5.pal"  offset="323073" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 5 palette"/>
 
-			<file id="img-os6"  name="os6.raw"  offset="323841" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+			<file id="img-os6"  name="os6.raw"  offset="323841" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 6">
 				<supp reftype="palette" ref="pal-os6"/>
 			</file>
-			<file id="pal-os6"  name="os6.pal"  offset="387841" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+			<file id="pal-os6"  name="os6.pal"  offset="387841" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 6 palette"/>
 
-			<file id="img-os7"  name="os7.raw"  offset="388609" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+			<file id="img-os7"  name="os7.raw"  offset="388609" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 7">
 				<supp reftype="palette" ref="pal-os7"/>
 			</file>
-			<file id="pal-os7"  name="os7.pal"  offset="452609" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+			<file id="pal-os7"  name="os7.pal"  offset="452609" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 7 palette"/>
 
-			<file id="img-os8"  name="os8.raw"  offset="453377" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+			<file id="img-os8"  name="os8.raw"  offset="453377" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 8">
 				<supp reftype="palette" ref="pal-os8"/>
 			</file>
-			<file id="pal-os8"  name="os8.pal"  offset="517377" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+			<file id="pal-os8"  name="os8.pal"  offset="517377" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 8 palette"/>
 
-			<file id="img-os9"  name="os9.raw"  offset="518145" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+			<file id="img-os9"  name="os9.raw"  offset="518145" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 9">
 				<supp reftype="palette" ref="pal-os9"/>
 			</file>
-			<file id="pal-os9"  name="os9.pal"  offset="582145" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+			<file id="pal-os9"  name="os9.pal"  offset="582145" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 9 palette"/>
 
-			<file id="img-os10" name="os10.raw" offset="582913" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+			<file id="img-os10" name="os10.raw" offset="582913" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 10">
 				<supp reftype="palette" ref="pal-os10"/>
 			</file>
-			<file id="pal-os10" name="os10.pal" offset="646913" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+			<file id="pal-os10" name="os10.pal" offset="646913" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 10 palette"/>
 
-			<file id="img-os11" name="os11.raw" offset="647681" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 2">
+			<file id="img-os11" name="os11.raw" offset="647681" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Ordering Screen 11">
 				<supp reftype="palette" ref="pal-os11"/>
 			</file>
-			<file id="pal-os11" name="os11.pal" offset="711681" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 2 palette"/>
+			<file id="pal-os11" name="os11.pal" offset="711681" size="768"   typeMajor="palette" typeMinor="vga" title="Ordering Screen 11 palette"/>
 		</archive>
 
 		<file id="map-tma"    name="mapadat.z66" typeMajor="map" typeMinor="zone66-tilemap" title="Episode 1 tile map"/>
