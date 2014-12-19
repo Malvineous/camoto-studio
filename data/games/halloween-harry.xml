@@ -178,31 +178,98 @@
 			<item ref="txt-mis3end"/>
 			<item ref="txt-mis4"/>
 			<item ref="txt-mis4end"/>
-			<group name="Intro sequence specific">
-				<item ref="unk-jft-i"/>
-				<item ref="fnt-d-i"/>
-				<item ref="img-guiger-i"/>
-				<item ref="img-harry1-i"/>
-				<item ref="tls-faces-i"/>
-				<item ref="img-diane1-i"/>
-				<item ref="img-king1-i"/>
-				<item ref="ani-ship-i"/>
-				<item ref="img-zhunt1-i"/>
-				<item ref="ani-zap-i"/>
-				<item ref="img-starb-i"/>
-				<item ref="txt-intro-i"/>
-				<item ref="mus-seb3-i"/>
-				<item ref="mus-ins-i"/>
+		</group>
+
+		<group name="Intro sequence">
+			<item ref="tls-jft-i"/>
+			<item ref="fnt-d-i"/>
+			<item ref="img-guiger-i"/>
+			<item ref="img-harry1-i"/>
+			<item ref="tls-faces-i"/>
+			<item ref="img-diane1-i"/>
+			<item ref="img-king1-i"/>
+			<item ref="ani-ship-i"/>
+			<item ref="img-zhunt1-i"/>
+			<item ref="ani-zap-i"/>
+			<item ref="img-starb-i"/>
+			<item ref="txt-intro-i"/>
+			<item ref="mus-seb3-i"/>
+			<item ref="mus-ins-i"/>
+		</group>
+
+		<group name="Ordering info">
+			<group name="Images">
+				<item ref="img-apogee-o"/>
+				<item ref="img-aleft-o"/>
+				<item ref="img-aright-o"/>
+				<item ref="img-game123-o"/>
+				<item ref="img-gravis-o"/>
+				<item ref="img-help-o"/>
+				<item ref="img-intro-o"/>
+				<item ref="img-keyboard-o"/>
+				<item ref="img-man0055-o"/>
+				<item ref="img-order-o"/>
+				<item ref="img-status-o"/>
+			</group>
+			<group name="Fonts">
+				<item ref="tls-char12-o"/>
+				<item ref="tls-char8-o"/>
+			</group>
+			<group name="Text">
+				<item ref="txt-help01-o"/>
+				<item ref="txt-help02-o"/>
+				<item ref="txt-help03-o"/>
+				<item ref="txt-help04-o"/>
+				<item ref="txt-help05-o"/>
+				<item ref="txt-help06-o"/>
+				<item ref="txt-help07-o"/>
+				<item ref="txt-help08-o"/>
+				<item ref="txt-help09-o"/>
+				<item ref="txt-help10-o"/>
+				<item ref="txt-help11-o"/>
+				<item ref="txt-help12-o"/>
+				<item ref="txt-help13-o"/>
+				<item ref="txt-intro1-o"/>
+				<item ref="txt-intro2-o"/>
+				<item ref="txt-intro3-o"/>
+				<item ref="txt-intro4-o"/>
+				<item ref="txt-order01-o"/>
+				<item ref="txt-order02-o"/>
+				<item ref="txt-order03-o"/>
+				<item ref="txt-order04-o"/>
+				<item ref="txt-order05-o"/>
+				<item ref="txt-order06-o"/>
+				<item ref="txt-order07-o"/>
+				<item ref="txt-order08-o"/>
+				<item ref="txt-order09-o"/>
+				<item ref="txt-order10-o"/>
+				<item ref="txt-order11-o"/>
+				<item ref="txt-order12-o"/>
+				<item ref="txt-order13-o"/>
+				<item ref="txt-order14-o"/>
+				<item ref="txt-order15-o"/>
+				<item ref="txt-order16-o"/>
+				<item ref="txt-order17-o"/>
+				<item ref="txt-order18-o"/>
+				<item ref="txt-order19-o"/>
+				<item ref="txt-order20-o"/>
+				<item ref="txt-order21-o"/>
+				<item ref="txt-order22-o"/>
+				<item ref="txt-order23-o"/>
+			</group>
+			<group name="Exit screens">
+				<item ref="txt-regend-o"/>
+				<item ref="txt-swend-o"/>
 			</group>
 		</group>
 	</display>
 
 	<files>
-		<file id="fat-maps" name="maps.fat" title="FAT for maps.-0"/>
-		<file id="fat-harry" name="harry.fat" title="FAT for harry.-0"/>
-		<file id="fat-intro" name="intro.fat" title="FAT for intro.bnk"/>
-		<file id="fat-sfx" name="sfx.fat" title="FAT for sfx.bnk"/>
-		<file id="fat-order" name="order.fat" title="FAT for order.bnk"/>
+		<file id="fat-maps"  name="maps.fat"  typeMajor="archive" typeMinor="bnk-harry-fat" title="FAT for maps.-0"/>
+		<file id="fat-harry" name="harry.fat" typeMajor="archive" typeMinor="bnk-harry-fat" title="FAT for harry.-0"/>
+		<file id="fat-intro" name="intro.fat" typeMajor="archive" typeMinor="bnk-harry-fat" title="FAT for intro.bnk"/>
+		<file id="fat-sfx"   name="sfx.fat"   typeMajor="archive" typeMinor="bnk-harry-fat" title="FAT for sfx.bnk"/>
+		<file id="fat-order" name="order.fat" typeMajor="archive" typeMinor="bnk-harry-fat" title="FAT for order.bnk"/>
 
 		<archive name="maps.-0" id="arch-maps.-0" typeMinor="bnk-harry">
 			<supp reftype="fat" ref="fat-maps"/>
@@ -406,8 +473,8 @@
 		<archive name="intro.bnk" id="arch-intro-bnk" typeMinor="bnk-harry">
 			<supp reftype="fat" ref="fat-intro"/>
 
-			<file id="unk-jft-i"    name="harry1.jft"   typeMajor=""      typeMinor="" title="JFT (intro)"/>
-			<file id="fnt-d-i"      name="font-d.fnt"   typeMajor="font"  typeMinor="harry" title="Font (intro)"/>
+			<file id="tls-jft-i"    name="harry1.jft"   typeMajor="tileset" typeMinor="harry-ico" title="Font (intro; jft)"/>
+			<file id="fnt-d-i"      name="font-d.fnt"   typeMajor="font"  typeMinor="harry" title="Font (intro; fnt)"/>
 			<file id="img-guiger-i" name="guiger1.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="Guiger (intro)"/>
 			<file id="img-harry1-i" name="harry1.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="Harry (intro)"/>
 			<file id="tls-faces-i"  name="faces.ico"    typeMajor="tileset" typeMinor="harry-ico" title="Faces (intro)">
@@ -455,9 +522,61 @@
 		<archive name="order.bnk" id="arch-order-bnk" typeMinor="bnk-harry">
 			<supp reftype="fat" ref="fat-order"/>
 
-			<file id="img-intro-o"  name="intro.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="Intro"/>
-			<file id="txt-swend"    name="shwrend.scr"  typeMajor="b800"  typeMinor="80x25" title="Shareware exit screen"/>
-			<!-- TODO: Add rest of files -->
+			<file id="img-aleft-o"    name="aleft.pcc"    typeMajor="image"   typeMinor="pcx-8b1p" title="Arrow, left"/>
+			<file id="img-apogee-o"   name="apogee.pcc"   typeMajor="image"   typeMinor="pcx-8b1p" title="Apogee"/>
+			<file id="img-aright-o"   name="aright.pcc"   typeMajor="image"   typeMinor="pcx-8b1p" title="Arrow, right"/>
+			<file id="tls-char12-o"   name="char12.jft"   typeMajor="tileset" typeMinor="harry-ico" title="Size 12 font"/>
+			<file id="tls-char8-o"    name="char8.jft"    typeMajor="tileset" typeMinor="harry-ico" title="Size 8 font"/>
+			<file id="img-game123-o"  name="game123.pcc"  typeMajor="image"   typeMinor="pcx-8b1p" title="Game123"/>
+			<file id="img-gravis-o"   name="gravis.pcc"   typeMajor="image"   typeMinor="pcx-8b1p" title="Gravis"/>
+			<file id="img-help-o"     name="help.pcx"     typeMajor="image"   typeMinor="pcx-8b1p" title="Help"/>
+			<file id="txt-help01-o"   name="help1.ins"    typeMajor="text"    typeMinor="cp437-crlf" title="Help 1"/>
+			<file id="txt-help10-o"   name="help10.ins"   typeMajor="text"    typeMinor="cp437-crlf" title="Help 10"/>
+			<file id="txt-help11-o"   name="help11.ins"   typeMajor="text"    typeMinor="cp437-crlf" title="Help 11"/>
+			<file id="txt-help12-o"   name="help12.ins"   typeMajor="text"    typeMinor="cp437-crlf" title="Help 12"/>
+			<file id="txt-help13-o"   name="help13.ins"   typeMajor="text"    typeMinor="cp437-crlf" title="Help 13"/>
+			<file id="txt-help02-o"   name="help2.ins"    typeMajor="text"    typeMinor="cp437-crlf" title="Help 2"/>
+			<file id="txt-help03-o"   name="help3.ins"    typeMajor="text"    typeMinor="cp437-crlf" title="Help 3"/>
+			<file id="txt-help04-o"   name="help4.ins"    typeMajor="text"    typeMinor="cp437-crlf" title="Help 4"/>
+			<file id="txt-help05-o"   name="help5.ins"    typeMajor="text"    typeMinor="cp437-crlf" title="Help 5"/>
+			<file id="txt-help06-o"   name="help6.ins"    typeMajor="text"    typeMinor="cp437-crlf" title="Help 6"/>
+			<file id="txt-help07-o"   name="help7.ins"    typeMajor="text"    typeMinor="cp437-crlf" title="Help 7"/>
+			<file id="txt-help08-o"   name="help8.ins"    typeMajor="text"    typeMinor="cp437-crlf" title="Help 8"/>
+			<file id="txt-help09-o"   name="help9.ins"    typeMajor="text"    typeMinor="cp437-crlf" title="Help 9"/>
+			<file id="txt-intro1-o"   name="intro-1.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Intro 1"/>
+			<file id="txt-intro2-o"   name="intro-2.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Intro 2"/>
+			<file id="txt-intro3-o"   name="intro-3.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Intro 3"/>
+			<file id="txt-intro4-o"   name="intro-4.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Intro 4"/>
+			<file id="img-intro-o"    name="intro.pcx"    typeMajor="image"   typeMinor="pcx-8b1p" title="Intro"/>
+			<file id="img-keyboard-o" name="keyboard.pcc" typeMajor="image"   typeMinor="pcx-8b1p" title="Keyboard"/>
+			<file id="img-man0055-o"  name="man0055.pcc"  typeMajor="image"   typeMinor="pcx-8b1p" title="Man0055"/>
+			<file id="img-order-o"    name="order.pcx"    typeMajor="image"   typeMinor="pcx-8b1p" title="Order"/>
+			<file id="txt-order01-o"  name="order1.ins"   typeMajor="text"    typeMinor="cp437-crlf" title="Order 1"/>
+			<file id="txt-order10-o"  name="order10.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 10"/>
+			<file id="txt-order11-o"  name="order11.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 11"/>
+			<file id="txt-order12-o"  name="order12.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 12"/>
+			<file id="txt-order13-o"  name="order13.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 13"/>
+			<file id="txt-order14-o"  name="order14.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 14"/>
+			<file id="txt-order15-o"  name="order15.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 15"/>
+			<file id="txt-order16-o"  name="order16.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 16"/>
+			<file id="txt-order17-o"  name="order17.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 17"/>
+			<file id="txt-order18-o"  name="order18.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 18"/>
+			<file id="txt-order19-o"  name="order19.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 19"/>
+			<file id="txt-order02-o"  name="order2.ins"   typeMajor="text"    typeMinor="cp437-crlf" title="Order 2"/>
+			<file id="txt-order20-o"  name="order20.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 20"/>
+			<file id="txt-order21-o"  name="order21.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 21"/>
+			<file id="txt-order22-o"  name="order22.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 22"/>
+			<file id="txt-order23-o"  name="order23.ins"  typeMajor="text"    typeMinor="cp437-crlf" title="Order 23"/>
+			<file id="txt-order03-o"  name="order3.ins"   typeMajor="text"    typeMinor="cp437-crlf" title="Order 3"/>
+			<file id="txt-order04-o"  name="order4.ins"   typeMajor="text"    typeMinor="cp437-crlf" title="Order 4"/>
+			<file id="txt-order05-o"  name="order5.ins"   typeMajor="text"    typeMinor="cp437-crlf" title="Order 5"/>
+			<file id="txt-order06-o"  name="order6.ins"   typeMajor="text"    typeMinor="cp437-crlf" title="Order 6"/>
+			<file id="txt-order07-o"  name="order7.ins"   typeMajor="text"    typeMinor="cp437-crlf" title="Order 7"/>
+			<file id="txt-order08-o"  name="order8.ins"   typeMajor="text"    typeMinor="cp437-crlf" title="Order 8"/>
+			<file id="txt-order09-o"  name="order9.ins"   typeMajor="text"    typeMinor="cp437-crlf" title="Order 9"/>
+			<file id="txt-regend-o"   name="regend.scr"   typeMajor="b800"    typeMinor="80x25" title="Registered exit screen"/>
+			<file id="txt-swend-o"    name="shwrend.scr"  typeMajor="b800"    typeMinor="80x25" title="Shareware exit screen"/>
+			<file id="img-status-o"   name="status.pcc"   typeMajor="image"   typeMinor="pcx-8b1p" title="Status"/>
 		</archive>
 
 		<file id="tls-harry-hsb"  name="harry.hsb"    typeMajor="tileset" typeMinor="harry-hsb" title="All sprites">
