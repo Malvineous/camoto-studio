@@ -624,6 +624,14 @@ class TilesetDocument: public IDocument
 					params->maxHeight = 0;
 				}
 			}
+			// Finish on a new line.  This prevents crashes when exporting tilesets
+			// where the preferred width (in tiles) is wider than the actual number
+			// of available tiles.
+			if (params->x > params->totalWidth) params->totalWidth = params->x;
+			params->x = 0;
+			params->nx = 0;
+			params->y += params->maxHeight;
+			params->maxHeight = 0;
 			return;
 		}
 
