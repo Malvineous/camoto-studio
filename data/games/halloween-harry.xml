@@ -78,6 +78,9 @@
 				<item ref="tls-faces"/>
 				<item ref="tls-contdig"/>
 				<item ref="tls-harry-ico"/>
+				<item ref="tls-credies"/>
+				<item ref="tls-eoldigit"/>
+				<item ref="tls-top5"/>
 			</group>
 
 			<group name="Sprites">
@@ -400,10 +403,20 @@
 			</file>
 
 			<file id="tls-faces"    name="faces.ico"    typeMajor="tileset" typeMinor="harry-ico" title="Face animations (main)">
-				<supp reftype="palette" ref="pal-101"/>
+				<supp reftype="palette" ref="img-diane1"/>
 			</file>
 			<file id="tls-contdig"  name="contdig.ico"  typeMajor="tileset" typeMinor="harry-ico" title="Continue digits">
-				<supp reftype="palette" ref="pal-101"/>
+				<supp reftype="palette" ref="img-cont3"/>
+			</file>
+
+			<file id="tls-credies"  name="credies.bbk"  typeMajor="tileset" typeMinor="harry-ico" title="Credits images">
+				<supp reftype="palette" ref="img-credscr"/>
+			</file>
+			<file id="tls-eoldigit" name="eoldigit.bbk"  typeMajor="tileset" typeMinor="harry-ico" title="End-of-level digit font">
+				<supp reftype="palette" ref="img-elevator"/>
+			</file>
+			<file id="tls-top5"     name="top5.bbk"  typeMajor="tileset" typeMinor="harry-ico" title="High scores font">
+				<supp reftype="palette" ref="img-terminal"/>
 			</file>
 
 			<file id="img-missions" name="missions.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Mission selection"/>
@@ -582,8 +595,8 @@
 		<file id="tls-harry-hsb"  name="harry.hsb"    typeMajor="tileset" typeMinor="harry-hsb" title="All sprites">
 			<supp reftype="palette" ref="pal-101"/>
 		</file>
-		<file id="tls-harry-ico"  name="harry.ico"    typeMajor="tileset" typeMinor="harry-ico" title="UI images">
-			<supp reftype="palette" ref="pal-101"/>
+		<file id="tls-harry-ico"  name="harry.ico"    typeMajor="tileset" typeMinor="harry-ico" title="Game statusbar">
+			<supp reftype="palette" ref="img-hhp4"/>
 		</file>
 
 	</files>
