@@ -435,22 +435,76 @@ class TilesetDocument: public IDocument
 
 					unsigned int palSize = srcPal->size();
 					int j = 0;
+					int transparentIndex = -1; // colour to use for transparent pixels
 
-					// Figure out whether there's enough room in the palette to use the image
-					// mask for transparency, or whether we have to fall back to palette index
-					// transparency only.
 					png::tRNS transparency;
-					if (palSize < 256) {
-						transparency.push_back(j);
-						j++;
-						palSize++;
-						useMask = true;
-					} else {
-						// Not enough room in the palette for masked transparent entry
-						useMask = false;
+					for (PaletteTable::iterator
+						i = srcPal->begin(); i != srcPal->end(); i++, j++
+					) {
+						if (i->alpha == 0x00) {
+							transparency.push_back(j);
+							transparentIndex = j;
+							// continue so we get all transparent entries if there are multiple
+						}
 					}
-					png::palette pal(palSize);
+					j = 0;
 
+					if (transparentIndex < 0) {
+						// The palette has no existing transparent pixels, so see if there
+						// is room to squeeze in another entry
+						if (palSize < 256) {
+							transparency.push_back(j);
+							assert(j == 0);
+							transparentIndex = j;
+							j++;
+							palSize++;
+							useMask = true;
+						} else {
+							// Not enough room in the palette for masked transparent entry
+							useMask = false;
+							std::cout << "[editor-tileset] Palette has no transparent entry, "
+								"and there's not enough room to add another entry.  This image "
+								"will have no palette transparency.\n";
+							// If we're here, none of the palette entries are transparent,
+							// and there's no space in the palette to add a new entry.  So
+							// we will just have to pick a background colour.
+							int p = 0;
+							for (PaletteTable::iterator
+								i = srcPal->begin(); i != srcPal->end(); i++, p++
+							) {
+								if (
+									(i->red == 0xFF)
+									&& (i->green < 0x50)
+									&& (i->blue == 0xFF)
+								) {
+									// Found bright magenta, that will do
+									transparentIndex = p;
+									break;
+								}
+								if (
+									(i->red == 0x00)
+									&& (i->green == 0x00)
+									&& (i->blue == 0x00)
+									&& (transparentIndex < 0)
+								) {
+									// First black entry, use that, but keep searching
+									transparentIndex = p;
+								}
+							}
+							if (transparentIndex > 0) {
+								// If we got this far, the palette has no entry for black or for
+								// bright magenta
+								transparentIndex = 255;
+							}
+							// We don't add the new transparentIndex to the PNG transparency
+							// block, because technically it's not transparent, and we might
+							// inadvertently make some normal pixels transparent if we did.
+							// We will just have to live with any spaces between tiles not
+							// being transparent.
+						}
+					}
+
+					png::palette pal(palSize);
 					// Set a colour for the transparent palette entry, for apps which can't
 					// display transparent pixels (we couldn't set this above.)
 					if (useMask) pal[0] = png::color(0xFF, 0x00, 0xFF);
@@ -459,10 +513,27 @@ class TilesetDocument: public IDocument
 						i = srcPal->begin(); i != srcPal->end(); i++, j++
 					) {
 						pal[j] = png::color(i->red, i->green, i->blue);
-						if (i->alpha == 0x00) transparency.push_back(j);
 					}
 					png.set_palette(pal);
 					if (transparency.size()) png.set_tRNS(transparency);
+
+					std::cout << "[editor-tileset] Exporting tileset: "
+						"useMask=" << (useMask ? "true" : "false")
+						<< " transparentIndex=" << transparentIndex
+						<< " width=" << params.totalWidth
+						<< " height=" << (params.y + params.maxHeight)
+						<< " palSize=" << pal.size()
+						<< " transparencySize=" << transparency.size()
+						<< std::endl;
+
+					// Make the whole image transparent to start off with, so the spaces
+					// in between tiles (if any) are left as transparent
+					assert(transparentIndex >= 0);
+					for (unsigned int py = 0; py < params.y + params.maxHeight; py++) {
+						for (unsigned int px = 0; px < params.totalWidth; px++) {
+							png[py][px] = png::index_pixel(transparentIndex);
+						}
+					}
 
 					// Write the image data to the PNG canvas
 					params.ppng = &png;
@@ -607,7 +678,8 @@ class TilesetDocument: public IDocument
 										png::index_pixel(data[py*width+px] + 1);
 								}
 							} else {
-								png[params->y+py][params->x+px] = png::index_pixel(data[py*width+px]);
+								png[params->y+py][params->x+px] =
+									png::index_pixel(data[py*width+px]);
 							}
 						}
 					}
