@@ -410,34 +410,59 @@ class TilesetDocument: public IDocument
 					png::image<png::index_pixel> png(params.totalWidth,
 						params.y + params.maxHeight);
 
-					// Populate the palette, leaving room for transparency if needed
-					PaletteTablePtr srcPal = this->pal;
-					int palSize = srcPal->size();;
-					bool useMask = true; // drops colour 255
-					assert(srcPal->size() > 0);
-
-					// Add an extra entry for transparency if there's room (otherwise
-					// everything gets shifted up one and colour 255 is lost)
-					if (useMask && (palSize < 256)) palSize++;
-
-					png::palette pngPal(palSize);
-					int j = 0;
-					if (useMask) {
-						// Assign first colour as transparent
-						png::tRNS transparency;
-						transparency.push_back(j);
-						png.set_tRNS(transparency);
-
-						pngPal[j] = png::color(0xFF, 0x00, 0xFF);
-						j++;
+					bool useMask;
+					PaletteTablePtr srcPal;
+					if (this->rootTileset->getCaps() & Tileset::HasPalette) {
+						srcPal = this->rootTileset->getPalette();
+					} else {
+						// Need to use the default palette
+						switch (this->rootTileset->getCaps() & Tileset::ColourDepthMask) {
+							case Tileset::ColourDepthVGA:
+								srcPal = createPalette_DefaultVGA();
+								srcPal->pop_back(); // remove entry 255 to make room for transparency
+								break;
+							case Tileset::ColourDepthEGA:
+								srcPal = createPalette_DefaultEGA();
+								break;
+							case Tileset::ColourDepthCGA:
+								srcPal = createPalette_CGA(CGAPal_CyanMagenta);
+								break;
+							case Tileset::ColourDepthMono:
+								srcPal = createPalette_DefaultMono();
+								break;
+						}
 					}
+
+					unsigned int palSize = srcPal->size();
+					int j = 0;
+
+					// Figure out whether there's enough room in the palette to use the image
+					// mask for transparency, or whether we have to fall back to palette index
+					// transparency only.
+					png::tRNS transparency;
+					if (palSize < 256) {
+						transparency.push_back(j);
+						j++;
+						palSize++;
+						useMask = true;
+					} else {
+						// Not enough room in the palette for masked transparent entry
+						useMask = false;
+					}
+					png::palette pal(palSize);
+
+					// Set a colour for the transparent palette entry, for apps which can't
+					// display transparent pixels (we couldn't set this above.)
+					if (useMask) pal[0] = png::color(0xFF, 0x00, 0xFF);
 
 					for (PaletteTable::iterator
-						i = srcPal->begin(); (i != srcPal->end()) && (j < 256); i++, j++
+						i = srcPal->begin(); i != srcPal->end(); i++, j++
 					) {
-						pngPal[j] = png::color(i->red, i->green, i->blue);
+						pal[j] = png::color(i->red, i->green, i->blue);
+						if (i->alpha == 0x00) transparency.push_back(j);
 					}
-					png.set_palette(pngPal);
+					png.set_palette(pal);
+					if (transparency.size()) png.set_tRNS(transparency);
 
 					// Write the image data to the PNG canvas
 					params.ppng = &png;
