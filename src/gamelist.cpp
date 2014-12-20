@@ -349,7 +349,13 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 					if (missingFilename) std::cout << "filename ";
 					std::cout << "\n";
 				}
-				g->objects[o->id] = o;
+				GameObjectMap::iterator io = g->objects.find(o->id);
+				if (io != g->objects.end()) {
+					std::cerr << "[gamelist] <" << (const char *)j->name
+						<< "/> with duplicate id: \"" << o->id << "\"\n";
+				} else {
+					g->objects[o->id] = o;
+				}
 			}
 		}
 	}
