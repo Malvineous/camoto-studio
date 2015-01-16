@@ -72,7 +72,20 @@ AC_CACHE_CHECK([for png++],
 		[ac_cv_pngpp=yes],
 		[AC_MSG_ERROR([<png++/png.hpp> not found or unusable.
 
-Please download and install png++.  See config.log for failure messages if required.])
+Please download and install png++ <http://download.savannah.gnu.org/releases/pngpp/>.
+See config.log for failure messages if required.])
+		]
+	)]
+)
+
+AC_CACHE_CHECK([if png++ is new enough],
+	[ac_cv_pngpp_ver],
+	[AC_COMPILE_IFELSE(
+		[AC_LANG_PROGRAM([#include <png++/png.hpp>], [std::string fn; png::image<png::index_pixel> png(fn); return 0;])],
+		[ac_cv_pngpp_ver=yes],
+		[AC_MSG_ERROR([png++ is too old.
+
+Please download and install png++ 0.2.7 or newer <http://download.savannah.gnu.org/releases/pngpp/>])
 		]
 	)]
 )
