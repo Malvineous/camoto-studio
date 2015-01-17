@@ -57,10 +57,6 @@ EXTRA_camoto_studio_SOURCES += dlg-export-mus.hpp
 EXTRA_camoto_studio_SOURCES += dlg-import-mus.hpp
 EXTRA_camoto_studio_SOURCES += dlg-map-attr.hpp
 
-# RtMidi code
-camoto_studio_SOURCES += RtMidi.cpp
-EXTRA_camoto_studio_SOURCES += RtMidi.h RtError.h
-
 WARNINGS = -Wall -Wextra -Wno-unused-parameter
 
 AM_CPPFLAGS  = $(BOOST_CPPFLAGS)
