@@ -19,7 +19,6 @@
  */
 
 #ifdef WIN32
-#define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
 #endif
@@ -41,6 +40,7 @@
 paths path;
 config_data config;
 
+/* Removed for VS2013/Boost 1.57 which segfaults when a stream gets flushed
 #ifdef WIN32
 // Redirect stdout and stderr to the VS output window
 #include <windows.h>
@@ -66,25 +66,33 @@ struct DebugSink
     }
 };
 #endif // WIN32
+*/
 
 class CamotoApp: public wxApp
 {
 	public:
 		static const wxCmdLineEntryDesc cmdLineDesc[];
 
+/*
 #ifdef WIN32
 		// Redirect stdout and stderr to the VS output window
 		typedef io::tee_device<DebugSink, std::streambuf> TeeDevice;
 		TeeDevice device;
+		TeeDevice deviceerr;
 		io::stream_buffer<TeeDevice> buf;
+		io::stream_buffer<TeeDevice> buferr;
 
 		CamotoApp()
 			:	device(DebugSink(), *std::cout.rdbuf()),
-				buf(device)
+				deviceerr(DebugSink(), *std::cerr.rdbuf()),
+				buf(device),
+				buferr(deviceerr)
 		{
 			_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 			std::cout.rdbuf(&this->buf);
-			std::cerr.rdbuf(&buf);
+			std::cerr.rdbuf(&this->buferr);
+			std::cout << "a" << std::endl; // *** Crash here with VS2013/Boost 1.57
+			std::cout << "b" << std::endl;
 		}
 #if PNG_LIBPNG_VER != 10512
 #define STRING2(x) #x
@@ -94,10 +102,13 @@ class CamotoApp: public wxApp
 #endif
 
 #else
+*/
 		CamotoApp()
 		{
 		}
+/*
 #endif // WIN32
+*/
 
 		void OnInitCmdLine(wxCmdLineParser& parser)
 		{
