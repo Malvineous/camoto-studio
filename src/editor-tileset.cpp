@@ -909,7 +909,7 @@ bool TilesetEditor::isFormatSupported(const wxString& type) const
 
 	std::string strType("tls-");
 	strType.append(type.ToUTF8());
-	return this->studio->mgrGraphics->getTilesetTypeByCode(strType);
+	return !!this->studio->mgrGraphics->getTilesetTypeByCode(strType);
 }
 
 IDocument *TilesetEditor::openObject(const GameObjectPtr& o)

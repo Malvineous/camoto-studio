@@ -544,7 +544,7 @@ bool ImageEditor::isFormatSupported(const wxString& type) const
 {
 	std::string strType("img-");
 	strType.append(type.ToUTF8());
-	return this->studio->mgrGraphics->getImageTypeByCode(strType);
+	return !!this->studio->mgrGraphics->getImageTypeByCode(strType);
 }
 
 IDocument *ImageEditor::openObject(const GameObjectPtr& o)

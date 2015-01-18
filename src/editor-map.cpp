@@ -306,7 +306,7 @@ bool MapEditor::isFormatSupported(const wxString& type) const
 {
 	std::string strType("map-");
 	strType.append(type.ToUTF8());
-	return this->studio->mgrMaps->getMapTypeByCode(strType);
+	return !!this->studio->mgrMaps->getMapTypeByCode(strType);
 }
 
 IDocument *MapEditor::openObject(const GameObjectPtr& o)

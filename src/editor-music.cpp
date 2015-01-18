@@ -65,7 +65,7 @@ void MusicEditor::saveSettings(Project *proj) const
 bool MusicEditor::isFormatSupported(const wxString& type) const
 {
 	std::string strType(type.ToUTF8());
-	return this->studio->mgrMusic->getMusicTypeByCode(strType);
+	return !!this->studio->mgrMusic->getMusicTypeByCode(strType);
 }
 
 IDocument *MusicEditor::openObject(const GameObjectPtr& o)
