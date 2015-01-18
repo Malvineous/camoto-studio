@@ -215,7 +215,15 @@
 
 	<files>
 		<file id="lev-101" name="worldal1.dn1" typeMajor="map" typeMinor="duke1" title="Level 1">
-			<dep reftype="background-tileset1" ref="tls-1"/>
+			<dep reftype="background-tileset1" ref="tls-1-back0"/>
+			<dep reftype="background-tileset2" ref="tls-1-back1"/>
+			<dep reftype="background-tileset3" ref="tls-1-back2"/>
+			<dep reftype="background-tileset4" ref="tls-1-back3"/>
+			<dep reftype="background-tileset5" ref="tls-1-solid0"/>
+			<dep reftype="background-tileset6" ref="tls-1-solid1"/>
+			<dep reftype="background-tileset7" ref="tls-1-solid2"/>
+			<dep reftype="background-tileset8" ref="tls-1-solid3"/>
+			<dep reftype="background-tileset9" ref="tls-1-border"/>
 		</file>
 		<file id="lev-102" name="worldal2.dn1" typeMajor="map" typeMinor="duke1" title="Level 2">
 			<dep reftype="background-tileset1" ref="tls-1"/>
