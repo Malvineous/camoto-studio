@@ -77,8 +77,8 @@ void EventPanel::onPaint(wxPaintEvent& pev)
 			(ev != track->end()) &&
 			(curRow < rowDraw)
 		) {
-			ev++;
 			curRow += ev->delay;
+			ev++;
 		}
 
 		if ((rowHighlight >= rowDraw) && (rowHighlight < rowDraw + this->doc->ticksPerRow)) {
