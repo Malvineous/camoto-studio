@@ -339,6 +339,25 @@ IDocument *MapEditor::openObject(const GameObjectPtr& o)
 					targetFilename.c_str(), o->id.c_str()));
 			}
 			(*tilesets)[i->first] = this->studio->openTileset(ot);
+		} else if (ImagePurpose_IsImage(i->first)) {
+			// This is an image, so load it and stick it as the first and only
+			// tile in a temporary tileset.
+			GameObjectPtr oi = this->studio->game->findObjectByFilename(
+				targetFilename, _T("image"));
+			if (!oi) {
+				throw EFailure(wxString::Format(_("Cannot open this map.  It needs "
+					"an image that is missing from the game description XML file."
+					"\n\n[There is no <file/> element with the filename \"%s\" and a "
+					"typeMajor of \"image\", as needed by \"%s\"]"),
+					targetFilename.c_str(), o->id.c_str()));
+			}
+			TilesetFromImages_Item imlist_item;
+			imlist_item.name = oi->friendlyName;
+			imlist_item.isImage = true;
+			imlist_item.image = this->studio->openImage(oi);
+			TilesetFromImages_List imlist;
+			imlist.push_back(imlist_item);
+			(*tilesets)[i->first] = createTilesetFromImages(imlist, 1);;
 		}
 	}
 

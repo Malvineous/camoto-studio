@@ -123,6 +123,12 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 
 	this->SetCurrent(*this->glcx);
 
+	// Load a default palette.  The VGA one is backwards compatible with
+	// 16-color EGA/CGA images.
+	PaletteTablePtr palDefault = createPalette_DefaultVGA();
+
+	this->pxTotalWidth = 0;
+	this->pxTotalHeight = 0;
 	for (unsigned int i = 0; i < layerCount; i++) {
 		// Prepopulate an empty selection vector for each layer, so there is
 		// somewhere to put the tiles when some are selected.
@@ -133,8 +139,10 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 		unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
 		getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
 
+		this->pxTotalWidth = std::max(this->pxTotalWidth, layerWidth * tileWidth);
+		this->pxTotalHeight = std::max(this->pxTotalHeight, layerHeight * tileHeight);
+
 		// Load the palette
-		PaletteTablePtr palDefault;
 		if (layer->getCaps() & Map2D::Layer::HasPalette) {
 			// Use the palette supplied by the map layer
 			palDefault = layer->getPalette(this->tilesets);
@@ -152,12 +160,6 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 				}
 			}
 		}
-		if (!palDefault) {
-			// Load a default palette.  The VGA one is backwards compatible with
-			// 16-color EGA/CGA images.
-			palDefault = createPalette_DefaultVGA();
-		}
-		assert(palDefault);
 
 		TEXTURE_MAP tm;
 
@@ -182,6 +184,14 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 		}
 
 		this->textureMap.push_back(tm);
+	}
+
+	ImagePtr bgImage;
+	this->bgAttachment = this->map->getBackgroundImage(this->tilesets,
+		&bgImage, &this->bgColour);
+	if (this->bgAttachment == Map2D::SingleImageCentred) {
+		// Load this image
+		this->texture_bgImage = this->allocTexture(bgImage, palDefault);
 	}
 
 	this->glReset();
@@ -301,6 +311,71 @@ MapCanvas::~MapCanvas()
 	}
 }
 
+Texture MapCanvas::allocTexture(ImagePtr image, PaletteTablePtr palDefault)
+{
+	Texture t;
+	glGenTextures(1, &t.glid);
+	glBindTexture(GL_TEXTURE_2D, t.glid);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	image->getDimensions(&t.width, &t.height);
+	if ((t.width > 512) || (t.height > 512)) {
+		// Image too large
+		std::cerr << "[editor-map-canvas] Tile too large, using default image" << std::endl;
+		t = this->indicators[Map2D::Layer::Unknown];
+		return t;
+	}
+
+	if (image->getCaps() & Image::HasHotspot) {
+		image->getHotspot(&t.hotspotX, &t.hotspotY);
+	} else {
+		t.hotspotX = 0;
+		t.hotspotY = 0;
+	}
+
+	PaletteTablePtr pal;
+	if (image->getCaps() & Image::HasPalette) {
+		pal = image->getPalette();
+	} else {
+		pal = palDefault;
+	}
+	assert(pal);
+	StdImageDataPtr data = image->toStandard();
+	StdImageDataPtr mask = image->toStandardMask();
+
+	// Convert the 8-bit data into 32-bit BGRA (so it is possible to have a
+	// 256-colour image with transparency as a "257th colour".)
+	boost::shared_array<uint32_t> combined(new uint32_t[t.width * t.height]);
+	uint8_t *d = data.get(), *m = mask.get();
+	uint8_t *c = (uint8_t *)combined.get();
+	unsigned int palSize = pal->size();
+	for (unsigned int p = 0; p < t.width * t.height; p++) {
+		if (*d > palSize) {
+			*c++ = 0;
+			*c++ = 0;
+			*c++ = 0;
+			*c++ = 0;
+		} else {
+			*c++ = *m & 0x01 ? 255 : (*pal)[*d].blue;
+			*c++ = *m & 0x01 ?   0 : (*pal)[*d].green;
+			*c++ = *m & 0x01 ? 255 : (*pal)[*d].red;
+			*c++ = *m & 0x01 ?   0 : (*pal)[*d].alpha;
+		}
+		m++; d++;
+	}
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, t.width, t.height, 0, GL_BGRA,
+		GL_UNSIGNED_BYTE, combined.get());
+	if (glGetError()) {
+		std::cerr << "[editor-tileset] GL error loading texture "
+			"into id " << t.glid << std::endl;
+	}
+	return t;
+}
+
 void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 	const Map2D::Layer::ItemPtr& item, Map2D::LayerPtr& layer,
 	const TilesetCollectionPtr& tilesets)
@@ -312,69 +387,7 @@ void MapCanvas::loadTileImage(TEXTURE_MAP& tm, PaletteTablePtr& palDefault,
 		case Map2D::Layer::Supplied: {
 			// Got an image for this tile code
 			assert(image);
-
-			Texture t;
-			glGenTextures(1, &t.glid);
-			glBindTexture(GL_TEXTURE_2D, t.glid);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-			image->getDimensions(&t.width, &t.height);
-			if ((t.width > 512) || (t.height > 512)) {
-				// Image too large
-				std::cerr << "[editor-map-canvas] Tile too large, using default image" << std::endl;
-				tm[item->code] = this->indicators[Map2D::Layer::Unknown];
-				return;
-			}
-
-			if (image->getCaps() & Image::HasHotspot) {
-				image->getHotspot(&t.hotspotX, &t.hotspotY);
-			} else {
-				t.hotspotX = 0;
-				t.hotspotY = 0;
-			}
-
-			PaletteTablePtr pal;
-			if (image->getCaps() & Image::HasPalette) {
-				pal = image->getPalette();
-			} else {
-				pal = palDefault;
-			}
-			assert(pal);
-			StdImageDataPtr data = image->toStandard();
-			StdImageDataPtr mask = image->toStandardMask();
-
-			// Convert the 8-bit data into 32-bit BGRA (so it is possible to have a
-			// 256-colour image with transparency as a "257th colour".)
-			boost::shared_array<uint32_t> combined(new uint32_t[t.width * t.height]);
-			uint8_t *d = data.get(), *m = mask.get();
-			uint8_t *c = (uint8_t *)combined.get();
-			unsigned int palSize = pal->size();
-			for (unsigned int p = 0; p < t.width * t.height; p++) {
-				if (*d > palSize) {
-					*c++ = 0;
-					*c++ = 0;
-					*c++ = 0;
-					*c++ = 0;
-				} else {
-					*c++ = *m & 0x01 ? 255 : (*pal)[*d].blue;
-					*c++ = *m & 0x01 ?   0 : (*pal)[*d].green;
-					*c++ = *m & 0x01 ? 255 : (*pal)[*d].red;
-					*c++ = *m & 0x01 ?   0 : (*pal)[*d].alpha;
-				}
-				m++; d++;
-			}
-
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, t.width, t.height, 0, GL_BGRA,
-				GL_UNSIGNED_BYTE, combined.get());
-			if (glGetError()) {
-				std::cerr << "[editor-tileset] GL error loading texture "
-					"into id " << t.glid << std::endl;
-			}
-
-			tm[item->code] = t;
+			tm[item->code] = this->allocTexture(image, palDefault);
 			break;
 		}
 		case Map2D::Layer::Unknown:
@@ -516,6 +529,52 @@ void MapCanvas::redraw()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glDisable(GL_LINE_STIPPLE);
+
+	// If the map has a background colour, draw it.
+	switch (this->bgAttachment) {
+		case Map2D::NoBackground:
+			break;
+		case Map2D::SingleColour: {
+			float r = this->bgColour.red / 0xFF;
+			float g = this->bgColour.green / 0xFF;
+			float b = this->bgColour.blue / 0xFF;
+			glColor4f(r, g, b, 1.0);
+			glBegin(GL_QUADS);
+			int x1 = 0 - this->offX;
+			int y1 = 0 - this->offY;
+			int x2 = this->pxTotalWidth - this->offX;
+			int y2 = this->pxTotalHeight - this->offY;
+			glVertex2i(x1, y1);
+			glVertex2i(x1, y2);
+			glVertex2i(x2, y2);
+			glVertex2i(x2, y1);
+			glEnd();
+			break;
+		}
+		case Map2D::SingleImageCentred: {
+			// Only draw it if the viewport layer is visible
+			if (this->visibleElements[ElViewport]) {
+				const unsigned int& vpX = this->map->viewportX;
+				const unsigned int& vpY = this->map->viewportY;
+				int vpOffX = (winSize.x - (signed)vpX) / 2;
+				int vpOffY = (winSize.y - (signed)vpY) / 2;
+				glEnable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D, this->texture_bgImage.glid);
+				glBegin(GL_QUADS);
+				glTexCoord2d(0.0, 0.0);
+				glVertex2i(vpOffX, vpOffY + 0);
+				glTexCoord2d(0.0, 1.0);
+				glVertex2i(vpOffX, vpOffY + (signed)vpY);
+				glTexCoord2d(1.0, 1.0);
+				glVertex2i(vpOffX + (signed)vpX, vpOffY + (signed)vpY);
+				glTexCoord2d(1.0, 0.0);
+				glVertex2i(vpOffX + (signed)vpX, vpOffY + 0);
+				glEnd();
+			}
+			break;
+		}
+	}
+
 	glEnable(GL_TEXTURE_2D);
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);

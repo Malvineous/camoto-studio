@@ -218,6 +218,16 @@ class MapCanvas: public MapBaseCanvas
 	protected:
 		/// Load an image into an OpenGL texture.
 		/**
+		 * @param image
+		 *   Image to bind to an OpenGL texture.
+		 *
+		 * @return A Texture containing the image size, OpenGL texture ID, etc.
+		 */
+		Texture allocTexture(camoto::gamegraphics::ImagePtr image,
+			camoto::gamegraphics::PaletteTablePtr palDefault);
+
+		/// Load a tile's image by tilecode into an OpenGL texture.
+		/**
 		 * @param code
 		 *   Map code.
 		 *
@@ -281,6 +291,14 @@ class MapCanvas: public MapBaseCanvas
 
 		path_point nearestPathPoint; ///< Nearest point to the cursor
 		int nearestPathPointOff;     ///< How far along the line after the nearest point
+
+		unsigned int pxTotalWidth;   ///< Total width of all map layers, in pixels
+		unsigned int pxTotalHeight;  ///< Total height of all map layers, in pixels
+
+		/// Background attachment method
+		camoto::gamemaps::Map2D::ImageAttachment bgAttachment;
+		Texture texture_bgImage;
+		camoto::gamegraphics::PaletteEntry bgColour; ///< Background colour, if any
 
 		friend class TilePanelCanvas;
 
