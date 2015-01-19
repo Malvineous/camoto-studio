@@ -219,7 +219,6 @@
 
 	<files>
 		<file id="tls-cna0"   name="cna0grfx.z66" typeMajor="tileset" typeMinor="zone66" filter="lzw-zone66" title="cna0"/>
-		<file id="tls-cna0"   name="cna0grfx.z66" typeMajor="tileset" typeMinor="zone66" filter="lzw-zone66" title="cna0"/>
 		<file id="tls-cna1"   name="cna1grfx.z66" typeMajor="tileset" typeMinor="zone66" filter="lzw-zone66" title="cna1"/>
 		<file id="tls-cna2"   name="cna2grfx.z66" typeMajor="tileset" typeMinor="zone66" filter="lzw-zone66" title="cna2"/>
 		<file id="tls-cna3"   name="cna3grfx.z66" typeMajor="tileset" typeMinor="zone66" filter="lzw-zone66" title="cna3"/>
