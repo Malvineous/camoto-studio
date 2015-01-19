@@ -431,7 +431,7 @@ void MapBaseCanvas::onMouseUpMiddle(wxMouseEvent& ev)
 	this->scrollFromX = 0;
 	this->scrollFromY = 0;
 	this->scrolling = false;
-	this->ReleaseMouse();
+	if (this->HasCapture()) this->ReleaseMouse();
 	return;
 }
 
