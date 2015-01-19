@@ -50,21 +50,15 @@ DlgMapAttr::DlgMapAttr(Studio *parent, MapPtr map)
 			wxDefaultSize, wxRESIZE_BORDER),
 		studio(parent),
 		map(map),
-		newAttr(new Map::AttributePtrVector),
 		curSel(-1)
 {
-	Map::AttributePtrVectorPtr attributes = map->getAttributes();
 	wxArrayString items;
-	if (attributes) {
-		for (Map::AttributePtrVector::const_iterator
-			i = attributes->begin(); i != attributes->end(); i++
-		) {
-			Map::AttributePtr a = *i;
-			items.Add(wxString(a->name.c_str(), wxConvUTF8));
-			Map::AttributePtr b(new Map::Attribute);
-			*b = *a;
-			this->newAttr->push_back(b);
-		}
+	for (Map::Attributes::const_iterator
+		i = map->attributes.begin(); i != map->attributes.end(); i++
+	) {
+		const Map::Attribute& a = *i;
+		items.Add(wxString(a.name.c_str(), wxConvUTF8));
+		this->newAttr.push_back(a); // make a copy
 	}
 
 	wxListBox *attrList = new wxListBox(this, IDC_LIST, wxDefaultPosition,
@@ -119,22 +113,21 @@ void DlgMapAttr::onOK(wxCommandEvent& ev)
 	this->saveCurrent();
 
 	// Copy attributes back to the map
-	Map::AttributePtrVectorPtr attributes = map->getAttributes();
-	for (Map::AttributePtrVector::const_iterator
-		d = attributes->begin(), s = this->newAttr->begin(); d != attributes->end(); d++, s++
+	for (Map::Attributes::iterator d = this->map->attributes.begin(),
+		s = this->newAttr.begin(); d != this->map->attributes.end(); d++, s++
 	) {
-		switch ((*d)->type) {
+		switch (d->type) {
 			case Map::Attribute::Text:
-				(*d)->textValue = (*s)->textValue;
+				d->textValue = s->textValue;
 				break;
 			case Map::Attribute::Integer:
-				(*d)->integerValue = (*s)->integerValue;
+				d->integerValue = s->integerValue;
 				break;
 			case Map::Attribute::Enum:
-				(*d)->enumValue = (*s)->enumValue;
+				d->enumValue = s->enumValue;
 				break;
 			case Map::Attribute::Filename:
-				(*d)->filenameValue = (*s)->filenameValue;
+				d->filenameValue = s->filenameValue;
 				break;
 		}
 	}
@@ -155,21 +148,21 @@ void DlgMapAttr::onAttrSelected(wxCommandEvent& ev)
 	this->txtDesc->SetLabel(_("Please select a map attribute from the list"));
 	if (sel >= 0) {
 		// Load new selection
-		Map::AttributePtr& a = this->newAttr->at(sel);
-		this->txtDesc->SetLabel(wxString(a->desc.c_str(), wxConvUTF8));
-		switch (a->type) {
+		Map::Attribute& a = this->newAttr.at(sel);
+		this->txtDesc->SetLabel(wxString(a.desc.c_str(), wxConvUTF8));
+		switch (a.type) {
 			case Map::Attribute::Text:
-				this->ctText->SetValue(wxString(a->textValue.c_str(), wxConvUTF8));
+				this->ctText->SetValue(wxString(a.textValue.c_str(), wxConvUTF8));
 				this->szControls->Show(this->ctText, true);
 				break;
 			case Map::Attribute::Integer: {
-				int minVal = a->integerMinValue;
-				int maxVal = a->integerMaxValue;
+				int minVal = a.integerMinValue;
+				int maxVal = a.integerMaxValue;
 				if ((minVal == 0) && (maxVal == 0)) {
 					minVal = -32768;
 					maxVal = 32767;
 				}
-				this->ctInt->SetValue(a->integerValue);
+				this->ctInt->SetValue(a.integerValue);
 				this->ctInt->SetRange(minVal, maxVal);
 				this->szControls->Show(this->ctInt, true);
 				break;
@@ -178,21 +171,21 @@ void DlgMapAttr::onAttrSelected(wxCommandEvent& ev)
 				// Load enum values
 				wxArrayString items;
 				for (std::vector<std::string>::const_iterator
-					i = a->enumValueNames.begin(); i != a->enumValueNames.end(); i++
+					i = a.enumValueNames.begin(); i != a.enumValueNames.end(); i++
 				) {
 					items.Add(wxString(i->c_str(), wxConvUTF8));
 				}
 				this->ctEnum->Clear();
 				this->ctEnum->Append(items);
-				this->ctEnum->SetSelection(a->enumValue);
+				this->ctEnum->SetSelection(a.enumValue);
 				this->szControls->Show(this->ctEnum, true);
 				break;
 			}
 			case Map::Attribute::Filename: {
 				int sel = -1, j = 0;
 				this->ctFilename->Clear();
-				wxString validExt(a->filenameValidExtension.c_str(), wxConvUTF8);
-				wxString curName(a->filenameValue.c_str(), wxConvUTF8);
+				wxString validExt(a.filenameValidExtension.c_str(), wxConvUTF8);
+				wxString curName(a.filenameValue.c_str(), wxConvUTF8);
 				for (GameObjectMap::const_iterator
 					i = this->studio->game->objects.begin(); i != this->studio->game->objects.end(); i++
 				) {
@@ -224,19 +217,19 @@ void DlgMapAttr::saveCurrent()
 {
 	if (this->curSel >= 0) {
 		// Save current selection
-		Map::AttributePtr& a = this->newAttr->at(this->curSel);
-		switch (a->type) {
+		Map::Attribute& a = this->newAttr.at(this->curSel);
+		switch (a.type) {
 			case Map::Attribute::Text: {
-				a->textValue = this->ctText->GetValue().mb_str();
+				a.textValue = this->ctText->GetValue().mb_str();
 				this->szControls->Show(this->ctText, false);
 				break;
 			}
 			case Map::Attribute::Integer:
-				a->integerValue = this->ctInt->GetValue();
+				a.integerValue = this->ctInt->GetValue();
 				this->szControls->Show(this->ctInt, false);
 				break;
 			case Map::Attribute::Enum:
-				a->enumValue = ctEnum->GetSelection();
+				a.enumValue = ctEnum->GetSelection();
 				this->szControls->Show(this->ctEnum, false);
 				break;
 			case Map::Attribute::Filename: {
@@ -244,10 +237,10 @@ void DlgMapAttr::saveCurrent()
 				if (sel >= 0) {
 					GameObject *o = (GameObject *)ctFilename->GetClientData(sel);
 					assert(o);
-					a->filenameValue = o->filename.mb_str();
+					a.filenameValue = o->filename.mb_str();
 				} else {
 					// not prepopulated, but typed in
-					a->filenameValue = this->ctFilename->GetValue().mb_str();
+					a.filenameValue = this->ctFilename->GetValue().mb_str();
 				}
 				this->szControls->Show(this->ctFilename, false);
 				break;

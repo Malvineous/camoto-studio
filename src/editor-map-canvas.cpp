@@ -117,8 +117,8 @@ MapCanvas::MapCanvas(MapDocument *parent, wxGLContext *glcx, Map2DPtr map,
 		this->visibleLayers.push_back(true);
 		this->activeLayers.push_back(true);
 	}
-	this->visibleElements[ElViewport] = this->map->getCaps() & Map2D::HasViewport;
-	this->visibleElements[ElPaths] = this->map->getCaps() & Map2D::HasPaths;
+	this->visibleElements[ElViewport] = this->map->caps & Map2D::HasViewport;
+	this->visibleElements[ElPaths] = this->map->caps & Map2D::HasPaths;
 	this->activeElement = 0; // no element layers are active
 
 	this->SetCurrent(*this->glcx);
@@ -773,7 +773,7 @@ void MapCanvas::redraw()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Draw any visible paths
-	if (this->visibleElements[ElPaths] && (this->map->getCaps() & Map2D::HasPaths)) {
+	if (this->visibleElements[ElPaths] && (this->map->caps & Map2D::HasPaths)) {
 		Map2D::PathPtrVectorPtr paths = this->map->getPaths();
 		assert(paths);
 
@@ -1013,8 +1013,8 @@ void MapCanvas::redraw()
 
 	// Draw the viewport overlay
 	if (this->visibleElements[ElViewport]) {
-		unsigned int vpX, vpY;
-		this->map->getViewport(&vpX, &vpY);
+		const unsigned int& vpX = this->map->viewportX;
+		const unsigned int& vpY = this->map->viewportY;
 		int vpOffX = (winSize.x - (signed)vpX) / 2;
 		int vpOffY = (winSize.y - (signed)vpY) / 2;
 
@@ -1785,7 +1785,7 @@ void MapCanvas::onKeyDown(wxKeyEvent& ev)
 						spt != this->pathSelection.end(); spt++
 					) {
 						if (spt->point == 0) {
-							if (this->map->getCaps() && Map2D::FixedPathCount) {
+							if (this->map->caps && Map2D::FixedPathCount) {
 								this->doc->setStatusText(_("Can't delete whole paths in this "
 									"map - you tried to delete the starting point"));
 							} else {

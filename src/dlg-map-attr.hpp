@@ -66,7 +66,7 @@ class DlgMapAttr: public wxDialog
 		wxStaticBoxSizer *szControls; ///< Sizer for ct* controls
 
 		/// The changes are stored here until saved on OK.
-		camoto::gamemaps::Map::AttributePtrVectorPtr newAttr;
+		camoto::gamemaps::Map::Attributes newAttr;
 		int curSel;   ///< Index into list box of current selection
 
 		DECLARE_EVENT_TABLE();

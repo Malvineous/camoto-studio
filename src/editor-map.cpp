@@ -119,7 +119,7 @@ class LayerPanel: public IToolPanel
 				this->list->SetItemData(id, MapCanvas::ElementCount + i);
 			}
 
-			int mapCaps = this->doc->map->getCaps();
+			const unsigned int& mapCaps = this->doc->map->caps;
 			// Add an element (fake) layer for any paths to be drawn in
 			if (mapCaps & Map2D::HasPaths) {
 				// Use the saved state
@@ -147,8 +147,8 @@ class LayerPanel: public IToolPanel
 				this->list->SetItemColumnImage(id, 1,
 					this->doc->canvas->visibleElements[MapCanvas::ElViewport] ? 0 : 1);
 				this->list->SetItem(id, 2, _("Viewport"));
-				unsigned int vpWidth, vpHeight;
-				this->doc->map->getViewport(&vpWidth, &vpHeight);
+				const unsigned int& vpWidth = this->doc->map->viewportX;
+				const unsigned int& vpHeight = this->doc->map->viewportY;
 				this->list->SetItem(id, 3, wxString::Format(_T("%d x %d (px)"), vpWidth, vpHeight));
 				this->list->SetItemData(id, MapCanvas::ElViewport);
 			}
@@ -324,24 +324,21 @@ IDocument *MapEditor::openObject(const GameObjectPtr& o)
 	TilesetCollectionPtr tilesets(new TilesetCollection);
 
 	// See if the map file can supply us with any filenames.
-	Map::GraphicsFilenamesPtr gfxFiles = map->getGraphicsFilenames();
-	if (gfxFiles) {
-		for (Map::GraphicsFilenames::const_iterator
-			i = gfxFiles->begin(); i != gfxFiles->end(); i++
-		) {
-			wxString targetFilename(i->second.filename.c_str(), wxConvUTF8);
-			if (IMAGEPURPOSE_IS_TILESET(i->first)) {
-				GameObjectPtr ot = this->studio->game->findObjectByFilename(
-					targetFilename, _T("tileset"));
-				if (!ot) {
-					throw EFailure(wxString::Format(_("Cannot open this map.  It needs "
-						"a tileset that is missing from the game description XML file."
-						"\n\n[There is no <file/> element with the filename \"%s\" and a "
-						"typeMajor of \"tileset\", as needed by \"%s\"]"),
-						targetFilename.c_str(), o->id.c_str()));
-				}
-				(*tilesets)[i->first] = this->studio->openTileset(ot);
+	for (Map::GraphicsFilenames::const_iterator
+		i = map->graphicsFilenames.begin(); i != map->graphicsFilenames.end(); i++
+	) {
+		wxString targetFilename(i->second.filename.c_str(), wxConvUTF8);
+		if (ImagePurpose_IsTileset(i->first)) {
+			GameObjectPtr ot = this->studio->game->findObjectByFilename(
+				targetFilename, _T("tileset"));
+			if (!ot) {
+				throw EFailure(wxString::Format(_("Cannot open this map.  It needs "
+					"a tileset that is missing from the game description XML file."
+					"\n\n[There is no <file/> element with the filename \"%s\" and a "
+					"typeMajor of \"tileset\", as needed by \"%s\"]"),
+					targetFilename.c_str(), o->id.c_str()));
 			}
+			(*tilesets)[i->first] = this->studio->openTileset(ot);
 		}
 	}
 
