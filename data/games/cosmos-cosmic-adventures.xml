@@ -141,15 +141,15 @@
 			<file id="mus-teck4"   name="mteck4.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="Teck4"/>
 			<file id="mus-zztop"   name="mzztop.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="ZZ Top"/>
 
-			<file id="gfx-bdcliff"  name="bdcliff.mni"  typeMajor="tileset" typeMinor="cosmo" title="Cliff"/>
-			<file id="gfx-bdclouds" name="bdclouds.mni" typeMajor="tileset" typeMinor="cosmo" title="Clouds"/>
-			<file id="gfx-bdforest" name="bdforest.mni" typeMajor="tileset" typeMinor="cosmo" title="Forest"/>
-			<file id="gfx-bdice2"   name="bdice2.mni"   typeMajor="tileset" typeMinor="cosmo" title="Ice 2"/>
-			<file id="gfx-bdmountn" name="bdmountn.mni" typeMajor="tileset" typeMinor="cosmo" title="Mountain"/>
-			<file id="gfx-bdnewsky" name="bdnewsky.mni" typeMajor="tileset" typeMinor="cosmo" title="New sky"/>
-			<file id="gfx-bdrocktk" name="bdrocktk.mni" typeMajor="tileset" typeMinor="cosmo" title="Rocktk"/>
-			<file id="gfx-bdspooky" name="bdspooky.mni" typeMajor="tileset" typeMinor="cosmo" title="Spooky"/>
-			<file id="gfx-bdweird"  name="bdwierd.mni"  typeMajor="tileset" typeMinor="cosmo" title="Weird"/>
+			<file id="gfx-bdcliff"  name="bdcliff.mni"  typeMajor="image" typeMinor="cosmo-backdrop" title="Cliff"/>
+			<file id="gfx-bdclouds" name="bdclouds.mni" typeMajor="image" typeMinor="cosmo-backdrop" title="Clouds"/>
+			<file id="gfx-bdforest" name="bdforest.mni" typeMajor="image" typeMinor="cosmo-backdrop" title="Forest"/>
+			<file id="gfx-bdice2"   name="bdice2.mni"   typeMajor="image" typeMinor="cosmo-backdrop" title="Ice 2"/>
+			<file id="gfx-bdmountn" name="bdmountn.mni" typeMajor="image" typeMinor="cosmo-backdrop" title="Mountain"/>
+			<file id="gfx-bdnewsky" name="bdnewsky.mni" typeMajor="image" typeMinor="cosmo-backdrop" title="New sky"/>
+			<file id="gfx-bdrocktk" name="bdrocktk.mni" typeMajor="image" typeMinor="cosmo-backdrop" title="Rocktk"/>
+			<file id="gfx-bdspooky" name="bdspooky.mni" typeMajor="image" typeMinor="cosmo-backdrop" title="Spooky"/>
+			<file id="gfx-bdweird"  name="bdwierd.mni"  typeMajor="image" typeMinor="cosmo-backdrop" title="Weird"/>
 		</archive>
 
 		<archive name="cosmo1.stn" id="arch-stn1" typeMinor="vol-cosmo">
@@ -170,8 +170,8 @@
 			<file id="img-credit"   name="credit.mni"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Credits"/>
 			<file id="img-onemomnt" name="onemomnt.mni" typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="One moment"/>
 
-			<file id="gfx-bdstar2"  name="bdstar2.mni"  typeMajor="tileset" typeMinor="cosmo" title="Star 2"/>
-			<file id="gfx-bdstar3"  name="bdstar3.mni"  typeMajor="tileset" typeMinor="cosmo" title="Star 3"/>
+			<file id="gfx-bdstar2"  name="bdstar2.mni"  typeMajor="image" typeMinor="cosmo-backdrop" title="Star 2"/>
+			<file id="gfx-bdstar3"  name="bdstar3.mni"  typeMajor="image" typeMinor="cosmo-backdrop" title="Star 3"/>
 		</archive>
 
 	</files>
