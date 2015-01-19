@@ -307,49 +307,49 @@
 			<file id="mus-ubdead"   name="ubdeada.imf"  typeMajor="music" typeMinor="imf-idsoftware-duke2" title="&quot;You be Dead!&quot;"/>
 			<file id="mus-winning"  name="winninga.imf" typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Winning"/>
 
-			<file id="gfx-drop3"    name="drop3.mni"    typeMajor="tileset" typeMinor="cosmo" title="Backdrop 3">
+			<file id="gfx-drop3"    name="drop3.mni"    typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 3">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop4"    name="drop4.mni"    typeMajor="tileset" typeMinor="cosmo" title="Backdrop 4">
+			<file id="gfx-drop4"    name="drop4.mni"    typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 4">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop5"    name="drop5.mni"    typeMajor="tileset" typeMinor="cosmo" title="Backdrop 5">
+			<file id="gfx-drop5"    name="drop5.mni"    typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 5">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop7"    name="drop7.mni"    typeMajor="tileset" typeMinor="cosmo" title="Backdrop 7">
+			<file id="gfx-drop7"    name="drop7.mni"    typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 7">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop8"    name="drop8.mni"    typeMajor="tileset" typeMinor="cosmo" title="Backdrop 8">
+			<file id="gfx-drop8"    name="drop8.mni"    typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 8">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop12"   name="drop12.mni"   typeMajor="tileset" typeMinor="cosmo" title="Backdrop 12">
+			<file id="gfx-drop12"   name="drop12.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 12">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop13"   name="drop13.mni"   typeMajor="tileset" typeMinor="cosmo" title="Backdrop 13">
+			<file id="gfx-drop13"   name="drop13.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 13">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop14"   name="drop14.mni"   typeMajor="tileset" typeMinor="cosmo" title="Backdrop 14">
+			<file id="gfx-drop14"   name="drop14.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 14">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop15"   name="drop15.mni"   typeMajor="tileset" typeMinor="cosmo" title="Backdrop 15">
+			<file id="gfx-drop15"   name="drop15.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 15">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop16"   name="drop16.mni"   typeMajor="tileset" typeMinor="cosmo" title="Backdrop 16">
+			<file id="gfx-drop16"   name="drop16.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 16">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop17"   name="drop17.mni"   typeMajor="tileset" typeMinor="cosmo" title="Backdrop 17">
+			<file id="gfx-drop17"   name="drop17.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 17">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop18"   name="drop18.mni"   typeMajor="tileset" typeMinor="cosmo" title="Backdrop 18">
+			<file id="gfx-drop18"   name="drop18.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 18">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop19"   name="drop19.mni"   typeMajor="tileset" typeMinor="cosmo" title="Backdrop 19">
+			<file id="gfx-drop19"   name="drop19.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 19">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop23"   name="drop23.mni"   typeMajor="tileset" typeMinor="cosmo" title="Backdrop 23">
+			<file id="gfx-drop23"   name="drop23.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 23">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
-			<file id="gfx-drop24"   name="drop24.mni"   typeMajor="tileset" typeMinor="cosmo" title="Backdrop 24">
+			<file id="gfx-drop24"   name="drop24.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 24">
 				<dep reftype="palette" ref="pal-main"/>
 			</file>
 
