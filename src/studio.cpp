@@ -230,19 +230,23 @@ Studio::Studio(bool isStudio)
 	this->setControlStates();
 
 	wxMessageDialog dlg(NULL, _(
-		"Hi, Malvineous here.  Thanks for trying out Camoto Studio!  Please "
-		"remember that this a very early preview release - it's not even anywhere "
-		"near what you might call a beta version.  There are still heaps of things "
-		"that are unfinished or broken.  This is very definitely a 'work in "
-		"progress.'  If you are brave (foolish?) enough to actually try to make a "
-		"mod with this version of Camoto, make sure you back up your project "
-		"folder regularly in case your whole mod gets corrupted for some reason.\n\n"
-		"There is still a huge amount of work to do before it becomes really "
-		"user-friendly, so please bear with me and try not to get too frustrated "
-		"that your favourite game/feature doesn't work yet.  If you run into "
-		"problems (which aren't on the to-do list) by all means stop by the forum "
-		"to discuss:\n\nhttp://www.classicdosgames.com/forum/viewforum.php?f=25\n\n"
-		"With your expectations suitably lowered, enjoy! :-)"),
+		"Hi, Malvineous here.\n\nThanks for trying out Camoto Studio!  Sorry "
+		"there are still so many unfinished loose ends, but there's so much to do "
+		"and never enough hours in the day!  If anyone is interested in helping "
+		"contribute, it would go a long way towards making Camoto the universal "
+		"game editor I was always hoping for!\n\n"
+		"You don't necessarily need programming skills to help out either.  You "
+		"could research games and create XML files, screenshots and icons for "
+		"them so they can be opened in Camoto Studio.  Or you could decipher and "
+		"document more file formats on the ModdingWiki.  If you know a little "
+		"C++ you could even help add more file formats to the Camoto libraries - "
+		"there are tutorials on the web site to help get you started.  If all of "
+		"this sounds too complicated, then you could even help by just trying to "
+		"edit all the games and make a list of what doesn't work, so I (and "
+		"anyone else who can help) don't forget what still needs to be fixed.\n\n"
+		"Camoto has been open source from the start, as it was always intended to "
+		"be a community project, so get involved and help out!\n\n"
+		"http://www.classicdosgames.com/forum/viewforum.php?f=25\n\n"),
 		_("Welcome"),
 		wxOK | wxICON_WARNING);
 	dlg.ShowModal();
@@ -703,13 +707,7 @@ void Studio::onItemOpened(wxTreeEvent& ev)
 		return;
 	}
 
-	//camoto::stream::inout_sptr stream;
-	//SuppMap supp;
 	try {
-		//this->openObject(data->id, &stream, &supp);
-
-		//IDocument *doc = itEditor->second->openObject(o->typeMinor, stream,
-		//	o->filename, supp, this->game);
 		IDocument *doc = itEditor->second->openObject(o);
 		if (doc) {
 			this->notebook->AddPage(doc, this->game->objects[o->id]->friendlyName,
