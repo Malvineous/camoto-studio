@@ -160,6 +160,14 @@ void EventPanel::handleEvent(unsigned long delay, unsigned int trackIndex,
 }
 
 void EventPanel::handleEvent(unsigned long delay, unsigned int trackIndex,
+	unsigned int patternIndex, const GotoEvent *ev)
+{
+	this->pdc->SetTextForeground(*wxRED);
+	this->pdc->DrawText(_T("JUMP"), 0, this->paintY);
+	return;
+}
+
+void EventPanel::handleEvent(unsigned long delay, unsigned int trackIndex,
 	unsigned int patternIndex, const ConfigurationEvent *ev)
 {
 	this->pdc->SetTextForeground(*wxCYAN);

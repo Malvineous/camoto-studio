@@ -47,6 +47,8 @@ class EventPanel: public wxPanel, camoto::gamemusic::EventHandler
 		virtual void handleEvent(unsigned long delay, unsigned int trackIndex,
 			unsigned int patternIndex, const camoto::gamemusic::EffectEvent *ev);
 		virtual void handleEvent(unsigned long delay, unsigned int trackIndex,
+			unsigned int patternIndex, const camoto::gamemusic::GotoEvent *ev);
+		virtual void handleEvent(unsigned long delay, unsigned int trackIndex,
 			unsigned int patternIndex, const camoto::gamemusic::ConfigurationEvent *ev);
 virtual void endOfTrack(unsigned long delay);
 virtual void endOfPattern(unsigned long delay);
