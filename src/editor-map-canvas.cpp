@@ -535,9 +535,9 @@ void MapCanvas::redraw()
 		case Map2D::NoBackground:
 			break;
 		case Map2D::SingleColour: {
-			float r = this->bgColour.red / 0xFF;
-			float g = this->bgColour.green / 0xFF;
-			float b = this->bgColour.blue / 0xFF;
+			float r = this->bgColour.red / 255.0;
+			float g = this->bgColour.green / 255.0;
+			float b = this->bgColour.blue / 255.0;
 			glColor4f(r, g, b, 1.0);
 			glBegin(GL_QUADS);
 			int x1 = 0 - this->offX;
