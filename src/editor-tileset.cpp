@@ -170,6 +170,7 @@ class TilesetDocument: public IDocument
 			glPixelMapusv(GL_PIXEL_MAP_I_TO_A, 256, a);
 
 			// Load all the tiles into OpenGL textures
+			bool shownError = false;
 			const Tileset::VC_ENTRYPTR& tiles = tileset->getItems();
 			for (Tileset::VC_ENTRYPTR::const_iterator
 				i = tiles.begin(); i != tiles.end(); i++)
@@ -209,6 +210,10 @@ class TilesetDocument: public IDocument
 					std::cerr << "[editor-tileset] GL error loading texture into id " << t.glid << std::endl;
 					t.width = 0;
 					t.height = 0;
+					if (!shownError) {
+						wxMessageBox("Unable to create texture from image.  Your OpenGL drivers are probably too old and don't support GL_COLOR_INDEX.", "Texture creation error");
+						shownError = true;
+					}
 				}
 				j++;
 			}
@@ -354,6 +359,7 @@ class TilesetDocument: public IDocument
 					// This overwrites the image directly, it can't be undone
 					//this->isModified = true;
 					this->updateTiles(this->rootTileset);
+					this->canvas->setTextures(this->tm);
 					this->canvas->redraw();
 
 				} catch (const png::error& e) {
