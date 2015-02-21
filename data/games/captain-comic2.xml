@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Captain Comic II description file for Camoto Studio
+	Copyright (C) 2010-2015 Adam Nielsen <malvineous@shikadi.net>
+	http://www.shikadi.net/camoto
+	http://www.shikadi.net/moddingwiki/Captain_Comic_II
+  -->
+<game title="Captain Comic II">
+
+	<!-- Some miscellaneous information about the game this file describes -->
+	<info>
+		<developer>Michael Denio</developer>
+		<publisher>Michael Denio</publisher>
+		<reverser>Ceidwad, Malvineous</reverser>
+	</info>
+
+	<!-- This section indicates which folders and groups the game elements should
+	     be displayed in.  Each item is referenced by its "id" attribute, as
+	     given in the <files/> section below.
+	  -->
+	<display>
+		<group name="Levels">
+			<item ref="map-000"/>
+			<item ref="map-001"/>
+			<item ref="map-002"/>
+			<item ref="map-003"/>
+			<item ref="map-004"/>
+			<item ref="map-005"/>
+			<item ref="map-006"/>
+			<item ref="map-007"/>
+			<item ref="map-008"/>
+			<item ref="map-009"/>
+			<item ref="map-010"/>
+			<item ref="map-011"/>
+			<item ref="map-012"/>
+			<item ref="map-013"/>
+			<item ref="map-014"/>
+		</group>
+		<group name="Tiles">
+			<item ref="tls-000"/>
+			<item ref="tls-001"/>
+			<item ref="tls-002"/>
+			<item ref="tls-003"/>
+			<item ref="tls-004"/>
+			<item ref="tls-005"/>
+			<item ref="tls-006"/>
+			<item ref="tls-007"/>
+			<item ref="tls-008"/>
+			<item ref="tls-009"/>
+			<item ref="tls-010"/>
+			<item ref="tls-011"/>
+			<item ref="tls-012"/>
+			<item ref="tls-013"/>
+			<item ref="tls-014"/>
+		</group>
+		<group name="Sprites">
+			<item ref="spr-000"/>
+			<item ref="spr-001"/>
+			<item ref="spr-002"/>
+			<item ref="spr-003"/>
+			<item ref="spr-004"/>
+			<item ref="spr-005"/>
+			<item ref="spr-006"/>
+			<item ref="spr-007"/>
+			<item ref="spr-008"/>
+			<item ref="spr-009"/>
+			<item ref="spr-010"/>
+			<item ref="spr-011"/>
+			<item ref="spr-012"/>
+			<item ref="spr-013"/>
+			<item ref="spr-014"/>
+
+			<item ref="spr-d0"/>
+			<item ref="spr-d1"/>
+			<item ref="spr-m0"/>
+			<item ref="spr-m1"/>
+			<item ref="spr-m2"/>
+		</group>
+		<group name="Images">
+			<item ref="img-001"/>
+			<item ref="img-002"/>
+			<item ref="img-003"/>
+			<item ref="img-004"/>
+			<item ref="img-005"/>
+			<item ref="img-006"/>
+			<item ref="img-007"/>
+		</group>
+	</display>
+
+	<files>
+		<file id="tls-000"     name="fr000.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 0"/>
+		<file id="tls-001"     name="fr001.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 1"/>
+		<file id="tls-002"     name="fr002.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 2"/>
+		<file id="tls-003"     name="fr003.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 3"/>
+		<file id="tls-004"     name="fr004.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 4"/>
+		<file id="tls-005"     name="fr005.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 5"/>
+		<file id="tls-006"     name="fr006.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 6"/>
+		<file id="tls-007"     name="fr007.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 7"/>
+		<file id="tls-008"     name="fr008.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 8"/>
+		<file id="tls-009"     name="fr009.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 9"/>
+		<file id="tls-010"     name="fr010.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 10"/>
+		<file id="tls-011"     name="fr011.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 11"/>
+		<file id="tls-012"     name="fr012.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 12"/>
+		<file id="tls-013"     name="fr013.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 13"/>
+		<file id="tls-014"     name="fr014.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 14"/>
+
+		<file id="map-000"       name="fr000.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 0">
+			<dep reftype="background-tileset1" ref="tls-000"/>
+		</file>
+		<file id="map-001"       name="fr001.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 1">
+			<dep reftype="background-tileset1" ref="tls-001"/>
+		</file>
+		<file id="map-002"       name="fr002.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 2">
+			<dep reftype="background-tileset1" ref="tls-002"/>
+		</file>
+		<file id="map-003"       name="fr003.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 3">
+			<dep reftype="background-tileset1" ref="tls-003"/>
+		</file>
+		<file id="map-004"       name="fr004.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 4">
+			<dep reftype="background-tileset1" ref="tls-004"/>
+		</file>
+		<file id="map-005"       name="fr005.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 5">
+			<dep reftype="background-tileset1" ref="tls-005"/>
+		</file>
+		<file id="map-006"       name="fr006.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 6">
+			<dep reftype="background-tileset1" ref="tls-006"/>
+		</file>
+		<file id="map-007"       name="fr007.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 7">
+			<dep reftype="background-tileset1" ref="tls-007"/>
+		</file>
+		<file id="map-008"       name="fr008.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 8">
+			<dep reftype="background-tileset1" ref="tls-008"/>
+		</file>
+		<file id="map-009"       name="fr009.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 9">
+			<dep reftype="background-tileset1" ref="tls-009"/>
+		</file>
+		<file id="map-010"       name="fr010.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 10">
+			<dep reftype="background-tileset1" ref="tls-010"/>
+		</file>
+		<file id="map-011"       name="fr011.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 11">
+			<dep reftype="background-tileset1" ref="tls-011"/>
+		</file>
+		<file id="map-012"       name="fr012.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 12">
+			<dep reftype="background-tileset1" ref="tls-012"/>
+		</file>
+		<file id="map-013"       name="fr013.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 13">
+			<dep reftype="background-tileset1" ref="tls-013"/>
+		</file>
+		<file id="map-014"       name="fr014.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 14">
+			<dep reftype="background-tileset1" ref="tls-014"/>
+		</file>
+
+		<file id="spr-000"       name="fr000.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 0"/>
+		<file id="spr-001"       name="fr001.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 1"/>
+		<file id="spr-002"       name="fr002.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 2"/>
+		<file id="spr-003"       name="fr003.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 3"/>
+		<file id="spr-004"       name="fr004.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 4"/>
+		<file id="spr-005"       name="fr005.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 5"/>
+		<file id="spr-006"       name="fr006.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 6"/>
+		<file id="spr-007"       name="fr007.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 7"/>
+		<file id="spr-008"       name="fr008.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 8"/>
+		<file id="spr-009"       name="fr009.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 9"/>
+		<file id="spr-010"       name="fr010.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 10"/>
+		<file id="spr-011"       name="fr011.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 11"/>
+		<file id="spr-012"       name="fr012.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 12"/>
+		<file id="spr-013"       name="fr013.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 13"/>
+		<file id="spr-014"       name="fr014.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 14"/>
+
+		<file id="spr-d0"        name="frdata.0"   typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite D0"/>
+		<file id="spr-d1"        name="frdata.1"   typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite D1"/>
+		<file id="spr-m0"        name="frdemo.0"   typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite M0"/>
+		<file id="spr-m1"        name="frdemo.1"   typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite M1"/>
+		<file id="spr-m2"        name="frdemo.2"   typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite M2"/>
+
+		<file id="img-001"       name="frpak.001"  typeMajor="image"   typeMinor="ccomic" title="Image 1"/>
+		<file id="img-002"       name="frpak.002"  typeMajor="image"   typeMinor="ccomic" title="Image 2"/>
+		<file id="img-003"       name="frpak.003"  typeMajor="image"   typeMinor="ccomic" title="Image 3"/>
+		<file id="img-004"       name="frpak.004"  typeMajor="image"   typeMinor="ccomic" title="Image 4"/>
+		<file id="img-005"       name="frpak.005"  typeMajor="image"   typeMinor="ccomic" title="Image 5"/>
+		<file id="img-006"       name="frpak.006"  typeMajor="image"   typeMinor="ccomic" title="Image 6"/>
+		<file id="img-007"       name="frpak.007"  typeMajor="image"   typeMinor="ccomic" title="Image 7"/>
+	</files>
+
+	<commands>
+		<command title="Normal">comic2</command>
+	</commands>
+
+</game>
