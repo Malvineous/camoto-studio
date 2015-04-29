@@ -136,6 +136,11 @@
 			</group>
 		</group>
 
+		<group name="Episode Selector">
+			<item ref="img-0" />
+			<item ref="pal-0" />
+		</group>
+
 	</display>
 
 	<files>
@@ -346,16 +351,21 @@
 		<file id="mus-308"  name="song_8.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 8 - Robot"/>
 		<file id="mus-309"  name="song_9.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 9 - Hero 2"/>
 
+		<archive id="exe-0" name="kfile0.exe" typeMinor="fixed">
+			<file id="img-0"  name="kilo0.raw" offset="0x527" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Episode menu"/>
+			<file id="pal-0"  name="kilo0.pal" offset="0xFF27" size="768"  typeMajor="palette" typeMinor="vga" title="VGA palette"/>
+		</archive>
+
 		<archive id="exe-1" name="kfile1.exe" typeMinor="fixed">
-			<file id="pal-1"  name="kilo1.pal" offset="0x228e0" size="768" typeMajor="image" typeMinor="pal-vga" title="VGA palette"/>
+			<file id="pal-1"  name="kilo1.pal" offset="0x228e0" size="768" typeMajor="palette" typeMinor="vga" title="VGA palette"/>
 		</archive>
 
 		<archive id="exe-2" name="kfile2.exe" typeMinor="fixed">
-			<file id="pal-2"  name="kilo2.pal" offset="0x228e0" size="768" typeMajor="image" typeMinor="pal-vga" title="VGA palette"/>
+			<file id="pal-2"  name="kilo2.pal" offset="0x228e0" size="768" typeMajor="palette" typeMinor="vga" title="VGA palette"/>
 		</archive>
 
 		<archive id="exe-3" name="kfile3.exe" typeMinor="fixed">
-			<file id="pal-3"  name="kilo3.pal" offset="0x228e0" size="768" typeMajor="image" typeMinor="pal-vga" title="VGA palette"/>
+			<file id="pal-3"  name="kilo3.pal" offset="0x228e0" size="768" typeMajor="palette" typeMinor="vga" title="VGA palette"/>
 		</archive>
 	</files>
 
