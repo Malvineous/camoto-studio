@@ -1113,7 +1113,35 @@ void MapCanvas::redraw()
 			this->drawGrid(tileWidth, tileHeight);
 		}
 	}
+/*
+	if (this->editingMode == ObjectMode) {
+		// If an object is currently focused, draw a box around it
+		if (this->focusedObject != this->objects.end()) {
+			glColor4f(1.0, 1.0, 1.0, 0.75);
+			glEnable(GL_LINE_STIPPLE);
+			glLineStipple(3, 0xAAAA);
+			glBegin(GL_LINE_LOOP);
+			int x1 = this->focusedObject->x * tileWidth - this->offX;
+			int y1 = this->focusedObject->y * tileHeight - this->offY;
+			int x2 = x1 + this->focusedObject->width * tileWidth;
+			int y2 = y1 + this->focusedObject->height * tileHeight;
+			glVertex2i(x1, y1);
+			glVertex2i(x1, y2);
+			glVertex2i(x2, y2);
+			glVertex2i(x2, y1);
+			glEnd();
 
+			glColor4f(0.0, 0.0, 0.0, 0.75);
+			glLineStipple(3, 0x5555);
+			glBegin(GL_LINE_LOOP);
+			glVertex2i(x1, y1);
+			glVertex2i(x1, y2);
+			glVertex2i(x2, y2);
+			glVertex2i(x2, y1);
+			glEnd();
+		}
+	}
+*/
 	// Draw the selection rectangle
 	if (this->selectFromX >= 0) {
 		glEnable(GL_COLOR_LOGIC_OP);
@@ -1175,6 +1203,135 @@ bool MapCanvas::isTileSelected(unsigned int layerNum,
 bool MapCanvas::focusObject(ObjectVector::iterator start)
 {
 	bool needRedraw = false;
+/*
+
+	// See if the mouse is over an object
+	int mapPointerX = CLIENT_TO_MAP_X(this->pointerX);
+	int mapPointerY = CLIENT_TO_MAP_Y(this->pointerY);
+
+	ObjectVector::iterator oldFocusedObject = this->focusedObject;
+	ObjectVector::iterator end = this->objects.end();
+	this->focusedObject = this->objects.end(); // default to nothing focused
+
+	// No active layer.  Only return true (redraw) if this caused
+	// the selected object to be deselected.
+	if (this->activeLayer < ElementCount) return (this->focusedObject != oldFocusedObject);
+
+	Map2D::LayerPtr layer = this->map->getLayer(this->activeLayer - ElementCount);
+	unsigned int layerWidth, layerHeight, tileWidth, tileHeight;
+	getLayerDims(this->map, layer, &layerWidth, &layerHeight, &tileWidth, &tileHeight);
+
+	for (int n = 0; n < 2; n++) {
+		for (ObjectVector::iterator i = start; i != end; i++) {
+			if (
+				(mapPointerX >= (signed)(i->x * tileWidth) - FOCUS_BOX_PADDING) &&
+				(mapPointerX < (signed)((i->x + i->width) * tileWidth + FOCUS_BOX_PADDING)) &&
+				(mapPointerY >= (signed)(i->y * tileHeight) - FOCUS_BOX_PADDING) &&
+				(mapPointerY < (signed)((i->y + i->height) * tileHeight + FOCUS_BOX_PADDING))
+			) {
+				// The pointer is over this object
+				this->focusedObject = i;
+				break;
+			}
+		}
+		if (this->focusedObject != this->objects.end()) break;
+
+		// If we didn't begin at the start of the object list, go back there and
+		// keep searching up until we reach the point we actually started at.
+		if (start == this->objects.begin()) break;
+		end = start;
+		start = this->objects.begin();
+	}
+	if (this->focusedObject != oldFocusedObject) needRedraw = true;
+
+	// See if the cursor is over the border of the focus box
+	if (this->focusedObject != this->objects.end()) {
+		this->resizeX = 0;
+		this->resizeY = 0;
+		if (
+			(mapPointerX >= (signed)(this->focusedObject->x * tileWidth) - FOCUS_BOX_PADDING) &&
+			(mapPointerX < (signed)(this->focusedObject->x * tileWidth) + FOCUS_BOX_PADDING)
+		) {
+			this->resizeX = -1;
+		} else if (
+			(mapPointerX >= (signed)((this->focusedObject->x + this->focusedObject->width) * tileWidth) - FOCUS_BOX_PADDING) &&
+			(mapPointerX < (signed)((this->focusedObject->x + this->focusedObject->width) * tileWidth) + FOCUS_BOX_PADDING)
+		) {
+			this->resizeX = 1;
+		}
+
+		if (
+			(mapPointerY >= (signed)(this->focusedObject->y * tileHeight) - FOCUS_BOX_PADDING) &&
+			(mapPointerY < (signed)(this->focusedObject->y * tileHeight) + FOCUS_BOX_PADDING)
+		) {
+			this->resizeY = -1;
+		} else if (
+			(mapPointerY >= (signed)((this->focusedObject->y + this->focusedObject->height) * tileHeight) - FOCUS_BOX_PADDING) &&
+			(mapPointerY < (signed)((this->focusedObject->y + this->focusedObject->height) * tileHeight) + FOCUS_BOX_PADDING)
+		) {
+			this->resizeY = 1;
+		}
+
+		// Prevent the resize in one or more axes if the object's dimensions in that
+		// axis are fixed.  This is just UI sugar as the object couldn't be resized
+		// anyway.
+		if (
+			(this->focusedObject->obj->maxWidth == this->focusedObject->obj->minWidth) &&
+			(this->focusedObject->obj->maxWidth == this->focusedObject->width)
+		) {
+			this->resizeX = 0;
+		}
+		if (
+			(this->focusedObject->obj->maxHeight == this->focusedObject->obj->minHeight) &&
+			(this->focusedObject->obj->maxHeight == this->focusedObject->height)
+		) {
+			this->resizeY = 0;
+		}
+
+		/ *
+		  resizeX resizeY cursor
+		  -1      -1      \
+		  -1       0      -
+		  -1       1      /
+		   0      -1      |
+		   0       0      N/A
+		   0       1      |
+		   1      -1      /
+		   1       0      -
+		   1       1      \
+		* /
+		switch (this->resizeX) {
+			case -1:
+				switch (this->resizeY) {
+					case -1: this->SetCursor(wxCURSOR_SIZENWSE); break;
+					case  0: this->SetCursor(wxCURSOR_SIZEWE); break;
+					case  1: this->SetCursor(wxCURSOR_SIZENESW); break;
+				}
+				break;
+			case 0:
+				switch (this->resizeY) {
+					case -1: this->SetCursor(wxCURSOR_SIZENS); break;
+					case  0: this->SetCursor(wxNullCursor); break;
+					case  1: this->SetCursor(wxCURSOR_SIZENS); break;
+				}
+				break;
+			case 1:
+				switch (this->resizeY) {
+					case -1: this->SetCursor(wxCURSOR_SIZENESW); break;
+					case  0: this->SetCursor(wxCURSOR_SIZEWE); break;
+					case  1: this->SetCursor(wxCURSOR_SIZENWSE); break;
+				}
+				break;
+		}
+	} else {
+		// No object is selected, but only reset the mouse cursor if this is
+		// something new (don't want to set the cursor on every single mouse
+		// move event)
+		if (this->focusedObject != oldFocusedObject) {
+			this->SetCursor(wxNullCursor);
+		}
+	}
+*/
 	return needRedraw;
 }
 
@@ -1364,6 +1521,65 @@ void MapCanvas::onMouseMove(wxMouseEvent& ev)
 					this->needRedraw = true;
 					break;
 				}
+/*
+				case ObjectMode:
+					if (this->resizeX || this->resizeY) {
+						int deltaX = (ev.m_x - this->actionFromX) * this->resizeX / this->zoomFactor;
+						int deltaY = (ev.m_y - this->actionFromY) * this->resizeY / this->zoomFactor;
+
+						// Make sure the delta values are even multiple of the tile size
+						if (deltaX) deltaX -= deltaX % tileWidth;
+						if (deltaY) deltaY -= deltaY % tileHeight;
+
+						// Make sure the delta values are within range so we can apply them
+						// with no further checks.
+						unsigned int finalX = this->focusedObject->width * tileWidth + deltaX;
+						if ((this->focusedObject->obj->maxWidth > 0) && (finalX > this->focusedObject->obj->maxWidth)) {
+							int overflowX = finalX - this->focusedObject->obj->maxWidth;
+							if (overflowX < deltaX) deltaX -= overflowX;
+							else deltaX = 0;
+						} else if ((this->focusedObject->obj->minWidth > 0) && (finalX < this->focusedObject->obj->minWidth)) {
+							int overflowX = finalX - this->focusedObject->obj->minWidth;
+							if (overflowX > deltaX) deltaX -= overflowX;
+							else deltaX = 0;
+						}
+						unsigned int finalY = this->focusedObject->height * tileHeight + deltaY;
+						if ((this->focusedObject->obj->maxHeight > 0) && (finalY > this->focusedObject->obj->maxHeight)) {
+							int overflowY = finalY - this->focusedObject->obj->maxHeight;
+							if (overflowY < deltaY) deltaY -= overflowY;
+							else deltaY = 0;
+						} else if ((this->focusedObject->obj->minHeight > 0) && (finalY < this->focusedObject->obj->minHeight)) {
+							int overflowY = finalY - this->focusedObject->obj->minHeight;
+							if (overflowY > deltaY) deltaY -= overflowY;
+							else deltaY = 0;
+						}
+						switch (this->resizeX) {
+							case -1:
+								this->focusedObject->x -= deltaX / tileWidth;
+								// fall through
+							case 1:
+								this->focusedObject->width += deltaX / tileWidth;
+								break;
+							case 0:
+								break;
+						}
+						switch (this->resizeY) {
+							case -1:
+								this->focusedObject->y -= deltaY / tileHeight;
+								// fall through
+							case 1:
+								this->focusedObject->height += deltaY / tileHeight;
+								break;
+							case 0:
+								break;
+						}
+						this->actionFromX += deltaX * this->resizeX * this->zoomFactor;
+						this->actionFromY += deltaY * this->resizeY * this->zoomFactor;
+
+						this->needRedraw = true;
+					}
+					break;
+*/
 			}
 		} else {
 			// Not performing the primary action

@@ -99,6 +99,8 @@ MapDocument::MapDocument(Studio *parent, MapEditor::Settings *settings,
 	// Tile-mode is the default for the canvas
 	tb->ToggleTool(IDC_MODE_TILE, true);
 	this->canvas->setTileMode();
+	//tb->ToggleTool(IDC_MODE_OBJ, true);
+	//this->canvas->setObjMode();
 
 	// Update the UI
 	switch (this->settings->zoomFactor) {

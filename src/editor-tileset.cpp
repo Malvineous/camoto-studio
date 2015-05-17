@@ -877,6 +877,7 @@ BEGIN_EVENT_TABLE(TilesetDocument, IDocument)
 	EVT_TOOL(IDC_DEC_OFFSET, TilesetDocument::onDecOffset)
 	EVT_TOOL(IDC_IMPORT, TilesetDocument::onImport)
 	EVT_TOOL(IDC_EXPORT, TilesetDocument::onExport)
+	EVT_CLOSE(TilesetDocument::onClose)
 END_EVENT_TABLE()
 
 

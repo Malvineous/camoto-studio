@@ -100,10 +100,11 @@ void EventPanel::onPaint(wxPaintEvent& pev)
 			ev->event->processEvent(ev->delay, this->trackIndex, patternIndex, this);
 		} else {
 			this->pdc->SetTextForeground(*wxLIGHT_GREY);
+			//this->pdc->DrawText(_T("--- -- ----"), 0, this->paintY);
 			this->pdc->DrawText(_T("--- -- -"), 0, this->paintY);
 		}
 		rowDraw += this->doc->ticksPerRow;
-		if (rowDraw >= lastRow) break;
+		if (rowDraw > lastRow) break;
 	}
 
 	delete this->pdc;
@@ -139,6 +140,7 @@ void EventPanel::handleEvent(unsigned long delay, unsigned int trackIndex,
 	unsigned int patternIndex, const NoteOffEvent *ev)
 {
 	this->pdc->SetTextForeground(*wxBLACK);
+	//this->pdc->DrawText(_T("    -- ----"), 0, this->paintY);
 	this->pdc->DrawText(_T("^^  -- -"), 0, this->paintY);
 	return;
 }

@@ -118,7 +118,31 @@ MusicDocument::MusicDocument(MusicEditor *editor, MusicPtr music,
 
 	// Figure out how many channels are in use and what the best value is to space
 	// events evenly and as close together as possible.
-	this->optimalTicksPerRow = 1;
+	this->optimalTicksPerRow = 1;//0000;
+/*
+	unsigned int patternIndex = 0;
+	// For each pattern
+	for (std::vector<PatternPtr>::const_iterator
+		pp = music->patterns.begin(); pp != music->patterns.end(); pp++, patternIndex++
+	) {
+	}
+*/
+/*
+	int lastTick = 0;
+	for (gamemusic::EventVector::const_iterator i =
+		this->music->events->begin(); i != this->music->events->end(); i++)
+	{
+		assert((*i)->channel < 256); // should be safe/uint8_t
+		channels[(*i)->channel] = true;
+
+		// See if this delta time is the smallest so far
+		int deltaTick = (*i)->absTime - lastTick;
+		if ((deltaTick > 0) && (deltaTick < this->optimalTicksPerRow)) {
+			this->optimalTicksPerRow = deltaTick;
+		}
+		lastTick = (*i)->absTime;
+	}
+*/
 	this->ticksPerRow = this->optimalTicksPerRow;
 
 	// Create and add a channel control for each channel, except for channel

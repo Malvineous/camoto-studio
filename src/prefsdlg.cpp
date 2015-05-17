@@ -114,6 +114,7 @@ PrefsDialog::PrefsDialog(Studio *parent, AudioPtr audio)
 	this->portList->InsertColumn(0, info);
 
 	// Add dialog buttons (ok/cancel/help)
+//	wxStdDialogButtonSizer *szButtons = CreateStdDialogButtonSizer(wxOK | wxCANCEL);
 	wxStdDialogButtonSizer *szButtons = new wxStdDialogButtonSizer();
 #ifndef __WXMSW__
 	szButtons->AddButton(new wxContextHelpButton(this));
@@ -147,6 +148,7 @@ void PrefsDialog::setControls()
 		ImageListIndex::InstMIDI);
 
 	this->portList->SetColumnWidth(0, wxLIST_AUTOSIZE);
+//	this->portList->SetItemState(*this->midiDevice + 1, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
 
 	return;
 }

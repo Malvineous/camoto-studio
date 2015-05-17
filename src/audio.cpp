@@ -61,6 +61,7 @@ MusicStream::MusicStream(Audio *audio, ConstMusicPtr music)
 		eventTarget(NULL)
 {
 	this->lastPos.row = -1;
+//	playback.setBankMIDI(bankMIDI);
 	playback.setSong(music);
 	playback.setLoopCount(0); // loop forever
 }
