@@ -118,7 +118,7 @@ stream::inout_sptr CamotoLibs::openFile(const GameObjectPtr& o, bool useFilters)
 			}
 			try {
 				s = pFilterType->apply(s,
-					boost::bind<void>(&noopTruncate)
+					boost::bind(&noopTruncate)
 				);
 				std::cout << "[camotolibs] Applying filter " << filterName << "\n";
 			} catch (const camoto::filter_error& e) {
@@ -294,7 +294,7 @@ camoto::stream::inout_sptr CamotoLibs::openFileFromArchive(const wxString& idArc
 		try {
 			file = pFilterType->apply(file,
 				// Set the truncation function for the prefiltered (uncompressed) size.
-				boost::bind<void>(&setRealSize, arch, f, _1)
+				boost::bind(&setRealSize, arch, f, _1)
 			);
 		} catch (const camoto::filter_error& e) {
 			throw EFailure(wxString::Format(_("Error decoding this file: %s"),
