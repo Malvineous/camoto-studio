@@ -78,7 +78,7 @@ void Tab_Project::content(std::unique_ptr<Project> obj)
 		"invalid",
 		"archive",
 		"image",
-		"map",
+		"map2d",
 		"music",
 		"palette",
 	}) {
