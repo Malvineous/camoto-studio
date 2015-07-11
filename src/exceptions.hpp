@@ -22,24 +22,23 @@
 #define _EXCEPTIONS_HPP_
 
 #include <exception>
-#include <wx/wx.h>
+#include <glibmm/ustring.h>
 
 class EFailure: public std::exception
 {
 	public:
-		EFailure(const wxString& msg);
+		EFailure(const Glib::ustring& msg);
 
 		~EFailure()
 			throw ();
 
-		const wxString& getMessage() const;
+		const Glib::ustring& getMessage() const;
 
 		virtual const char *what() const
 			throw ();
 
 	protected:
-		wxString msg;                 ///< Original message
-		mutable wxCharBuffer buffer;  ///< Buffer used for what() return value
+		Glib::ustring msg;     ///< Original message
 };
 
 #endif // _EXCEPTIONS_HPP_

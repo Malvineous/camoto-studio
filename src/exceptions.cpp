@@ -19,11 +19,9 @@
  */
 
 #include <exception>
-#include <wx/wx.h>
-
 #include "exceptions.hpp"
 
-EFailure::EFailure(const wxString& msg)
+EFailure::EFailure(const Glib::ustring& msg)
 	:	msg(msg)
 {
 }
@@ -33,7 +31,7 @@ EFailure::~EFailure()
 {
 }
 
-const wxString& EFailure::getMessage() const
+const Glib::ustring& EFailure::getMessage() const
 {
 	return this->msg;
 }
@@ -41,6 +39,5 @@ const wxString& EFailure::getMessage() const
 const char *EFailure::what() const
 	throw ()
 {
-	this->buffer = this->msg.utf8_str();
-	return this->buffer.data();
+	return this->msg.c_str();
 }
