@@ -21,11 +21,9 @@
 #ifndef _PROJECT_HPP_
 #define _PROJECT_HPP_
 
-#include <wx/wx.h>
-#include <wx/fileconf.h>
-#include <wx/filename.h>
-
+#include <memory>
 #include "exceptions.hpp"
+#include "gamelist.hpp"
 
 /// Name of subfolder inside project dir storing the game files to be edited
 #define PROJECT_GAME_DATA  "data"
@@ -41,7 +39,7 @@
 class EProjectOpenFailure: public EFailure
 {
 	public:
-		EProjectOpenFailure(const wxString& msg);
+		EProjectOpenFailure(const std::string& msg);
 };
 
 /// Used when game data files can't be copied to new project's folder.
@@ -55,10 +53,6 @@ class EProjectCopyFailure: public EFailure
 class Project
 {
 	public:
-
-		/// Access to config data saved with the project.
-		wxFileConfig config;
-
 		/// Create a new project in the given folder.
 		/**
 		 * @param targetPath
@@ -68,7 +62,10 @@ class Project
 		 *   Path to the original game files.  These will be copied recursively into
 		 *   the 'data' subdirectory inside targetPath.
 		 *
-		 * @pre targetPath must exist or an assertion failure will occur.
+		 * @param gameId
+		 *   ID of the game being edited.
+		 *
+		 * @pre targetPath must exist and be a folder.
 		 *
 		 * @throw EProjectOpenFailure if the project could not be created, or
 		 *   EProjectCopyFailure if the game data could not be copied into the
@@ -76,32 +73,79 @@ class Project
 		 *
 		 * @return New Project instance.
 		 */
-		static Project *create(const wxString& targetPath, const wxString& gameSource);
+		static std::unique_ptr<Project> create(const std::string& targetPath,
+			const std::string& gameSource, const std::string& gameId);
 
 		/// Open the project at the given path.
 		/**
 		 * @param path
-		 *   Full name and path of 'project.camoto' file.  This file should exist,
-		 *   however it will be created if not (e.g. when creating a new project.)
+		 *   Path to project (name and path of folder containing 'project.camoto',
+		 *   but not including 'project.camoto' itself.)
+		 *
+		 * @param create
+		 *   true to create the 'project.camoto', false to leave it alone.
 		 *
 		 * @throw EProjectOpenFailure if the project could not be created.
 		 */
-		Project(const wxString& path);
+		Project(const std::string& path, bool create = false);
 
 		~Project();
 
-		bool save();
+		/// Read project.camoto
+		void load();
+
+		/// Write project.camoto
+		void save();
 
 		/// Retrieve the base path of the project.
-		wxString getBasePath();
+		std::string getBasePath() const;
 
 		/// Retrieve the path to the local copy of the game files.
-		wxString getDataPath();
+		std::string getDataPath() const;
 
+		/// Retrieve the path and filename of project.camoto
+		std::string getProjectFile() const;
+
+		/// Retrieve the title of the project.
+		Glib::ustring getProjectTitle() const;
+
+		std::unique_ptr<camoto::stream::inout> openFile(Gtk::Window* win,
+			const GameObject& o, bool useFilters);
+		void openSuppsById(Gtk::Window* win, camoto::SuppData *suppOut,
+			const GameObject& o);
+		void openSuppsByFilename(Gtk::Window* win, camoto::SuppData *suppOut,
+			const camoto::SuppFilenames& suppItem);
+		std::shared_ptr<camoto::gamearchive::Archive> getArchive(Gtk::Window* win,
+			const itemid_t& idArchive);
+
+		/// Open a file by filename from within an archive identified by ID.
+		/**
+		 * @return Stream of opened file, or nullptr if the operation was cancelled
+		 *   by the user (in which case no messages need be displayed.)
+		 */
+		std::unique_ptr<camoto::stream::inout> openFileFromArchive(Gtk::Window* win,
+			const itemid_t& idArchive, const std::string& filename, bool useFilters);
+
+		// Saved config items
+		std::string cfg_game;      ///< ID of the game being edited
+		std::string cfg_orig_game; ///< Path to the original game files
+		struct ExternalResource {
+			Glib::ustring path;
+			bool applyFilters;
+		};
+		std::map<itemid_t, ExternalResource> cfg_lastExtract;
+		std::map<itemid_t, ExternalResource> cfg_lastReplace;
+
+		// Shared working objects
+		std::unique_ptr<Game> game; ///< Game instance for this project
 
 	protected:
-		wxFileName path;
+		std::string path;
 
+		/// List of currently open archives
+		std::map<itemid_t, std::shared_ptr<camoto::gamearchive::Archive>> archives;
+
+		unsigned int cfg_projrevision;
 };
 
 #endif // _PROJECT_HPP_
