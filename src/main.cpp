@@ -27,209 +27,282 @@
 #include <config.h>
 #endif
 
-#include <wx/app.h>
-#include <wx/cmdline.h>
-#include <wx/cshelp.h>
-#include <wx/image.h>
-#include <wx/stdpaths.h>
-
-#include <png.h>
+#include <iostream>
+#include <cassert>
+#include <gtkmm.h>
+#include <glibmm/i18n.h>
+#include <camoto/util.hpp> // make_unique
 #include "main.hpp"
-#include "studio.hpp"
+#include "tab-graphics.hpp"
+#include "tab-newproject.hpp"
+#include "tab-openfile.hpp"
+#include "tab-project.hpp"
+
+using namespace camoto;
+using namespace camoto::gamegraphics;
 
 paths path;
 config_data config;
 
-/* Removed for VS2013/Boost 1.57 which segfaults when a stream gets flushed
-#ifdef WIN32
-// Redirect stdout and stderr to the VS output window
-#include <windows.h>
-#include <boost/iostreams/stream.hpp>
-#include <boost/iostreams/tee.hpp>
-
-using namespace std;
-namespace io = boost::iostreams;
-
-struct DebugSink
+Studio::Studio(BaseObjectType *obj, const Glib::RefPtr<Gtk::Builder>& refBuilder)
+	:	Gtk::Window(obj),
+		refBuilder(refBuilder)
 {
-    typedef char char_type;
-    typedef io::sink_tag category;
+	Glib::RefPtr<Gio::SimpleActionGroup> refActionGroup =
+		Gio::SimpleActionGroup::create();
+	refActionGroup->add_action("new_file", sigc::mem_fun(this, &Studio::on_menuitem_file_new));
+	refActionGroup->add_action("open_file", sigc::mem_fun(this, &Studio::on_menuitem_file_open));
+	refActionGroup->add_action("quit", sigc::mem_fun(this, &Studio::on_menuitem_file_exit));
+	refActionGroup->add_action("new_project", sigc::mem_fun(this, &Studio::on_menuitem_project_new));
+	refActionGroup->add_action("open_project", sigc::mem_fun(this, &Studio::on_menuitem_project_open));
+	this->insert_action_group("app", refActionGroup);
 
-    std::vector<char> _vec;
+	auto ctInfo = Glib::RefPtr<Gtk::InfoBar>::cast_dynamic(
+		this->refBuilder->get_object("infobar"));
+	assert(ctInfo);
+	ctInfo->hide();
 
-    std::streamsize write(const char *s, std::streamsize n)
-    {
-        _vec.assign(s, s+n);
-        _vec.push_back(0); // we must null-terminate for WINAPI
-        OutputDebugStringA(&_vec[0]);
-        return n;
-    }
-};
-#endif // WIN32
-*/
+	ctInfo->signal_response().connect(sigc::mem_fun(this, &Studio::on_infobar_button));
+}
 
-class CamotoApp: public wxApp
+void Studio::on_menuitem_file_new()
 {
-	public:
-		static const wxCmdLineEntryDesc cmdLineDesc[];
+//	this->openTab<TabDocument>("tab-document", "Document");
+}
 
-/*
-#ifdef WIN32
-		// Redirect stdout and stderr to the VS output window
-		typedef io::tee_device<DebugSink, std::streambuf> TeeDevice;
-		TeeDevice device;
-		TeeDevice deviceerr;
-		io::stream_buffer<TeeDevice> buf;
-		io::stream_buffer<TeeDevice> buferr;
-
-		CamotoApp()
-			:	device(DebugSink(), *std::cout.rdbuf()),
-				deviceerr(DebugSink(), *std::cerr.rdbuf()),
-				buf(device),
-				buferr(deviceerr)
-		{
-			_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-			std::cout.rdbuf(&this->buf);
-			std::cerr.rdbuf(&this->buferr);
-			std::cout << "a" << std::endl; // *** Crash here with VS2013/Boost 1.57
-			std::cout << "b" << std::endl;
-		}
-#if PNG_LIBPNG_VER != 10512
-#define STRING2(x) #x
-#define STRING(x) STRING2(x)
-#pragma message ("libpng headers are version " STRING(PNG_LIBPNG_VER) )
-#error Wrong version of libpng headers are being picked up, should be 1
-#endif
-
-#else
-*/
-		CamotoApp()
-		{
-		}
-/*
-#endif // WIN32
-*/
-
-		void OnInitCmdLine(wxCmdLineParser& parser)
-		{
-			parser.SetDesc(CamotoApp::cmdLineDesc);
-			return;
-		}
-
-		virtual bool OnCmdLineParsed(wxCmdLineParser& parser)
-		{
-			wxSimpleHelpProvider *helpProvider = new wxSimpleHelpProvider();
-			wxHelpProvider::Set(helpProvider);
-
-			wxImage::AddHandler(new wxPNGHandler());
-
-			wxFileName next;
-#ifdef WIN32
-			// Use the 'data' subdir in the executable's dir
-			next.AssignDir(wxStandardPaths::Get().GetDataDir());
-			next.AppendDir(_T("data"));
-			::path.dataRoot = next.GetFullPath();
-#else
-			// Use the value given to the configure script by --datadir
-			::path.dataRoot = _T(DATA_PATH);
-#endif
-			std::cout << "[init] Data root is " << ::path.dataRoot.mb_str() << "\n";
-
-			next.AssignDir(::path.dataRoot);
-			next.AppendDir(_T("games"));
-			::path.gameData = next.GetFullPath();
-
-			next.AssignDir(::path.gameData);
-			next.AppendDir(_T("screenshots"));
-			::path.gameScreenshots = next.GetFullPath();
-
-			next.AssignDir(::path.gameData);
-			next.AppendDir(_T("icons"));
-			::path.gameIcons = next.GetFullPath();
-
-			next.AssignDir(::path.dataRoot);
-			next.AppendDir(_T("icons"));
-			::path.guiIcons = next.GetFullPath();
-
-			next.AssignDir(::path.dataRoot);
-			next.AppendDir(_T("maps"));
-			::path.mapIndicators = next.GetFullPath();
-
-			// Load the user's preferences
-			wxConfigBase *configFile = wxConfigBase::Get(true);
-			configFile->Read(_T("camoto/dosbox"), &::config.dosboxPath,
-#ifndef __WXMSW__
-				_T("/usr/bin/dosbox")
-#else
-				_T("dosbox.exe")
-#endif
-			);
-			configFile->Read(_T("camoto/pause"), &::config.dosboxExitPause, false);
-			configFile->Read(_T("camoto/lastpath"), &::path.lastUsed, wxEmptyString);
-			configFile->Read(_T("camoto/mididev"), &::config.midiDevice, 0);
-			configFile->Read(_T("camoto/pcmdelay"), &::config.pcmDelay, 0);
-
-			try {
-				Studio *f;
-				wxString filename;
-				if (parser.Found(_T("project"), &filename)) {
-					f = new Studio(true);
-					if (!::wxFileExists(filename)) {
-						wxMessageDialog dlg(f, _("The supplied project file does not exist!"
-								"  The --project option must be given the full path (and "
-								"filename) of the 'project.camoto' file inside the project "
-								"directory."),
-							_("Open project"), wxOK | wxICON_ERROR);
-						dlg.ShowModal();
-					} else {
-						f->openProject(filename);
-					}
-				} else if (parser.Found(_T("music"), &filename)) {
-					f = new Studio(false);
-					//f->loadMusic(filename);
-					wxMessageDialog dlg(f, _("Sorry, standalone music editor not yet "
-							"implemented!"),
-						_("Open song"), wxOK | wxICON_ERROR);
-					dlg.ShowModal();
-				} else {
-					f = new Studio(true);
-				}
-				f->Show(true);
-			} catch (const EFailure& e) {
-				wxMessageDialog dlg(NULL, wxString::Format(
-					"Error loading Camoto Studio: %s", e.what()),
-					_("Unexpected error"), wxOK | wxICON_ERROR);
-				dlg.ShowModal();
-			}
-			return true;
-		}
-
-		virtual bool OnInit()
-		{
-			std::cout << CAMOTO_HEADER "\n";
-			if (!wxApp::OnInit()) return false;
-			return true;
-		}
-
-		virtual int OnExit()
-		{
-			wxConfigBase *configFile = wxConfigBase::Get(true);
-			configFile->Write(_T("camoto/lastpath"), ::path.lastUsed);
-			configFile->Flush();
-			return 0;
-		}
-};
-
-const wxCmdLineEntryDesc CamotoApp::cmdLineDesc[] = {
-	{wxCMD_LINE_OPTION, NULL, wxT_2("project"), wxT_2("Open the given project"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL},
-	{wxCMD_LINE_OPTION, NULL, wxT_2("music"), wxT_2("Open a song in a standalone editor"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL},
-	{wxCMD_LINE_NONE, NULL, NULL, NULL, (wxCmdLineParamType)NULL, 0}
-};
-
-IMPLEMENT_APP(CamotoApp)
-
-void yield()
+void Studio::on_menuitem_file_open()
 {
-	wxGetApp().Yield();
+	// Translators: Tab label for opening a standalone file
+	this->openTab<Tab_OpenFile>(_("Open file"));
 	return;
+}
+
+void Studio::on_menuitem_file_exit()
+{
+	this->hide(); // will cause run() to return
+	return;
+}
+
+void Studio::on_menuitem_project_new()
+{
+	// Translators: Tab label for creating a new project
+	this->openTab<Tab_NewProject>(_("New project"));
+	return;
+}
+
+void Studio::on_menuitem_project_open()
+{
+	Gtk::FileChooserDialog browseProj(_("Select a project folder"),
+		Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
+	browseProj.set_transient_for(*this);
+	browseProj.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+	browseProj.add_button("_Open", Gtk::RESPONSE_OK);
+	auto result = browseProj.run();
+	if (result == Gtk::RESPONSE_OK) {
+		this->openProjectByFilename(browseProj.get_filename());
+	}
+	return;
+}
+
+void Studio::on_infobar_button(int response_id)
+{
+	if (response_id == Gtk::RESPONSE_CLOSE) {
+		auto ctInfo = Glib::RefPtr<Gtk::InfoBar>::cast_dynamic(
+			this->refBuilder->get_object("infobar"));
+		assert(ctInfo);
+		ctInfo->hide();
+	}
+	return;
+}
+
+void Studio::openProject(std::unique_ptr<Project> proj)
+{
+	auto tab = this->openTab<Tab_Project>(proj->getProjectTitle());
+	tab->content(std::move(proj));
+	return;
+}
+
+void Studio::openProjectByFilename(const std::string& folder)
+{
+	try {
+		this->openProject(
+			std::make_unique<Project>(folder)
+		);
+	} catch (const EProjectOpenFailure& e) {
+		Gtk::MessageDialog dlg(*this, Glib::ustring::compose(
+			// Translators: %1 is the path to the project being opened, %2 is the
+			// reason why the project can't be opened
+			_("Unable to open project %1: %2"), folder, e.what()),
+			false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+		dlg.set_title(_("Open project"));
+		dlg.run();
+	}
+	return;
+}
+
+void Studio::openItem(const GameObject& item,
+	std::unique_ptr<stream::inout> content, SuppData& suppData, Project *proj)
+{
+	try {
+		if (
+			(item.typeMajor.compare("image") == 0)
+			|| (item.typeMajor.compare("palette") == 0)
+		) {
+			auto obj = ::openObject<ImageType>(this, item, std::move(content),
+				suppData, proj);
+			auto tab = this->openTab<Tab_Graphics>(item.friendlyName);
+			tab->content(std::move(obj));
+
+		} else if (item.typeMajor.compare("tileset") == 0) {
+			auto obj = ::openObject<TilesetType>(this, item, std::move(content),
+				suppData, proj);
+			auto tab = this->openTab<Tab_Graphics>(item.friendlyName);
+			tab->content(std::move(obj));
+
+		} else {
+			Gtk::MessageDialog dlg(*this,
+				Glib::ustring::compose(
+					"%1\n\n[%2]",
+					_("Sorry, this type of item cannot be edited yet!"),
+					Glib::ustring::compose(
+						// Translators: %1 is the item major type from the XML file, such as
+						// "tileset" or "map2d", and %2 is the item ID from the XML file.
+						_("No editor for typeMajor \"%1\", as specified by item \"%2\""),
+						item.typeMajor,
+						item.id
+					)
+				), false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+			dlg.set_title(_("Open failure"));
+			dlg.run();
+		}
+
+	} catch (const EFailure& e) {
+		Gtk::MessageDialog dlg(*this, e.getMessage(), false,
+			Gtk::MESSAGE_WARNING, Gtk::BUTTONS_OK, true);
+		dlg.set_title(_("Open failure"));
+		dlg.run();
+		return;
+	}
+	return;
+}
+
+template <class T>
+T* Studio::openTab(const Glib::ustring& title)
+{
+	Gtk::Notebook* tabs = 0;
+	this->refBuilder->get_widget("tabs", tabs);
+	assert(tabs);
+
+	Glib::RefPtr<Gtk::Builder> tabBuilder = Gtk::Builder::create();
+	try {
+		tabBuilder->add_from_file("gui/" + T::tab_id + ".glade");
+		T* nextTab;
+		tabBuilder->get_widget_derived(T::tab_id, nextTab);
+		if (!nextTab) return nullptr;
+		int index = tabs->append_page(*nextTab, title);
+		tabs->set_current_page(index);
+		return nextTab;
+	} catch (const Glib::Error& e) {
+		Gtk::MessageDialog dlg(*this, Glib::ustring::compose(
+			// Translators: %1 is internal tab ID (not translated), %2 is reason for error
+			_("Unable to create new tab \"%1\": %2"), T::tab_id, e.what()),
+			false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+		dlg.set_title(_("New tab"));
+		dlg.run();
+		return nullptr;
+	}
+}
+
+void Studio::closeTab(Gtk::Box *tab)
+{
+	Gtk::Notebook* tabs = 0;
+	this->refBuilder->get_widget("tabs", tabs);
+	assert(tabs);
+	tabs->remove_page(*tab);
+	return;
+}
+
+void Studio::infobar(const Glib::ustring& content)
+{
+	auto msg = Glib::RefPtr<Gtk::Label>::cast_dynamic(
+		this->refBuilder->get_object("ctInfoMsg"));
+	assert(msg);
+	msg->set_text(content);
+
+	auto ctInfo = Glib::RefPtr<Gtk::InfoBar>::cast_dynamic(
+		this->refBuilder->get_object("infobar"));
+	assert(ctInfo);
+	ctInfo->show();
+	return;
+}
+
+int main(int argc, char *argv[])
+{
+	Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(argc, argv,
+		"net.shikadi.camoto");
+	// Translators: "Camoto" should not be translated but "Studio" should be
+	Glib::set_application_name(_("Camoto Studio"));
+
+	// Set all the standard paths
+#ifdef WIN32
+	// Use the 'data' subdir in the executable's dir
+	::path.dataRoot = Glib::build_filename(Glib::get_current_dir(), "data");
+#else
+	// Use the value given to the configure script by --datadir
+	::path.dataRoot = DATA_PATH;
+#endif
+	std::cout << "[init] Data root is " << ::path.dataRoot << "\n";
+
+	if (!Glib::file_test(::path.dataRoot, Glib::FILE_TEST_IS_DIR)) {
+		Gtk::MessageDialog dlg(Glib::ustring::compose(
+			// Translators: %1 is the folder path that should exist but does not
+			_("Cannot find Camoto Studio data directory: %1"), ::path.dataRoot),
+			false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+		dlg.set_title(_("Cannot find data directory"));
+		dlg.run();
+		return 1;
+	}
+	::path.gameData = Glib::build_filename(::path.dataRoot, "games");
+	::path.gameScreenshots = Glib::build_filename(::path.gameData, "screenshots");
+	::path.gameIcons = Glib::build_filename(::path.gameData, "icons");
+	::path.guiIcons = Glib::build_filename(::path.dataRoot, "icons");
+	::path.mapIndicators = Glib::build_filename(::path.dataRoot, "maps");
+
+	// Display the main window
+	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
+	Studio *winMain = 0;
+	try {
+		refBuilder->add_from_file("gui/win-main.glade");
+		refBuilder->get_widget_derived("main", winMain);
+		if (!winMain) {
+			auto msg = _("Unable to find main window in Glade file.");
+			std::cerr << msg << std::endl;
+			Gtk::MessageDialog dlg(msg, false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+			dlg.set_title(_("Unhandled error"));
+			dlg.run();
+			return 1;
+		}
+
+		app->run(*winMain);
+		delete winMain;
+	} catch (const Glib::Exception& e) {
+		auto msg = Glib::ustring::compose(_("Unhandled GTK exception: %1"),
+			e.what());
+		std::cerr << msg << std::endl;
+		Gtk::MessageDialog dlg(msg, false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+		dlg.set_title(_("Unhandled error"));
+		dlg.run();
+		return 1;
+	} catch (const stream::error& e) {
+		auto msg = Glib::ustring::compose(_("Unhandled Camoto exception: %1"),
+			e.what());
+		std::cerr << msg << std::endl;
+
+		Gtk::MessageDialog dlg(msg, false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+		dlg.set_title(_("Unhandled error"));
+		dlg.run();
+		return 1;
+	}
+
+	return 0;
 }

@@ -31,18 +31,21 @@
 	"redistribute it under certain conditions; see \n" \
 	"<http://www.gnu.org/licenses/> for details.\n"
 
-#include <wx/string.h>
+#include <gtkmm.h>
+#include <camoto/gamegraphics.hpp>
+#include "gamelist.hpp"
+#include "project.hpp"
 
 /// File paths
 struct paths
 {
-	wxString dataRoot;          ///< Main data folder
-	wxString gameData;          ///< Location of XML game description files
-	wxString gameScreenshots;   ///< Game screenshots used in 'new project' dialog
-	wxString gameIcons;         ///< Icons used to represent each game
-	wxString guiIcons;          ///< Icons used for GUI elements
-	wxString mapIndicators;     ///< Icons used for map editor indicators
-	wxString lastUsed;          ///< Path last used in open/save dialogs
+	std::string dataRoot;          ///< Main data folder
+	std::string gameData;          ///< Location of XML game description files
+	std::string gameScreenshots;   ///< Game screenshots used in 'new project' dialog
+	std::string gameIcons;         ///< Icons used to represent each game
+	std::string guiIcons;          ///< Icons used for GUI elements
+	std::string mapIndicators;     ///< Icons used for map editor indicators
+	std::string lastUsed;          ///< Path last used in open/save dialogs
 };
 
 extern paths path;
@@ -51,7 +54,7 @@ extern paths path;
 struct config_data
 {
 	/// Path to DOSBox binary
-	wxString dosboxPath;
+	std::string dosboxPath;
 
 	/// True to add a DOS 'pause' command before exiting DOSBox
 	bool dosboxExitPause;
@@ -65,16 +68,49 @@ struct config_data
 
 extern config_data config;
 
-/// Show additional errors.
-/**
- * If this is defined, additional error message popups will appear.  Usually
- * these are suppressed as wxWidgets calls wxLogError() which notifies the user
- * instead.  If this facility is ever disabled, uncomment this to provide the
- * user with feedback.
- */
-#undef NO_WXLOG_POPUPS
+class Studio: public Gtk::Window
+{
+	public:
+		Studio(BaseObjectType *obj, const Glib::RefPtr<Gtk::Builder>& refBuilder);
 
-/// Call wxApp::Yield()
-void yield();
+		/// Open the given project in a new tab.
+		/**
+		 * @param proj
+		 *   The project instance to create a new tab for.
+		 */
+		void openProject(std::unique_ptr<Project> proj);
+
+		/// Open the given folder as a project, in a new tab.
+		/**
+		 * @param folder
+		 *   The folder to open.  It must contain a project.camoto file.
+		 */
+		void openProjectByFilename(const std::string& folder);
+
+		void openItem(const GameObject& item,
+			std::unique_ptr<camoto::stream::inout> content,
+			camoto::SuppData& suppData,
+			Project *proj);
+
+		void closeTab(Gtk::Box *tab);
+
+		/// Display a message in the main window's infobar
+		void infobar(const Glib::ustring& content);
+
+	protected:
+		void on_menuitem_file_new();
+		void on_menuitem_file_open();
+		void on_menuitem_file_exit();
+		void on_menuitem_project_new();
+		void on_menuitem_project_open();
+		void on_infobar_button(int response_id);
+
+		/// Open a .glade file in a new tab.
+		template <class T>
+		T* openTab(const Glib::ustring& title);
+
+	protected:
+		Glib::RefPtr<Gtk::Builder> refBuilder;
+};
 
 #endif // _MAIN_HPP_
