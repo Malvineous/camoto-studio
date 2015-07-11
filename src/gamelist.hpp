@@ -21,10 +21,15 @@
 #ifndef _GAMELIST_HPP_
 #define _GAMELIST_HPP_
 
-#include <boost/shared_ptr.hpp>
-#include <wx/wx.h>
 #include <vector>
 #include <map>
+#include <glibmm/i18n.h>
+#include <glibmm/ustring.h>
+#include <gtkmm/messagedialog.h>
+#include <gtkmm/window.h>
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+#include <camoto/stream.hpp>
 #include <camoto/suppitem.hpp>
 #include <camoto/gamegraphics/tileset.hpp>
 #include <camoto/gamemaps/map.hpp>
@@ -39,6 +44,8 @@
 /// Minor type for a tileset where the tiles are images listed in the XML
 #define TILESETTYPE_MINOR_FROMIMG "_img"
 
+typedef std::string itemid_t;
+
 /// A basic tree implementation for storing the game item structure
 template <typename T>
 struct tree
@@ -51,7 +58,7 @@ struct tree
 };
 
 /// SuppItem -> game object ID mapping.
-typedef std::map<camoto::SuppItem::Type, wxString> SuppIDs;
+typedef std::map<camoto::SuppItem, itemid_t> SuppIDs;
 
 /// Types of dependent objects.
 /**
@@ -60,76 +67,74 @@ typedef std::map<camoto::SuppItem::Type, wxString> SuppIDs;
  * supplementary items, which are just streams, dependent objects are full
  * instances of specific Camoto types.
  */
-enum DepType
+enum class DepType
 {
-	GenericTileset1    = 0 + camoto::gamemaps::GenericTileset1,
-	GenericTileset2    = 0 + camoto::gamemaps::GenericTileset2,
-	GenericTileset3    = 0 + camoto::gamemaps::GenericTileset3,
-	GenericTileset4    = 0 + camoto::gamemaps::GenericTileset4,
-	GenericTileset5    = 0 + camoto::gamemaps::GenericTileset5,
-	GenericTileset6    = 0 + camoto::gamemaps::GenericTileset6,
-	GenericTileset7    = 0 + camoto::gamemaps::GenericTileset7,
-	GenericTileset8    = 0 + camoto::gamemaps::GenericTileset8,
-	GenericTileset9    = 0 + camoto::gamemaps::GenericTileset9,
-	BackgroundTileset1 = 0 + camoto::gamemaps::BackgroundTileset1,
-	BackgroundTileset2 = 0 + camoto::gamemaps::BackgroundTileset2,
-	BackgroundTileset3 = 0 + camoto::gamemaps::BackgroundTileset3,
-	BackgroundTileset4 = 0 + camoto::gamemaps::BackgroundTileset4,
-	BackgroundTileset5 = 0 + camoto::gamemaps::BackgroundTileset5,
-	BackgroundTileset6 = 0 + camoto::gamemaps::BackgroundTileset6,
-	BackgroundTileset7 = 0 + camoto::gamemaps::BackgroundTileset7,
-	BackgroundTileset8 = 0 + camoto::gamemaps::BackgroundTileset8,
-	BackgroundTileset9 = 0 + camoto::gamemaps::BackgroundTileset9,
-	ForegroundTileset1 = 0 + camoto::gamemaps::ForegroundTileset1,
-	ForegroundTileset2 = 0 + camoto::gamemaps::ForegroundTileset2,
-	ForegroundTileset3 = 0 + camoto::gamemaps::ForegroundTileset3,
-	ForegroundTileset4 = 0 + camoto::gamemaps::ForegroundTileset4,
-	ForegroundTileset5 = 0 + camoto::gamemaps::ForegroundTileset5,
-	ForegroundTileset6 = 0 + camoto::gamemaps::ForegroundTileset6,
-	ForegroundTileset7 = 0 + camoto::gamemaps::ForegroundTileset7,
-	ForegroundTileset8 = 0 + camoto::gamemaps::ForegroundTileset8,
-	ForegroundTileset9 = 0 + camoto::gamemaps::ForegroundTileset9,
-	SpriteTileset1     = 0 + camoto::gamemaps::SpriteTileset1,
-	SpriteTileset2     = 0 + camoto::gamemaps::SpriteTileset2,
-	SpriteTileset3     = 0 + camoto::gamemaps::SpriteTileset3,
-	SpriteTileset4     = 0 + camoto::gamemaps::SpriteTileset4,
-	SpriteTileset5     = 0 + camoto::gamemaps::SpriteTileset5,
-	SpriteTileset6     = 0 + camoto::gamemaps::SpriteTileset6,
-	SpriteTileset7     = 0 + camoto::gamemaps::SpriteTileset7,
-	SpriteTileset8     = 0 + camoto::gamemaps::SpriteTileset8,
-	SpriteTileset9     = 0 + camoto::gamemaps::SpriteTileset9,
-	FontTileset1       = 0 + camoto::gamemaps::FontTileset1,
-	FontTileset2       = 0 + camoto::gamemaps::FontTileset2,
-	FontTileset3       = 0 + camoto::gamemaps::FontTileset3,
-	FontTileset4       = 0 + camoto::gamemaps::FontTileset4,
-	FontTileset5       = 0 + camoto::gamemaps::FontTileset5,
-	FontTileset6       = 0 + camoto::gamemaps::FontTileset6,
-	FontTileset7       = 0 + camoto::gamemaps::FontTileset7,
-	FontTileset8       = 0 + camoto::gamemaps::FontTileset8,
-	FontTileset9       = 0 + camoto::gamemaps::FontTileset9,
-	BackgroundImage    = 0 + camoto::gamemaps::BackgroundImage,
+	GenericTileset1    = camoto::gamemaps::ImagePurpose::GenericTileset1,
+	GenericTileset2    = camoto::gamemaps::ImagePurpose::GenericTileset2,
+	GenericTileset3    = camoto::gamemaps::ImagePurpose::GenericTileset3,
+	GenericTileset4    = camoto::gamemaps::ImagePurpose::GenericTileset4,
+	GenericTileset5    = camoto::gamemaps::ImagePurpose::GenericTileset5,
+	GenericTileset6    = camoto::gamemaps::ImagePurpose::GenericTileset6,
+	GenericTileset7    = camoto::gamemaps::ImagePurpose::GenericTileset7,
+	GenericTileset8    = camoto::gamemaps::ImagePurpose::GenericTileset8,
+	GenericTileset9    = camoto::gamemaps::ImagePurpose::GenericTileset9,
+	BackgroundTileset1 = camoto::gamemaps::ImagePurpose::BackgroundTileset1,
+	BackgroundTileset2 = camoto::gamemaps::ImagePurpose::BackgroundTileset2,
+	BackgroundTileset3 = camoto::gamemaps::ImagePurpose::BackgroundTileset3,
+	BackgroundTileset4 = camoto::gamemaps::ImagePurpose::BackgroundTileset4,
+	BackgroundTileset5 = camoto::gamemaps::ImagePurpose::BackgroundTileset5,
+	BackgroundTileset6 = camoto::gamemaps::ImagePurpose::BackgroundTileset6,
+	BackgroundTileset7 = camoto::gamemaps::ImagePurpose::BackgroundTileset7,
+	BackgroundTileset8 = camoto::gamemaps::ImagePurpose::BackgroundTileset8,
+	BackgroundTileset9 = camoto::gamemaps::ImagePurpose::BackgroundTileset9,
+	ForegroundTileset1 = camoto::gamemaps::ImagePurpose::ForegroundTileset1,
+	ForegroundTileset2 = camoto::gamemaps::ImagePurpose::ForegroundTileset2,
+	ForegroundTileset3 = camoto::gamemaps::ImagePurpose::ForegroundTileset3,
+	ForegroundTileset4 = camoto::gamemaps::ImagePurpose::ForegroundTileset4,
+	ForegroundTileset5 = camoto::gamemaps::ImagePurpose::ForegroundTileset5,
+	ForegroundTileset6 = camoto::gamemaps::ImagePurpose::ForegroundTileset6,
+	ForegroundTileset7 = camoto::gamemaps::ImagePurpose::ForegroundTileset7,
+	ForegroundTileset8 = camoto::gamemaps::ImagePurpose::ForegroundTileset8,
+	ForegroundTileset9 = camoto::gamemaps::ImagePurpose::ForegroundTileset9,
+	SpriteTileset1     = camoto::gamemaps::ImagePurpose::SpriteTileset1,
+	SpriteTileset2     = camoto::gamemaps::ImagePurpose::SpriteTileset2,
+	SpriteTileset3     = camoto::gamemaps::ImagePurpose::SpriteTileset3,
+	SpriteTileset4     = camoto::gamemaps::ImagePurpose::SpriteTileset4,
+	SpriteTileset5     = camoto::gamemaps::ImagePurpose::SpriteTileset5,
+	SpriteTileset6     = camoto::gamemaps::ImagePurpose::SpriteTileset6,
+	SpriteTileset7     = camoto::gamemaps::ImagePurpose::SpriteTileset7,
+	SpriteTileset8     = camoto::gamemaps::ImagePurpose::SpriteTileset8,
+	SpriteTileset9     = camoto::gamemaps::ImagePurpose::SpriteTileset9,
+	FontTileset1       = camoto::gamemaps::ImagePurpose::FontTileset1,
+	FontTileset2       = camoto::gamemaps::ImagePurpose::FontTileset2,
+	FontTileset3       = camoto::gamemaps::ImagePurpose::FontTileset3,
+	FontTileset4       = camoto::gamemaps::ImagePurpose::FontTileset4,
+	FontTileset5       = camoto::gamemaps::ImagePurpose::FontTileset5,
+	FontTileset6       = camoto::gamemaps::ImagePurpose::FontTileset6,
+	FontTileset7       = camoto::gamemaps::ImagePurpose::FontTileset7,
+	FontTileset8       = camoto::gamemaps::ImagePurpose::FontTileset8,
+	FontTileset9       = camoto::gamemaps::ImagePurpose::FontTileset9,
+	BackgroundImage    = camoto::gamemaps::ImagePurpose::BackgroundImage,
 	Palette,
-	DepTypeCount // must always be last
+	MaxValue // must always be last
 };
 
 /// Convert a DepType value into a string, for error messages.
-wxString dep2string(DepType t);
+std::string dep2string(DepType t);
 
 /// Dependency type -> game object ID mapping.
-typedef std::map<DepType, wxString> Deps;
+typedef std::map<DepType, Glib::ustring> Deps;
 
 /// Details about a single game object, such as a map or a song.
 struct GameObject
 {
-	inline virtual ~GameObject() {};
-
-	wxString id;           ///< Unique ID for this object
-	wxString filename;     ///< Object's filename
-	wxString idParent;     ///< ID of containing object, or empty for local file
-	wxString typeMajor;    ///< Major type (editor to use)
-	wxString typeMinor;    ///< Minor type (file format)
-	wxString filter;       ///< Decompression/decryption filter ID, blank for none
-	wxString friendlyName; ///< Name to show user
+	itemid_t id;           ///< Unique ID for this object
+	std::string filename;  ///< Object's filename
+	itemid_t idParent;     ///< ID of containing object, or empty for local file
+	std::string typeMajor; ///< Major type (editor to use)
+	std::string typeMinor; ///< Minor type (file format)
+	std::string filter;    ///< Decompression/decryption filter ID, blank for none
+	Glib::ustring friendlyName; ///< Name to show user
 	SuppIDs supp;          ///< SuppItem -> id mapping
 	Deps dep;              ///< Which objects this one is dependent upon
 
@@ -137,45 +142,42 @@ struct GameObject
 	int size;              ///< [Fixed archive only] Size of this file
 };
 
-/// Shared pointer to a GameObject
-typedef boost::shared_ptr<GameObject> GameObjectPtr;
-
-/// Map between id and game object
-typedef std::map<wxString, GameObjectPtr> GameObjectMap;
-
 /// Structure of a tileset defined directly in the XML, where the content is
 /// from an image split into parts
 struct TilesetFromSplitInfo
 {
-	wxString id;           ///< Unique ID for this object
-	wxString idImage;      ///< ID of the underlying image to split into tiles
+	itemid_t id;           ///< Unique ID for this object
+	itemid_t idImage;      ///< ID of the underlying image to split into tiles
 	unsigned int layoutWidth; ///< Ideal width of the tileset, in number of tiles
-	camoto::gamegraphics::TileList tileList; ///< List of tile coordinates in the parent image
+	std::vector<camoto::gamegraphics::Rect> tileList; ///< List of tile coordinates in the parent image
 };
 
 /// Map of tileset IDs to tileset data
-typedef std::map<wxString, TilesetFromSplitInfo> TilesetsFromSplit;
+typedef std::map<Glib::ustring, TilesetFromSplitInfo> TilesetsFromSplit;
 
 /// Structure of a tileset defined directly in the XML, where the content is
 /// from multiple images
 struct TilesetFromImagesInfo
 {
-	wxString id;                       ///< Unique ID for this object
+	itemid_t id;                       ///< Unique ID for this object
 	unsigned int layoutWidth;          ///< Ideal width of the tileset, in number of tiles
-	std::vector<std::string> ids;      ///< List of IDs for each tile
-	std::vector<std::string> names;    ///< List of names for each tile
+	std::vector<itemid_t> ids;         ///< List of IDs for each tile
+	std::vector<Glib::ustring> names;  ///< List of names for each tile
 };
 
 /// Map of tileset IDs to tileset data
-typedef std::map<wxString, TilesetFromImagesInfo> TilesetsFromImages;
+typedef std::map<Glib::ustring, TilesetFromImagesInfo> TilesetsFromImages;
 
 /// Game details for the UI
 struct GameInfo
 {
-	wxString id;        ///< Game ID, used for resource filenames
-	wxString title;     ///< User-visible title
-	wxString developer; ///< Game dev
-	wxString reverser;  ///< Who reverse engineered the file formats
+	itemid_t id;             ///< Game ID, used for resource filenames
+	Glib::ustring title;     ///< User-visible title
+	Glib::ustring developer; ///< Game dev
+	Glib::ustring reverser;  ///< Who reverse engineered the file formats
+
+	/// Process the <info/> chunk.
+	void populateFromXML(xmlDoc *xml);
 };
 
 /// Object descriptions for map editor
@@ -208,7 +210,7 @@ struct MapObject
 	typedef std::vector<Row> RowVector;
 
 	/// User-visible name of this object for tooltips, etc.
-	wxString name;
+	Glib::ustring name;
 
 	/// Minimum width for this object in tiles, or zero for no minimum.
 	unsigned int minWidth;
@@ -237,45 +239,124 @@ struct MapObject
 typedef std::vector<MapObject> MapObjectVector;
 
 /// All data about a game that can be edited.
-struct Game: public GameInfo
+class Game: public GameInfo
 {
-	GameObjectMap objects;
-	TilesetsFromSplit tilesetsFromSplit;
-	TilesetsFromImages tilesetsFromImages;
-	tree<wxString> treeItems;
-	MapObjectVector mapObjects;
-	std::map<wxString, wxString> dosCommands;
+	public:
+		/// List of game objects indexed by their XML IDs
+		std::map<itemid_t, GameObject> objects;
+		TilesetsFromSplit tilesetsFromSplit;
+		TilesetsFromImages tilesetsFromImages;
+		tree<itemid_t> treeItems;
+		MapObjectVector mapObjects;
+		std::map<Glib::ustring, std::string> dosCommands;
 
-	/// Find an object by filename.
-	GameObjectPtr findObjectByFilename(const wxString& filename,
-		const wxString& typeMajor);
+		/// Load a single game's data from its XML description file.
+		/**
+		 * @param id
+		 *   ID of the game.
+		 */
+		Game(const itemid_t& id);
 
-	/// Find an object by its ID.
-	/**
-	 * This must be used instead of the array operator[], as this function
-	 * won't create an empty entry when checking for an invalid ID, causing
-	 * the ID to subsequently become valid.
-	 */
-	GameObjectPtr findObjectById(const wxString& id);
+		/// Find an object by filename.
+		const GameObject* findObjectByFilename(const std::string& filename,
+			const std::string& typeMajor) const;
+
+		/// Find an object by its ID.
+		/**
+		 * This must be used instead of the array operator[], as this function
+		 * won't create an empty entry when checking for an invalid ID, causing
+		 * the ID to subsequently become valid.
+		 */
+		const GameObject* findObjectById(const itemid_t& id) const;
+
+	protected:
+//		void processFilesChunk(xmlNode *i, const Glib::ustring& idParent);
 };
 
-/// List of basic game info.
-typedef std::map<wxString, GameInfo> GameInfoMap;
-
-/// Load a list of games from the XML files in the given location.
+/// Load a list of games from the XML description files.
 /**
  * @return List of all supported games.
  */
-GameInfoMap getAllGames();
+std::map<std::string, GameInfo> getAllGames();
 
-/// Load a single game's data from the XML files in the given location.
+#include <camoto/gamearchive/manager.hpp>
+#include <camoto/gamegraphics/manager.hpp>
+#include "project.hpp"
+
+/// Open a Camoto object
 /**
- * @param id
- *   ID of the game.
+ * @param win
+ *   GTK window to set as parent for warning prompts/questions.
  *
- * @return Game instance containing information about the given game, or
- *   NULL on error.
+ * @param content
+ *   Stream holding main file content.
+ *
+ * @param suppData
+ *   Additional data streams as required.
+ *
+ * @param proj
+ *   Pointer to optional project (may be null).  If present, the format handler
+ *   is queried for any additional supp items, and if filenames for any are
+ *   returned, the project is used to find and open them.
  */
-Game *loadGameStructure(const wxString& id);
+template <class Type>
+auto openObject(Gtk::Window* win,
+	const GameObject& o, std::unique_ptr<camoto::stream::inout> content,
+	camoto::SuppData& suppData, Project *proj)
+	-> decltype(((Type*)nullptr)->open(std::move(content), suppData))
+{
+	if (o.typeMinor.empty()) {
+		throw EFailure(_("No file type was specified for this item!"));
+	}
+
+	auto fmtHandler = camoto::FormatEnumerator<Type>::byCode(o.typeMajor);
+	if (!fmtHandler) {
+		throw EFailure(Glib::ustring::compose(
+			"%1\n\n[%2]",
+			Glib::ustring::compose(
+				_("Sorry, it is not possible to edit this item as the \"%1\" format "
+					"is unsupported."),
+				o.typeMinor.c_str()
+			),
+			Glib::ustring::compose(
+				// Translators: %1 is the object type (Image, Tileset, etc.) and %2 is
+				// the format code (e.g. img-pcx)
+				_("No %1 handler for \"%2\""),
+				Type::obj_t_name,
+				o.typeMinor.c_str()
+			)
+		));
+	}
+
+	// Check to see if the file is actually in this format
+	if (fmtHandler->isInstance(*content) < Type::PossiblyYes) {
+		Gtk::MessageDialog dlg(*win,
+			Glib::ustring::compose(
+				_("This file is supposed to be in \"%1\" format, but it seems this may "
+					"not be the case.  You can continue, but you may experience strange "
+					"results.  If Camoto crashes when you proceed, please report it as a "
+					"bug."),
+				fmtHandler->friendlyName().c_str()
+			),
+			false, Gtk::MESSAGE_WARNING, Gtk::BUTTONS_OK_CANCEL, true);
+		dlg.set_title(_("Warning"));
+		if (dlg.run() != Gtk::RESPONSE_OK) return nullptr;
+	}
+
+	if (proj) {
+		// Collect any supplemental files required by the format
+		proj->openSuppsByFilename(win, &suppData,
+			fmtHandler->getRequiredSupps(*content, o.filename));
+	}
+
+	try {
+		return fmtHandler->open(std::move(content), suppData);
+	} catch (const camoto::stream::error& e) {
+		throw EFailure(Glib::ustring::compose(
+			_("Camoto library exception: %1"),
+			e.what()
+		));
+	}
+}
 
 #endif // _GAMELIST_HPP_

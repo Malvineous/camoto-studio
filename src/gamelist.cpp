@@ -19,103 +19,82 @@
  */
 
 #include <iostream>
-#include <wx/dir.h>
-#include <wx/filename.h>
-
-#include <libxml/parser.h>
-#include <libxml/tree.h>
-
+#include <glibmm/fileutils.h>
+#include <glibmm/i18n.h>
+#include <glibmm/pattern.h>
+#include <glibmm/ustring.h>
+#include <camoto/util.hpp> // make_unique
 #include "main.hpp"
 #include "gamelist.hpp"
 
 #define _X(a)  (const xmlChar *)(a)
 
-wxString dep2string(DepType t)
+using namespace camoto;
+
+std::string dep2string(DepType t)
 {
 	switch (t) {
-		case GenericTileset1:    return _T("generic-tileset1");
-		case GenericTileset2:    return _T("generic-tileset2");
-		case GenericTileset3:    return _T("generic-tileset3");
-		case GenericTileset4:    return _T("generic-tileset4");
-		case GenericTileset5:    return _T("generic-tileset5");
-		case GenericTileset6:    return _T("generic-tileset6");
-		case GenericTileset7:    return _T("generic-tileset7");
-		case GenericTileset8:    return _T("generic-tileset8");
-		case GenericTileset9:    return _T("generic-tileset9");
-		case BackgroundTileset1: return _T("background-tileset1");
-		case BackgroundTileset2: return _T("background-tileset2");
-		case BackgroundTileset3: return _T("background-tileset3");
-		case BackgroundTileset4: return _T("background-tileset4");
-		case BackgroundTileset5: return _T("background-tileset5");
-		case BackgroundTileset6: return _T("background-tileset6");
-		case BackgroundTileset7: return _T("background-tileset7");
-		case BackgroundTileset8: return _T("background-tileset8");
-		case BackgroundTileset9: return _T("background-tileset9");
-		case ForegroundTileset1: return _T("foreground-tileset1");
-		case ForegroundTileset2: return _T("foreground-tileset2");
-		case ForegroundTileset3: return _T("foreground-tileset3");
-		case ForegroundTileset4: return _T("foreground-tileset4");
-		case ForegroundTileset5: return _T("foreground-tileset5");
-		case ForegroundTileset6: return _T("foreground-tileset6");
-		case ForegroundTileset7: return _T("foreground-tileset7");
-		case ForegroundTileset8: return _T("foreground-tileset8");
-		case ForegroundTileset9: return _T("foreground-tileset9");
-		case SpriteTileset1:     return _T("sprite-tileset1");
-		case SpriteTileset2:     return _T("sprite-tileset2");
-		case SpriteTileset3:     return _T("sprite-tileset3");
-		case SpriteTileset4:     return _T("sprite-tileset4");
-		case SpriteTileset5:     return _T("sprite-tileset5");
-		case SpriteTileset6:     return _T("sprite-tileset6");
-		case SpriteTileset7:     return _T("sprite-tileset7");
-		case SpriteTileset8:     return _T("sprite-tileset8");
-		case SpriteTileset9:     return _T("sprite-tileset9");
-		case FontTileset1:       return _T("font-tileset1");
-		case FontTileset2:       return _T("font-tileset2");
-		case FontTileset3:       return _T("font-tileset3");
-		case FontTileset4:       return _T("font-tileset4");
-		case FontTileset5:       return _T("font-tileset5");
-		case FontTileset6:       return _T("font-tileset6");
-		case FontTileset7:       return _T("font-tileset7");
-		case FontTileset8:       return _T("font-tileset8");
-		case FontTileset9:       return _T("font-tileset9");
-		case BackgroundImage:    return _T("background-image");
-		case Palette:            return _T("palette");
-		case DepTypeCount:
+		case DepType::GenericTileset1:    return "generic-tileset1";
+		case DepType::GenericTileset2:    return "generic-tileset2";
+		case DepType::GenericTileset3:    return "generic-tileset3";
+		case DepType::GenericTileset4:    return "generic-tileset4";
+		case DepType::GenericTileset5:    return "generic-tileset5";
+		case DepType::GenericTileset6:    return "generic-tileset6";
+		case DepType::GenericTileset7:    return "generic-tileset7";
+		case DepType::GenericTileset8:    return "generic-tileset8";
+		case DepType::GenericTileset9:    return "generic-tileset9";
+		case DepType::BackgroundTileset1: return "background-tileset1";
+		case DepType::BackgroundTileset2: return "background-tileset2";
+		case DepType::BackgroundTileset3: return "background-tileset3";
+		case DepType::BackgroundTileset4: return "background-tileset4";
+		case DepType::BackgroundTileset5: return "background-tileset5";
+		case DepType::BackgroundTileset6: return "background-tileset6";
+		case DepType::BackgroundTileset7: return "background-tileset7";
+		case DepType::BackgroundTileset8: return "background-tileset8";
+		case DepType::BackgroundTileset9: return "background-tileset9";
+		case DepType::ForegroundTileset1: return "foreground-tileset1";
+		case DepType::ForegroundTileset2: return "foreground-tileset2";
+		case DepType::ForegroundTileset3: return "foreground-tileset3";
+		case DepType::ForegroundTileset4: return "foreground-tileset4";
+		case DepType::ForegroundTileset5: return "foreground-tileset5";
+		case DepType::ForegroundTileset6: return "foreground-tileset6";
+		case DepType::ForegroundTileset7: return "foreground-tileset7";
+		case DepType::ForegroundTileset8: return "foreground-tileset8";
+		case DepType::ForegroundTileset9: return "foreground-tileset9";
+		case DepType::SpriteTileset1:     return "sprite-tileset1";
+		case DepType::SpriteTileset2:     return "sprite-tileset2";
+		case DepType::SpriteTileset3:     return "sprite-tileset3";
+		case DepType::SpriteTileset4:     return "sprite-tileset4";
+		case DepType::SpriteTileset5:     return "sprite-tileset5";
+		case DepType::SpriteTileset6:     return "sprite-tileset6";
+		case DepType::SpriteTileset7:     return "sprite-tileset7";
+		case DepType::SpriteTileset8:     return "sprite-tileset8";
+		case DepType::SpriteTileset9:     return "sprite-tileset9";
+		case DepType::FontTileset1:       return "font-tileset1";
+		case DepType::FontTileset2:       return "font-tileset2";
+		case DepType::FontTileset3:       return "font-tileset3";
+		case DepType::FontTileset4:       return "font-tileset4";
+		case DepType::FontTileset5:       return "font-tileset5";
+		case DepType::FontTileset6:       return "font-tileset6";
+		case DepType::FontTileset7:       return "font-tileset7";
+		case DepType::FontTileset8:       return "font-tileset8";
+		case DepType::FontTileset9:       return "font-tileset9";
+		case DepType::BackgroundImage:    return "background-image";
+		case DepType::Palette:            return "palette";
+		case DepType::MaxValue:
+			return "<invalid value: MaxValue>";
 			break;
 		//default: // no default so GCC complains if we miss one
 	}
-	return _T("<invalid value>");
+	return "<invalid value>";
 }
 
-GameObjectPtr Game::findObjectByFilename(const wxString& filename,
-	const wxString& typeMajor)
-{
-	for (GameObjectMap::iterator
-		i = this->objects.begin(); i != this->objects.end(); i++
-	) {
-		if (filename.compare(i->second->filename) == 0) {
-			if (typeMajor.IsEmpty() || (typeMajor.IsSameAs(i->second->typeMajor))) {
-				return i->second;
-			}
-		}
-	}
-	return GameObjectPtr();
-}
-
-GameObjectPtr Game::findObjectById(const wxString& id)
-{
-	GameObjectMap::iterator io = this->objects.find(id);
-	if (io == this->objects.end()) return GameObjectPtr();
-	return io->second;
-}
-
-/// Process the <info/> chunk.
-void populateGameInfo(xmlDoc *xml, GameInfo *gi)
+void GameInfo::populateFromXML(xmlDoc *xml)
 {
 	xmlNode *root = xmlDocGetRootElement(xml);
 	xmlChar *title = xmlGetProp(root, _X("title"));
 	if (title) {
-		gi->title = wxString::FromUTF8((char *)title, xmlStrlen(title));
+		this->title = Glib::ustring((char *)title, xmlStrlen(title));
 		xmlFree(title);
 	}
 
@@ -124,12 +103,12 @@ void populateGameInfo(xmlDoc *xml, GameInfo *gi)
 			for (xmlNode *j = i->children; j; j = j->next) {
 				if (xmlStrEqual(j->name, _X("developer"))) {
 					xmlChar *content = xmlNodeGetContent(j);
-					gi->developer = wxString::FromUTF8((const char *)content, xmlStrlen(content));
+					this->developer = Glib::ustring((const char *)content, xmlStrlen(content));
 					xmlFree(content);
 				}
 				if (xmlStrEqual(j->name, _X("reverser"))) {
 					xmlChar *content = xmlNodeGetContent(j);
-					gi->reverser = wxString::FromUTF8((const char *)content, xmlStrlen(content));
+					this->reverser = Glib::ustring((const char *)content, xmlStrlen(content));
 					xmlFree(content);
 				}
 			}
@@ -138,49 +117,66 @@ void populateGameInfo(xmlDoc *xml, GameInfo *gi)
 	return;
 }
 
-GameInfoMap getAllGames()
+const GameObject* Game::findObjectByFilename(const std::string& filename,
+	const std::string& typeMajor) const
 {
-	GameInfoMap games;
+	for (auto& i : this->objects) {
+		if (filename.compare(i.second.filename) == 0) {
+			if (typeMajor.empty() || (typeMajor.compare(i.second.typeMajor))) {
+				return &i.second;
+			}
+		}
+	}
+	return nullptr;
+}
 
-	wxDir dir(::path.gameData);
-	wxString filename;
-	bool more = dir.GetFirst(&filename, _T("*.xml"), wxDIR_FILES);
-	while (more) {
-		wxFileName fn;
-		fn.AssignDir(::path.gameData);
-		fn.SetFullName(filename);
-		const wxString n = fn.GetFullPath();
+const GameObject* Game::findObjectById(const itemid_t& id) const
+{
+	auto io = this->objects.find(id);
+	if (io == this->objects.end()) return nullptr;
+	return &io->second;
+}
+
+std::map<std::string, GameInfo> getAllGames()
+{
+	std::map<std::string, GameInfo> games;
+
+	Glib::Dir dir(::path.gameData);
+	Glib::PatternSpec spec("*.xml");
+	for (const auto& i : dir) {
+		if (!spec.match(i)) continue; // skip non XML files
+		auto n = Glib::build_filename(::path.gameData, i);
 		std::cout << "[gamelist] Parsing " << n << "\n";
-		xmlDoc *xml = xmlParseFile(n.mb_str());
+		xmlDoc *xml = xmlParseFile(n.c_str());
 		if (!xml) {
 			std::cout << "[gamelist] Error parsing " << n << std::endl;
 		} else {
 			GameInfo gi;
-			gi.id = fn.GetName();
-			populateGameInfo(xml, &gi);
+			// ID is the base filename.  We can just chop off the last four characters
+			// to remove ".xml" because we're only here if the filename ends in ".xml"
+			gi.id = i.substr(0, i.length() - 4);
+			gi.populateFromXML(xml);
 			games[gi.id] = gi;
 			xmlFreeDoc(xml);
 		}
-		more = dir.GetNext(&filename);
 	}
-
 	return games;
 }
 
 /// Recursively process the <display/> chunk.
-void populateDisplay(xmlNode *n, tree<wxString>& t)
+void populateDisplay(xmlNode *n, tree<itemid_t>& t)
 {
 	for (xmlNode *i = n->children; i; i = i->next) {
 		if (xmlStrcmp(i->name, _X("item")) == 0) {
 			xmlChar *val = xmlGetProp(i, _X("ref"));
 			if (val) {
-				t.children.push_back(wxString::FromUTF8((const char *)val, xmlStrlen(val)));
+				t.children.push_back(itemid_t((const char *)val, xmlStrlen(val)));
 				xmlFree(val);
 			}
 		} else if (xmlStrcmp(i->name, _X("group")) == 0) {
 			xmlChar *val = xmlGetProp(i, _X("name"));
 			if (val) {
-				tree<wxString> group(wxString::FromUTF8((const char *)val, xmlStrlen(val)));
+				tree<itemid_t> group(itemid_t((const char *)val, xmlStrlen(val)));
 				xmlFree(val);
 				populateDisplay(i, group);
 				t.children.push_back(group);
@@ -190,32 +186,22 @@ void populateDisplay(xmlNode *n, tree<wxString>& t)
 	return;
 }
 
-camoto::gamegraphics::TileList processTilesetFromSplitChunk(xmlNode *i)
+std::vector<camoto::gamegraphics::Rect> processTilesetFromSplitChunk(xmlNode *i)
 {
-	camoto::gamegraphics::TileList tileList;
+	std::vector<camoto::gamegraphics::Rect> tileList;
 
 	for (xmlNode *j = i->children; j; j = j->next) {
 		if (!xmlStrEqual(j->name, _X("image"))) continue;
 
-		camoto::gamegraphics::TilePos tp;
+		camoto::gamegraphics::Rect tp;
 		for (xmlAttr *a = j->properties; a; a = a->next) {
-			if (xmlStrcmp(a->name, _X("x")) == 0) {
-				xmlChar *val = xmlNodeGetContent(a->children);
-				tp.xOffset = strtod((const char *)val, NULL);
-				xmlFree(val);
-			} else if (xmlStrcmp(a->name, _X("y")) == 0) {
-				xmlChar *val = xmlNodeGetContent(a->children);
-				tp.yOffset = strtod((const char *)val, NULL);
-				xmlFree(val);
-			} else if (xmlStrcmp(a->name, _X("width")) == 0) {
-				xmlChar *val = xmlNodeGetContent(a->children);
-				tp.width = strtod((const char *)val, NULL);
-				xmlFree(val);
-			} else if (xmlStrcmp(a->name, _X("height")) == 0) {
-				xmlChar *val = xmlNodeGetContent(a->children);
-				tp.height = strtod((const char *)val, NULL);
-				xmlFree(val);
-			}
+			xmlChar *val = xmlNodeGetContent(a->children);
+			auto intval = strtod((const char *)val, NULL);
+			xmlFree(val);
+			if (xmlStrcmp(a->name, _X("x")) == 0) tp.x = intval;
+			else if (xmlStrcmp(a->name, _X("y")) == 0) tp.y = intval;
+			else if (xmlStrcmp(a->name, _X("width")) == 0) tp.width = intval;
+			else if (xmlStrcmp(a->name, _X("height")) == 0) tp.height = intval;
 		}
 		tileList.push_back(tp);
 	}
@@ -245,39 +231,39 @@ void processTilesetFromImagesChunk(xmlNode *i, TilesetFromImagesInfo *tii)
 	return;
 }
 
-void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
+void processFilesChunk(Game *g, xmlNode *i, const Glib::ustring& idParent)
 {
 	for (xmlNode *j = i->children; j; j = j->next) {
 		bool isFileTag = xmlStrEqual(j->name, _X("file"));
 		bool isArchiveTag = isFileTag ? false : xmlStrEqual(j->name, _X("archive"));
 		bool isTilesetTag = (isFileTag || isArchiveTag) ? false : xmlStrEqual(j->name, _X("tileset"));
 		if (isFileTag || isArchiveTag || isTilesetTag) {
-			GameObjectPtr o(new GameObject());
+			GameObject o;
 			xmlChar *val = xmlNodeGetContent(j);
-			o->idParent = idParent;
+			o.idParent = idParent;
 			xmlFree(val);
-			wxString strImage;
+			Glib::ustring strImage;
 			unsigned int layoutWidth = 0;
 			for (xmlAttr *a = j->properties; a; a = a->next) {
 				xmlChar *val = xmlNodeGetContent(a->children);
 				if (xmlStrcmp(a->name, _X("id")) == 0) {
-					o->id = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					o.id = Glib::ustring((const char *)val, xmlStrlen(val));
 				} else if (xmlStrcmp(a->name, _X("title")) == 0) {
-					o->friendlyName = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					o.friendlyName = Glib::ustring((const char *)val, xmlStrlen(val));
 				} else if (xmlStrcmp(a->name, _X("typeMajor")) == 0) {
-					o->typeMajor = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					o.typeMajor = Glib::ustring((const char *)val, xmlStrlen(val));
 				} else if (xmlStrcmp(a->name, _X("typeMinor")) == 0) {
-					o->typeMinor = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					o.typeMinor = Glib::ustring((const char *)val, xmlStrlen(val));
 				} else if (xmlStrcmp(a->name, _X("filter")) == 0) {
-					o->filter = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					o.filter = Glib::ustring((const char *)val, xmlStrlen(val));
 				} else if (xmlStrcmp(a->name, _X("name")) == 0) {
-					o->filename = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					o.filename = Glib::ustring((const char *)val, xmlStrlen(val));
 				} else if (xmlStrcmp(a->name, _X("offset")) == 0) {
-					o->offset = strtod((const char *)val, NULL);
+					o.offset = strtod((const char *)val, NULL);
 				} else if (xmlStrcmp(a->name, _X("size")) == 0) {
-					o->size = strtod((const char *)val, NULL);
+					o.size = strtod((const char *)val, NULL);
 				} else if (xmlStrcmp(a->name, _X("image")) == 0) {
-					strImage = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+					strImage = Glib::ustring((const char *)val, xmlStrlen(val));
 				} else if (xmlStrcmp(a->name, _X("layoutWidth")) == 0) {
 					layoutWidth = strtod((const char *)val, NULL);
 				}
@@ -285,26 +271,26 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 			}
 
 			if (isArchiveTag) {
-				o->typeMajor = _T("archive");
-				o->friendlyName = o->filename;
-				processFilesChunk(g, j, o->id);
+				o.typeMajor = "archive";
+				o.friendlyName = o.filename;
+				processFilesChunk(g, j, o.id);
 			} else if (isTilesetTag) {
-				o->typeMajor = _T("tileset");
-				if (strImage.IsEmpty()) {
+				o.typeMajor = "tileset";
+				if (strImage.empty()) {
 					// This is a tileset composed of multiple images
-					o->typeMinor = _T(TILESETTYPE_MINOR_FROMIMG);
+					o.typeMinor = TILESETTYPE_MINOR_FROMIMG;
 					TilesetFromImagesInfo tii;
 					tii.layoutWidth = layoutWidth;
 					processTilesetFromImagesChunk(j, &tii);
-					g->tilesetsFromImages[o->id] = tii;
+					g->tilesetsFromImages[o.id] = tii;
 				} else {
 					// This is a tileset made by splitting an image into parts
-					o->typeMinor = _T(TILESETTYPE_MINOR_FROMSPLIT);
+					o.typeMinor = TILESETTYPE_MINOR_FROMSPLIT;
 					TilesetFromSplitInfo tsi;
 					tsi.idImage = strImage;
 					tsi.layoutWidth = layoutWidth;
 					tsi.tileList = processTilesetFromSplitChunk(j);
-					g->tilesetsFromSplit[o->id] = tsi;
+					g->tilesetsFromSplit[o.id] = tsi;
 				}
 			}
 
@@ -314,121 +300,122 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 				bool isDepTag = isSuppTag ? false : xmlStrEqual(k->name, _X("dep"));
 				if (!isSuppTag && !isDepTag) continue;
 
-				wxString sdRef; // id of supp or dep tag
-				wxString sdType;
+				Glib::ustring sdRef; // id of supp or dep tag
+				Glib::ustring sdType;
 				for (xmlAttr *a = k->properties; a; a = a->next) {
 					xmlChar *val = xmlNodeGetContent(a->children);
 					if (xmlStrcmp(a->name, _X("ref")) == 0) {
-						sdRef = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+						sdRef = Glib::ustring((const char *)val, xmlStrlen(val));
 					} else if (xmlStrcmp(a->name, _X("reftype")) == 0) {
-						sdType = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+						sdType = Glib::ustring((const char *)val, xmlStrlen(val));
 					}
 					xmlFree(val);
 				}
 				if (isSuppTag) {
 					// Convert attribute name into SuppItem type
-					camoto::SuppItem::Type suppType = (camoto::SuppItem::Type)-1;
-					     if (sdType.IsSameAs(_T("dictionary" ))) suppType = camoto::SuppItem::Dictionary;
-					else if (sdType.IsSameAs(_T("fat"        ))) suppType = camoto::SuppItem::FAT;
-					else if (sdType.IsSameAs(_T("palette"    ))) suppType = camoto::SuppItem::Palette;
-					else if (sdType.IsSameAs(_T("instruments"))) suppType = camoto::SuppItem::Instruments;
-					else if (sdType.IsSameAs(_T("layer1"     ))) suppType = camoto::SuppItem::Layer1;
-					else if (sdType.IsSameAs(_T("layer2"     ))) suppType = camoto::SuppItem::Layer2;
-					else if (sdType.IsSameAs(_T("extra1"     ))) suppType = camoto::SuppItem::Extra1;
-					else if (sdType.IsSameAs(_T("extra2"     ))) suppType = camoto::SuppItem::Extra2;
-					else if (sdType.IsSameAs(_T("extra3"     ))) suppType = camoto::SuppItem::Extra3;
-					else if (sdType.IsSameAs(_T("extra4"     ))) suppType = camoto::SuppItem::Extra4;
-					else if (sdType.IsSameAs(_T("extra5"     ))) suppType = camoto::SuppItem::Extra5;
+					auto suppType = SuppItem::MaxValue;
+					     if (sdType.compare("dictionary" ) == 0) suppType = SuppItem::Dictionary;
+					else if (sdType.compare("fat"        ) == 0) suppType = SuppItem::FAT;
+					else if (sdType.compare("palette"    ) == 0) suppType = SuppItem::Palette;
+					else if (sdType.compare("instruments") == 0) suppType = SuppItem::Instruments;
+					else if (sdType.compare("layer1"     ) == 0) suppType = SuppItem::Layer1;
+					else if (sdType.compare("layer2"     ) == 0) suppType = SuppItem::Layer2;
+					else if (sdType.compare("layer3"     ) == 0) suppType = SuppItem::Layer3;
+					else if (sdType.compare("extra1"     ) == 0) suppType = SuppItem::Extra1;
+					else if (sdType.compare("extra2"     ) == 0) suppType = SuppItem::Extra2;
+					else if (sdType.compare("extra3"     ) == 0) suppType = SuppItem::Extra3;
+					else if (sdType.compare("extra4"     ) == 0) suppType = SuppItem::Extra4;
+					else if (sdType.compare("extra5"     ) == 0) suppType = SuppItem::Extra5;
 					else {
 						std::cout << "[gamelist] Invalid supplementary type \""
-							<< sdType.ToAscii() << "\"" << std::endl;
+							<< sdType << "\"" << std::endl;
 					}
-					if (suppType != (camoto::SuppItem::Type)-1) {
-						o->supp[suppType] = sdRef;
+					if (suppType != SuppItem::MaxValue) {
+						o.supp[suppType] = sdRef;
 					}
 				} else if (isDepTag) {
 					// Convert attribute name into DepType
 					DepType depType = (DepType)-1;
-					     if (sdType.IsSameAs(_T("generic-tileset1"   ))) depType = GenericTileset1;
-					else if (sdType.IsSameAs(_T("generic-tileset2"   ))) depType = GenericTileset2;
-					else if (sdType.IsSameAs(_T("generic-tileset3"   ))) depType = GenericTileset3;
-					else if (sdType.IsSameAs(_T("generic-tileset4"   ))) depType = GenericTileset4;
-					else if (sdType.IsSameAs(_T("generic-tileset5"   ))) depType = GenericTileset5;
-					else if (sdType.IsSameAs(_T("generic-tileset6"   ))) depType = GenericTileset6;
-					else if (sdType.IsSameAs(_T("generic-tileset7"   ))) depType = GenericTileset7;
-					else if (sdType.IsSameAs(_T("generic-tileset8"   ))) depType = GenericTileset8;
-					else if (sdType.IsSameAs(_T("generic-tileset9"   ))) depType = GenericTileset9;
-					else if (sdType.IsSameAs(_T("background-tileset1"))) depType = BackgroundTileset1;
-					else if (sdType.IsSameAs(_T("background-tileset2"))) depType = BackgroundTileset2;
-					else if (sdType.IsSameAs(_T("background-tileset3"))) depType = BackgroundTileset3;
-					else if (sdType.IsSameAs(_T("background-tileset4"))) depType = BackgroundTileset4;
-					else if (sdType.IsSameAs(_T("background-tileset5"))) depType = BackgroundTileset5;
-					else if (sdType.IsSameAs(_T("background-tileset6"))) depType = BackgroundTileset6;
-					else if (sdType.IsSameAs(_T("background-tileset7"))) depType = BackgroundTileset7;
-					else if (sdType.IsSameAs(_T("background-tileset8"))) depType = BackgroundTileset8;
-					else if (sdType.IsSameAs(_T("background-tileset9"))) depType = BackgroundTileset9;
-					else if (sdType.IsSameAs(_T("foreground-tileset1"))) depType = ForegroundTileset1;
-					else if (sdType.IsSameAs(_T("foreground-tileset2"))) depType = ForegroundTileset2;
-					else if (sdType.IsSameAs(_T("foreground-tileset3"))) depType = ForegroundTileset3;
-					else if (sdType.IsSameAs(_T("foreground-tileset4"))) depType = ForegroundTileset4;
-					else if (sdType.IsSameAs(_T("foreground-tileset5"))) depType = ForegroundTileset5;
-					else if (sdType.IsSameAs(_T("foreground-tileset6"))) depType = ForegroundTileset6;
-					else if (sdType.IsSameAs(_T("foreground-tileset7"))) depType = ForegroundTileset7;
-					else if (sdType.IsSameAs(_T("foreground-tileset8"))) depType = ForegroundTileset8;
-					else if (sdType.IsSameAs(_T("foreground-tileset9"))) depType = ForegroundTileset9;
-					else if (sdType.IsSameAs(_T("sprite-tileset1"    ))) depType = SpriteTileset1;
-					else if (sdType.IsSameAs(_T("sprite-tileset2"    ))) depType = SpriteTileset2;
-					else if (sdType.IsSameAs(_T("sprite-tileset3"    ))) depType = SpriteTileset3;
-					else if (sdType.IsSameAs(_T("sprite-tileset4"    ))) depType = SpriteTileset4;
-					else if (sdType.IsSameAs(_T("sprite-tileset5"    ))) depType = SpriteTileset5;
-					else if (sdType.IsSameAs(_T("sprite-tileset6"    ))) depType = SpriteTileset6;
-					else if (sdType.IsSameAs(_T("sprite-tileset7"    ))) depType = SpriteTileset7;
-					else if (sdType.IsSameAs(_T("sprite-tileset8"    ))) depType = SpriteTileset8;
-					else if (sdType.IsSameAs(_T("sprite-tileset9"    ))) depType = SpriteTileset9;
-					else if (sdType.IsSameAs(_T("font-tileset1"      ))) depType = FontTileset1;
-					else if (sdType.IsSameAs(_T("font-tileset2"      ))) depType = FontTileset2;
-					else if (sdType.IsSameAs(_T("font-tileset3"      ))) depType = FontTileset3;
-					else if (sdType.IsSameAs(_T("font-tileset4"      ))) depType = FontTileset4;
-					else if (sdType.IsSameAs(_T("font-tileset5"      ))) depType = FontTileset5;
-					else if (sdType.IsSameAs(_T("font-tileset6"      ))) depType = FontTileset6;
-					else if (sdType.IsSameAs(_T("font-tileset7"      ))) depType = FontTileset7;
-					else if (sdType.IsSameAs(_T("font-tileset8"      ))) depType = FontTileset8;
-					else if (sdType.IsSameAs(_T("font-tileset9"      ))) depType = FontTileset9;
-					else if (sdType.IsSameAs(_T("background-image"   ))) depType = BackgroundImage;
-					else if (sdType.IsSameAs(_T("palette"            ))) depType = Palette;
+					     if (sdType.compare("generic-tileset1"   ) == 0) depType = DepType::GenericTileset1;
+					else if (sdType.compare("generic-tileset2"   ) == 0) depType = DepType::GenericTileset2;
+					else if (sdType.compare("generic-tileset3"   ) == 0) depType = DepType::GenericTileset3;
+					else if (sdType.compare("generic-tileset4"   ) == 0) depType = DepType::GenericTileset4;
+					else if (sdType.compare("generic-tileset5"   ) == 0) depType = DepType::GenericTileset5;
+					else if (sdType.compare("generic-tileset6"   ) == 0) depType = DepType::GenericTileset6;
+					else if (sdType.compare("generic-tileset7"   ) == 0) depType = DepType::GenericTileset7;
+					else if (sdType.compare("generic-tileset8"   ) == 0) depType = DepType::GenericTileset8;
+					else if (sdType.compare("generic-tileset9"   ) == 0) depType = DepType::GenericTileset9;
+					else if (sdType.compare("background-tileset1") == 0) depType = DepType::BackgroundTileset1;
+					else if (sdType.compare("background-tileset2") == 0) depType = DepType::BackgroundTileset2;
+					else if (sdType.compare("background-tileset3") == 0) depType = DepType::BackgroundTileset3;
+					else if (sdType.compare("background-tileset4") == 0) depType = DepType::BackgroundTileset4;
+					else if (sdType.compare("background-tileset5") == 0) depType = DepType::BackgroundTileset5;
+					else if (sdType.compare("background-tileset6") == 0) depType = DepType::BackgroundTileset6;
+					else if (sdType.compare("background-tileset7") == 0) depType = DepType::BackgroundTileset7;
+					else if (sdType.compare("background-tileset8") == 0) depType = DepType::BackgroundTileset8;
+					else if (sdType.compare("background-tileset9") == 0) depType = DepType::BackgroundTileset9;
+					else if (sdType.compare("foreground-tileset1") == 0) depType = DepType::ForegroundTileset1;
+					else if (sdType.compare("foreground-tileset2") == 0) depType = DepType::ForegroundTileset2;
+					else if (sdType.compare("foreground-tileset3") == 0) depType = DepType::ForegroundTileset3;
+					else if (sdType.compare("foreground-tileset4") == 0) depType = DepType::ForegroundTileset4;
+					else if (sdType.compare("foreground-tileset5") == 0) depType = DepType::ForegroundTileset5;
+					else if (sdType.compare("foreground-tileset6") == 0) depType = DepType::ForegroundTileset6;
+					else if (sdType.compare("foreground-tileset7") == 0) depType = DepType::ForegroundTileset7;
+					else if (sdType.compare("foreground-tileset8") == 0) depType = DepType::ForegroundTileset8;
+					else if (sdType.compare("foreground-tileset9") == 0) depType = DepType::ForegroundTileset9;
+					else if (sdType.compare("sprite-tileset1"    ) == 0) depType = DepType::SpriteTileset1;
+					else if (sdType.compare("sprite-tileset2"    ) == 0) depType = DepType::SpriteTileset2;
+					else if (sdType.compare("sprite-tileset3"    ) == 0) depType = DepType::SpriteTileset3;
+					else if (sdType.compare("sprite-tileset4"    ) == 0) depType = DepType::SpriteTileset4;
+					else if (sdType.compare("sprite-tileset5"    ) == 0) depType = DepType::SpriteTileset5;
+					else if (sdType.compare("sprite-tileset6"    ) == 0) depType = DepType::SpriteTileset6;
+					else if (sdType.compare("sprite-tileset7"    ) == 0) depType = DepType::SpriteTileset7;
+					else if (sdType.compare("sprite-tileset8"    ) == 0) depType = DepType::SpriteTileset8;
+					else if (sdType.compare("sprite-tileset9"    ) == 0) depType = DepType::SpriteTileset9;
+					else if (sdType.compare("font-tileset1"      ) == 0) depType = DepType::FontTileset1;
+					else if (sdType.compare("font-tileset2"      ) == 0) depType = DepType::FontTileset2;
+					else if (sdType.compare("font-tileset3"      ) == 0) depType = DepType::FontTileset3;
+					else if (sdType.compare("font-tileset4"      ) == 0) depType = DepType::FontTileset4;
+					else if (sdType.compare("font-tileset5"      ) == 0) depType = DepType::FontTileset5;
+					else if (sdType.compare("font-tileset6"      ) == 0) depType = DepType::FontTileset6;
+					else if (sdType.compare("font-tileset7"      ) == 0) depType = DepType::FontTileset7;
+					else if (sdType.compare("font-tileset8"      ) == 0) depType = DepType::FontTileset8;
+					else if (sdType.compare("font-tileset9"      ) == 0) depType = DepType::FontTileset9;
+					else if (sdType.compare("background-image"   ) == 0) depType = DepType::BackgroundImage;
+					else if (sdType.compare("palette"            ) == 0) depType = DepType::Palette;
 					else {
 						std::cout << "[gamelist] Invalid dependent object type \""
-							<< sdType.ToAscii() << "\"" << std::endl;
+							<< sdType << "\"" << std::endl;
 					}
 					if (depType != (DepType)-1) {
-						o->dep[depType] = sdRef;
+						o.dep[depType] = sdRef;
 					}
 				} // else ignore unknown tag
 			}
 
-			if (o->id.IsEmpty()) {
+			if (o.id.empty()) {
 				std::cout << "[gamelist] Got a <" << j->name
-					<< "/> with no 'id' attribute (" << o->friendlyName.ToAscii()
+					<< "/> with no 'id' attribute (" << o.friendlyName
 					<< ")\n";
 			} else {
-				bool missingTypeMajor = o->typeMajor.IsEmpty();
-				bool missingTypeMinor = o->typeMinor.IsEmpty();
-				bool missingFilename = o->filename.IsEmpty() && (isFileTag || isArchiveTag);
+				bool missingTypeMajor = o.typeMajor.empty();
+				bool missingTypeMinor = o.typeMinor.empty();
+				bool missingFilename = o.filename.empty() && (isFileTag || isArchiveTag);
 				if (missingTypeMajor || missingTypeMinor || missingFilename) {
 					std::cout << "[gamelist] <" << (const char *)j->name
-						<< "/> with id \"" << o->id.ToAscii()
+						<< "/> with id \"" << o.id
 						<< "\" is missing attribute(s): ";
 					if (missingTypeMajor) std::cout << "typeMajor ";
 					if (missingTypeMinor) std::cout << "typeMinor ";
 					if (missingFilename) std::cout << "filename ";
 					std::cout << "\n";
 				}
-				GameObjectMap::iterator io = g->objects.find(o->id);
+				auto io = g->objects.find(o.id);
 				if (io != g->objects.end()) {
 					std::cerr << "[gamelist] <" << (const char *)j->name
-						<< "/> with duplicate id: \"" << o->id << "\"\n";
+						<< "/> with duplicate id: \"" << o.id << "\"\n";
 				} else {
-					g->objects[o->id] = o;
+					g->objects[o.id] = o;
 				}
 			}
 		}
@@ -436,50 +423,49 @@ void processFilesChunk(Game *g, xmlNode *i, const wxString& idParent)
 	return;
 }
 
-Game *loadGameStructure(const wxString& id)
+Game::Game(const itemid_t& id)
 {
-	wxFileName fn;
-	fn.AssignDir(::path.gameData);
-	fn.SetName(id);
-	fn.SetExt(_T("xml"));
+	this->id = id;
 
-	const wxString n = fn.GetFullPath();
-	std::cout << "[gamelist] Parsing " << n.ToAscii() << "\n";
-	xmlDoc *xml = xmlParseFile(n.mb_str());
+	auto n = Glib::build_filename(::path.gameData, id + ".xml");
+
+	std::cout << "[gamelist] Parsing " << n << "\n";
+	xmlDoc *xml = xmlParseFile(n.c_str());
 	if (!xml) {
-		std::cerr << "[gamelist] Error parsing " << n.ToAscii() << std::endl;
-		return NULL;
+		throw EFailure(Glib::ustring::compose(
+			// Translators: %1 is the filename of the offending XML file
+			_("Error parsing game description XML file: %1"),
+			n.c_str()
+		));
 	}
 
-	Game *g = new Game();
-	g->id = id;
-	populateGameInfo(xml, g);
+	this->GameInfo::populateFromXML(xml);
 
 	xmlNode *root = xmlDocGetRootElement(xml);
 	for (xmlNode *i = root->children; i; i = i->next) {
 		if (xmlStrcmp(i->name, _X("display")) == 0) {
-			populateDisplay(i, g->treeItems);
+			populateDisplay(i, this->treeItems);
 		} else if (xmlStrcmp(i->name, _X("files")) == 0) {
 			// Process the <files/> chunk
-			processFilesChunk(g, i, wxString());
+			processFilesChunk(this, i, {});
 		} else if (xmlStrcmp(i->name, _X("commands")) == 0) {
 			// Process the <commands/> chunk
 			for (xmlNode *j = i->children; j; j = j->next) {
 				if (xmlStrEqual(j->name, _X("command"))) {
-					wxString title;
+					Glib::ustring title;
 					for (xmlAttr *a = j->properties; a; a = a->next) {
 						if (xmlStrcmp(a->name, _X("title")) == 0) {
 							xmlChar *val = xmlNodeGetContent(a->children);
-							title = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+							title = Glib::ustring((const char *)val, xmlStrlen(val));
 							xmlFree(val);
 						}
 					}
 					if (title.empty()) {
-						std::cerr << "[gamelist] Game \"" << id.ToAscii()
+						std::cerr << "[gamelist] Game \"" << id
 							<< "\" has a <command/> with no title attribute." << std::endl;
 					} else {
 						xmlChar *val = xmlNodeGetContent(j);
-						g->dosCommands[title] = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+						this->dosCommands[title] = Glib::ustring((const char *)val, xmlStrlen(val));
 						xmlFree(val);
 					}
 				}
@@ -501,7 +487,7 @@ Game *loadGameStructure(const wxString& id)
 							for (xmlAttr *a = k->properties; a; a = a->next) {
 								if (xmlStrcmp(a->name, _X("name")) == 0) {
 									xmlChar *val = xmlNodeGetContent(a->children);
-									o.name = wxString::FromUTF8((const char *)val, xmlStrlen(val));
+									o.name = Glib::ustring((const char *)val, xmlStrlen(val));
 									xmlFree(val);
 								}
 							}
@@ -576,7 +562,7 @@ Game *loadGameStructure(const wxString& id)
 									}
 								}
 							} // for <object/> children
-							g->mapObjects.push_back(o);
+							this->mapObjects.push_back(o);
 						}
 					} // for <objects/> children
 				}
@@ -584,6 +570,4 @@ Game *loadGameStructure(const wxString& id)
 		}
 	}
 	xmlFreeDoc(xml);
-
-	return g;
 }
