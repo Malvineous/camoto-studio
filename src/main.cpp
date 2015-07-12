@@ -145,15 +145,15 @@ void Studio::openItem(const GameObject& item,
 {
 	try {
 		if (
-			(item.typeMajor.compare("image") == 0)
-			|| (item.typeMajor.compare("palette") == 0)
+			(item.editor.compare("image") == 0)
+			|| (item.editor.compare("palette") == 0)
 		) {
 			auto obj = ::openObject<ImageType>(this, item, std::move(content),
 				suppData, proj);
 			auto tab = this->openTab<Tab_Graphics>(item.friendlyName);
 			tab->content(std::move(obj));
 
-		} else if (item.typeMajor.compare("tileset") == 0) {
+		} else if (item.editor.compare("tileset") == 0) {
 			auto obj = ::openObject<TilesetType>(this, item, std::move(content),
 				suppData, proj);
 			auto tab = this->openTab<Tab_Graphics>(item.friendlyName);
@@ -167,8 +167,8 @@ void Studio::openItem(const GameObject& item,
 					Glib::ustring::compose(
 						// Translators: %1 is the item major type from the XML file, such as
 						// "tileset" or "map2d", and %2 is the item ID from the XML file.
-						_("No editor for typeMajor \"%1\", as specified by item \"%2\""),
-						item.typeMajor,
+						_("No \"%1\" editor, as specified by item \"%2\""),
+						item.editor,
 						item.id
 					)
 				), false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);

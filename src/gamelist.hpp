@@ -131,8 +131,8 @@ struct GameObject
 	itemid_t id;           ///< Unique ID for this object
 	std::string filename;  ///< Object's filename
 	itemid_t idParent;     ///< ID of containing object, or empty for local file
-	std::string typeMajor; ///< Major type (editor to use)
-	std::string typeMinor; ///< Minor type (file format)
+	std::string editor;    ///< Major type (editor to use)
+	std::string format;    ///< Minor type (file format)
 	std::string filter;    ///< Decompression/decryption filter ID, blank for none
 	Glib::ustring friendlyName; ///< Name to show user
 	SuppIDs supp;          ///< SuppItem -> id mapping
@@ -259,7 +259,7 @@ class Game: public GameInfo
 
 		/// Find an object by filename.
 		const GameObject* findObjectByFilename(const std::string& filename,
-			const std::string& typeMajor) const;
+			const std::string& editor) const;
 
 		/// Find an object by its ID.
 		/**
@@ -305,25 +305,25 @@ auto openObject(Gtk::Window* win,
 	camoto::SuppData& suppData, Project *proj)
 	-> decltype(((Type*)nullptr)->open(std::move(content), suppData))
 {
-	if (o.typeMinor.empty()) {
+	if (o.format.empty()) {
 		throw EFailure(_("No file type was specified for this item!"));
 	}
 
-	auto fmtHandler = camoto::FormatEnumerator<Type>::byCode(o.typeMajor);
+	auto fmtHandler = camoto::FormatEnumerator<Type>::byCode(o.format);
 	if (!fmtHandler) {
 		throw EFailure(Glib::ustring::compose(
 			"%1\n\n[%2]",
 			Glib::ustring::compose(
 				_("Sorry, it is not possible to edit this item as the \"%1\" format "
 					"is unsupported."),
-				o.typeMinor.c_str()
+				o.format.c_str()
 			),
 			Glib::ustring::compose(
 				// Translators: %1 is the object type (Image, Tileset, etc.) and %2 is
 				// the format code (e.g. img-pcx)
 				_("No %1 handler for \"%2\""),
 				Type::obj_t_name,
-				o.typeMinor.c_str()
+				o.format.c_str()
 			)
 		));
 	}

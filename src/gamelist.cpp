@@ -118,11 +118,11 @@ void GameInfo::populateFromXML(xmlDoc *xml)
 }
 
 const GameObject* Game::findObjectByFilename(const std::string& filename,
-	const std::string& typeMajor) const
+	const std::string& editor) const
 {
 	for (auto& i : this->objects) {
 		if (filename.compare(i.second.filename) == 0) {
-			if (typeMajor.empty() || (typeMajor.compare(i.second.typeMajor))) {
+			if (editor.empty() || (editor.compare(i.second.editor))) {
 				return &i.second;
 			}
 		}
@@ -250,10 +250,10 @@ void processFilesChunk(Game *g, xmlNode *i, const Glib::ustring& idParent)
 					o.id = Glib::ustring((const char *)val, xmlStrlen(val));
 				} else if (xmlStrcmp(a->name, _X("title")) == 0) {
 					o.friendlyName = Glib::ustring((const char *)val, xmlStrlen(val));
-				} else if (xmlStrcmp(a->name, _X("typeMajor")) == 0) {
-					o.typeMajor = Glib::ustring((const char *)val, xmlStrlen(val));
-				} else if (xmlStrcmp(a->name, _X("typeMinor")) == 0) {
-					o.typeMinor = Glib::ustring((const char *)val, xmlStrlen(val));
+				} else if (xmlStrcmp(a->name, _X("editor")) == 0) {
+					o.editor = Glib::ustring((const char *)val, xmlStrlen(val));
+				} else if (xmlStrcmp(a->name, _X("format")) == 0) {
+					o.format = Glib::ustring((const char *)val, xmlStrlen(val));
 				} else if (xmlStrcmp(a->name, _X("filter")) == 0) {
 					o.filter = Glib::ustring((const char *)val, xmlStrlen(val));
 				} else if (xmlStrcmp(a->name, _X("name")) == 0) {
@@ -271,21 +271,21 @@ void processFilesChunk(Game *g, xmlNode *i, const Glib::ustring& idParent)
 			}
 
 			if (isArchiveTag) {
-				o.typeMajor = "archive";
+				o.editor = "archive";
 				o.friendlyName = o.filename;
 				processFilesChunk(g, j, o.id);
 			} else if (isTilesetTag) {
-				o.typeMajor = "tileset";
+				o.editor = "tileset";
 				if (strImage.empty()) {
 					// This is a tileset composed of multiple images
-					o.typeMinor = TILESETTYPE_MINOR_FROMIMG;
+					o.format = TILESETTYPE_MINOR_FROMIMG;
 					TilesetFromImagesInfo tii;
 					tii.layoutWidth = layoutWidth;
 					processTilesetFromImagesChunk(j, &tii);
 					g->tilesetsFromImages[o.id] = tii;
 				} else {
 					// This is a tileset made by splitting an image into parts
-					o.typeMinor = TILESETTYPE_MINOR_FROMSPLIT;
+					o.format = TILESETTYPE_MINOR_FROMSPLIT;
 					TilesetFromSplitInfo tsi;
 					tsi.idImage = strImage;
 					tsi.layoutWidth = layoutWidth;
@@ -398,15 +398,15 @@ void processFilesChunk(Game *g, xmlNode *i, const Glib::ustring& idParent)
 					<< "/> with no 'id' attribute (" << o.friendlyName
 					<< ")\n";
 			} else {
-				bool missingTypeMajor = o.typeMajor.empty();
-				bool missingTypeMinor = o.typeMinor.empty();
+				bool missingTypeMajor = o.editor.empty();
+				bool missingTypeMinor = o.format.empty();
 				bool missingFilename = o.filename.empty() && (isFileTag || isArchiveTag);
 				if (missingTypeMajor || missingTypeMinor || missingFilename) {
 					std::cout << "[gamelist] <" << (const char *)j->name
 						<< "/> with id \"" << o.id
 						<< "\" is missing attribute(s): ";
-					if (missingTypeMajor) std::cout << "typeMajor ";
-					if (missingTypeMinor) std::cout << "typeMinor ";
+					if (missingTypeMajor) std::cout << "editor ";
+					if (missingTypeMinor) std::cout << "format ";
 					if (missingFilename) std::cout << "filename ";
 					std::cout << "\n";
 				}

@@ -146,7 +146,7 @@ void Tab_Project::appendChildren(const tree<itemid_t>& treeItems,
 				type = "invalid";
 			} else {
 				row[this->cols.name] = gameObject->second.friendlyName;
-				type = gameObject->second.typeMajor;
+				type = gameObject->second.editor;
 			}
 
 			auto icon = this->icons.find(type);

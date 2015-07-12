@@ -370,7 +370,7 @@ std::shared_ptr<Archive> Project::getArchive(Gtk::Window* win,
 	std::shared_ptr<Archive> arch;
 
 	// No need to check if idArchive is valid, as openObject() just did that
-	if (o->typeMinor.compare(ARCHTYPE_MINOR_FIXED) == 0) {
+	if (o->format.compare(ARCHTYPE_MINOR_FIXED) == 0) {
 		// This is a fixed archive, with its files described in the XML
 		std::vector<FixedArchiveFile> items;
 		for (auto& i : this->game->objects) {
