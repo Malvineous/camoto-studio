@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([Camoto Studio], [1.2],
+AC_INIT([Camoto Studio], [2.0],
 	[https://github.com/Malvineous/camoto-studio/issues],
 	[], [http://www.shikadi.net/camoto])
 AM_INIT_AUTOMAKE([foreign dist-bzip2 no-dist-gzip])
@@ -12,7 +12,7 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_LANG(C++)
 
 # Overarching version of all libraries (used for installation dir)
-AC_SUBST(camoto_release, camoto-1.0)
+AC_SUBST(camoto_release, camoto-2.0)
 
 # Checks for programs.
 AC_PROG_CXX
@@ -20,51 +20,18 @@ AC_PROG_CXX
 # Checks for libraries.
 AC_PROG_LIBTOOL
 
-AX_CHECK_GL
+AX_CXX_COMPILE_STDCXX_11(noext, mandatory)
 
-PKG_CHECK_MODULES([libgamecommon], [libgamecommon])
-PKG_CHECK_MODULES([libgamearchive], [libgamearchive])
-PKG_CHECK_MODULES([libgamegraphics], [libgamegraphics])
-PKG_CHECK_MODULES([libgamemaps], [libgamemaps])
-PKG_CHECK_MODULES([libgamemusic], [libgamemusic])
+PKG_CHECK_MODULES([libgamecommon], [libgamecommon >= 2.0])
+PKG_CHECK_MODULES([libgamearchive], [libgamearchive >= 2.0])
+PKG_CHECK_MODULES([libgamegraphics], [libgamegraphics >= 2.0])
+PKG_CHECK_MODULES([libgamemaps], [libgamemaps >= 2.0])
+PKG_CHECK_MODULES([libgamemusic], [libgamemusic >= 2.0])
 
 PKG_CHECK_MODULES([libxml2], [libxml-2.0 >= 2.7.6])
+PKG_CHECK_MODULES([gtk], [gtk+-3.0 gtkmm-3.0 gdlmm-3.0])
 PKG_CHECK_MODULES([portaudio], [portaudio-2.0])
 PKG_CHECK_MODULES([libpng], [libpng])
-PKG_CHECK_MODULES([glew], [glew])
-
-# Check for MIDI support
-REQUIRE_RTMIDI
-
-# Check for wxWidgets
-AM_OPTIONS_WXCONFIG
-reqwx=2.9.4
-AM_PATH_WXCONFIG([$reqwx], [wxWin=1], [wxWin=0], [core,base,gl,aui])
-if test "$wxWin" != 1; then
-	AC_MSG_ERROR([
-wxWidgets must be installed on your system.
-
-Please check that wx-config is in path, the directory
-where wxWidgets libraries are installed (returned by
-'wx-config --libs' or 'wx-config --static --libs' command)
-is in LD_LIBRARY_PATH or equivalent variable and
-wxWidgets version is $reqwx or above.
-	])
-fi
-
-# This has to go before the WX tests because they break CXXFLAGS
-BOOST_REQUIRE([1.46])
-BOOST_FILESYSTEM
-BOOST_THREADS
-
-# Save the global CFLAGS etc. while we run some more tests
-SAVE_CPPFLAGS="$CPPFLAGS"
-SAVE_CXXFLAGS="$CXXFLAGS"
-SAVE_CFLAGS="$CFLAGS"
-SAVE_LIBS="$LIBS"
-
-# Set up flags for libpng
-CPPFLAGS="$SAVE_CPPFLAGS $libpng_CFLAGS"
 
 # Run png++ test
 AC_CACHE_CHECK([for png++],
@@ -91,32 +58,6 @@ Please download and install png++ 0.2.7 or newer <http://download.savannah.gnu.o
 		]
 	)]
 )
-
-# Reset flags for wxWidgets
-CPPFLAGS="$SAVE_CPPFLAGS $WX_CPPFLAGS"
-CXXFLAGS="$SAVE_CXXFLAGS $WX_CXXFLAGS_ONLY"
-CFLAGS="$SAVE_CFLAGS $WX_CFLAGS_ONLY"
-LIBS="$SAVE_LIBS $WX_LIBS"
-
-# Test for wxWidgets GL support
-AC_CACHE_CHECK([for wxWidgets OpenGL support],
-	[ac_cv_wxgl],
-	[AC_COMPILE_IFELSE(
-		[AC_LANG_PROGRAM([#include <wx/glcanvas.h>], [wxGLContext *dummy; return 0;])],
-		[ac_cv_wxgl=yes],
-		[AC_MSG_ERROR([wxWidgets was found, but it was not compiled with OpenGL support.
-
-You will need a version of wxWidgets with OpenGL enabled to continue.
-See config.log for failure messages if required.])
-		]
-	)]
-)
-
-# Reset compiler flags back to what they were originally
-CPPFLAGS="$SAVE_CPPFLAGS"
-CXXFLAGS="$SAVE_CXXFLAGS"
-CFLAGS="$SAVE_CFLAGS"
-LIBS="$SAVE_LIBS"
 
 AC_ARG_ENABLE(debug, AC_HELP_STRING([--enable-debug],[enable extra debugging output]))
 
