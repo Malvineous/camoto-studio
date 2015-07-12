@@ -67,20 +67,34 @@
 				<item ref="pal-story3"/>
 			</group>
 			<group name="Tilesets">
-				<item ref="gfx-czone1"/>
-				<item ref="gfx-czone2"/>
-				<item ref="gfx-czone3"/>
-				<item ref="gfx-czone4"/>
-				<item ref="gfx-czone5"/>
-				<item ref="gfx-czone6"/>
-				<item ref="gfx-czone7"/>
-				<item ref="gfx-czone8"/>
-				<item ref="gfx-czone9"/>
-				<item ref="gfx-czonea"/>
-				<item ref="gfx-czoneb"/>
-				<item ref="gfx-czonec"/>
-				<item ref="gfx-czoned"/>
-				<item ref="gfx-czonee"/>
+				<item ref="gfx-czone1s"/>
+				<item ref="gfx-czone1m"/>
+				<item ref="gfx-czone2s"/>
+				<item ref="gfx-czone2m"/>
+				<item ref="gfx-czone3s"/>
+				<item ref="gfx-czone3m"/>
+				<item ref="gfx-czone4s"/>
+				<item ref="gfx-czone4m"/>
+				<item ref="gfx-czone5s"/>
+				<item ref="gfx-czone5m"/>
+				<item ref="gfx-czone6s"/>
+				<item ref="gfx-czone6m"/>
+				<item ref="gfx-czone7s"/>
+				<item ref="gfx-czone7m"/>
+				<item ref="gfx-czone8s"/>
+				<item ref="gfx-czone8m"/>
+				<item ref="gfx-czone9s"/>
+				<item ref="gfx-czone9m"/>
+				<item ref="gfx-czoneas"/>
+				<item ref="gfx-czoneam"/>
+				<item ref="gfx-czonebs"/>
+				<item ref="gfx-czonebm"/>
+				<item ref="gfx-czonecs"/>
+				<item ref="gfx-czonecm"/>
+				<item ref="gfx-czoneds"/>
+				<item ref="gfx-czonedm"/>
+				<item ref="gfx-czonees"/>
+				<item ref="gfx-czoneem"/>
 			</group>
 			<group name="Full-screen images">
 				<item ref="img-bonus"/>
@@ -382,7 +396,8 @@
 
 			<file id="img-lcr"      name="lcr.mni"      typeMajor="image"   typeMinor="nukem2-vga" title="Anti-piracy"/>
 
-			<file id="gfx-actors"   name="actors.mni"   typeMajor="tileset" typeMinor="cosmo-masked" title="Raw actor tiles"/>
+			<file id="fat-actrinf"  name="actrinfo.mni" typeMajor="tileset" typeMinor="actrinfo-fat" title="Actor tile arrangement data"/>
+			<file id="gfx-actors"   name="actors.mni"   typeMajor="tileset" typeMinor="actrinfo"     title="Actors"/>
 
 			<file id="dos-exit1"    name="dostext.mni"  typeMajor="image" typeMinor="dostext" title="Exit screen"/>
 			<file id="dos-exit2"    name="dostext2.bin" typeMajor="image" typeMinor="dostext" title="Exit screen 2"/>
@@ -423,25 +438,66 @@
 			<file id="pal-story2"   name="story2.pal"   typeMajor="palette" typeMinor="vga-raw" title="Story 2 palette"/>
 			<file id="pal-story3"   name="story3.pal"   typeMajor="palette" typeMinor="vga-raw" title="Story 3 palette"/>
 
-			<file id="gfx-czone1"   name="czone1.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 1"/>
-			<file id="gfx-czone2"   name="czone2.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 2"/>
-			<file id="gfx-czone3"   name="czone3.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 3"/>
-			<file id="gfx-czone4"   name="czone4.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 4"/>
-			<file id="gfx-czone5"   name="czone5.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 5"/>
-			<file id="gfx-czone6"   name="czone6.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 6"/>
-			<file id="gfx-czone7"   name="czone7.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 7"/>
-			<file id="gfx-czone8"   name="czone8.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 8"/>
-			<file id="gfx-czone9"   name="czone9.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 9"/>
-			<file id="gfx-czonea"   name="czonea.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 10"/>
-			<file id="gfx-czoneb"   name="czoneb.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 11"/>
-			<file id="gfx-czonec"   name="czonec.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 12"/>
-			<file id="gfx-czoned"   name="czoned.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 13"/>
-			<file id="gfx-czonee"   name="czonee.mni"   typeMajor="tileset" typeMinor="nukem2-czone" title="Tileset 14"/>
+			<archive name="czone1.mni" id="arch-czone1" typeMinor="mni-czone">
+				<file id="gfx-czone1s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 1 (solid)"/>
+				<file id="gfx-czone1m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			</archive>
+			<archive name="czone2.mni" id="arch-czone2" typeMinor="mni-czone">
+				<file id="gfx-czone2s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 2 (solid)"/>
+				<file id="gfx-czone2m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 0 (masked)"/>
+			</archive>
+			<archive name="czone3.mni" id="arch-czone3" typeMinor="mni-czone">
+				<file id="gfx-czone3s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 3 (solid)"/>
+				<file id="gfx-czone3m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			</archive>
+			<archive name="czone4.mni" id="arch-czone4" typeMinor="mni-czone">
+				<file id="gfx-czone4s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 4 (solid)"/>
+				<file id="gfx-czone4m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			</archive>
+			<archive name="czone5.mni" id="arch-czone5" typeMinor="mni-czone">
+				<file id="gfx-czone5s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 5 (solid)"/>
+				<file id="gfx-czone5m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			</archive>
+			<archive name="czone6.mni" id="arch-czone6" typeMinor="mni-czone">
+				<file id="gfx-czone6s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 6 (solid)"/>
+				<file id="gfx-czone6m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			</archive>
+			<archive name="czone7.mni" id="arch-czone7" typeMinor="mni-czone">
+				<file id="gfx-czone7s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 7 (solid)"/>
+				<file id="gfx-czone7m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			</archive>
+			<archive name="czone8.mni" id="arch-czone8" typeMinor="mni-czone">
+				<file id="gfx-czone8s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 8 (solid)"/>
+				<file id="gfx-czone8m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			</archive>
+			<archive name="czone9.mni" id="arch-czone9" typeMinor="mni-czone">
+				<file id="gfx-czone9s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 9 (solid)"/>
+				<file id="gfx-czone9m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			</archive>
+			<archive name="czonea.mni" id="arch-czonea" typeMinor="mni-czone">
+				<file id="gfx-czoneas"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 10 (solid)"/>
+				<file id="gfx-czoneam"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 10 (masked)"/>
+			</archive>
+			<archive name="czoneb.mni" id="arch-czoneb" typeMinor="mni-czone">
+				<file id="gfx-czonebs"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 11 (solid)"/>
+				<file id="gfx-czonebm"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 11 (masked)"/>
+			</archive>
+			<archive name="czonec.mni" id="arch-czonec" typeMinor="mni-czone">
+				<file id="gfx-czonecs"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 12 (solid)"/>
+				<file id="gfx-czonecm"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 12 (masked)"/>
+			</archive>
+			<archive name="czoned.mni" id="arch-czoned" typeMinor="mni-czone">
+				<file id="gfx-czoneds"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 13 (solid)"/>
+				<file id="gfx-czonedm"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 13 (masked)"/>
+			</archive>
+			<archive name="czonee.mni" id="arch-czonee" typeMinor="mni-czone">
+				<file id="gfx-czonees"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 14 (solid)"/>
+				<file id="gfx-czoneem"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 14 (masked)"/>
+			</archive>
 
 			<!-- Ignoring nukem2.mni - demo macro -->
 			<!-- Ignoring nukum2.mni - demo macro -->
 
-			<!-- TODO: actrinfo.mni -->
 			<!-- TODO: audiot.mni (audiohed.mni) -->
 		</archive>
 	</files>
