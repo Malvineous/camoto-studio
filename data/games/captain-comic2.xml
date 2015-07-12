@@ -88,97 +88,97 @@
 	</display>
 
 	<files>
-		<file id="tls-000"     name="fr000.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 0"/>
-		<file id="tls-001"     name="fr001.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 1"/>
-		<file id="tls-002"     name="fr002.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 2"/>
-		<file id="tls-003"     name="fr003.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 3"/>
-		<file id="tls-004"     name="fr004.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 4"/>
-		<file id="tls-005"     name="fr005.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 5"/>
-		<file id="tls-006"     name="fr006.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 6"/>
-		<file id="tls-007"     name="fr007.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 7"/>
-		<file id="tls-008"     name="fr008.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 8"/>
-		<file id="tls-009"     name="fr009.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 9"/>
-		<file id="tls-010"     name="fr010.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 10"/>
-		<file id="tls-011"     name="fr011.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 11"/>
-		<file id="tls-012"     name="fr012.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 12"/>
-		<file id="tls-013"     name="fr013.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 13"/>
-		<file id="tls-014"     name="fr014.0"    typeMajor="tileset" typeMinor="ccomic2" title="Tileset 14"/>
+		<file id="tls-000"     name="fr000.0"    editor="tileset" format="tls-ccomic2" title="Tileset 0"/>
+		<file id="tls-001"     name="fr001.0"    editor="tileset" format="tls-ccomic2" title="Tileset 1"/>
+		<file id="tls-002"     name="fr002.0"    editor="tileset" format="tls-ccomic2" title="Tileset 2"/>
+		<file id="tls-003"     name="fr003.0"    editor="tileset" format="tls-ccomic2" title="Tileset 3"/>
+		<file id="tls-004"     name="fr004.0"    editor="tileset" format="tls-ccomic2" title="Tileset 4"/>
+		<file id="tls-005"     name="fr005.0"    editor="tileset" format="tls-ccomic2" title="Tileset 5"/>
+		<file id="tls-006"     name="fr006.0"    editor="tileset" format="tls-ccomic2" title="Tileset 6"/>
+		<file id="tls-007"     name="fr007.0"    editor="tileset" format="tls-ccomic2" title="Tileset 7"/>
+		<file id="tls-008"     name="fr008.0"    editor="tileset" format="tls-ccomic2" title="Tileset 8"/>
+		<file id="tls-009"     name="fr009.0"    editor="tileset" format="tls-ccomic2" title="Tileset 9"/>
+		<file id="tls-010"     name="fr010.0"    editor="tileset" format="tls-ccomic2" title="Tileset 10"/>
+		<file id="tls-011"     name="fr011.0"    editor="tileset" format="tls-ccomic2" title="Tileset 11"/>
+		<file id="tls-012"     name="fr012.0"    editor="tileset" format="tls-ccomic2" title="Tileset 12"/>
+		<file id="tls-013"     name="fr013.0"    editor="tileset" format="tls-ccomic2" title="Tileset 13"/>
+		<file id="tls-014"     name="fr014.0"    editor="tileset" format="tls-ccomic2" title="Tileset 14"/>
 
-		<file id="map-000"       name="fr000.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 0">
+		<file id="map-000"       name="fr000.1"    editor="map2d"     format="map2d-ccomic2" title="Map 0">
 			<dep reftype="background-tileset1" ref="tls-000"/>
 		</file>
-		<file id="map-001"       name="fr001.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 1">
+		<file id="map-001"       name="fr001.1"    editor="map2d"     format="map2d-ccomic2" title="Map 1">
 			<dep reftype="background-tileset1" ref="tls-001"/>
 		</file>
-		<file id="map-002"       name="fr002.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 2">
+		<file id="map-002"       name="fr002.1"    editor="map2d"     format="map2d-ccomic2" title="Map 2">
 			<dep reftype="background-tileset1" ref="tls-002"/>
 		</file>
-		<file id="map-003"       name="fr003.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 3">
+		<file id="map-003"       name="fr003.1"    editor="map2d"     format="map2d-ccomic2" title="Map 3">
 			<dep reftype="background-tileset1" ref="tls-003"/>
 		</file>
-		<file id="map-004"       name="fr004.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 4">
+		<file id="map-004"       name="fr004.1"    editor="map2d"     format="map2d-ccomic2" title="Map 4">
 			<dep reftype="background-tileset1" ref="tls-004"/>
 		</file>
-		<file id="map-005"       name="fr005.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 5">
+		<file id="map-005"       name="fr005.1"    editor="map2d"     format="map2d-ccomic2" title="Map 5">
 			<dep reftype="background-tileset1" ref="tls-005"/>
 		</file>
-		<file id="map-006"       name="fr006.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 6">
+		<file id="map-006"       name="fr006.1"    editor="map2d"     format="map2d-ccomic2" title="Map 6">
 			<dep reftype="background-tileset1" ref="tls-006"/>
 		</file>
-		<file id="map-007"       name="fr007.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 7">
+		<file id="map-007"       name="fr007.1"    editor="map2d"     format="map2d-ccomic2" title="Map 7">
 			<dep reftype="background-tileset1" ref="tls-007"/>
 		</file>
-		<file id="map-008"       name="fr008.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 8">
+		<file id="map-008"       name="fr008.1"    editor="map2d"     format="map2d-ccomic2" title="Map 8">
 			<dep reftype="background-tileset1" ref="tls-008"/>
 		</file>
-		<file id="map-009"       name="fr009.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 9">
+		<file id="map-009"       name="fr009.1"    editor="map2d"     format="map2d-ccomic2" title="Map 9">
 			<dep reftype="background-tileset1" ref="tls-009"/>
 		</file>
-		<file id="map-010"       name="fr010.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 10">
+		<file id="map-010"       name="fr010.1"    editor="map2d"     format="map2d-ccomic2" title="Map 10">
 			<dep reftype="background-tileset1" ref="tls-010"/>
 		</file>
-		<file id="map-011"       name="fr011.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 11">
+		<file id="map-011"       name="fr011.1"    editor="map2d"     format="map2d-ccomic2" title="Map 11">
 			<dep reftype="background-tileset1" ref="tls-011"/>
 		</file>
-		<file id="map-012"       name="fr012.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 12">
+		<file id="map-012"       name="fr012.1"    editor="map2d"     format="map2d-ccomic2" title="Map 12">
 			<dep reftype="background-tileset1" ref="tls-012"/>
 		</file>
-		<file id="map-013"       name="fr013.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 13">
+		<file id="map-013"       name="fr013.1"    editor="map2d"     format="map2d-ccomic2" title="Map 13">
 			<dep reftype="background-tileset1" ref="tls-013"/>
 		</file>
-		<file id="map-014"       name="fr014.1"    typeMajor="map"     typeMinor="ccomic2" title="Map 14">
+		<file id="map-014"       name="fr014.1"    editor="map2d"     format="map2d-ccomic2" title="Map 14">
 			<dep reftype="background-tileset1" ref="tls-014"/>
 		</file>
 
-		<file id="spr-000"       name="fr000.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 0"/>
-		<file id="spr-001"       name="fr001.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 1"/>
-		<file id="spr-002"       name="fr002.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 2"/>
-		<file id="spr-003"       name="fr003.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 3"/>
-		<file id="spr-004"       name="fr004.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 4"/>
-		<file id="spr-005"       name="fr005.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 5"/>
-		<file id="spr-006"       name="fr006.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 6"/>
-		<file id="spr-007"       name="fr007.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 7"/>
-		<file id="spr-008"       name="fr008.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 8"/>
-		<file id="spr-009"       name="fr009.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 9"/>
-		<file id="spr-010"       name="fr010.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 10"/>
-		<file id="spr-011"       name="fr011.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 11"/>
-		<file id="spr-012"       name="fr012.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 12"/>
-		<file id="spr-013"       name="fr013.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 13"/>
-		<file id="spr-014"       name="fr014.2"    typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite 14"/>
+		<file id="spr-000"       name="fr000.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 0"/>
+		<file id="spr-001"       name="fr001.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 1"/>
+		<file id="spr-002"       name="fr002.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 2"/>
+		<file id="spr-003"       name="fr003.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 3"/>
+		<file id="spr-004"       name="fr004.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 4"/>
+		<file id="spr-005"       name="fr005.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 5"/>
+		<file id="spr-006"       name="fr006.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 6"/>
+		<file id="spr-007"       name="fr007.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 7"/>
+		<file id="spr-008"       name="fr008.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 8"/>
+		<file id="spr-009"       name="fr009.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 9"/>
+		<file id="spr-010"       name="fr010.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 10"/>
+		<file id="spr-011"       name="fr011.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 11"/>
+		<file id="spr-012"       name="fr012.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 12"/>
+		<file id="spr-013"       name="fr013.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 13"/>
+		<file id="spr-014"       name="fr014.2"    editor="tileset" format="tls-ccomic2-sprite" title="Sprite 14"/>
 
-		<file id="spr-d0"        name="frdata.0"   typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite D0"/>
-		<file id="spr-d1"        name="frdata.1"   typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite D1"/>
-		<file id="spr-m0"        name="frdemo.0"   typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite M0"/>
-		<file id="spr-m1"        name="frdemo.1"   typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite M1"/>
-		<file id="spr-m2"        name="frdemo.2"   typeMajor="tileset" typeMinor="ccomic2-sprite" title="Sprite M2"/>
+		<file id="spr-d0"        name="frdata.0"   editor="tileset" format="tls-ccomic2-sprite" title="Sprite D0"/>
+		<file id="spr-d1"        name="frdata.1"   editor="tileset" format="tls-ccomic2-sprite" title="Sprite D1"/>
+		<file id="spr-m0"        name="frdemo.0"   editor="tileset" format="tls-ccomic2-sprite" title="Sprite M0"/>
+		<file id="spr-m1"        name="frdemo.1"   editor="tileset" format="tls-ccomic2-sprite" title="Sprite M1"/>
+		<file id="spr-m2"        name="frdemo.2"   editor="tileset" format="tls-ccomic2-sprite" title="Sprite M2"/>
 
-		<file id="img-001"       name="frpak.001"  typeMajor="image"   typeMinor="ccomic" title="Image 1"/>
-		<file id="img-002"       name="frpak.002"  typeMajor="image"   typeMinor="ccomic" title="Image 2"/>
-		<file id="img-003"       name="frpak.003"  typeMajor="image"   typeMinor="ccomic" title="Image 3"/>
-		<file id="img-004"       name="frpak.004"  typeMajor="image"   typeMinor="ccomic" title="Image 4"/>
-		<file id="img-005"       name="frpak.005"  typeMajor="image"   typeMinor="ccomic" title="Image 5"/>
-		<file id="img-006"       name="frpak.006"  typeMajor="image"   typeMinor="ccomic" title="Image 6"/>
-		<file id="img-007"       name="frpak.007"  typeMajor="image"   typeMinor="ccomic" title="Image 7"/>
+		<file id="img-001"       name="frpak.001"  editor="image"   format="img-ccomic" title="Image 1"/>
+		<file id="img-002"       name="frpak.002"  editor="image"   format="img-ccomic" title="Image 2"/>
+		<file id="img-003"       name="frpak.003"  editor="image"   format="img-ccomic" title="Image 3"/>
+		<file id="img-004"       name="frpak.004"  editor="image"   format="img-ccomic" title="Image 4"/>
+		<file id="img-005"       name="frpak.005"  editor="image"   format="img-ccomic" title="Image 5"/>
+		<file id="img-006"       name="frpak.006"  editor="image"   format="img-ccomic" title="Image 6"/>
+		<file id="img-007"       name="frpak.007"  editor="image"   format="img-ccomic" title="Image 7"/>
 	</files>
 
 	<commands>

@@ -103,74 +103,74 @@
 	</display>
 
 	<files>
-		<archive name="volume1a.ms1" id="arch-vol1a" typeMinor="vol-cosmo">
-			<file id="gfx-tiles-101"  name="tzone1.dr1"   typeMajor="tileset" typeMinor="stryker" title="Solid tileset"/>
-			<file id="gfx-masked-101" name="mskzone1.dr1" typeMajor="tileset" typeMinor="stryker-masked" title="Masked tileset"/>
-			<file id="gfx-actors-101" name="actors.dr1"   typeMajor="tileset" typeMinor="stryker-masked" title="Raw actor tiles"/>
+		<archive name="volume1a.ms1" id="arch-vol1a" format="vol-cosmo">
+			<file id="gfx-tiles-101"  name="tzone1.dr1"   editor="tileset" format="tls-stryker" title="Solid tileset"/>
+			<file id="gfx-masked-101" name="mskzone1.dr1" editor="tileset" format="tls-stryker-masked" title="Masked tileset"/>
+			<file id="gfx-actors-101" name="actors.dr1"   editor="tileset" format="tls-stryker-masked" title="Raw actor tiles"/>
 
-			<file id="img-title-1"    name="titledr.dr1"  typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Title"/>
-			<file id="img-choose-1"   name="choose.dr1"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Choose"/>
-			<file id="img-credit-1"   name="credits.dr1"  typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Credits"/>
-			<file id="img-goodluck-1" name="goodluck.dr1" typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Good luck"/>
-			<file id="img-endlevel-1" name="endlevel.dr1" typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="End level"/>
+			<file id="img-title-1"    name="titledr.dr1"  editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Title"/>
+			<file id="img-choose-1"   name="choose.dr1"   editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Choose"/>
+			<file id="img-credit-1"   name="credits.dr1"  editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Credits"/>
+			<file id="img-goodluck-1" name="goodluck.dr1" editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Good luck"/>
+			<file id="img-endlevel-1" name="endlevel.dr1" editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="End level"/>
 
-			<file id="back-lava"      name="lavabkdp.dr1" typeMajor="tileset" typeMinor="stryker" title="Lava"/>
-			<file id="back-space"     name="spacbdp3.dr1" typeMajor="tileset" typeMinor="stryker" title="Space"/>
+			<file id="back-lava"      name="lavabkdp.dr1" editor="tileset" format="tls-stryker" title="Lava"/>
+			<file id="back-space"     name="spacbdp3.dr1" editor="tileset" format="tls-stryker" title="Space"/>
 		</archive>
 
-		<archive name="volume1b.ms1" id="arch-vol1b" typeMinor="vol-cosmo">
-			<file id="lev-101" name="worldal1.dr1" typeMajor="map" typeMinor="stryker" title="Level 1">
+		<archive name="volume1b.ms1" id="arch-vol1b" format="vol-cosmo">
+			<file id="lev-101" name="worldal1.dr1" editor="map2d" format="map2d-stryker" title="Level 1">
 				<dep reftype="background-tileset1" ref="gfx-tiles-101"/>
 				<dep reftype="sprites"  ref="gfx-masked-101"/>
 				<dep reftype="actors"   ref="gfx-actors-101"/>
 			</file>
 
-			<file id="back-water"     name="watrbk2.dr1"  typeMajor="tileset" typeMinor="stryker" title="Water"/>
+			<file id="back-water"     name="watrbk2.dr1"  editor="tileset" format="tls-stryker" title="Water"/>
 
-			<file id="img-mission-1" name="mission.dr1" typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Mission"/>
+			<file id="img-mission-1" name="mission.dr1" editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Mission"/>
 
-			<file id="mus-e1-apogfnf1" name="apogfnf1.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Apogee Fanfare"/>
-			<file id="mus-e1-rockit"   name="rockit.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="Rock It"/>
-			<file id="mus-e1-so_sad"   name="so_sad.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="So Sad. You're Dead!"/>
-			<file id="mus-e1-seg3"     name="seg3.imf"     typeMajor="music" typeMinor="imf-idsoftware-type0" title="Segueway"/>
-			<file id="mus-e1-score"    name="score!.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="High Flyer"/>
-			<file id="mus-e1-supersnc" name="supersnc.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Super Sonic"/>
-			<file id="mus-e1-pressure" name="pressure.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Pressure's On"/>
-			<file id="mus-e1-wrong"    name="wrong.imf"    typeMajor="music" typeMinor="imf-idsoftware-type0" title="Something's Wrong"/>
-			<file id="mus-e1-suprnova" name="suprnova.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Super Nova"/>
-			<file id="mus-e1-cruising" name="cruising.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Cruising with Stryker"/>
-			<file id="mus-e1-tomsome"  name="tomsome.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0" title="Handsome Tom"/>
-			<file id="mus-e1-torpedo"  name="torpedo.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0" title="Torpedo"/>
+			<file id="mus-e1-apogfnf1" name="apogfnf1.imf" editor="music" format="imf-idsoftware-type0" title="Apogee Fanfare"/>
+			<file id="mus-e1-rockit"   name="rockit.imf"   editor="music" format="imf-idsoftware-type0" title="Rock It"/>
+			<file id="mus-e1-so_sad"   name="so_sad.imf"   editor="music" format="imf-idsoftware-type0" title="So Sad. You're Dead!"/>
+			<file id="mus-e1-seg3"     name="seg3.imf"     editor="music" format="imf-idsoftware-type0" title="Segueway"/>
+			<file id="mus-e1-score"    name="score!.imf"   editor="music" format="imf-idsoftware-type0" title="High Flyer"/>
+			<file id="mus-e1-supersnc" name="supersnc.imf" editor="music" format="imf-idsoftware-type0" title="Super Sonic"/>
+			<file id="mus-e1-pressure" name="pressure.imf" editor="music" format="imf-idsoftware-type0" title="Pressure's On"/>
+			<file id="mus-e1-wrong"    name="wrong.imf"    editor="music" format="imf-idsoftware-type0" title="Something's Wrong"/>
+			<file id="mus-e1-suprnova" name="suprnova.imf" editor="music" format="imf-idsoftware-type0" title="Super Nova"/>
+			<file id="mus-e1-cruising" name="cruising.imf" editor="music" format="imf-idsoftware-type0" title="Cruising with Stryker"/>
+			<file id="mus-e1-tomsome"  name="tomsome.imf"  editor="music" format="imf-idsoftware-type0" title="Handsome Tom"/>
+			<file id="mus-e1-torpedo"  name="torpedo.imf"  editor="music" format="imf-idsoftware-type0" title="Torpedo"/>
 		</archive>
 
-		<archive name="volume2b.ms2" id="arch-vol2b" typeMinor="vol-cosmo">
-			<file id="mus-e2-apogfnf1" name="apogfnf1.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Apogee Fanfare"/>
-			<file id="mus-e2-rockit"   name="rockit.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="Rock It"/>
-			<file id="mus-e2-so_sad"   name="so_sad.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="So Sad. You're Dead!"/>
-			<file id="mus-e2-seg3"     name="seg3.imf"     typeMajor="music" typeMinor="imf-idsoftware-type0" title="Segueway"/>
-			<file id="mus-e2-score"    name="score!.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="High Flyer"/>
-			<file id="mus-e2-supersnc" name="supersnc.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Super Sonic"/>
-			<file id="mus-e2-pressure" name="pressure.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Pressure's On"/>
-			<file id="mus-e2-wrong"    name="wrong.imf"    typeMajor="music" typeMinor="imf-idsoftware-type0" title="Something's Wrong"/>
-			<file id="mus-e2-dizzy"    name="dizzy.imf"    typeMajor="music" typeMinor="imf-idsoftware-type0" title="Soaring to Dizzy Heights"/>
-			<file id="mus-e2-riding"   name="riding.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="Riding the Light Waves"/>
-			<file id="mus-e2-kiss"     name="kiss.imf"     typeMajor="music" typeMinor="imf-idsoftware-type0" title="Kissing the Sky"/>
-			<file id="mus-e2-lightyrs" name="lightyrs.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Light Years Per Hour"/>
+		<archive name="volume2b.ms2" id="arch-vol2b" format="vol-cosmo">
+			<file id="mus-e2-apogfnf1" name="apogfnf1.imf" editor="music" format="imf-idsoftware-type0" title="Apogee Fanfare"/>
+			<file id="mus-e2-rockit"   name="rockit.imf"   editor="music" format="imf-idsoftware-type0" title="Rock It"/>
+			<file id="mus-e2-so_sad"   name="so_sad.imf"   editor="music" format="imf-idsoftware-type0" title="So Sad. You're Dead!"/>
+			<file id="mus-e2-seg3"     name="seg3.imf"     editor="music" format="imf-idsoftware-type0" title="Segueway"/>
+			<file id="mus-e2-score"    name="score!.imf"   editor="music" format="imf-idsoftware-type0" title="High Flyer"/>
+			<file id="mus-e2-supersnc" name="supersnc.imf" editor="music" format="imf-idsoftware-type0" title="Super Sonic"/>
+			<file id="mus-e2-pressure" name="pressure.imf" editor="music" format="imf-idsoftware-type0" title="Pressure's On"/>
+			<file id="mus-e2-wrong"    name="wrong.imf"    editor="music" format="imf-idsoftware-type0" title="Something's Wrong"/>
+			<file id="mus-e2-dizzy"    name="dizzy.imf"    editor="music" format="imf-idsoftware-type0" title="Soaring to Dizzy Heights"/>
+			<file id="mus-e2-riding"   name="riding.imf"   editor="music" format="imf-idsoftware-type0" title="Riding the Light Waves"/>
+			<file id="mus-e2-kiss"     name="kiss.imf"     editor="music" format="imf-idsoftware-type0" title="Kissing the Sky"/>
+			<file id="mus-e2-lightyrs" name="lightyrs.imf" editor="music" format="imf-idsoftware-type0" title="Light Years Per Hour"/>
 		</archive>
 
-		<archive name="volume3b.ms3" id="arch-vol3b" typeMinor="vol-cosmo">
-			<file id="mus-e3-apogfnf1" name="apogfnf1.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Apogee Fanfare"/>
-			<file id="mus-e3-rockit"   name="rockit.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="Rock It"/>
-			<file id="mus-e3-so_sad"   name="so_sad.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="So Sad. You're Dead!"/>
-			<file id="mus-e3-seg3"     name="seg3.imf"     typeMajor="music" typeMinor="imf-idsoftware-type0" title="Segueway"/>
-			<file id="mus-e3-score"    name="score!.imf"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="High Flyer"/>
-			<file id="mus-e3-supersnc" name="supersnc.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Super Sonic"/>
-			<file id="mus-e3-pressure" name="pressure.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Pressure's On"/>
-			<file id="mus-e3-weird"    name="wierd.imf"    typeMajor="music" typeMinor="imf-idsoftware-type0" title="Weird"/>
-			<file id="mus-e3-strykrs"  name="strykrs.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0" title="Major Stryker"/>
-			<file id="mus-e3-spaceway" name="spaceway.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Funky, Funky Spaceway"/>
-			<file id="mus-e3-dodging"  name="dodging.imf"  typeMajor="music" typeMinor="imf-idsoftware-type0" title="Dodging the Meteors"/>
-			<file id="mus-e3-shooting" name="shooting.imf" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Shooting Star"/>
+		<archive name="volume3b.ms3" id="arch-vol3b" format="vol-cosmo">
+			<file id="mus-e3-apogfnf1" name="apogfnf1.imf" editor="music" format="imf-idsoftware-type0" title="Apogee Fanfare"/>
+			<file id="mus-e3-rockit"   name="rockit.imf"   editor="music" format="imf-idsoftware-type0" title="Rock It"/>
+			<file id="mus-e3-so_sad"   name="so_sad.imf"   editor="music" format="imf-idsoftware-type0" title="So Sad. You're Dead!"/>
+			<file id="mus-e3-seg3"     name="seg3.imf"     editor="music" format="imf-idsoftware-type0" title="Segueway"/>
+			<file id="mus-e3-score"    name="score!.imf"   editor="music" format="imf-idsoftware-type0" title="High Flyer"/>
+			<file id="mus-e3-supersnc" name="supersnc.imf" editor="music" format="imf-idsoftware-type0" title="Super Sonic"/>
+			<file id="mus-e3-pressure" name="pressure.imf" editor="music" format="imf-idsoftware-type0" title="Pressure's On"/>
+			<file id="mus-e3-weird"    name="wierd.imf"    editor="music" format="imf-idsoftware-type0" title="Weird"/>
+			<file id="mus-e3-strykrs"  name="strykrs.imf"  editor="music" format="imf-idsoftware-type0" title="Major Stryker"/>
+			<file id="mus-e3-spaceway" name="spaceway.imf" editor="music" format="imf-idsoftware-type0" title="Funky, Funky Spaceway"/>
+			<file id="mus-e3-dodging"  name="dodging.imf"  editor="music" format="imf-idsoftware-type0" title="Dodging the Meteors"/>
+			<file id="mus-e3-shooting" name="shooting.imf" editor="music" format="imf-idsoftware-type0" title="Shooting Star"/>
 		</archive>
 
 	</files>

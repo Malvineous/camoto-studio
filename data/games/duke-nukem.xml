@@ -214,7 +214,7 @@
 	</display>
 
 	<files>
-		<file id="lev-101" name="worldal1.dn1" typeMajor="map" typeMinor="duke1" title="Level 1">
+		<file id="lev-101" name="worldal1.dn1" editor="map2d" format="map2d-duke1" title="Level 1">
 			<dep reftype="background-tileset1" ref="tls-1-back0"/>
 			<dep reftype="background-tileset2" ref="tls-1-back1"/>
 			<dep reftype="background-tileset3" ref="tls-1-back2"/>
@@ -225,246 +225,246 @@
 			<dep reftype="background-tileset8" ref="tls-1-solid3"/>
 			<dep reftype="background-tileset9" ref="tls-1-border"/>
 		</file>
-		<file id="lev-102" name="worldal2.dn1" typeMajor="map" typeMinor="duke1" title="Level 2">
+		<file id="lev-102" name="worldal2.dn1" editor="map2d" format="map2d-duke1" title="Level 2">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-103" name="worldal3.dn1" typeMajor="map" typeMinor="duke1" title="Level 3">
+		<file id="lev-103" name="worldal3.dn1" editor="map2d" format="map2d-duke1" title="Level 3">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-104" name="worldal4.dn1" typeMajor="map" typeMinor="duke1" title="Level 4">
+		<file id="lev-104" name="worldal4.dn1" editor="map2d" format="map2d-duke1" title="Level 4">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-105" name="worldal5.dn1" typeMajor="map" typeMinor="duke1" title="Level 5">
+		<file id="lev-105" name="worldal5.dn1" editor="map2d" format="map2d-duke1" title="Level 5">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-106" name="worldal6.dn1" typeMajor="map" typeMinor="duke1" title="Level 6">
+		<file id="lev-106" name="worldal6.dn1" editor="map2d" format="map2d-duke1" title="Level 6">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-107" name="worldal7.dn1" typeMajor="map" typeMinor="duke1" title="Level 7">
+		<file id="lev-107" name="worldal7.dn1" editor="map2d" format="map2d-duke1" title="Level 7">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-108" name="worldal8.dn1" typeMajor="map" typeMinor="duke1" title="Level 8">
+		<file id="lev-108" name="worldal8.dn1" editor="map2d" format="map2d-duke1" title="Level 8">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-109" name="worldal9.dn1" typeMajor="map" typeMinor="duke1" title="Level 9">
+		<file id="lev-109" name="worldal9.dn1" editor="map2d" format="map2d-duke1" title="Level 9">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-110" name="worldala.dn1" typeMajor="map" typeMinor="duke1" title="Level 10">
+		<file id="lev-110" name="worldala.dn1" editor="map2d" format="map2d-duke1" title="Level 10">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-111" name="worldalb.dn1" typeMajor="map" typeMinor="duke1" title="Level 11">
+		<file id="lev-111" name="worldalb.dn1" editor="map2d" format="map2d-duke1" title="Level 11">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-112" name="worldalc.dn1" typeMajor="map" typeMinor="duke1" title="Level 12">
+		<file id="lev-112" name="worldalc.dn1" editor="map2d" format="map2d-duke1" title="Level 12">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 
-		<file id="lev-201" name="worldal1.dn2" typeMajor="map" typeMinor="duke1" title="Level 1">
+		<file id="lev-201" name="worldal1.dn2" editor="map2d" format="map2d-duke1" title="Level 1">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-202" name="worldal2.dn2" typeMajor="map" typeMinor="duke1" title="Level 2">
+		<file id="lev-202" name="worldal2.dn2" editor="map2d" format="map2d-duke1" title="Level 2">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-203" name="worldal3.dn2" typeMajor="map" typeMinor="duke1" title="Level 3">
+		<file id="lev-203" name="worldal3.dn2" editor="map2d" format="map2d-duke1" title="Level 3">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-204" name="worldal4.dn2" typeMajor="map" typeMinor="duke1" title="Level 4">
+		<file id="lev-204" name="worldal4.dn2" editor="map2d" format="map2d-duke1" title="Level 4">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-205" name="worldal5.dn2" typeMajor="map" typeMinor="duke1" title="Level 5">
+		<file id="lev-205" name="worldal5.dn2" editor="map2d" format="map2d-duke1" title="Level 5">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-206" name="worldal6.dn2" typeMajor="map" typeMinor="duke1" title="Level 6">
+		<file id="lev-206" name="worldal6.dn2" editor="map2d" format="map2d-duke1" title="Level 6">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-207" name="worldal7.dn2" typeMajor="map" typeMinor="duke1" title="Level 7">
+		<file id="lev-207" name="worldal7.dn2" editor="map2d" format="map2d-duke1" title="Level 7">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-208" name="worldal8.dn2" typeMajor="map" typeMinor="duke1" title="Level 8">
+		<file id="lev-208" name="worldal8.dn2" editor="map2d" format="map2d-duke1" title="Level 8">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-209" name="worldal9.dn2" typeMajor="map" typeMinor="duke1" title="Level 9">
+		<file id="lev-209" name="worldal9.dn2" editor="map2d" format="map2d-duke1" title="Level 9">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-210" name="worldala.dn2" typeMajor="map" typeMinor="duke1" title="Level 10">
+		<file id="lev-210" name="worldala.dn2" editor="map2d" format="map2d-duke1" title="Level 10">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-211" name="worldalb.dn2" typeMajor="map" typeMinor="duke1" title="Level 11">
+		<file id="lev-211" name="worldalb.dn2" editor="map2d" format="map2d-duke1" title="Level 11">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-212" name="worldalc.dn2" typeMajor="map" typeMinor="duke1" title="Level 12">
+		<file id="lev-212" name="worldalc.dn2" editor="map2d" format="map2d-duke1" title="Level 12">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 
-		<file id="lev-301" name="worldal1.dn3" typeMajor="map" typeMinor="duke1" title="Level 1">
+		<file id="lev-301" name="worldal1.dn3" editor="map2d" format="map2d-duke1" title="Level 1">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-302" name="worldal2.dn3" typeMajor="map" typeMinor="duke1" title="Level 2">
+		<file id="lev-302" name="worldal2.dn3" editor="map2d" format="map2d-duke1" title="Level 2">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-303" name="worldal3.dn3" typeMajor="map" typeMinor="duke1" title="Level 3">
+		<file id="lev-303" name="worldal3.dn3" editor="map2d" format="map2d-duke1" title="Level 3">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-304" name="worldal4.dn3" typeMajor="map" typeMinor="duke1" title="Level 4">
+		<file id="lev-304" name="worldal4.dn3" editor="map2d" format="map2d-duke1" title="Level 4">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-305" name="worldal5.dn3" typeMajor="map" typeMinor="duke1" title="Level 5">
+		<file id="lev-305" name="worldal5.dn3" editor="map2d" format="map2d-duke1" title="Level 5">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-306" name="worldal6.dn3" typeMajor="map" typeMinor="duke1" title="Level 6">
+		<file id="lev-306" name="worldal6.dn3" editor="map2d" format="map2d-duke1" title="Level 6">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-307" name="worldal7.dn3" typeMajor="map" typeMinor="duke1" title="Level 7">
+		<file id="lev-307" name="worldal7.dn3" editor="map2d" format="map2d-duke1" title="Level 7">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-308" name="worldal8.dn3" typeMajor="map" typeMinor="duke1" title="Level 8">
+		<file id="lev-308" name="worldal8.dn3" editor="map2d" format="map2d-duke1" title="Level 8">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-309" name="worldal9.dn3" typeMajor="map" typeMinor="duke1" title="Level 9">
+		<file id="lev-309" name="worldal9.dn3" editor="map2d" format="map2d-duke1" title="Level 9">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-310" name="worldala.dn3" typeMajor="map" typeMinor="duke1" title="Level 10">
+		<file id="lev-310" name="worldala.dn3" editor="map2d" format="map2d-duke1" title="Level 10">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-311" name="worldalb.dn3" typeMajor="map" typeMinor="duke1" title="Level 11">
+		<file id="lev-311" name="worldalb.dn3" editor="map2d" format="map2d-duke1" title="Level 11">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-312" name="worldalc.dn3" typeMajor="map" typeMinor="duke1" title="Level 12">
+		<file id="lev-312" name="worldalc.dn3" editor="map2d" format="map2d-duke1" title="Level 12">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 
-		<file id="tls-1-anim0"   name="anim0.dn1"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 0"/>
-		<file id="tls-1-anim1"   name="anim1.dn1"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 1"/>
-		<file id="tls-1-anim2"   name="anim2.dn1"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 2"/>
-		<file id="tls-1-anim3"   name="anim3.dn1"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 3"/>
-		<file id="tls-1-anim4"   name="anim4.dn1"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 4"/>
-		<file id="tls-1-anim5"   name="anim5.dn1"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 5"/>
-		<file id="tls-1-back0"   name="back0.dn1"   typeMajor="tileset" typeMinor="ccaves-sub" title="Back 0"/>
-		<file id="tls-1-back1"   name="back1.dn1"   typeMajor="tileset" typeMinor="ccaves-sub" title="Back 1"/>
-		<file id="tls-1-back2"   name="back2.dn1"   typeMajor="tileset" typeMinor="ccaves-sub" title="Back 2"/>
-		<file id="tls-1-back3"   name="back3.dn1"   typeMajor="tileset" typeMinor="ccaves-sub" title="Back 3"/>
-		<file id="tls-1-border"  name="border.dn1"  typeMajor="tileset" typeMinor="ccaves-sub" title="Border"/>
-		<file id="tls-1-drop0"   name="drop0.dn1"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 0"/>
-		<file id="tls-1-drop1"   name="drop1.dn1"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 1"/>
-		<file id="tls-1-drop2"   name="drop2.dn1"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 2"/>
-		<file id="tls-1-drop3"   name="drop3.dn1"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 3"/>
-		<file id="tls-1-drop5"   name="drop5.dn1"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 5"/>
-		<file id="tls-1-drop7"   name="drop7.dn1"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 7"/>
-		<file id="tls-1-drop9"   name="drop9.dn1"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 9"/>
-		<file id="tls-1-drop11"  name="drop11.dn1"  typeMajor="tileset" typeMinor="duke1-drop" title="Drop 11"/>
-		<file id="tls-1-drop13"  name="drop13.dn1"  typeMajor="tileset" typeMinor="duke1-drop" title="Drop 13"/>
-		<file id="tls-1-font1"   name="font1.dn1"   typeMajor="tileset" typeMinor="ccaves-sub" title="Font 1"/>
-		<file id="tls-1-font2"   name="font2.dn1"   typeMajor="tileset" typeMinor="ccaves-sub" title="Font 2"/>
-		<file id="tls-1-man0"    name="man0.dn1"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 0"/>
-		<file id="tls-1-man1"    name="man1.dn1"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 1"/>
-		<file id="tls-1-man2"    name="man2.dn1"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 2"/>
-		<file id="tls-1-man3"    name="man3.dn1"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 3"/>
-		<file id="tls-1-man4"    name="man4.dn1"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 4"/>
-		<file id="tls-1-numbers" name="numbers.dn1" typeMajor="tileset" typeMinor="ccaves-sub" title="Numbers"/>
-		<file id="tls-1-object0" name="object0.dn1" typeMajor="tileset" typeMinor="ccaves-sub" title="Object 0"/>
-		<file id="tls-1-object1" name="object1.dn1" typeMajor="tileset" typeMinor="ccaves-sub" title="Object 1"/>
-		<file id="tls-1-object2" name="object2.dn1" typeMajor="tileset" typeMinor="ccaves-sub" title="Object 2"/>
-		<file id="tls-1-solid0"  name="solid0.dn1"  typeMajor="tileset" typeMinor="ccaves-sub" title="Solid 0"/>
-		<file id="tls-1-solid1"  name="solid1.dn1"  typeMajor="tileset" typeMinor="ccaves-sub" title="Solid 1"/>
-		<file id="tls-1-solid2"  name="solid2.dn1"  typeMajor="tileset" typeMinor="ccaves-sub" title="Solid 2"/>
-		<file id="tls-1-solid3"  name="solid3.dn1"  typeMajor="tileset" typeMinor="ccaves-sub" title="Solid 3"/>
+		<file id="tls-1-anim0"   name="anim0.dn1"   editor="tileset" format="tls-ccaves-sub" title="Anim 0"/>
+		<file id="tls-1-anim1"   name="anim1.dn1"   editor="tileset" format="tls-ccaves-sub" title="Anim 1"/>
+		<file id="tls-1-anim2"   name="anim2.dn1"   editor="tileset" format="tls-ccaves-sub" title="Anim 2"/>
+		<file id="tls-1-anim3"   name="anim3.dn1"   editor="tileset" format="tls-ccaves-sub" title="Anim 3"/>
+		<file id="tls-1-anim4"   name="anim4.dn1"   editor="tileset" format="tls-ccaves-sub" title="Anim 4"/>
+		<file id="tls-1-anim5"   name="anim5.dn1"   editor="tileset" format="tls-ccaves-sub" title="Anim 5"/>
+		<file id="tls-1-back0"   name="back0.dn1"   editor="tileset" format="tls-ccaves-sub" title="Back 0"/>
+		<file id="tls-1-back1"   name="back1.dn1"   editor="tileset" format="tls-ccaves-sub" title="Back 1"/>
+		<file id="tls-1-back2"   name="back2.dn1"   editor="tileset" format="tls-ccaves-sub" title="Back 2"/>
+		<file id="tls-1-back3"   name="back3.dn1"   editor="tileset" format="tls-ccaves-sub" title="Back 3"/>
+		<file id="tls-1-border"  name="border.dn1"  editor="tileset" format="tls-ccaves-sub" title="Border"/>
+		<file id="tls-1-drop0"   name="drop0.dn1"   editor="tileset" format="tls-duke1-drop" title="Drop 0"/>
+		<file id="tls-1-drop1"   name="drop1.dn1"   editor="tileset" format="tls-duke1-drop" title="Drop 1"/>
+		<file id="tls-1-drop2"   name="drop2.dn1"   editor="tileset" format="tls-duke1-drop" title="Drop 2"/>
+		<file id="tls-1-drop3"   name="drop3.dn1"   editor="tileset" format="tls-duke1-drop" title="Drop 3"/>
+		<file id="tls-1-drop5"   name="drop5.dn1"   editor="tileset" format="tls-duke1-drop" title="Drop 5"/>
+		<file id="tls-1-drop7"   name="drop7.dn1"   editor="tileset" format="tls-duke1-drop" title="Drop 7"/>
+		<file id="tls-1-drop9"   name="drop9.dn1"   editor="tileset" format="tls-duke1-drop" title="Drop 9"/>
+		<file id="tls-1-drop11"  name="drop11.dn1"  editor="tileset" format="tls-duke1-drop" title="Drop 11"/>
+		<file id="tls-1-drop13"  name="drop13.dn1"  editor="tileset" format="tls-duke1-drop" title="Drop 13"/>
+		<file id="tls-1-font1"   name="font1.dn1"   editor="tileset" format="tls-ccaves-sub" title="Font 1"/>
+		<file id="tls-1-font2"   name="font2.dn1"   editor="tileset" format="tls-ccaves-sub" title="Font 2"/>
+		<file id="tls-1-man0"    name="man0.dn1"    editor="tileset" format="tls-ccaves-sub" title="Man 0"/>
+		<file id="tls-1-man1"    name="man1.dn1"    editor="tileset" format="tls-ccaves-sub" title="Man 1"/>
+		<file id="tls-1-man2"    name="man2.dn1"    editor="tileset" format="tls-ccaves-sub" title="Man 2"/>
+		<file id="tls-1-man3"    name="man3.dn1"    editor="tileset" format="tls-ccaves-sub" title="Man 3"/>
+		<file id="tls-1-man4"    name="man4.dn1"    editor="tileset" format="tls-ccaves-sub" title="Man 4"/>
+		<file id="tls-1-numbers" name="numbers.dn1" editor="tileset" format="tls-ccaves-sub" title="Numbers"/>
+		<file id="tls-1-object0" name="object0.dn1" editor="tileset" format="tls-ccaves-sub" title="Object 0"/>
+		<file id="tls-1-object1" name="object1.dn1" editor="tileset" format="tls-ccaves-sub" title="Object 1"/>
+		<file id="tls-1-object2" name="object2.dn1" editor="tileset" format="tls-ccaves-sub" title="Object 2"/>
+		<file id="tls-1-solid0"  name="solid0.dn1"  editor="tileset" format="tls-ccaves-sub" title="Solid 0"/>
+		<file id="tls-1-solid1"  name="solid1.dn1"  editor="tileset" format="tls-ccaves-sub" title="Solid 1"/>
+		<file id="tls-1-solid2"  name="solid2.dn1"  editor="tileset" format="tls-ccaves-sub" title="Solid 2"/>
+		<file id="tls-1-solid3"  name="solid3.dn1"  editor="tileset" format="tls-ccaves-sub" title="Solid 3"/>
 
-		<file id="tls-2-anim0"   name="anim0.dn2"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 0"/>
-		<file id="tls-2-anim1"   name="anim1.dn2"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 1"/>
-		<file id="tls-2-anim2"   name="anim2.dn2"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 2"/>
-		<file id="tls-2-anim3"   name="anim3.dn2"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 3"/>
-		<file id="tls-2-anim4"   name="anim4.dn2"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 4"/>
-		<file id="tls-2-anim5"   name="anim5.dn2"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 5"/>
-		<file id="tls-2-back0"   name="back0.dn2"   typeMajor="tileset" typeMinor="ccaves-sub" title="Back 0"/>
-		<file id="tls-2-back1"   name="back1.dn2"   typeMajor="tileset" typeMinor="ccaves-sub" title="Back 1"/>
-		<file id="tls-2-back2"   name="back2.dn2"   typeMajor="tileset" typeMinor="ccaves-sub" title="Back 2"/>
-		<file id="tls-2-back3"   name="back3.dn2"   typeMajor="tileset" typeMinor="ccaves-sub" title="Back 3"/>
-		<file id="tls-2-border"  name="border.dn2"  typeMajor="tileset" typeMinor="ccaves-sub" title="Border"/>
-		<file id="tls-2-drop0"   name="drop0.dn2"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 0"/>
-		<file id="tls-2-drop1"   name="drop1.dn2"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 1"/>
-		<file id="tls-2-drop2"   name="drop2.dn2"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 2"/>
-		<file id="tls-2-drop3"   name="drop3.dn2"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 3"/>
-		<file id="tls-2-drop5"   name="drop5.dn2"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 5"/>
-		<file id="tls-2-drop7"   name="drop7.dn2"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 7"/>
-		<file id="tls-2-drop9"   name="drop9.dn2"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 9"/>
-		<file id="tls-2-drop11"  name="drop11.dn2"  typeMajor="tileset" typeMinor="duke1-drop" title="Drop 11"/>
-		<file id="tls-2-drop13"  name="drop13.dn2"  typeMajor="tileset" typeMinor="duke1-drop" title="Drop 13"/>
-		<file id="tls-2-font1"   name="font1.dn2"   typeMajor="tileset" typeMinor="ccaves-sub" title="Font 1"/>
-		<file id="tls-2-font2"   name="font2.dn2"   typeMajor="tileset" typeMinor="ccaves-sub" title="Font 2"/>
-		<file id="tls-2-man0"    name="man0.dn2"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 0"/>
-		<file id="tls-2-man1"    name="man1.dn2"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 1"/>
-		<file id="tls-2-man2"    name="man2.dn2"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 2"/>
-		<file id="tls-2-man3"    name="man3.dn2"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 3"/>
-		<file id="tls-2-man4"    name="man4.dn2"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 4"/>
-		<file id="tls-2-numbers" name="numbers.dn2" typeMajor="tileset" typeMinor="ccaves-sub" title="Numbers"/>
-		<file id="tls-2-object0" name="object0.dn2" typeMajor="tileset" typeMinor="ccaves-sub" title="Object 0"/>
-		<file id="tls-2-object1" name="object1.dn2" typeMajor="tileset" typeMinor="ccaves-sub" title="Object 1"/>
-		<file id="tls-2-object2" name="object2.dn2" typeMajor="tileset" typeMinor="ccaves-sub" title="Object 2"/>
-		<file id="tls-2-solid0"  name="solid0.dn2"  typeMajor="tileset" typeMinor="ccaves-sub" title="Solid 0"/>
-		<file id="tls-2-solid1"  name="solid1.dn2"  typeMajor="tileset" typeMinor="ccaves-sub" title="Solid 1"/>
-		<file id="tls-2-solid2"  name="solid2.dn2"  typeMajor="tileset" typeMinor="ccaves-sub" title="Solid 2"/>
-		<file id="tls-2-solid3"  name="solid3.dn2"  typeMajor="tileset" typeMinor="ccaves-sub" title="Solid 3"/>
+		<file id="tls-2-anim0"   name="anim0.dn2"   editor="tileset" format="tls-ccaves-sub" title="Anim 0"/>
+		<file id="tls-2-anim1"   name="anim1.dn2"   editor="tileset" format="tls-ccaves-sub" title="Anim 1"/>
+		<file id="tls-2-anim2"   name="anim2.dn2"   editor="tileset" format="tls-ccaves-sub" title="Anim 2"/>
+		<file id="tls-2-anim3"   name="anim3.dn2"   editor="tileset" format="tls-ccaves-sub" title="Anim 3"/>
+		<file id="tls-2-anim4"   name="anim4.dn2"   editor="tileset" format="tls-ccaves-sub" title="Anim 4"/>
+		<file id="tls-2-anim5"   name="anim5.dn2"   editor="tileset" format="tls-ccaves-sub" title="Anim 5"/>
+		<file id="tls-2-back0"   name="back0.dn2"   editor="tileset" format="tls-ccaves-sub" title="Back 0"/>
+		<file id="tls-2-back1"   name="back1.dn2"   editor="tileset" format="tls-ccaves-sub" title="Back 1"/>
+		<file id="tls-2-back2"   name="back2.dn2"   editor="tileset" format="tls-ccaves-sub" title="Back 2"/>
+		<file id="tls-2-back3"   name="back3.dn2"   editor="tileset" format="tls-ccaves-sub" title="Back 3"/>
+		<file id="tls-2-border"  name="border.dn2"  editor="tileset" format="tls-ccaves-sub" title="Border"/>
+		<file id="tls-2-drop0"   name="drop0.dn2"   editor="tileset" format="tls-duke1-drop" title="Drop 0"/>
+		<file id="tls-2-drop1"   name="drop1.dn2"   editor="tileset" format="tls-duke1-drop" title="Drop 1"/>
+		<file id="tls-2-drop2"   name="drop2.dn2"   editor="tileset" format="tls-duke1-drop" title="Drop 2"/>
+		<file id="tls-2-drop3"   name="drop3.dn2"   editor="tileset" format="tls-duke1-drop" title="Drop 3"/>
+		<file id="tls-2-drop5"   name="drop5.dn2"   editor="tileset" format="tls-duke1-drop" title="Drop 5"/>
+		<file id="tls-2-drop7"   name="drop7.dn2"   editor="tileset" format="tls-duke1-drop" title="Drop 7"/>
+		<file id="tls-2-drop9"   name="drop9.dn2"   editor="tileset" format="tls-duke1-drop" title="Drop 9"/>
+		<file id="tls-2-drop11"  name="drop11.dn2"  editor="tileset" format="tls-duke1-drop" title="Drop 11"/>
+		<file id="tls-2-drop13"  name="drop13.dn2"  editor="tileset" format="tls-duke1-drop" title="Drop 13"/>
+		<file id="tls-2-font1"   name="font1.dn2"   editor="tileset" format="tls-ccaves-sub" title="Font 1"/>
+		<file id="tls-2-font2"   name="font2.dn2"   editor="tileset" format="tls-ccaves-sub" title="Font 2"/>
+		<file id="tls-2-man0"    name="man0.dn2"    editor="tileset" format="tls-ccaves-sub" title="Man 0"/>
+		<file id="tls-2-man1"    name="man1.dn2"    editor="tileset" format="tls-ccaves-sub" title="Man 1"/>
+		<file id="tls-2-man2"    name="man2.dn2"    editor="tileset" format="tls-ccaves-sub" title="Man 2"/>
+		<file id="tls-2-man3"    name="man3.dn2"    editor="tileset" format="tls-ccaves-sub" title="Man 3"/>
+		<file id="tls-2-man4"    name="man4.dn2"    editor="tileset" format="tls-ccaves-sub" title="Man 4"/>
+		<file id="tls-2-numbers" name="numbers.dn2" editor="tileset" format="tls-ccaves-sub" title="Numbers"/>
+		<file id="tls-2-object0" name="object0.dn2" editor="tileset" format="tls-ccaves-sub" title="Object 0"/>
+		<file id="tls-2-object1" name="object1.dn2" editor="tileset" format="tls-ccaves-sub" title="Object 1"/>
+		<file id="tls-2-object2" name="object2.dn2" editor="tileset" format="tls-ccaves-sub" title="Object 2"/>
+		<file id="tls-2-solid0"  name="solid0.dn2"  editor="tileset" format="tls-ccaves-sub" title="Solid 0"/>
+		<file id="tls-2-solid1"  name="solid1.dn2"  editor="tileset" format="tls-ccaves-sub" title="Solid 1"/>
+		<file id="tls-2-solid2"  name="solid2.dn2"  editor="tileset" format="tls-ccaves-sub" title="Solid 2"/>
+		<file id="tls-2-solid3"  name="solid3.dn2"  editor="tileset" format="tls-ccaves-sub" title="Solid 3"/>
 
-		<file id="tls-3-anim0"   name="anim0.dn3"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 0"/>
-		<file id="tls-3-anim1"   name="anim1.dn3"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 1"/>
-		<file id="tls-3-anim2"   name="anim2.dn3"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 2"/>
-		<file id="tls-3-anim3"   name="anim3.dn3"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 3"/>
-		<file id="tls-3-anim4"   name="anim4.dn3"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 4"/>
-		<file id="tls-3-anim5"   name="anim5.dn3"   typeMajor="tileset" typeMinor="ccaves-sub" title="Anim 5"/>
-		<file id="tls-3-back0"   name="back0.dn3"   typeMajor="tileset" typeMinor="ccaves-sub" title="Back 0"/>
-		<file id="tls-3-back1"   name="back1.dn3"   typeMajor="tileset" typeMinor="ccaves-sub" title="Back 1"/>
-		<file id="tls-3-back2"   name="back2.dn3"   typeMajor="tileset" typeMinor="ccaves-sub" title="Back 2"/>
-		<file id="tls-3-back3"   name="back3.dn3"   typeMajor="tileset" typeMinor="ccaves-sub" title="Back 3"/>
-		<file id="tls-3-border"  name="border.dn3"  typeMajor="tileset" typeMinor="ccaves-sub" title="Border"/>
-		<file id="tls-3-drop0"   name="drop0.dn3"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 0"/>
-		<file id="tls-3-drop1"   name="drop1.dn3"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 1"/>
-		<file id="tls-3-drop2"   name="drop2.dn3"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 2"/>
-		<file id="tls-3-drop3"   name="drop3.dn3"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 3"/>
-		<file id="tls-3-drop5"   name="drop5.dn3"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 5"/>
-		<file id="tls-3-drop7"   name="drop7.dn3"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 7"/>
-		<file id="tls-3-drop9"   name="drop9.dn3"   typeMajor="tileset" typeMinor="duke1-drop" title="Drop 9"/>
-		<file id="tls-3-drop11"  name="drop11.dn3"  typeMajor="tileset" typeMinor="duke1-drop" title="Drop 11"/>
-		<file id="tls-3-drop13"  name="drop13.dn3"  typeMajor="tileset" typeMinor="duke1-drop" title="Drop 13"/>
-		<file id="tls-3-font1"   name="font1.dn3"   typeMajor="tileset" typeMinor="ccaves-sub" title="Font 1"/>
-		<file id="tls-3-font2"   name="font2.dn3"   typeMajor="tileset" typeMinor="ccaves-sub" title="Font 2"/>
-		<file id="tls-3-man0"    name="man0.dn3"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 0"/>
-		<file id="tls-3-man1"    name="man1.dn3"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 1"/>
-		<file id="tls-3-man2"    name="man2.dn3"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 2"/>
-		<file id="tls-3-man3"    name="man3.dn3"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 3"/>
-		<file id="tls-3-man4"    name="man4.dn3"    typeMajor="tileset" typeMinor="ccaves-sub" title="Man 4"/>
-		<file id="tls-3-numbers" name="numbers.dn3" typeMajor="tileset" typeMinor="ccaves-sub" title="Numbers"/>
-		<file id="tls-3-object0" name="object0.dn3" typeMajor="tileset" typeMinor="ccaves-sub" title="Object 0"/>
-		<file id="tls-3-object1" name="object1.dn3" typeMajor="tileset" typeMinor="ccaves-sub" title="Object 1"/>
-		<file id="tls-3-object2" name="object2.dn3" typeMajor="tileset" typeMinor="ccaves-sub" title="Object 2"/>
-		<file id="tls-3-solid0"  name="solid0.dn3"  typeMajor="tileset" typeMinor="ccaves-sub" title="Solid 0"/>
-		<file id="tls-3-solid1"  name="solid1.dn3"  typeMajor="tileset" typeMinor="ccaves-sub" title="Solid 1"/>
-		<file id="tls-3-solid2"  name="solid2.dn3"  typeMajor="tileset" typeMinor="ccaves-sub" title="Solid 2"/>
-		<file id="tls-3-solid3"  name="solid3.dn3"  typeMajor="tileset" typeMinor="ccaves-sub" title="Solid 3"/>
+		<file id="tls-3-anim0"   name="anim0.dn3"   editor="tileset" format="tls-ccaves-sub" title="Anim 0"/>
+		<file id="tls-3-anim1"   name="anim1.dn3"   editor="tileset" format="tls-ccaves-sub" title="Anim 1"/>
+		<file id="tls-3-anim2"   name="anim2.dn3"   editor="tileset" format="tls-ccaves-sub" title="Anim 2"/>
+		<file id="tls-3-anim3"   name="anim3.dn3"   editor="tileset" format="tls-ccaves-sub" title="Anim 3"/>
+		<file id="tls-3-anim4"   name="anim4.dn3"   editor="tileset" format="tls-ccaves-sub" title="Anim 4"/>
+		<file id="tls-3-anim5"   name="anim5.dn3"   editor="tileset" format="tls-ccaves-sub" title="Anim 5"/>
+		<file id="tls-3-back0"   name="back0.dn3"   editor="tileset" format="tls-ccaves-sub" title="Back 0"/>
+		<file id="tls-3-back1"   name="back1.dn3"   editor="tileset" format="tls-ccaves-sub" title="Back 1"/>
+		<file id="tls-3-back2"   name="back2.dn3"   editor="tileset" format="tls-ccaves-sub" title="Back 2"/>
+		<file id="tls-3-back3"   name="back3.dn3"   editor="tileset" format="tls-ccaves-sub" title="Back 3"/>
+		<file id="tls-3-border"  name="border.dn3"  editor="tileset" format="tls-ccaves-sub" title="Border"/>
+		<file id="tls-3-drop0"   name="drop0.dn3"   editor="tileset" format="tls-duke1-drop" title="Drop 0"/>
+		<file id="tls-3-drop1"   name="drop1.dn3"   editor="tileset" format="tls-duke1-drop" title="Drop 1"/>
+		<file id="tls-3-drop2"   name="drop2.dn3"   editor="tileset" format="tls-duke1-drop" title="Drop 2"/>
+		<file id="tls-3-drop3"   name="drop3.dn3"   editor="tileset" format="tls-duke1-drop" title="Drop 3"/>
+		<file id="tls-3-drop5"   name="drop5.dn3"   editor="tileset" format="tls-duke1-drop" title="Drop 5"/>
+		<file id="tls-3-drop7"   name="drop7.dn3"   editor="tileset" format="tls-duke1-drop" title="Drop 7"/>
+		<file id="tls-3-drop9"   name="drop9.dn3"   editor="tileset" format="tls-duke1-drop" title="Drop 9"/>
+		<file id="tls-3-drop11"  name="drop11.dn3"  editor="tileset" format="tls-duke1-drop" title="Drop 11"/>
+		<file id="tls-3-drop13"  name="drop13.dn3"  editor="tileset" format="tls-duke1-drop" title="Drop 13"/>
+		<file id="tls-3-font1"   name="font1.dn3"   editor="tileset" format="tls-ccaves-sub" title="Font 1"/>
+		<file id="tls-3-font2"   name="font2.dn3"   editor="tileset" format="tls-ccaves-sub" title="Font 2"/>
+		<file id="tls-3-man0"    name="man0.dn3"    editor="tileset" format="tls-ccaves-sub" title="Man 0"/>
+		<file id="tls-3-man1"    name="man1.dn3"    editor="tileset" format="tls-ccaves-sub" title="Man 1"/>
+		<file id="tls-3-man2"    name="man2.dn3"    editor="tileset" format="tls-ccaves-sub" title="Man 2"/>
+		<file id="tls-3-man3"    name="man3.dn3"    editor="tileset" format="tls-ccaves-sub" title="Man 3"/>
+		<file id="tls-3-man4"    name="man4.dn3"    editor="tileset" format="tls-ccaves-sub" title="Man 4"/>
+		<file id="tls-3-numbers" name="numbers.dn3" editor="tileset" format="tls-ccaves-sub" title="Numbers"/>
+		<file id="tls-3-object0" name="object0.dn3" editor="tileset" format="tls-ccaves-sub" title="Object 0"/>
+		<file id="tls-3-object1" name="object1.dn3" editor="tileset" format="tls-ccaves-sub" title="Object 1"/>
+		<file id="tls-3-object2" name="object2.dn3" editor="tileset" format="tls-ccaves-sub" title="Object 2"/>
+		<file id="tls-3-solid0"  name="solid0.dn3"  editor="tileset" format="tls-ccaves-sub" title="Solid 0"/>
+		<file id="tls-3-solid1"  name="solid1.dn3"  editor="tileset" format="tls-ccaves-sub" title="Solid 1"/>
+		<file id="tls-3-solid2"  name="solid2.dn3"  editor="tileset" format="tls-ccaves-sub" title="Solid 2"/>
+		<file id="tls-3-solid3"  name="solid3.dn3"  editor="tileset" format="tls-ccaves-sub" title="Solid 3"/>
 
-		<file id="img-1-badguy"  name="badguy.dn1"  typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Bad Guy (story)"/>
-		<file id="img-1-credits" name="credits.dn1" typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Credits"/>
-		<file id="img-1-dn"      name="dn.dn1"      typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Title"/>
-		<file id="img-1-duke"    name="duke.dn1"    typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Duke (story)"/>
-		<file id="img-1-end"     name="end.dn1"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="End"/>
+		<file id="img-1-badguy"  name="badguy.dn1"  editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Bad Guy (story)"/>
+		<file id="img-1-credits" name="credits.dn1" editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Credits"/>
+		<file id="img-1-dn"      name="dn.dn1"      editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Title"/>
+		<file id="img-1-duke"    name="duke.dn1"    editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Duke (story)"/>
+		<file id="img-1-end"     name="end.dn1"     editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="End"/>
 
-		<file id="img-2-badguy"  name="badguy.dn2"  typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Bad Guy (story)"/>
-		<file id="img-2-credits" name="credits.dn2" typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Credits"/>
-		<file id="img-2-dn"      name="dn.dn2"      typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Title"/>
-		<file id="img-2-duke"    name="duke.dn2"    typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Duke (story)"/>
-		<file id="img-2-end"     name="end.dn2"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="End"/>
+		<file id="img-2-badguy"  name="badguy.dn2"  editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Bad Guy (story)"/>
+		<file id="img-2-credits" name="credits.dn2" editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Credits"/>
+		<file id="img-2-dn"      name="dn.dn2"      editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Title"/>
+		<file id="img-2-duke"    name="duke.dn2"    editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Duke (story)"/>
+		<file id="img-2-end"     name="end.dn2"     editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="End"/>
 
-		<file id="img-3-badguy"  name="badguy.dn3"  typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Bad Guy (story)"/>
-		<file id="img-3-credits" name="credits.dn3" typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Credits"/>
-		<file id="img-3-dn"      name="dn.dn3"      typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Title"/>
-		<file id="img-3-duke"    name="duke.dn3"    typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Duke (story)"/>
-		<file id="img-3-end"     name="end.dn3"     typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="End"/>
+		<file id="img-3-badguy"  name="badguy.dn3"  editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Bad Guy (story)"/>
+		<file id="img-3-credits" name="credits.dn3" editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Credits"/>
+		<file id="img-3-dn"      name="dn.dn3"      editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Title"/>
+		<file id="img-3-duke"    name="duke.dn3"    editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Duke (story)"/>
+		<file id="img-3-end"     name="end.dn3"     editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="End"/>
 
-		<file id="snd-1"         name="duke1.dn1"   typeMajor="audio" typeMinor="pc-speaker" title="Sound effects 1"/>
-		<file id="snd-1b"        name="duke1-b.dn1" typeMajor="audio" typeMinor="pc-speaker" title="Sound effects 2"/>
-		<file id="snd-2"         name="duke1.dn1"   typeMajor="audio" typeMinor="pc-speaker" title="Sound effects 1"/>
-		<file id="snd-2b"        name="duke1-b.dn1" typeMajor="audio" typeMinor="pc-speaker" title="Sound effects 2"/>
-		<file id="snd-3"         name="duke1.dn1"   typeMajor="audio" typeMinor="pc-speaker" title="Sound effects 1"/>
-		<file id="snd-3b"        name="duke1-b.dn1" typeMajor="audio" typeMinor="pc-speaker" title="Sound effects 2"/>
+		<file id="snd-1"         name="duke1.dn1"   editor="audio" format="pc-speaker" title="Sound effects 1"/>
+		<file id="snd-1b"        name="duke1-b.dn1" editor="audio" format="pc-speaker" title="Sound effects 2"/>
+		<file id="snd-2"         name="duke1.dn1"   editor="audio" format="pc-speaker" title="Sound effects 1"/>
+		<file id="snd-2b"        name="duke1-b.dn1" editor="audio" format="pc-speaker" title="Sound effects 2"/>
+		<file id="snd-3"         name="duke1.dn1"   editor="audio" format="pc-speaker" title="Sound effects 1"/>
+		<file id="snd-3b"        name="duke1-b.dn1" editor="audio" format="pc-speaker" title="Sound effects 2"/>
 </files>
 
 	<commands>

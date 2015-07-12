@@ -99,84 +99,84 @@
 	</display>
 
 	<files>
-		<archive name="rgmystus.dat" id="arch-rgmystus-dat" typeMinor="dat-mystic">
-			<file id="mod-apogee"   name="apogee.mod"   typeMajor="music" typeMinor="mod-4ch" title="Apogee"/>
-			<file id="mod-atmos3"   name="atmos3.mod"   typeMajor="music" typeMinor="mod-4ch" title="Atmos 3"/>
-			<file id="mod-atmos4"   name="atmos4.mod"   typeMajor="music" typeMinor="mod-4ch" title="Atmos 4"/>
-			<file id="mod-baldfun1" name="baldfun1.mod" typeMajor="music" typeMinor="mod-4ch" title="Bald Fun 1"/>
-			<file id="mod-fanfare"  name="fanfare.mod"  typeMajor="music" typeMinor="mod-4ch" title="Fanfare"/>
-			<file id="mod-meditate" name="meditate.mod" typeMajor="music" typeMinor="mod-4ch" title="Meditate"/>
-			<file id="mod-pc_book1" name="pc_book1.mod" typeMajor="music" typeMinor="mod-4ch" title="PC Book 1"/>
-			<file id="mod-pc_book2" name="pc_book2.mod" typeMajor="music" typeMinor="mod-4ch" title="PC Book 2"/>
+		<archive name="rgmystus.dat" id="arch-rgmystus-dat" format="dat-mystic">
+			<file id="mod-apogee"   name="apogee.mod"   editor="music" format="mod-4ch" title="Apogee"/>
+			<file id="mod-atmos3"   name="atmos3.mod"   editor="music" format="mod-4ch" title="Atmos 3"/>
+			<file id="mod-atmos4"   name="atmos4.mod"   editor="music" format="mod-4ch" title="Atmos 4"/>
+			<file id="mod-baldfun1" name="baldfun1.mod" editor="music" format="mod-4ch" title="Bald Fun 1"/>
+			<file id="mod-fanfare"  name="fanfare.mod"  editor="music" format="mod-4ch" title="Fanfare"/>
+			<file id="mod-meditate" name="meditate.mod" editor="music" format="mod-4ch" title="Meditate"/>
+			<file id="mod-pc_book1" name="pc_book1.mod" editor="music" format="mod-4ch" title="PC Book 1"/>
+			<file id="mod-pc_book2" name="pc_book2.mod" editor="music" format="mod-4ch" title="PC Book 2"/>
 
-			<file id="pcx-apogee"   name="apogee.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="Apogee"/>
-			<file id="pcx-f1help"   name="f1help.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="F1 Help"/>
-			<file id="pcx-main2"    name="main2.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="Main 2"/>
-			<file id="pcx-mt_box"   name="mt_box.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="mt_box"/>
-			<file id="pcx-mt_logo"  name="mt_logo.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="mt_logo"/>
-			<file id="pcx-ncov1"    name="ncov1.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="ncov1"/>
-			<file id="pcx-ncov2"    name="ncov2.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="ncov2"/>
-			<file id="pcx-ncov3"    name="ncov3.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="ncov3"/>
-			<file id="pcx-ncov4"    name="ncov4.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="ncov4"/>
-			<file id="pcx-ncov5"    name="ncov5.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="ncov5"/>
-			<file id="pcx-ncov6"    name="ncov6.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="ncov6"/>
-			<file id="pcx-ncov7"    name="ncov7.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="ncov7"/>
-			<file id="pcx-ncov8"    name="ncov8.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="ncov8"/>
-			<file id="pcx-nosave"   name="nosave.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="nosave"/>
-			<file id="pcx-ovcfg1"   name="ovcfg1.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovcfg1"/>
-			<file id="pcx-ovcurgm"  name="ovcurgm.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="ovcurgm"/>
-			<file id="pcx-ovdeath"  name="ovdeath.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="ovdeath"/>
-			<file id="pcx-ovdskerr" name="ovdskerr.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="ovdskerr"/>
-			<file id="pcx-oveot1"   name="oveot1.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="oveot1"/>
-			<file id="pcx-oveot2"   name="oveot2.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="oveot2"/>
-			<file id="pcx-ovhelp1"  name="ovhelp1.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp1"/>
-			<file id="pcx-ovhelp10" name="ovhelp10.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp10"/>
-			<file id="pcx-ovhelp11" name="ovhelp11.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp11"/>
-			<file id="pcx-ovhelp12" name="ovhelp12.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp12"/>
-			<file id="pcx-ovhelp13" name="ovhelp13.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp13"/>
-			<file id="pcx-ovhelp14" name="ovhelp14.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp14"/>
-			<file id="pcx-ovhelp2"  name="ovhelp2.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp2"/>
-			<file id="pcx-ovhelp3"  name="ovhelp3.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp3"/>
-			<file id="pcx-ovhelp4"  name="ovhelp4.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp4"/>
-			<file id="pcx-ovhelp5"  name="ovhelp5.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp5"/>
-			<file id="pcx-ovhelp6"  name="ovhelp6.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp6"/>
-			<file id="pcx-ovhelp7"  name="ovhelp7.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp7"/>
-			<file id="pcx-ovhelp8"  name="ovhelp8.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp8"/>
-			<file id="pcx-ovhelp9"  name="ovhelp9.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="ovhelp9"/>
-			<file id="pcx-ovhiscr"  name="ovhiscr.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="ovhiscr"/>
-			<file id="pcx-ovldgm"   name="ovldgm.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovldgm"/>
-			<file id="pcx-ovmmenu"  name="ovmmenu.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="ovmmenu"/>
-			<file id="pcx-ovquit"   name="ovquit.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovquit"/>
-			<file id="pcx-ovreg1"   name="ovreg1.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovreg1"/>
-			<file id="pcx-ovreg2"   name="ovreg2.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovreg2"/>
-			<file id="pcx-ovreg3"   name="ovreg3.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovreg3"/>
-			<file id="pcx-ovreg4"   name="ovreg4.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovreg4"/>
-			<file id="pcx-ovreg5"   name="ovreg5.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovreg5"/>
-			<file id="pcx-ovreg6"   name="ovreg6.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovreg6"/>
-			<file id="pcx-ovreg7"   name="ovreg7.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovreg7"/>
-			<file id="pcx-ovreg8"   name="ovreg8.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovreg8"/>
-			<file id="pcx-ovstgm"   name="ovstgm.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovstgm"/>
-			<file id="pcx-ovstlv"   name="ovstlv.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovstlv"/>
-			<file id="pcx-ovsvgm"   name="ovsvgm.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="ovsvgm"/>
-			<file id="pcx-pirate"   name="pirate.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="pirate"/>
-			<file id="pcx-rg0pic"   name="rg0pic.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="rg0pic"/>
-			<file id="pcx-rg10pic"  name="rg10pic.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="rg10pic"/>
-			<file id="pcx-rg11pic"  name="rg11pic.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="rg11pic"/>
-			<file id="pcx-rg12pic"  name="rg12pic.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="rg12pic"/>
-			<file id="pcx-rg13pic"  name="rg13pic.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="rg13pic"/>
-			<file id="pcx-rg14pic"  name="rg14pic.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="rg14pic"/>
-			<file id="pcx-rg1pic"   name="rg1pic.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="rg1pic"/>
-			<file id="pcx-rg2pic"   name="rg2pic.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="rg2pic"/>
-			<file id="pcx-rg3pic"   name="rg3pic.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="rg3pic"/>
-			<file id="pcx-rg4pic"   name="rg4pic.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="rg4pic"/>
-			<file id="pcx-rg5pic"   name="rg5pic.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="rg5pic"/>
-			<file id="pcx-rg6pic"   name="rg6pic.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="rg6pic"/>
-			<file id="pcx-rg7pic"   name="rg7pic.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="rg7pic"/>
-			<file id="pcx-rg8pic"   name="rg8pic.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="rg8pic"/>
-			<file id="pcx-rg9pic"   name="rg9pic.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="rg9pic"/>
+			<file id="pcx-apogee"   name="apogee.pcx"   editor="image" format="img-pcx-8b1p" title="Apogee"/>
+			<file id="pcx-f1help"   name="f1help.pcx"   editor="image" format="img-pcx-8b1p" title="F1 Help"/>
+			<file id="pcx-main2"    name="main2.pcx"    editor="image" format="img-pcx-8b1p" title="Main 2"/>
+			<file id="pcx-mt_box"   name="mt_box.pcx"   editor="image" format="img-pcx-8b1p" title="mt_box"/>
+			<file id="pcx-mt_logo"  name="mt_logo.pcx"  editor="image" format="img-pcx-8b1p" title="mt_logo"/>
+			<file id="pcx-ncov1"    name="ncov1.pcx"    editor="image" format="img-pcx-8b1p" title="ncov1"/>
+			<file id="pcx-ncov2"    name="ncov2.pcx"    editor="image" format="img-pcx-8b1p" title="ncov2"/>
+			<file id="pcx-ncov3"    name="ncov3.pcx"    editor="image" format="img-pcx-8b1p" title="ncov3"/>
+			<file id="pcx-ncov4"    name="ncov4.pcx"    editor="image" format="img-pcx-8b1p" title="ncov4"/>
+			<file id="pcx-ncov5"    name="ncov5.pcx"    editor="image" format="img-pcx-8b1p" title="ncov5"/>
+			<file id="pcx-ncov6"    name="ncov6.pcx"    editor="image" format="img-pcx-8b1p" title="ncov6"/>
+			<file id="pcx-ncov7"    name="ncov7.pcx"    editor="image" format="img-pcx-8b1p" title="ncov7"/>
+			<file id="pcx-ncov8"    name="ncov8.pcx"    editor="image" format="img-pcx-8b1p" title="ncov8"/>
+			<file id="pcx-nosave"   name="nosave.pcx"   editor="image" format="img-pcx-8b1p" title="nosave"/>
+			<file id="pcx-ovcfg1"   name="ovcfg1.pcx"   editor="image" format="img-pcx-8b1p" title="ovcfg1"/>
+			<file id="pcx-ovcurgm"  name="ovcurgm.pcx"  editor="image" format="img-pcx-8b1p" title="ovcurgm"/>
+			<file id="pcx-ovdeath"  name="ovdeath.pcx"  editor="image" format="img-pcx-8b1p" title="ovdeath"/>
+			<file id="pcx-ovdskerr" name="ovdskerr.pcx" editor="image" format="img-pcx-8b1p" title="ovdskerr"/>
+			<file id="pcx-oveot1"   name="oveot1.pcx"   editor="image" format="img-pcx-8b1p" title="oveot1"/>
+			<file id="pcx-oveot2"   name="oveot2.pcx"   editor="image" format="img-pcx-8b1p" title="oveot2"/>
+			<file id="pcx-ovhelp1"  name="ovhelp1.pcx"  editor="image" format="img-pcx-8b1p" title="ovhelp1"/>
+			<file id="pcx-ovhelp10" name="ovhelp10.pcx" editor="image" format="img-pcx-8b1p" title="ovhelp10"/>
+			<file id="pcx-ovhelp11" name="ovhelp11.pcx" editor="image" format="img-pcx-8b1p" title="ovhelp11"/>
+			<file id="pcx-ovhelp12" name="ovhelp12.pcx" editor="image" format="img-pcx-8b1p" title="ovhelp12"/>
+			<file id="pcx-ovhelp13" name="ovhelp13.pcx" editor="image" format="img-pcx-8b1p" title="ovhelp13"/>
+			<file id="pcx-ovhelp14" name="ovhelp14.pcx" editor="image" format="img-pcx-8b1p" title="ovhelp14"/>
+			<file id="pcx-ovhelp2"  name="ovhelp2.pcx"  editor="image" format="img-pcx-8b1p" title="ovhelp2"/>
+			<file id="pcx-ovhelp3"  name="ovhelp3.pcx"  editor="image" format="img-pcx-8b1p" title="ovhelp3"/>
+			<file id="pcx-ovhelp4"  name="ovhelp4.pcx"  editor="image" format="img-pcx-8b1p" title="ovhelp4"/>
+			<file id="pcx-ovhelp5"  name="ovhelp5.pcx"  editor="image" format="img-pcx-8b1p" title="ovhelp5"/>
+			<file id="pcx-ovhelp6"  name="ovhelp6.pcx"  editor="image" format="img-pcx-8b1p" title="ovhelp6"/>
+			<file id="pcx-ovhelp7"  name="ovhelp7.pcx"  editor="image" format="img-pcx-8b1p" title="ovhelp7"/>
+			<file id="pcx-ovhelp8"  name="ovhelp8.pcx"  editor="image" format="img-pcx-8b1p" title="ovhelp8"/>
+			<file id="pcx-ovhelp9"  name="ovhelp9.pcx"  editor="image" format="img-pcx-8b1p" title="ovhelp9"/>
+			<file id="pcx-ovhiscr"  name="ovhiscr.pcx"  editor="image" format="img-pcx-8b1p" title="ovhiscr"/>
+			<file id="pcx-ovldgm"   name="ovldgm.pcx"   editor="image" format="img-pcx-8b1p" title="ovldgm"/>
+			<file id="pcx-ovmmenu"  name="ovmmenu.pcx"  editor="image" format="img-pcx-8b1p" title="ovmmenu"/>
+			<file id="pcx-ovquit"   name="ovquit.pcx"   editor="image" format="img-pcx-8b1p" title="ovquit"/>
+			<file id="pcx-ovreg1"   name="ovreg1.pcx"   editor="image" format="img-pcx-8b1p" title="ovreg1"/>
+			<file id="pcx-ovreg2"   name="ovreg2.pcx"   editor="image" format="img-pcx-8b1p" title="ovreg2"/>
+			<file id="pcx-ovreg3"   name="ovreg3.pcx"   editor="image" format="img-pcx-8b1p" title="ovreg3"/>
+			<file id="pcx-ovreg4"   name="ovreg4.pcx"   editor="image" format="img-pcx-8b1p" title="ovreg4"/>
+			<file id="pcx-ovreg5"   name="ovreg5.pcx"   editor="image" format="img-pcx-8b1p" title="ovreg5"/>
+			<file id="pcx-ovreg6"   name="ovreg6.pcx"   editor="image" format="img-pcx-8b1p" title="ovreg6"/>
+			<file id="pcx-ovreg7"   name="ovreg7.pcx"   editor="image" format="img-pcx-8b1p" title="ovreg7"/>
+			<file id="pcx-ovreg8"   name="ovreg8.pcx"   editor="image" format="img-pcx-8b1p" title="ovreg8"/>
+			<file id="pcx-ovstgm"   name="ovstgm.pcx"   editor="image" format="img-pcx-8b1p" title="ovstgm"/>
+			<file id="pcx-ovstlv"   name="ovstlv.pcx"   editor="image" format="img-pcx-8b1p" title="ovstlv"/>
+			<file id="pcx-ovsvgm"   name="ovsvgm.pcx"   editor="image" format="img-pcx-8b1p" title="ovsvgm"/>
+			<file id="pcx-pirate"   name="pirate.pcx"   editor="image" format="img-pcx-8b1p" title="pirate"/>
+			<file id="pcx-rg0pic"   name="rg0pic.pcx"   editor="image" format="img-pcx-8b1p" title="rg0pic"/>
+			<file id="pcx-rg10pic"  name="rg10pic.pcx"  editor="image" format="img-pcx-8b1p" title="rg10pic"/>
+			<file id="pcx-rg11pic"  name="rg11pic.pcx"  editor="image" format="img-pcx-8b1p" title="rg11pic"/>
+			<file id="pcx-rg12pic"  name="rg12pic.pcx"  editor="image" format="img-pcx-8b1p" title="rg12pic"/>
+			<file id="pcx-rg13pic"  name="rg13pic.pcx"  editor="image" format="img-pcx-8b1p" title="rg13pic"/>
+			<file id="pcx-rg14pic"  name="rg14pic.pcx"  editor="image" format="img-pcx-8b1p" title="rg14pic"/>
+			<file id="pcx-rg1pic"   name="rg1pic.pcx"   editor="image" format="img-pcx-8b1p" title="rg1pic"/>
+			<file id="pcx-rg2pic"   name="rg2pic.pcx"   editor="image" format="img-pcx-8b1p" title="rg2pic"/>
+			<file id="pcx-rg3pic"   name="rg3pic.pcx"   editor="image" format="img-pcx-8b1p" title="rg3pic"/>
+			<file id="pcx-rg4pic"   name="rg4pic.pcx"   editor="image" format="img-pcx-8b1p" title="rg4pic"/>
+			<file id="pcx-rg5pic"   name="rg5pic.pcx"   editor="image" format="img-pcx-8b1p" title="rg5pic"/>
+			<file id="pcx-rg6pic"   name="rg6pic.pcx"   editor="image" format="img-pcx-8b1p" title="rg6pic"/>
+			<file id="pcx-rg7pic"   name="rg7pic.pcx"   editor="image" format="img-pcx-8b1p" title="rg7pic"/>
+			<file id="pcx-rg8pic"   name="rg8pic.pcx"   editor="image" format="img-pcx-8b1p" title="rg8pic"/>
+			<file id="pcx-rg9pic"   name="rg9pic.pcx"   editor="image" format="img-pcx-8b1p" title="rg9pic"/>
 
 <!--
-"ls" -1 *.pcx | sed 's|\([^.]\+\)\.\(.\+\)|<file id="\2-\1" name="\1.\2" typeMajor="image" typeMinor="pcx-8b1p" title="\1"/>|'
+"ls" -1 *.pcx | sed 's|\([^.]\+\)\.\(.\+\)|<file id="\2-\1" name="\1.\2" editor="image" format="img-pcx-8b1p" title="\1"/>|'
 -->
 		</archive>
 	</files>

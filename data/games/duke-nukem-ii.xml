@@ -200,299 +200,299 @@
 	</display>
 
 	<files>
-		<archive name="nukem2.cmp" id="arch-cmp" typeMinor="vol-cosmo">
-			<file id="lev-101" name="l1.mni"  typeMajor="map" typeMinor="nukem2" title="E1L1">
+		<archive name="nukem2.cmp" id="arch-cmp" format="vol-cosmo">
+			<file id="lev-101" name="l1.mni"  editor="map2d" format="map2d-nukem2" title="E1L1">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-102" name="l2.mni"  typeMajor="map" typeMinor="nukem2" title="E1L2">
+			<file id="lev-102" name="l2.mni"  editor="map2d" format="map2d-nukem2" title="E1L2">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-103" name="l3.mni"  typeMajor="map" typeMinor="nukem2" title="E1L3">
+			<file id="lev-103" name="l3.mni"  editor="map2d" format="map2d-nukem2" title="E1L3">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-104" name="l4.mni"  typeMajor="map" typeMinor="nukem2" title="E1L4">
+			<file id="lev-104" name="l4.mni"  editor="map2d" format="map2d-nukem2" title="E1L4">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-105" name="l5.mni"  typeMajor="map" typeMinor="nukem2" title="E1L5">
+			<file id="lev-105" name="l5.mni"  editor="map2d" format="map2d-nukem2" title="E1L5">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-106" name="l6.mni"  typeMajor="map" typeMinor="nukem2" title="E1L6">
+			<file id="lev-106" name="l6.mni"  editor="map2d" format="map2d-nukem2" title="E1L6">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-107" name="l7.mni"  typeMajor="map" typeMinor="nukem2" title="E1L7">
+			<file id="lev-107" name="l7.mni"  editor="map2d" format="map2d-nukem2" title="E1L7">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-108" name="l8.mni"  typeMajor="map" typeMinor="nukem2" title="E1L8">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-
-			<file id="lev-201" name="m1.mni"  typeMajor="map" typeMinor="nukem2" title="E2L1">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-202" name="m2.mni"  typeMajor="map" typeMinor="nukem2" title="E2L2">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-203" name="m3.mni"  typeMajor="map" typeMinor="nukem2" title="E2L3">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-204" name="m4.mni"  typeMajor="map" typeMinor="nukem2" title="E2L4">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-205" name="m5.mni"  typeMajor="map" typeMinor="nukem2" title="E2L5">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-206" name="m6.mni"  typeMajor="map" typeMinor="nukem2" title="E2L6">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-207" name="m7.mni"  typeMajor="map" typeMinor="nukem2" title="E2L7">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-208" name="m8.mni"  typeMajor="map" typeMinor="nukem2" title="E2L8">
+			<file id="lev-108" name="l8.mni"  editor="map2d" format="map2d-nukem2" title="E1L8">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
 
-			<file id="lev-301" name="n1.mni"  typeMajor="map" typeMinor="nukem2" title="E3L1">
+			<file id="lev-201" name="m1.mni"  editor="map2d" format="map2d-nukem2" title="E2L1">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-302" name="n2.mni"  typeMajor="map" typeMinor="nukem2" title="E3L2">
+			<file id="lev-202" name="m2.mni"  editor="map2d" format="map2d-nukem2" title="E2L2">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-303" name="n3.mni"  typeMajor="map" typeMinor="nukem2" title="E3L3">
+			<file id="lev-203" name="m3.mni"  editor="map2d" format="map2d-nukem2" title="E2L3">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-304" name="n4.mni"  typeMajor="map" typeMinor="nukem2" title="E3L4">
+			<file id="lev-204" name="m4.mni"  editor="map2d" format="map2d-nukem2" title="E2L4">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-305" name="n5.mni"  typeMajor="map" typeMinor="nukem2" title="E3L5">
+			<file id="lev-205" name="m5.mni"  editor="map2d" format="map2d-nukem2" title="E2L5">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-306" name="n6.mni"  typeMajor="map" typeMinor="nukem2" title="E3L6">
+			<file id="lev-206" name="m6.mni"  editor="map2d" format="map2d-nukem2" title="E2L6">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-307" name="n7.mni"  typeMajor="map" typeMinor="nukem2" title="E3L7">
+			<file id="lev-207" name="m7.mni"  editor="map2d" format="map2d-nukem2" title="E2L7">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="lev-308" name="n8.mni"  typeMajor="map" typeMinor="nukem2" title="E3L8">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-
-			<file id="lev-401" name="o1.mni"  typeMajor="map" typeMinor="nukem2" title="E4L1">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-402" name="o2.mni"  typeMajor="map" typeMinor="nukem2" title="E4L2">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-403" name="o3.mni"  typeMajor="map" typeMinor="nukem2" title="E4L3">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-404" name="o4.mni"  typeMajor="map" typeMinor="nukem2" title="E4L4">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-405" name="o5.mni"  typeMajor="map" typeMinor="nukem2" title="E4L5">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-406" name="o6.mni"  typeMajor="map" typeMinor="nukem2" title="E4L6">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-407" name="o7.mni"  typeMajor="map" typeMinor="nukem2" title="E4L7">
-				<dep reftype="actors"   ref="gfx-actors"/>
-			</file>
-			<file id="lev-408" name="o8.mni"  typeMajor="map" typeMinor="nukem2" title="E4L8">
+			<file id="lev-208" name="m8.mni"  editor="map2d" format="map2d-nukem2" title="E2L8">
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
 
-			<file id="mus-begone"   name="begonea.imf"  typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Be Gone"/>
-			<file id="mus-calm"     name="calm.imf"     typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Calm"/>
-			<file id="mus-depths"   name="depthsa.imf"  typeMajor="music" typeMinor="imf-idsoftware-duke2" title="&quot;Out of the Depths&quot;"/>
-			<file id="mus-dukeii"   name="dukeiia.imf"  typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Duke II"/>
-			<file id="mus-dukein"   name="dukeina.imf"  typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Dukein"/>
-			<file id="mus-fanfare"  name="fanfarea.imf" typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Apogee Fanfare"/>
-			<file id="mus-fight"    name="fight.imf"    typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Fight"/>
-			<file id="mus-hesback"  name="hesbacka.imf" typeMajor="music" typeMinor="imf-idsoftware-duke2" title="&quot;He's Back!&quot;"/>
-			<file id="mus-kickbut"  name="kickbuta.imf" typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Kick Butt"/>
-			<file id="mus-kisgirl"  name="kisgirla.imf" typeMajor="music" typeMinor="imf-idsoftware-duke2" title="&quot;Kiss the Girls and Make them Cry&quot;"/>
-			<file id="mus-menu"     name="menusng2.imf" typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Main Menu"/>
-			<file id="mus-nevrend"  name="nevrenda.imf" typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Never Ending"/>
-			<file id="mus-nukeman"  name="nukemana.imf" typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Nuke Man"/>
-			<file id="mus-opngate"  name="opngatea.imf" typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Open Gate"/>
-			<file id="mus-prowl"    name="prowla.imf"   typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Prowl"/>
-			<file id="mus-range"    name="rangea.imf"   typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Range"/>
-			<file id="mus-squeak"   name="squeaka.imf"  typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Squeak"/>
-			<file id="mus-ubdead"   name="ubdeada.imf"  typeMajor="music" typeMinor="imf-idsoftware-duke2" title="&quot;You be Dead!&quot;"/>
-			<file id="mus-winning"  name="winninga.imf" typeMajor="music" typeMinor="imf-idsoftware-duke2" title="Winning"/>
-
-			<file id="gfx-drop3"    name="drop3.mni"    typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 3">
-				<dep reftype="palette" ref="pal-main"/>
+			<file id="lev-301" name="n1.mni"  editor="map2d" format="map2d-nukem2" title="E3L1">
+				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="gfx-drop4"    name="drop4.mni"    typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 4">
-				<dep reftype="palette" ref="pal-main"/>
+			<file id="lev-302" name="n2.mni"  editor="map2d" format="map2d-nukem2" title="E3L2">
+				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="gfx-drop5"    name="drop5.mni"    typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 5">
-				<dep reftype="palette" ref="pal-main"/>
+			<file id="lev-303" name="n3.mni"  editor="map2d" format="map2d-nukem2" title="E3L3">
+				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="gfx-drop7"    name="drop7.mni"    typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 7">
-				<dep reftype="palette" ref="pal-main"/>
+			<file id="lev-304" name="n4.mni"  editor="map2d" format="map2d-nukem2" title="E3L4">
+				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="gfx-drop8"    name="drop8.mni"    typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 8">
-				<dep reftype="palette" ref="pal-main"/>
+			<file id="lev-305" name="n5.mni"  editor="map2d" format="map2d-nukem2" title="E3L5">
+				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="gfx-drop12"   name="drop12.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 12">
-				<dep reftype="palette" ref="pal-main"/>
+			<file id="lev-306" name="n6.mni"  editor="map2d" format="map2d-nukem2" title="E3L6">
+				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="gfx-drop13"   name="drop13.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 13">
-				<dep reftype="palette" ref="pal-main"/>
+			<file id="lev-307" name="n7.mni"  editor="map2d" format="map2d-nukem2" title="E3L7">
+				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
-			<file id="gfx-drop14"   name="drop14.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 14">
-				<dep reftype="palette" ref="pal-main"/>
-			</file>
-			<file id="gfx-drop15"   name="drop15.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 15">
-				<dep reftype="palette" ref="pal-main"/>
-			</file>
-			<file id="gfx-drop16"   name="drop16.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 16">
-				<dep reftype="palette" ref="pal-main"/>
-			</file>
-			<file id="gfx-drop17"   name="drop17.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 17">
-				<dep reftype="palette" ref="pal-main"/>
-			</file>
-			<file id="gfx-drop18"   name="drop18.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 18">
-				<dep reftype="palette" ref="pal-main"/>
-			</file>
-			<file id="gfx-drop19"   name="drop19.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 19">
-				<dep reftype="palette" ref="pal-main"/>
-			</file>
-			<file id="gfx-drop23"   name="drop23.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 23">
-				<dep reftype="palette" ref="pal-main"/>
-			</file>
-			<file id="gfx-drop24"   name="drop24.mni"   typeMajor="image" typeMinor="nukem2-backdrop" title="Backdrop 24">
-				<dep reftype="palette" ref="pal-main"/>
+			<file id="lev-308" name="n8.mni"  editor="map2d" format="map2d-nukem2" title="E3L8">
+				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
 
-			<file id="img-bonus"    name="bonusscn.mni" typeMajor="image"   typeMinor="nukem2" title="Bonus screen"/>
-			<file id="img-end11"    name="end1-1.mni"   typeMajor="image"   typeMinor="nukem2" title="E1 ending 1"/>
-			<file id="img-end12"    name="end1-2.mni"   typeMajor="image"   typeMinor="nukem2" title="E1 ending 2"/>
-			<file id="img-end13"    name="end1-3.mni"   typeMajor="image"   typeMinor="nukem2" title="E1 ending 3"/>
-			<file id="img-end21"    name="end2-1.mni"   typeMajor="image"   typeMinor="nukem2" title="E2 ending 1"/>
-			<file id="img-end31"    name="end3-1.mni"   typeMajor="image"   typeMinor="nukem2" title="E3 ending 1"/>
-			<file id="img-end41"    name="end4-1.mni"   typeMajor="image"   typeMinor="nukem2" title="E4 ending 1"/>
-			<file id="img-end42"    name="end4-2.mni"   typeMajor="image"   typeMinor="nukem2" title="E4 ending 2"/>
-			<file id="img-end43"    name="end4-3.mni"   typeMajor="image"   typeMinor="nukem2" title="E4 ending 3"/>
-			<file id="img-hints"    name="hints.mni"    typeMajor="image"   typeMinor="nukem2" title="Hints and Tips"/>
-			<file id="img-hy1"      name="hy1.mni"      typeMajor="image"   typeMinor="nukem2" title="Hype 1"/>
-			<file id="img-hy2"      name="hy2.mni"      typeMajor="image"   typeMinor="nukem2" title="Hype 2"/>
-			<file id="img-hy3"      name="hy3.mni"      typeMajor="image"   typeMinor="nukem2" title="Hype 3"/>
-			<file id="img-items1"   name="items.mni"    typeMajor="image"   typeMinor="nukem2" title="Help: items 1"/>
-			<file id="img-items2"   name="items2.mni"   typeMajor="image"   typeMinor="nukem2" title="Help: items 2"/>
-			<file id="img-kb1"      name="keybord1.mni" typeMajor="image"   typeMinor="nukem2" title="Help: keyboard 1"/>
-			<file id="img-kb2"      name="keybord2.mni" typeMajor="image"   typeMinor="nukem2" title="Help: keyboard 2"/>
-			<file id="img-load1"    name="load1.mni"    typeMajor="image"   typeMinor="nukem2" title="Level loading 1"/>
-			<file id="img-load2"    name="load2.mni"    typeMajor="image"   typeMinor="nukem2" title="Level loading 2"/>
-			<file id="img-load3"    name="load3.mni"    typeMajor="image"   typeMinor="nukem2" title="Level loading 3"/>
-			<file id="img-load4"    name="load4.mni"    typeMajor="image"   typeMinor="nukem2" title="Level loading 4"/>
-			<file id="img-msg"      name="message.mni"  typeMajor="image"   typeMinor="nukem2" title="Menu background"/>
-			<file id="img-story"    name="story.mni"    typeMajor="image"   typeMinor="nukem2" title="Story"/>
-			<file id="img-prizes2"  name="prizes2.mni"  typeMajor="image"   typeMinor="nukem2" title="Help: prizes"/>
-			<file id="img-weap1"    name="weapons1.mni" typeMajor="image"   typeMinor="nukem2" title="Help: weapons 1"/>
-			<file id="img-weap2"    name="weapons2.mni" typeMajor="image"   typeMinor="nukem2" title="Help: weapons 2"/>
+			<file id="lev-401" name="o1.mni"  editor="map2d" format="map2d-nukem2" title="E4L1">
+				<dep reftype="actors"   ref="gfx-actors"/>
+			</file>
+			<file id="lev-402" name="o2.mni"  editor="map2d" format="map2d-nukem2" title="E4L2">
+				<dep reftype="actors"   ref="gfx-actors"/>
+			</file>
+			<file id="lev-403" name="o3.mni"  editor="map2d" format="map2d-nukem2" title="E4L3">
+				<dep reftype="actors"   ref="gfx-actors"/>
+			</file>
+			<file id="lev-404" name="o4.mni"  editor="map2d" format="map2d-nukem2" title="E4L4">
+				<dep reftype="actors"   ref="gfx-actors"/>
+			</file>
+			<file id="lev-405" name="o5.mni"  editor="map2d" format="map2d-nukem2" title="E4L5">
+				<dep reftype="actors"   ref="gfx-actors"/>
+			</file>
+			<file id="lev-406" name="o6.mni"  editor="map2d" format="map2d-nukem2" title="E4L6">
+				<dep reftype="actors"   ref="gfx-actors"/>
+			</file>
+			<file id="lev-407" name="o7.mni"  editor="map2d" format="map2d-nukem2" title="E4L7">
+				<dep reftype="actors"   ref="gfx-actors"/>
+			</file>
+			<file id="lev-408" name="o8.mni"  editor="map2d" format="map2d-nukem2" title="E4L8">
+				<dep reftype="actors"   ref="gfx-actors"/>
+			</file>
 
-			<file id="img-lcr"      name="lcr.mni"      typeMajor="image"   typeMinor="nukem2-vga" title="Anti-piracy"/>
+			<file id="mus-begone"   name="begonea.imf"  editor="music" format="imf-idsoftware-duke2" title="Be Gone"/>
+			<file id="mus-calm"     name="calm.imf"     editor="music" format="imf-idsoftware-duke2" title="Calm"/>
+			<file id="mus-depths"   name="depthsa.imf"  editor="music" format="imf-idsoftware-duke2" title="&quot;Out of the Depths&quot;"/>
+			<file id="mus-dukeii"   name="dukeiia.imf"  editor="music" format="imf-idsoftware-duke2" title="Duke II"/>
+			<file id="mus-dukein"   name="dukeina.imf"  editor="music" format="imf-idsoftware-duke2" title="Dukein"/>
+			<file id="mus-fanfare"  name="fanfarea.imf" editor="music" format="imf-idsoftware-duke2" title="Apogee Fanfare"/>
+			<file id="mus-fight"    name="fight.imf"    editor="music" format="imf-idsoftware-duke2" title="Fight"/>
+			<file id="mus-hesback"  name="hesbacka.imf" editor="music" format="imf-idsoftware-duke2" title="&quot;He's Back!&quot;"/>
+			<file id="mus-kickbut"  name="kickbuta.imf" editor="music" format="imf-idsoftware-duke2" title="Kick Butt"/>
+			<file id="mus-kisgirl"  name="kisgirla.imf" editor="music" format="imf-idsoftware-duke2" title="&quot;Kiss the Girls and Make them Cry&quot;"/>
+			<file id="mus-menu"     name="menusng2.imf" editor="music" format="imf-idsoftware-duke2" title="Main Menu"/>
+			<file id="mus-nevrend"  name="nevrenda.imf" editor="music" format="imf-idsoftware-duke2" title="Never Ending"/>
+			<file id="mus-nukeman"  name="nukemana.imf" editor="music" format="imf-idsoftware-duke2" title="Nuke Man"/>
+			<file id="mus-opngate"  name="opngatea.imf" editor="music" format="imf-idsoftware-duke2" title="Open Gate"/>
+			<file id="mus-prowl"    name="prowla.imf"   editor="music" format="imf-idsoftware-duke2" title="Prowl"/>
+			<file id="mus-range"    name="rangea.imf"   editor="music" format="imf-idsoftware-duke2" title="Range"/>
+			<file id="mus-squeak"   name="squeaka.imf"  editor="music" format="imf-idsoftware-duke2" title="Squeak"/>
+			<file id="mus-ubdead"   name="ubdeada.imf"  editor="music" format="imf-idsoftware-duke2" title="&quot;You be Dead!&quot;"/>
+			<file id="mus-winning"  name="winninga.imf" editor="music" format="imf-idsoftware-duke2" title="Winning"/>
 
-			<file id="fat-actrinf"  name="actrinfo.mni" typeMajor="tileset" typeMinor="actrinfo-fat" title="Actor tile arrangement data"/>
-			<file id="gfx-actors"   name="actors.mni"   typeMajor="tileset" typeMinor="actrinfo"     title="Actors"/>
+			<file id="gfx-drop3"    name="drop3.mni"    editor="image" format="img-nukem2-backdrop" title="Backdrop 3">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop4"    name="drop4.mni"    editor="image" format="img-nukem2-backdrop" title="Backdrop 4">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop5"    name="drop5.mni"    editor="image" format="img-nukem2-backdrop" title="Backdrop 5">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop7"    name="drop7.mni"    editor="image" format="img-nukem2-backdrop" title="Backdrop 7">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop8"    name="drop8.mni"    editor="image" format="img-nukem2-backdrop" title="Backdrop 8">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop12"   name="drop12.mni"   editor="image" format="img-nukem2-backdrop" title="Backdrop 12">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop13"   name="drop13.mni"   editor="image" format="img-nukem2-backdrop" title="Backdrop 13">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop14"   name="drop14.mni"   editor="image" format="img-nukem2-backdrop" title="Backdrop 14">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop15"   name="drop15.mni"   editor="image" format="img-nukem2-backdrop" title="Backdrop 15">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop16"   name="drop16.mni"   editor="image" format="img-nukem2-backdrop" title="Backdrop 16">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop17"   name="drop17.mni"   editor="image" format="img-nukem2-backdrop" title="Backdrop 17">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop18"   name="drop18.mni"   editor="image" format="img-nukem2-backdrop" title="Backdrop 18">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop19"   name="drop19.mni"   editor="image" format="img-nukem2-backdrop" title="Backdrop 19">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop23"   name="drop23.mni"   editor="image" format="img-nukem2-backdrop" title="Backdrop 23">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
+			<file id="gfx-drop24"   name="drop24.mni"   editor="image" format="img-nukem2-backdrop" title="Backdrop 24">
+				<dep reftype="palette" ref="pal-main"/>
+			</file>
 
-			<file id="dos-exit1"    name="dostext.mni"  typeMajor="image" typeMinor="dostext" title="Exit screen"/>
-			<file id="dos-exit2"    name="dostext2.bin" typeMajor="image" typeMinor="dostext" title="Exit screen 2"/>
-			<file id="dos-nomem"    name="nomemory.bin" typeMajor="image" typeMinor="dostext" title="No memory screen"/>
+			<file id="img-bonus"    name="bonusscn.mni" editor="image"   format="img-nukem2" title="Bonus screen"/>
+			<file id="img-end11"    name="end1-1.mni"   editor="image"   format="img-nukem2" title="E1 ending 1"/>
+			<file id="img-end12"    name="end1-2.mni"   editor="image"   format="img-nukem2" title="E1 ending 2"/>
+			<file id="img-end13"    name="end1-3.mni"   editor="image"   format="img-nukem2" title="E1 ending 3"/>
+			<file id="img-end21"    name="end2-1.mni"   editor="image"   format="img-nukem2" title="E2 ending 1"/>
+			<file id="img-end31"    name="end3-1.mni"   editor="image"   format="img-nukem2" title="E3 ending 1"/>
+			<file id="img-end41"    name="end4-1.mni"   editor="image"   format="img-nukem2" title="E4 ending 1"/>
+			<file id="img-end42"    name="end4-2.mni"   editor="image"   format="img-nukem2" title="E4 ending 2"/>
+			<file id="img-end43"    name="end4-3.mni"   editor="image"   format="img-nukem2" title="E4 ending 3"/>
+			<file id="img-hints"    name="hints.mni"    editor="image"   format="img-nukem2" title="Hints and Tips"/>
+			<file id="img-hy1"      name="hy1.mni"      editor="image"   format="img-nukem2" title="Hype 1"/>
+			<file id="img-hy2"      name="hy2.mni"      editor="image"   format="img-nukem2" title="Hype 2"/>
+			<file id="img-hy3"      name="hy3.mni"      editor="image"   format="img-nukem2" title="Hype 3"/>
+			<file id="img-items1"   name="items.mni"    editor="image"   format="img-nukem2" title="Help: items 1"/>
+			<file id="img-items2"   name="items2.mni"   editor="image"   format="img-nukem2" title="Help: items 2"/>
+			<file id="img-kb1"      name="keybord1.mni" editor="image"   format="img-nukem2" title="Help: keyboard 1"/>
+			<file id="img-kb2"      name="keybord2.mni" editor="image"   format="img-nukem2" title="Help: keyboard 2"/>
+			<file id="img-load1"    name="load1.mni"    editor="image"   format="img-nukem2" title="Level loading 1"/>
+			<file id="img-load2"    name="load2.mni"    editor="image"   format="img-nukem2" title="Level loading 2"/>
+			<file id="img-load3"    name="load3.mni"    editor="image"   format="img-nukem2" title="Level loading 3"/>
+			<file id="img-load4"    name="load4.mni"    editor="image"   format="img-nukem2" title="Level loading 4"/>
+			<file id="img-msg"      name="message.mni"  editor="image"   format="img-nukem2" title="Menu background"/>
+			<file id="img-story"    name="story.mni"    editor="image"   format="img-nukem2" title="Story"/>
+			<file id="img-prizes2"  name="prizes2.mni"  editor="image"   format="img-nukem2" title="Help: prizes"/>
+			<file id="img-weap1"    name="weapons1.mni" editor="image"   format="img-nukem2" title="Help: weapons 1"/>
+			<file id="img-weap2"    name="weapons2.mni" editor="image"   format="img-nukem2" title="Help: weapons 2"/>
 
-			<file id="txt-help"     name="help.mni"     typeMajor="text" typeMinor="plain-crlf" title="Help text"/>
-			<file id="txt-opt"      name="options.mni"  typeMajor="text" typeMinor="plain-crlf" title="Options text"/>
-			<file id="txt-order"    name="ordertxt.mni" typeMajor="text" typeMinor="plain-crlf" title="Ordering info"/>
-			<file id="txt-misc"     name="text.mni"     typeMajor="text" typeMinor="plain-crlf" title="Misc text"/>
+			<file id="img-lcr"      name="lcr.mni"      editor="image"   format="img-nukem2-vga" title="Anti-piracy"/>
 
-			<file id="snd-01"       name="sb_1.mni"     typeMajor="sfx" typeMinor="voc" title="Sound 1"/>
-			<file id="snd-02"       name="sb_2.mni"     typeMajor="sfx" typeMinor="voc" title="Sound 2"/>
-			<file id="snd-03"       name="sb_3.mni"     typeMajor="sfx" typeMinor="voc" title="Sound 3"/>
-			<file id="snd-04"       name="sb_4.mni"     typeMajor="sfx" typeMinor="voc" title="Sound 4"/>
-			<file id="snd-05"       name="sb_5.mni"     typeMajor="sfx" typeMinor="voc" title="Sound 5"/>
-			<file id="snd-07"       name="sb_7.mni"     typeMajor="sfx" typeMinor="voc" title="Sound 7"/>
-			<file id="snd-08"       name="sb_8.mni"     typeMajor="sfx" typeMinor="voc" title="Sound 8"/>
-			<file id="snd-09"       name="sb_9.mni"     typeMajor="sfx" typeMinor="voc" title="Sound 9"/>
-			<file id="snd-10"       name="sb_10.mni"    typeMajor="sfx" typeMinor="voc" title="Sound 10"/>
-			<file id="snd-13"       name="sb_13.mni"    typeMajor="sfx" typeMinor="voc" title="Sound 13"/>
-			<file id="snd-17"       name="sb_17.mni"    typeMajor="sfx" typeMinor="voc" title="Sound 17"/>
-			<file id="snd-19"       name="sb_19.mni"    typeMajor="sfx" typeMinor="voc" title="Sound 19"/>
-			<file id="snd-20"       name="sb_20.mni"    typeMajor="sfx" typeMinor="voc" title="Sound 20"/>
-			<file id="snd-21"       name="sb_21.mni"    typeMajor="sfx" typeMinor="voc" title="Sound 21"/>
-			<file id="snd-22"       name="sb_22.mni"    typeMajor="sfx" typeMinor="voc" title="Sound 22"/>
-			<file id="snd-25"       name="sb_25.mni"    typeMajor="sfx" typeMinor="voc" title="Sound 25"/>
-			<file id="snd-28"       name="sb_28.mni"    typeMajor="sfx" typeMinor="voc" title="Sound 28"/>
-			<file id="snd-30"       name="sb_30.mni"    typeMajor="sfx" typeMinor="voc" title="Sound 30"/>
-			<file id="snd-i3"       name="intro3.mni"   typeMajor="sfx" typeMinor="voc" title="Intro sound 3"/>
-			<file id="snd-i4"       name="intro4.mni"   typeMajor="sfx" typeMinor="voc" title="Intro sound 4"/>
-			<file id="snd-i5"       name="intro5.mni"   typeMajor="sfx" typeMinor="voc" title="Intro sound 5"/>
-			<file id="snd-i6"       name="intro6.mni"   typeMajor="sfx" typeMinor="voc" title="Intro sound 6"/>
-			<file id="snd-i7"       name="intro7.mni"   typeMajor="sfx" typeMinor="voc" title="Intro sound 7"/>
-			<file id="snd-i8"       name="intro8.mni"   typeMajor="sfx" typeMinor="voc" title="Intro sound 8"/>
-			<file id="snd-i9"       name="intro9.mni"   typeMajor="sfx" typeMinor="voc" title="Intro sound 9"/>
+			<file id="fat-actrinf"  name="actrinfo.mni" editor="tileset" format="tls-actrinfo-fat" title="Actor tile arrangement data"/>
+			<file id="gfx-actors"   name="actors.mni"   editor="tileset" format="tls-actrinfo"     title="Actors"/>
 
-			<file id="pal-main"     name="gamepal.pal"  typeMajor="palette" typeMinor="vga-raw" title="Main palette"/>
-			<file id="pal-story2"   name="story2.pal"   typeMajor="palette" typeMinor="vga-raw" title="Story 2 palette"/>
-			<file id="pal-story3"   name="story3.pal"   typeMajor="palette" typeMinor="vga-raw" title="Story 3 palette"/>
+			<file id="dos-exit1"    name="dostext.mni"  editor="image" format="img-dostext" title="Exit screen"/>
+			<file id="dos-exit2"    name="dostext2.bin" editor="image" format="img-dostext" title="Exit screen 2"/>
+			<file id="dos-nomem"    name="nomemory.bin" editor="image" format="img-dostext" title="No memory screen"/>
 
-			<archive name="czone1.mni" id="arch-czone1" typeMinor="mni-czone">
-				<file id="gfx-czone1s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 1 (solid)"/>
-				<file id="gfx-czone1m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			<file id="txt-help"     name="help.mni"     editor="text" format="plain-crlf" title="Help text"/>
+			<file id="txt-opt"      name="options.mni"  editor="text" format="plain-crlf" title="Options text"/>
+			<file id="txt-order"    name="ordertxt.mni" editor="text" format="plain-crlf" title="Ordering info"/>
+			<file id="txt-misc"     name="text.mni"     editor="text" format="plain-crlf" title="Misc text"/>
+
+			<file id="snd-01"       name="sb_1.mni"     editor="sfx" format="voc" title="Sound 1"/>
+			<file id="snd-02"       name="sb_2.mni"     editor="sfx" format="voc" title="Sound 2"/>
+			<file id="snd-03"       name="sb_3.mni"     editor="sfx" format="voc" title="Sound 3"/>
+			<file id="snd-04"       name="sb_4.mni"     editor="sfx" format="voc" title="Sound 4"/>
+			<file id="snd-05"       name="sb_5.mni"     editor="sfx" format="voc" title="Sound 5"/>
+			<file id="snd-07"       name="sb_7.mni"     editor="sfx" format="voc" title="Sound 7"/>
+			<file id="snd-08"       name="sb_8.mni"     editor="sfx" format="voc" title="Sound 8"/>
+			<file id="snd-09"       name="sb_9.mni"     editor="sfx" format="voc" title="Sound 9"/>
+			<file id="snd-10"       name="sb_10.mni"    editor="sfx" format="voc" title="Sound 10"/>
+			<file id="snd-13"       name="sb_13.mni"    editor="sfx" format="voc" title="Sound 13"/>
+			<file id="snd-17"       name="sb_17.mni"    editor="sfx" format="voc" title="Sound 17"/>
+			<file id="snd-19"       name="sb_19.mni"    editor="sfx" format="voc" title="Sound 19"/>
+			<file id="snd-20"       name="sb_20.mni"    editor="sfx" format="voc" title="Sound 20"/>
+			<file id="snd-21"       name="sb_21.mni"    editor="sfx" format="voc" title="Sound 21"/>
+			<file id="snd-22"       name="sb_22.mni"    editor="sfx" format="voc" title="Sound 22"/>
+			<file id="snd-25"       name="sb_25.mni"    editor="sfx" format="voc" title="Sound 25"/>
+			<file id="snd-28"       name="sb_28.mni"    editor="sfx" format="voc" title="Sound 28"/>
+			<file id="snd-30"       name="sb_30.mni"    editor="sfx" format="voc" title="Sound 30"/>
+			<file id="snd-i3"       name="intro3.mni"   editor="sfx" format="voc" title="Intro sound 3"/>
+			<file id="snd-i4"       name="intro4.mni"   editor="sfx" format="voc" title="Intro sound 4"/>
+			<file id="snd-i5"       name="intro5.mni"   editor="sfx" format="voc" title="Intro sound 5"/>
+			<file id="snd-i6"       name="intro6.mni"   editor="sfx" format="voc" title="Intro sound 6"/>
+			<file id="snd-i7"       name="intro7.mni"   editor="sfx" format="voc" title="Intro sound 7"/>
+			<file id="snd-i8"       name="intro8.mni"   editor="sfx" format="voc" title="Intro sound 8"/>
+			<file id="snd-i9"       name="intro9.mni"   editor="sfx" format="voc" title="Intro sound 9"/>
+
+			<file id="pal-main"     name="gamepal.pal"  editor="palette" format="pal-vga-raw" title="Main palette"/>
+			<file id="pal-story2"   name="story2.pal"   editor="palette" format="pal-vga-raw" title="Story 2 palette"/>
+			<file id="pal-story3"   name="story3.pal"   editor="palette" format="pal-vga-raw" title="Story 3 palette"/>
+
+			<archive name="czone1.mni" id="arch-czone1" format="mni-czone">
+				<file id="gfx-czone1s"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 1 (solid)"/>
+				<file id="gfx-czone1m"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 1 (masked)"/>
 			</archive>
-			<archive name="czone2.mni" id="arch-czone2" typeMinor="mni-czone">
-				<file id="gfx-czone2s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 2 (solid)"/>
-				<file id="gfx-czone2m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 0 (masked)"/>
+			<archive name="czone2.mni" id="arch-czone2" format="mni-czone">
+				<file id="gfx-czone2s"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 2 (solid)"/>
+				<file id="gfx-czone2m"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 0 (masked)"/>
 			</archive>
-			<archive name="czone3.mni" id="arch-czone3" typeMinor="mni-czone">
-				<file id="gfx-czone3s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 3 (solid)"/>
-				<file id="gfx-czone3m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			<archive name="czone3.mni" id="arch-czone3" format="mni-czone">
+				<file id="gfx-czone3s"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 3 (solid)"/>
+				<file id="gfx-czone3m"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 1 (masked)"/>
 			</archive>
-			<archive name="czone4.mni" id="arch-czone4" typeMinor="mni-czone">
-				<file id="gfx-czone4s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 4 (solid)"/>
-				<file id="gfx-czone4m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			<archive name="czone4.mni" id="arch-czone4" format="mni-czone">
+				<file id="gfx-czone4s"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 4 (solid)"/>
+				<file id="gfx-czone4m"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 1 (masked)"/>
 			</archive>
-			<archive name="czone5.mni" id="arch-czone5" typeMinor="mni-czone">
-				<file id="gfx-czone5s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 5 (solid)"/>
-				<file id="gfx-czone5m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			<archive name="czone5.mni" id="arch-czone5" format="mni-czone">
+				<file id="gfx-czone5s"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 5 (solid)"/>
+				<file id="gfx-czone5m"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 1 (masked)"/>
 			</archive>
-			<archive name="czone6.mni" id="arch-czone6" typeMinor="mni-czone">
-				<file id="gfx-czone6s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 6 (solid)"/>
-				<file id="gfx-czone6m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			<archive name="czone6.mni" id="arch-czone6" format="mni-czone">
+				<file id="gfx-czone6s"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 6 (solid)"/>
+				<file id="gfx-czone6m"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 1 (masked)"/>
 			</archive>
-			<archive name="czone7.mni" id="arch-czone7" typeMinor="mni-czone">
-				<file id="gfx-czone7s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 7 (solid)"/>
-				<file id="gfx-czone7m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			<archive name="czone7.mni" id="arch-czone7" format="mni-czone">
+				<file id="gfx-czone7s"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 7 (solid)"/>
+				<file id="gfx-czone7m"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 1 (masked)"/>
 			</archive>
-			<archive name="czone8.mni" id="arch-czone8" typeMinor="mni-czone">
-				<file id="gfx-czone8s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 8 (solid)"/>
-				<file id="gfx-czone8m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			<archive name="czone8.mni" id="arch-czone8" format="mni-czone">
+				<file id="gfx-czone8s"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 8 (solid)"/>
+				<file id="gfx-czone8m"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 1 (masked)"/>
 			</archive>
-			<archive name="czone9.mni" id="arch-czone9" typeMinor="mni-czone">
-				<file id="gfx-czone9s"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 9 (solid)"/>
-				<file id="gfx-czone9m"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 1 (masked)"/>
+			<archive name="czone9.mni" id="arch-czone9" format="mni-czone">
+				<file id="gfx-czone9s"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 9 (solid)"/>
+				<file id="gfx-czone9m"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 1 (masked)"/>
 			</archive>
-			<archive name="czonea.mni" id="arch-czonea" typeMinor="mni-czone">
-				<file id="gfx-czoneas"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 10 (solid)"/>
-				<file id="gfx-czoneam"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 10 (masked)"/>
+			<archive name="czonea.mni" id="arch-czonea" format="mni-czone">
+				<file id="gfx-czoneas"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 10 (solid)"/>
+				<file id="gfx-czoneam"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 10 (masked)"/>
 			</archive>
-			<archive name="czoneb.mni" id="arch-czoneb" typeMinor="mni-czone">
-				<file id="gfx-czonebs"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 11 (solid)"/>
-				<file id="gfx-czonebm"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 11 (masked)"/>
+			<archive name="czoneb.mni" id="arch-czoneb" format="mni-czone">
+				<file id="gfx-czonebs"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 11 (solid)"/>
+				<file id="gfx-czonebm"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 11 (masked)"/>
 			</archive>
-			<archive name="czonec.mni" id="arch-czonec" typeMinor="mni-czone">
-				<file id="gfx-czonecs"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 12 (solid)"/>
-				<file id="gfx-czonecm"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 12 (masked)"/>
+			<archive name="czonec.mni" id="arch-czonec" format="mni-czone">
+				<file id="gfx-czonecs"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 12 (solid)"/>
+				<file id="gfx-czonecm"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 12 (masked)"/>
 			</archive>
-			<archive name="czoned.mni" id="arch-czoned" typeMinor="mni-czone">
-				<file id="gfx-czoneds"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 13 (solid)"/>
-				<file id="gfx-czonedm"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 13 (masked)"/>
+			<archive name="czoned.mni" id="arch-czoned" format="mni-czone">
+				<file id="gfx-czoneds"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 13 (solid)"/>
+				<file id="gfx-czonedm"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 13 (masked)"/>
 			</archive>
-			<archive name="czonee.mni" id="arch-czonee" typeMinor="mni-czone">
-				<file id="gfx-czonees"  name="solid.mni"  typeMajor="tileset" typeMinor="cosmo" title="Tileset 14 (solid)"/>
-				<file id="gfx-czoneem"  name="masked.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Tileset 14 (masked)"/>
+			<archive name="czonee.mni" id="arch-czonee" format="mni-czone">
+				<file id="gfx-czonees"  name="solid.mni"  editor="tileset" format="tls-cosmo" title="Tileset 14 (solid)"/>
+				<file id="gfx-czoneem"  name="masked.mni" editor="tileset" format="tls-cosmo-masked" title="Tileset 14 (masked)"/>
 			</archive>
 
 			<!-- Ignoring nukem2.mni - demo macro -->

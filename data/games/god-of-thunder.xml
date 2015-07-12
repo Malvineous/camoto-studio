@@ -112,126 +112,126 @@
 	</display>
 
 	<files>
-		<archive name="gotres.dat" id="arch-got" typeMinor="dat-got">
+		<archive name="gotres.dat" id="arch-got" format="dat-got">
 
-			<file id="lev-1" name="sdat1" typeMajor="map" typeMinor="got" title="Episode 1">
+			<file id="lev-1" name="sdat1" editor="map2d" format="map2d-got" title="Episode 1">
 				<dep reftype="background-tileset1" ref="tls-bpics1"/>
 				<dep reftype="foreground-tileset2" ref="tls-objects"/>
 			</file>
-			<file id="lev-2" name="sdat2" typeMajor="map" typeMinor="got" title="Episode 2">
+			<file id="lev-2" name="sdat2" editor="map2d" format="map2d-got" title="Episode 2">
 				<dep reftype="background-tileset1" ref="tls-bpics2"/>
 				<dep reftype="foreground-tileset2" ref="tls-objects"/>
 			</file>
-			<file id="lev-3" name="sdat3" typeMajor="map" typeMinor="got" title="Episode 3">
+			<file id="lev-3" name="sdat3" editor="map2d" format="map2d-got" title="Episode 3">
 				<dep reftype="background-tileset1" ref="tls-bpics3"/>
 				<dep reftype="foreground-tileset2" ref="tls-objects"/>
 			</file>
 
-			<file id="tls-bpics1"    name="bpics1"     typeMajor="tileset" typeMinor="got" title="Background tiles 1"/>
-			<file id="tls-bpics2"    name="bpics2"     typeMajor="tileset" typeMinor="got" title="Background tiles 2"/>
-			<file id="tls-bpics3"    name="bpics3"     typeMajor="tileset" typeMinor="got" title="Background tiles 3"/>
-			<file id="tls-objects"   name="objects"    typeMajor="tileset" typeMinor="got" title="Object tiles"/>
+			<file id="tls-bpics1"    name="bpics1"     editor="tileset" format="tls-got" title="Background tiles 1"/>
+			<file id="tls-bpics2"    name="bpics2"     editor="tileset" format="tls-got" title="Background tiles 2"/>
+			<file id="tls-bpics3"    name="bpics3"     editor="tileset" format="tls-got" title="Background tiles 3"/>
+			<file id="tls-objects"   name="objects"    editor="tileset" format="tls-got" title="Object tiles"/>
 
-			<file id="tls-openback"  name="openback"   typeMajor="tileset" typeMinor="got" title="Opening background tiles"/>
-			<file id="tls-hampic"    name="hampic"     typeMajor="tileset" typeMinor="got" title="Hammer"/>
-			<file id="tls-odinpic"   name="odinpic"    typeMajor="tileset" typeMinor="got" title="Odin"/>
-			<file id="tls-status"    name="status"     typeMajor="tileset" typeMinor="got" title="Status bar"/>
+			<file id="tls-openback"  name="openback"   editor="tileset" format="tls-got" title="Opening background tiles"/>
+			<file id="tls-hampic"    name="hampic"     editor="tileset" format="tls-got" title="Hammer"/>
+			<file id="tls-odinpic"   name="odinpic"    editor="tileset" format="tls-got" title="Odin"/>
+			<file id="tls-status"    name="status"     editor="tileset" format="tls-got" title="Status bar"/>
 
-			<file id="tls-face1"     name="face1"      typeMajor="tileset" typeMinor="got" title="Face 1"/>
-			<file id="tls-face2"     name="face2"      typeMajor="tileset" typeMinor="got" title="Face 2"/>
-			<file id="tls-face3"     name="face3"      typeMajor="tileset" typeMinor="got" title="Face 3"/>
-			<file id="tls-face4"     name="face4"      typeMajor="tileset" typeMinor="got" title="Face 4"/>
-			<file id="tls-face5"     name="face5"      typeMajor="tileset" typeMinor="got" title="Face 5"/>
-			<file id="tls-face6"     name="face6"      typeMajor="tileset" typeMinor="got" title="Face 6"/>
-			<file id="tls-face7"     name="face7"      typeMajor="tileset" typeMinor="got" title="Face 7"/>
-			<file id="tls-face8"     name="face8"      typeMajor="tileset" typeMinor="got" title="Face 8"/>
-			<file id="tls-face9"     name="face9"      typeMajor="tileset" typeMinor="got" title="Face 9"/>
-			<file id="tls-face10"    name="face10"     typeMajor="tileset" typeMinor="got" title="Face 10"/>
-			<file id="tls-face11"    name="face11"     typeMajor="tileset" typeMinor="got" title="Face 11"/>
-			<file id="tls-face12"    name="face12"     typeMajor="tileset" typeMinor="got" title="Face 12"/>
-			<file id="tls-face13"    name="face13"     typeMajor="tileset" typeMinor="got" title="Face 13"/>
-			<file id="tls-face14"    name="face14"     typeMajor="tileset" typeMinor="got" title="Face 14"/>
-			<file id="tls-face15"    name="face15"     typeMajor="tileset" typeMinor="got" title="Face 15"/>
-			<file id="tls-face16"    name="face16"     typeMajor="tileset" typeMinor="got" title="Face 16"/>
-			<file id="tls-face17"    name="face17"     typeMajor="tileset" typeMinor="got" title="Face 17"/>
-			<file id="tls-face18"    name="face18"     typeMajor="tileset" typeMinor="got" title="Face 18"/>
-			<file id="tls-face19"    name="face19"     typeMajor="tileset" typeMinor="got" title="Face 19"/>
-			<file id="tls-face20"    name="face20"     typeMajor="tileset" typeMinor="got" title="Face 20"/>
+			<file id="tls-face1"     name="face1"      editor="tileset" format="tls-got" title="Face 1"/>
+			<file id="tls-face2"     name="face2"      editor="tileset" format="tls-got" title="Face 2"/>
+			<file id="tls-face3"     name="face3"      editor="tileset" format="tls-got" title="Face 3"/>
+			<file id="tls-face4"     name="face4"      editor="tileset" format="tls-got" title="Face 4"/>
+			<file id="tls-face5"     name="face5"      editor="tileset" format="tls-got" title="Face 5"/>
+			<file id="tls-face6"     name="face6"      editor="tileset" format="tls-got" title="Face 6"/>
+			<file id="tls-face7"     name="face7"      editor="tileset" format="tls-got" title="Face 7"/>
+			<file id="tls-face8"     name="face8"      editor="tileset" format="tls-got" title="Face 8"/>
+			<file id="tls-face9"     name="face9"      editor="tileset" format="tls-got" title="Face 9"/>
+			<file id="tls-face10"    name="face10"     editor="tileset" format="tls-got" title="Face 10"/>
+			<file id="tls-face11"    name="face11"     editor="tileset" format="tls-got" title="Face 11"/>
+			<file id="tls-face12"    name="face12"     editor="tileset" format="tls-got" title="Face 12"/>
+			<file id="tls-face13"    name="face13"     editor="tileset" format="tls-got" title="Face 13"/>
+			<file id="tls-face14"    name="face14"     editor="tileset" format="tls-got" title="Face 14"/>
+			<file id="tls-face15"    name="face15"     editor="tileset" format="tls-got" title="Face 15"/>
+			<file id="tls-face16"    name="face16"     editor="tileset" format="tls-got" title="Face 16"/>
+			<file id="tls-face17"    name="face17"     editor="tileset" format="tls-got" title="Face 17"/>
+			<file id="tls-face18"    name="face18"     editor="tileset" format="tls-got" title="Face 18"/>
+			<file id="tls-face19"    name="face19"     editor="tileset" format="tls-got" title="Face 19"/>
+			<file id="tls-face20"    name="face20"     editor="tileset" format="tls-got" title="Face 20"/>
 
-			<file id="tls-story"     name="storypic"   typeMajor="tileset" typeMinor="got" title="Story">
-				<supp reftype="palette" ref="pal-story"/>
-			</file>
-
-			<file id="tls-openp1"    name="openp1"     typeMajor="tileset" typeMinor="got" title="Opening part 1">
-				<supp reftype="palette" ref="pal-story"/>
-			</file>
-			<file id="tls-openp2"    name="openp2"     typeMajor="tileset" typeMinor="got" title="Opening part 2">
-				<supp reftype="palette" ref="pal-story"/>
-			</file>
-			<file id="tls-openp3"    name="openp3"     typeMajor="tileset" typeMinor="got" title="Opening part 3">
-				<supp reftype="palette" ref="pal-story"/>
-			</file>
-			<file id="tls-openp4"    name="openp4"     typeMajor="tileset" typeMinor="got" title="Opening part 4">
-				<supp reftype="palette" ref="pal-story"/>
-			</file>
-			<file id="tls-openp5"    name="openp5"     typeMajor="tileset" typeMinor="got" title="Opening part 5">
-				<supp reftype="palette" ref="pal-story"/>
-			</file>
-			<file id="tls-openp6"    name="openp6"     typeMajor="tileset" typeMinor="got" title="Opening part 6">
-				<supp reftype="palette" ref="pal-story"/>
-			</file>
-			<file id="tls-openp7"    name="openp7"     typeMajor="tileset" typeMinor="got" title="Opening part 7">
-				<supp reftype="palette" ref="pal-story"/>
-			</file>
-			<file id="tls-openp8"    name="openp8"     typeMajor="tileset" typeMinor="got" title="Opening part 8">
-				<supp reftype="palette" ref="pal-story"/>
-			</file>
-			<file id="tls-openp9"    name="openp9"     typeMajor="tileset" typeMinor="got" title="Opening part 9">
-				<supp reftype="palette" ref="pal-story"/>
-			</file>
-			<file id="tls-openp10"    name="openp10"     typeMajor="tileset" typeMinor="got" title="Opening part 10">
-				<supp reftype="palette" ref="pal-story"/>
-			</file>
-			<file id="tls-openp11"    name="openp11"     typeMajor="tileset" typeMinor="got" title="Opening part 11">
-				<supp reftype="palette" ref="pal-story"/>
-			</file>
-			<file id="tls-openp12"    name="openp12"     typeMajor="tileset" typeMinor="got" title="Opening part 12">
+			<file id="tls-story"     name="storypic"   editor="tileset" format="tls-got" title="Story">
 				<supp reftype="palette" ref="pal-story"/>
 			</file>
 
-			<file id="spr-1"         name="actor1"     typeMajor="tileset" typeMinor="got-actor" title="Actor 1"/>
+			<file id="tls-openp1"    name="openp1"     editor="tileset" format="tls-got" title="Opening part 1">
+				<supp reftype="palette" ref="pal-story"/>
+			</file>
+			<file id="tls-openp2"    name="openp2"     editor="tileset" format="tls-got" title="Opening part 2">
+				<supp reftype="palette" ref="pal-story"/>
+			</file>
+			<file id="tls-openp3"    name="openp3"     editor="tileset" format="tls-got" title="Opening part 3">
+				<supp reftype="palette" ref="pal-story"/>
+			</file>
+			<file id="tls-openp4"    name="openp4"     editor="tileset" format="tls-got" title="Opening part 4">
+				<supp reftype="palette" ref="pal-story"/>
+			</file>
+			<file id="tls-openp5"    name="openp5"     editor="tileset" format="tls-got" title="Opening part 5">
+				<supp reftype="palette" ref="pal-story"/>
+			</file>
+			<file id="tls-openp6"    name="openp6"     editor="tileset" format="tls-got" title="Opening part 6">
+				<supp reftype="palette" ref="pal-story"/>
+			</file>
+			<file id="tls-openp7"    name="openp7"     editor="tileset" format="tls-got" title="Opening part 7">
+				<supp reftype="palette" ref="pal-story"/>
+			</file>
+			<file id="tls-openp8"    name="openp8"     editor="tileset" format="tls-got" title="Opening part 8">
+				<supp reftype="palette" ref="pal-story"/>
+			</file>
+			<file id="tls-openp9"    name="openp9"     editor="tileset" format="tls-got" title="Opening part 9">
+				<supp reftype="palette" ref="pal-story"/>
+			</file>
+			<file id="tls-openp10"    name="openp10"     editor="tileset" format="tls-got" title="Opening part 10">
+				<supp reftype="palette" ref="pal-story"/>
+			</file>
+			<file id="tls-openp11"    name="openp11"     editor="tileset" format="tls-got" title="Opening part 11">
+				<supp reftype="palette" ref="pal-story"/>
+			</file>
+			<file id="tls-openp12"    name="openp12"     editor="tileset" format="tls-got" title="Opening part 12">
+				<supp reftype="palette" ref="pal-story"/>
+			</file>
 
-			<file id="pal-main"      name="palette"    typeMajor="palette" typeMinor="vga-raw8" title="Main palette"/>
-			<file id="pal-story"     name="storypal"   typeMajor="palette" typeMinor="vga-raw8" title="Story palette"/>
+			<file id="spr-1"         name="actor1"     editor="tileset" format="tls-got-actor" title="Actor 1"/>
 
-			<file id="snd-bossv11"   name="bossv11"    typeMajor="sound"   typeMinor="voc" title="Boss 1-1"/>
-			<file id="snd-bossv12"   name="bossv12"    typeMajor="sound"   typeMinor="voc" title="Boss 1-2"/>
-			<file id="snd-bossv13"   name="bossv13"    typeMajor="sound"   typeMinor="voc" title="Boss 1-3"/>
-			<file id="snd-bossv21"   name="bossv21"    typeMajor="sound"   typeMinor="voc" title="Boss 2-1"/>
-			<file id="snd-bossv22"   name="bossv22"    typeMajor="sound"   typeMinor="voc" title="Boss 2-2"/>
-			<file id="snd-bossv23"   name="bossv23"    typeMajor="sound"   typeMinor="voc" title="Boss 2-3"/>
-			<file id="snd-bossv31"   name="bossv31"    typeMajor="sound"   typeMinor="voc" title="Boss 3-1"/>
-			<file id="snd-bossv32"   name="bossv32"    typeMajor="sound"   typeMinor="voc" title="Boss 3-2"/>
-			<file id="snd-bossv33"   name="bossv33"    typeMajor="sound"   typeMinor="voc" title="Boss 3-3"/>
+			<file id="pal-main"      name="palette"    editor="palette" format="pal-vga-raw8" title="Main palette"/>
+			<file id="pal-story"     name="storypal"   editor="palette" format="pal-vga-raw8" title="Story palette"/>
 
-			<file id="mus-song1"     name="song1"      typeMajor="music"   typeMinor="got" title="Song 1"/>
-			<file id="mus-song2"     name="song2"      typeMajor="music"   typeMinor="got" title="Song 2"/>
-			<file id="mus-song3"     name="song3"      typeMajor="music"   typeMinor="got" title="Song 3"/>
-			<file id="mus-song4"     name="song4"      typeMajor="music"   typeMinor="got" title="Song 4"/>
-			<file id="mus-song21"    name="song21"     typeMajor="music"   typeMinor="got" title="Song 21"/>
-			<file id="mus-song22"    name="song22"     typeMajor="music"   typeMinor="got" title="Song 22"/>
-			<file id="mus-song23"    name="song23"     typeMajor="music"   typeMinor="got" title="Song 23"/>
-			<file id="mus-song24"    name="song24"     typeMajor="music"   typeMinor="got" title="Song 24"/>
-			<file id="mus-song25"    name="song25"     typeMajor="music"   typeMinor="got" title="Song 25"/>
-			<file id="mus-song31"    name="song31"     typeMajor="music"   typeMinor="got" title="Song 31"/>
-			<file id="mus-song32"    name="song32"     typeMajor="music"   typeMinor="got" title="Song 32"/>
-			<file id="mus-song33"    name="song33"     typeMajor="music"   typeMinor="got" title="Song 33"/>
-			<file id="mus-song34"    name="song34"     typeMajor="music"   typeMinor="got" title="Song 34"/>
-			<file id="mus-song35"    name="song35"     typeMajor="music"   typeMinor="got" title="Song 35"/>
-			<file id="mus-song36"    name="song36"     typeMajor="music"   typeMinor="got" title="Song 36"/>
-			<file id="mus-boss"      name="bosssong"   typeMajor="music"   typeMinor="got" title="Boss song"/>
-			<file id="mus-open"      name="opensong"   typeMajor="music"   typeMinor="got" title="Open song"/>
-			<file id="mus-win"       name="winsong"    typeMajor="music"   typeMinor="got" title="Win song"/>
+			<file id="snd-bossv11"   name="bossv11"    editor="sound"   format="voc" title="Boss 1-1"/>
+			<file id="snd-bossv12"   name="bossv12"    editor="sound"   format="voc" title="Boss 1-2"/>
+			<file id="snd-bossv13"   name="bossv13"    editor="sound"   format="voc" title="Boss 1-3"/>
+			<file id="snd-bossv21"   name="bossv21"    editor="sound"   format="voc" title="Boss 2-1"/>
+			<file id="snd-bossv22"   name="bossv22"    editor="sound"   format="voc" title="Boss 2-2"/>
+			<file id="snd-bossv23"   name="bossv23"    editor="sound"   format="voc" title="Boss 2-3"/>
+			<file id="snd-bossv31"   name="bossv31"    editor="sound"   format="voc" title="Boss 3-1"/>
+			<file id="snd-bossv32"   name="bossv32"    editor="sound"   format="voc" title="Boss 3-2"/>
+			<file id="snd-bossv33"   name="bossv33"    editor="sound"   format="voc" title="Boss 3-3"/>
+
+			<file id="mus-song1"     name="song1"      editor="music"   format="got" title="Song 1"/>
+			<file id="mus-song2"     name="song2"      editor="music"   format="got" title="Song 2"/>
+			<file id="mus-song3"     name="song3"      editor="music"   format="got" title="Song 3"/>
+			<file id="mus-song4"     name="song4"      editor="music"   format="got" title="Song 4"/>
+			<file id="mus-song21"    name="song21"     editor="music"   format="got" title="Song 21"/>
+			<file id="mus-song22"    name="song22"     editor="music"   format="got" title="Song 22"/>
+			<file id="mus-song23"    name="song23"     editor="music"   format="got" title="Song 23"/>
+			<file id="mus-song24"    name="song24"     editor="music"   format="got" title="Song 24"/>
+			<file id="mus-song25"    name="song25"     editor="music"   format="got" title="Song 25"/>
+			<file id="mus-song31"    name="song31"     editor="music"   format="got" title="Song 31"/>
+			<file id="mus-song32"    name="song32"     editor="music"   format="got" title="Song 32"/>
+			<file id="mus-song33"    name="song33"     editor="music"   format="got" title="Song 33"/>
+			<file id="mus-song34"    name="song34"     editor="music"   format="got" title="Song 34"/>
+			<file id="mus-song35"    name="song35"     editor="music"   format="got" title="Song 35"/>
+			<file id="mus-song36"    name="song36"     editor="music"   format="got" title="Song 36"/>
+			<file id="mus-boss"      name="bosssong"   editor="music"   format="got" title="Boss song"/>
+			<file id="mus-open"      name="opensong"   editor="music"   format="got" title="Open song"/>
+			<file id="mus-win"       name="winsong"    editor="music"   format="got" title="Win song"/>
 		</archive>
 	</files>
 

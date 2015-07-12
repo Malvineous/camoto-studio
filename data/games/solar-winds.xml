@@ -39,19 +39,19 @@
 	</display>
 
 	<files>
-		<file id="mus-01"   name="bh_mu1.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 1"/>
-		<file id="mus-02"   name="bh_mu2.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 2"/>
-		<file id="mus-03"   name="bh_mu3.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 3"/>
-		<file id="mus-04"   name="bh_mu4.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 4"/>
-		<file id="mus-05"   name="bh_mu5.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 5"/>
-		<file id="mus-06"   name="bh_mu6.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 6"/>
-		<file id="mus-07"   name="bh_mu7.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 7"/>
-		<file id="mus-08"   name="bh_mu8.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 8"/>
-		<file id="mus-09"   name="bh_mu9.dat"     typeMajor="music" typeMinor="cmf-creativelabs" title="Song 9"/>
-		<file id="mus-10"   name="bh_mu10.dat"    typeMajor="music" typeMinor="cmf-creativelabs" title="Song 10"/>
-		<file id="mus-11"   name="bh_mu11.dat"    typeMajor="music" typeMinor="cmf-creativelabs" title="Song 11"/>
-		<file id="mus-12"   name="bh_mu12.dat"    typeMajor="music" typeMinor="cmf-creativelabs" title="Song 12"/>
-		<file id="mus-13"   name="bh_mu13.dat"    typeMajor="music" typeMinor="cmf-creativelabs" title="Song 13"/>
+		<file id="mus-01"   name="bh_mu1.dat"     editor="music" format="cmf-creativelabs" title="Song 1"/>
+		<file id="mus-02"   name="bh_mu2.dat"     editor="music" format="cmf-creativelabs" title="Song 2"/>
+		<file id="mus-03"   name="bh_mu3.dat"     editor="music" format="cmf-creativelabs" title="Song 3"/>
+		<file id="mus-04"   name="bh_mu4.dat"     editor="music" format="cmf-creativelabs" title="Song 4"/>
+		<file id="mus-05"   name="bh_mu5.dat"     editor="music" format="cmf-creativelabs" title="Song 5"/>
+		<file id="mus-06"   name="bh_mu6.dat"     editor="music" format="cmf-creativelabs" title="Song 6"/>
+		<file id="mus-07"   name="bh_mu7.dat"     editor="music" format="cmf-creativelabs" title="Song 7"/>
+		<file id="mus-08"   name="bh_mu8.dat"     editor="music" format="cmf-creativelabs" title="Song 8"/>
+		<file id="mus-09"   name="bh_mu9.dat"     editor="music" format="cmf-creativelabs" title="Song 9"/>
+		<file id="mus-10"   name="bh_mu10.dat"    editor="music" format="cmf-creativelabs" title="Song 10"/>
+		<file id="mus-11"   name="bh_mu11.dat"    editor="music" format="cmf-creativelabs" title="Song 11"/>
+		<file id="mus-12"   name="bh_mu12.dat"    editor="music" format="cmf-creativelabs" title="Song 12"/>
+		<file id="mus-13"   name="bh_mu13.dat"    editor="music" format="cmf-creativelabs" title="Song 13"/>
 	</files>
 
 	<commands>

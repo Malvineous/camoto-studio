@@ -52,72 +52,72 @@
 	</display>
 
 	<files>
-		<archive name="cc1.exe" id="arch-cc1-exe" typeMinor="exe-ccaves">
-			<file id="lev-in" name="e1int.ccl" typeMajor="map" typeMinor="ccaves" title="Intro">
+		<archive name="cc1.exe" id="arch-cc1-exe" format="exe-ccaves">
+			<file id="lev-in" name="e1int.ccl" editor="map2d" format="map2d-ccaves" title="Intro">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-fi" name="e1fin.ccl" typeMajor="map" typeMinor="ccaves" title="Finale">
+			<file id="lev-fi" name="e1fin.ccl" editor="map2d" format="map2d-ccaves" title="Finale">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-ma" name="e1map.ccl" typeMajor="map" typeMinor="ccaves" title="Map">
+			<file id="lev-ma" name="e1map.ccl" editor="map2d" format="map2d-ccaves" title="Map">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-01" name="e1l01.ccl" typeMajor="map" typeMinor="ccaves" title="Level 1">
+			<file id="lev-01" name="e1l01.ccl" editor="map2d" format="map2d-ccaves" title="Level 1">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-02" name="e1l02.ccl" typeMajor="map" typeMinor="ccaves" title="Level 2">
+			<file id="lev-02" name="e1l02.ccl" editor="map2d" format="map2d-ccaves" title="Level 2">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-03" name="e1l03.ccl" typeMajor="map" typeMinor="ccaves" title="Level 3">
+			<file id="lev-03" name="e1l03.ccl" editor="map2d" format="map2d-ccaves" title="Level 3">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-04" name="e1l04.ccl" typeMajor="map" typeMinor="ccaves" title="Level 4">
+			<file id="lev-04" name="e1l04.ccl" editor="map2d" format="map2d-ccaves" title="Level 4">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-05" name="e1l05.ccl" typeMajor="map" typeMinor="ccaves" title="Level 5">
+			<file id="lev-05" name="e1l05.ccl" editor="map2d" format="map2d-ccaves" title="Level 5">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-06" name="e1l06.ccl" typeMajor="map" typeMinor="ccaves" title="Level 6">
+			<file id="lev-06" name="e1l06.ccl" editor="map2d" format="map2d-ccaves" title="Level 6">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-07" name="e1l07.ccl" typeMajor="map" typeMinor="ccaves" title="Level 7">
+			<file id="lev-07" name="e1l07.ccl" editor="map2d" format="map2d-ccaves" title="Level 7">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-08" name="e1l08.ccl" typeMajor="map" typeMinor="ccaves" title="Level 8">
+			<file id="lev-08" name="e1l08.ccl" editor="map2d" format="map2d-ccaves" title="Level 8">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-09" name="e1l09.ccl" typeMajor="map" typeMinor="ccaves" title="Level 9">
+			<file id="lev-09" name="e1l09.ccl" editor="map2d" format="map2d-ccaves" title="Level 9">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-10" name="e1l10.ccl" typeMajor="map" typeMinor="ccaves" title="Level 10">
+			<file id="lev-10" name="e1l10.ccl" editor="map2d" format="map2d-ccaves" title="Level 10">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-11" name="e1l11.ccl" typeMajor="map" typeMinor="ccaves" title="Level 11">
+			<file id="lev-11" name="e1l11.ccl" editor="map2d" format="map2d-ccaves" title="Level 11">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-12" name="e1l12.ccl" typeMajor="map" typeMinor="ccaves" title="Level 12">
+			<file id="lev-12" name="e1l12.ccl" editor="map2d" format="map2d-ccaves" title="Level 12">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-13" name="e1l13.ccl" typeMajor="map" typeMinor="ccaves" title="Level 13">
+			<file id="lev-13" name="e1l13.ccl" editor="map2d" format="map2d-ccaves" title="Level 13">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-14" name="e1l14.ccl" typeMajor="map" typeMinor="ccaves" title="Level 14">
+			<file id="lev-14" name="e1l14.ccl" editor="map2d" format="map2d-ccaves" title="Level 14">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-15" name="e1l15.ccl" typeMajor="map" typeMinor="ccaves" title="Level 15">
+			<file id="lev-15" name="e1l15.ccl" editor="map2d" format="map2d-ccaves" title="Level 15">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
-			<file id="lev-16" name="e1l16.ccl" typeMajor="map" typeMinor="ccaves" title="Level 16">
+			<file id="lev-16" name="e1l16.ccl" editor="map2d" format="map2d-ccaves" title="Level 16">
 				<dep reftype="background-tileset1" ref="tls-1"/>
 			</file>
 		</archive>
 
-		<file id="tls-1" name="cc1.gfx" typeMajor="tileset" typeMinor="ccaves-main" title="EGA tiles"/>
+		<file id="tls-1" name="cc1.gfx" editor="tileset" format="tls-ccaves-main" title="EGA tiles"/>
 
-		<file id="img-apg1" name="cc1.apg" typeMajor="image" typeMinor="pcx-1b4p" title="Apogee logo"/>
-		<file id="img-cdt1" name="cc1.cdt" typeMajor="image" typeMinor="pcx-1b4p" title="Credits"/>
-		<file id="img-end1" name="cc1.end" typeMajor="image" typeMinor="pcx-1b4p" title="Ending"/>
-		<file id="img-ttl1" name="cc1.ttl" typeMajor="image" typeMinor="pcx-1b4p" title="Title"/>
+		<file id="img-apg1" name="cc1.apg" editor="image" format="img-pcx-1b4p" title="Apogee logo"/>
+		<file id="img-cdt1" name="cc1.cdt" editor="image" format="img-pcx-1b4p" title="Credits"/>
+		<file id="img-end1" name="cc1.end" editor="image" format="img-pcx-1b4p" title="Ending"/>
+		<file id="img-ttl1" name="cc1.ttl" editor="image" format="img-pcx-1b4p" title="Title"/>
 	</files>
 
 	<commands>

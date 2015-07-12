@@ -138,339 +138,339 @@
 	</display>
 
 	<files>
-		<file id="exe-hocus" name="hocus.exe" typeMajor="binary" typeMinor="exe" title="Main EXE file"/>
-		<archive name="hocus.dat" id="arch-hocus-dat" typeMinor="dat-hocus">
+		<file id="exe-hocus" name="hocus.exe" editor="binary" format="exe" title="Main EXE file"/>
+		<archive name="hocus.dat" id="arch-hocus-dat" format="dat-hocus">
 			<supp reftype="fat" ref="exe-hocus"/>
 
-			<file id="lev-101" name="@455" typeMajor="map" typeMinor="hocus" title="E1L1">
+			<file id="lev-101" name="@455" editor="map2d" format="map2d-hocus" title="E1L1">
 				<supp reftype="layer1" ref="lev-101-fg1"/>
 				<supp reftype="layer2" ref="lev-101-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-01"/>
 			</file>
-			<file id="lev-102" name="@456" typeMajor="map" typeMinor="hocus" title="E1L2">
+			<file id="lev-102" name="@456" editor="map2d" format="map2d-hocus" title="E1L2">
 				<supp reftype="layer1" ref="lev-102-fg1"/>
 				<supp reftype="layer2" ref="lev-102-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-01"/>
 			</file>
-			<file id="lev-103" name="@457" typeMajor="map" typeMinor="hocus" title="E1L3">
+			<file id="lev-103" name="@457" editor="map2d" format="map2d-hocus" title="E1L3">
 				<supp reftype="layer1" ref="lev-103-fg1"/>
 				<supp reftype="layer2" ref="lev-103-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-02"/>
 			</file>
-			<file id="lev-104" name="@458" typeMajor="map" typeMinor="hocus" title="E1L4">
+			<file id="lev-104" name="@458" editor="map2d" format="map2d-hocus" title="E1L4">
 				<supp reftype="layer1" ref="lev-104-fg1"/>
 				<supp reftype="layer2" ref="lev-104-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-02"/>
 			</file>
-			<file id="lev-105" name="@459" typeMajor="map" typeMinor="hocus" title="E1L5">
+			<file id="lev-105" name="@459" editor="map2d" format="map2d-hocus" title="E1L5">
 				<supp reftype="layer1" ref="lev-105-fg1"/>
 				<supp reftype="layer2" ref="lev-105-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-03"/>
 			</file>
-			<file id="lev-106" name="@460" typeMajor="map" typeMinor="hocus" title="E1L6">
+			<file id="lev-106" name="@460" editor="map2d" format="map2d-hocus" title="E1L6">
 				<supp reftype="layer1" ref="lev-106-fg1"/>
 				<supp reftype="layer2" ref="lev-106-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-03"/>
 			</file>
-			<file id="lev-107" name="@461" typeMajor="map" typeMinor="hocus" title="E1L7">
+			<file id="lev-107" name="@461" editor="map2d" format="map2d-hocus" title="E1L7">
 				<supp reftype="layer1" ref="lev-107-fg1"/>
 				<supp reftype="layer2" ref="lev-107-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-04"/>
 			</file>
-			<file id="lev-108" name="@462" typeMajor="map" typeMinor="hocus" title="E1L8">
+			<file id="lev-108" name="@462" editor="map2d" format="map2d-hocus" title="E1L8">
 				<supp reftype="layer1" ref="lev-108-fg1"/>
 				<supp reftype="layer2" ref="lev-108-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-04"/>
 			</file>
-			<file id="lev-109" name="@463" typeMajor="map" typeMinor="hocus" title="E1L9">
+			<file id="lev-109" name="@463" editor="map2d" format="map2d-hocus" title="E1L9">
 				<supp reftype="layer1" ref="lev-109-fg1"/>
 				<supp reftype="layer2" ref="lev-109-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-04"/>
 			</file>
 
-			<file id="lev-201" name="@464" typeMajor="map" typeMinor="hocus" title="E2L1">
+			<file id="lev-201" name="@464" editor="map2d" format="map2d-hocus" title="E2L1">
 				<supp reftype="layer1" ref="lev-201-fg1"/>
 				<supp reftype="layer2" ref="lev-201-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-05"/>
 			</file>
-			<file id="lev-202" name="@465" typeMajor="map" typeMinor="hocus" title="E2L2">
+			<file id="lev-202" name="@465" editor="map2d" format="map2d-hocus" title="E2L2">
 				<supp reftype="layer1" ref="lev-202-fg1"/>
 				<supp reftype="layer2" ref="lev-202-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-05"/>
 			</file>
-			<file id="lev-203" name="@466" typeMajor="map" typeMinor="hocus" title="E2L3">
+			<file id="lev-203" name="@466" editor="map2d" format="map2d-hocus" title="E2L3">
 				<supp reftype="layer1" ref="lev-203-fg1"/>
 				<supp reftype="layer2" ref="lev-203-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-06"/>
 			</file>
-			<file id="lev-204" name="@467" typeMajor="map" typeMinor="hocus" title="E2L4">
+			<file id="lev-204" name="@467" editor="map2d" format="map2d-hocus" title="E2L4">
 				<supp reftype="layer1" ref="lev-204-fg1"/>
 				<supp reftype="layer2" ref="lev-204-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-06"/>
 			</file>
-			<file id="lev-205" name="@468" typeMajor="map" typeMinor="hocus" title="E2L5">
+			<file id="lev-205" name="@468" editor="map2d" format="map2d-hocus" title="E2L5">
 				<supp reftype="layer1" ref="lev-205-fg1"/>
 				<supp reftype="layer2" ref="lev-205-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-07"/>
 			</file>
-			<file id="lev-206" name="@469" typeMajor="map" typeMinor="hocus" title="E2L6">
+			<file id="lev-206" name="@469" editor="map2d" format="map2d-hocus" title="E2L6">
 				<supp reftype="layer1" ref="lev-206-fg1"/>
 				<supp reftype="layer2" ref="lev-206-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-07"/>
 			</file>
-			<file id="lev-207" name="@470" typeMajor="map" typeMinor="hocus" title="E2L7">
+			<file id="lev-207" name="@470" editor="map2d" format="map2d-hocus" title="E2L7">
 				<supp reftype="layer1" ref="lev-207-fg1"/>
 				<supp reftype="layer2" ref="lev-207-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-08"/>
 			</file>
-			<file id="lev-208" name="@471" typeMajor="map" typeMinor="hocus" title="E2L8">
+			<file id="lev-208" name="@471" editor="map2d" format="map2d-hocus" title="E2L8">
 				<supp reftype="layer1" ref="lev-208-fg1"/>
 				<supp reftype="layer2" ref="lev-208-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-08"/>
 			</file>
-			<file id="lev-209" name="@472" typeMajor="map" typeMinor="hocus" title="E2L9">
+			<file id="lev-209" name="@472" editor="map2d" format="map2d-hocus" title="E2L9">
 				<supp reftype="layer1" ref="lev-209-fg1"/>
 				<supp reftype="layer2" ref="lev-209-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-08"/>
 			</file>
 
-			<file id="lev-301" name="@473" typeMajor="map" typeMinor="hocus" title="E3L1">
+			<file id="lev-301" name="@473" editor="map2d" format="map2d-hocus" title="E3L1">
 				<supp reftype="layer1" ref="lev-301-fg1"/>
 				<supp reftype="layer2" ref="lev-301-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-09"/>
 			</file>
-			<file id="lev-302" name="@474" typeMajor="map" typeMinor="hocus" title="E3L2">
+			<file id="lev-302" name="@474" editor="map2d" format="map2d-hocus" title="E3L2">
 				<supp reftype="layer1" ref="lev-302-fg1"/>
 				<supp reftype="layer2" ref="lev-302-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-09"/>
 			</file>
-			<file id="lev-303" name="@475" typeMajor="map" typeMinor="hocus" title="E3L3">
+			<file id="lev-303" name="@475" editor="map2d" format="map2d-hocus" title="E3L3">
 				<supp reftype="layer1" ref="lev-303-fg1"/>
 				<supp reftype="layer2" ref="lev-303-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-10"/>
 			</file>
-			<file id="lev-304" name="@476" typeMajor="map" typeMinor="hocus" title="E3L4">
+			<file id="lev-304" name="@476" editor="map2d" format="map2d-hocus" title="E3L4">
 				<supp reftype="layer1" ref="lev-304-fg1"/>
 				<supp reftype="layer2" ref="lev-304-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-10"/>
 			</file>
-			<file id="lev-305" name="@477" typeMajor="map" typeMinor="hocus" title="E3L5">
+			<file id="lev-305" name="@477" editor="map2d" format="map2d-hocus" title="E3L5">
 				<supp reftype="layer1" ref="lev-305-fg1"/>
 				<supp reftype="layer2" ref="lev-305-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-11"/>
 			</file>
-			<file id="lev-306" name="@478" typeMajor="map" typeMinor="hocus" title="E3L6">
+			<file id="lev-306" name="@478" editor="map2d" format="map2d-hocus" title="E3L6">
 				<supp reftype="layer1" ref="lev-306-fg1"/>
 				<supp reftype="layer2" ref="lev-306-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-11"/>
 			</file>
-			<file id="lev-307" name="@479" typeMajor="map" typeMinor="hocus" title="E3L7">
+			<file id="lev-307" name="@479" editor="map2d" format="map2d-hocus" title="E3L7">
 				<supp reftype="layer1" ref="lev-307-fg1"/>
 				<supp reftype="layer2" ref="lev-307-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-12"/>
 			</file>
-			<file id="lev-308" name="@480" typeMajor="map" typeMinor="hocus" title="E3L8">
+			<file id="lev-308" name="@480" editor="map2d" format="map2d-hocus" title="E3L8">
 				<supp reftype="layer1" ref="lev-308-fg1"/>
 				<supp reftype="layer2" ref="lev-308-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-12"/>
 			</file>
-			<file id="lev-309" name="@481" typeMajor="map" typeMinor="hocus" title="E3L9">
+			<file id="lev-309" name="@481" editor="map2d" format="map2d-hocus" title="E3L9">
 				<supp reftype="layer1" ref="lev-309-fg1"/>
 				<supp reftype="layer2" ref="lev-309-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-12"/>
 			</file>
 
-			<file id="lev-401" name="@482" typeMajor="map" typeMinor="hocus" title="E4L1">
+			<file id="lev-401" name="@482" editor="map2d" format="map2d-hocus" title="E4L1">
 				<supp reftype="layer1" ref="lev-401-fg1"/>
 				<supp reftype="layer2" ref="lev-401-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-13"/>
 			</file>
-			<file id="lev-402" name="@483" typeMajor="map" typeMinor="hocus" title="E4L2">
+			<file id="lev-402" name="@483" editor="map2d" format="map2d-hocus" title="E4L2">
 				<supp reftype="layer1" ref="lev-402-fg1"/>
 				<supp reftype="layer2" ref="lev-402-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-13"/>
 			</file>
-			<file id="lev-403" name="@484" typeMajor="map" typeMinor="hocus" title="E4L3">
+			<file id="lev-403" name="@484" editor="map2d" format="map2d-hocus" title="E4L3">
 				<supp reftype="layer1" ref="lev-403-fg1"/>
 				<supp reftype="layer2" ref="lev-403-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-14"/>
 			</file>
-			<file id="lev-404" name="@485" typeMajor="map" typeMinor="hocus" title="E4L4">
+			<file id="lev-404" name="@485" editor="map2d" format="map2d-hocus" title="E4L4">
 				<supp reftype="layer1" ref="lev-404-fg1"/>
 				<supp reftype="layer2" ref="lev-404-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-14"/>
 			</file>
-			<file id="lev-405" name="@486" typeMajor="map" typeMinor="hocus" title="E4L5">
+			<file id="lev-405" name="@486" editor="map2d" format="map2d-hocus" title="E4L5">
 				<supp reftype="layer1" ref="lev-405-fg1"/>
 				<supp reftype="layer2" ref="lev-405-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-15"/>
 			</file>
-			<file id="lev-406" name="@487" typeMajor="map" typeMinor="hocus" title="E4L6">
+			<file id="lev-406" name="@487" editor="map2d" format="map2d-hocus" title="E4L6">
 				<supp reftype="layer1" ref="lev-406-fg1"/>
 				<supp reftype="layer2" ref="lev-406-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-15"/>
 			</file>
-			<file id="lev-407" name="@488" typeMajor="map" typeMinor="hocus" title="E4L7">
+			<file id="lev-407" name="@488" editor="map2d" format="map2d-hocus" title="E4L7">
 				<supp reftype="layer1" ref="lev-407-fg1"/>
 				<supp reftype="layer2" ref="lev-407-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-16"/>
 			</file>
-			<file id="lev-408" name="@489" typeMajor="map" typeMinor="hocus" title="E4L8">
+			<file id="lev-408" name="@489" editor="map2d" format="map2d-hocus" title="E4L8">
 				<supp reftype="layer1" ref="lev-408-fg1"/>
 				<supp reftype="layer2" ref="lev-408-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-16"/>
 			</file>
-			<file id="lev-409" name="@490" typeMajor="map" typeMinor="hocus" title="E4L9">
+			<file id="lev-409" name="@490" editor="map2d" format="map2d-hocus" title="E4L9">
 				<supp reftype="layer1" ref="lev-409-fg1"/>
 				<supp reftype="layer2" ref="lev-409-fg2"/>
 				<dep reftype="background-tileset1" ref="tls-16"/>
 			</file>
 
-			<file id="lev-101-fg1" name="@491" typeMajor="map" typeMinor="hocus-fg" title="E1L1 FG layer 1"/>
-			<file id="lev-102-fg1" name="@492" typeMajor="map" typeMinor="hocus-fg" title="E1L2 FG layer 1"/>
-			<file id="lev-103-fg1" name="@493" typeMajor="map" typeMinor="hocus-fg" title="E1L3 FG layer 1"/>
-			<file id="lev-104-fg1" name="@494" typeMajor="map" typeMinor="hocus-fg" title="E1L4 FG layer 1"/>
-			<file id="lev-105-fg1" name="@495" typeMajor="map" typeMinor="hocus-fg" title="E1L5 FG layer 1"/>
-			<file id="lev-106-fg1" name="@496" typeMajor="map" typeMinor="hocus-fg" title="E1L6 FG layer 1"/>
-			<file id="lev-107-fg1" name="@497" typeMajor="map" typeMinor="hocus-fg" title="E1L7 FG layer 1"/>
-			<file id="lev-108-fg1" name="@498" typeMajor="map" typeMinor="hocus-fg" title="E1L8 FG layer 1"/>
-			<file id="lev-109-fg1" name="@499" typeMajor="map" typeMinor="hocus-fg" title="E1L9 FG layer 1"/>
+			<file id="lev-101-fg1" name="@491" editor="map2d" format="map2d-hocus-fg" title="E1L1 FG layer 1"/>
+			<file id="lev-102-fg1" name="@492" editor="map2d" format="map2d-hocus-fg" title="E1L2 FG layer 1"/>
+			<file id="lev-103-fg1" name="@493" editor="map2d" format="map2d-hocus-fg" title="E1L3 FG layer 1"/>
+			<file id="lev-104-fg1" name="@494" editor="map2d" format="map2d-hocus-fg" title="E1L4 FG layer 1"/>
+			<file id="lev-105-fg1" name="@495" editor="map2d" format="map2d-hocus-fg" title="E1L5 FG layer 1"/>
+			<file id="lev-106-fg1" name="@496" editor="map2d" format="map2d-hocus-fg" title="E1L6 FG layer 1"/>
+			<file id="lev-107-fg1" name="@497" editor="map2d" format="map2d-hocus-fg" title="E1L7 FG layer 1"/>
+			<file id="lev-108-fg1" name="@498" editor="map2d" format="map2d-hocus-fg" title="E1L8 FG layer 1"/>
+			<file id="lev-109-fg1" name="@499" editor="map2d" format="map2d-hocus-fg" title="E1L9 FG layer 1"/>
 
-			<file id="lev-201-fg1" name="@500" typeMajor="map" typeMinor="hocus-fg" title="E2L1 FG layer 1"/>
-			<file id="lev-202-fg1" name="@501" typeMajor="map" typeMinor="hocus-fg" title="E2L2 FG layer 1"/>
-			<file id="lev-203-fg1" name="@502" typeMajor="map" typeMinor="hocus-fg" title="E2L3 FG layer 1"/>
-			<file id="lev-204-fg1" name="@503" typeMajor="map" typeMinor="hocus-fg" title="E2L4 FG layer 1"/>
-			<file id="lev-205-fg1" name="@504" typeMajor="map" typeMinor="hocus-fg" title="E2L5 FG layer 1"/>
-			<file id="lev-206-fg1" name="@505" typeMajor="map" typeMinor="hocus-fg" title="E2L6 FG layer 1"/>
-			<file id="lev-207-fg1" name="@506" typeMajor="map" typeMinor="hocus-fg" title="E2L7 FG layer 1"/>
-			<file id="lev-208-fg1" name="@507" typeMajor="map" typeMinor="hocus-fg" title="E2L8 FG layer 1"/>
-			<file id="lev-209-fg1" name="@508" typeMajor="map" typeMinor="hocus-fg" title="E2L9 FG layer 1"/>
+			<file id="lev-201-fg1" name="@500" editor="map2d" format="map2d-hocus-fg" title="E2L1 FG layer 1"/>
+			<file id="lev-202-fg1" name="@501" editor="map2d" format="map2d-hocus-fg" title="E2L2 FG layer 1"/>
+			<file id="lev-203-fg1" name="@502" editor="map2d" format="map2d-hocus-fg" title="E2L3 FG layer 1"/>
+			<file id="lev-204-fg1" name="@503" editor="map2d" format="map2d-hocus-fg" title="E2L4 FG layer 1"/>
+			<file id="lev-205-fg1" name="@504" editor="map2d" format="map2d-hocus-fg" title="E2L5 FG layer 1"/>
+			<file id="lev-206-fg1" name="@505" editor="map2d" format="map2d-hocus-fg" title="E2L6 FG layer 1"/>
+			<file id="lev-207-fg1" name="@506" editor="map2d" format="map2d-hocus-fg" title="E2L7 FG layer 1"/>
+			<file id="lev-208-fg1" name="@507" editor="map2d" format="map2d-hocus-fg" title="E2L8 FG layer 1"/>
+			<file id="lev-209-fg1" name="@508" editor="map2d" format="map2d-hocus-fg" title="E2L9 FG layer 1"/>
 
-			<file id="lev-301-fg1" name="@509" typeMajor="map" typeMinor="hocus-fg" title="E3L1 FG layer 1"/>
-			<file id="lev-302-fg1" name="@510" typeMajor="map" typeMinor="hocus-fg" title="E3L2 FG layer 1"/>
-			<file id="lev-303-fg1" name="@511" typeMajor="map" typeMinor="hocus-fg" title="E3L3 FG layer 1"/>
-			<file id="lev-304-fg1" name="@512" typeMajor="map" typeMinor="hocus-fg" title="E3L4 FG layer 1"/>
-			<file id="lev-305-fg1" name="@513" typeMajor="map" typeMinor="hocus-fg" title="E3L5 FG layer 1"/>
-			<file id="lev-306-fg1" name="@514" typeMajor="map" typeMinor="hocus-fg" title="E3L6 FG layer 1"/>
-			<file id="lev-307-fg1" name="@515" typeMajor="map" typeMinor="hocus-fg" title="E3L7 FG layer 1"/>
-			<file id="lev-308-fg1" name="@516" typeMajor="map" typeMinor="hocus-fg" title="E3L8 FG layer 1"/>
-			<file id="lev-309-fg1" name="@517" typeMajor="map" typeMinor="hocus-fg" title="E3L9 FG layer 1"/>
+			<file id="lev-301-fg1" name="@509" editor="map2d" format="map2d-hocus-fg" title="E3L1 FG layer 1"/>
+			<file id="lev-302-fg1" name="@510" editor="map2d" format="map2d-hocus-fg" title="E3L2 FG layer 1"/>
+			<file id="lev-303-fg1" name="@511" editor="map2d" format="map2d-hocus-fg" title="E3L3 FG layer 1"/>
+			<file id="lev-304-fg1" name="@512" editor="map2d" format="map2d-hocus-fg" title="E3L4 FG layer 1"/>
+			<file id="lev-305-fg1" name="@513" editor="map2d" format="map2d-hocus-fg" title="E3L5 FG layer 1"/>
+			<file id="lev-306-fg1" name="@514" editor="map2d" format="map2d-hocus-fg" title="E3L6 FG layer 1"/>
+			<file id="lev-307-fg1" name="@515" editor="map2d" format="map2d-hocus-fg" title="E3L7 FG layer 1"/>
+			<file id="lev-308-fg1" name="@516" editor="map2d" format="map2d-hocus-fg" title="E3L8 FG layer 1"/>
+			<file id="lev-309-fg1" name="@517" editor="map2d" format="map2d-hocus-fg" title="E3L9 FG layer 1"/>
 
-			<file id="lev-401-fg1" name="@518" typeMajor="map" typeMinor="hocus-fg" title="E4L1 FG layer 1"/>
-			<file id="lev-402-fg1" name="@519" typeMajor="map" typeMinor="hocus-fg" title="E4L2 FG layer 1"/>
-			<file id="lev-403-fg1" name="@520" typeMajor="map" typeMinor="hocus-fg" title="E4L3 FG layer 1"/>
-			<file id="lev-404-fg1" name="@521" typeMajor="map" typeMinor="hocus-fg" title="E4L4 FG layer 1"/>
-			<file id="lev-405-fg1" name="@522" typeMajor="map" typeMinor="hocus-fg" title="E4L5 FG layer 1"/>
-			<file id="lev-406-fg1" name="@523" typeMajor="map" typeMinor="hocus-fg" title="E4L6 FG layer 1"/>
-			<file id="lev-407-fg1" name="@524" typeMajor="map" typeMinor="hocus-fg" title="E4L7 FG layer 1"/>
-			<file id="lev-408-fg1" name="@525" typeMajor="map" typeMinor="hocus-fg" title="E4L8 FG layer 1"/>
-			<file id="lev-409-fg1" name="@526" typeMajor="map" typeMinor="hocus-fg" title="E4L9 FG layer 1"/>
+			<file id="lev-401-fg1" name="@518" editor="map2d" format="map2d-hocus-fg" title="E4L1 FG layer 1"/>
+			<file id="lev-402-fg1" name="@519" editor="map2d" format="map2d-hocus-fg" title="E4L2 FG layer 1"/>
+			<file id="lev-403-fg1" name="@520" editor="map2d" format="map2d-hocus-fg" title="E4L3 FG layer 1"/>
+			<file id="lev-404-fg1" name="@521" editor="map2d" format="map2d-hocus-fg" title="E4L4 FG layer 1"/>
+			<file id="lev-405-fg1" name="@522" editor="map2d" format="map2d-hocus-fg" title="E4L5 FG layer 1"/>
+			<file id="lev-406-fg1" name="@523" editor="map2d" format="map2d-hocus-fg" title="E4L6 FG layer 1"/>
+			<file id="lev-407-fg1" name="@524" editor="map2d" format="map2d-hocus-fg" title="E4L7 FG layer 1"/>
+			<file id="lev-408-fg1" name="@525" editor="map2d" format="map2d-hocus-fg" title="E4L8 FG layer 1"/>
+			<file id="lev-409-fg1" name="@526" editor="map2d" format="map2d-hocus-fg" title="E4L9 FG layer 1"/>
 
-			<file id="lev-101-fg2" name="@527" typeMajor="map" typeMinor="hocus-fg" title="E1L1 FG layer 2"/>
-			<file id="lev-102-fg2" name="@528" typeMajor="map" typeMinor="hocus-fg" title="E1L2 FG layer 2"/>
-			<file id="lev-103-fg2" name="@529" typeMajor="map" typeMinor="hocus-fg" title="E1L3 FG layer 2"/>
-			<file id="lev-104-fg2" name="@530" typeMajor="map" typeMinor="hocus-fg" title="E1L4 FG layer 2"/>
-			<file id="lev-105-fg2" name="@531" typeMajor="map" typeMinor="hocus-fg" title="E1L5 FG layer 2"/>
-			<file id="lev-106-fg2" name="@532" typeMajor="map" typeMinor="hocus-fg" title="E1L6 FG layer 2"/>
-			<file id="lev-107-fg2" name="@533" typeMajor="map" typeMinor="hocus-fg" title="E1L7 FG layer 2"/>
-			<file id="lev-108-fg2" name="@534" typeMajor="map" typeMinor="hocus-fg" title="E1L8 FG layer 2"/>
-			<file id="lev-109-fg2" name="@535" typeMajor="map" typeMinor="hocus-fg" title="E1L9 FG layer 2"/>
+			<file id="lev-101-fg2" name="@527" editor="map2d" format="map2d-hocus-fg" title="E1L1 FG layer 2"/>
+			<file id="lev-102-fg2" name="@528" editor="map2d" format="map2d-hocus-fg" title="E1L2 FG layer 2"/>
+			<file id="lev-103-fg2" name="@529" editor="map2d" format="map2d-hocus-fg" title="E1L3 FG layer 2"/>
+			<file id="lev-104-fg2" name="@530" editor="map2d" format="map2d-hocus-fg" title="E1L4 FG layer 2"/>
+			<file id="lev-105-fg2" name="@531" editor="map2d" format="map2d-hocus-fg" title="E1L5 FG layer 2"/>
+			<file id="lev-106-fg2" name="@532" editor="map2d" format="map2d-hocus-fg" title="E1L6 FG layer 2"/>
+			<file id="lev-107-fg2" name="@533" editor="map2d" format="map2d-hocus-fg" title="E1L7 FG layer 2"/>
+			<file id="lev-108-fg2" name="@534" editor="map2d" format="map2d-hocus-fg" title="E1L8 FG layer 2"/>
+			<file id="lev-109-fg2" name="@535" editor="map2d" format="map2d-hocus-fg" title="E1L9 FG layer 2"/>
 
-			<file id="lev-201-fg2" name="@527" typeMajor="map" typeMinor="hocus-fg" title="E2L1 FG layer 2"/>
-			<file id="lev-202-fg2" name="@528" typeMajor="map" typeMinor="hocus-fg" title="E2L2 FG layer 2"/>
-			<file id="lev-203-fg2" name="@529" typeMajor="map" typeMinor="hocus-fg" title="E2L3 FG layer 2"/>
-			<file id="lev-204-fg2" name="@530" typeMajor="map" typeMinor="hocus-fg" title="E2L4 FG layer 2"/>
-			<file id="lev-205-fg2" name="@531" typeMajor="map" typeMinor="hocus-fg" title="E2L5 FG layer 2"/>
-			<file id="lev-206-fg2" name="@532" typeMajor="map" typeMinor="hocus-fg" title="E2L6 FG layer 2"/>
-			<file id="lev-207-fg2" name="@533" typeMajor="map" typeMinor="hocus-fg" title="E2L7 FG layer 2"/>
-			<file id="lev-208-fg2" name="@534" typeMajor="map" typeMinor="hocus-fg" title="E2L8 FG layer 2"/>
-			<file id="lev-209-fg2" name="@535" typeMajor="map" typeMinor="hocus-fg" title="E2L9 FG layer 2"/>
+			<file id="lev-201-fg2" name="@527" editor="map2d" format="map2d-hocus-fg" title="E2L1 FG layer 2"/>
+			<file id="lev-202-fg2" name="@528" editor="map2d" format="map2d-hocus-fg" title="E2L2 FG layer 2"/>
+			<file id="lev-203-fg2" name="@529" editor="map2d" format="map2d-hocus-fg" title="E2L3 FG layer 2"/>
+			<file id="lev-204-fg2" name="@530" editor="map2d" format="map2d-hocus-fg" title="E2L4 FG layer 2"/>
+			<file id="lev-205-fg2" name="@531" editor="map2d" format="map2d-hocus-fg" title="E2L5 FG layer 2"/>
+			<file id="lev-206-fg2" name="@532" editor="map2d" format="map2d-hocus-fg" title="E2L6 FG layer 2"/>
+			<file id="lev-207-fg2" name="@533" editor="map2d" format="map2d-hocus-fg" title="E2L7 FG layer 2"/>
+			<file id="lev-208-fg2" name="@534" editor="map2d" format="map2d-hocus-fg" title="E2L8 FG layer 2"/>
+			<file id="lev-209-fg2" name="@535" editor="map2d" format="map2d-hocus-fg" title="E2L9 FG layer 2"/>
 
-			<file id="lev-301-fg2" name="@527" typeMajor="map" typeMinor="hocus-fg" title="E3L1 FG layer 2"/>
-			<file id="lev-302-fg2" name="@528" typeMajor="map" typeMinor="hocus-fg" title="E3L2 FG layer 2"/>
-			<file id="lev-303-fg2" name="@529" typeMajor="map" typeMinor="hocus-fg" title="E3L3 FG layer 2"/>
-			<file id="lev-304-fg2" name="@530" typeMajor="map" typeMinor="hocus-fg" title="E3L4 FG layer 2"/>
-			<file id="lev-305-fg2" name="@531" typeMajor="map" typeMinor="hocus-fg" title="E3L5 FG layer 2"/>
-			<file id="lev-306-fg2" name="@532" typeMajor="map" typeMinor="hocus-fg" title="E3L6 FG layer 2"/>
-			<file id="lev-307-fg2" name="@533" typeMajor="map" typeMinor="hocus-fg" title="E3L7 FG layer 2"/>
-			<file id="lev-308-fg2" name="@534" typeMajor="map" typeMinor="hocus-fg" title="E3L8 FG layer 2"/>
-			<file id="lev-309-fg2" name="@535" typeMajor="map" typeMinor="hocus-fg" title="E3L9 FG layer 2"/>
+			<file id="lev-301-fg2" name="@527" editor="map2d" format="map2d-hocus-fg" title="E3L1 FG layer 2"/>
+			<file id="lev-302-fg2" name="@528" editor="map2d" format="map2d-hocus-fg" title="E3L2 FG layer 2"/>
+			<file id="lev-303-fg2" name="@529" editor="map2d" format="map2d-hocus-fg" title="E3L3 FG layer 2"/>
+			<file id="lev-304-fg2" name="@530" editor="map2d" format="map2d-hocus-fg" title="E3L4 FG layer 2"/>
+			<file id="lev-305-fg2" name="@531" editor="map2d" format="map2d-hocus-fg" title="E3L5 FG layer 2"/>
+			<file id="lev-306-fg2" name="@532" editor="map2d" format="map2d-hocus-fg" title="E3L6 FG layer 2"/>
+			<file id="lev-307-fg2" name="@533" editor="map2d" format="map2d-hocus-fg" title="E3L7 FG layer 2"/>
+			<file id="lev-308-fg2" name="@534" editor="map2d" format="map2d-hocus-fg" title="E3L8 FG layer 2"/>
+			<file id="lev-309-fg2" name="@535" editor="map2d" format="map2d-hocus-fg" title="E3L9 FG layer 2"/>
 
-			<file id="lev-401-fg2" name="@527" typeMajor="map" typeMinor="hocus-fg" title="E4L1 FG layer 2"/>
-			<file id="lev-402-fg2" name="@528" typeMajor="map" typeMinor="hocus-fg" title="E4L2 FG layer 2"/>
-			<file id="lev-403-fg2" name="@529" typeMajor="map" typeMinor="hocus-fg" title="E4L3 FG layer 2"/>
-			<file id="lev-404-fg2" name="@530" typeMajor="map" typeMinor="hocus-fg" title="E4L4 FG layer 2"/>
-			<file id="lev-405-fg2" name="@531" typeMajor="map" typeMinor="hocus-fg" title="E4L5 FG layer 2"/>
-			<file id="lev-406-fg2" name="@532" typeMajor="map" typeMinor="hocus-fg" title="E4L6 FG layer 2"/>
-			<file id="lev-407-fg2" name="@533" typeMajor="map" typeMinor="hocus-fg" title="E4L7 FG layer 2"/>
-			<file id="lev-408-fg2" name="@534" typeMajor="map" typeMinor="hocus-fg" title="E4L8 FG layer 2"/>
-			<file id="lev-409-fg2" name="@535" typeMajor="map" typeMinor="hocus-fg" title="E4L9 FG layer 2"/>
+			<file id="lev-401-fg2" name="@527" editor="map2d" format="map2d-hocus-fg" title="E4L1 FG layer 2"/>
+			<file id="lev-402-fg2" name="@528" editor="map2d" format="map2d-hocus-fg" title="E4L2 FG layer 2"/>
+			<file id="lev-403-fg2" name="@529" editor="map2d" format="map2d-hocus-fg" title="E4L3 FG layer 2"/>
+			<file id="lev-404-fg2" name="@530" editor="map2d" format="map2d-hocus-fg" title="E4L4 FG layer 2"/>
+			<file id="lev-405-fg2" name="@531" editor="map2d" format="map2d-hocus-fg" title="E4L5 FG layer 2"/>
+			<file id="lev-406-fg2" name="@532" editor="map2d" format="map2d-hocus-fg" title="E4L6 FG layer 2"/>
+			<file id="lev-407-fg2" name="@533" editor="map2d" format="map2d-hocus-fg" title="E4L7 FG layer 2"/>
+			<file id="lev-408-fg2" name="@534" editor="map2d" format="map2d-hocus-fg" title="E4L8 FG layer 2"/>
+			<file id="lev-409-fg2" name="@535" editor="map2d" format="map2d-hocus-fg" title="E4L9 FG layer 2"/>
 
-			<file id="img-i1" name="@1" typeMajor="image" typeMinor="pcx-8b1p" title="Apogee logo"/>
-			<file id="img-i3" name="@2" typeMajor="image" typeMinor="pcx-8b1p" title="Title"/>
+			<file id="img-i1" name="@1" editor="image" format="img-pcx-8b1p" title="Apogee logo"/>
+			<file id="img-i3" name="@2" editor="image" format="img-pcx-8b1p" title="Title"/>
 
-			<file id="img-i4" name="@4" typeMajor="image" typeMinor="pcx-8b1p" title="img04"/>
+			<file id="img-i4" name="@4" editor="image" format="img-pcx-8b1p" title="img04"/>
 
-			<file id="pal-game" name="@7" typeMajor="image" typeMinor="pal-vga" title="Game palette"/>
-			<file id="pal-menu" name="@8" typeMajor="image" typeMinor="pal-vga" title="Menu palette"/>
+			<file id="pal-game" name="@7" editor="image" format="img-pal-vga" title="Game palette"/>
+			<file id="pal-menu" name="@8" editor="image" format="img-pal-vga" title="Menu palette"/>
 
-			<file id="img-i2" name="@17" typeMajor="image" typeMinor="pcx-8b1p" title="Piracy warning"/>
+			<file id="img-i2" name="@17" editor="image" format="img-pcx-8b1p" title="Piracy warning"/>
 
-			<file id="img-c1" name="@23" typeMajor="image" typeMinor="pcx-8b1p" title="Credits 1"/>
-			<file id="img-c2" name="@24" typeMajor="image" typeMinor="pcx-8b1p" title="Credits 2"/>
-			<file id="img-h1" name="@25" typeMajor="image" typeMinor="pcx-8b1p" title="Help 1"/>
-			<file id="img-h2" name="@26" typeMajor="image" typeMinor="pcx-8b1p" title="Help 2"/>
-			<file id="img-h3" name="@27" typeMajor="image" typeMinor="pcx-8b1p" title="Help 3"/>
-			<file id="img-h4" name="@28" typeMajor="image" typeMinor="pcx-8b1p" title="Help 4"/>
-			<file id="img-h5" name="@29" typeMajor="image" typeMinor="pcx-8b1p" title="Help 5"/>
-			<file id="img-p1" name="@30" typeMajor="image" typeMinor="pcx-8b1p" title="Preview 1"/>
-			<file id="img-p2" name="@31" typeMajor="image" typeMinor="pcx-8b1p" title="Preview 2"/>
-			<file id="img-p3" name="@32" typeMajor="image" typeMinor="pcx-8b1p" title="Preview 3"/>
-			<file id="img-p4" name="@33" typeMajor="image" typeMinor="pcx-8b1p" title="Preview 4"/>
-			<file id="img-p5" name="@34" typeMajor="image" typeMinor="pcx-8b1p" title="Preview 5"/>
-			<file id="img-p6" name="@35" typeMajor="image" typeMinor="pcx-8b1p" title="Preview 6"/>
-			<file id="img-p7" name="@36" typeMajor="image" typeMinor="pcx-8b1p" title="Preview 7"/>
-			<file id="img-p8" name="@37" typeMajor="image" typeMinor="pcx-8b1p" title="Preview 8"/>
-			<file id="img-p9" name="@38" typeMajor="image" typeMinor="pcx-8b1p" title="Preview 9"/>
-			<file id="img-pa" name="@39" typeMajor="image" typeMinor="pcx-8b1p" title="Preview 10"/>
-			<file id="img-pb" name="@40" typeMajor="image" typeMinor="pcx-8b1p" title="Preview 11"/>
+			<file id="img-c1" name="@23" editor="image" format="img-pcx-8b1p" title="Credits 1"/>
+			<file id="img-c2" name="@24" editor="image" format="img-pcx-8b1p" title="Credits 2"/>
+			<file id="img-h1" name="@25" editor="image" format="img-pcx-8b1p" title="Help 1"/>
+			<file id="img-h2" name="@26" editor="image" format="img-pcx-8b1p" title="Help 2"/>
+			<file id="img-h3" name="@27" editor="image" format="img-pcx-8b1p" title="Help 3"/>
+			<file id="img-h4" name="@28" editor="image" format="img-pcx-8b1p" title="Help 4"/>
+			<file id="img-h5" name="@29" editor="image" format="img-pcx-8b1p" title="Help 5"/>
+			<file id="img-p1" name="@30" editor="image" format="img-pcx-8b1p" title="Preview 1"/>
+			<file id="img-p2" name="@31" editor="image" format="img-pcx-8b1p" title="Preview 2"/>
+			<file id="img-p3" name="@32" editor="image" format="img-pcx-8b1p" title="Preview 3"/>
+			<file id="img-p4" name="@33" editor="image" format="img-pcx-8b1p" title="Preview 4"/>
+			<file id="img-p5" name="@34" editor="image" format="img-pcx-8b1p" title="Preview 5"/>
+			<file id="img-p6" name="@35" editor="image" format="img-pcx-8b1p" title="Preview 6"/>
+			<file id="img-p7" name="@36" editor="image" format="img-pcx-8b1p" title="Preview 7"/>
+			<file id="img-p8" name="@37" editor="image" format="img-pcx-8b1p" title="Preview 8"/>
+			<file id="img-p9" name="@38" editor="image" format="img-pcx-8b1p" title="Preview 9"/>
+			<file id="img-pa" name="@39" editor="image" format="img-pcx-8b1p" title="Preview 10"/>
+			<file id="img-pb" name="@40" editor="image" format="img-pcx-8b1p" title="Preview 11"/>
 
-			<file id="img-72" name="@72" typeMajor="image" typeMinor="pcx-8b1p" title="Ending"/>
+			<file id="img-72" name="@72" editor="image" format="img-pcx-8b1p" title="Ending"/>
 
-			<file id="img-bd01" name="@89"  typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 1"/>
-			<file id="img-bd02" name="@90"  typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 2"/>
-			<file id="img-bd03" name="@91"  typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 3"/>
-			<file id="img-bd04" name="@92"  typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 4"/>
-			<file id="img-bd05" name="@93"  typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 5"/>
-			<file id="img-bd06" name="@94"  typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 6"/>
-			<file id="img-bd07" name="@95"  typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 7"/>
-			<file id="img-bd08" name="@96"  typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 8"/>
-			<file id="img-bd09" name="@97"  typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 9"/>
-			<file id="img-bd10" name="@98"  typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 10"/>
-			<file id="img-bd11" name="@99"  typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 11"/>
-			<file id="img-bd12" name="@100" typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 12"/>
-			<file id="img-bd13" name="@101" typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 13"/>
-			<file id="img-bd14" name="@102" typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 14"/>
-			<file id="img-bd15" name="@103" typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 15"/>
-			<file id="img-bd16" name="@104" typeMajor="image" typeMinor="pcx-8b1p" title="Backdrop 16"/>
-			<file id="tls-01" name="@105" typeMajor="tileset" typeMinor="hocus" title="Tileset 1"/>
-			<file id="tls-02" name="@106" typeMajor="tileset" typeMinor="hocus" title="Tileset 2"/>
-			<file id="tls-03" name="@107" typeMajor="tileset" typeMinor="hocus" title="Tileset 3"/>
-			<file id="tls-04" name="@108" typeMajor="tileset" typeMinor="hocus" title="Tileset 4"/>
-			<file id="tls-05" name="@109" typeMajor="tileset" typeMinor="hocus" title="Tileset 5"/>
-			<file id="tls-06" name="@110" typeMajor="tileset" typeMinor="hocus" title="Tileset 6"/>
-			<file id="tls-07" name="@111" typeMajor="tileset" typeMinor="hocus" title="Tileset 7"/>
-			<file id="tls-08" name="@112" typeMajor="tileset" typeMinor="hocus" title="Tileset 8"/>
-			<file id="tls-09" name="@113" typeMajor="tileset" typeMinor="hocus" title="Tileset 9"/>
-			<file id="tls-10" name="@114" typeMajor="tileset" typeMinor="hocus" title="Tileset 10"/>
-			<file id="tls-11" name="@115" typeMajor="tileset" typeMinor="hocus" title="Tileset 11"/>
-			<file id="tls-12" name="@116" typeMajor="tileset" typeMinor="hocus" title="Tileset 12"/>
-			<file id="tls-13" name="@117" typeMajor="tileset" typeMinor="hocus" title="Tileset 13"/>
-			<file id="tls-14" name="@118" typeMajor="tileset" typeMinor="hocus" title="Tileset 14"/>
-			<file id="tls-15" name="@119" typeMajor="tileset" typeMinor="hocus" title="Tileset 15"/>
-			<file id="tls-16" name="@120" typeMajor="tileset" typeMinor="hocus" title="Tileset 16"/>
+			<file id="img-bd01" name="@89"  editor="image" format="img-pcx-8b1p" title="Backdrop 1"/>
+			<file id="img-bd02" name="@90"  editor="image" format="img-pcx-8b1p" title="Backdrop 2"/>
+			<file id="img-bd03" name="@91"  editor="image" format="img-pcx-8b1p" title="Backdrop 3"/>
+			<file id="img-bd04" name="@92"  editor="image" format="img-pcx-8b1p" title="Backdrop 4"/>
+			<file id="img-bd05" name="@93"  editor="image" format="img-pcx-8b1p" title="Backdrop 5"/>
+			<file id="img-bd06" name="@94"  editor="image" format="img-pcx-8b1p" title="Backdrop 6"/>
+			<file id="img-bd07" name="@95"  editor="image" format="img-pcx-8b1p" title="Backdrop 7"/>
+			<file id="img-bd08" name="@96"  editor="image" format="img-pcx-8b1p" title="Backdrop 8"/>
+			<file id="img-bd09" name="@97"  editor="image" format="img-pcx-8b1p" title="Backdrop 9"/>
+			<file id="img-bd10" name="@98"  editor="image" format="img-pcx-8b1p" title="Backdrop 10"/>
+			<file id="img-bd11" name="@99"  editor="image" format="img-pcx-8b1p" title="Backdrop 11"/>
+			<file id="img-bd12" name="@100" editor="image" format="img-pcx-8b1p" title="Backdrop 12"/>
+			<file id="img-bd13" name="@101" editor="image" format="img-pcx-8b1p" title="Backdrop 13"/>
+			<file id="img-bd14" name="@102" editor="image" format="img-pcx-8b1p" title="Backdrop 14"/>
+			<file id="img-bd15" name="@103" editor="image" format="img-pcx-8b1p" title="Backdrop 15"/>
+			<file id="img-bd16" name="@104" editor="image" format="img-pcx-8b1p" title="Backdrop 16"/>
+			<file id="tls-01" name="@105" editor="tileset" format="tls-hocus" title="Tileset 1"/>
+			<file id="tls-02" name="@106" editor="tileset" format="tls-hocus" title="Tileset 2"/>
+			<file id="tls-03" name="@107" editor="tileset" format="tls-hocus" title="Tileset 3"/>
+			<file id="tls-04" name="@108" editor="tileset" format="tls-hocus" title="Tileset 4"/>
+			<file id="tls-05" name="@109" editor="tileset" format="tls-hocus" title="Tileset 5"/>
+			<file id="tls-06" name="@110" editor="tileset" format="tls-hocus" title="Tileset 6"/>
+			<file id="tls-07" name="@111" editor="tileset" format="tls-hocus" title="Tileset 7"/>
+			<file id="tls-08" name="@112" editor="tileset" format="tls-hocus" title="Tileset 8"/>
+			<file id="tls-09" name="@113" editor="tileset" format="tls-hocus" title="Tileset 9"/>
+			<file id="tls-10" name="@114" editor="tileset" format="tls-hocus" title="Tileset 10"/>
+			<file id="tls-11" name="@115" editor="tileset" format="tls-hocus" title="Tileset 11"/>
+			<file id="tls-12" name="@116" editor="tileset" format="tls-hocus" title="Tileset 12"/>
+			<file id="tls-13" name="@117" editor="tileset" format="tls-hocus" title="Tileset 13"/>
+			<file id="tls-14" name="@118" editor="tileset" format="tls-hocus" title="Tileset 14"/>
+			<file id="tls-15" name="@119" editor="tileset" format="tls-hocus" title="Tileset 15"/>
+			<file id="tls-16" name="@120" editor="tileset" format="tls-hocus" title="Tileset 16"/>
 
-			<file id="img-122" name="@122" typeMajor="image" typeMinor="pcx-8b1p" title="Ending?"/>
+			<file id="img-122" name="@122" editor="image" format="img-pcx-8b1p" title="Ending?"/>
 
 		</archive>
 	</files>

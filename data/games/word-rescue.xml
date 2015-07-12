@@ -213,43 +213,43 @@
 	</display>
 
 	<files>
-		<archive name="wr1.1" id="arch-wr1-1" typeMinor="pcxlib">
-			<file id="tls-1"       name="back1.wr"   typeMajor="tileset" typeMinor="wordresc" title="Desert"/>
-			<file id="tls-2"       name="back2.wr"   typeMajor="tileset" typeMinor="wordresc" title="Castle"/>
-			<file id="tls-3"       name="back3.wr"   typeMajor="tileset" typeMinor="wordresc" title="Suburban"/>
-			<file id="tls-4"       name="back4.wr"   typeMajor="tileset" typeMinor="wordresc" title="Spooky (Ep 3 only)"/>
-			<file id="tls-5"       name="back5.wr"   typeMajor="tileset" typeMinor="wordresc" title="Industrial"/>
-			<file id="tls-6"       name="back6.wr"   typeMajor="tileset" typeMinor="wordresc" title="Custom (back6.wr)"/>
-			<file id="tls-7"       name="back7.wr"   typeMajor="tileset" typeMinor="wordresc" title="Custom (back7.wr)"/>
-			<file id="tls-8"       name="back8.wr"   typeMajor="tileset" typeMinor="wordresc" title="Custom (back8.wr)"/>
-			<file id="img-benny-101" name="benny1.wr"  typeMajor="image"   typeMinor="pcx-1b4p" title="Benny Bookworm 1"/>
-			<file id="img-benny-102" name="benny2.wr"  typeMajor="image"   typeMinor="pcx-1b4p" title="Benny Bookworm 2"/>
-			<file id="img-benny-103" name="slime.wr"   typeMajor="image"   typeMinor="pcx-1b4p" title="Benny Sliming"/>
-			<file id="img-players-1" name="chars.wr"   typeMajor="image"   typeMinor="pcx-1b4p" title="Players"/>
-			<file id="img-key-1"     name="key.wr"     typeMajor="image"   typeMinor="pcx-1b4p" title="Key"/>
-			<file id="img-border-1"  name="static.wr"  typeMajor="image"   typeMinor="pcx-1b4p" title="Border and Gruzzles"/>
-			<file id="img-bg-desert" name="drop3.wr"   typeMajor="image"   typeMinor="pcx-1b4p" title="Desert"/>
-			<file id="img-bg-mount"  name="drop4.wr"   typeMajor="image"   typeMinor="pcx-1b4p" title="Mountain"/>
-			<file id="img-ui-101"    name="help.wr"    typeMajor="image"   typeMinor="pcx-1b4p" title="Help"/>
-			<file id="img-ui-102"    name="menu.wr"    typeMajor="image"   typeMinor="pcx-1b4p" title="Menu titlebars"/>
-			<file id="img-end-1"     name="wr1.10"     typeMajor="image"   typeMinor="pcx-1b4p" title="Ending"/>
-			<file id="img-preview1"  name="wr1.11"     typeMajor="image"   typeMinor="pcx-1b4p" title="Episode 2 preview"/>
-			<file id="img-preview2"  name="wr1.12"     typeMajor="image"   typeMinor="pcx-1b4p" title="Episode 3 preview"/>
-			<file id="img-ui-103"    name="wr1.20"     typeMajor="image"   typeMinor="pcx-1b4p" title="Intro 1"/>
-			<file id="img-ui-104"    name="wr1.21"     typeMajor="image"   typeMinor="pcx-1b4p" title="Title"/>
-			<file id="img-ui-105"    name="wr1.22"     typeMajor="image"   typeMinor="pcx-1b4p" title="Credits"/>
-			<file id="img-ui-106"    name="wr1.23"     typeMajor="image"   typeMinor="pcx-1b4p" title="One moment"/>
-			<file id="img-ui-107"    name="wr1.24"     typeMajor="image"   typeMinor="pcx-1b4p" title="New player"/>
-			<file id="img-ui-108"    name="wr1.25"     typeMajor="image"   typeMinor="pcx-1b4p" title="Gender selection"/>
-			<file id="img-ui-109"    name="wr1.26"     typeMajor="image"   typeMinor="pcx-1b4p" title="Returning player"/>
-			<file id="img-ui-110"    name="wr1.30"     typeMajor="image"   typeMinor="pcx-1b4p" title="Story 1"/>
-			<file id="img-ui-111"    name="wr1.31"     typeMajor="image"   typeMinor="pcx-1b4p" title="Story 2"/>
-			<file id="img-ui-112"    name="wr1.32"     typeMajor="image"   typeMinor="pcx-1b4p" title="Story 3"/>
-			<file id="img-ui-113"    name="wr1.33"     typeMajor="image"   typeMinor="pcx-1b4p" title="Story 4"/>
-			<file id="img-ui-114"    name="wr1.34"     typeMajor="image"   typeMinor="pcx-1b4p" title="Story 5"/>
+		<archive name="wr1.1" id="arch-wr1-1" format="pcxlib">
+			<file id="tls-1"       name="back1.wr"   editor="tileset" format="tls-wordresc" title="Desert"/>
+			<file id="tls-2"       name="back2.wr"   editor="tileset" format="tls-wordresc" title="Castle"/>
+			<file id="tls-3"       name="back3.wr"   editor="tileset" format="tls-wordresc" title="Suburban"/>
+			<file id="tls-4"       name="back4.wr"   editor="tileset" format="tls-wordresc" title="Spooky (Ep 3 only)"/>
+			<file id="tls-5"       name="back5.wr"   editor="tileset" format="tls-wordresc" title="Industrial"/>
+			<file id="tls-6"       name="back6.wr"   editor="tileset" format="tls-wordresc" title="Custom (back6.wr)"/>
+			<file id="tls-7"       name="back7.wr"   editor="tileset" format="tls-wordresc" title="Custom (back7.wr)"/>
+			<file id="tls-8"       name="back8.wr"   editor="tileset" format="tls-wordresc" title="Custom (back8.wr)"/>
+			<file id="img-benny-101" name="benny1.wr"  editor="image"   format="img-pcx-1b4p" title="Benny Bookworm 1"/>
+			<file id="img-benny-102" name="benny2.wr"  editor="image"   format="img-pcx-1b4p" title="Benny Bookworm 2"/>
+			<file id="img-benny-103" name="slime.wr"   editor="image"   format="img-pcx-1b4p" title="Benny Sliming"/>
+			<file id="img-players-1" name="chars.wr"   editor="image"   format="img-pcx-1b4p" title="Players"/>
+			<file id="img-key-1"     name="key.wr"     editor="image"   format="img-pcx-1b4p" title="Key"/>
+			<file id="img-border-1"  name="static.wr"  editor="image"   format="img-pcx-1b4p" title="Border and Gruzzles"/>
+			<file id="img-bg-desert" name="drop3.wr"   editor="image"   format="img-pcx-1b4p" title="Desert"/>
+			<file id="img-bg-mount"  name="drop4.wr"   editor="image"   format="img-pcx-1b4p" title="Mountain"/>
+			<file id="img-ui-101"    name="help.wr"    editor="image"   format="img-pcx-1b4p" title="Help"/>
+			<file id="img-ui-102"    name="menu.wr"    editor="image"   format="img-pcx-1b4p" title="Menu titlebars"/>
+			<file id="img-end-1"     name="wr1.10"     editor="image"   format="img-pcx-1b4p" title="Ending"/>
+			<file id="img-preview1"  name="wr1.11"     editor="image"   format="img-pcx-1b4p" title="Episode 2 preview"/>
+			<file id="img-preview2"  name="wr1.12"     editor="image"   format="img-pcx-1b4p" title="Episode 3 preview"/>
+			<file id="img-ui-103"    name="wr1.20"     editor="image"   format="img-pcx-1b4p" title="Intro 1"/>
+			<file id="img-ui-104"    name="wr1.21"     editor="image"   format="img-pcx-1b4p" title="Title"/>
+			<file id="img-ui-105"    name="wr1.22"     editor="image"   format="img-pcx-1b4p" title="Credits"/>
+			<file id="img-ui-106"    name="wr1.23"     editor="image"   format="img-pcx-1b4p" title="One moment"/>
+			<file id="img-ui-107"    name="wr1.24"     editor="image"   format="img-pcx-1b4p" title="New player"/>
+			<file id="img-ui-108"    name="wr1.25"     editor="image"   format="img-pcx-1b4p" title="Gender selection"/>
+			<file id="img-ui-109"    name="wr1.26"     editor="image"   format="img-pcx-1b4p" title="Returning player"/>
+			<file id="img-ui-110"    name="wr1.30"     editor="image"   format="img-pcx-1b4p" title="Story 1"/>
+			<file id="img-ui-111"    name="wr1.31"     editor="image"   format="img-pcx-1b4p" title="Story 2"/>
+			<file id="img-ui-112"    name="wr1.32"     editor="image"   format="img-pcx-1b4p" title="Story 3"/>
+			<file id="img-ui-113"    name="wr1.33"     editor="image"   format="img-pcx-1b4p" title="Story 4"/>
+			<file id="img-ui-114"    name="wr1.34"     editor="image"   format="img-pcx-1b4p" title="Story 5"/>
 
-			<file id="img-static"    name="static.wr"  typeMajor="image"   typeMinor="pcx-1b4p" title="Static"/>
-			<file id="img-bigfont"   name="font.wr"    typeMajor="image"   typeMinor="pcx-1b4p" title="Large font"/>
+			<file id="img-static"    name="static.wr"  editor="image"   format="img-pcx-1b4p" title="Static"/>
+			<file id="img-bigfont"   name="font.wr"    editor="image"   format="img-pcx-1b4p" title="Large font"/>
 			<tileset id="tls-static" image="img-static" title="Static">
 				<image x="209" y="40" width="23" height="23"/>
 				<image x="232" y="40" width="24" height="32"/>
@@ -322,205 +322,205 @@
 			</tileset>
 		</archive>
 
-		<archive name="wr1.2" id="arch-wr1-2" typeMinor="pcxlib">
-			<file id="img-item101" name="acorn.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="acorn"/>
-			<file id="img-item102" name="anchor.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="anchor"/>
-			<file id="img-item103" name="ant.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="ant"/>
-			<file id="img-item104" name="ant2.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="ant2"/>
-			<file id="img-item105" name="arm.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="arm"/>
-			<file id="img-item106" name="arrow.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="arrow"/>
-			<file id="img-item107" name="balloon.wr1"  typeMajor="image"   typeMinor="pcx-1b4p" title="balloon"/>
-			<file id="img-item108" name="balloon2.wr1" typeMajor="image"   typeMinor="pcx-1b4p" title="balloon2"/>
-			<file id="img-item109" name="banana.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="banana"/>
-			<file id="img-item110" name="bat.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="bat"/>
-			<file id="img-item111" name="bat2.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="bat2"/>
-			<file id="img-item112" name="bear.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="bear"/>
-			<file id="img-item113" name="bear2.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="bear2"/>
-			<file id="img-item114" name="bell.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="bell"/>
-			<file id="img-item115" name="bird.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="bird"/>
-			<file id="img-item116" name="bird2.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="bird2"/>
-			<file id="img-item117" name="bottle.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="bottle"/>
-			<file id="img-item118" name="bucket.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="bucket"/>
-			<file id="img-item119" name="bulb.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="bulb"/>
-			<file id="img-item120" name="camera.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="camera"/>
-			<file id="img-item121" name="can.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="can"/>
-			<file id="img-item122" name="car.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="car"/>
-			<file id="img-item123" name="claw.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="claw"/>
-			<file id="img-item124" name="clown.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="clown"/>
-			<file id="img-item125" name="cop.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="cop"/>
-			<file id="img-item126" name="cop2.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="cop2"/>
-			<file id="img-item127" name="cross.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="cross"/>
-			<file id="img-item128" name="crown.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="crown"/>
-			<file id="img-item129" name="cup.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="cup"/>
-			<file id="img-item130" name="dance.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="dance"/>
-			<file id="img-item131" name="dance2.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="dance2"/>
-			<file id="img-item132" name="dive.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="dive"/>
-			<file id="img-item133" name="dog.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="dog"/>
-			<file id="img-item134" name="dog2.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="dog2"/>
-			<file id="img-item135" name="duck.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="duck"/>
-			<file id="img-item136" name="duck2.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="duck2"/>
-			<file id="img-item137" name="eight.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="eight"/>
-			<file id="img-item138" name="factory.wr1"  typeMajor="image"   typeMinor="pcx-1b4p" title="factory"/>
-			<file id="img-item139" name="factory2.wr1" typeMajor="image"   typeMinor="pcx-1b4p" title="factory2"/>
-			<file id="img-item140" name="fence.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="fence"/>
-			<file id="img-item141" name="five.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="five"/>
-			<file id="img-item142" name="flag.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="flag"/>
-			<file id="img-item143" name="flag2.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="flag2"/>
-			<file id="img-item144" name="flower.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="flower"/>
-			<file id="img-item145" name="fork.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="fork"/>
-			<file id="img-item146" name="frog.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="frog"/>
-			<file id="img-item147" name="frog2.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="frog2"/>
-			<file id="img-item148" name="gas.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="gas"/>
-			<file id="img-item149" name="ghost.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="ghost"/>
-			<file id="img-item150" name="ghost2.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="ghost2"/>
-			<file id="img-item151" name="gun.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="gun"/>
-			<file id="img-item152" name="hammer.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="hammer"/>
-			<file id="img-item153" name="hat.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="hat"/>
-			<file id="img-item154" name="head.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="head"/>
-			<file id="img-item155" name="heart.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="heart"/>
-			<file id="img-item156" name="home.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="home"/>
-			<file id="img-item157" name="horse.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="horse"/>
-			<file id="img-item158" name="horse2.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="horse2"/>
-			<file id="img-item159" name="hut.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="hut"/>
-			<file id="img-item160" name="igloo.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="igloo"/>
-			<file id="img-item161" name="igloo2.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="igloo2"/>
-			<file id="img-item162" name="jail.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="jail"/>
-			<file id="img-item163" name="joker.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="joker"/>
-			<file id="img-item164" name="jump.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="jump"/>
-			<file id="img-item165" name="jump2.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="jump2"/>
-			<file id="img-item166" name="kite.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="kite"/>
-			<file id="img-item167" name="ladder.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="ladder"/>
-			<file id="img-item168" name="log.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="log"/>
-			<file id="img-item169" name="money.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="money"/>
-			<file id="img-item170" name="music.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="music"/>
-			<file id="img-item171" name="nurse.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="nurse"/>
-			<file id="img-item172" name="one.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="one"/>
-			<file id="img-item173" name="orange.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="orange"/>
-			<file id="img-item174" name="pen.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="pen"/>
-			<file id="img-item175" name="pink.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="pink"/>
-			<file id="img-item176" name="pot.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="pot"/>
-			<file id="img-item177" name="purple.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="purple"/>
-			<file id="img-item178" name="rabbit.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="rabbit"/>
-			<file id="img-item179" name="rabbit2.wr1"  typeMajor="image"   typeMinor="pcx-1b4p" title="rabbit2"/>
-			<file id="img-item180" name="rat.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="rat"/>
-			<file id="img-item181" name="rat2.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="rat2"/>
-			<file id="img-item182" name="read.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="read"/>
-			<file id="img-item183" name="read2.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="read2"/>
-			<file id="img-item184" name="rock.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="rock"/>
-			<file id="img-item185" name="run.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="run"/>
-			<file id="img-item186" name="run2.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="run2"/>
-			<file id="img-item187" name="saddle.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="saddle"/>
-			<file id="img-item188" name="scale.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="scale"/>
-			<file id="img-item189" name="seal.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="seal"/>
-			<file id="img-item190" name="shoe.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="shoe"/>
-			<file id="img-item191" name="sign.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="sign"/>
-			<file id="img-item192" name="sit.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="sit"/>
-			<file id="img-item193" name="sit2.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="sit2"/>
-			<file id="img-item194" name="skunk.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="skunk"/>
-			<file id="img-item195" name="snow.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="snow"/>
-			<file id="img-item196" name="snow2.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="snow2"/>
-			<file id="img-item197" name="sock.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="sock"/>
-			<file id="img-item198" name="spoon.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="spoon"/>
-			<file id="img-item199" name="stair.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="stair"/>
-			<file id="img-item1a0" name="stand.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="stand"/>
-			<file id="img-item1a1" name="teepee.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="teepee"/>
-			<file id="img-item1a2" name="toe.wr1"      typeMajor="image"   typeMinor="pcx-1b4p" title="toe"/>
-			<file id="img-item1a3" name="tomato.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="tomato"/>
-			<file id="img-item1a4" name="trike.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="trike"/>
-			<file id="img-item1a5" name="turtle.wr1"   typeMajor="image"   typeMinor="pcx-1b4p" title="turtle"/>
-			<file id="img-item1a6" name="twig.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="twig"/>
-			<file id="img-item1a7" name="watch.wr1"    typeMajor="image"   typeMinor="pcx-1b4p" title="watch"/>
-			<file id="img-item1a8" name="wine.wr1"     typeMajor="image"   typeMinor="pcx-1b4p" title="wine"/>
+		<archive name="wr1.2" id="arch-wr1-2" format="pcxlib">
+			<file id="img-item101" name="acorn.wr1"    editor="image"   format="img-pcx-1b4p" title="acorn"/>
+			<file id="img-item102" name="anchor.wr1"   editor="image"   format="img-pcx-1b4p" title="anchor"/>
+			<file id="img-item103" name="ant.wr1"      editor="image"   format="img-pcx-1b4p" title="ant"/>
+			<file id="img-item104" name="ant2.wr1"     editor="image"   format="img-pcx-1b4p" title="ant2"/>
+			<file id="img-item105" name="arm.wr1"      editor="image"   format="img-pcx-1b4p" title="arm"/>
+			<file id="img-item106" name="arrow.wr1"    editor="image"   format="img-pcx-1b4p" title="arrow"/>
+			<file id="img-item107" name="balloon.wr1"  editor="image"   format="img-pcx-1b4p" title="balloon"/>
+			<file id="img-item108" name="balloon2.wr1" editor="image"   format="img-pcx-1b4p" title="balloon2"/>
+			<file id="img-item109" name="banana.wr1"   editor="image"   format="img-pcx-1b4p" title="banana"/>
+			<file id="img-item110" name="bat.wr1"      editor="image"   format="img-pcx-1b4p" title="bat"/>
+			<file id="img-item111" name="bat2.wr1"     editor="image"   format="img-pcx-1b4p" title="bat2"/>
+			<file id="img-item112" name="bear.wr1"     editor="image"   format="img-pcx-1b4p" title="bear"/>
+			<file id="img-item113" name="bear2.wr1"    editor="image"   format="img-pcx-1b4p" title="bear2"/>
+			<file id="img-item114" name="bell.wr1"     editor="image"   format="img-pcx-1b4p" title="bell"/>
+			<file id="img-item115" name="bird.wr1"     editor="image"   format="img-pcx-1b4p" title="bird"/>
+			<file id="img-item116" name="bird2.wr1"    editor="image"   format="img-pcx-1b4p" title="bird2"/>
+			<file id="img-item117" name="bottle.wr1"   editor="image"   format="img-pcx-1b4p" title="bottle"/>
+			<file id="img-item118" name="bucket.wr1"   editor="image"   format="img-pcx-1b4p" title="bucket"/>
+			<file id="img-item119" name="bulb.wr1"     editor="image"   format="img-pcx-1b4p" title="bulb"/>
+			<file id="img-item120" name="camera.wr1"   editor="image"   format="img-pcx-1b4p" title="camera"/>
+			<file id="img-item121" name="can.wr1"      editor="image"   format="img-pcx-1b4p" title="can"/>
+			<file id="img-item122" name="car.wr1"      editor="image"   format="img-pcx-1b4p" title="car"/>
+			<file id="img-item123" name="claw.wr1"     editor="image"   format="img-pcx-1b4p" title="claw"/>
+			<file id="img-item124" name="clown.wr1"    editor="image"   format="img-pcx-1b4p" title="clown"/>
+			<file id="img-item125" name="cop.wr1"      editor="image"   format="img-pcx-1b4p" title="cop"/>
+			<file id="img-item126" name="cop2.wr1"     editor="image"   format="img-pcx-1b4p" title="cop2"/>
+			<file id="img-item127" name="cross.wr1"    editor="image"   format="img-pcx-1b4p" title="cross"/>
+			<file id="img-item128" name="crown.wr1"    editor="image"   format="img-pcx-1b4p" title="crown"/>
+			<file id="img-item129" name="cup.wr1"      editor="image"   format="img-pcx-1b4p" title="cup"/>
+			<file id="img-item130" name="dance.wr1"    editor="image"   format="img-pcx-1b4p" title="dance"/>
+			<file id="img-item131" name="dance2.wr1"   editor="image"   format="img-pcx-1b4p" title="dance2"/>
+			<file id="img-item132" name="dive.wr1"     editor="image"   format="img-pcx-1b4p" title="dive"/>
+			<file id="img-item133" name="dog.wr1"      editor="image"   format="img-pcx-1b4p" title="dog"/>
+			<file id="img-item134" name="dog2.wr1"     editor="image"   format="img-pcx-1b4p" title="dog2"/>
+			<file id="img-item135" name="duck.wr1"     editor="image"   format="img-pcx-1b4p" title="duck"/>
+			<file id="img-item136" name="duck2.wr1"    editor="image"   format="img-pcx-1b4p" title="duck2"/>
+			<file id="img-item137" name="eight.wr1"    editor="image"   format="img-pcx-1b4p" title="eight"/>
+			<file id="img-item138" name="factory.wr1"  editor="image"   format="img-pcx-1b4p" title="factory"/>
+			<file id="img-item139" name="factory2.wr1" editor="image"   format="img-pcx-1b4p" title="factory2"/>
+			<file id="img-item140" name="fence.wr1"    editor="image"   format="img-pcx-1b4p" title="fence"/>
+			<file id="img-item141" name="five.wr1"     editor="image"   format="img-pcx-1b4p" title="five"/>
+			<file id="img-item142" name="flag.wr1"     editor="image"   format="img-pcx-1b4p" title="flag"/>
+			<file id="img-item143" name="flag2.wr1"    editor="image"   format="img-pcx-1b4p" title="flag2"/>
+			<file id="img-item144" name="flower.wr1"   editor="image"   format="img-pcx-1b4p" title="flower"/>
+			<file id="img-item145" name="fork.wr1"     editor="image"   format="img-pcx-1b4p" title="fork"/>
+			<file id="img-item146" name="frog.wr1"     editor="image"   format="img-pcx-1b4p" title="frog"/>
+			<file id="img-item147" name="frog2.wr1"    editor="image"   format="img-pcx-1b4p" title="frog2"/>
+			<file id="img-item148" name="gas.wr1"      editor="image"   format="img-pcx-1b4p" title="gas"/>
+			<file id="img-item149" name="ghost.wr1"    editor="image"   format="img-pcx-1b4p" title="ghost"/>
+			<file id="img-item150" name="ghost2.wr1"   editor="image"   format="img-pcx-1b4p" title="ghost2"/>
+			<file id="img-item151" name="gun.wr1"      editor="image"   format="img-pcx-1b4p" title="gun"/>
+			<file id="img-item152" name="hammer.wr1"   editor="image"   format="img-pcx-1b4p" title="hammer"/>
+			<file id="img-item153" name="hat.wr1"      editor="image"   format="img-pcx-1b4p" title="hat"/>
+			<file id="img-item154" name="head.wr1"     editor="image"   format="img-pcx-1b4p" title="head"/>
+			<file id="img-item155" name="heart.wr1"    editor="image"   format="img-pcx-1b4p" title="heart"/>
+			<file id="img-item156" name="home.wr1"     editor="image"   format="img-pcx-1b4p" title="home"/>
+			<file id="img-item157" name="horse.wr1"    editor="image"   format="img-pcx-1b4p" title="horse"/>
+			<file id="img-item158" name="horse2.wr1"   editor="image"   format="img-pcx-1b4p" title="horse2"/>
+			<file id="img-item159" name="hut.wr1"      editor="image"   format="img-pcx-1b4p" title="hut"/>
+			<file id="img-item160" name="igloo.wr1"    editor="image"   format="img-pcx-1b4p" title="igloo"/>
+			<file id="img-item161" name="igloo2.wr1"   editor="image"   format="img-pcx-1b4p" title="igloo2"/>
+			<file id="img-item162" name="jail.wr1"     editor="image"   format="img-pcx-1b4p" title="jail"/>
+			<file id="img-item163" name="joker.wr1"    editor="image"   format="img-pcx-1b4p" title="joker"/>
+			<file id="img-item164" name="jump.wr1"     editor="image"   format="img-pcx-1b4p" title="jump"/>
+			<file id="img-item165" name="jump2.wr1"    editor="image"   format="img-pcx-1b4p" title="jump2"/>
+			<file id="img-item166" name="kite.wr1"     editor="image"   format="img-pcx-1b4p" title="kite"/>
+			<file id="img-item167" name="ladder.wr1"   editor="image"   format="img-pcx-1b4p" title="ladder"/>
+			<file id="img-item168" name="log.wr1"      editor="image"   format="img-pcx-1b4p" title="log"/>
+			<file id="img-item169" name="money.wr1"    editor="image"   format="img-pcx-1b4p" title="money"/>
+			<file id="img-item170" name="music.wr1"    editor="image"   format="img-pcx-1b4p" title="music"/>
+			<file id="img-item171" name="nurse.wr1"    editor="image"   format="img-pcx-1b4p" title="nurse"/>
+			<file id="img-item172" name="one.wr1"      editor="image"   format="img-pcx-1b4p" title="one"/>
+			<file id="img-item173" name="orange.wr1"   editor="image"   format="img-pcx-1b4p" title="orange"/>
+			<file id="img-item174" name="pen.wr1"      editor="image"   format="img-pcx-1b4p" title="pen"/>
+			<file id="img-item175" name="pink.wr1"     editor="image"   format="img-pcx-1b4p" title="pink"/>
+			<file id="img-item176" name="pot.wr1"      editor="image"   format="img-pcx-1b4p" title="pot"/>
+			<file id="img-item177" name="purple.wr1"   editor="image"   format="img-pcx-1b4p" title="purple"/>
+			<file id="img-item178" name="rabbit.wr1"   editor="image"   format="img-pcx-1b4p" title="rabbit"/>
+			<file id="img-item179" name="rabbit2.wr1"  editor="image"   format="img-pcx-1b4p" title="rabbit2"/>
+			<file id="img-item180" name="rat.wr1"      editor="image"   format="img-pcx-1b4p" title="rat"/>
+			<file id="img-item181" name="rat2.wr1"     editor="image"   format="img-pcx-1b4p" title="rat2"/>
+			<file id="img-item182" name="read.wr1"     editor="image"   format="img-pcx-1b4p" title="read"/>
+			<file id="img-item183" name="read2.wr1"    editor="image"   format="img-pcx-1b4p" title="read2"/>
+			<file id="img-item184" name="rock.wr1"     editor="image"   format="img-pcx-1b4p" title="rock"/>
+			<file id="img-item185" name="run.wr1"      editor="image"   format="img-pcx-1b4p" title="run"/>
+			<file id="img-item186" name="run2.wr1"     editor="image"   format="img-pcx-1b4p" title="run2"/>
+			<file id="img-item187" name="saddle.wr1"   editor="image"   format="img-pcx-1b4p" title="saddle"/>
+			<file id="img-item188" name="scale.wr1"    editor="image"   format="img-pcx-1b4p" title="scale"/>
+			<file id="img-item189" name="seal.wr1"     editor="image"   format="img-pcx-1b4p" title="seal"/>
+			<file id="img-item190" name="shoe.wr1"     editor="image"   format="img-pcx-1b4p" title="shoe"/>
+			<file id="img-item191" name="sign.wr1"     editor="image"   format="img-pcx-1b4p" title="sign"/>
+			<file id="img-item192" name="sit.wr1"      editor="image"   format="img-pcx-1b4p" title="sit"/>
+			<file id="img-item193" name="sit2.wr1"     editor="image"   format="img-pcx-1b4p" title="sit2"/>
+			<file id="img-item194" name="skunk.wr1"    editor="image"   format="img-pcx-1b4p" title="skunk"/>
+			<file id="img-item195" name="snow.wr1"     editor="image"   format="img-pcx-1b4p" title="snow"/>
+			<file id="img-item196" name="snow2.wr1"    editor="image"   format="img-pcx-1b4p" title="snow2"/>
+			<file id="img-item197" name="sock.wr1"     editor="image"   format="img-pcx-1b4p" title="sock"/>
+			<file id="img-item198" name="spoon.wr1"    editor="image"   format="img-pcx-1b4p" title="spoon"/>
+			<file id="img-item199" name="stair.wr1"    editor="image"   format="img-pcx-1b4p" title="stair"/>
+			<file id="img-item1a0" name="stand.wr1"    editor="image"   format="img-pcx-1b4p" title="stand"/>
+			<file id="img-item1a1" name="teepee.wr1"   editor="image"   format="img-pcx-1b4p" title="teepee"/>
+			<file id="img-item1a2" name="toe.wr1"      editor="image"   format="img-pcx-1b4p" title="toe"/>
+			<file id="img-item1a3" name="tomato.wr1"   editor="image"   format="img-pcx-1b4p" title="tomato"/>
+			<file id="img-item1a4" name="trike.wr1"    editor="image"   format="img-pcx-1b4p" title="trike"/>
+			<file id="img-item1a5" name="turtle.wr1"   editor="image"   format="img-pcx-1b4p" title="turtle"/>
+			<file id="img-item1a6" name="twig.wr1"     editor="image"   format="img-pcx-1b4p" title="twig"/>
+			<file id="img-item1a7" name="watch.wr1"    editor="image"   format="img-pcx-1b4p" title="watch"/>
+			<file id="img-item1a8" name="wine.wr1"     editor="image"   format="img-pcx-1b4p" title="wine"/>
 		</archive>
-		<file id="mus-101"   name="wr1.4"    typeMajor="music" typeMinor="cmf-creativelabs" title="E1 Song 1"/>
-		<file id="mus-102"   name="wr1.5"    typeMajor="music" typeMinor="cmf-creativelabs" title="E1 Song 2"/>
-		<file id="mus-103"   name="wr1.6"    typeMajor="music" typeMinor="cmf-creativelabs" title="E1 Song 3"/>
-		<file id="mus-201"   name="wr2.4"    typeMajor="music" typeMinor="cmf-creativelabs" title="E2 Song 1"/>
-		<file id="mus-202"   name="wr2.6"    typeMajor="music" typeMinor="cmf-creativelabs" title="E2 Song 2"/>
-		<file id="mus-301"   name="wr3.4"    typeMajor="music" typeMinor="cmf-creativelabs" title="E3 Song 1"/>
-		<file id="mus-302"   name="wr3.5"    typeMajor="music" typeMinor="cmf-creativelabs" title="E3 Song 2"/>
-		<file id="mus-303"   name="wr3.6"    typeMajor="music" typeMinor="cmf-creativelabs" title="E3 Song 3"/>
+		<file id="mus-101"   name="wr1.4"    editor="music" format="cmf-creativelabs" title="E1 Song 1"/>
+		<file id="mus-102"   name="wr1.5"    editor="music" format="cmf-creativelabs" title="E1 Song 2"/>
+		<file id="mus-103"   name="wr1.6"    editor="music" format="cmf-creativelabs" title="E1 Song 3"/>
+		<file id="mus-201"   name="wr2.4"    editor="music" format="cmf-creativelabs" title="E2 Song 1"/>
+		<file id="mus-202"   name="wr2.6"    editor="music" format="cmf-creativelabs" title="E2 Song 2"/>
+		<file id="mus-301"   name="wr3.4"    editor="music" format="cmf-creativelabs" title="E3 Song 1"/>
+		<file id="mus-302"   name="wr3.5"    editor="music" format="cmf-creativelabs" title="E3 Song 2"/>
+		<file id="mus-303"   name="wr3.6"    editor="music" format="cmf-creativelabs" title="E3 Song 3"/>
 
-		<file id="lev-101"   name="wr1.s0"   typeMajor="map"   typeMinor="wordresc" title="Level 1 - Main Street: Gruzzleville">
+		<file id="lev-101"   name="wr1.s0"   editor="map2d"   format="map2d-wordresc" title="Level 1 - Main Street: Gruzzleville">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-102"   name="wr1.s1"   typeMajor="map"   typeMinor="wordresc" title="Level 2 - Gruzzleville Waterworks">
+		<file id="lev-102"   name="wr1.s1"   editor="map2d"   format="map2d-wordresc" title="Level 2 - Gruzzleville Waterworks">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-103"   name="wr1.s2"   typeMajor="map"   typeMinor="wordresc" title="Level 3 - Rock Climbing">
+		<file id="lev-103"   name="wr1.s2"   editor="map2d"   format="map2d-wordresc" title="Level 3 - Rock Climbing">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-104"   name="wr1.s3"   typeMajor="map"   typeMinor="wordresc" title="Level 4 - Castle MacGruzzle: Entrance">
+		<file id="lev-104"   name="wr1.s3"   editor="map2d"   format="map2d-wordresc" title="Level 4 - Castle MacGruzzle: Entrance">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-105"   name="wr1.s4"   typeMajor="map"   typeMinor="wordresc" title="Level 5 - The Island Castle">
+		<file id="lev-105"   name="wr1.s4"   editor="map2d"   format="map2d-wordresc" title="Level 5 - The Island Castle">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-106"   name="wr1.s5"   typeMajor="map"   typeMinor="wordresc" title="Level 6 - Castle Complex">
+		<file id="lev-106"   name="wr1.s5"   editor="map2d"   format="map2d-wordresc" title="Level 6 - Castle Complex">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-107"   name="wr1.s6"   typeMajor="map"   typeMinor="wordresc" title="Level 7 - Dungeon Entrance">
+		<file id="lev-107"   name="wr1.s6"   editor="map2d"   format="map2d-wordresc" title="Level 7 - Dungeon Entrance">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-108"   name="wr1.s7"   typeMajor="map"   typeMinor="wordresc" title="Level 8 - Dungeon">
+		<file id="lev-108"   name="wr1.s7"   editor="map2d"   format="map2d-wordresc" title="Level 8 - Dungeon">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-109"   name="wr1.s8"   typeMajor="map"   typeMinor="wordresc" title="Level 9 - The Waterfall">
+		<file id="lev-109"   name="wr1.s8"   editor="map2d"   format="map2d-wordresc" title="Level 9 - The Waterfall">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-110"   name="wr1.s9"   typeMajor="map"   typeMinor="wordresc" title="Level 10 - The Outskirts of Gruzzleville">
+		<file id="lev-110"   name="wr1.s9"   editor="map2d"   format="map2d-wordresc" title="Level 10 - The Outskirts of Gruzzleville">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-111"   name="wr1.s10"  typeMajor="map"   typeMinor="wordresc" title="Level 11 - The Pueblo 1">
+		<file id="lev-111"   name="wr1.s10"  editor="map2d"   format="map2d-wordresc" title="Level 11 - The Pueblo 1">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-112"   name="wr1.s11"  typeMajor="map"   typeMinor="wordresc" title="Level 12 - The Pueblo 2">
+		<file id="lev-112"   name="wr1.s11"  editor="map2d"   format="map2d-wordresc" title="Level 12 - The Pueblo 2">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-113"   name="wr1.s12"  typeMajor="map"   typeMinor="wordresc" title="Level 13 - Construction Site">
+		<file id="lev-113"   name="wr1.s12"  editor="map2d"   format="map2d-wordresc" title="Level 13 - Construction Site">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-114"   name="wr1.s13"  typeMajor="map"   typeMinor="wordresc" title="Level 14 - Slime Factory: Bottling">
+		<file id="lev-114"   name="wr1.s13"  editor="map2d"   format="map2d-wordresc" title="Level 14 - Slime Factory: Bottling">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
-		<file id="lev-115"   name="wr1.s14"  typeMajor="map"   typeMinor="wordresc" title="Level 15 - The Tank Room">
+		<file id="lev-115"   name="wr1.s14"  editor="map2d"   format="map2d-wordresc" title="Level 15 - The Tank Room">
 			<dep reftype="sprite-tileset1" ref="tls-static"/>
 			<dep reftype="foreground-tileset1" ref="tls-bigfont"/>
 		</file>
 
-		<file id="lev-101-d"   name="wr1.d0"   typeMajor="map"   typeMinor="wordresc" title="Level 1 attribute layer"/>
-		<file id="lev-102-d"   name="wr1.d1"   typeMajor="map"   typeMinor="wordresc" title="Level 2 attribute layer"/>
-		<file id="lev-103-d"   name="wr1.d2"   typeMajor="map"   typeMinor="wordresc" title="Level 3 attribute layer"/>
-		<file id="lev-104-d"   name="wr1.d3"   typeMajor="map"   typeMinor="wordresc" title="Level 4 attribute layer"/>
-		<file id="lev-105-d"   name="wr1.d4"   typeMajor="map"   typeMinor="wordresc" title="Level 5 attribute layer"/>
-		<file id="lev-106-d"   name="wr1.d5"   typeMajor="map"   typeMinor="wordresc" title="Level 6 attribute layer"/>
-		<file id="lev-107-d"   name="wr1.d6"   typeMajor="map"   typeMinor="wordresc" title="Level 7 attribute layer"/>
-		<file id="lev-108-d"   name="wr1.d7"   typeMajor="map"   typeMinor="wordresc" title="Level 8 attribute layer"/>
-		<file id="lev-109-d"   name="wr1.d8"   typeMajor="map"   typeMinor="wordresc" title="Level 9 attribute layer"/>
-		<file id="lev-110-d"   name="wr1.d9"   typeMajor="map"   typeMinor="wordresc" title="Level 10 attribute layer"/>
-		<file id="lev-111-d"   name="wr1.d10"  typeMajor="map"   typeMinor="wordresc" title="Level 11 attribute layer"/>
-		<file id="lev-112-d"   name="wr1.d11"  typeMajor="map"   typeMinor="wordresc" title="Level 12 attribute layer"/>
-		<file id="lev-113-d"   name="wr1.d12"  typeMajor="map"   typeMinor="wordresc" title="Level 13 attribute layer"/>
-		<file id="lev-114-d"   name="wr1.d13"  typeMajor="map"   typeMinor="wordresc" title="Level 14 attribute layer"/>
-		<file id="lev-115-d"   name="wr1.d14"  typeMajor="map"   typeMinor="wordresc" title="Level 15 attribute layer"/>
+		<file id="lev-101-d"   name="wr1.d0"   editor="map2d"   format="map2d-wordresc" title="Level 1 attribute layer"/>
+		<file id="lev-102-d"   name="wr1.d1"   editor="map2d"   format="map2d-wordresc" title="Level 2 attribute layer"/>
+		<file id="lev-103-d"   name="wr1.d2"   editor="map2d"   format="map2d-wordresc" title="Level 3 attribute layer"/>
+		<file id="lev-104-d"   name="wr1.d3"   editor="map2d"   format="map2d-wordresc" title="Level 4 attribute layer"/>
+		<file id="lev-105-d"   name="wr1.d4"   editor="map2d"   format="map2d-wordresc" title="Level 5 attribute layer"/>
+		<file id="lev-106-d"   name="wr1.d5"   editor="map2d"   format="map2d-wordresc" title="Level 6 attribute layer"/>
+		<file id="lev-107-d"   name="wr1.d6"   editor="map2d"   format="map2d-wordresc" title="Level 7 attribute layer"/>
+		<file id="lev-108-d"   name="wr1.d7"   editor="map2d"   format="map2d-wordresc" title="Level 8 attribute layer"/>
+		<file id="lev-109-d"   name="wr1.d8"   editor="map2d"   format="map2d-wordresc" title="Level 9 attribute layer"/>
+		<file id="lev-110-d"   name="wr1.d9"   editor="map2d"   format="map2d-wordresc" title="Level 10 attribute layer"/>
+		<file id="lev-111-d"   name="wr1.d10"  editor="map2d"   format="map2d-wordresc" title="Level 11 attribute layer"/>
+		<file id="lev-112-d"   name="wr1.d11"  editor="map2d"   format="map2d-wordresc" title="Level 12 attribute layer"/>
+		<file id="lev-113-d"   name="wr1.d12"  editor="map2d"   format="map2d-wordresc" title="Level 13 attribute layer"/>
+		<file id="lev-114-d"   name="wr1.d13"  editor="map2d"   format="map2d-wordresc" title="Level 14 attribute layer"/>
+		<file id="lev-115-d"   name="wr1.d14"  editor="map2d"   format="map2d-wordresc" title="Level 15 attribute layer"/>
 
-		<file id="img-apogee-1"  name="wr1.7"  typeMajor="image" typeMinor="pcx-1b4p" title="E1 Apogee logo"/>
-		<file id="img-apogee-2"  name="wr2.7"  typeMajor="image" typeMinor="pcx-1b4p" title="E2 Apogee logo"/>
-		<file id="img-apogee-3"  name="wr3.7"  typeMajor="image" typeMinor="pcx-1b4p" title="E3 Apogee logo"/>
+		<file id="img-apogee-1"  name="wr1.7"  editor="image" format="img-pcx-1b4p" title="E1 Apogee logo"/>
+		<file id="img-apogee-2"  name="wr2.7"  editor="image" format="img-pcx-1b4p" title="E2 Apogee logo"/>
+		<file id="img-apogee-3"  name="wr3.7"  editor="image" format="img-pcx-1b4p" title="E3 Apogee logo"/>
 
 	</files>
 

@@ -144,228 +144,228 @@
 	</display>
 
 	<files>
-		<file id="lev-1bk"  name="back.kb1"     typeMajor="map" typeMinor="kiloblaster" title="Back">
+		<file id="lev-1bk"  name="back.kb1"     editor="map2d" format="map2d-kiloblaster" title="Back">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-101"  name="board1.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 1">
+		<file id="lev-101"  name="board1.kb1"   editor="map2d" format="map2d-kiloblaster" title="Level 1">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-102"  name="board2.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 2">
+		<file id="lev-102"  name="board2.kb1"   editor="map2d" format="map2d-kiloblaster" title="Level 2">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-103"  name="board3.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 3">
+		<file id="lev-103"  name="board3.kb1"   editor="map2d" format="map2d-kiloblaster" title="Level 3">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-104"  name="board4.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 4">
+		<file id="lev-104"  name="board4.kb1"   editor="map2d" format="map2d-kiloblaster" title="Level 4">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-105"  name="board5.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 5">
+		<file id="lev-105"  name="board5.kb1"   editor="map2d" format="map2d-kiloblaster" title="Level 5">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-106"  name="board6.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 6">
+		<file id="lev-106"  name="board6.kb1"   editor="map2d" format="map2d-kiloblaster" title="Level 6">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-107"  name="board7.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 7">
+		<file id="lev-107"  name="board7.kb1"   editor="map2d" format="map2d-kiloblaster" title="Level 7">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-108"  name="board8.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 8">
+		<file id="lev-108"  name="board8.kb1"   editor="map2d" format="map2d-kiloblaster" title="Level 8">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-109"  name="board9.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 9">
+		<file id="lev-109"  name="board9.kb1"   editor="map2d" format="map2d-kiloblaster" title="Level 9">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-110"  name="boarda.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Level 10">
+		<file id="lev-110"  name="boarda.kb1"   editor="map2d" format="map2d-kiloblaster" title="Level 10">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-1i1"  name="intro1.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Intro 1">
+		<file id="lev-1i1"  name="intro1.kb1"   editor="map2d" format="map2d-kiloblaster" title="Intro 1">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-1i2"  name="intro2.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Intro 2">
+		<file id="lev-1i2"  name="intro2.kb1"   editor="map2d" format="map2d-kiloblaster" title="Intro 2">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-1e1"  name="end.kb1"      typeMajor="map" typeMinor="kiloblaster" title="End 1">
+		<file id="lev-1e1"  name="end.kb1"      editor="map2d" format="map2d-kiloblaster" title="End 1">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-1e2"  name="end2.kb1"     typeMajor="map" typeMinor="kiloblaster" title="End 2">
+		<file id="lev-1e2"  name="end2.kb1"     editor="map2d" format="map2d-kiloblaster" title="End 2">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-1mn"  name="menu.kb1"     typeMajor="map" typeMinor="kiloblaster" title="Menu">
+		<file id="lev-1mn"  name="menu.kb1"     editor="map2d" format="map2d-kiloblaster" title="Menu">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-1s1"  name="story.kb1"    typeMajor="map" typeMinor="kiloblaster" title="Story 1">
+		<file id="lev-1s1"  name="story.kb1"    editor="map2d" format="map2d-kiloblaster" title="Story 1">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-1s2"  name="story2.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Story 2">
+		<file id="lev-1s2"  name="story2.kb1"   editor="map2d" format="map2d-kiloblaster" title="Story 2">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-1s3"  name="story3.kb1"   typeMajor="map" typeMinor="kiloblaster" title="Story 3">
+		<file id="lev-1s3"  name="story3.kb1"   editor="map2d" format="map2d-kiloblaster" title="Story 3">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 
-		<file id="lev-2bk"  name="back.kb2"     typeMajor="map" typeMinor="kiloblaster" title="Back">
+		<file id="lev-2bk"  name="back.kb2"     editor="map2d" format="map2d-kiloblaster" title="Back">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-201"  name="board1.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 1">
+		<file id="lev-201"  name="board1.kb2"   editor="map2d" format="map2d-kiloblaster" title="Level 1">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-202"  name="board2.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 2">
+		<file id="lev-202"  name="board2.kb2"   editor="map2d" format="map2d-kiloblaster" title="Level 2">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-203"  name="board3.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 3">
+		<file id="lev-203"  name="board3.kb2"   editor="map2d" format="map2d-kiloblaster" title="Level 3">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-204"  name="board4.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 4">
+		<file id="lev-204"  name="board4.kb2"   editor="map2d" format="map2d-kiloblaster" title="Level 4">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-205"  name="board5.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 5">
+		<file id="lev-205"  name="board5.kb2"   editor="map2d" format="map2d-kiloblaster" title="Level 5">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-206"  name="board6.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 6">
+		<file id="lev-206"  name="board6.kb2"   editor="map2d" format="map2d-kiloblaster" title="Level 6">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-207"  name="board7.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 7">
+		<file id="lev-207"  name="board7.kb2"   editor="map2d" format="map2d-kiloblaster" title="Level 7">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-208"  name="board8.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 8">
+		<file id="lev-208"  name="board8.kb2"   editor="map2d" format="map2d-kiloblaster" title="Level 8">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-209"  name="board9.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 9">
+		<file id="lev-209"  name="board9.kb2"   editor="map2d" format="map2d-kiloblaster" title="Level 9">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-210"  name="boarda.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Level 10">
+		<file id="lev-210"  name="boarda.kb2"   editor="map2d" format="map2d-kiloblaster" title="Level 10">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-2i1"  name="intro1.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Intro 1">
+		<file id="lev-2i1"  name="intro1.kb2"   editor="map2d" format="map2d-kiloblaster" title="Intro 1">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-2i2"  name="intro2.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Intro 2">
+		<file id="lev-2i2"  name="intro2.kb2"   editor="map2d" format="map2d-kiloblaster" title="Intro 2">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-2e1"  name="end.kb2"      typeMajor="map" typeMinor="kiloblaster" title="End 1">
+		<file id="lev-2e1"  name="end.kb2"      editor="map2d" format="map2d-kiloblaster" title="End 1">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-2e2"  name="end2.kb2"     typeMajor="map" typeMinor="kiloblaster" title="End 2">
+		<file id="lev-2e2"  name="end2.kb2"     editor="map2d" format="map2d-kiloblaster" title="End 2">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-2mn"  name="menu.kb2"     typeMajor="map" typeMinor="kiloblaster" title="Menu">
+		<file id="lev-2mn"  name="menu.kb2"     editor="map2d" format="map2d-kiloblaster" title="Menu">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-2s1"  name="story.kb2"    typeMajor="map" typeMinor="kiloblaster" title="Story 1">
+		<file id="lev-2s1"  name="story.kb2"    editor="map2d" format="map2d-kiloblaster" title="Story 1">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-2s2"  name="story2.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Story 2">
+		<file id="lev-2s2"  name="story2.kb2"   editor="map2d" format="map2d-kiloblaster" title="Story 2">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
-		<file id="lev-2s3"  name="story3.kb2"   typeMajor="map" typeMinor="kiloblaster" title="Story 3">
+		<file id="lev-2s3"  name="story3.kb2"   editor="map2d" format="map2d-kiloblaster" title="Story 3">
 			<dep reftype="background-tileset1" ref="tls-2"/>
 		</file>
 
-		<file id="lev-3bk"  name="back.kb3"     typeMajor="map" typeMinor="kiloblaster" title="Back">
+		<file id="lev-3bk"  name="back.kb3"     editor="map2d" format="map2d-kiloblaster" title="Back">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-301"  name="board1.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 1">
+		<file id="lev-301"  name="board1.kb3"   editor="map2d" format="map2d-kiloblaster" title="Level 1">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-302"  name="board2.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 2">
+		<file id="lev-302"  name="board2.kb3"   editor="map2d" format="map2d-kiloblaster" title="Level 2">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-303"  name="board3.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 3">
+		<file id="lev-303"  name="board3.kb3"   editor="map2d" format="map2d-kiloblaster" title="Level 3">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-304"  name="board4.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 4">
+		<file id="lev-304"  name="board4.kb3"   editor="map2d" format="map2d-kiloblaster" title="Level 4">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-305"  name="board5.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 5">
+		<file id="lev-305"  name="board5.kb3"   editor="map2d" format="map2d-kiloblaster" title="Level 5">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-306"  name="board6.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 6">
+		<file id="lev-306"  name="board6.kb3"   editor="map2d" format="map2d-kiloblaster" title="Level 6">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-307"  name="board7.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 7">
+		<file id="lev-307"  name="board7.kb3"   editor="map2d" format="map2d-kiloblaster" title="Level 7">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-308"  name="board8.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 8">
+		<file id="lev-308"  name="board8.kb3"   editor="map2d" format="map2d-kiloblaster" title="Level 8">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-309"  name="board9.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 9">
+		<file id="lev-309"  name="board9.kb3"   editor="map2d" format="map2d-kiloblaster" title="Level 9">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-310"  name="boarda.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Level 10">
+		<file id="lev-310"  name="boarda.kb3"   editor="map2d" format="map2d-kiloblaster" title="Level 10">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-3i1"  name="intro1.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Intro 1">
+		<file id="lev-3i1"  name="intro1.kb3"   editor="map2d" format="map2d-kiloblaster" title="Intro 1">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-3i2"  name="intro2.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Intro 2">
+		<file id="lev-3i2"  name="intro2.kb3"   editor="map2d" format="map2d-kiloblaster" title="Intro 2">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-3e1"  name="end.kb3"      typeMajor="map" typeMinor="kiloblaster" title="End 1">
+		<file id="lev-3e1"  name="end.kb3"      editor="map2d" format="map2d-kiloblaster" title="End 1">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-3e2"  name="end2.kb3"     typeMajor="map" typeMinor="kiloblaster" title="End 2">
+		<file id="lev-3e2"  name="end2.kb3"     editor="map2d" format="map2d-kiloblaster" title="End 2">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-3mn"  name="menu.kb3"     typeMajor="map" typeMinor="kiloblaster" title="Menu">
+		<file id="lev-3mn"  name="menu.kb3"     editor="map2d" format="map2d-kiloblaster" title="Menu">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-3s1"  name="story.kb3"    typeMajor="map" typeMinor="kiloblaster" title="Story 1">
+		<file id="lev-3s1"  name="story.kb3"    editor="map2d" format="map2d-kiloblaster" title="Story 1">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-3s2"  name="story2.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Story 2">
+		<file id="lev-3s2"  name="story2.kb3"   editor="map2d" format="map2d-kiloblaster" title="Story 2">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
-		<file id="lev-3s3"  name="story3.kb3"   typeMajor="map" typeMinor="kiloblaster" title="Story 3">
+		<file id="lev-3s3"  name="story3.kb3"   editor="map2d" format="map2d-kiloblaster" title="Story 3">
 			<dep reftype="background-tileset1" ref="tls-3"/>
 		</file>
 
-		<file id="tls-1"    name="shapes.kb1"   typeMajor="tileset" typeMinor="jill" title="Game graphics"/>
-		<file id="tls-2"    name="shapes.kb2"   typeMajor="tileset" typeMinor="jill" title="Game graphics"/>
-		<file id="tls-3"    name="shapes.kb3"   typeMajor="tileset" typeMinor="jill" title="Game graphics"/>
+		<file id="tls-1"    name="shapes.kb1"   editor="tileset" format="tls-jill" title="Game graphics"/>
+		<file id="tls-2"    name="shapes.kb2"   editor="tileset" format="tls-jill" title="Game graphics"/>
+		<file id="tls-3"    name="shapes.kb3"   editor="tileset" format="tls-jill" title="Game graphics"/>
 
-		<file id="mus-101"  name="song_1.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 1 - 5gear"/>
-		<file id="mus-102"  name="song_2.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 2 - Butterfly"/>
-		<file id="mus-103"  name="song_3.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 3 - Fugue"/>
-		<file id="mus-104"  name="song_4.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 4 - Funkit"/>
-		<file id="mus-105"  name="song_5.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 5 - Glassman"/>
-		<file id="mus-106"  name="song_6.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 6 - Hero"/>
-		<file id="mus-107"  name="song_7.kb1"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 7 - Doom"/>
-		<file id="mus-111"  name="song_11.kb1"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 11 - Nemo"/>
+		<file id="mus-101"  name="song_1.kb1"   editor="music"   format="cmf-creativelabs" title="Song 1 - 5gear"/>
+		<file id="mus-102"  name="song_2.kb1"   editor="music"   format="cmf-creativelabs" title="Song 2 - Butterfly"/>
+		<file id="mus-103"  name="song_3.kb1"   editor="music"   format="cmf-creativelabs" title="Song 3 - Fugue"/>
+		<file id="mus-104"  name="song_4.kb1"   editor="music"   format="cmf-creativelabs" title="Song 4 - Funkit"/>
+		<file id="mus-105"  name="song_5.kb1"   editor="music"   format="cmf-creativelabs" title="Song 5 - Glassman"/>
+		<file id="mus-106"  name="song_6.kb1"   editor="music"   format="cmf-creativelabs" title="Song 6 - Hero"/>
+		<file id="mus-107"  name="song_7.kb1"   editor="music"   format="cmf-creativelabs" title="Song 7 - Doom"/>
+		<file id="mus-111"  name="song_11.kb1"  editor="music"   format="cmf-creativelabs" title="Song 11 - Nemo"/>
 
-		<file id="mus-201"  name="song_1.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 1 - Robot"/>
-		<file id="mus-202"  name="song_2.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 2 - Doom"/>
-		<file id="mus-203"  name="song_3.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 3 - Creepy"/>
-		<file id="mus-204"  name="song_4.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 4 - Nemo"/>
-		<file id="mus-205"  name="song_5.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 5 - Oblong"/>
-		<file id="mus-206"  name="song_6.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 6 - Waiting"/>
-		<file id="mus-207"  name="song_7.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 7 - Funkit"/>
-		<file id="mus-208"  name="song_8.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 8 - Butterfly"/>
-		<file id="mus-209"  name="song_9.kb2"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 9 - Hero 2"/>
+		<file id="mus-201"  name="song_1.kb2"   editor="music"   format="cmf-creativelabs" title="Song 1 - Robot"/>
+		<file id="mus-202"  name="song_2.kb2"   editor="music"   format="cmf-creativelabs" title="Song 2 - Doom"/>
+		<file id="mus-203"  name="song_3.kb2"   editor="music"   format="cmf-creativelabs" title="Song 3 - Creepy"/>
+		<file id="mus-204"  name="song_4.kb2"   editor="music"   format="cmf-creativelabs" title="Song 4 - Nemo"/>
+		<file id="mus-205"  name="song_5.kb2"   editor="music"   format="cmf-creativelabs" title="Song 5 - Oblong"/>
+		<file id="mus-206"  name="song_6.kb2"   editor="music"   format="cmf-creativelabs" title="Song 6 - Waiting"/>
+		<file id="mus-207"  name="song_7.kb2"   editor="music"   format="cmf-creativelabs" title="Song 7 - Funkit"/>
+		<file id="mus-208"  name="song_8.kb2"   editor="music"   format="cmf-creativelabs" title="Song 8 - Butterfly"/>
+		<file id="mus-209"  name="song_9.kb2"   editor="music"   format="cmf-creativelabs" title="Song 9 - Hero 2"/>
 
-		<file id="mus-301"  name="song_1.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 1 - Thinking"/>
-		<file id="mus-302"  name="song_2.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 2 - Rap It Up!"/>
-		<file id="mus-303"  name="song_3.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 3 - Haunted"/>
-		<file id="mus-304"  name="song_4.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 4 - Trek"/>
-		<file id="mus-305"  name="song_5.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 5 - Walk Limp"/>
-		<file id="mus-306"  name="song_6.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 6 - Jungle"/>
-		<file id="mus-307"  name="song_7.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 7 - Fugue"/>
-		<file id="mus-308"  name="song_8.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 8 - Robot"/>
-		<file id="mus-309"  name="song_9.kb3"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Song 9 - Hero 2"/>
+		<file id="mus-301"  name="song_1.kb3"   editor="music"   format="cmf-creativelabs" title="Song 1 - Thinking"/>
+		<file id="mus-302"  name="song_2.kb3"   editor="music"   format="cmf-creativelabs" title="Song 2 - Rap It Up!"/>
+		<file id="mus-303"  name="song_3.kb3"   editor="music"   format="cmf-creativelabs" title="Song 3 - Haunted"/>
+		<file id="mus-304"  name="song_4.kb3"   editor="music"   format="cmf-creativelabs" title="Song 4 - Trek"/>
+		<file id="mus-305"  name="song_5.kb3"   editor="music"   format="cmf-creativelabs" title="Song 5 - Walk Limp"/>
+		<file id="mus-306"  name="song_6.kb3"   editor="music"   format="cmf-creativelabs" title="Song 6 - Jungle"/>
+		<file id="mus-307"  name="song_7.kb3"   editor="music"   format="cmf-creativelabs" title="Song 7 - Fugue"/>
+		<file id="mus-308"  name="song_8.kb3"   editor="music"   format="cmf-creativelabs" title="Song 8 - Robot"/>
+		<file id="mus-309"  name="song_9.kb3"   editor="music"   format="cmf-creativelabs" title="Song 9 - Hero 2"/>
 
-		<archive id="exe-0" name="kfile0.exe" typeMinor="fixed">
-			<file id="img-0"  name="kilo0.raw" offset="0x527" size="64000" typeMajor="image"   typeMinor="vga-raw-fullscreen" title="Episode menu"/>
-			<file id="pal-0"  name="kilo0.pal" offset="0xFF27" size="768"  typeMajor="palette" typeMinor="vga" title="VGA palette"/>
+		<archive id="exe-0" name="kfile0.exe" format="fixed">
+			<file id="img-0"  name="kilo0.raw" offset="0x527" size="64000" editor="image"   format="img-vga-raw-fullscreen" title="Episode menu"/>
+			<file id="pal-0"  name="kilo0.pal" offset="0xFF27" size="768"  editor="palette" format="pal-vga" title="VGA palette"/>
 		</archive>
 
-		<archive id="exe-1" name="kfile1.exe" typeMinor="fixed">
-			<file id="pal-1"  name="kilo1.pal" offset="0x228e0" size="768" typeMajor="palette" typeMinor="vga" title="VGA palette"/>
+		<archive id="exe-1" name="kfile1.exe" format="fixed">
+			<file id="pal-1"  name="kilo1.pal" offset="0x228e0" size="768" editor="palette" format="pal-vga" title="VGA palette"/>
 		</archive>
 
-		<archive id="exe-2" name="kfile2.exe" typeMinor="fixed">
-			<file id="pal-2"  name="kilo2.pal" offset="0x228e0" size="768" typeMajor="palette" typeMinor="vga" title="VGA palette"/>
+		<archive id="exe-2" name="kfile2.exe" format="fixed">
+			<file id="pal-2"  name="kilo2.pal" offset="0x228e0" size="768" editor="palette" format="pal-vga" title="VGA palette"/>
 		</archive>
 
-		<archive id="exe-3" name="kfile3.exe" typeMinor="fixed">
-			<file id="pal-3"  name="kilo3.pal" offset="0x228e0" size="768" typeMajor="palette" typeMinor="vga" title="VGA palette"/>
+		<archive id="exe-3" name="kfile3.exe" format="fixed">
+			<file id="pal-3"  name="kilo3.pal" offset="0x228e0" size="768" editor="palette" format="pal-vga" title="VGA palette"/>
 		</archive>
 	</files>
 

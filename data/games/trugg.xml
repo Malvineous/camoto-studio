@@ -38,23 +38,23 @@
 	</display>
 
 	<files>
-		<file id="level-space2"  name="space2.pt"  typeMajor="map" typeMinor="ccomic" title="Space 3">
+		<file id="level-space2"  name="space2.pt"  editor="map2d" format="map2d-ccomic" title="Space 3">
 			<dep reftype="background-tileset1" ref="tiles-space"/>
 		</file>
 
-		<file id="mus-a"    name="trugg_a.dsm" typeMajor="music" typeMinor="dsm-dsik" title="Song A"/>
-		<file id="mus-b"    name="trugg_b.dsm" typeMajor="music" typeMinor="dsm-dsik" title="Song B"/>
-		<file id="mus-c"    name="trugg_c.dsm" typeMajor="music" typeMinor="dsm-dsik" title="Song C"/>
-		<file id="mus-d"    name="trugg_d.dsm" typeMajor="music" typeMinor="dsm-dsik" title="Song D"/>
-		<file id="mus-e"    name="trugg_e.dsm" typeMajor="music" typeMinor="dsm-dsik" title="Song E"/>
+		<file id="mus-a"    name="trugg_a.dsm" editor="music" format="dsm-dsik" title="Song A"/>
+		<file id="mus-b"    name="trugg_b.dsm" editor="music" format="dsm-dsik" title="Song B"/>
+		<file id="mus-c"    name="trugg_c.dsm" editor="music" format="dsm-dsik" title="Song C"/>
+		<file id="mus-d"    name="trugg_d.dsm" editor="music" format="dsm-dsik" title="Song D"/>
+		<file id="mus-e"    name="trugg_e.dsm" editor="music" format="dsm-dsik" title="Song E"/>
 
-		<file id="lvl-a"    name="zone_a.lvl" typeMajor="image" typeMinor="pcx-8b1p" title="Zone A title"/>
-		<file id="lvl-b"    name="zone_b.lvl" typeMajor="image" typeMinor="pcx-8b1p" title="Zone B title"/>
-		<file id="lvl-c"    name="zone_c.lvl" typeMajor="image" typeMinor="pcx-8b1p" title="Zone C title"/>
-		<file id="lvl-d"    name="zone_d.lvl" typeMajor="image" typeMinor="pcx-8b1p" title="Zone D title"/>
-		<file id="lvl-e"    name="zone_e.lvl" typeMajor="image" typeMinor="pcx-8b1p" title="Zone E title"/>
-		<file id="img-fin"  name="trugg.fin"   typeMajor="image" typeMinor="pcx-8b1p" title="Zone complete"/>
-		<file id="img-menu" name="trugg.lvl"   typeMajor="image" typeMinor="pcx-8b1p" title="Menu background"/>
+		<file id="lvl-a"    name="zone_a.lvl" editor="image" format="img-pcx-8b1p" title="Zone A title"/>
+		<file id="lvl-b"    name="zone_b.lvl" editor="image" format="img-pcx-8b1p" title="Zone B title"/>
+		<file id="lvl-c"    name="zone_c.lvl" editor="image" format="img-pcx-8b1p" title="Zone C title"/>
+		<file id="lvl-d"    name="zone_d.lvl" editor="image" format="img-pcx-8b1p" title="Zone D title"/>
+		<file id="lvl-e"    name="zone_e.lvl" editor="image" format="img-pcx-8b1p" title="Zone E title"/>
+		<file id="img-fin"  name="trugg.fin"   editor="image" format="img-pcx-8b1p" title="Zone complete"/>
+		<file id="img-menu" name="trugg.lvl"   editor="image" format="img-pcx-8b1p" title="Menu background"/>
 	</files>
 
 	<commands>

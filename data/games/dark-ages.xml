@@ -62,46 +62,46 @@
 	</display>
 
 	<files>
-		<archive name="file05.da1" id="arch-lev-da1" typeMinor="da-levels">
-			<file id="lev-101" name="l01.dal" typeMajor="map" typeMinor="darkages" title="Level 1">
+		<archive name="file05.da1" id="arch-lev-da1" format="da-levels">
+			<file id="lev-101" name="l01.dal" editor="map2d" format="map2d-darkages" title="Level 1">
 				<dep reftype="background-tileset1" ref="tls-combined"/>
 			</file>
-			<file id="lev-102" name="l02.dal" typeMajor="map" typeMinor="darkages" title="Level 2">
+			<file id="lev-102" name="l02.dal" editor="map2d" format="map2d-darkages" title="Level 2">
 				<dep reftype="background-tileset1" ref="tls-combined"/>
 			</file>
-			<file id="lev-103" name="l03.dal" typeMajor="map" typeMinor="darkages" title="Level 3">
+			<file id="lev-103" name="l03.dal" editor="map2d" format="map2d-darkages" title="Level 3">
 				<dep reftype="background-tileset1" ref="tls-combined"/>
 			</file>
-			<file id="lev-104" name="l04.dal" typeMajor="map" typeMinor="darkages" title="Level 4">
+			<file id="lev-104" name="l04.dal" editor="map2d" format="map2d-darkages" title="Level 4">
 				<dep reftype="background-tileset1" ref="tls-combined"/>
 			</file>
-			<file id="lev-105" name="l05.dal" typeMajor="map" typeMinor="darkages" title="Level 5">
+			<file id="lev-105" name="l05.dal" editor="map2d" format="map2d-darkages" title="Level 5">
 				<dep reftype="background-tileset1" ref="tls-combined"/>
 			</file>
-			<file id="lev-106" name="l06.dal" typeMajor="map" typeMinor="darkages" title="Level 6">
+			<file id="lev-106" name="l06.dal" editor="map2d" format="map2d-darkages" title="Level 6">
 				<dep reftype="background-tileset1" ref="tls-combined"/>
 			</file>
-			<file id="lev-107" name="l07.dal" typeMajor="map" typeMinor="darkages" title="Level 7">
+			<file id="lev-107" name="l07.dal" editor="map2d" format="map2d-darkages" title="Level 7">
 				<dep reftype="background-tileset1" ref="tls-combined"/>
 			</file>
-			<file id="lev-108" name="l08.dal" typeMajor="map" typeMinor="darkages" title="Level 8">
+			<file id="lev-108" name="l08.dal" editor="map2d" format="map2d-darkages" title="Level 8">
 				<dep reftype="background-tileset1" ref="tls-combined"/>
 			</file>
-			<file id="lev-109" name="l09.dal" typeMajor="map" typeMinor="darkages" title="Level 9">
+			<file id="lev-109" name="l09.dal" editor="map2d" format="map2d-darkages" title="Level 9">
 				<dep reftype="background-tileset1" ref="tls-combined"/>
 			</file>
-			<file id="lev-110" name="l10.dal" typeMajor="map" typeMinor="darkages" title="Level 10">
+			<file id="lev-110" name="l10.dal" editor="map2d" format="map2d-darkages" title="Level 10">
 				<dep reftype="background-tileset1" ref="tls-combined"/>
 			</file>
 		</archive>
 
-		<file id="tls-101" name="file06.da1" typeMajor="tileset" typeMinor="sagent-8k" title="EGA tiles 1"/>
-		<file id="tls-102" name="file07.da1" typeMajor="tileset" typeMinor="sagent-8k" title="EGA tiles 2"/>
-		<file id="tls-103" name="file08.da1" typeMajor="tileset" typeMinor="sagent-8k" title="EGA tiles 3"/>
-		<file id="tls-104" name="file09.da1" typeMajor="tileset" typeMinor="sagent-8k" title="EGA tiles 4"/>
-		<file id="tls-105" name="file10.da1" typeMajor="tileset" typeMinor="sagent-8k" title="EGA tiles 5"/>
-		<file id="tls-106" name="file11.da1" typeMajor="tileset" typeMinor="sagent-8k" title="EGA tiles 6"/>
-		<file id="tls-107" name="file12.da1" typeMajor="tileset" typeMinor="sagent-8k" title="EGA tiles 7"/>
+		<file id="tls-101" name="file06.da1" editor="tileset" format="tls-sagent-8k" title="EGA tiles 1"/>
+		<file id="tls-102" name="file07.da1" editor="tileset" format="tls-sagent-8k" title="EGA tiles 2"/>
+		<file id="tls-103" name="file08.da1" editor="tileset" format="tls-sagent-8k" title="EGA tiles 3"/>
+		<file id="tls-104" name="file09.da1" editor="tileset" format="tls-sagent-8k" title="EGA tiles 4"/>
+		<file id="tls-105" name="file10.da1" editor="tileset" format="tls-sagent-8k" title="EGA tiles 5"/>
+		<file id="tls-106" name="file11.da1" editor="tileset" format="tls-sagent-8k" title="EGA tiles 6"/>
+		<file id="tls-107" name="file12.da1" editor="tileset" format="tls-sagent-8k" title="EGA tiles 7"/>
 
 		<!-- Combine all the tilesets into one -->
 		<tileset id="tls-combined" title="Combined tileset">
@@ -114,20 +114,20 @@
 			<item ref="tls-107" title="EGA tiles 7"/>
 		</tileset>
 
-		<file id="img-101" name="file01.da1" typeMajor="image" typeMinor="pcx-1b4p" title="Intro"/>
-		<file id="img-102" name="file02.da1" typeMajor="image" typeMinor="pcx-1b4p" title="Menu"/>
-		<file id="img-103" name="file03.da1" typeMajor="image" typeMinor="pcx-1b4p" title="Loading"/>
-		<file id="img-104" name="file04.da1" typeMajor="image" typeMinor="pcx-1b4p" title="Ending"/>
+		<file id="img-101" name="file01.da1" editor="image" format="img-pcx-1b4p" title="Intro"/>
+		<file id="img-102" name="file02.da1" editor="image" format="img-pcx-1b4p" title="Menu"/>
+		<file id="img-103" name="file03.da1" editor="image" format="img-pcx-1b4p" title="Loading"/>
+		<file id="img-104" name="file04.da1" editor="image" format="img-pcx-1b4p" title="Ending"/>
 
-		<file id="mus-101" name="file13.da1" typeMajor="music" typeMinor="mid-type0" title="Song 1"/>
-		<file id="mus-102" name="file14.da1" typeMajor="music" typeMinor="mid-type0" title="Song 2"/>
-		<file id="mus-103" name="file15.da1" typeMajor="music" typeMinor="mid-type0" title="Song 3"/>
-		<file id="mus-104" name="file16.da1" typeMajor="music" typeMinor="mid-type0" title="Song 4"/>
-		<file id="mus-105" name="file17.da1" typeMajor="music" typeMinor="mid-type0" title="Song 5"/>
-		<file id="mus-106" name="file18.da1" typeMajor="music" typeMinor="mid-type0" title="Song 6"/>
-		<file id="mus-107" name="file19.da1" typeMajor="music" typeMinor="mid-type0" title="Song 7"/>
-		<file id="mus-108" name="file20.da1" typeMajor="music" typeMinor="mid-type0" title="Song 8"/>
-		<file id="mus-109" name="file21.da1" typeMajor="music" typeMinor="mid-type0" title="Song 9"/>
+		<file id="mus-101" name="file13.da1" editor="music" format="mid-type0" title="Song 1"/>
+		<file id="mus-102" name="file14.da1" editor="music" format="mid-type0" title="Song 2"/>
+		<file id="mus-103" name="file15.da1" editor="music" format="mid-type0" title="Song 3"/>
+		<file id="mus-104" name="file16.da1" editor="music" format="mid-type0" title="Song 4"/>
+		<file id="mus-105" name="file17.da1" editor="music" format="mid-type0" title="Song 5"/>
+		<file id="mus-106" name="file18.da1" editor="music" format="mid-type0" title="Song 6"/>
+		<file id="mus-107" name="file19.da1" editor="music" format="mid-type0" title="Song 7"/>
+		<file id="mus-108" name="file20.da1" editor="music" format="mid-type0" title="Song 8"/>
+		<file id="mus-109" name="file21.da1" editor="music" format="mid-type0" title="Song 9"/>
 	</files>
 
 	<commands>

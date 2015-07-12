@@ -46,52 +46,52 @@
 	</display>
 
 	<files>
-		<archive name="dave.exe" id="arch-ddave-exe" typeMinor="exe-ddave">
-			<file id="lev-01" name="level01.dav" typeMajor="map" typeMinor="ddave" title="Level 1">
+		<archive name="dave.exe" id="arch-ddave-exe" format="exe-ddave">
+			<file id="lev-01" name="level01.dav" editor="map2d" format="map2d-ddave" title="Level 1">
 				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
-			<file id="lev-02" name="level02.dav" typeMajor="map" typeMinor="ddave" title="Level 2">
+			<file id="lev-02" name="level02.dav" editor="map2d" format="map2d-ddave" title="Level 2">
 				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
-			<file id="lev-03" name="level03.dav" typeMajor="map" typeMinor="ddave" title="Level 3">
+			<file id="lev-03" name="level03.dav" editor="map2d" format="map2d-ddave" title="Level 3">
 				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
-			<file id="lev-04" name="level04.dav" typeMajor="map" typeMinor="ddave" title="Level 4">
+			<file id="lev-04" name="level04.dav" editor="map2d" format="map2d-ddave" title="Level 4">
 				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
-			<file id="lev-05" name="level05.dav" typeMajor="map" typeMinor="ddave" title="Level 5">
+			<file id="lev-05" name="level05.dav" editor="map2d" format="map2d-ddave" title="Level 5">
 				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
-			<file id="lev-06" name="level06.dav" typeMajor="map" typeMinor="ddave" title="Level 6">
+			<file id="lev-06" name="level06.dav" editor="map2d" format="map2d-ddave" title="Level 6">
 				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
-			<file id="lev-07" name="level07.dav" typeMajor="map" typeMinor="ddave" title="Level 7">
+			<file id="lev-07" name="level07.dav" editor="map2d" format="map2d-ddave" title="Level 7">
 				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
-			<file id="lev-08" name="level08.dav" typeMajor="map" typeMinor="ddave" title="Level 8">
+			<file id="lev-08" name="level08.dav" editor="map2d" format="map2d-ddave" title="Level 8">
 				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
-			<file id="lev-09" name="level09.dav" typeMajor="map" typeMinor="ddave" title="Level 9">
+			<file id="lev-09" name="level09.dav" editor="map2d" format="map2d-ddave" title="Level 9">
 				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
-			<file id="lev-10" name="level10.dav" typeMajor="map" typeMinor="ddave" title="Level 10">
+			<file id="lev-10" name="level10.dav" editor="map2d" format="map2d-ddave" title="Level 10">
 				<dep reftype="background-tileset1" ref="gfx-vga"/>
 			</file>
 
-			<file id="gfx-cga" name="cgadave.dav" typeMajor="tileset" typeMinor="ddave-cga" title="CGA tiles"/>
-			<file id="gfx-vga" name="vgadave.dav" typeMajor="tileset" typeMinor="ddave-vga" title="VGA tiles">
+			<file id="gfx-cga" name="cgadave.dav" editor="tileset" format="tls-ddave-cga" title="CGA tiles"/>
+			<file id="gfx-vga" name="vgadave.dav" editor="tileset" format="tls-ddave-vga" title="VGA tiles">
 				<dep reftype="palette" ref="pal-vga"/>
 			</file>
 
-			<file id="pal-vga" name="vga.pal" typeMajor="pal" typeMinor="vga-raw" title="VGA palette"/>
+			<file id="pal-vga" name="vga.pal" editor="pal" format="vga-raw" title="VGA palette"/>
 
-			<file id="snd-pc" name="sounds.spk" typeMajor="sound" typeMinor="spk-pc" title="PC speaker"/>
+			<file id="snd-pc" name="sounds.spk" editor="sound" format="spk-pc" title="PC speaker"/>
 
-			<file id="gfx-cga-ui" name="menucga.gfx" typeMajor="tileset" typeMinor="ddave-cga-ui" title="CGA UI"/>
-			<file id="gfx-ega-ui" name="menuega.gfx" typeMajor="tileset" typeMinor="ddave-ega-ui" title="EGA UI"/>
-			<file id="gfx-vga-ui" name="menuvga.gfx" typeMajor="tileset" typeMinor="ddave-vga-ui" title="VGA UI"/>
+			<file id="gfx-cga-ui" name="menucga.gfx" editor="tileset" format="tls-ddave-cga-ui" title="CGA UI"/>
+			<file id="gfx-ega-ui" name="menuega.gfx" editor="tileset" format="tls-ddave-ega-ui" title="EGA UI"/>
+			<file id="gfx-vga-ui" name="menuvga.gfx" editor="tileset" format="tls-ddave-vga-ui" title="VGA UI"/>
 		</archive>
-		<file id="gfx-ega" name="egadave.dav" typeMajor="tileset" typeMinor="ddave-ega" title="EGA tiles"/>
+		<file id="gfx-ega" name="egadave.dav" editor="tileset" format="tls-ddave-ega" title="EGA tiles"/>
 	</files>
 
 	<commands>

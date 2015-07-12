@@ -57,39 +57,39 @@
 	</display>
 
 	<files>
-		<archive name="123.dat" id="arch-123" typeMinor="dat-highway">
-			<file id="mus-road1"    name="road1.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 1"/>
-			<file id="mus-road2"    name="road2.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 2" />
-			<file id="mus-road3"    name="road3.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 3" />
-			<file id="mus-road4"    name="road4.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 4" />
-			<file id="mus-road5"    name="road5.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 5" />
-			<file id="mus-road6"    name="road6.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 6" />
-			<file id="mus-road7"    name="road7.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 7" />
-			<file id="mus-road8"    name="road8.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 8" />
-			<file id="mus-road9"    name="road9.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Road 9" />
-			<file id="mus-road10"   name="road10.cmf"   typeMajor="music" typeMinor="cmf-creativelabs" title="Road 10" />
-			<file id="mus-road11"   name="road11.cmf"   typeMajor="music" typeMinor="cmf-creativelabs" title="Road 11" />
-			<file id="mus-road12"   name="road12.cmf"   typeMajor="music" typeMinor="cmf-creativelabs" title="Road 12" />
-			<file id="mus-intro"    name="intro.cmf"    typeMajor="music" typeMinor="cmf-creativelabs" title="Intro" />
-			<file id="mus-gameover" name="gameover.cmf" typeMajor="music" typeMinor="cmf-creativelabs" title="Game over" />
-			<file id="mus-end"      name="end.cmf"      typeMajor="music" typeMinor="cmf-creativelabs" title="End" />
-			<file id="mus-russia"   name="russia.cmf"   typeMajor="music" typeMinor="cmf-creativelabs" title="Russia" />
+		<archive name="123.dat" id="arch-123" format="dat-highway">
+			<file id="mus-road1"    name="road1.cmf"    editor="music" format="cmf-creativelabs" title="Road 1"/>
+			<file id="mus-road2"    name="road2.cmf"    editor="music" format="cmf-creativelabs" title="Road 2" />
+			<file id="mus-road3"    name="road3.cmf"    editor="music" format="cmf-creativelabs" title="Road 3" />
+			<file id="mus-road4"    name="road4.cmf"    editor="music" format="cmf-creativelabs" title="Road 4" />
+			<file id="mus-road5"    name="road5.cmf"    editor="music" format="cmf-creativelabs" title="Road 5" />
+			<file id="mus-road6"    name="road6.cmf"    editor="music" format="cmf-creativelabs" title="Road 6" />
+			<file id="mus-road7"    name="road7.cmf"    editor="music" format="cmf-creativelabs" title="Road 7" />
+			<file id="mus-road8"    name="road8.cmf"    editor="music" format="cmf-creativelabs" title="Road 8" />
+			<file id="mus-road9"    name="road9.cmf"    editor="music" format="cmf-creativelabs" title="Road 9" />
+			<file id="mus-road10"   name="road10.cmf"   editor="music" format="cmf-creativelabs" title="Road 10" />
+			<file id="mus-road11"   name="road11.cmf"   editor="music" format="cmf-creativelabs" title="Road 11" />
+			<file id="mus-road12"   name="road12.cmf"   editor="music" format="cmf-creativelabs" title="Road 12" />
+			<file id="mus-intro"    name="intro.cmf"    editor="music" format="cmf-creativelabs" title="Intro" />
+			<file id="mus-gameover" name="gameover.cmf" editor="music" format="cmf-creativelabs" title="Game over" />
+			<file id="mus-end"      name="end.cmf"      editor="music" format="cmf-creativelabs" title="End" />
+			<file id="mus-russia"   name="russia.cmf"   editor="music" format="cmf-creativelabs" title="Russia" />
 
-			<file id="voc-car"      name="car.voc"      typeMajor="sound" typeMinor="voc-creativelabs" title="Car" />
-			<file id="voc-car_run"  name="car_run.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Car run" />
-			<file id="voc-door"     name="door.voc"     typeMajor="sound" typeMinor="voc-creativelabs" title="Door" />
-			<file id="voc-effect"   name="effect.voc"   typeMajor="sound" typeMinor="voc-creativelabs" title="Effect" />
-			<file id="voc-sample0"  name="sample0.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 0" />
-			<file id="voc-sample1"  name="sample1.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 1" />
-			<file id="voc-sample2"  name="sample2.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 2" />
-			<file id="voc-sample3"  name="sample3.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 3" />
-			<file id="voc-sample4"  name="sample4.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 4" />
-			<file id="voc-sample5"  name="sample5.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 5" />
-			<file id="voc-sample8"  name="sample8.voc"  typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 8" />
-			<file id="voc-sample12" name="sample12.voc" typeMajor="sound" typeMinor="voc-creativelabs" title="Sample 12" />
+			<file id="voc-car"      name="car.voc"      editor="sound" format="voc-creativelabs" title="Car" />
+			<file id="voc-car_run"  name="car_run.voc"  editor="sound" format="voc-creativelabs" title="Car run" />
+			<file id="voc-door"     name="door.voc"     editor="sound" format="voc-creativelabs" title="Door" />
+			<file id="voc-effect"   name="effect.voc"   editor="sound" format="voc-creativelabs" title="Effect" />
+			<file id="voc-sample0"  name="sample0.voc"  editor="sound" format="voc-creativelabs" title="Sample 0" />
+			<file id="voc-sample1"  name="sample1.voc"  editor="sound" format="voc-creativelabs" title="Sample 1" />
+			<file id="voc-sample2"  name="sample2.voc"  editor="sound" format="voc-creativelabs" title="Sample 2" />
+			<file id="voc-sample3"  name="sample3.voc"  editor="sound" format="voc-creativelabs" title="Sample 3" />
+			<file id="voc-sample4"  name="sample4.voc"  editor="sound" format="voc-creativelabs" title="Sample 4" />
+			<file id="voc-sample5"  name="sample5.voc"  editor="sound" format="voc-creativelabs" title="Sample 5" />
+			<file id="voc-sample8"  name="sample8.voc"  editor="sound" format="voc-creativelabs" title="Sample 8" />
+			<file id="voc-sample12" name="sample12.voc" editor="sound" format="voc-creativelabs" title="Sample 12" />
 
 		</archive>
-		<file id="b800-exit"    name="hwfull.bin"   typeMajor="b800"  typeMinor="80x25" title="Exit text screen" />
+		<file id="b800-exit"    name="hwfull.bin"   editor="b800"  format="80x25" title="Exit text screen" />
 	</files>
 
 	<commands>

@@ -66,70 +66,70 @@
 	</display>
 
 	<files>
-		<file id="lev-100"   name="map.jn1"      typeMajor="map" typeMinor="jill" title="Map level">
+		<file id="lev-100"   name="map.jn1"      editor="map2d" format="map2d-jill" title="Map level">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-101"   name="1.jn1"        typeMajor="map" typeMinor="jill" title="Level 1 - The Boulders + Level 7 - The Forest">
+		<file id="lev-101"   name="1.jn1"        editor="map2d" format="map2d-jill" title="Level 1 - The Boulders + Level 7 - The Forest">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-102"   name="2.jn1"        typeMajor="map" typeMinor="jill" title="Level 2 - The Forest + Level 14 - The Plateau">
+		<file id="lev-102"   name="2.jn1"        editor="map2d" format="map2d-jill" title="Level 2 - The Forest + Level 14 - The Plateau">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-103"   name="3.jn1"        typeMajor="map" typeMinor="jill" title="Levels 3-5 - The Hut + Level 20 - Bonus">
+		<file id="lev-103"   name="3.jn1"        editor="map2d" format="map2d-jill" title="Levels 3-5 - The Hut + Level 20 - Bonus">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-104"   name="4.jn1"        typeMajor="map" typeMinor="jill" title="Level 6 - The Castle + Level 13 - Yet Another Puzzle">
+		<file id="lev-104"   name="4.jn1"        editor="map2d" format="map2d-jill" title="Level 6 - The Castle + Level 13 - Yet Another Puzzle">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-106"   name="6.jn1"        typeMajor="map" typeMinor="jill" title="Level 8 - Arg's Dungeon + Level 9 - Phoenix Max + Level 10 - The Knight's Puzzle">
+		<file id="lev-106"   name="6.jn1"        editor="map2d" format="map2d-jill" title="Level 8 - Arg's Dungeon + Level 9 - Phoenix Max + Level 10 - The Knight's Puzzle">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-109"   name="9.jn1"        typeMajor="map" typeMinor="jill" title="Level 11 - The Dark Forest + Level 12 - The Underground River">
+		<file id="lev-109"   name="9.jn1"        editor="map2d" format="map2d-jill" title="Level 11 - The Dark Forest + Level 12 - The Underground River">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-150"   name="50.jn1"       typeMajor="map" typeMinor="jill" title="Level 50 - The Ending">
+		<file id="lev-150"   name="50.jn1"       editor="map2d" format="map2d-jill" title="Level 50 - The Ending">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
-		<file id="lev-1in"   name="intro.jn1"    typeMajor="map" typeMinor="jill" title="Main menu background">
+		<file id="lev-1in"   name="intro.jn1"    editor="map2d" format="map2d-jill" title="Main menu background">
 			<dep reftype="background-tileset1" ref="tls-1"/>
 		</file>
 
-		<file id="tls-1"     name="jill1.sha"    typeMajor="tileset" typeMinor="jill" title="Game graphics">
+		<file id="tls-1"     name="jill1.sha"    editor="tileset" format="tls-jill" title="Game graphics">
 			<supp reftype="palette"  ref="pal-1"/>
 			<supp reftype="extra1"   ref="dma"/>
 		</file>
 		<file id="dma"       name="jill.dma" title="Tile properties"/>
 
-		<file id="mus-01"    name="action.ddt"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Action"/>
-		<file id="mus-02"    name="alien.ddt"    typeMajor="music"   typeMinor="cmf-creativelabs" title="Alien"/>
-		<file id="mus-03"    name="bonzo.ddt"    typeMajor="music"   typeMinor="cmf-creativelabs" title="Bonzo"/>
-		<file id="mus-04"    name="cubist.ddt"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Cubist"/>
-		<file id="mus-05"    name="dan.ddt"      typeMajor="music"   typeMinor="cmf-creativelabs" title="Dan"/>
-		<file id="mus-06"    name="deepevil.ddt" typeMajor="music"   typeMinor="cmf-creativelabs" title="Deep Evil"/>
-		<file id="mus-07"    name="desert.ddt"   typeMajor="music"   typeMinor="cmf-creativelabs" title="Desert"/>
-		<file id="mus-08"    name="dungo.ddt"    typeMajor="music"   typeMinor="cmf-creativelabs" title="Dungo"/>
-		<file id="mus-09"    name="funky.ddt"    typeMajor="music"   typeMinor="cmf-creativelabs" title="Funky"/>
-		<file id="mus-10"    name="it.ddt"       typeMajor="music"   typeMinor="cmf-creativelabs" title="It"/>
-		<file id="mus-11"    name="jupiter.ddt"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Jupiter"/>
-		<file id="mus-12"    name="kuntamon.ddt" typeMajor="music"   typeMinor="cmf-creativelabs" title="Kuntamon"/>
-		<file id="mus-13"    name="neoclass.ddt" typeMajor="music"   typeMinor="cmf-creativelabs" title="Neoclass"/>
-		<file id="mus-14"    name="ominous.ddt"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Ominous"/>
-		<file id="mus-15"    name="seven.ddt"    typeMajor="music"   typeMinor="cmf-creativelabs" title="Seven"/>
-		<file id="mus-16"    name="spiders.ddt"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Spiders"/>
-		<file id="mus-17"    name="stealth.ddt"  typeMajor="music"   typeMinor="cmf-creativelabs" title="Stealth"/>
-		<file id="mus-18"    name="wild.ddt"     typeMajor="music"   typeMinor="cmf-creativelabs" title="Wild"/>
-		<file id="mus-19"    name="zeppelin.ddt" typeMajor="music"   typeMinor="cmf-creativelabs" title="Zeppelin"/>
+		<file id="mus-01"    name="action.ddt"   editor="music"   format="cmf-creativelabs" title="Action"/>
+		<file id="mus-02"    name="alien.ddt"    editor="music"   format="cmf-creativelabs" title="Alien"/>
+		<file id="mus-03"    name="bonzo.ddt"    editor="music"   format="cmf-creativelabs" title="Bonzo"/>
+		<file id="mus-04"    name="cubist.ddt"   editor="music"   format="cmf-creativelabs" title="Cubist"/>
+		<file id="mus-05"    name="dan.ddt"      editor="music"   format="cmf-creativelabs" title="Dan"/>
+		<file id="mus-06"    name="deepevil.ddt" editor="music"   format="cmf-creativelabs" title="Deep Evil"/>
+		<file id="mus-07"    name="desert.ddt"   editor="music"   format="cmf-creativelabs" title="Desert"/>
+		<file id="mus-08"    name="dungo.ddt"    editor="music"   format="cmf-creativelabs" title="Dungo"/>
+		<file id="mus-09"    name="funky.ddt"    editor="music"   format="cmf-creativelabs" title="Funky"/>
+		<file id="mus-10"    name="it.ddt"       editor="music"   format="cmf-creativelabs" title="It"/>
+		<file id="mus-11"    name="jupiter.ddt"  editor="music"   format="cmf-creativelabs" title="Jupiter"/>
+		<file id="mus-12"    name="kuntamon.ddt" editor="music"   format="cmf-creativelabs" title="Kuntamon"/>
+		<file id="mus-13"    name="neoclass.ddt" editor="music"   format="cmf-creativelabs" title="Neoclass"/>
+		<file id="mus-14"    name="ominous.ddt"  editor="music"   format="cmf-creativelabs" title="Ominous"/>
+		<file id="mus-15"    name="seven.ddt"    editor="music"   format="cmf-creativelabs" title="Seven"/>
+		<file id="mus-16"    name="spiders.ddt"  editor="music"   format="cmf-creativelabs" title="Spiders"/>
+		<file id="mus-17"    name="stealth.ddt"  editor="music"   format="cmf-creativelabs" title="Stealth"/>
+		<file id="mus-18"    name="wild.ddt"     editor="music"   format="cmf-creativelabs" title="Wild"/>
+		<file id="mus-19"    name="zeppelin.ddt" editor="music"   format="cmf-creativelabs" title="Zeppelin"/>
 
-		<archive id="exe-1"  name="jjfile1.exe" typeMinor="fixed">
-			<file id="pal-1"   name="jill1.pal" offset="0x1ed84" size="768" typeMajor="image" typeMinor="pal-vga" title="VGA palette"/>
+		<archive id="exe-1"  name="jjfile1.exe" format="fixed">
+			<file id="pal-1"   name="jill1.pal" offset="0x1ed84" size="768" editor="image" format="img-pal-vga" title="VGA palette"/>
 		</archive>
 
-		<archive id="exe-2"  name="jjfile2.exe" typeMinor="fixed">
-			<file id="pal-2"   name="jill2.pal" offset="0x1ed84" size="768" typeMajor="image" typeMinor="pal-vga" title="VGA palette"/>
+		<archive id="exe-2"  name="jjfile2.exe" format="fixed">
+			<file id="pal-2"   name="jill2.pal" offset="0x1ed84" size="768" editor="image" format="img-pal-vga" title="VGA palette"/>
 		</archive>
 
-		<archive id="exe-3"  name="jjfile3.exe" typeMinor="fixed">
-			<file id="pal-3"   name="jill3.pal" offset="0x1ed84" size="768" typeMajor="image" typeMinor="pal-vga" title="VGA palette"/>
+		<archive id="exe-3"  name="jjfile3.exe" format="fixed">
+			<file id="pal-3"   name="jill3.pal" offset="0x1ed84" size="768" editor="image" format="img-pal-vga" title="VGA palette"/>
 		</archive>
 
 	</files>

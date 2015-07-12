@@ -234,172 +234,172 @@
 	</display>
 
 	<files>
-		<archive name="wacky.dat" id="arch-wacky-dat" typeMinor="dat-wacky">
-			<file id="lev-01" name="1.m"  typeMajor="map" typeMinor="wacky" title="Regular Bronze Wheels, Track 1">
+		<archive name="wacky.dat" id="arch-wacky-dat" format="dat-wacky">
+			<file id="lev-01" name="1.m"  editor="map2d" format="map2d-wacky" title="Regular Bronze Wheels, Track 1">
 				<dep reftype="background-tileset1" ref="tls-f01"/>
 				<dep reftype="background-tileset2" ref="tls-f02"/>
 			</file>
-			<file id="lev-02" name="2.m"  typeMajor="map" typeMinor="wacky" title="Regular Bronze Wheels, Track 2">
+			<file id="lev-02" name="2.m"  editor="map2d" format="map2d-wacky" title="Regular Bronze Wheels, Track 2">
 				<dep reftype="background-tileset1" ref="tls-f03"/>
 				<dep reftype="background-tileset2" ref="tls-f04"/>
 			</file>
-			<file id="lev-03" name="3.m"  typeMajor="map" typeMinor="wacky" title="Regular Bronze Wheels, Track 3">
+			<file id="lev-03" name="3.m"  editor="map2d" format="map2d-wacky" title="Regular Bronze Wheels, Track 3">
 				<dep reftype="background-tileset1" ref="tls-f05"/>
 				<dep reftype="background-tileset2" ref="tls-f06"/>
 			</file>
-			<file id="lev-04" name="4.m"  typeMajor="map" typeMinor="wacky" title="Regular Bronze Wheels, Track 4">
+			<file id="lev-04" name="4.m"  editor="map2d" format="map2d-wacky" title="Regular Bronze Wheels, Track 4">
 				<dep reftype="background-tileset1" ref="tls-f07"/>
 				<dep reftype="background-tileset2" ref="tls-f08"/>
 			</file>
-			<file id="lev-05" name="5.m"  typeMajor="map" typeMinor="wacky" title="Regular Bronze Wheels, Final">
+			<file id="lev-05" name="5.m"  editor="map2d" format="map2d-wacky" title="Regular Bronze Wheels, Final">
 				<dep reftype="background-tileset1" ref="tls-f01"/>
 				<dep reftype="background-tileset2" ref="tls-f02"/>
 			</file>
-			<file id="lev-06" name="6.m"  typeMajor="map" typeMinor="wacky" title="Regular Silver Wheels, Track 1">
+			<file id="lev-06" name="6.m"  editor="map2d" format="map2d-wacky" title="Regular Silver Wheels, Track 1">
 				<dep reftype="background-tileset1" ref="tls-f09"/>
 				<dep reftype="background-tileset2" ref="tls-f10"/>
 			</file>
-			<file id="lev-07" name="7.m"  typeMajor="map" typeMinor="wacky" title="Regular Silver Wheels, Track 2">
+			<file id="lev-07" name="7.m"  editor="map2d" format="map2d-wacky" title="Regular Silver Wheels, Track 2">
 				<dep reftype="background-tileset1" ref="tls-f13"/>
 				<dep reftype="background-tileset2" ref="tls-f14"/>
 			</file>
-			<file id="lev-08" name="8.m"  typeMajor="map" typeMinor="wacky" title="Regular Silver Wheels, Track 3">
+			<file id="lev-08" name="8.m"  editor="map2d" format="map2d-wacky" title="Regular Silver Wheels, Track 3">
 				<dep reftype="background-tileset1" ref="tls-f07"/>
 				<dep reftype="background-tileset2" ref="tls-f08"/>
 			</file>
-			<file id="lev-09" name="9.m"  typeMajor="map" typeMinor="wacky" title="Regular Silver Wheels, Track 4">
+			<file id="lev-09" name="9.m"  editor="map2d" format="map2d-wacky" title="Regular Silver Wheels, Track 4">
 				<dep reftype="background-tileset1" ref="tls-f05"/>
 				<dep reftype="background-tileset2" ref="tls-f06"/>
 			</file>
-			<file id="lev-10" name="10.m" typeMajor="map" typeMinor="wacky" title="Regular Silver Wheels, Final">
+			<file id="lev-10" name="10.m" editor="map2d" format="map2d-wacky" title="Regular Silver Wheels, Final">
 				<dep reftype="background-tileset1" ref="tls-f01"/>
 				<dep reftype="background-tileset2" ref="tls-f15"/>
 			</file>
-			<file id="lev-11" name="11.m" typeMajor="map" typeMinor="wacky" title="Regular Gold Wheels, Track 1">
+			<file id="lev-11" name="11.m" editor="map2d" format="map2d-wacky" title="Regular Gold Wheels, Track 1">
 				<dep reftype="background-tileset1" ref="tls-f16"/>
 				<dep reftype="background-tileset2" ref="tls-f17"/>
 			</file>
-			<file id="lev-12" name="12.m" typeMajor="map" typeMinor="wacky" title="Regular Gold Wheels, Track 2">
+			<file id="lev-12" name="12.m" editor="map2d" format="map2d-wacky" title="Regular Gold Wheels, Track 2">
 				<dep reftype="background-tileset1" ref="tls-f03"/>
 				<dep reftype="background-tileset2" ref="tls-f04"/>
 			</file>
-			<file id="lev-13" name="13.m" typeMajor="map" typeMinor="wacky" title="Regular Gold Wheels, Track 3">
+			<file id="lev-13" name="13.m" editor="map2d" format="map2d-wacky" title="Regular Gold Wheels, Track 3">
 				<dep reftype="background-tileset1" ref="tls-f09"/>
 				<dep reftype="background-tileset2" ref="tls-f10"/>
 			</file>
-			<file id="lev-14" name="14.m" typeMajor="map" typeMinor="wacky" title="Regular Gold Wheels, Track 4">
+			<file id="lev-14" name="14.m" editor="map2d" format="map2d-wacky" title="Regular Gold Wheels, Track 4">
 				<dep reftype="background-tileset1" ref="tls-f13"/>
 				<dep reftype="background-tileset2" ref="tls-f14"/>
 			</file>
-			<file id="lev-15" name="15.m" typeMajor="map" typeMinor="wacky" title="Regular Gold Wheels, Final">
+			<file id="lev-15" name="15.m" editor="map2d" format="map2d-wacky" title="Regular Gold Wheels, Final">
 				<dep reftype="background-tileset1" ref="tls-f01"/>
 				<dep reftype="background-tileset2" ref="tls-f15"/>
 			</file>
-			<file id="lev-16" name="16.m" typeMajor="map" typeMinor="wacky" title="Regular Shootout Zone 1">
+			<file id="lev-16" name="16.m" editor="map2d" format="map2d-wacky" title="Regular Shootout Zone 1">
 				<dep reftype="background-tileset1" ref="tls-f03"/>
 				<dep reftype="background-tileset2" ref="tls-f11"/>
 			</file>
-			<file id="lev-17" name="17.m" typeMajor="map" typeMinor="wacky" title="Regular Shootout Zone 2">
+			<file id="lev-17" name="17.m" editor="map2d" format="map2d-wacky" title="Regular Shootout Zone 2">
 				<dep reftype="background-tileset1" ref="tls-f16"/>
 				<dep reftype="background-tileset2" ref="tls-f17"/>
 			</file>
-			<file id="lev-18" name="18.m" typeMajor="map" typeMinor="wacky" title="Regular Shootout Zone 3">
+			<file id="lev-18" name="18.m" editor="map2d" format="map2d-wacky" title="Regular Shootout Zone 3">
 				<dep reftype="background-tileset1" ref="tls-f07"/>
 				<dep reftype="background-tileset2" ref="tls-f08"/>
 			</file>
-			<file id="lev-19" name="19.m" typeMajor="map" typeMinor="wacky" title="Regular Shootout Zone 4">
+			<file id="lev-19" name="19.m" editor="map2d" format="map2d-wacky" title="Regular Shootout Zone 4">
 				<dep reftype="background-tileset1" ref="tls-f01"/>
 				<dep reftype="background-tileset2" ref="tls-f15"/>
 			</file>
-			<file id="lev-20" name="20.m" typeMajor="map" typeMinor="wacky" title="Regular Shootout Zone 5">
+			<file id="lev-20" name="20.m" editor="map2d" format="map2d-wacky" title="Regular Shootout Zone 5">
 				<dep reftype="background-tileset1" ref="tls-f09"/>
 				<dep reftype="background-tileset2" ref="tls-f10"/>
 			</file>
-			<file id="lev-21" name="21.m" typeMajor="map" typeMinor="wacky" title="Regular Shootout Zone 6">
+			<file id="lev-21" name="21.m" editor="map2d" format="map2d-wacky" title="Regular Shootout Zone 6">
 				<dep reftype="background-tileset1" ref="tls-f05"/>
 				<dep reftype="background-tileset2" ref="tls-f06"/>
 			</file>
-			<file id="lev-22" name="22.m" typeMajor="map" typeMinor="wacky" title="Bonus Bronze Wheels, Track 1">
+			<file id="lev-22" name="22.m" editor="map2d" format="map2d-wacky" title="Bonus Bronze Wheels, Track 1">
 				<dep reftype="background-tileset1" ref="tls-f05"/>
 				<dep reftype="background-tileset2" ref="tls-f06"/>
 			</file>
-			<file id="lev-23" name="23.m" typeMajor="map" typeMinor="wacky" title="Bonus Bronze Wheels, Track 2">
+			<file id="lev-23" name="23.m" editor="map2d" format="map2d-wacky" title="Bonus Bronze Wheels, Track 2">
 				<dep reftype="background-tileset1" ref="tls-f13"/>
 				<dep reftype="background-tileset2" ref="tls-f14"/>
 			</file>
-			<file id="lev-24" name="24.m" typeMajor="map" typeMinor="wacky" title="Bonus Bronze Wheels, Track 3">
+			<file id="lev-24" name="24.m" editor="map2d" format="map2d-wacky" title="Bonus Bronze Wheels, Track 3">
 				<dep reftype="background-tileset1" ref="tls-f07"/>
 				<dep reftype="background-tileset2" ref="tls-f08"/>
 			</file>
-			<file id="lev-25" name="25.m" typeMajor="map" typeMinor="wacky" title="Bonus Bronze Wheels, Track 4">
+			<file id="lev-25" name="25.m" editor="map2d" format="map2d-wacky" title="Bonus Bronze Wheels, Track 4">
 				<dep reftype="background-tileset1" ref="tls-f09"/>
 				<dep reftype="background-tileset2" ref="tls-f10"/>
 			</file>
-			<file id="lev-26" name="26.m" typeMajor="map" typeMinor="wacky" title="Bonus Bronze Wheels, Final">
+			<file id="lev-26" name="26.m" editor="map2d" format="map2d-wacky" title="Bonus Bronze Wheels, Final">
 				<dep reftype="background-tileset1" ref="tls-f01"/>
 				<dep reftype="background-tileset2" ref="tls-f02"/>
 			</file>
-			<file id="lev-27" name="27.m" typeMajor="map" typeMinor="wacky" title="Bonus Silver Wheels, Track 1">
+			<file id="lev-27" name="27.m" editor="map2d" format="map2d-wacky" title="Bonus Silver Wheels, Track 1">
 				<dep reftype="background-tileset1" ref="tls-f03"/>
 				<dep reftype="background-tileset2" ref="tls-f04"/>
 			</file>
-			<file id="lev-28" name="28.m" typeMajor="map" typeMinor="wacky" title="Bonus Silver Wheels, Track 2">
+			<file id="lev-28" name="28.m" editor="map2d" format="map2d-wacky" title="Bonus Silver Wheels, Track 2">
 				<dep reftype="background-tileset1" ref="tls-f16"/>
 				<dep reftype="background-tileset2" ref="tls-f17"/>
 			</file>
-			<file id="lev-29" name="29.m" typeMajor="map" typeMinor="wacky" title="Bonus Silver Wheels, Track 3">
+			<file id="lev-29" name="29.m" editor="map2d" format="map2d-wacky" title="Bonus Silver Wheels, Track 3">
 				<dep reftype="background-tileset1" ref="tls-f05"/>
 				<dep reftype="background-tileset2" ref="tls-f06"/>
 			</file>
-			<file id="lev-30" name="30.m" typeMajor="map" typeMinor="wacky" title="Bonus Silver Wheels, Track 4">
+			<file id="lev-30" name="30.m" editor="map2d" format="map2d-wacky" title="Bonus Silver Wheels, Track 4">
 				<dep reftype="background-tileset1" ref="tls-f13"/>
 				<dep reftype="background-tileset2" ref="tls-f14"/>
 			</file>
-			<file id="lev-31" name="31.m" typeMajor="map" typeMinor="wacky" title="Bonus Silver Wheels, Final">
+			<file id="lev-31" name="31.m" editor="map2d" format="map2d-wacky" title="Bonus Silver Wheels, Final">
 				<dep reftype="background-tileset1" ref="tls-f01"/>
 				<dep reftype="background-tileset2" ref="tls-f02"/>
 			</file>
-			<file id="lev-32" name="32.m" typeMajor="map" typeMinor="wacky" title="Bonus Gold Wheels, Track 1">
+			<file id="lev-32" name="32.m" editor="map2d" format="map2d-wacky" title="Bonus Gold Wheels, Track 1">
 				<dep reftype="background-tileset1" ref="tls-f09"/>
 				<dep reftype="background-tileset2" ref="tls-f10"/>
 			</file>
-			<file id="lev-33" name="33.m" typeMajor="map" typeMinor="wacky" title="Bonus Gold Wheels, Track 2">
+			<file id="lev-33" name="33.m" editor="map2d" format="map2d-wacky" title="Bonus Gold Wheels, Track 2">
 				<dep reftype="background-tileset1" ref="tls-f03"/>
 				<dep reftype="background-tileset2" ref="tls-f04"/>
 			</file>
-			<file id="lev-34" name="34.m" typeMajor="map" typeMinor="wacky" title="Bonus Gold Wheels, Track 3">
+			<file id="lev-34" name="34.m" editor="map2d" format="map2d-wacky" title="Bonus Gold Wheels, Track 3">
 				<dep reftype="background-tileset1" ref="tls-f16"/>
 				<dep reftype="background-tileset2" ref="tls-f17"/>
 			</file>
-			<file id="lev-35" name="35.m" typeMajor="map" typeMinor="wacky" title="Bonus Gold Wheels, Track 4">
+			<file id="lev-35" name="35.m" editor="map2d" format="map2d-wacky" title="Bonus Gold Wheels, Track 4">
 				<dep reftype="background-tileset1" ref="tls-f07"/>
 				<dep reftype="background-tileset2" ref="tls-f08"/>
 			</file>
-			<file id="lev-36" name="36.m" typeMajor="map" typeMinor="wacky" title="Bonus Gold Wheels, Final">
+			<file id="lev-36" name="36.m" editor="map2d" format="map2d-wacky" title="Bonus Gold Wheels, Final">
 				<dep reftype="background-tileset1" ref="tls-f01"/>
 				<dep reftype="background-tileset2" ref="tls-f02"/>
 			</file>
-			<file id="lev-37" name="37.m" typeMajor="map" typeMinor="wacky" title="Bonus Shootout Zone 1">
+			<file id="lev-37" name="37.m" editor="map2d" format="map2d-wacky" title="Bonus Shootout Zone 1">
 				<dep reftype="background-tileset1" ref="tls-f05"/>
 				<dep reftype="background-tileset2" ref="tls-f06"/>
 			</file>
-			<file id="lev-38" name="38.m" typeMajor="map" typeMinor="wacky" title="Bonus Shootout Zone 2">
+			<file id="lev-38" name="38.m" editor="map2d" format="map2d-wacky" title="Bonus Shootout Zone 2">
 				<dep reftype="background-tileset1" ref="tls-f01"/>
 				<dep reftype="background-tileset2" ref="tls-f15"/>
 			</file>
-			<file id="lev-39" name="39.m" typeMajor="map" typeMinor="wacky" title="Bonus Shootout Zone 3">
+			<file id="lev-39" name="39.m" editor="map2d" format="map2d-wacky" title="Bonus Shootout Zone 3">
 				<dep reftype="background-tileset1" ref="tls-f09"/>
 				<dep reftype="background-tileset2" ref="tls-f10"/>
 			</file>
-			<file id="lev-40" name="40.m" typeMajor="map" typeMinor="wacky" title="Bonus Shootout Zone 4">
+			<file id="lev-40" name="40.m" editor="map2d" format="map2d-wacky" title="Bonus Shootout Zone 4">
 				<dep reftype="background-tileset1" ref="tls-f07"/>
 				<dep reftype="background-tileset2" ref="tls-f08"/>
 			</file>
-			<file id="lev-41" name="41.m" typeMajor="map" typeMinor="wacky" title="Bonus Shootout Zone 5">
+			<file id="lev-41" name="41.m" editor="map2d" format="map2d-wacky" title="Bonus Shootout Zone 5">
 				<dep reftype="background-tileset1" ref="tls-f16"/>
 				<dep reftype="background-tileset2" ref="tls-f17"/>
 			</file>
-			<file id="lev-42" name="42.m" typeMajor="map" typeMinor="wacky" title="Bonus Shootout Zone 6">
+			<file id="lev-42" name="42.m" editor="map2d" format="map2d-wacky" title="Bonus Shootout Zone 6">
 				<dep reftype="background-tileset1" ref="tls-f03"/>
 				<dep reftype="background-tileset2" ref="tls-f11"/>
 			</file>
@@ -447,159 +447,159 @@
 			<file id="lev-41-rd" name="41.rd" title="Bonus Shootout Zone 5"/>
 			<file id="lev-42-rd" name="42.rd" title="Bonus Shootout Zone 6"/>
 
-			<file id="tls-f01"  name="a_f1.pcx"   typeMajor="tileset" typeMinor="wacky" title="F1"/>
-			<file id="tls-f02"  name="a_f2.pcx"   typeMajor="tileset" typeMinor="wacky" title="F2"/>
-			<file id="tls-f03"  name="a_f3.pcx"   typeMajor="tileset" typeMinor="wacky" title="F3"/>
-			<file id="tls-f04"  name="a_f4.pcx"   typeMajor="tileset" typeMinor="wacky" title="F4"/>
-			<file id="tls-f05"  name="a_f5.pcx"   typeMajor="tileset" typeMinor="wacky" title="F5"/>
-			<file id="tls-f06"  name="a_f6.pcx"   typeMajor="tileset" typeMinor="wacky" title="F6"/>
-			<file id="tls-f07"  name="a_f7.pcx"   typeMajor="tileset" typeMinor="wacky" title="F7"/>
-			<file id="tls-f08"  name="a_f8.pcx"   typeMajor="tileset" typeMinor="wacky" title="F8"/>
-			<file id="tls-f09"  name="a_f9.pcx"   typeMajor="tileset" typeMinor="wacky" title="F9"/>
-			<file id="tls-f10"  name="a_f10.pcx"  typeMajor="tileset" typeMinor="wacky" title="F10"/>
-			<file id="tls-f11"  name="a_f11.pcx"  typeMajor="tileset" typeMinor="wacky" title="F11"/>
-			<file id="tls-f12"  name="a_f12.pcx"  typeMajor="tileset" typeMinor="wacky" title="F12 (unused)"/>
-			<file id="tls-f13"  name="a_f13.pcx"  typeMajor="tileset" typeMinor="wacky" title="F13"/>
-			<file id="tls-f14"  name="a_f14.pcx"  typeMajor="tileset" typeMinor="wacky" title="F14"/>
-			<file id="tls-f15"  name="a_f15.pcx"  typeMajor="tileset" typeMinor="wacky" title="F15"/>
-			<file id="tls-f16"  name="a_f16.pcx"  typeMajor="tileset" typeMinor="wacky" title="F16"/>
-			<file id="tls-f17"  name="a_f17.pcx"  typeMajor="tileset" typeMinor="wacky" title="F17"/>
+			<file id="tls-f01"  name="a_f1.pcx"   editor="tileset" format="tls-wacky" title="F1"/>
+			<file id="tls-f02"  name="a_f2.pcx"   editor="tileset" format="tls-wacky" title="F2"/>
+			<file id="tls-f03"  name="a_f3.pcx"   editor="tileset" format="tls-wacky" title="F3"/>
+			<file id="tls-f04"  name="a_f4.pcx"   editor="tileset" format="tls-wacky" title="F4"/>
+			<file id="tls-f05"  name="a_f5.pcx"   editor="tileset" format="tls-wacky" title="F5"/>
+			<file id="tls-f06"  name="a_f6.pcx"   editor="tileset" format="tls-wacky" title="F6"/>
+			<file id="tls-f07"  name="a_f7.pcx"   editor="tileset" format="tls-wacky" title="F7"/>
+			<file id="tls-f08"  name="a_f8.pcx"   editor="tileset" format="tls-wacky" title="F8"/>
+			<file id="tls-f09"  name="a_f9.pcx"   editor="tileset" format="tls-wacky" title="F9"/>
+			<file id="tls-f10"  name="a_f10.pcx"  editor="tileset" format="tls-wacky" title="F10"/>
+			<file id="tls-f11"  name="a_f11.pcx"  editor="tileset" format="tls-wacky" title="F11"/>
+			<file id="tls-f12"  name="a_f12.pcx"  editor="tileset" format="tls-wacky" title="F12 (unused)"/>
+			<file id="tls-f13"  name="a_f13.pcx"  editor="tileset" format="tls-wacky" title="F13"/>
+			<file id="tls-f14"  name="a_f14.pcx"  editor="tileset" format="tls-wacky" title="F14"/>
+			<file id="tls-f15"  name="a_f15.pcx"  editor="tileset" format="tls-wacky" title="F15"/>
+			<file id="tls-f16"  name="a_f16.pcx"  editor="tileset" format="tls-wacky" title="F16"/>
+			<file id="tls-f17"  name="a_f17.pcx"  editor="tileset" format="tls-wacky" title="F17"/>
 
-			<file id="tls-ma01" name="a_ma1.pcx"  typeMajor="tileset" typeMinor="wacky" title="MA1"/>
-			<file id="tls-ma02" name="a_ma2.pcx"  typeMajor="tileset" typeMinor="wacky" title="MA2"/>
-			<file id="tls-ma03" name="a_ma3.pcx"  typeMajor="tileset" typeMinor="wacky" title="MA3"/>
-			<file id="tls-ma04" name="a_ma4.pcx"  typeMajor="tileset" typeMinor="wacky" title="MA4"/>
-			<file id="tls-ma05" name="a_ma5.pcx"  typeMajor="tileset" typeMinor="wacky" title="MA5"/>
-			<file id="tls-ma06" name="a_ma6.pcx"  typeMajor="tileset" typeMinor="wacky" title="MA6"/>
-			<file id="tls-ma07" name="a_ma7.pcx"  typeMajor="tileset" typeMinor="wacky" title="MA7"/>
-			<file id="tls-ma08" name="a_ma8.pcx"  typeMajor="tileset" typeMinor="wacky" title="MA8"/>
-			<file id="tls-ma09" name="a_ma9.pcx"  typeMajor="tileset" typeMinor="wacky" title="MA9"/>
-			<file id="tls-ma10" name="a_ma10.pcx" typeMajor="tileset" typeMinor="wacky" title="MA10"/>
-			<file id="tls-ma11" name="a_ma11.pcx" typeMajor="tileset" typeMinor="wacky" title="MA11"/>
-			<file id="tls-ma12" name="a_ma12.pcx" typeMajor="tileset" typeMinor="wacky" title="MA12 (unused)"/>
-			<file id="tls-ma13" name="a_ma13.pcx" typeMajor="tileset" typeMinor="wacky" title="MA13"/>
-			<file id="tls-ma14" name="a_ma14.pcx" typeMajor="tileset" typeMinor="wacky" title="MA14"/>
-			<file id="tls-ma15" name="a_ma15.pcx" typeMajor="tileset" typeMinor="wacky" title="MA15"/>
-			<file id="tls-ma16" name="a_ma16.pcx" typeMajor="tileset" typeMinor="wacky" title="MA16"/>
-			<file id="tls-ma17" name="a_ma17.pcx" typeMajor="tileset" typeMinor="wacky" title="MA17"/>
+			<file id="tls-ma01" name="a_ma1.pcx"  editor="tileset" format="tls-wacky" title="MA1"/>
+			<file id="tls-ma02" name="a_ma2.pcx"  editor="tileset" format="tls-wacky" title="MA2"/>
+			<file id="tls-ma03" name="a_ma3.pcx"  editor="tileset" format="tls-wacky" title="MA3"/>
+			<file id="tls-ma04" name="a_ma4.pcx"  editor="tileset" format="tls-wacky" title="MA4"/>
+			<file id="tls-ma05" name="a_ma5.pcx"  editor="tileset" format="tls-wacky" title="MA5"/>
+			<file id="tls-ma06" name="a_ma6.pcx"  editor="tileset" format="tls-wacky" title="MA6"/>
+			<file id="tls-ma07" name="a_ma7.pcx"  editor="tileset" format="tls-wacky" title="MA7"/>
+			<file id="tls-ma08" name="a_ma8.pcx"  editor="tileset" format="tls-wacky" title="MA8"/>
+			<file id="tls-ma09" name="a_ma9.pcx"  editor="tileset" format="tls-wacky" title="MA9"/>
+			<file id="tls-ma10" name="a_ma10.pcx" editor="tileset" format="tls-wacky" title="MA10"/>
+			<file id="tls-ma11" name="a_ma11.pcx" editor="tileset" format="tls-wacky" title="MA11"/>
+			<file id="tls-ma12" name="a_ma12.pcx" editor="tileset" format="tls-wacky" title="MA12 (unused)"/>
+			<file id="tls-ma13" name="a_ma13.pcx" editor="tileset" format="tls-wacky" title="MA13"/>
+			<file id="tls-ma14" name="a_ma14.pcx" editor="tileset" format="tls-wacky" title="MA14"/>
+			<file id="tls-ma15" name="a_ma15.pcx" editor="tileset" format="tls-wacky" title="MA15"/>
+			<file id="tls-ma16" name="a_ma16.pcx" editor="tileset" format="tls-wacky" title="MA16"/>
+			<file id="tls-ma17" name="a_ma17.pcx" editor="tileset" format="tls-wacky" title="MA17"/>
 
-			<file id="shrink-01" name="shrink1.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="Regular Bronze Wheels, Track 1"/>
-			<file id="shrink-02" name="shrink2.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="Regular Bronze Wheels, Track 2"/>
-			<file id="shrink-03" name="shrink3.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="Regular Bronze Wheels, Track 3"/>
-			<file id="shrink-04" name="shrink4.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="Regular Bronze Wheels, Track 4"/>
-			<file id="shrink-05" name="shrink5.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="Regular Bronze Wheels, Final"/>
-			<file id="shrink-06" name="shrink6.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="Regular Silver Wheels, Track 1"/>
-			<file id="shrink-07" name="shrink7.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="Regular Silver Wheels, Track 2"/>
-			<file id="shrink-08" name="shrink8.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="Regular Silver Wheels, Track 3"/>
-			<file id="shrink-09" name="shrink9.pcx"  typeMajor="image" typeMinor="pcx-8b1p" title="Regular Silver Wheels, Track 4"/>
-			<file id="shrink-10" name="shrink10.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Regular Silver Wheels, Final"/>
-			<file id="shrink-11" name="shrink11.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Regular Gold Wheels, Track 1"/>
-			<file id="shrink-12" name="shrink12.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Regular Gold Wheels, Track 2"/>
-			<file id="shrink-13" name="shrink13.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Regular Gold Wheels, Track 3"/>
-			<file id="shrink-14" name="shrink14.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Regular Gold Wheels, Track 4"/>
-			<file id="shrink-15" name="shrink15.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Regular Gold Wheels, Final"/>
-			<file id="shrink-16" name="shrink16.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Regular Shootout Zone 1"/>
-			<file id="shrink-17" name="shrink17.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Regular Shootout Zone 2"/>
-			<file id="shrink-18" name="shrink18.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Regular Shootout Zone 3"/>
-			<file id="shrink-19" name="shrink19.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Regular Shootout Zone 4"/>
-			<file id="shrink-20" name="shrink20.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Regular Shootout Zone 5"/>
-			<file id="shrink-21" name="shrink21.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Regular Shootout Zone 6"/>
-			<file id="shrink-22" name="shrink22.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Bronze Wheels, Track 1"/>
-			<file id="shrink-23" name="shrink23.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Bronze Wheels, Track 2"/>
-			<file id="shrink-24" name="shrink24.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Bronze Wheels, Track 3"/>
-			<file id="shrink-25" name="shrink25.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Bronze Wheels, Track 4"/>
-			<file id="shrink-26" name="shrink26.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Bronze Wheels, Final"/>
-			<file id="shrink-27" name="shrink27.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Silver Wheels, Track 1"/>
-			<file id="shrink-28" name="shrink28.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Silver Wheels, Track 2"/>
-			<file id="shrink-29" name="shrink29.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Silver Wheels, Track 3"/>
-			<file id="shrink-30" name="shrink30.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Silver Wheels, Track 4"/>
-			<file id="shrink-31" name="shrink31.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Silver Wheels, Final"/>
-			<file id="shrink-32" name="shrink32.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Gold Wheels, Track 1"/>
-			<file id="shrink-33" name="shrink33.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Gold Wheels, Track 2"/>
-			<file id="shrink-34" name="shrink34.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Gold Wheels, Track 3"/>
-			<file id="shrink-35" name="shrink35.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Gold Wheels, Track 4"/>
-			<file id="shrink-36" name="shrink36.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Gold Wheels, Final"/>
-			<file id="shrink-37" name="shrink37.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Shootout Zone 1"/>
-			<file id="shrink-38" name="shrink38.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Shootout Zone 2"/>
-			<file id="shrink-39" name="shrink39.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Shootout Zone 3"/>
-			<file id="shrink-40" name="shrink40.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Shootout Zone 4"/>
-			<file id="shrink-41" name="shrink41.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Shootout Zone 5"/>
-			<file id="shrink-42" name="shrink42.pcx" typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Shootout Zone 6"/>
+			<file id="shrink-01" name="shrink1.pcx"  editor="image" format="img-pcx-8b1p" title="Regular Bronze Wheels, Track 1"/>
+			<file id="shrink-02" name="shrink2.pcx"  editor="image" format="img-pcx-8b1p" title="Regular Bronze Wheels, Track 2"/>
+			<file id="shrink-03" name="shrink3.pcx"  editor="image" format="img-pcx-8b1p" title="Regular Bronze Wheels, Track 3"/>
+			<file id="shrink-04" name="shrink4.pcx"  editor="image" format="img-pcx-8b1p" title="Regular Bronze Wheels, Track 4"/>
+			<file id="shrink-05" name="shrink5.pcx"  editor="image" format="img-pcx-8b1p" title="Regular Bronze Wheels, Final"/>
+			<file id="shrink-06" name="shrink6.pcx"  editor="image" format="img-pcx-8b1p" title="Regular Silver Wheels, Track 1"/>
+			<file id="shrink-07" name="shrink7.pcx"  editor="image" format="img-pcx-8b1p" title="Regular Silver Wheels, Track 2"/>
+			<file id="shrink-08" name="shrink8.pcx"  editor="image" format="img-pcx-8b1p" title="Regular Silver Wheels, Track 3"/>
+			<file id="shrink-09" name="shrink9.pcx"  editor="image" format="img-pcx-8b1p" title="Regular Silver Wheels, Track 4"/>
+			<file id="shrink-10" name="shrink10.pcx" editor="image" format="img-pcx-8b1p" title="Regular Silver Wheels, Final"/>
+			<file id="shrink-11" name="shrink11.pcx" editor="image" format="img-pcx-8b1p" title="Regular Gold Wheels, Track 1"/>
+			<file id="shrink-12" name="shrink12.pcx" editor="image" format="img-pcx-8b1p" title="Regular Gold Wheels, Track 2"/>
+			<file id="shrink-13" name="shrink13.pcx" editor="image" format="img-pcx-8b1p" title="Regular Gold Wheels, Track 3"/>
+			<file id="shrink-14" name="shrink14.pcx" editor="image" format="img-pcx-8b1p" title="Regular Gold Wheels, Track 4"/>
+			<file id="shrink-15" name="shrink15.pcx" editor="image" format="img-pcx-8b1p" title="Regular Gold Wheels, Final"/>
+			<file id="shrink-16" name="shrink16.pcx" editor="image" format="img-pcx-8b1p" title="Regular Shootout Zone 1"/>
+			<file id="shrink-17" name="shrink17.pcx" editor="image" format="img-pcx-8b1p" title="Regular Shootout Zone 2"/>
+			<file id="shrink-18" name="shrink18.pcx" editor="image" format="img-pcx-8b1p" title="Regular Shootout Zone 3"/>
+			<file id="shrink-19" name="shrink19.pcx" editor="image" format="img-pcx-8b1p" title="Regular Shootout Zone 4"/>
+			<file id="shrink-20" name="shrink20.pcx" editor="image" format="img-pcx-8b1p" title="Regular Shootout Zone 5"/>
+			<file id="shrink-21" name="shrink21.pcx" editor="image" format="img-pcx-8b1p" title="Regular Shootout Zone 6"/>
+			<file id="shrink-22" name="shrink22.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Bronze Wheels, Track 1"/>
+			<file id="shrink-23" name="shrink23.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Bronze Wheels, Track 2"/>
+			<file id="shrink-24" name="shrink24.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Bronze Wheels, Track 3"/>
+			<file id="shrink-25" name="shrink25.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Bronze Wheels, Track 4"/>
+			<file id="shrink-26" name="shrink26.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Bronze Wheels, Final"/>
+			<file id="shrink-27" name="shrink27.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Silver Wheels, Track 1"/>
+			<file id="shrink-28" name="shrink28.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Silver Wheels, Track 2"/>
+			<file id="shrink-29" name="shrink29.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Silver Wheels, Track 3"/>
+			<file id="shrink-30" name="shrink30.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Silver Wheels, Track 4"/>
+			<file id="shrink-31" name="shrink31.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Silver Wheels, Final"/>
+			<file id="shrink-32" name="shrink32.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Gold Wheels, Track 1"/>
+			<file id="shrink-33" name="shrink33.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Gold Wheels, Track 2"/>
+			<file id="shrink-34" name="shrink34.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Gold Wheels, Track 3"/>
+			<file id="shrink-35" name="shrink35.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Gold Wheels, Track 4"/>
+			<file id="shrink-36" name="shrink36.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Gold Wheels, Final"/>
+			<file id="shrink-37" name="shrink37.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Shootout Zone 1"/>
+			<file id="shrink-38" name="shrink38.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Shootout Zone 2"/>
+			<file id="shrink-39" name="shrink39.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Shootout Zone 3"/>
+			<file id="shrink-40" name="shrink40.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Shootout Zone 4"/>
+			<file id="shrink-41" name="shrink41.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Shootout Zone 5"/>
+			<file id="shrink-42" name="shrink42.pcx" editor="image" format="img-pcx-8b1p" title="Bonus Shootout Zone 6"/>
 
-			<file id="apog1"     name="apog1.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="Apogee logo"/>
-			<file id="beavis"    name="beavis.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="Beavis Soft logo"/>
-			<file id="wintro"    name="wintro.pcx"   typeMajor="image" typeMinor="pcx-8b1p" title="Introduction screen"/>
-			<file id="check"     name="check.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="Main Menu background"/>
-			<file id="lead"      name="lead.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Famous Drivers background"/>
-			<file id="order"     name="order.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="Leaderboard background"/>
-			<file id="win"       name="win.pcx"      typeMajor="image" typeMinor="pcx-8b1p" title="Winners cup"/>
-			<file id="end1"      name="end1.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Exit screen"/>
-			<file id="instr-1"   name="int1.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Instructions screen 1"/>
-			<file id="instr-2"   name="int2.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Instructions screen 2"/>
-			<file id="instr-3"   name="int3.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Instructions screen 3"/>
-			<file id="instr-4"   name="int4.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Instructions screen 4"/>
-			<file id="instr-5"   name="int5.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Instructions screen 5"/>
-			<file id="instr-6"   name="int6.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Instructions screen 6"/>
-			<file id="instr-7"   name="int7.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Instructions screen 7"/>
-			<file id="instr-8"   name="int8.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Instructions screen 8"/>
-			<file id="order-01"  name="or1.pcx"      typeMajor="image" typeMinor="pcx-8b1p" title="Ordering screen 1"/>
-			<file id="order-02"  name="or2.pcx"      typeMajor="image" typeMinor="pcx-8b1p" title="Ordering screen 2"/>
-			<file id="order-03"  name="or3.pcx"      typeMajor="image" typeMinor="pcx-8b1p" title="Ordering screen 3"/>
-			<file id="order-04"  name="or4.pcx"      typeMajor="image" typeMinor="pcx-8b1p" title="Ordering screen 4"/>
-			<file id="order-05"  name="or5.pcx"      typeMajor="image" typeMinor="pcx-8b1p" title="Ordering screen 5"/>
-			<file id="order-06"  name="or6.pcx"      typeMajor="image" typeMinor="pcx-8b1p" title="Ordering screen 6"/>
-			<file id="order-07"  name="or7.pcx"      typeMajor="image" typeMinor="pcx-8b1p" title="Ordering screen 7"/>
-			<file id="order-08"  name="or8.pcx"      typeMajor="image" typeMinor="pcx-8b1p" title="Ordering screen 8"/>
-			<file id="order-09"  name="or9.pcx"      typeMajor="image" typeMinor="pcx-8b1p" title="Ordering screen 9"/>
-			<file id="order-10"  name="or10.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Ordering screen 10"/>
-			<file id="order-11"  name="or11.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Ordering screen 11"/>
-			<file id="sb1"       name="sb1.pcx"      typeMajor="image" typeMinor="pcx-8b1p" title="Regular Bronze Wheels preview"/>
-			<file id="sb2"       name="sb2.pcx"      typeMajor="image" typeMinor="pcx-8b1p" title="Regular Silver Wheels preview"/>
-			<file id="sb3"       name="sb3.pcx"      typeMajor="image" typeMinor="pcx-8b1p" title="Regular Gold Wheels preview"/>
-			<file id="sbcs"      name="sbcs.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Regular Shootout Zone preview"/>
-			<file id="bsb1"      name="bsb1.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Bronze Wheels preview"/>
-			<file id="bsb2"      name="bsb2.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Silver Wheels preview"/>
-			<file id="bsb3"      name="bsb3.pcx"     typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Gold Wheels preview"/>
-			<file id="bsbcs"     name="bsbcs.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="Bonus Shootout Zone preview"/>
+			<file id="apog1"     name="apog1.pcx"    editor="image" format="img-pcx-8b1p" title="Apogee logo"/>
+			<file id="beavis"    name="beavis.pcx"   editor="image" format="img-pcx-8b1p" title="Beavis Soft logo"/>
+			<file id="wintro"    name="wintro.pcx"   editor="image" format="img-pcx-8b1p" title="Introduction screen"/>
+			<file id="check"     name="check.pcx"    editor="image" format="img-pcx-8b1p" title="Main Menu background"/>
+			<file id="lead"      name="lead.pcx"     editor="image" format="img-pcx-8b1p" title="Famous Drivers background"/>
+			<file id="order"     name="order.pcx"    editor="image" format="img-pcx-8b1p" title="Leaderboard background"/>
+			<file id="win"       name="win.pcx"      editor="image" format="img-pcx-8b1p" title="Winners cup"/>
+			<file id="end1"      name="end1.pcx"     editor="image" format="img-pcx-8b1p" title="Exit screen"/>
+			<file id="instr-1"   name="int1.pcx"     editor="image" format="img-pcx-8b1p" title="Instructions screen 1"/>
+			<file id="instr-2"   name="int2.pcx"     editor="image" format="img-pcx-8b1p" title="Instructions screen 2"/>
+			<file id="instr-3"   name="int3.pcx"     editor="image" format="img-pcx-8b1p" title="Instructions screen 3"/>
+			<file id="instr-4"   name="int4.pcx"     editor="image" format="img-pcx-8b1p" title="Instructions screen 4"/>
+			<file id="instr-5"   name="int5.pcx"     editor="image" format="img-pcx-8b1p" title="Instructions screen 5"/>
+			<file id="instr-6"   name="int6.pcx"     editor="image" format="img-pcx-8b1p" title="Instructions screen 6"/>
+			<file id="instr-7"   name="int7.pcx"     editor="image" format="img-pcx-8b1p" title="Instructions screen 7"/>
+			<file id="instr-8"   name="int8.pcx"     editor="image" format="img-pcx-8b1p" title="Instructions screen 8"/>
+			<file id="order-01"  name="or1.pcx"      editor="image" format="img-pcx-8b1p" title="Ordering screen 1"/>
+			<file id="order-02"  name="or2.pcx"      editor="image" format="img-pcx-8b1p" title="Ordering screen 2"/>
+			<file id="order-03"  name="or3.pcx"      editor="image" format="img-pcx-8b1p" title="Ordering screen 3"/>
+			<file id="order-04"  name="or4.pcx"      editor="image" format="img-pcx-8b1p" title="Ordering screen 4"/>
+			<file id="order-05"  name="or5.pcx"      editor="image" format="img-pcx-8b1p" title="Ordering screen 5"/>
+			<file id="order-06"  name="or6.pcx"      editor="image" format="img-pcx-8b1p" title="Ordering screen 6"/>
+			<file id="order-07"  name="or7.pcx"      editor="image" format="img-pcx-8b1p" title="Ordering screen 7"/>
+			<file id="order-08"  name="or8.pcx"      editor="image" format="img-pcx-8b1p" title="Ordering screen 8"/>
+			<file id="order-09"  name="or9.pcx"      editor="image" format="img-pcx-8b1p" title="Ordering screen 9"/>
+			<file id="order-10"  name="or10.pcx"     editor="image" format="img-pcx-8b1p" title="Ordering screen 10"/>
+			<file id="order-11"  name="or11.pcx"     editor="image" format="img-pcx-8b1p" title="Ordering screen 11"/>
+			<file id="sb1"       name="sb1.pcx"      editor="image" format="img-pcx-8b1p" title="Regular Bronze Wheels preview"/>
+			<file id="sb2"       name="sb2.pcx"      editor="image" format="img-pcx-8b1p" title="Regular Silver Wheels preview"/>
+			<file id="sb3"       name="sb3.pcx"      editor="image" format="img-pcx-8b1p" title="Regular Gold Wheels preview"/>
+			<file id="sbcs"      name="sbcs.pcx"     editor="image" format="img-pcx-8b1p" title="Regular Shootout Zone preview"/>
+			<file id="bsb1"      name="bsb1.pcx"     editor="image" format="img-pcx-8b1p" title="Bonus Bronze Wheels preview"/>
+			<file id="bsb2"      name="bsb2.pcx"     editor="image" format="img-pcx-8b1p" title="Bonus Silver Wheels preview"/>
+			<file id="bsb3"      name="bsb3.pcx"     editor="image" format="img-pcx-8b1p" title="Bonus Gold Wheels preview"/>
+			<file id="bsbcs"     name="bsbcs.pcx"    editor="image" format="img-pcx-8b1p" title="Bonus Shootout Zone preview"/>
 
-			<file id="blank"     name="blank.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="Hedgehogs and lives overlay"/>
-			<file id="back1"     name="back1.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="Sky 1"/>
-			<file id="back2"     name="back2.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="Sky 2"/>
-			<file id="back3"     name="back3.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="Sky 3"/>
-			<file id="beach"     name="beach.pcx"    typeMajor="image" typeMinor="pcx-8b1p" title="Beach/water color palette"/>
+			<file id="blank"     name="blank.pcx"    editor="image" format="img-pcx-8b1p" title="Hedgehogs and lives overlay"/>
+			<file id="back1"     name="back1.pcx"    editor="image" format="img-pcx-8b1p" title="Sky 1"/>
+			<file id="back2"     name="back2.pcx"    editor="image" format="img-pcx-8b1p" title="Sky 2"/>
+			<file id="back3"     name="back3.pcx"    editor="image" format="img-pcx-8b1p" title="Sky 3"/>
+			<file id="beach"     name="beach.pcx"    editor="image" format="img-pcx-8b1p" title="Beach/water color palette"/>
 
-			<file id="mus-opl-apogee"   name="apogee.klm"   typeMajor="music" typeMinor="klm-wacky" title="Apogee theme"/>
-			<file id="mus-opl-ashes"    name="ashes.klm"    typeMajor="music" typeMinor="klm-wacky" title="Ashes"/>
-			<file id="mus-opl-banshi"   name="banshi.klm"   typeMajor="music" typeMinor="klm-wacky" title="Banshi"/>
-			<file id="mus-opl-bassattk" name="bassattk.klm" typeMajor="music" typeMinor="klm-wacky" title="Bass Attack"/>
-			<file id="mus-opl-bricwall" name="bricwall.klm" typeMajor="music" typeMinor="klm-wacky" title="Brick Wall"/>
-			<file id="mus-opl-dance"    name="dance.klm"    typeMajor="music" typeMinor="klm-wacky" title="Dance"/>
-			<file id="mus-opl-mainmenu" name="mainmenu.klm" typeMajor="music" typeMinor="klm-wacky" title="Dream (main menu)"/>
-			<file id="mus-opl-flight"   name="flight.klm"   typeMajor="music" typeMinor="klm-wacky" title="Flight"/>
-			<file id="mus-opl-gameover" name="gameover.klm" typeMajor="music" typeMinor="klm-wacky" title="Game Over"/>
-			<file id="mus-opl-kard"     name="kard.klm"     typeMajor="music" typeMinor="klm-wacky" title="Kard"/>
-			<file id="mus-opl-overdriv" name="overdriv.klm" typeMajor="music" typeMinor="klm-wacky" title="Overdrive"/>
-			<file id="mus-opl-pumper"   name="pumper.klm"   typeMajor="music" typeMinor="klm-wacky" title="Pumper"/>
-			<file id="mus-opl-spacey"   name="spacey.klm"   typeMajor="music" typeMinor="klm-wacky" title="Spacey"/>
-			<file id="mus-opl-starbrai" name="starbrai.klm" typeMajor="music" typeMinor="klm-wacky" title="Star Brain"/>
-			<file id="mus-opl-leadrbrd" name="leadrbrd.klm" typeMajor="music" typeMinor="klm-wacky" title="The Rostrum"/>
-			<file id="mus-opl-turbo"    name="turbo.klm"    typeMajor="music" typeMinor="klm-wacky" title="Turbo"/>
-			<file id="mus-mid-apogee"   name="apogee.mid"   typeMajor="music" typeMinor="mid-type1" title="Apogee theme"/>
-			<file id="mus-mid-ashes"    name="ashes.mid"    typeMajor="music" typeMinor="mid-type1" title="Ashes"/>
-			<file id="mus-mid-banshi"   name="banshi.mid"   typeMajor="music" typeMinor="mid-type1" title="Banshi"/>
-			<file id="mus-mid-bassattk" name="bassattk.mid" typeMajor="music" typeMinor="mid-type1" title="Bass Attack"/>
-			<file id="mus-mid-bricwall" name="bricwall.mid" typeMajor="music" typeMinor="mid-type1" title="Brick Wall"/>
-			<file id="mus-mid-dance"    name="dance.mid"    typeMajor="music" typeMinor="mid-type1" title="Dance"/>
-			<file id="mus-mid-mainmenu" name="mainmenu.mid" typeMajor="music" typeMinor="mid-type1" title="Dream (main menu)"/>
-			<file id="mus-mid-flight"   name="flight.mid"   typeMajor="music" typeMinor="mid-type1" title="Flight"/>
-			<file id="mus-mid-gameover" name="gameover.mid" typeMajor="music" typeMinor="mid-type1" title="Game Over"/>
-			<file id="mus-mid-kard"     name="kard.mid"     typeMajor="music" typeMinor="mid-type1" title="Kard"/>
-			<file id="mus-mid-overdriv" name="overdriv.mid" typeMajor="music" typeMinor="mid-type1" title="Overdrive"/>
-			<file id="mus-mid-pumper"   name="pumper.mid"   typeMajor="music" typeMinor="mid-type1" title="Pumper"/>
-			<file id="mus-mid-spacey"   name="spacey.mid"   typeMajor="music" typeMinor="mid-type1" title="Spacey"/>
-			<file id="mus-mid-starbrai" name="starbrai.mid" typeMajor="music" typeMinor="mid-type1" title="Star Brain"/>
-			<file id="mus-mid-leadrbrd" name="leadrbrd.mid" typeMajor="music" typeMinor="mid-type1" title="The Rostrum"/>
-			<file id="mus-mid-turbo"    name="turbo.mid"    typeMajor="music" typeMinor="mid-type1" title="Turbo"/>
+			<file id="mus-opl-apogee"   name="apogee.klm"   editor="music" format="klm-wacky" title="Apogee theme"/>
+			<file id="mus-opl-ashes"    name="ashes.klm"    editor="music" format="klm-wacky" title="Ashes"/>
+			<file id="mus-opl-banshi"   name="banshi.klm"   editor="music" format="klm-wacky" title="Banshi"/>
+			<file id="mus-opl-bassattk" name="bassattk.klm" editor="music" format="klm-wacky" title="Bass Attack"/>
+			<file id="mus-opl-bricwall" name="bricwall.klm" editor="music" format="klm-wacky" title="Brick Wall"/>
+			<file id="mus-opl-dance"    name="dance.klm"    editor="music" format="klm-wacky" title="Dance"/>
+			<file id="mus-opl-mainmenu" name="mainmenu.klm" editor="music" format="klm-wacky" title="Dream (main menu)"/>
+			<file id="mus-opl-flight"   name="flight.klm"   editor="music" format="klm-wacky" title="Flight"/>
+			<file id="mus-opl-gameover" name="gameover.klm" editor="music" format="klm-wacky" title="Game Over"/>
+			<file id="mus-opl-kard"     name="kard.klm"     editor="music" format="klm-wacky" title="Kard"/>
+			<file id="mus-opl-overdriv" name="overdriv.klm" editor="music" format="klm-wacky" title="Overdrive"/>
+			<file id="mus-opl-pumper"   name="pumper.klm"   editor="music" format="klm-wacky" title="Pumper"/>
+			<file id="mus-opl-spacey"   name="spacey.klm"   editor="music" format="klm-wacky" title="Spacey"/>
+			<file id="mus-opl-starbrai" name="starbrai.klm" editor="music" format="klm-wacky" title="Star Brain"/>
+			<file id="mus-opl-leadrbrd" name="leadrbrd.klm" editor="music" format="klm-wacky" title="The Rostrum"/>
+			<file id="mus-opl-turbo"    name="turbo.klm"    editor="music" format="klm-wacky" title="Turbo"/>
+			<file id="mus-mid-apogee"   name="apogee.mid"   editor="music" format="mid-type1" title="Apogee theme"/>
+			<file id="mus-mid-ashes"    name="ashes.mid"    editor="music" format="mid-type1" title="Ashes"/>
+			<file id="mus-mid-banshi"   name="banshi.mid"   editor="music" format="mid-type1" title="Banshi"/>
+			<file id="mus-mid-bassattk" name="bassattk.mid" editor="music" format="mid-type1" title="Bass Attack"/>
+			<file id="mus-mid-bricwall" name="bricwall.mid" editor="music" format="mid-type1" title="Brick Wall"/>
+			<file id="mus-mid-dance"    name="dance.mid"    editor="music" format="mid-type1" title="Dance"/>
+			<file id="mus-mid-mainmenu" name="mainmenu.mid" editor="music" format="mid-type1" title="Dream (main menu)"/>
+			<file id="mus-mid-flight"   name="flight.mid"   editor="music" format="mid-type1" title="Flight"/>
+			<file id="mus-mid-gameover" name="gameover.mid" editor="music" format="mid-type1" title="Game Over"/>
+			<file id="mus-mid-kard"     name="kard.mid"     editor="music" format="mid-type1" title="Kard"/>
+			<file id="mus-mid-overdriv" name="overdriv.mid" editor="music" format="mid-type1" title="Overdrive"/>
+			<file id="mus-mid-pumper"   name="pumper.mid"   editor="music" format="mid-type1" title="Pumper"/>
+			<file id="mus-mid-spacey"   name="spacey.mid"   editor="music" format="mid-type1" title="Spacey"/>
+			<file id="mus-mid-starbrai" name="starbrai.mid" editor="music" format="mid-type1" title="Star Brain"/>
+			<file id="mus-mid-leadrbrd" name="leadrbrd.mid" editor="music" format="mid-type1" title="The Rostrum"/>
+			<file id="mus-mid-turbo"    name="turbo.mid"    editor="music" format="mid-type1" title="Turbo"/>
 		</archive>
 	</files>
 

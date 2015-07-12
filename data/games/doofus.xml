@@ -31,16 +31,16 @@
 	</display>
 
 	<files>
-		<file id="exe-doofus" name="doofus.exe" typeMajor="binary" typeMinor="exe" title="Main EXE file"/>
-		<archive name="gamedata.g-d" id="arch-gamedata" typeMinor="gd-doofus">
+		<file id="exe-doofus" name="doofus.exe" editor="binary" format="exe" title="Main EXE file"/>
+		<archive name="gamedata.g-d" id="arch-gamedata" format="gd-doofus">
 			<supp reftype="fat" ref="exe-doofus"/>
-			<file id="mus-01" name="@55" typeMajor="music" typeMinor="tbsa-doofus" title="Title song"/>
-			<file id="mus-02" name="@56" typeMajor="music" typeMinor="tbsa-doofus" title="Menu song"/>
-			<file id="mus-03" name="@57" typeMajor="music" typeMinor="tbsa-doofus" title="E1 song"/>
-			<file id="mus-04" name="@58" typeMajor="music" typeMinor="tbsa-doofus" title="E2 song"/>
-			<file id="mus-05" name="@59" typeMajor="music" typeMinor="tbsa-doofus" title="E3 song"/>
-			<file id="mus-06" name="@60" typeMajor="music" typeMinor="tbsa-doofus" title="Bonus song"/>
-			<file id="mus-07" name="@61" typeMajor="music" typeMinor="tbsa-doofus" title="Finale song"/>
+			<file id="mus-01" name="@55" editor="music" format="tbsa-doofus" title="Title song"/>
+			<file id="mus-02" name="@56" editor="music" format="tbsa-doofus" title="Menu song"/>
+			<file id="mus-03" name="@57" editor="music" format="tbsa-doofus" title="E1 song"/>
+			<file id="mus-04" name="@58" editor="music" format="tbsa-doofus" title="E2 song"/>
+			<file id="mus-05" name="@59" editor="music" format="tbsa-doofus" title="E3 song"/>
+			<file id="mus-06" name="@60" editor="music" format="tbsa-doofus" title="Bonus song"/>
+			<file id="mus-07" name="@61" editor="music" format="tbsa-doofus" title="Finale song"/>
 		</archive>
 	</files>
 

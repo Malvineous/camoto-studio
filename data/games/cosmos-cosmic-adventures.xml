@@ -73,105 +73,105 @@
 	</display>
 
 	<files>
-		<archive name="cosmo1.vol" id="arch-vol1" typeMinor="vol-cosmo">
-			<file id="lev-101" name="a1.mni"  typeMajor="map" typeMinor="cosmo" title="Level 1">
+		<archive name="cosmo1.vol" id="arch-vol1" format="vol-cosmo">
+			<file id="lev-101" name="a1.mni"  editor="map2d" format="map2d-cosmo" title="Level 1">
 				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
 				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
 				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
-			<file id="lev-102" name="a2.mni"  typeMajor="map" typeMinor="cosmo" title="Level 2">
+			<file id="lev-102" name="a2.mni"  editor="map2d" format="map2d-cosmo" title="Level 2">
 				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
 				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
 				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
-			<file id="lev-103" name="a3.mni"  typeMajor="map" typeMinor="cosmo" title="Level 3">
+			<file id="lev-103" name="a3.mni"  editor="map2d" format="map2d-cosmo" title="Level 3">
 				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
 				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
 				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
-			<file id="lev-104" name="a4.mni"  typeMajor="map" typeMinor="cosmo" title="Level 4">
+			<file id="lev-104" name="a4.mni"  editor="map2d" format="map2d-cosmo" title="Level 4">
 				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
 				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
 				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
-			<file id="lev-105" name="a5.mni"  typeMajor="map" typeMinor="cosmo" title="Level 5">
+			<file id="lev-105" name="a5.mni"  editor="map2d" format="map2d-cosmo" title="Level 5">
 				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
 				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
 				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
-			<file id="lev-106" name="a6.mni"  typeMajor="map" typeMinor="cosmo" title="Level 6">
+			<file id="lev-106" name="a6.mni"  editor="map2d" format="map2d-cosmo" title="Level 6">
 				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
 				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
 				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
-			<file id="lev-107" name="a7.mni"  typeMajor="map" typeMinor="cosmo" title="Level 7">
+			<file id="lev-107" name="a7.mni"  editor="map2d" format="map2d-cosmo" title="Level 7">
 				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
 				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
 				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
-			<file id="lev-108" name="a8.mni"  typeMajor="map" typeMinor="cosmo" title="Level 8">
+			<file id="lev-108" name="a8.mni"  editor="map2d" format="map2d-cosmo" title="Level 8">
 				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
 				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
 				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
-			<file id="lev-109" name="a9.mni"  typeMajor="map" typeMinor="cosmo" title="Level 9">
+			<file id="lev-109" name="a9.mni"  editor="map2d" format="map2d-cosmo" title="Level 9">
 				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
 				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
 				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
-			<file id="lev-110" name="a10.mni" typeMajor="map" typeMinor="cosmo" title="Level 10">
+			<file id="lev-110" name="a10.mni" editor="map2d" format="map2d-cosmo" title="Level 10">
 				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
 				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
 				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
-			<file id="lev-111" name="a11.mni" typeMajor="map" typeMinor="cosmo" title="Level 11">
+			<file id="lev-111" name="a11.mni" editor="map2d" format="map2d-cosmo" title="Level 11">
 				<dep reftype="background-tileset1" ref="gfx-tiles1"/>
 				<dep reftype="foreground-tileset1" ref="gfx-masked1"/>
 				<dep reftype="sprite-tileset1"     ref="gfx-actors1"/>
 			</file>
 
-			<file id="mus-boss"    name="mboss.mni"    typeMajor="music" typeMinor="imf-idsoftware-type0" title="Boss"/>
-			<file id="mus-caves"   name="mcaves.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="Caves"/>
-			<file id="mus-dadoda"  name="mdadoda.mni"  typeMajor="music" typeMinor="imf-idsoftware-type0" title="Dadoda"/>
-			<file id="mus-devo"    name="mdevo.mni"    typeMajor="music" typeMinor="imf-idsoftware-type0" title="Devo"/>
-			<file id="mus-drums"   name="mdrums.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="Drums"/>
-			<file id="mus-easy2"   name="measy2.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="Easy 2"/>
-			<file id="mus-happy"   name="mhappy.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="Happy"/>
-			<file id="mus-runaway" name="mrunaway.mni" typeMajor="music" typeMinor="imf-idsoftware-type0" title="Run Away"/>
-			<file id="mus-teck4"   name="mteck4.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="Teck4"/>
-			<file id="mus-zztop"   name="mzztop.mni"   typeMajor="music" typeMinor="imf-idsoftware-type0" title="ZZ Top"/>
+			<file id="mus-boss"    name="mboss.mni"    editor="music" format="imf-idsoftware-type0" title="Boss"/>
+			<file id="mus-caves"   name="mcaves.mni"   editor="music" format="imf-idsoftware-type0" title="Caves"/>
+			<file id="mus-dadoda"  name="mdadoda.mni"  editor="music" format="imf-idsoftware-type0" title="Dadoda"/>
+			<file id="mus-devo"    name="mdevo.mni"    editor="music" format="imf-idsoftware-type0" title="Devo"/>
+			<file id="mus-drums"   name="mdrums.mni"   editor="music" format="imf-idsoftware-type0" title="Drums"/>
+			<file id="mus-easy2"   name="measy2.mni"   editor="music" format="imf-idsoftware-type0" title="Easy 2"/>
+			<file id="mus-happy"   name="mhappy.mni"   editor="music" format="imf-idsoftware-type0" title="Happy"/>
+			<file id="mus-runaway" name="mrunaway.mni" editor="music" format="imf-idsoftware-type0" title="Run Away"/>
+			<file id="mus-teck4"   name="mteck4.mni"   editor="music" format="imf-idsoftware-type0" title="Teck4"/>
+			<file id="mus-zztop"   name="mzztop.mni"   editor="music" format="imf-idsoftware-type0" title="ZZ Top"/>
 
-			<file id="gfx-bdcliff"  name="bdcliff.mni"  typeMajor="image" typeMinor="cosmo-backdrop" title="Cliff"/>
-			<file id="gfx-bdclouds" name="bdclouds.mni" typeMajor="image" typeMinor="cosmo-backdrop" title="Clouds"/>
-			<file id="gfx-bdforest" name="bdforest.mni" typeMajor="image" typeMinor="cosmo-backdrop" title="Forest"/>
-			<file id="gfx-bdice2"   name="bdice2.mni"   typeMajor="image" typeMinor="cosmo-backdrop" title="Ice 2"/>
-			<file id="gfx-bdmountn" name="bdmountn.mni" typeMajor="image" typeMinor="cosmo-backdrop" title="Mountain"/>
-			<file id="gfx-bdnewsky" name="bdnewsky.mni" typeMajor="image" typeMinor="cosmo-backdrop" title="New sky"/>
-			<file id="gfx-bdrocktk" name="bdrocktk.mni" typeMajor="image" typeMinor="cosmo-backdrop" title="Rocktk"/>
-			<file id="gfx-bdspooky" name="bdspooky.mni" typeMajor="image" typeMinor="cosmo-backdrop" title="Spooky"/>
-			<file id="gfx-bdweird"  name="bdwierd.mni"  typeMajor="image" typeMinor="cosmo-backdrop" title="Weird"/>
+			<file id="gfx-bdcliff"  name="bdcliff.mni"  editor="image" format="img-cosmo-backdrop" title="Cliff"/>
+			<file id="gfx-bdclouds" name="bdclouds.mni" editor="image" format="img-cosmo-backdrop" title="Clouds"/>
+			<file id="gfx-bdforest" name="bdforest.mni" editor="image" format="img-cosmo-backdrop" title="Forest"/>
+			<file id="gfx-bdice2"   name="bdice2.mni"   editor="image" format="img-cosmo-backdrop" title="Ice 2"/>
+			<file id="gfx-bdmountn" name="bdmountn.mni" editor="image" format="img-cosmo-backdrop" title="Mountain"/>
+			<file id="gfx-bdnewsky" name="bdnewsky.mni" editor="image" format="img-cosmo-backdrop" title="New sky"/>
+			<file id="gfx-bdrocktk" name="bdrocktk.mni" editor="image" format="img-cosmo-backdrop" title="Rocktk"/>
+			<file id="gfx-bdspooky" name="bdspooky.mni" editor="image" format="img-cosmo-backdrop" title="Spooky"/>
+			<file id="gfx-bdweird"  name="bdwierd.mni"  editor="image" format="img-cosmo-backdrop" title="Weird"/>
 		</archive>
 
-		<archive name="cosmo1.stn" id="arch-stn1" typeMinor="vol-cosmo">
-			<file id="gfx-tiles1"   name="tiles.mni"    typeMajor="tileset" typeMinor="cosmo" title="Solid tileset"/>
-			<file id="gfx-masked1"  name="masktile.mni" typeMajor="tileset" typeMinor="cosmo-masked" title="Masked tileset"/>
+		<archive name="cosmo1.stn" id="arch-stn1" format="vol-cosmo">
+			<file id="gfx-tiles1"   name="tiles.mni"    editor="tileset" format="tls-cosmo" title="Solid tileset"/>
+			<file id="gfx-masked1"  name="masktile.mni" editor="tileset" format="tls-cosmo-masked" title="Masked tileset"/>
 
-			<file id="fat-actrinf1" name="actrinfo.mni" typeMajor="tileset" typeMinor="actrinfo-fat" title="Actor tile arrangement data"/>
-			<file id="gfx-actors1"  name="actors.mni"   typeMajor="tileset" typeMinor="actrinfo"     title="Actors"/>
+			<file id="fat-actrinf1" name="actrinfo.mni" editor="tileset" format="tls-actrinfo-fat" title="Actor tile arrangement data"/>
+			<file id="gfx-actors1"  name="actors.mni"   editor="tileset" format="tls-actrinfo"     title="Actors"/>
 
-			<file id="fat-cartinf1" name="cartinfo.mni" typeMajor="tileset" typeMinor="actrinfo-fat" title="Cartoon tile arrangement data"/>
-			<file id="gfx-cartoon1" name="cartoon.mni"  typeMajor="tileset" typeMinor="actrinfo"     title="Cartoon"/>
+			<file id="fat-cartinf1" name="cartinfo.mni" editor="tileset" format="tls-actrinfo-fat" title="Cartoon tile arrangement data"/>
+			<file id="gfx-cartoon1" name="cartoon.mni"  editor="tileset" format="tls-actrinfo"     title="Cartoon"/>
 
-			<file id="fat-plyrinf1" name="plyrinfo.mni" typeMajor="tileset" typeMinor="actrinfo-fat" title="Player tile arrangement data"/>
-			<file id="gfx-player1"  name="players.mni"  typeMajor="tileset" typeMinor="actrinfo"     title="Player"/>
+			<file id="fat-plyrinf1" name="plyrinfo.mni" editor="tileset" format="tls-actrinfo-fat" title="Player tile arrangement data"/>
+			<file id="gfx-player1"  name="players.mni"  editor="tileset" format="tls-actrinfo"     title="Player"/>
 
-			<file id="img-pretitle" name="pretitle.mni" typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Pre-title"/>
-			<file id="img-bonus"    name="bonus.mni"    typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Bonus"/>
-			<file id="img-credit"   name="credit.mni"   typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="Credits"/>
-			<file id="img-onemomnt" name="onemomnt.mni" typeMajor="image" typeMinor="ega-raw-planar-bgri-fullscreen" title="One moment"/>
+			<file id="img-pretitle" name="pretitle.mni" editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Pre-title"/>
+			<file id="img-bonus"    name="bonus.mni"    editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Bonus"/>
+			<file id="img-credit"   name="credit.mni"   editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="Credits"/>
+			<file id="img-onemomnt" name="onemomnt.mni" editor="image" format="img-ega-raw-planar-bgri-fullscreen" title="One moment"/>
 
-			<file id="gfx-bdstar2"  name="bdstar2.mni"  typeMajor="image" typeMinor="cosmo-backdrop" title="Star 2"/>
-			<file id="gfx-bdstar3"  name="bdstar3.mni"  typeMajor="image" typeMinor="cosmo-backdrop" title="Star 3"/>
+			<file id="gfx-bdstar2"  name="bdstar2.mni"  editor="image" format="img-cosmo-backdrop" title="Star 2"/>
+			<file id="gfx-bdstar3"  name="bdstar3.mni"  editor="image" format="img-cosmo-backdrop" title="Star 3"/>
 		</archive>
 
 	</files>

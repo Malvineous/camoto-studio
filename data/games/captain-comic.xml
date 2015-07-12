@@ -89,116 +89,116 @@
 	</display>
 
 	<files>
-		<file id="level-base0"   name="base0.pt"   typeMajor="map" typeMinor="ccomic" title="Base 1">
+		<file id="level-base0"   name="base0.pt"   editor="map2d" format="map2d-ccomic" title="Base 1">
 			<dep reftype="background-tileset1" ref="tiles-base"/>
 		</file>
-		<file id="level-base1"   name="base1.pt"   typeMajor="map" typeMinor="ccomic" title="Base 2">
+		<file id="level-base1"   name="base1.pt"   editor="map2d" format="map2d-ccomic" title="Base 2">
 			<dep reftype="background-tileset1" ref="tiles-base"/>
 		</file>
-		<file id="level-base2"   name="base2.pt"   typeMajor="map" typeMinor="ccomic" title="Base 3">
+		<file id="level-base2"   name="base2.pt"   editor="map2d" format="map2d-ccomic" title="Base 3">
 			<dep reftype="background-tileset1" ref="tiles-base"/>
 		</file>
 
-		<file id="level-castle0" name="castle0.pt" typeMajor="map" typeMinor="ccomic" title="Castle 1">
+		<file id="level-castle0" name="castle0.pt" editor="map2d" format="map2d-ccomic" title="Castle 1">
 			<dep reftype="background-tileset1" ref="tiles-castle"/>
 		</file>
-		<file id="level-castle1" name="castle1.pt" typeMajor="map" typeMinor="ccomic" title="Castle 2">
+		<file id="level-castle1" name="castle1.pt" editor="map2d" format="map2d-ccomic" title="Castle 2">
 			<dep reftype="background-tileset1" ref="tiles-castle"/>
 		</file>
-		<file id="level-castle2" name="castle2.pt" typeMajor="map" typeMinor="ccomic" title="Castle 3">
+		<file id="level-castle2" name="castle2.pt" editor="map2d" format="map2d-ccomic" title="Castle 3">
 			<dep reftype="background-tileset1" ref="tiles-castle"/>
 		</file>
 
-		<file id="level-cave0"   name="cave0.pt"   typeMajor="map" typeMinor="ccomic" title="Cave 1">
+		<file id="level-cave0"   name="cave0.pt"   editor="map2d" format="map2d-ccomic" title="Cave 1">
 			<dep reftype="background-tileset1" ref="tiles-cave"/>
 		</file>
-		<file id="level-cave1"   name="cave1.pt"   typeMajor="map" typeMinor="ccomic" title="Cave 2">
+		<file id="level-cave1"   name="cave1.pt"   editor="map2d" format="map2d-ccomic" title="Cave 2">
 			<dep reftype="background-tileset1" ref="tiles-cave"/>
 		</file>
-		<file id="level-cave2"   name="cave2.pt"   typeMajor="map" typeMinor="ccomic" title="Cave 3">
+		<file id="level-cave2"   name="cave2.pt"   editor="map2d" format="map2d-ccomic" title="Cave 3">
 			<dep reftype="background-tileset1" ref="tiles-cave"/>
 		</file>
 
-		<file id="level-comp0"   name="comp0.pt"   typeMajor="map" typeMinor="ccomic" title="Comp 1">
+		<file id="level-comp0"   name="comp0.pt"   editor="map2d" format="map2d-ccomic" title="Comp 1">
 			<dep reftype="background-tileset1" ref="tiles-comp"/>
 		</file>
-		<file id="level-comp1"   name="comp1.pt"   typeMajor="map" typeMinor="ccomic" title="Comp 2">
+		<file id="level-comp1"   name="comp1.pt"   editor="map2d" format="map2d-ccomic" title="Comp 2">
 			<dep reftype="background-tileset1" ref="tiles-comp"/>
 		</file>
-		<file id="level-comp2"   name="comp2.pt"   typeMajor="map" typeMinor="ccomic" title="Comp 3">
+		<file id="level-comp2"   name="comp2.pt"   editor="map2d" format="map2d-ccomic" title="Comp 3">
 			<dep reftype="background-tileset1" ref="tiles-comp"/>
 		</file>
 
-		<file id="level-forest0" name="forest0.pt" typeMajor="map" typeMinor="ccomic" title="Forest 1">
+		<file id="level-forest0" name="forest0.pt" editor="map2d" format="map2d-ccomic" title="Forest 1">
 			<dep reftype="background-tileset1" ref="tiles-forest"/>
 		</file>
-		<file id="level-forest1" name="forest1.pt" typeMajor="map" typeMinor="ccomic" title="Forest 2">
+		<file id="level-forest1" name="forest1.pt" editor="map2d" format="map2d-ccomic" title="Forest 2">
 			<dep reftype="background-tileset1" ref="tiles-forest"/>
 		</file>
-		<file id="level-forest2" name="forest2.pt" typeMajor="map" typeMinor="ccomic" title="Forest 3">
+		<file id="level-forest2" name="forest2.pt" editor="map2d" format="map2d-ccomic" title="Forest 3">
 			<dep reftype="background-tileset1" ref="tiles-forest"/>
 		</file>
 
-		<file id="level-lake0"   name="lake0.pt"   typeMajor="map" typeMinor="ccomic" title="Lake 1">
+		<file id="level-lake0"   name="lake0.pt"   editor="map2d" format="map2d-ccomic" title="Lake 1">
 			<dep reftype="background-tileset1" ref="tiles-lake"/>
 		</file>
-		<file id="level-lake1"   name="lake1.pt"   typeMajor="map" typeMinor="ccomic" title="Lake 2">
+		<file id="level-lake1"   name="lake1.pt"   editor="map2d" format="map2d-ccomic" title="Lake 2">
 			<dep reftype="background-tileset1" ref="tiles-lake"/>
 		</file>
-		<file id="level-lake2"   name="lake2.pt"   typeMajor="map" typeMinor="ccomic" title="Lake 3">
+		<file id="level-lake2"   name="lake2.pt"   editor="map2d" format="map2d-ccomic" title="Lake 3">
 			<dep reftype="background-tileset1" ref="tiles-lake"/>
 		</file>
 
-		<file id="level-shed0"   name="shed0.pt"   typeMajor="map" typeMinor="ccomic" title="Shed 1">
+		<file id="level-shed0"   name="shed0.pt"   editor="map2d" format="map2d-ccomic" title="Shed 1">
 			<dep reftype="background-tileset1" ref="tiles-shed"/>
 		</file>
-		<file id="level-shed1"   name="shed1.pt"   typeMajor="map" typeMinor="ccomic" title="Shed 2">
+		<file id="level-shed1"   name="shed1.pt"   editor="map2d" format="map2d-ccomic" title="Shed 2">
 			<dep reftype="background-tileset1" ref="tiles-shed"/>
 		</file>
-		<file id="level-shed2"   name="shed2.pt"   typeMajor="map" typeMinor="ccomic" title="Shed 3">
+		<file id="level-shed2"   name="shed2.pt"   editor="map2d" format="map2d-ccomic" title="Shed 3">
 			<dep reftype="background-tileset1" ref="tiles-shed"/>
 		</file>
 
-		<file id="level-space0"  name="space0.pt"  typeMajor="map" typeMinor="ccomic" title="Space 1">
+		<file id="level-space0"  name="space0.pt"  editor="map2d" format="map2d-ccomic" title="Space 1">
 			<dep reftype="background-tileset1" ref="tiles-space"/>
 		</file>
-		<file id="level-space1"  name="space1.pt"  typeMajor="map" typeMinor="ccomic" title="Space 2">
+		<file id="level-space1"  name="space1.pt"  editor="map2d" format="map2d-ccomic" title="Space 2">
 			<dep reftype="background-tileset1" ref="tiles-space"/>
 		</file>
-		<file id="level-space2"  name="space2.pt"  typeMajor="map" typeMinor="ccomic" title="Space 3">
+		<file id="level-space2"  name="space2.pt"  editor="map2d" format="map2d-ccomic" title="Space 3">
 			<dep reftype="background-tileset1" ref="tiles-space"/>
 		</file>
 
-		<file id="tiles-base"    name="base.tt2"   typeMajor="tileset" typeMinor="ccomic" title="Base tiles"/>
-		<file id="tiles-castle"  name="castle.tt2" typeMajor="tileset" typeMinor="ccomic" title="Castle tiles"/>
-		<file id="tiles-cave"    name="cave.tt2"   typeMajor="tileset" typeMinor="ccomic" title="Cave tiles"/>
-		<file id="tiles-comp"    name="comp.tt2"   typeMajor="tileset" typeMinor="ccomic" title="Comp tiles"/>
-		<file id="tiles-forest"  name="forest.tt2" typeMajor="tileset" typeMinor="ccomic" title="Forest tiles"/>
-		<file id="tiles-lake"    name="lake.tt2"   typeMajor="tileset" typeMinor="ccomic" title="Lake tiles"/>
-		<file id="tiles-shed"    name="shed.tt2"   typeMajor="tileset" typeMinor="ccomic" title="Shed tiles"/>
-		<file id="tiles-space"   name="space.tt2"  typeMajor="tileset" typeMinor="ccomic" title="Space tiles"/>
+		<file id="tiles-base"    name="base.tt2"   editor="tileset" format="tls-ccomic" title="Base tiles"/>
+		<file id="tiles-castle"  name="castle.tt2" editor="tileset" format="tls-ccomic" title="Castle tiles"/>
+		<file id="tiles-cave"    name="cave.tt2"   editor="tileset" format="tls-ccomic" title="Cave tiles"/>
+		<file id="tiles-comp"    name="comp.tt2"   editor="tileset" format="tls-ccomic" title="Comp tiles"/>
+		<file id="tiles-forest"  name="forest.tt2" editor="tileset" format="tls-ccomic" title="Forest tiles"/>
+		<file id="tiles-lake"    name="lake.tt2"   editor="tileset" format="tls-ccomic" title="Lake tiles"/>
+		<file id="tiles-shed"    name="shed.tt2"   editor="tileset" format="tls-ccomic" title="Shed tiles"/>
+		<file id="tiles-space"   name="space.tt2"  editor="tileset" format="tls-ccomic" title="Space tiles"/>
 
-		<file id="spr-ball"      name="ball.shp"   typeMajor="tileset" typeMinor="ccomic-sprite" title="Ball"/>
-		<file id="spr-bee"       name="bee.shp"    typeMajor="tileset" typeMinor="ccomic-sprite" title="Bee"/>
-		<file id="spr-bird"      name="bird.shp"   typeMajor="tileset" typeMinor="ccomic-sprite" title="Bird"/>
-		<file id="spr-bird2"     name="bird2.shp"  typeMajor="tileset" typeMinor="ccomic-sprite" title="Bird 2"/>
-		<file id="spr-bug"       name="bug.shp"    typeMajor="tileset" typeMinor="ccomic-sprite" title="Bug"/>
-		<file id="spr-cube"      name="cube.shp"   typeMajor="tileset" typeMinor="ccomic-sprite" title="Cube"/>
-		<file id="spr-fb"        name="fb.shp"     typeMajor="tileset" typeMinor="ccomic-sprite" title="FB"/>
-		<file id="spr-frog"      name="frog.shp"   typeMajor="tileset" typeMinor="ccomic-sprite" title="Frog"/>
-		<file id="spr-globe"     name="globe.shp"  typeMajor="tileset" typeMinor="ccomic-sprite" title="Globe"/>
-		<file id="spr-rock"      name="rock.shp"   typeMajor="tileset" typeMinor="ccomic-sprite" title="Rock"/>
-		<file id="spr-saucer"    name="saucer.shp" typeMajor="tileset" typeMinor="ccomic-sprite" title="Saucer"/>
-		<file id="spr-star1"     name="star1.shp"  typeMajor="tileset" typeMinor="ccomic-sprite" title="Star 1"/>
-		<file id="spr-star2"     name="star2.shp"  typeMajor="tileset" typeMinor="ccomic-sprite" title="Star 2"/>
-		<file id="spr-star3"     name="star3.shp"  typeMajor="tileset" typeMinor="ccomic-sprite" title="Star 3"/>
+		<file id="spr-ball"      name="ball.shp"   editor="tileset" format="tls-ccomic-sprite" title="Ball"/>
+		<file id="spr-bee"       name="bee.shp"    editor="tileset" format="tls-ccomic-sprite" title="Bee"/>
+		<file id="spr-bird"      name="bird.shp"   editor="tileset" format="tls-ccomic-sprite" title="Bird"/>
+		<file id="spr-bird2"     name="bird2.shp"  editor="tileset" format="tls-ccomic-sprite" title="Bird 2"/>
+		<file id="spr-bug"       name="bug.shp"    editor="tileset" format="tls-ccomic-sprite" title="Bug"/>
+		<file id="spr-cube"      name="cube.shp"   editor="tileset" format="tls-ccomic-sprite" title="Cube"/>
+		<file id="spr-fb"        name="fb.shp"     editor="tileset" format="tls-ccomic-sprite" title="FB"/>
+		<file id="spr-frog"      name="frog.shp"   editor="tileset" format="tls-ccomic-sprite" title="Frog"/>
+		<file id="spr-globe"     name="globe.shp"  editor="tileset" format="tls-ccomic-sprite" title="Globe"/>
+		<file id="spr-rock"      name="rock.shp"   editor="tileset" format="tls-ccomic-sprite" title="Rock"/>
+		<file id="spr-saucer"    name="saucer.shp" editor="tileset" format="tls-ccomic-sprite" title="Saucer"/>
+		<file id="spr-star1"     name="star1.shp"  editor="tileset" format="tls-ccomic-sprite" title="Star 1"/>
+		<file id="spr-star2"     name="star2.shp"  editor="tileset" format="tls-ccomic-sprite" title="Star 2"/>
+		<file id="spr-star3"     name="star3.shp"  editor="tileset" format="tls-ccomic-sprite" title="Star 3"/>
 
-		<file id="img-000"       name="sys000.ega" typeMajor="image"   typeMinor="ccomic" title="Title"/>
-		<file id="img-001"       name="sys001.ega" typeMajor="image"   typeMinor="ccomic" title="Story 1"/>
-		<file id="img-002"       name="sys002.ega" typeMajor="image"   typeMinor="ccomic" title="Story 2"/>
-		<file id="img-003"       name="sys003.ega" typeMajor="image"   typeMinor="ccomic" title="Tambi"/>
-		<file id="img-004"       name="sys004.ega" typeMajor="image"   typeMinor="ccomic" title="Items"/>
-		<file id="img-005"       name="sys005.ega" typeMajor="image"   typeMinor="ccomic" title="High scores"/>
+		<file id="img-000"       name="sys000.ega" editor="image"   format="img-ccomic" title="Title"/>
+		<file id="img-001"       name="sys001.ega" editor="image"   format="img-ccomic" title="Story 1"/>
+		<file id="img-002"       name="sys002.ega" editor="image"   format="img-ccomic" title="Story 2"/>
+		<file id="img-003"       name="sys003.ega" editor="image"   format="img-ccomic" title="Tambi"/>
+		<file id="img-004"       name="sys004.ega" editor="image"   format="img-ccomic" title="Items"/>
+		<file id="img-005"       name="sys005.ega" editor="image"   format="img-ccomic" title="High scores"/>
 	</files>
 
 	<commands>
