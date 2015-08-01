@@ -71,26 +71,6 @@ void Tab_Project::content(std::unique_ptr<Project> obj)
 
 	this->loadErrors.clear();
 
-	// Load the standard icons
-	for (auto& i : {
-		"folder",
-		"generic",
-		"invalid",
-		"archive",
-		"image",
-		"map2d",
-		"music",
-		"palette",
-	}) {
-		try {
-			this->icons[i] = Gdk::Pixbuf::create_from_file(
-				Glib::build_filename(::path.guiIcons, std::string("tree_") + i + ".png")
-			);
-		} catch (const Glib::FileError& e) {
-		} catch (const Gdk::PixbufError& e) {
-		}
-	}
-
 	// Populate tree view with items
 	auto row = *(this->ctItems->append());
 	row[this->cols.code] = "";
@@ -123,13 +103,14 @@ void Tab_Project::content(std::unique_ptr<Project> obj)
 void Tab_Project::appendChildren(const tree<itemid_t>& treeItems,
 	Gtk::TreeModel::Row& root)
 {
+	auto studio = static_cast<Studio *>(this->get_toplevel());
 	for (auto& i : treeItems.children) {
 		auto row = *(this->ctItems->append(root->children()));
 		if (!i.children.empty()) {
 			// This is a folder
 			row[this->cols.code] = "";
 			row[this->cols.name] = i.item;
-			row[this->cols.icon] = this->icons["folder"];
+			row[this->cols.icon] = studio->getIcon(Studio::Icon::Folder);
 			this->appendChildren(i, row);
 		} else {
 			// This is a normal file/item
@@ -149,11 +130,11 @@ void Tab_Project::appendChildren(const tree<itemid_t>& treeItems,
 				type = gameObject->second.editor;
 			}
 
-			auto icon = this->icons.find(type);
-			if (icon == this->icons.end()) {
-				row[this->cols.icon] = this->icons["generic"];
+			auto icon = studio->nameToIcon(type);
+			if (icon == Studio::Icon::Invalid) {
+				row[this->cols.icon] = studio->getIcon(Studio::Icon::Generic);
 			} else {
-				row[this->cols.icon] = icon->second;
+				row[this->cols.icon] = studio->getIcon(icon);
 			}
 		}
 	}

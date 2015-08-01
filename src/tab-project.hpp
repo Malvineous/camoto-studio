@@ -73,7 +73,6 @@ class Tab_Project: public Gtk::Box
 		Glib::RefPtr<Gio::SimpleActionGroup> agItems;
 		ModelItemColumns cols;
 		std::unique_ptr<Project> proj;
-		std::map<std::string, Glib::RefPtr<Gdk::Pixbuf>> icons;
 		Glib::ustring loadErrors; ///< List of errors encountered when loading project
 };
 

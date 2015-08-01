@@ -63,6 +63,27 @@ Studio::Studio(BaseObjectType *obj, const Glib::RefPtr<Gtk::Builder>& refBuilder
 	ctInfo->hide();
 
 	ctInfo->signal_response().connect(sigc::mem_fun(this, &Studio::on_infobar_button));
+
+	// Load the standard icons
+	this->mapName["folder"] = Icon::Folder;
+	this->mapName["generic"] = Icon::Generic;
+	this->mapName["invalid"] = Icon::Invalid;
+	this->mapName["archive"] = Icon::Archive;
+	this->mapName["b800"] = Icon::B800;
+	this->mapName["image"] = Icon::Image;
+	this->mapName["map2d"] = Icon::Map2D;
+	this->mapName["music"] = Icon::Music;
+	this->mapName["palette"] = Icon::Palette;
+
+	for (auto& i : mapName) {
+		try {
+			this->icons[i.second] = Gdk::Pixbuf::create_from_file(
+				Glib::build_filename(::path.guiIcons, std::string("tree_") + i.first + ".png")
+			);
+		} catch (const Glib::FileError& e) {
+		} catch (const Gdk::PixbufError& e) {
+		}
+	}
 }
 
 void Studio::on_menuitem_file_new()
@@ -234,6 +255,26 @@ void Studio::infobar(const Glib::ustring& content)
 	assert(ctInfo);
 	ctInfo->show();
 	return;
+}
+
+Studio::Icon Studio::nameToIcon(const std::string& name)
+{
+	auto it = this->mapName.find(name);
+	if (it == this->mapName.end()) return Icon::Invalid;
+	return it->second;
+}
+
+std::string Studio::iconToName(Icon icon)
+{
+	for (auto& i : this->mapName) {
+		if (i.second == icon) return i.first;
+	}
+	return {};
+}
+
+Glib::RefPtr<Gdk::Pixbuf> Studio::getIcon(Icon icon)
+{
+	return this->icons[icon];
 }
 
 int main(int argc, char *argv[])
