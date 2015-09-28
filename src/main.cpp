@@ -171,12 +171,16 @@ void Studio::openItem(const GameObject& item,
 		) {
 			auto obj = ::openObject<ImageType>(this, item, std::move(content),
 				suppData, proj);
+			if (!obj) return; // User aborted open
+
 			auto tab = this->openTab<Tab_Graphics>(item.friendlyName);
 			tab->content(std::move(obj));
 
 		} else if (item.editor.compare("tileset") == 0) {
 			auto obj = ::openObject<TilesetType>(this, item, std::move(content),
 				suppData, proj);
+			if (!obj) return; // User aborted open
+
 			auto tab = this->openTab<Tab_Graphics>(item.friendlyName);
 			tab->content(std::move(obj));
 

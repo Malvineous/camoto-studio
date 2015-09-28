@@ -247,6 +247,10 @@ void Tab_Project::openItemById(const itemid_t& idItem)
 
 	try {
 		auto content = this->proj->openFile(win, item, true);
+		if (!content) {
+			// File could not be opened, and the user has already been told why.
+			return;
+		}
 		SuppData suppData;
 		this->proj->openSuppsById(win, &suppData, item);
 		auto studio = static_cast<Studio *>(this->get_toplevel());
