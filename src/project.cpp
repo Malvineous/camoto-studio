@@ -361,10 +361,18 @@ void Project::openDeps(Gtk::Window* win, const GameObject& o,
 	camoto::SuppData& suppData, DepData* depData)
 {
 	for (auto& d : o.dep) {
+
+		// We have to give each dep item a different set of SuppData elements,
+		// because they can't be shared.  Otherwise if they both need a palette,
+		// the first one will std::move() the stream out, and the second one
+		// will get an apparently valid SuppData item but with a null pointer left
+		// in it, which is not allowed.
+		SuppData d_suppData;
+
 		auto d_gameObj = this->findItem(d.second);
 		auto d_content = this->openFile(win, d_gameObj, true);
 		auto d_inst = openObjectGeneric(win, d_gameObj, std::move(d_content),
-			suppData, nullptr, this);
+			d_suppData, nullptr, this);
 		(*depData)[d.first] = std::move(d_inst);
 	}
 	return;
