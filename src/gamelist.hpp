@@ -415,8 +415,6 @@ auto openObject(Gtk::Window* win,
 			fmtHandler->getRequiredSupps(*content, o.filename));
 
 		// Also open any dep data (full objects) needed by this format.
-		// We pass nullptr into the recursive call so there can be only one level
-		// of dependent objects.
 		proj->openDeps(win, o, suppData, depData);
 	}
 
