@@ -92,7 +92,6 @@ Studio::Studio(BaseObjectType *obj, const Glib::RefPtr<Gtk::Builder>& refBuilder
 
 void Studio::on_menuitem_file_new()
 {
-//	this->openTab<TabDocument>("tab-document", "Document");
 }
 
 void Studio::on_menuitem_file_open()

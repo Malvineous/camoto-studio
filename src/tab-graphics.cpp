@@ -186,13 +186,11 @@ void Tab_Graphics::on_row_activated(const Gtk::TreeModel::Path& path,
 	Gtk::TreeViewColumn* column)
 {
 	auto& row = *this->ctItems->get_iter(path);
-	std::cout << row[this->cols.name] << ": index " << row[this->cols.index] << "\n";
 	std::shared_ptr<Tileset> tileset = row[this->cols.tileset];
 	int index = row[this->cols.index];
 
 	if (index < 0) {
 		// This is a tileset, rather than a single tile
-		std::cout << "TODO: Build image for tileset\n";
 	} else {
 		// This is a single tile
 		auto& tiles = tileset->files();

@@ -454,28 +454,5 @@ std::unique_ptr<stream::inout> Project::openFileFromArchive(Gtk::Window* win,
 	// Open the file
 	auto file = arch->open(f, useFilters);
 	assert(file);
-/*
-	// If it has any filters, apply them
-	if (useFilters && (!f->filter.empty())) {
-		// The file needs to be filtered first
-		FilterTypePtr pFilterType(this->mgrArchive->getFilterTypeByCode(f->filter));
-		if (!pFilterType) {
-			throw EFailure(Glib::ustring::compose(
-				_("This file requires decoding with the \"%1\" filter, which could "
-					"not be found (is your libgamearchive too old?)"),
-				f->filter
-			));
-		}
-		try {
-			file = pFilterType->apply(file,
-				// Set the truncation function for the prefiltered (uncompressed) size.
-				boost::bind<void>(&setRealSize, arch, f, _1)
-			);
-		} catch (const camoto::filter_error& e) {
-			throw EFailure(wxString::Format(_("Error decoding this file: %s"),
-				wxString(e.what(), wxConvUTF8).c_str()));
-		}
-	}
-*/
 	return file;
 }
