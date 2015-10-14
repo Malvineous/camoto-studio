@@ -70,6 +70,18 @@ extern config_data config;
 class Studio: public Gtk::Window
 {
 	public:
+		enum class Icon {
+			Folder,
+			Generic,
+			Invalid,
+			Archive,
+			B800,
+			Image,
+			Map2D,
+			Music,
+			Palette,
+		};
+
 		Studio(BaseObjectType *obj, const Glib::RefPtr<Gtk::Builder>& refBuilder);
 
 		/// Open the given project in a new tab.
@@ -96,6 +108,15 @@ class Studio: public Gtk::Window
 		/// Display a message in the main window's infobar
 		void infobar(const Glib::ustring& content);
 
+		/// Convert a string ID into an Icon value
+		Icon nameToIcon(const std::string& name);
+
+		/// Convert an Icon value into a string ID
+		std::string iconToName(Icon icon);
+
+		/// Get an icon to use in a tree list
+		Glib::RefPtr<Gdk::Pixbuf> getIcon(Icon icon);
+
 	protected:
 		void on_menuitem_file_new();
 		void on_menuitem_file_open();
@@ -110,6 +131,8 @@ class Studio: public Gtk::Window
 
 	protected:
 		Glib::RefPtr<Gtk::Builder> refBuilder;
+		std::map<std::string, Icon> mapName;
+		std::map<Icon, Glib::RefPtr<Gdk::Pixbuf>> icons;
 };
 
 #endif // _MAIN_HPP_
