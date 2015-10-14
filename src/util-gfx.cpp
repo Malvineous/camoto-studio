@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <iostream>
 #include "util-gfx.hpp"
 
 using namespace camoto::gamegraphics;
@@ -54,10 +55,15 @@ Cairo::RefPtr<Cairo::ImageSurface> createCairoSurface(const Image *ggimg,
 	auto in = &rawimg[0];
 	auto in_mask = &rawmask[0];
 	auto stride = Cairo::ImageSurface::format_stride_for_width(Cairo::FORMAT_ARGB32, dims.x);
+	auto& defaultPalEntry = ggpal->at(0);
 	for (unsigned int y = 0; y < dims.y; y++) {
 		uint32_t *out = (uint32_t*)&cdata[y * stride];
 		for (unsigned int x = 0; x < dims.x; x++) {
-			auto& pix = ggpal->at(*in);
+			if (*in > ggpal->size()) {
+				std::cerr << "Tried to load image with palette index " << (int)*in
+					<< " but the palette only has " << ggpal->size() << " entries!" << std::endl;
+			}
+			auto& pix = (*in < ggpal->size()) ? ggpal->at(*in) : defaultPalEntry;
 			*out = (pix.red << 16)
 				| (pix.green  <<  8)
 				| (pix.blue   <<  0);
@@ -72,5 +78,6 @@ Cairo::RefPtr<Cairo::ImageSurface> createCairoSurface(const Image *ggimg,
 			in_mask++;
 		}
 	}
+	cimg->mark_dirty();
 	return cimg;
 }
