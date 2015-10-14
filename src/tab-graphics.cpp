@@ -85,6 +85,8 @@ void Tab_Graphics::content(std::shared_ptr<Tileset> obj)
 	} catch (const Glib::FileError& e) {
 	} catch (const Gdk::PixbufError& e) {
 	}
+	row[this->cols.tileset] = obj;
+	row[this->cols.index] = -1;
 
 	this->appendChildren("0", obj, row);
 	this->ctTileset->expand_all();
@@ -140,7 +142,11 @@ void Tab_Graphics::appendChildren(const Glib::ustring& prefix,
 		auto row = *(this->ctItems->append(root->children()));
 		auto name = Glib::ustring::compose("%1.%2", prefix, index);
 		if (i->fAttr & Tileset::File::Attribute::Vacant) {
-			std::cout << "vacant\n";
+			auto nextPrefix = Glib::ustring::compose("%1.%2", prefix, index);
+			row[this->cols.name] = name;
+			row[this->cols.icon] = studio->getIcon(Studio::Icon::Generic);
+			row[this->cols.tileset] = tileset;
+			row[this->cols.index] = index;
 		} else if (i->fAttr & Tileset::File::Attribute::Folder) {
 			// This is a folder
 			row[this->cols.name] = name;
