@@ -24,12 +24,18 @@
 #include <glibmm/pattern.h>
 #include <glibmm/ustring.h>
 #include <camoto/util.hpp> // make_unique
+#include <camoto/gamegraphics/imagetype.hpp>
+#include <camoto/gamegraphics/tilesettype.hpp>
+#include <camoto/gamemaps/maptype.hpp>
+#include <camoto/gamemaps/map2d.hpp>
 #include "main.hpp"
 #include "gamelist.hpp"
 
 #define _X(a)  (const xmlChar *)(a)
 
 using namespace camoto;
+using namespace camoto::gamegraphics;
+using namespace camoto::gamemaps;
 
 std::string dep2string(DepType t)
 {
@@ -87,6 +93,12 @@ std::string dep2string(DepType t)
 		//default: // no default so GCC complains if we miss one
 	}
 	return "<invalid value>";
+}
+
+ImagePurpose dep2purpose(DepType t)
+{
+	if (t <= DepType::BackgroundImage) return (ImagePurpose)t;
+	return ImagePurpose::ImagePurposeCount; // invalid value
 }
 
 void GameInfo::populateFromXML(xmlDoc *xml)
@@ -570,4 +582,40 @@ Game::Game(const itemid_t& id)
 		}
 	}
 	xmlFreeDoc(xml);
+}
+
+std::unique_ptr<GameObjectInstance> openObjectGeneric(Gtk::Window* win,
+	const GameObject& o, std::unique_ptr<camoto::stream::inout> content,
+	camoto::SuppData& suppData, DepData* depData, Project *proj)
+{
+	if ((o.editor.compare("image") == 0)
+		|| (o.editor.compare("palette") == 0)
+	) {
+		auto i = std::make_unique<GOI_Unique<Image>>();
+		i->type = GameObjectInstance::Type::Image;
+		i->val_u = ::openObject<ImageType>(win, o, std::move(content),
+			suppData, depData, proj);
+		return i;
+
+	} else if (o.editor.compare("tileset") == 0) {
+		auto i = std::make_unique<GOI_Shared<Tileset>>();
+		i->type = GameObjectInstance::Type::Tileset;
+		i->val_s = ::openObject<TilesetType>(win, o, std::move(content),
+			suppData, depData, proj);
+		return i;
+
+	} else if (o.editor.compare("map2d") == 0) {
+		auto i = std::make_unique<GOI_Unique<Map2D>>();
+		i->type = GameObjectInstance::Type::Map2D;
+		auto mapObj = ::openObject<MapType>(win, o, std::move(content),
+			suppData, depData, proj);
+		auto map2d = dynamic_cast<Map2D*>(mapObj.get());
+		if (map2d) {
+			mapObj.release();
+			i->val_u.reset(std::move(map2d));
+		}
+		return i;
+
+	}
+	return nullptr;
 }

@@ -109,12 +109,43 @@ class Project
 		/// Retrieve the title of the project.
 		Glib::ustring getProjectTitle() const;
 
+		/// Get a stream to the given game object's data file.
+		/**
+		 * @param win
+		 *   Parent window in case the user needs to be warned the file is not in
+		 *   the right format, and given the choice to proceed or abort.
+		 *
+		 * @param o
+		 *   GameObject of the item to open.
+		 *
+		 * @param useFilters
+		 *   Set to true to apply any filters to the stream before returning.
+		 *
+		 * @return A stream to the item's data files.
+		 *
+		 * @throw EFailure if the item could not be opened.
+		 */
 		std::unique_ptr<camoto::stream::inout> openFile(Gtk::Window* win,
 			const GameObject& o, bool useFilters);
-		void openSuppsById(Gtk::Window* win, camoto::SuppData *suppOut,
+
+		/// Find a game object by ID.
+		/**
+		 * @param idItem
+		 *   ID of the item to open.
+		 *
+		 * @throw EFailure if the item could not be found.
+		 */
+		const GameObject& findItem(const itemid_t& idItem);
+
+		void openSuppsByObj(Gtk::Window* win, camoto::SuppData *suppOut,
 			const GameObject& o);
+
 		void openSuppsByFilename(Gtk::Window* win, camoto::SuppData *suppOut,
 			const camoto::SuppFilenames& suppItem);
+
+		void openDeps(Gtk::Window* win, const GameObject& o,
+			camoto::SuppData& suppData, DepData* depData);
+
 		std::shared_ptr<camoto::gamearchive::Archive> getArchive(Gtk::Window* win,
 			const itemid_t& idArchive);
 

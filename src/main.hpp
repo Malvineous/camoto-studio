@@ -32,7 +32,6 @@
 	"<http://www.gnu.org/licenses/> for details.\n"
 
 #include <gtkmm.h>
-#include <camoto/gamegraphics.hpp>
 #include "gamelist.hpp"
 #include "project.hpp"
 

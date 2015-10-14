@@ -215,27 +215,6 @@ void Tab_Project::on_replace_decoded()
 
 void Tab_Project::openItemById(const itemid_t& idItem)
 {
-	auto itItem = this->proj->game->objects.find(idItem);
-	if (itItem == this->proj->game->objects.end()) {
-		// Translators: %1 is the item's ID
-		Gtk::MessageDialog dlg(
-			Glib::ustring::compose(
-				"%1\n\n[%2]",
-				_("This item can't be opened due to a bug in Camoto's data files."),
-				Glib::ustring::compose(
-					_("XML <files/> section is missing the entry for ID \"%1\""),
-					idItem
-				)
-			),
-			false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
-		dlg.set_title(_("Open item"));
-		Gtk::Window *parent = dynamic_cast<Gtk::Window *>(this->get_toplevel());
-		if (parent) dlg.set_transient_for(*parent);
-		dlg.run();
-		return;
-	}
-	auto& item = itItem->second;
-
 	Gtk::Window *win = dynamic_cast<Gtk::Window *>(this->get_toplevel());
 	if (!win) {
 		Gtk::MessageDialog dlg("Can't find parent window!", false,
@@ -246,15 +225,16 @@ void Tab_Project::openItemById(const itemid_t& idItem)
 	}
 
 	try {
-		auto content = this->proj->openFile(win, item, true);
+		auto gameObj = this->proj->findItem(idItem);
+		auto content = this->proj->openFile(win, gameObj, true);
 		if (!content) {
 			// File could not be opened, and the user has already been told why.
 			return;
 		}
 		SuppData suppData;
-		this->proj->openSuppsById(win, &suppData, item);
+		this->proj->openSuppsByObj(win, &suppData, gameObj);
 		auto studio = static_cast<Studio *>(this->get_toplevel());
-		studio->openItem(item, std::move(content), suppData, this->proj.get());
+		studio->openItem(gameObj, std::move(content), suppData, this->proj.get());
 	} catch (const EFailure& e) {
 		Gtk::MessageDialog dlg(
 			Glib::ustring::compose(

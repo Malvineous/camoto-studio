@@ -289,7 +289,24 @@ std::unique_ptr<stream::inout> Project::openFile(Gtk::Window* win,
 	return s;
 }
 
-void Project::openSuppsById(Gtk::Window* win, SuppData *suppOut,
+const GameObject& Project::findItem(const itemid_t& idItem)
+{
+	auto itItem = this->game->objects.find(idItem);
+	if (itItem == this->game->objects.end()) {
+		throw EFailure(Glib::ustring::compose(
+			"%1\n\n[%2]",
+			_("This item can't be opened due to a bug in Camoto's data files."),
+			Glib::ustring::compose(
+				// Translators: %1 is the item's ID
+				_("XML <files/> section is missing the entry for ID \"%1\""),
+				idItem
+			)
+		));
+	}
+	return itItem->second;
+}
+
+void Project::openSuppsByObj(Gtk::Window* win, SuppData *suppOut,
 	const GameObject& o)
 {
 	// Load any supplementary files specified in the XML
@@ -340,6 +357,19 @@ void Project::openSuppsByFilename(Gtk::Window* win, SuppData *suppOut,
 	return;
 }
 
+void Project::openDeps(Gtk::Window* win, const GameObject& o,
+	camoto::SuppData& suppData, DepData* depData)
+{
+	for (auto& d : o.dep) {
+		auto d_gameObj = this->findItem(d.second);
+		auto d_content = this->openFile(win, d_gameObj, true);
+		auto d_inst = openObjectGeneric(win, d_gameObj, std::move(d_content),
+			suppData, nullptr, this);
+		(*depData)[d.first] = std::move(d_inst);
+	}
+	return;
+}
+
 std::shared_ptr<Archive> Project::getArchive(Gtk::Window* win,
 	const itemid_t& idArchive)
 {
@@ -363,7 +393,7 @@ std::shared_ptr<Archive> Project::getArchive(Gtk::Window* win,
 	auto content = this->openFile(win, *o, true);
 	assert(content);
 	SuppData suppData;
-	this->openSuppsById(win, &suppData, *o);
+	this->openSuppsByObj(win, &suppData, *o);
 
 	// Now the archive file is open, so create an Archive object around it
 
@@ -387,7 +417,9 @@ std::shared_ptr<Archive> Project::getArchive(Gtk::Window* win,
 		arch = gamearchive::make_FixedArchive(std::move(content), items);
 	} else {
 		// Normal archive file
-		arch = ::openObject<ArchiveType>(win, *o, std::move(content), suppData, this);
+		DepData depData;
+		arch = ::openObject<ArchiveType>(win, *o, std::move(content), suppData,
+			&depData, this);
 		if (arch) {
 			// Cache for future access
 			this->archives[idArchive] = arch;

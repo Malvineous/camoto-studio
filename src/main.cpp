@@ -32,6 +32,8 @@
 #include <gtkmm.h>
 #include <glibmm/i18n.h>
 #include <camoto/util.hpp> // make_unique
+#include <camoto/gamegraphics/tilesettype.hpp>
+#include <camoto/gamemaps/maptype.hpp>
 #include "main.hpp"
 #include "tab-graphics.hpp"
 #include "tab-newproject.hpp"
@@ -170,37 +172,46 @@ void Studio::openItem(const GameObject& item,
 			|| (item.editor.compare("palette") == 0)
 		) {
 			auto obj = ::openObject<ImageType>(this, item, std::move(content),
-				suppData, proj);
+				suppData, nullptr, proj);
 			if (!obj) return; // User aborted open
 
 			auto tab = this->openTab<Tab_Graphics>(item.friendlyName);
 			tab->content(std::move(obj));
+			return;
 
 		} else if (item.editor.compare("tileset") == 0) {
 			auto obj = ::openObject<TilesetType>(this, item, std::move(content),
-				suppData, proj);
+				suppData, nullptr, proj);
 			if (!obj) return; // User aborted open
 
 			auto tab = this->openTab<Tab_Graphics>(item.friendlyName);
 			tab->content(std::move(obj));
+			return;
 
-		} else {
-			Gtk::MessageDialog dlg(*this,
-				Glib::ustring::compose(
-					"%1\n\n[%2]",
-					_("Sorry, this type of item cannot be edited yet!"),
+		} else if (item.editor.compare("map2d") == 0) {
+			DepData depData;
+			auto obj = ::openObject<MapType>(this, item, std::move(content),
+				suppData, &depData, proj);
+			if (!obj) return; // User aborted open
+
+			auto map2d = dynamic_cast<Map2D*>(obj.get());
+			if (map2d) {
+				obj.release();
+				std::unique_ptr<Map2D> ptrMap2D(std::move(map2d));
+				auto tab = this->openTab<Tab_Map2D>(item.friendlyName);
+				tab->content(std::move(ptrMap2D), depData);
+				return;
+			} else {
+				throw EFailure(
 					Glib::ustring::compose(
-						// Translators: %1 is the item major type from the XML file, such as
-						// "tileset" or "map2d", and %2 is the item ID from the XML file.
-						_("No \"%1\" editor, as specified by item \"%2\""),
-						item.editor,
-						item.id
-					)
-				), false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
-			dlg.set_title(_("Open failure"));
-			dlg.run();
+						_("Successfully opened a map object, but the \"%1\" editor was "
+							"specified and this map does not provide that interface.  If "
+							"you are adding a new game to Camoto, try specifying a "
+							"different map editor."),
+						"map2d"
+					));
+			}
 		}
-
 	} catch (const EFailure& e) {
 		Gtk::MessageDialog dlg(*this, e.getMessage(), false,
 			Gtk::MESSAGE_WARNING, Gtk::BUTTONS_OK, true);
@@ -208,6 +219,21 @@ void Studio::openItem(const GameObject& item,
 		dlg.run();
 		return;
 	}
+
+	Gtk::MessageDialog dlg(*this,
+		Glib::ustring::compose(
+			"%1\n\n[%2]",
+			_("Sorry, this type of item cannot be edited yet!"),
+			Glib::ustring::compose(
+				// Translators: %1 is the item major type from the XML file, such as
+				// "tileset" or "map2d", and %2 is the item ID from the XML file.
+				_("No \"%1\" editor, as specified by item \"%2\""),
+				item.editor,
+				item.id
+			)
+		), false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+	dlg.set_title(_("Open failure"));
+	dlg.run();
 	return;
 }
 

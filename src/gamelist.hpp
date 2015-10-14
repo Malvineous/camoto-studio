@@ -122,6 +122,9 @@ enum class DepType
 /// Convert a DepType value into a string, for error messages.
 std::string dep2string(DepType t);
 
+/// Convert a DepType value into an ImagePurpose value.
+camoto::gamemaps::ImagePurpose dep2purpose(DepType t);
+
 /// Dependency type -> game object ID mapping.
 typedef std::map<DepType, Glib::ustring> Deps;
 
@@ -279,14 +282,77 @@ class Game: public GameInfo
  */
 std::map<std::string, GameInfo> getAllGames();
 
+class GameObjectInstance;
+
+template<class T>
+class GOI_Unique;
+
+template<class T>
+class GOI_Shared;
+
+/// Class instance of whatever type is used after opening a GameObject
+class GameObjectInstance
+{
+	public:
+		enum class Type {
+			Invalid,
+			Image,
+			Tileset,
+			Map2D,
+		};
+
+		Type type;
+
+		virtual ~GameObjectInstance() {};
+
+		template<class T>
+		std::unique_ptr<T> get_unique()
+		{
+			auto c = dynamic_cast<GOI_Unique<T> *>(this);
+			return std::move(c->val_u);
+		}
+
+		template<class T>
+		std::shared_ptr<T> get_shared()
+		{
+			auto c = dynamic_cast<GOI_Shared<T> *>(this);
+			return c->val_s;
+		}
+};
+
+template<class T>
+class GOI_Unique: public GameObjectInstance
+{
+	public:
+		virtual ~GOI_Unique() {};
+		std::unique_ptr<T> val_u;
+};
+
+template<class T>
+class GOI_Shared: public GameObjectInstance
+{
+	public:
+		virtual ~GOI_Shared() {};
+		std::shared_ptr<T> val_s;
+};
+
+typedef std::map<DepType, std::unique_ptr<GameObjectInstance> > DepData;
+
 #include <camoto/gamearchive/manager.hpp>
 #include <camoto/gamegraphics/manager.hpp>
 #include "project.hpp"
+
+std::unique_ptr<GameObjectInstance> openObjectGeneric(Gtk::Window* win,
+	const GameObject& o, std::unique_ptr<camoto::stream::inout> content,
+	camoto::SuppData& suppData, DepData* depData, Project *proj);
 
 /// Open a Camoto object
 /**
  * @param win
  *   GTK window to set as parent for warning prompts/questions.
+ *
+ * @param o
+ *   Details about object to open.
  *
  * @param content
  *   Stream holding main file content.
@@ -302,7 +368,7 @@ std::map<std::string, GameInfo> getAllGames();
 template <class Type>
 auto openObject(Gtk::Window* win,
 	const GameObject& o, std::unique_ptr<camoto::stream::inout> content,
-	camoto::SuppData& suppData, Project *proj)
+	camoto::SuppData& suppData, DepData* depData, Project *proj)
 	-> decltype(((Type*)nullptr)->open(std::move(content), suppData))
 {
 	if (o.format.empty()) {
@@ -347,6 +413,11 @@ auto openObject(Gtk::Window* win,
 		// Collect any supplemental files required by the format
 		proj->openSuppsByFilename(win, &suppData,
 			fmtHandler->getRequiredSupps(*content, o.filename));
+
+		// Also open any dep data (full objects) needed by this format.
+		// We pass nullptr into the recursive call so there can be only one level
+		// of dependent objects.
+		proj->openDeps(win, o, suppData, depData);
 	}
 
 	try {
