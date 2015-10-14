@@ -2,10 +2,12 @@ bin_PROGRAMS = camoto-studio
 
 camoto_studio_SOURCES = main.cpp
 camoto_studio_SOURCES += audio.cpp
+camoto_studio_SOURCES += ct-map2d-canvas.cpp
 camoto_studio_SOURCES += exceptions.cpp
 camoto_studio_SOURCES += gamelist.cpp
 camoto_studio_SOURCES += project.cpp
 camoto_studio_SOURCES += tab-graphics.cpp
+camoto_studio_SOURCES += tab-map2d.cpp
 camoto_studio_SOURCES += tab-newproject.cpp
 camoto_studio_SOURCES += tab-openfile.cpp
 camoto_studio_SOURCES += tab-project.cpp
@@ -13,10 +15,12 @@ camoto_studio_SOURCES += util-gfx.cpp
 
 EXTRA_camoto_studio_SOURCES = main.hpp
 EXTRA_camoto_studio_SOURCES += audio.hpp
+EXTRA_camoto_studio_SOURCES += ct-map2d-canvas.hpp
 EXTRA_camoto_studio_SOURCES += exceptions.hpp
 EXTRA_camoto_studio_SOURCES += gamelist.hpp
 EXTRA_camoto_studio_SOURCES += project.hpp
 EXTRA_camoto_studio_SOURCES += tab-graphics.hpp
+EXTRA_camoto_studio_SOURCES += tab-map2d.hpp
 EXTRA_camoto_studio_SOURCES += tab-newproject.hpp
 EXTRA_camoto_studio_SOURCES += tab-openfile.hpp
 EXTRA_camoto_studio_SOURCES += tab-project.hpp

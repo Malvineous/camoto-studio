@@ -36,12 +36,14 @@
 #include <camoto/gamemaps/maptype.hpp>
 #include "main.hpp"
 #include "tab-graphics.hpp"
+#include "tab-map2d.hpp"
 #include "tab-newproject.hpp"
 #include "tab-openfile.hpp"
 #include "tab-project.hpp"
 
 using namespace camoto;
 using namespace camoto::gamegraphics;
+using namespace camoto::gamemaps;
 
 paths path;
 config_data config;
