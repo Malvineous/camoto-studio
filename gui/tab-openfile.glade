@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
+<interface>
+  <requires lib="gtk+" version="3.12"/>
+  <object class="GtkListStore" id="listClass">
+    <columns>
+      <!-- column-name Class -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes" context="The class of file (Archive, Image, Tileset, etc.) which controls the editor that will be used (e.g. files of class Tileset will open with the tileset editor.)" comments=".zip, .rar, .arj, etc. are all archive files, so the class type in English is &quot;Archive&quot;.">Archive</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes" context="The class of file (Archive, Image, Tileset, etc.) which controls the editor that will be used (e.g. files of class Tileset will open with the tileset editor.)" comments=".jpg, .png, .gif, etc. are all image files, so the class type in English is &quot;Image&quot;.">Image</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes" context="The class of file (Archive, Image, Tileset, etc.) which controls the editor that will be used (e.g. files of class Tileset will open with the tileset editor.)" comments="A tileset stores a number of small images (tiles) that are usually all the same size.  When a tileset is displayed as a single image it is sometimes referred to as a sprite sheet.  As this is a set (collection) of tiles (small images), the class type in English is &quot;Tileset&quot;.">Tileset</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes" context="The class of file (Archive, Image, Tileset, etc.) which controls the editor that will be used (e.g. files of class Tileset will open with the tileset editor.)" comments="A palette is a collection of colours used in an image.  It is named after a wooden tool called a palette, used by painters to mix colours.  The class type in English is &quot;Palette&quot;.">Palette</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes" context="The class of file (Archive, Image, Tileset, etc.) which controls the editor that will be used (e.g. files of class Tileset will open with the tileset editor.)" comments="A map is a complete game level.  Other English words for &quot;map&quot; are &quot;level&quot; and &quot;stage&quot;.  There are many level types (some are 2D, some are 3D, some use tiles, some use sectors) but this variant is two-dimensional and made up of tiles - a grid of identically sized spaces, with each space showing a small image.  As this class only supports 2D, tile-based maps, the class type in English is &quot;Map (2D tiled)&quot;.">Map (2D tiled)</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes" context="The class of file (Archive, Image, Tileset, etc.) which controls the editor that will be used (e.g. files of class Tileset will open with the tileset editor.)" comments=".mid, .it, .imf, etc. are all music files containing songs, so the class type in English is &quot;Song&quot;.">Song</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="listFilter">
+    <columns>
+      <!-- column-name Filter -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="listFormat">
+    <columns>
+      <!-- column-name Format -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkBox" id="tab-openfile">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkFrame" id="frame1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">none</property>
+        <child>
+          <object class="GtkAlignment" id="alignment1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="left_padding">12</property>
+            <child>
+              <object class="GtkFileChooserButton" id="fcMain">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child type="label">
+          <object class="GtkLabel" id="label1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">File</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="padding">5</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkFrame" id="frame2">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">none</property>
+        <child>
+          <object class="GtkAlignment" id="alignment2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="left_padding">12</property>
+            <child>
+              <object class="GtkBox" id="box1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkLabel" id="label3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">This controls which editor will be used to open the file.</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBox" id="cbClass">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="model">listClass</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child type="label">
+          <object class="GtkLabel" id="label2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Class</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="padding">5</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkFrame" id="frame4">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">none</property>
+        <child>
+          <object class="GtkAlignment" id="alignment4">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="left_padding">12</property>
+            <child>
+              <object class="GtkComboBox" id="cbFormat">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="model">listFormat</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child type="label">
+          <object class="GtkLabel" id="label5">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Format</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkFrame" id="frame5">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">none</property>
+        <child>
+          <object class="GtkAlignment" id="alignment5">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="left_padding">12</property>
+            <child>
+              <object class="GtkComboBox" id="cbFilter">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="model">listFilter</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child type="label">
+          <object class="GtkLabel" id="label6">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Filter</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkFrame" id="frame3">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">none</property>
+        <child>
+          <object class="GtkAlignment" id="alignment3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="left_padding">12</property>
+            <child>
+              <object class="GtkGrid" id="grid1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkCheckButton" id="cbSuppPalette">
+                    <property name="label" translatable="yes" context="Supplemental data type for &quot;Palette&quot;" comments="A palette is a list of colours used to display an image">Palette:</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="xalign">0</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFileChooserButton" id="fcSuppPalette">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="cbSuppFAT">
+                    <property name="label" translatable="yes" context="Supplemental data type for &quot;FAT&quot;" comments="This is an acronym for File Allocation Table, which is a list of files and where they are located within an archive file.  It is also used in this manner for the FAT32 and exFAT filesystem names.">FAT:</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="xalign">0</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFileChooserButton" id="fcSuppFAT">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child type="label">
+          <object class="GtkLabel" id="label4">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes" context="Section heading for the place where the user supplies additional data files as required by the file being opened (e.g. supplying an external instrument file for a song, or a colour palette file for an image)">Supplemental Data</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="padding">5</property>
+        <property name="position">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButtonBox" id="buttonbox1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="layout_style">start</property>
+        <child>
+          <object class="GtkButton" id="buttonOpen">
+            <property name="label">gtk-open</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="action_name">tab_openfile.open</property>
+            <property name="use_stock">True</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="padding">5</property>
+        <property name="position">5</property>
+      </packing>
+    </child>
+  </object>
+</interface>
