@@ -175,14 +175,10 @@ void Tab_Graphics::setImage(std::unique_ptr<Image> img)
 	// Create a Cairo Surface from the libgamegraphics image
 	auto cimg = createCairoSurface(img.get(), this->obj_tileset.get());
 
-	auto dims = img->dimensions();
-	auto gdkimg = Gdk::Pixbuf::create(cimg, 0, 0, dims.x, dims.y);
-
 	auto ctImage = Glib::RefPtr<Gtk::Image>::cast_dynamic(
 		this->refBuilder->get_object("ctImage"));
 	assert(ctImage);
-	//ctImage->set(cimg);
-	ctImage->set(gdkimg);
+	ctImage->set(cimg);
 
 	this->obj_image = std::move(img);
 	return;
