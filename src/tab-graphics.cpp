@@ -104,7 +104,7 @@ void Tab_Graphics::content(std::unique_ptr<Image> obj)
 	if (!(obj->caps() & Image::Caps::HasPalette)) {
 		// Hide the palette view as this image doesn't have a palette
 		auto ctPalette = Glib::RefPtr<Gtk::Box>::cast_dynamic(
-			this->refBuilder->get_object("palette_pane"));
+			this->refBuilder->get_object("boxPalette"));
 		assert(ctPalette);
 		ctPalette->hide();
 	}
