@@ -59,6 +59,7 @@ Tab_Map2D::Tab_Map2D(BaseObjectType *obj,
 
 void Tab_Map2D::content(std::unique_ptr<Map2D> obj, DepData& depData)
 {
+	assert(obj);
 	this->obj = std::move(obj);
 
 	// Read all the depData objects and build a TilesetCollection from them

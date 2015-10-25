@@ -177,6 +177,7 @@ void Studio::openItem(const GameObject& item,
 			if (!obj) return; // User aborted open
 
 			auto tab = this->openTab<Tab_Graphics>(item.friendlyName);
+			if (!tab) return; // GUI error
 			tab->content(std::move(obj));
 			return;
 
@@ -186,6 +187,7 @@ void Studio::openItem(const GameObject& item,
 			if (!obj) return; // User aborted open
 
 			auto tab = this->openTab<Tab_Graphics>(item.friendlyName);
+			if (!tab) return; // GUI error
 			tab->content(std::move(obj));
 			return;
 
@@ -200,6 +202,7 @@ void Studio::openItem(const GameObject& item,
 				obj.release();
 				std::unique_ptr<Map2D> ptrMap2D(std::move(map2d));
 				auto tab = this->openTab<Tab_Map2D>(item.friendlyName);
+				if (!tab) return; // GUI error
 				tab->content(std::move(ptrMap2D), depData);
 				return;
 			} else {

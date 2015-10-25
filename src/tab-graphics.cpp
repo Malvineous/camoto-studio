@@ -73,6 +73,7 @@ Tab_Graphics::Tab_Graphics(BaseObjectType *obj,
 
 void Tab_Graphics::content(std::shared_ptr<Tileset> obj)
 {
+	assert(obj);
 	this->obj_tileset = obj;
 
 	auto studio = static_cast<Studio *>(this->get_toplevel());
