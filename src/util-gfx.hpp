@@ -42,4 +42,12 @@ Cairo::RefPtr<Cairo::ImageSurface> createCairoSurface(
 	const camoto::gamegraphics::Image *ggimg,
 	const camoto::gamegraphics::Tileset *ggtileset);
 
+/// Types of images that can be loaded.
+enum class UtilImage {
+	HexDigits,
+};
+
+/// Load a graphic from a Camoto data .png file.
+Cairo::RefPtr<Cairo::ImageSurface> createCairoSurface(UtilImage img);
+
 #endif // _UTIL_GFX_HPP_

@@ -338,7 +338,7 @@ int main(int argc, char *argv[])
 	::path.gameScreenshots = Glib::build_filename(::path.gameData, "screenshots");
 	::path.gameIcons = Glib::build_filename(::path.gameData, "icons");
 	::path.guiIcons = Glib::build_filename(::path.dataRoot, "icons");
-	::path.mapIndicators = Glib::build_filename(::path.dataRoot, "maps");
+	::path.miscImages = Glib::build_filename(::path.dataRoot, "images");
 
 	// Display the main window
 	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();

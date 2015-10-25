@@ -19,6 +19,7 @@
  */
 
 #include <iostream>
+#include "main.hpp"
 #include "util-gfx.hpp"
 
 using namespace camoto::gamegraphics;
@@ -80,4 +81,16 @@ Cairo::RefPtr<Cairo::ImageSurface> createCairoSurface(const Image *ggimg,
 	}
 	cimg->mark_dirty();
 	return cimg;
+}
+
+Cairo::RefPtr<Cairo::ImageSurface> createCairoSurface(UtilImage img)
+{
+	std::string filename;
+	switch (img) {
+		case UtilImage::HexDigits: filename = "hexdigits-small.png"; break;
+	}
+	assert(!filename.empty());
+	return Cairo::ImageSurface::create_from_png(
+		Glib::build_filename(::path.miscImages, filename)
+	);
 }

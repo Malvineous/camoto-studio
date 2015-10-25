@@ -43,7 +43,7 @@ struct paths
 	std::string gameScreenshots;   ///< Game screenshots used in 'new project' dialog
 	std::string gameIcons;         ///< Icons used to represent each game
 	std::string guiIcons;          ///< Icons used for GUI elements
-	std::string mapIndicators;     ///< Icons used for map editor indicators
+	std::string miscImages;        ///< Other images (e.g. hex digits for map editor)
 	std::string lastUsed;          ///< Path last used in open/save dialogs
 };
 

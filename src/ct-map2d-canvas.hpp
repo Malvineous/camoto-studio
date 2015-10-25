@@ -39,6 +39,9 @@ class DrawingArea_Map2D: public Gtk::DrawingArea
 	protected:
 		virtual bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr);
 
+		camoto::gamegraphics::Point hexDigitDims;
+		Cairo::RefPtr<Cairo::SurfacePattern> patDigits;
+
 		std::shared_ptr<camoto::gamemaps::Map2D> obj;
 		camoto::gamemaps::TilesetCollection allTilesets;
 

@@ -37,6 +37,10 @@ DrawingArea_Map2D::DrawingArea_Map2D(BaseObjectType *obj,
 	const Glib::RefPtr<Gtk::Builder>& refBuilder)
 	:	Gtk::DrawingArea(obj)
 {
+	auto imgDigits = createCairoSurface(UtilImage::HexDigits);
+	this->hexDigitDims.x = imgDigits->get_width() / 16;
+	this->hexDigitDims.y = imgDigits->get_height();
+	this->patDigits = Cairo::SurfacePattern::create(imgDigits);
 }
 
 DrawingArea_Map2D::~DrawingArea_Map2D()
@@ -96,15 +100,46 @@ bool DrawingArea_Map2D::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 					case Map2D::Layer::ImageFromCodeInfo::ImageType::Blank:
 						thisTile.dims = {0, 0};
 						break;
+//					case Map2D::Layer::ImageFromCodeInfo::ImageType::Unknown:
+					case Map2D::Layer::ImageFromCodeInfo::ImageType::HexDigit: {
+						int numDigits = 4;
+						if (imgType.digit <= 0x1F) numDigits = 1;
+						else if (imgType.digit <= 0x1FF) numDigits = 2;
+						thisTile.dims = tileSize;//{this->hexDigitDims.x * numDigits, this->hexDigitDims.y};
+						auto surface = Cairo::ImageSurface::create(Cairo::FORMAT_ARGB32,
+							thisTile.dims.x, thisTile.dims.y);
+						// Draw the digits
+						auto crDigits = Cairo::Context::create(surface);
+
+						unsigned int numberWidth = (this->hexDigitDims.x - 1) * numDigits + 1;
+						Point origin = {
+							(tileSize.x - numberWidth) / 2,
+							(tileSize.y - this->hexDigitDims.y) / 2
+						};
+						// Start at the end of the number and draw digits from right-to-left
+						// from the last (least significant) digit back to the first.
+						crDigits->translate(origin.x + numberWidth, origin.y);
+						for (int i = 0; i < numDigits; i++) {
+							int digit = imgType.digit & (0xF << (i * 4));
+							auto patMatrix = Cairo::identity_matrix();
+							patMatrix.translate(this->hexDigitDims.x * digit, 0);
+
+							crDigits->translate(-this->hexDigitDims.x, 0);
+							crDigits->rectangle(0, 0, this->hexDigitDims.x, this->hexDigitDims.y);
+
+							this->patDigits->set_matrix(patMatrix);
+							crDigits->set_source(this->patDigits);
+							crDigits->fill();
+							// Overwrite the padding pixel for the next digit
+							crDigits->translate(1, 0);
+						}
+						thisTile.surfacePattern = Cairo::SurfacePattern::create(surface);
+						break;
+					}
+//					case Map2D::Layer::ImageFromCodeInfo::ImageType::Interactive:
 					case Map2D::Layer::ImageFromCodeInfo::ImageType::NumImageTypes: // Avoid compiler warning about unhandled enum
 						assert(false);
 						break;
-/*
-					case Map2D::Layer::ImageFromCodeInfo::ImageType::Unknown:
-					case Map2D::Layer::ImageFromCodeInfo::ImageType::HexDigit:
-					case Map2D::Layer::ImageFromCodeInfo::ImageType::Interactive:
-						break;
-*/
 				}
 				thisTile.loaded = true;
 			}
