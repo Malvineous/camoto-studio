@@ -48,6 +48,16 @@ void DrawingArea_Map2D::content(std::shared_ptr<camoto::gamemaps::Map2D> obj,
 {
 	this->obj = obj;
 	this->allTilesets = allTilesets;
+
+	// Set the canvas size to match the map size
+	Point mapSize = {0, 0};
+	for (auto& layer : obj->layers()) {
+		Point layerSize, tileSize;
+		getLayerDims(*this->obj, *layer, &layerSize, &tileSize);
+		mapSize.x = std::max(mapSize.x, layerSize.x * tileSize.x);
+		mapSize.y = std::max(mapSize.y, layerSize.y * tileSize.y);
+	}
+	this->set_size_request(mapSize.x, mapSize.y);
 	return;
 }
 
