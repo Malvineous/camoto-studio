@@ -54,7 +54,7 @@ Tab_Map2D::Tab_Map2D(BaseObjectType *obj,
 	this->ctItems = Gtk::TreeStore::create(this->cols);
 	tvLayers->set_model(this->ctItems);
 
-	this->refBuilder->get_widget_derived("daCanvas", this->ctCanvas);
+	this->refBuilder->get_widget_derived("canvasMain", this->ctCanvas);
 }
 
 void Tab_Map2D::content(std::unique_ptr<Map2D> obj, DepData& depData)
