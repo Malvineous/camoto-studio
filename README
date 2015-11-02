@@ -44,6 +44,8 @@ The GUI currently supports at least partial editing of these games:
  - Xargon
  - Zone 66
 
+A more detailed list is at <http://www.shikadi.net/camoto/gamelist>.
+
 The GUI currently has editors for the following object types:
 
  - Images
@@ -68,7 +70,7 @@ In order to compile this program, you will need the following dependencies:
  - libgamemaps
  - libgamemusic
  - PortAudio
- - wxWidgets
+ - GTK
  - libpng
  - png++ >= 0.2.7 <http://www.nongnu.org/pngpp/>
 
