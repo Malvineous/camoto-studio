@@ -159,6 +159,7 @@
 			<item ref="mus-fight"/>
 			<item ref="mus-hesback"/>
 			<item ref="mus-kickbut"/>
+			<item ref="mus-kingduk"/>
 			<item ref="mus-kisgirl"/>
 			<item ref="mus-menu"/>
 			<item ref="mus-nevrend"/>
@@ -310,6 +311,7 @@
 			<file id="mus-fight"    name="fighta.imf"   editor="music" format="imf-idsoftware-duke2" title="Fight Like a Man"/>
 			<file id="mus-hesback"  name="hesbacka.imf" editor="music" format="imf-idsoftware-duke2" title="He's Back!"/>
 			<file id="mus-kickbut"  name="kickbuta.imf" editor="music" format="imf-idsoftware-duke2" title="Duke Kicks Ass"/>
+			<file id="mus-kingduk"  name="kingduka.imf" editor="music" format="imf-idsoftware-duke2" title="King Duke"/>
 			<file id="mus-kisgirl"  name="kisgirla.imf" editor="music" format="imf-idsoftware-duke2" title="Kiss The Girls And Make Them Cry"/>
 			<file id="mus-menu"     name="menusng2.imf" editor="music" format="imf-idsoftware-duke2" title="Menu Select"/>
 			<file id="mus-nevrend"  name="nevrenda.imf" editor="music" format="imf-idsoftware-duke2" title="I Wish This Game Would Never End"/>
