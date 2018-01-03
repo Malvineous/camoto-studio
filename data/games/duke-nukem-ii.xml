@@ -154,7 +154,7 @@
 			<item ref="mus-calm"/>
 			<item ref="mus-depths"/>
 			<item ref="mus-dukeii"/>
-			<item ref="mus-dukein"/>
+			<item ref="mus-dukin"/>
 			<item ref="mus-fanfare"/>
 			<item ref="mus-fight"/>
 			<item ref="mus-hesback"/>
@@ -301,25 +301,25 @@
 				<dep reftype="actors"   ref="gfx-actors"/>
 			</file>
 
-			<file id="mus-begone"   name="begonea.imf"  editor="music" format="imf-idsoftware-duke2" title="Be Gone"/>
-			<file id="mus-calm"     name="calm.imf"     editor="music" format="imf-idsoftware-duke2" title="Calm"/>
-			<file id="mus-depths"   name="depthsa.imf"  editor="music" format="imf-idsoftware-duke2" title="&quot;Out of the Depths&quot;"/>
-			<file id="mus-dukeii"   name="dukeiia.imf"  editor="music" format="imf-idsoftware-duke2" title="Duke II"/>
-			<file id="mus-dukein"   name="dukeina.imf"  editor="music" format="imf-idsoftware-duke2" title="Dukein"/>
-			<file id="mus-fanfare"  name="fanfarea.imf" editor="music" format="imf-idsoftware-duke2" title="Apogee Fanfare"/>
-			<file id="mus-fight"    name="fight.imf"    editor="music" format="imf-idsoftware-duke2" title="Fight"/>
-			<file id="mus-hesback"  name="hesbacka.imf" editor="music" format="imf-idsoftware-duke2" title="&quot;He's Back!&quot;"/>
-			<file id="mus-kickbut"  name="kickbuta.imf" editor="music" format="imf-idsoftware-duke2" title="Kick Butt"/>
-			<file id="mus-kisgirl"  name="kisgirla.imf" editor="music" format="imf-idsoftware-duke2" title="&quot;Kiss the Girls and Make them Cry&quot;"/>
-			<file id="mus-menu"     name="menusng2.imf" editor="music" format="imf-idsoftware-duke2" title="Main Menu"/>
-			<file id="mus-nevrend"  name="nevrenda.imf" editor="music" format="imf-idsoftware-duke2" title="Never Ending"/>
-			<file id="mus-nukeman"  name="nukemana.imf" editor="music" format="imf-idsoftware-duke2" title="Nuke Man"/>
-			<file id="mus-opngate"  name="opngatea.imf" editor="music" format="imf-idsoftware-duke2" title="Open Gate"/>
-			<file id="mus-prowl"    name="prowla.imf"   editor="music" format="imf-idsoftware-duke2" title="Prowl"/>
-			<file id="mus-range"    name="rangea.imf"   editor="music" format="imf-idsoftware-duke2" title="Range"/>
-			<file id="mus-squeak"   name="squeaka.imf"  editor="music" format="imf-idsoftware-duke2" title="Squeak"/>
-			<file id="mus-ubdead"   name="ubdeada.imf"  editor="music" format="imf-idsoftware-duke2" title="&quot;You be Dead!&quot;"/>
-			<file id="mus-winning"  name="winninga.imf" editor="music" format="imf-idsoftware-duke2" title="Winning"/>
+			<file id="mus-begone"   name="begonea.imf"  editor="music" format="imf-idsoftware-duke2" title="Evil Be Gone"/>
+			<file id="mus-calm"     name="calm.imf"     editor="music" format="imf-idsoftware-duke2" title="Calm Before the Storm"/>
+			<file id="mus-depths"   name="depthsa.imf"  editor="music" format="imf-idsoftware-duke2" title="Out Of The Depths"/>
+			<file id="mus-dukeii"   name="dukeiia.imf"  editor="music" format="imf-idsoftware-duke2" title="Theme To Duke Nukem II"/>
+			<file id="mus-dukin"    name="dukina.imf"   editor="music" format="imf-idsoftware-duke2" title="Dukin' It Out"/>
+			<file id="mus-fanfare"  name="fanfarea.imf" editor="music" format="imf-idsoftware-duke2" title="Apogee Fanfare For Duke II"/>
+			<file id="mus-fight"    name="fighta.imf"   editor="music" format="imf-idsoftware-duke2" title="Fight Like a Man"/>
+			<file id="mus-hesback"  name="hesbacka.imf" editor="music" format="imf-idsoftware-duke2" title="He's Back!"/>
+			<file id="mus-kickbut"  name="kickbuta.imf" editor="music" format="imf-idsoftware-duke2" title="Duke Kicks Ass"/>
+			<file id="mus-kisgirl"  name="kisgirla.imf" editor="music" format="imf-idsoftware-duke2" title="Kiss The Girls And Make Them Cry"/>
+			<file id="mus-menu"     name="menusng2.imf" editor="music" format="imf-idsoftware-duke2" title="Menu Select"/>
+			<file id="mus-nevrend"  name="nevrenda.imf" editor="music" format="imf-idsoftware-duke2" title="I Wish This Game Would Never End"/>
+			<file id="mus-nukeman"  name="nukemana.imf" editor="music" format="imf-idsoftware-duke2" title="Hey Mr. Nuke Man"/>
+			<file id="mus-opngate"  name="opngatea.imf" editor="music" format="imf-idsoftware-duke2" title="Openin' the Gate"/>
+			<file id="mus-prowl"    name="prowla.imf"   editor="music" format="imf-idsoftware-duke2" title="On the Prowl"/>
+			<file id="mus-range"    name="rangea.imf"   editor="music" format="imf-idsoftware-duke2" title="On the Range"/>
+			<file id="mus-squeak"   name="squeaka.imf"  editor="music" format="imf-idsoftware-duke2" title="Squeaking By"/>
+			<file id="mus-ubdead"   name="ubdeada.imf"  editor="music" format="imf-idsoftware-duke2" title="You Be Dead!"/>
+			<file id="mus-winning"  name="winninga.imf" editor="music" format="imf-idsoftware-duke2" title="Winning By Degrees"/>
 
 			<file id="gfx-drop3"    name="drop3.mni"    editor="image" format="img-nukem2-backdrop" title="Backdrop 3">
 				<dep reftype="palette" ref="pal-main"/>
